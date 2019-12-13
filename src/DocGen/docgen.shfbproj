@@ -26,8 +26,8 @@
       <Argument Key="maxVersionParts" Value="" />
       <Argument Key="defaultLanguage" Value="cs" />
       <Argument Key="includeEnumValues" Value="true" />
-      <Argument Key="baseSourceCodeUrl" Value="https://github.com/gemstone/gemtem/blob/master/src/" />
-      <Argument Key="requestExampleUrl" Value="Create a new issue: https://github.com/gemstone/gemtem/issues/new " />
+      <Argument Key="baseSourceCodeUrl" Value="https://github.com/gemstone/common/blob/master/src/" />
+      <Argument Key="requestExampleUrl" Value="Create a new issue: https://github.com/gemstone/common/issues/new " />
     </TransformComponentArguments>
     <HelpFileFormat>Website</HelpFileFormat>
     <SyntaxFilters>C#, Visual Basic, Managed C++, JavaScript</SyntaxFilters>
@@ -91,17 +91,17 @@
       </PlugInConfig>
     </PlugInConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\gemstone.gemtem\gemstone.gemtem.csproj" />
+      <DocumentationSource sourceFile="..\gemstone.common\gemstone.common.csproj" />
     </DocumentationSources>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
-    <HelpTitle>Gemstone GemTem Library</HelpTitle>
+    <HelpTitle>Gemstone Common Library</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <RootNamespaceContainer>False</RootNamespaceContainer>
     <NamespaceGrouping>False</NamespaceGrouping>
     <MaximumGroupParts>6</MaximumGroupParts>
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
-    <CopyrightHref>https://github.com/gemstone/gemtem/blob/master/LICENSE</CopyrightHref>
+    <CopyrightHref>https://github.com/gemstone/common/blob/master/LICENSE</CopyrightHref>
     <CopyrightText>Copyright &amp;#169%3b 2019 Grid Protection Alliance</CopyrightText>
     <FeedbackEMailAddress>support%40gridprotectionalliance.org</FeedbackEMailAddress>
     <FeedbackEMailLinkText>GPA Support</FeedbackEMailLinkText>

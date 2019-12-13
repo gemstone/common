@@ -1,7 +1,7 @@
 theme: jekyll-theme-cayman
-title: gemstone.gemtem
-description: GPA Gemstone GemTem Library
+title: gemstone.common
+description: GPA Gemstone Common Library
 github:
-  repository_name: gemstone.gemtem
+  repository_name: gemstone.common
   owner_url: https://www.gridprotectionalliance.org
   owner_name: Grid Protection Alliance

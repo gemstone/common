@@ -2,20 +2,20 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <RootNamespace>gemstone.gemtem</RootNamespace>
-    <PackageId>gemstone.gemtem</PackageId>
+    <RootNamespace>gemstone.common</RootNamespace>
+    <PackageId>gemstone.common</PackageId>
     <Authors>Grid Protection Alliance</Authors>
     <Company>Grid Protection Alliance</Company>
     <Product>gemstone</Product>
-    <PackageDescription>GPA Gemstone GemTem Library</PackageDescription>
-    <Description>GPA Gemstone GemTem Library</Description>
+    <PackageDescription>GPA Gemstone Common Library</PackageDescription>
+    <Description>GPA Gemstone Common Library</Description>
     <Copyright>Copyright © 2019</Copyright>
     <PackageProjectUrl>https://github.com/gemstone</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/gemstone/gemstone.gemtem</RepositoryUrl>
+    <RepositoryUrl>https://github.com/gemstone/gemstone.common</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>GPA;gemstone;library;gemtem</PackageTags>
+    <PackageTags>GPA;gemstone;library;common</PackageTags>
     <LangVersion>7.3</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
