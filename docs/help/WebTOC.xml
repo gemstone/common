@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="847bf2b0-7390-4604-86b3-a8ccea188506" Title="gemstone" Url="html/gemstone.htm">
-    <HelpTOCNode Id="4adcd79e-dc8b-4795-8f83-cf5a229f0a6c" Title="gemstone.common" Url="html/N_gemstone_common.htm">
-      <HelpTOCNode Id="ff2fc181-36a5-41a0-ac38-35c8df796a02" Title="Class Class" Url="html/T_gemstone_common_Class.htm">
+  <HelpTOCNode Id="1966ad67-e55a-43fb-8924-445d939082a3" Title="gemstone" Url="html/gemstone.htm">
+    <HelpTOCNode Id="8ea96d02-84ef-45e3-9ab6-4c045d6aaa80" Title="gemstone.common" Url="html/N_gemstone_common.htm">
+      <HelpTOCNode Id="5feeb6b2-0999-463e-81a6-e890ccbeb92e" Title="Class Class" Url="html/T_gemstone_common_Class.htm">
         <HelpTOCNode Title="Class Constructor " Url="html/M_gemstone_common_Class__ctor.htm" />
         <HelpTOCNode Title="Class Methods" Url="html/Methods_T_gemstone_common_Class.htm" />
       </HelpTOCNode>
