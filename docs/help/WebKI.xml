@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<HelpKI>
+  <HelpKINode Title="Class class">
+    <HelpKINode Title="Class Class" Url="html/T_gemstone_gemtem_Class.htm" />
+    <HelpKINode Title="constructor" Url="html/M_gemstone_gemtem_Class__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_gemstone_gemtem_Class.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Class.Class constructor" Url="html/M_gemstone_gemtem_Class__ctor.htm" />
+  <HelpKINode Title="gemstone.gemtem namespace" Url="html/N_gemstone_gemtem.htm" />
+  <HelpKINode Title="gemstone.gemtem.Class class" Url="html/T_gemstone_gemtem_Class.htm" />
+  <HelpKINode Title="welcome">
+    <HelpKINode Title="getting started, root, gemstone" Url="html/gemstone.htm" />
+  </HelpKINode>
+</HelpKI>

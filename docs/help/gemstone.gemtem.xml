@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>gemstone.gemtem</name>
+  </assembly>
+  <members>
+    <member name="T:gemstone.gemtem.Class">
+      <summary>
+            Sample class for new GemTem library.
+            </summary>
+    </member>
+    <member name="M:gemstone.gemtem.Class.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>gemstone.gemtem.Class</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+  </members>
+</doc>
