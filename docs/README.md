@@ -3,10 +3,10 @@
 # Common
 ### GPA Gemstone Library
 
-The Gemstone Common Library organizes all Gemstone functionality related to common.
+The Gemstone Common Library organizes all Gemstone functionality for most any .NET coding.
 
 [![GitHub license](https://img.shields.io/github/license/gemstone/common?color=4CC61E)](https://github.com/gemstone/common/blob/master/LICENSE)
-[![Build status](https://ci.appveyor.com/api/projects/status/ury75mtaq7tj1sp0?svg=true)](https://ci.appveyor.com/project/gemstone/common)
+[![Build status](https://ci.appveyor.com/api/projects/status/lar65enrk8b7aqu2?svg=true)](https://ci.appveyor.com/project/ritchiecarroll/common)
 
 This library includes helpful common classes like the following:
 
