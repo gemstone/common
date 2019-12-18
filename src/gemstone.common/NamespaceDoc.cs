@@ -27,8 +27,8 @@ namespace gemstone.common
 {
     /// <summary>
     /// The <see cref="gemstone.common"/> namespace organizes all Gemstone library functionality
-    /// related to common. The root common namespace also includes common common classes,
-    /// e.g., <see cref="Class"/>.
+    /// related to common. The root common namespace also includes classes, e.g.,
+    /// <see cref="Class"/>.
     /// </summary>
     [CompilerGenerated]
     class NamespaceDoc
