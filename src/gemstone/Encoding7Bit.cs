@@ -25,7 +25,6 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
-using gemstone.io;
 
 namespace gemstone
 {
@@ -43,9 +42,8 @@ namespace gemstone
         {
             if (value1 < 0)
                 throw new ArgumentOutOfRangeException(nameof(value1), "Cannot be negative");
-            if (value1 < 128)
-                return 1;
-            return 2;
+
+            return value1 < 128 ? 1 : 2;
         }
 
         /// <summary>
@@ -53,12 +51,7 @@ namespace gemstone
         /// </summary>
         /// <param name="stream"></param>
         /// <returns></returns>
-        public static unsafe int MeasureInt15(byte* stream)
-        {
-            if (stream[0] < 128)
-                return 1;
-            return 2;
-        }
+        public static unsafe int MeasureInt15(byte* stream) => stream[0] < 128 ? 1 : 2;
 
         /// <summary>
         /// Gets the number of bytes for the supplied value in the stream.
@@ -66,10 +59,7 @@ namespace gemstone
         /// <param name="stream"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static unsafe int Measure15(byte* stream, int position)
-        {
-            return MeasureInt15(stream + position);
-        }
+        public static unsafe int Measure15(byte* stream, int position) => MeasureInt15(stream + position);
 
         /// <summary>
         /// Gets the number of bytes for the supplied value in the stream.
@@ -77,12 +67,7 @@ namespace gemstone
         /// <param name="stream"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static int Measure15(byte[] stream, int position)
-        {
-            if (stream[position] < 128)
-                return 1;
-            return 2;
-        }
+        public static int Measure15(byte[] stream, int position) => stream[position] < 128 ? 1 : 2;
 
         #region [ Write ]
 
@@ -97,13 +82,17 @@ namespace gemstone
         {
             if (value1 < 0)
                 throw new ArgumentOutOfRangeException(nameof(value1), "Cannot be negative");
+
             if (value1 < 128)
             {
                 stream[0] = (byte)value1;
+
                 return 1;
             }
+
             stream[0] = (byte)(value1 | 128);
             stream[1] = (byte)(value1 >> 7);
+
             return 2;
         }
 
@@ -124,8 +113,10 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
             stream[position + 1] = (byte)(value1 >> 7);
             position += 2;
@@ -148,8 +139,10 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
             stream[position + 1] = (byte)(value1 >> 7);
             position += 2;
@@ -168,8 +161,10 @@ namespace gemstone
             if (value1 < 128)
             {
                 stream((byte)value1);
+
                 return;
             }
+
             stream((byte)(value1 | 128));
             stream((byte)(value1 >> 7));
         }
@@ -188,15 +183,18 @@ namespace gemstone
         public static unsafe short ReadInt15(byte* stream, ref int position)
         {
             stream += position;
-            short value11;
-            value11 = stream[0];
+            short value11 = stream[0];
+
             if (value11 < 128)
             {
                 position += 1;
+
                 return value11;
             }
+
             value11 ^= (short)(stream[1] << 7);
             position += 2;
+
             return (short)(value11 ^ 0x80);
         }
 
@@ -209,15 +207,18 @@ namespace gemstone
         [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static short ReadInt15(byte[] stream, ref int position)
         {
-            short value11;
-            value11 = stream[position];
+            short value11 = stream[position];
+
             if (value11 < 128)
             {
                 position++;
+
                 return value11;
             }
+
             value11 ^= (short)(stream[position + 1] << 7);
             position += 2;
+
             return (short)(value11 ^ 0x80);
         }
 
@@ -232,13 +233,13 @@ namespace gemstone
         /// <exception cref="EndOfStreamException">Occurs if the end of the stream was reached.</exception>
         public static short ReadInt15(Stream stream)
         {
-            short value11;
-            value11 = stream.ReadNextByte();
+            short value11 = (short)stream.ReadByte();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
-            value11 ^= (short)(stream.ReadNextByte() << 7);
+
+            value11 ^= (short)(stream.ReadByte() << 7);
+
             return (short)(value11 ^ 0x80);
         }
 
@@ -249,13 +250,13 @@ namespace gemstone
         /// <returns>the value</returns>
         public static short ReadInt15(Func<byte> stream)
         {
-            short value11;
-            value11 = stream();
+            short value11 = stream();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
+
             value11 ^= (short)(stream() << 7);
+
             return (short)(value11 ^ 0x80);
         }
 
@@ -272,12 +273,16 @@ namespace gemstone
         {
             if (value1 < 128)
                 return 1;
+
             if (value1 < 128 * 128)
                 return 2;
+
             if (value1 < 128 * 128 * 128)
                 return 3;
+
             if (value1 < 128 * 128 * 128 * 128)
                 return 4;
+
             return 5;
         }
 
@@ -290,12 +295,16 @@ namespace gemstone
         {
             if (stream[0] < 128)
                 return 1;
+
             if (stream[1] < 128)
                 return 2;
+
             if (stream[2] < 128)
                 return 3;
+
             if (stream[3] < 128)
                 return 4;
+
             return 5;
         }
 
@@ -305,10 +314,7 @@ namespace gemstone
         /// <param name="stream"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static unsafe int MeasureUInt32(byte* stream, int position)
-        {
-            return MeasureUInt32(stream + position);
-        }
+        public static unsafe int MeasureUInt32(byte* stream, int position) => MeasureUInt32(stream + position);
 
         /// <summary>
         /// Gets the number of bytes for the supplied value in the stream.
@@ -320,12 +326,16 @@ namespace gemstone
         {
             if (stream[position + 0] < 128)
                 return 1;
+
             if (stream[position + 1] < 128)
                 return 2;
+
             if (stream[position + 2] < 128)
                 return 3;
+
             if (stream[position + 3] < 128)
                 return 4;
+
             return 5;
         }
 
@@ -343,28 +353,40 @@ namespace gemstone
             if (value1 < 128)
             {
                 stream[0] = (byte)value1;
+
                 return 1;
             }
+
             stream[0] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[1] = (byte)(value1 >> 7);
+
                 return 2;
             }
+
             stream[1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[2] = (byte)(value1 >> 14);
+
                 return 3;
             }
+
             stream[2] = (byte)((value1 >> 14) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[3] = (byte)(value1 >> 21);
+
                 return 4;
             }
+
             stream[3] = (byte)((value1 >> 21) | 128);
             stream[4] = (byte)(value1 >> 28);
+
             return 5;
         }
 
@@ -382,29 +404,40 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[position + 1] = (byte)(value1 >> 7);
                 position += 2;
+
                 return;
             }
+
             stream[position + 1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[position + 2] = (byte)(value1 >> 14);
                 position += 3;
+
                 return;
             }
+
             stream[position + 2] = (byte)((value1 >> 14) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[position + 3] = (byte)(value1 >> 21);
                 position += 4;
+
                 return;
             }
+
             stream[position + 3] = (byte)((value1 >> 21) | 128);
             stream[position + 4] = (byte)(value1 >> 28);
             position += 5;
@@ -424,29 +457,40 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[position + 1] = (byte)(value1 >> 7);
                 position += 2;
+
                 return;
             }
+
             stream[position + 1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[position + 2] = (byte)(value1 >> 14);
                 position += 3;
+
                 return;
             }
+
             stream[position + 2] = (byte)((value1 >> 14) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[position + 3] = (byte)(value1 >> 21);
                 position += 4;
+
                 return;
             }
+
             stream[position + 3] = (byte)((value1 >> 21) | 128);
             stream[position + 4] = (byte)(value1 >> 28);
             position += 5;
@@ -462,26 +506,37 @@ namespace gemstone
             if (value1 < 128)
             {
                 stream((byte)value1);
+
                 return;
             }
+
             stream((byte)(value1 | 128));
+
             if (value1 < 128 * 128)
             {
                 stream((byte)(value1 >> 7));
+
                 return;
             }
+
             stream((byte)((value1 >> 7) | 128));
+
             if (value1 < 128 * 128 * 128)
             {
                 stream((byte)(value1 >> 14));
+
                 return;
             }
+
             stream((byte)((value1 >> 14) | 128));
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> 21));
+
                 return;
             }
+
             stream((byte)((value1 >> 21) | 128));
             stream((byte)(value1 >> 28));
         }
@@ -500,33 +555,45 @@ namespace gemstone
         public static unsafe uint ReadUInt32(byte* stream, ref int position)
         {
             stream += position;
-            uint value11;
-            value11 = stream[0];
+            uint value11 = stream[0];
+
             if (value11 < 128)
             {
                 position += 1;
+
                 return value11;
             }
+
             value11 ^= (uint)stream[1] << 7;
+
             if (value11 < 128 * 128)
             {
                 position += 2;
+
                 return value11 ^ 0x80;
             }
+
             value11 ^= (uint)stream[2] << 14;
+
             if (value11 < 128 * 128 * 128)
             {
                 position += 3;
+
                 return value11 ^ 0x4080;
             }
+
             value11 ^= (uint)stream[3] << 21;
+
             if (value11 < 128 * 128 * 128 * 128)
             {
                 position += 4;
+
                 return value11 ^ 0x204080;
             }
+
             value11 ^= ((uint)stream[4] << 28) ^ 0x10204080;
             position += 5;
+
             return value11;
         }
 
@@ -540,33 +607,45 @@ namespace gemstone
         public static uint ReadUInt32(byte[] stream, ref int position)
         {
             int pos = position;
-            uint value11;
-            value11 = stream[pos];
+            uint value11 = stream[pos];
+
             if (value11 < 128)
             {
                 position = pos + 1;
+
                 return value11;
             }
+
             value11 ^= (uint)stream[pos + 1] << 7;
+
             if (value11 < 128 * 128)
             {
                 position = pos + 2;
+
                 return value11 ^ 0x80;
             }
+
             value11 ^= (uint)stream[pos + 2] << 14;
+
             if (value11 < 128 * 128 * 128)
             {
                 position = pos + 3;
+
                 return value11 ^ 0x4080;
             }
+
             value11 ^= (uint)stream[pos + 3] << 21;
+
             if (value11 < 128 * 128 * 128 * 128)
             {
                 position = pos + 4;
+
                 return value11 ^ 0x204080;
             }
+
             value11 ^= ((uint)stream[pos + 4] << 28) ^ 0x10204080;
             position = pos + 5;
+
             return value11;
         }
 
@@ -581,28 +660,28 @@ namespace gemstone
         /// <exception cref="EndOfStreamException">Occurs if the end of the stream was reached.</exception>
         public static uint ReadUInt32(Stream stream)
         {
-            uint value11;
-            value11 = stream.ReadNextByte();
+            uint value11 = (uint)stream.ReadByte();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
-            value11 ^= (uint)stream.ReadNextByte() << 7;
+
+            value11 ^= (uint)stream.ReadByte() << 7;
+
             if (value11 < 128 * 128)
-            {
                 return value11 ^ 0x80;
-            }
-            value11 ^= (uint)stream.ReadNextByte() << 14;
+
+            value11 ^= (uint)stream.ReadByte() << 14;
+
             if (value11 < 128 * 128 * 128)
-            {
                 return value11 ^ 0x4080;
-            }
-            value11 ^= (uint)stream.ReadNextByte() << 21;
+
+            value11 ^= (uint)stream.ReadByte() << 21;
+
             if (value11 < 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x204080;
-            }
-            value11 ^= ((uint)stream.ReadNextByte() << 28) ^ 0x10204080;
+
+            value11 ^= ((uint)stream.ReadByte() << 28) ^ 0x10204080;
+
             return value11;
         }
 
@@ -613,28 +692,28 @@ namespace gemstone
         /// <returns>the value</returns>
         public static uint ReadUInt32(Func<byte> stream)
         {
-            uint value11;
-            value11 = stream();
+            uint value11 = stream();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
+
             value11 ^= (uint)stream() << 7;
+
             if (value11 < 128 * 128)
-            {
                 return value11 ^ 0x80;
-            }
+
             value11 ^= (uint)stream() << 14;
+
             if (value11 < 128 * 128 * 128)
-            {
                 return value11 ^ 0x4080;
-            }
+
             value11 ^= (uint)stream() << 21;
+
             if (value11 < 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x204080;
-            }
+
             value11 ^= ((uint)stream() << 28) ^ 0x10204080;
+
             return value11;
         }
 
@@ -653,20 +732,28 @@ namespace gemstone
         {
             if (value1 < 128)
                 return 1;
+
             if (value1 < 128 * 128)
                 return 2;
+
             if (value1 < 128 * 128 * 128)
                 return 3;
+
             if (value1 < 128 * 128 * 128 * 128)
                 return 4;
+
             if (value1 < 128L * 128 * 128 * 128 * 128)
                 return 5;
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128)
                 return 6;
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
                 return 7;
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
                 return 8;
+
             return 9;
         }
 
@@ -679,20 +766,28 @@ namespace gemstone
         {
             if (stream[0] < 128)
                 return 1;
+
             if (stream[1] < 128)
                 return 2;
+
             if (stream[2] < 128)
                 return 3;
+
             if (stream[3] < 128)
                 return 4;
+
             if (stream[4] < 128)
                 return 5;
+
             if (stream[5] < 128)
                 return 6;
+
             if (stream[6] < 128)
                 return 7;
+
             if (stream[7] < 128)
                 return 8;
+
             return 9;
         }
 
@@ -702,10 +797,7 @@ namespace gemstone
         /// <param name="stream"></param>
         /// <param name="position"></param>
         /// <returns></returns>
-        public static unsafe int MeasureUInt64(byte* stream, int position)
-        {
-            return MeasureUInt64(stream + position);
-        }
+        public static unsafe int MeasureUInt64(byte* stream, int position) => MeasureUInt64(stream + position);
 
         /// <summary>
         /// Gets the number of bytes for the supplied value in the stream.
@@ -717,20 +809,28 @@ namespace gemstone
         {
             if (stream[position + 0] < 128)
                 return 1;
+
             if (stream[position + 1] < 128)
                 return 2;
+
             if (stream[position + 2] < 128)
                 return 3;
+
             if (stream[position + 3] < 128)
                 return 4;
+
             if (stream[position + 4] < 128)
                 return 5;
+
             if (stream[position + 5] < 128)
                 return 6;
+
             if (stream[position + 6] < 128)
                 return 7;
+
             if (stream[position + 7] < 128)
                 return 8;
+
             return 9;
         }
 
@@ -748,52 +848,76 @@ namespace gemstone
             if (value1 < 128)
             {
                 stream[0] = (byte)value1;
+
                 return 1;
             }
+
             stream[0] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[1] = (byte)(value1 >> 7);
+
                 return 2;
             }
+
             stream[1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[2] = (byte)(value1 >> (7 + 7));
+
                 return 3;
             }
+
             stream[2] = (byte)((value1 >> (7 + 7)) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[3] = (byte)(value1 >> (7 + 7 + 7));
+
                 return 4;
             }
+
             stream[3] = (byte)((value1 >> (7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128)
             {
                 stream[4] = (byte)(value1 >> (7 + 7 + 7 + 7));
+
                 return 5;
             }
+
             stream[4] = (byte)((value1 >> (7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 stream[5] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7));
+
                 return 6;
             }
+
             stream[5] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[6] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7));
+
                 return 7;
             }
+
             stream[6] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7));
+
                 return 8;
             }
+
             stream[7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7) | 128);
             stream[8] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7));
+
             return 9;
         }
 
@@ -811,57 +935,80 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[position + 1] = (byte)(value1 >> 7);
                 position += 2;
+
                 return;
             }
+
             stream[position + 1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[position + 2] = (byte)(value1 >> (7 + 7));
                 position += 3;
+
                 return;
             }
+
             stream[position + 2] = (byte)((value1 >> (7 + 7)) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[position + 3] = (byte)(value1 >> (7 + 7 + 7));
                 position += 4;
+
                 return;
             }
+
             stream[position + 3] = (byte)((value1 >> (7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128)
             {
                 stream[position + 4] = (byte)(value1 >> (7 + 7 + 7 + 7));
                 position += 5;
+
                 return;
             }
+
             stream[position + 4] = (byte)((value1 >> (7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 5] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7));
                 position += 6;
+
                 return;
             }
+
             stream[position + 5] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 6] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7));
                 position += 7;
+
                 return;
             }
+
             stream[position + 6] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7));
                 position += 8;
+
                 return;
             }
+
             stream[position + 7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7) | 128);
             stream[position + 8] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7));
             position += 9;
@@ -881,57 +1028,80 @@ namespace gemstone
             {
                 stream[position] = (byte)value1;
                 position += 1;
+
                 return;
             }
+
             stream[position] = (byte)(value1 | 128);
+
             if (value1 < 128 * 128)
             {
                 stream[position + 1] = (byte)(value1 >> 7);
                 position += 2;
+
                 return;
             }
+
             stream[position + 1] = (byte)((value1 >> 7) | 128);
+
             if (value1 < 128 * 128 * 128)
             {
                 stream[position + 2] = (byte)(value1 >> (7 + 7));
                 position += 3;
+
                 return;
             }
+
             stream[position + 2] = (byte)((value1 >> (7 + 7)) | 128);
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream[position + 3] = (byte)(value1 >> (7 + 7 + 7));
                 position += 4;
+
                 return;
             }
+
             stream[position + 3] = (byte)((value1 >> (7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128)
             {
                 stream[position + 4] = (byte)(value1 >> (7 + 7 + 7 + 7));
                 position += 5;
+
                 return;
             }
+
             stream[position + 4] = (byte)((value1 >> (7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 5] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7));
                 position += 6;
+
                 return;
             }
+
             stream[position + 5] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 6] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7));
                 position += 7;
+
                 return;
             }
+
             stream[position + 6] = (byte)((value1 >> (7 + 7 + 7 + 7 + 7 + 7)) | 128);
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream[position + 7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7));
                 position += 8;
+
                 return;
             }
+
             stream[position + 7] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7) | 128);
             stream[position + 8] = (byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7));
             position += 9;
@@ -947,50 +1117,73 @@ namespace gemstone
             if (value1 < 128)
             {
                 stream((byte)value1);
+
                 return;
             }
+
             stream((byte)(value1 | 128));
+
             if (value1 < 128 * 128)
             {
                 stream((byte)(value1 >> 7));
+
                 return;
             }
+
             stream((byte)((value1 >> 7) | 128));
+
             if (value1 < 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7)));
+
                 return;
             }
+
             stream((byte)((value1 >> (7 + 7)) | 128));
+
             if (value1 < 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7 + 7)));
+
                 return;
             }
+
             stream((byte)((value1 >> (7 + 7 + 7)) | 128));
+
             if (value1 < 128L * 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7 + 7 + 7)));
+
                 return;
             }
+
             stream((byte)((value1 >> (7 + 7 + 7 + 7)) | 128));
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7 + 7 + 7 + 7)));
+
                 return;
             }
+
             stream((byte)((value1 >> (7 + 7 + 7 + 7 + 7)) | 128));
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7)));
+
                 return;
             }
+
             stream((byte)((value1 >> (7 + 7 + 7 + 7 + 7 + 7)) | 128));
+
             if (value1 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 stream((byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7)));
+
                 return;
             }
+
             stream((byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7) | 128));
             stream((byte)(value1 >> (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7)));
         }
@@ -1009,57 +1202,81 @@ namespace gemstone
         public static unsafe ulong ReadUInt64(byte* stream, ref int position)
         {
             stream += position;
-            ulong value11;
-            value11 = stream[0];
+            ulong value11 = stream[0];
+
             if (value11 < 128)
             {
                 position += 1;
+
                 return value11;
             }
+
             value11 ^= (ulong)stream[1] << 7;
+
             if (value11 < 128 * 128)
             {
                 position += 2;
+
                 return value11 ^ 0x80;
             }
+
             value11 ^= (ulong)stream[2] << (7 + 7);
+
             if (value11 < 128 * 128 * 128)
             {
                 position += 3;
+
                 return value11 ^ 0x4080;
             }
+
             value11 ^= (ulong)stream[3] << (7 + 7 + 7);
+
             if (value11 < 128 * 128 * 128 * 128)
             {
                 position += 4;
+
                 return value11 ^ 0x204080;
             }
+
             value11 ^= (ulong)stream[4] << (7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128)
             {
                 position += 5;
+
                 return value11 ^ 0x10204080L;
             }
+
             value11 ^= (ulong)stream[5] << (7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 position += 6;
+
                 return value11 ^ 0x810204080L;
             }
+
             value11 ^= (ulong)stream[6] << (7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 position += 7;
+
                 return value11 ^ 0x40810204080L;
             }
+
             value11 ^= (ulong)stream[7] << (7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 position += 8;
+
                 return value11 ^ 0x2040810204080L;
             }
+
             value11 ^= (ulong)stream[8] << (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
             position += 9;
+
             return value11 ^ 0x102040810204080L;
         }
 
@@ -1073,57 +1290,81 @@ namespace gemstone
         public static ulong ReadUInt64(byte[] stream, ref int position)
         {
             int pos = position;
-            ulong value11;
-            value11 = stream[pos];
+            ulong value11 = stream[pos];
+
             if (value11 < 128)
             {
                 position += 1;
+
                 return value11;
             }
+
             value11 ^= (ulong)stream[pos + 1] << 7;
+
             if (value11 < 128 * 128)
             {
                 position += 2;
+
                 return value11 ^ 0x80;
             }
+
             value11 ^= (ulong)stream[pos + 2] << (7 + 7);
+
             if (value11 < 128 * 128 * 128)
             {
                 position += 3;
+
                 return value11 ^ 0x4080;
             }
+
             value11 ^= (ulong)stream[pos + 3] << (7 + 7 + 7);
+
             if (value11 < 128 * 128 * 128 * 128)
             {
                 position += 4;
+
                 return value11 ^ 0x204080;
             }
+
             value11 ^= (ulong)stream[pos + 4] << (7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128)
             {
                 position += 5;
+
                 return value11 ^ 0x10204080L;
             }
+
             value11 ^= (ulong)stream[pos + 5] << (7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128)
             {
                 position += 6;
+
                 return value11 ^ 0x810204080L;
             }
+
             value11 ^= (ulong)stream[pos + 6] << (7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 position += 7;
+
                 return value11 ^ 0x40810204080L;
             }
+
             value11 ^= (ulong)stream[pos + 7] << (7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
             {
                 position += 8;
+
                 return value11 ^ 0x2040810204080L;
             }
+
             value11 ^= (ulong)stream[pos + 8] << (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
             position += 9;
+
             return value11 ^ 0x102040810204080L;
         }
 
@@ -1138,48 +1379,48 @@ namespace gemstone
         /// <exception cref="EndOfStreamException">Occurs if the end of the stream was reached.</exception>
         public static ulong ReadUInt64(Stream stream)
         {
-            ulong value11;
-            value11 = stream.ReadNextByte();
+            ulong value11 = (ulong)stream.ReadByte();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << 7;
+
+            value11 ^= (ulong)stream.ReadByte() << 7;
+
             if (value11 < 128 * 128)
-            {
                 return value11 ^ 0x80;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7);
+
             if (value11 < 128 * 128 * 128)
-            {
                 return value11 ^ 0x4080;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7);
+
             if (value11 < 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x204080;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x10204080L;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x810204080L;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7 + 7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x40810204080L;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7 + 7 + 7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x2040810204080L;
-            }
-            value11 ^= (ulong)stream.ReadNextByte() << (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
+
+            value11 ^= (ulong)stream.ReadByte() << (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             return value11 ^ 0x102040810204080L;
         }
 
@@ -1190,48 +1431,48 @@ namespace gemstone
         /// <returns>the value</returns>
         public static ulong ReadUInt64(Func<byte> stream)
         {
-            ulong value11;
-            value11 = stream();
+            ulong value11 = stream();
+
             if (value11 < 128)
-            {
                 return value11;
-            }
+
             value11 ^= (ulong)stream() << 7;
+
             if (value11 < 128 * 128)
-            {
                 return value11 ^ 0x80;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7);
+
             if (value11 < 128 * 128 * 128)
-            {
                 return value11 ^ 0x4080;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7);
+
             if (value11 < 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x204080;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x10204080L;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x810204080L;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x40810204080L;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             if (value11 < 128L * 128 * 128 * 128 * 128 * 128 * 128 * 128)
-            {
                 return value11 ^ 0x2040810204080L;
-            }
+
             value11 ^= (ulong)stream() << (7 + 7 + 7 + 7 + 7 + 7 + 7 + 7);
+
             return value11 ^ 0x102040810204080L;
         }
 

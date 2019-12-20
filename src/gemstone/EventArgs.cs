@@ -81,8 +81,7 @@ namespace gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T}"/> class.
         /// </summary>
-        public EventArgs()
-            : this(default(T))
+        public EventArgs() : this(default)
         {
         }
 
@@ -90,10 +89,7 @@ namespace gemstone
         /// Initializes a new instance of the <see cref="EventArgs{T}"/> class.
         /// </summary>
         /// <param name="argument">The argument data for the event.</param>
-        public EventArgs(T argument)
-        {
-            Argument = argument;
-        }
+        public EventArgs(T argument) => Argument = argument;
     }
 
     /// <summary>
@@ -117,8 +113,7 @@ namespace gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2}"/> class.
         /// </summary>
-        public EventArgs()
-            : this(default(T1), default(T2))
+        public EventArgs() : this(default, default)
         {
         }
 
@@ -161,8 +156,7 @@ namespace gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2,T3}"/> class.
         /// </summary>
-        public EventArgs()
-            : this(default(T1), default(T2), default(T3))
+        public EventArgs() : this(default, default, default)
         {
         }
 
@@ -213,8 +207,7 @@ namespace gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2,T3,T4}"/> class.
         /// </summary>
-        public EventArgs()
-            : this(default(T1), default(T2), default(T3), default(T4))
+        public EventArgs() : this(default, default, default, default)
         {
         }
 

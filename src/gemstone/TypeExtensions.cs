@@ -43,17 +43,23 @@
 //******************************************************************************************************
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
+using gemstone.io;
+using gemstone.reflection;
 
 namespace gemstone
 {
     /// <summary>
     /// Extensions to all <see cref="Type"/> objects.
     /// </summary>
-    public static partial class TypeExtensions
+    public static class TypeExtensions
     {
         // Native data types that represent numbers
-        private static readonly Type[] s_numericTypes = { typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(Int24), typeof(UInt24), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) };
+        private static readonly Type[] s_numericTypes = { typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) };
 
         /// <summary>
         /// Determines if the specified type is a native structure that represents a numeric value.
@@ -63,7 +69,7 @@ namespace gemstone
         /// <remarks>
         /// For this method a boolean value is not considered numeric even though it can be thought of as a bit.
         /// This expression returns <c>true</c> if the type is one of the following:<br/><br/>
-        ///     SByte, Byte, Int16, UInt16, Int24, UInt24, Int32, UInt32, Int64, UInt64, Single, Double, Decimal
+        ///     SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal
         /// </remarks>
         public static bool IsNumeric(this Type type)
         {
@@ -109,15 +115,117 @@ namespace gemstone
         public static Type GetRootType(this Type type)
         {
             // Recurse through types until you reach a base type of "System.Object" or "System.MarshalByRef".
-#if MONO
-            // TODO: Test with Mono to see if type comparison now works as expected
-            if ((object)type.BaseType == null || type.BaseType.FullName.Equals("System.Object", StringComparison.Ordinal) || type.BaseType.FullName.Equals("System.MarshalByRefObject", StringComparison.Ordinal))
-#else
-            if ((object)type.BaseType == null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
-#endif
+            if (type.BaseType == null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
                 return type;
 
             return GetRootType(type.BaseType);
+        }
+
+        /// <summary>
+        /// Loads public types from assemblies in the application binaries directory that implement the specified 
+        /// <paramref name="type"/> either through class inheritance or interface implementation.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
+        /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
+        public static List<Type> LoadImplementations(this Type type)
+        {
+            return LoadImplementations(type, true);
+        }
+
+        /// <summary>
+        /// Loads public types from assemblies in the application binaries directory that implement the specified 
+        /// <paramref name="type"/> either through class inheritance or interface implementation.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
+        /// <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
+        /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
+        public static List<Type> LoadImplementations(this Type type, bool excludeAbstractTypes)
+        {
+            return LoadImplementations(type, string.Empty, excludeAbstractTypes);
+        }
+
+        /// <summary>
+        /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 
+        /// the specified <paramref name="type"/> either through class inheritance or interface implementation.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
+        /// <param name="binariesDirectory">The directory containing the assemblies to be processed.</param>
+        /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
+        public static List<Type> LoadImplementations(this Type type, string binariesDirectory)
+        {
+            return LoadImplementations(type, binariesDirectory, true);
+        }
+
+        /// <summary>
+        /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 
+        /// the specified <paramref name="type"/> either through class inheritance or interface implementation.
+        /// </summary>
+        /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
+        /// <param name="binariesDirectory">The directory containing the assemblies to be processed.</param>
+        /// <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
+        /// <param name="validateReferences">True to validate references of loaded assemblies before attempting to instantiate types; false otherwise.</param>
+        /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
+        [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFrom")]
+        public static List<Type> LoadImplementations(this Type type, string binariesDirectory, bool excludeAbstractTypes, bool validateReferences = true)
+        {
+            List<Type> types = new List<Type>();
+
+            // Use application install directory for application.
+            if (string.IsNullOrEmpty(binariesDirectory))
+                binariesDirectory = FilePath.GetAbsolutePath("");
+
+            // Loop through all files in the binaries directory.
+            foreach (string bin in FilePath.GetFileList(binariesDirectory))
+            {
+                // Only process DLLs and EXEs.
+                if (!(string.Compare(FilePath.GetExtension(bin), ".dll", StringComparison.OrdinalIgnoreCase) == 0 ||
+                      string.Compare(FilePath.GetExtension(bin), ".exe", StringComparison.OrdinalIgnoreCase) == 0))
+                {
+                    continue;
+                }
+
+                try
+                {
+                    // Load the assembly in the current app domain.
+                    Assembly asm = Assembly.LoadFrom(bin);
+
+                    if (!validateReferences || asm.TryLoadAllReferences())
+                    {
+                        // Process only the public types in the assembly.
+                        foreach (Type asmType in asm.GetExportedTypes())
+                        {
+                            if (excludeAbstractTypes && asmType.IsAbstract)
+                                continue;
+
+                            // Either the current type is not abstract or it's OK to include abstract types.
+                            if (type.IsClass && asmType.IsSubclassOf(type))
+                            {
+                                // The type being tested is a class and current type derives from it.
+                                types.Add(asmType);
+                            }
+
+                            if (type.IsInterface && (object)asmType.GetInterface(type.FullName) != null)
+                            {
+                                // The type being tested is an interface and current type implements it.
+                                types.Add(asmType);
+                            }
+
+                            if (type.GetRootType() == typeof(Attribute) && asmType.GetCustomAttributes(type, true).Length > 0)
+                            {
+                                // The type being tested is an attribute and current type has the attribute.
+                                types.Add(asmType);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Absorb any exception thrown while processing the assembly.
+                    Debug.WriteLine($"Type Load Error Occurred: {ex.Message}");
+                }
+            }
+
+            return types; // Return the matching types found.
         }
     }
 }

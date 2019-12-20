@@ -52,7 +52,6 @@ namespace gemstone.reflection
         /// </summary>
         public bool HasChanged => m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
 
-
         /// <summary>
         /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
         /// </summary>
@@ -65,6 +64,7 @@ namespace gemstone.reflection
             lock (m_syncRoot)
             {
                 m_assemblyVersionNumber = AssemblyLoadedVersionNumber.VersionNumber;
+
                 return LoadNewAssemblies();
             }
         }
@@ -79,13 +79,13 @@ namespace gemstone.reflection
 
                 foreach (Assembly assembly in assemblies)
                 {
-                    if (!m_loadedAssemblies.Contains(assembly))
-                    {
-                        m_loadedAssemblies.Add(assembly);
+                    if (m_loadedAssemblies.Contains(assembly))
+                        continue;
 
-                        if (!assembly.IsDynamic)
-                            FindAllModules(types, assembly);
-                    }
+                    m_loadedAssemblies.Add(assembly);
+
+                    if (!assembly.IsDynamic)
+                        FindAllModules(types, assembly);
                 }
             }
             catch (Exception ex)
@@ -104,7 +104,7 @@ namespace gemstone.reflection
             {
                 try
                 {
-                    FindAllTypes(types, assembly, module);
+                    FindAllTypes(types, module);
                 }
                 catch (Exception ex)
                 {
@@ -113,7 +113,7 @@ namespace gemstone.reflection
             }
         }
 
-        private void FindAllTypes(List<Type> newlyFoundObjects, Assembly assembly, Module module)
+        private void FindAllTypes(List<Type> newlyFoundObjects, Module module)
         {
             Type[] types;
 
@@ -123,8 +123,8 @@ namespace gemstone.reflection
             }
             catch (ReflectionTypeLoadException ex)
             {
-                //Since its possible that during enumeration, the GetTypes method can error, this will allow us 
-                //to enumerate the types that did not error.
+                // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
+                // to enumerate the types that did not error.
                 Debug.WriteLine($"Reflection Load Error Occurred: {ex.Message}");
                 types = ex.Types;
             }
@@ -133,16 +133,14 @@ namespace gemstone.reflection
             {
                 try
                 {
-                    if ((object)assemblyType != null)
-                    {
+                    if (assemblyType != null)
                         newlyFoundObjects.Add(assemblyType);
-                    }
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine($"Static Constructor Error: {ex.Message}");
                 }
             }
-        }   
+        }
     }
 }

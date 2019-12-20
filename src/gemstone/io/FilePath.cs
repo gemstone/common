@@ -55,9 +55,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using gemstone.console;
+using gemstone.reflection;
+using static gemstone.Common;
 
 namespace gemstone.io
 {
@@ -105,6 +109,219 @@ namespace gemstone.io
         #endregion
 
         #region [ Methods ]
+
+        /// <summary>
+        /// Tries to get the free space values for a given path. This path can be a network share or a mount point.
+        /// </summary>
+        /// <param name="pathName">The path to the location</param>
+        /// <param name="freeSpace">The number of user space bytes</param>
+        /// <param name="totalSize">The total number of bytes on the drive.</param>
+        /// <returns><c>true</c> if successful; otherwise <c>false</c> if there was an error.</returns>
+        public static bool GetAvailableFreeSpace(string pathName, out long freeSpace, out long totalSize)
+        {
+            try
+            {
+                if (IsPosixEnvironment)
+                {
+                    string output = Command.Execute("df", $"-k {pathName}").StandardOutput;
+                    string[] lines = output.Split('\n');
+
+                    if (lines.Length > 1)
+                    {
+                        string[] elems = lines[1].Trim().RemoveDuplicateWhiteSpace().Split(' ');
+
+                        if (elems.Length > 4)
+                        {
+                            if (long.TryParse(elems[1], out long totalKB) && long.TryParse(elems[3], out long availableKB))
+                            {
+                                freeSpace = availableKB * 1024L;
+                                totalSize = totalKB * 1024L;
+                                return true;
+                            }
+                        }
+                    }
+
+                    freeSpace = 0L;
+                    totalSize = 0L;
+                    return false;
+                }
+
+                string fullPath = Path.GetFullPath(pathName);
+
+                bool success = GetDiskFreeSpaceEx(fullPath, out ulong lpFreeBytesAvailable, out ulong lpTotalNumberOfBytes, out ulong _);
+
+                freeSpace = (long)lpFreeBytesAvailable;
+                totalSize = (long)lpTotalNumberOfBytes;
+
+                return success;
+            }
+            catch
+            {
+                freeSpace = 0L;
+                totalSize = 0L;
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Determines if the specified <paramref name="filePath"/> is contained with the current executable path.
+        /// </summary>
+        /// <param name="filePath">File name or relative file path.</param>
+        /// <returns><c>true</c> if the specified <paramref name="filePath"/> is contained with the current executable path; otherwise <c>false</c>.</returns>
+        public static bool InApplicationPath(string filePath)
+        {
+            return GetAbsolutePath(filePath).StartsWith(GetAbsolutePath(""), StringComparison.OrdinalIgnoreCase);
+        }
+
+        /// <summary>
+        /// Gets the path to the folder where data related to the current
+        /// application can be stored as well as shared among different users.
+        /// </summary>
+        /// <returns>Path to the folder where data related to the current application can be stored.</returns>
+        public static string GetCommonApplicationDataFolder()
+        {
+            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+
+            if (string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company))
+                return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name);
+
+            return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+        }
+
+        /// <summary>
+        /// Gets the path to the folder where data related to the current application can be stored.
+        /// </summary>
+        /// <returns>Path to the folder where data related to the current application can be stored.</returns>
+        public static string GetApplicationDataFolder()
+        {
+            string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            if (string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company))
+                return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name);
+
+            return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+        }
+
+        /// <summary>
+        /// Gets the absolute file path for the specified file name or relative file path.
+        /// </summary>
+        /// <param name="filePath">File name or relative file path.</param>
+        /// <returns>Absolute file path for the specified file name or relative file path.</returns>
+        public static string GetAbsolutePath(string filePath)
+        {
+            if (!Path.IsPathRooted(filePath))
+            {
+                try
+                {
+                    filePath = Path.Combine(GetDirectoryName(AssemblyInfo.EntryAssembly.Location), filePath);
+                }
+                catch
+                {
+                    // Fall back on executing assembly path if entry assembly is not available
+                    filePath = Path.Combine(GetDirectoryName(AssemblyInfo.ExecutingAssembly.Location), filePath);
+                }
+            }
+
+            return RemovePathSuffix(filePath);
+        }
+
+        /// <summary>
+        /// Gets a unique file path for the given file by checking for name collisions and
+        /// adding a sequence number to the end of the file name if there is a collision.
+        /// </summary>
+        /// <param name="originalFilePath">The path to the original file before adding the sequence number.</param>
+        /// <returns>The unique path to the file.</returns>
+        /// <remarks>
+        /// This method is designed to handle the case where the user wishes to create a file in a folder
+        /// with a given name when there is a possibility that the name is already taken. Using this method,
+        /// it is possible to create files with names in the following format:
+        /// 
+        /// <ul>
+        ///     <li>File.ext</li>
+        ///     <li>File (1).ext</li>
+        ///     <li>File (2).ext</li>
+        ///     <li>...</li>
+        /// </ul>
+        /// 
+        /// This method uses a linear search to find a unique file name, so it is suitable for situations where
+        /// there are a small number of collisions for each file name. This will detect and fill gaps that can
+        /// occur when files are deleted (for instance, if "File (1).ext" were deleted from the list above).
+        /// </remarks>
+        public static string GetUniqueFilePath(string originalFilePath)
+        {
+            string uniqueFilePath = GetAbsolutePath(originalFilePath);
+            string directory = GetDirectoryName(uniqueFilePath);
+            string originalFileRoot = GetFileNameWithoutExtension(uniqueFilePath);
+            string fileExtension = GetExtension(uniqueFilePath);
+            int i = 1;
+
+            while (File.Exists(uniqueFilePath))
+            {
+                uniqueFilePath = Path.Combine(directory, $"{originalFileRoot} ({i}){fileExtension}");
+                i++;
+            }
+
+            return uniqueFilePath;
+        }
+
+        /// <summary>
+        /// Gets a unique file path for the given file by checking for name collisions and
+        /// adding a sequence number to the end of the file name if there is a collision.
+        /// </summary>
+        /// <param name="originalFilePath">The path to the original file before adding the sequence number.</param>
+        /// <returns>The unique path to the file.</returns>
+        /// <remarks>
+        /// This method is designed to handle the case where the user wishes to create a file in a folder
+        /// with a given name when there is a possibility that the name is already taken. Using this method,
+        /// it is possible to create files with names in the following format:
+        /// 
+        /// <ul>
+        ///     <li>File.ext</li>
+        ///     <li>File (1).ext</li>
+        ///     <li>File (2).ext</li>
+        ///     <li>...</li>
+        /// </ul>
+        /// 
+        /// This method uses a binary search to find a unique file name, so it is suitable for situations where
+        /// a large number of files will be created with the same file name, and the next unique file name needs
+        /// to be found relatively quickly. It will not always detect gaps in the sequence numbers that can occur
+        /// when files are deleted (for instance, if "File (1).ext" were deleted from the list above).
+        /// </remarks>
+        public static string GetUniqueFilePathWithBinarySearch(string originalFilePath)
+        {
+            string uniqueFilePath = GetAbsolutePath(originalFilePath);
+            string directory = GetDirectoryName(uniqueFilePath);
+            string originalFileRoot = GetFileNameWithoutExtension(uniqueFilePath);
+            string fileExtension = GetExtension(uniqueFilePath);
+
+            int i = 1;
+            int j = 1;
+            int k = 1;
+
+            if (!File.Exists(uniqueFilePath))
+                return uniqueFilePath;
+
+            while (File.Exists(uniqueFilePath))
+            {
+                uniqueFilePath = Path.Combine(directory, $"{originalFileRoot} ({i}){fileExtension}");
+                j = k;
+                k = i;
+                i *= 2;
+            }
+
+            while (j < k)
+            {
+                i = (j + k) / 2;
+                uniqueFilePath = Path.Combine(directory, $"{originalFileRoot} ({i}){fileExtension}");
+
+                if (File.Exists(uniqueFilePath))
+                    j = i + 1;
+                else
+                    k = i;
+            }
+
+            return Path.Combine(directory, $"{originalFileRoot} ({k}){fileExtension}");
+        }
 
         /// <summary>
         /// Returns the names of the subdirectories (including their paths) that match the specified search pattern in the specified directory, and optionally searches subdirectories.
@@ -406,11 +623,9 @@ namespace gemstone.io
             string filePattern = GetFileName(path);
             SearchOption options = SearchOption.TopDirectoryOnly;
 
+            // No wild-card pattern was specified, so get a listing of all files.
             if (string.IsNullOrEmpty(filePattern))
-            {
-                // No wild-card pattern was specified, so get a listing of all files.
                 filePattern = "*.*";
-            }
 
             if (GetLastDirectoryName(directory) == "*")
             {
@@ -443,24 +658,19 @@ namespace gemstone.io
                 Tuple.Create(Regex.Escape("*"), $"{s_fileNameCharPattern}*")
             };
 
-            StringBuilder input;
-            StringBuilder output;
-            Tuple<string, string> replacement;
-            Match match;
-            
-            input = new StringBuilder(fileSpec);
-            output = new StringBuilder();
+            StringBuilder input = new StringBuilder(fileSpec);
+            StringBuilder output = new StringBuilder();
 
             while (input.Length > 0)
             {
                 // Determine if any of the replacement patterns match the input.
-                replacement = replacements.FirstOrDefault(r => Regex.IsMatch(input.ToString(), $"^{r.Item1}"));
+                Tuple<string, string> replacement = replacements.FirstOrDefault(r => Regex.IsMatch(input.ToString(), $"^{r.Item1}"));
 
                 if (replacement != null)
                 {
                     // If one of the replacement patterns matches the input,
                     // apply that replacement and write it to the output.
-                    match = Regex.Match(input.ToString(), $"^{replacement.Item1}");
+                    Match match = Regex.Match(input.ToString(), $"^{replacement.Item1}");
                     output.Append(Regex.Replace(match.Value, replacement.Item1, replacement.Item2));
                     input.Remove(0, match.Length);
                 }
@@ -586,62 +796,7 @@ namespace gemstone.io
         /// </summary>
         /// <param name="filePath">The file path whose root is to be removed.</param>
         /// <returns>The path with the root removed if it was present.</returns>
-        public static string DropPathRoot(string filePath)
-        {
-            // JRC: Changed this to the following more simple algorithm
-            if (string.IsNullOrEmpty(filePath))
-                return "";
-
-            return filePath.Remove(0, Path.GetPathRoot(filePath).Length);
-
-            #region [ Original Code ]
-
-            //string result = filePath;
-
-            //if (!string.IsNullOrEmpty(filePath))
-            //{
-            //    if ((filePath[0] == '\\') || (filePath[0] == '/'))
-            //    {
-            //        // UNC name ?
-            //        if ((filePath.Length > 1) && ((filePath[1] == '\\') || (filePath[1] == '/')))
-            //        {
-            //            int index = 2;
-            //            int elements = 2;
-
-            //            // Scan for two separate elements \\machine\share\restofpath
-            //            while ((index <= filePath.Length) &&
-            //                (((filePath[index] != '\\') && (filePath[index] != '/')) || (--elements > 0)))
-            //            {
-            //                index++;
-            //            }
-
-            //            index++;
-
-            //            if (index < filePath.Length)
-            //            {
-            //                result = filePath.Substring(index);
-            //            }
-            //            else
-            //            {
-            //                result = "";
-            //            }
-            //        }
-            //    }
-            //    else if ((filePath.Length > 1) && (filePath[1] == ':'))
-            //    {
-            //        int dropCount = 2;
-            //        if ((filePath.Length > 2) && ((filePath[2] == '\\') || (filePath[2] == '/')))
-            //        {
-            //            dropCount = 3;
-            //        }
-            //        result = result.Remove(0, dropCount);
-            //    }
-            //}
-
-            //return result;
-
-            #endregion
-        }
+        public static string DropPathRoot(string filePath) => string.IsNullOrEmpty(filePath) ? "" : filePath.Remove(0, Path.GetPathRoot(filePath).Length);
 
         /// <summary>
         /// Returns a file name, for display purposes, of the specified length using "..." to indicate a longer name.
@@ -747,7 +902,7 @@ namespace gemstone.io
         /// </remarks>
         public static T GetFileLock<T>(string fileName, Func<string, T> lockFunction, double secondsToWait = 5.0, int retryMilliseconds = 200)
         {
-            double startTime = Common.SystemTimer;
+            double startTime = SystemTimer;
             double endTime = startTime + secondsToWait;
 
             while (true)
@@ -758,7 +913,7 @@ namespace gemstone.io
                 }
                 catch (IOException)
                 {
-                    if (secondsToWait != Timeout.Infinite && Common.SystemTimer > endTime)
+                    if (secondsToWait != Timeout.Infinite && SystemTimer > endTime)
                         throw;
                 }
 
@@ -837,13 +992,13 @@ namespace gemstone.io
                 throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
-            double startTime = Common.SystemTimer;
+            double startTime = SystemTimer;
 
             while (!TryGetReadLock(fileName))
             {
                 if (secondsToWait > 0)
                 {
-                    if (Common.SystemTimer > startTime + secondsToWait)
+                    if (SystemTimer > startTime + secondsToWait)
                         throw new IOException("Could not open \"" + fileName + "\" for read access, tried for " + secondsToWait + " seconds");
                 }
 
@@ -869,13 +1024,13 @@ namespace gemstone.io
                 throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
-            double startTime = Common.SystemTimer;
+            double startTime = SystemTimer;
 
             while (!TryGetReadLockExclusive(fileName))
             {
                 if (secondsToWait > 0)
                 {
-                    if (Common.SystemTimer > startTime + secondsToWait)
+                    if (SystemTimer > startTime + secondsToWait)
                         throw new IOException("Could not open \"" + fileName + "\" for read access, tried for " + secondsToWait + " seconds");
                 }
 
@@ -901,13 +1056,13 @@ namespace gemstone.io
                 throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
-            double startTime = Common.SystemTimer;
+            double startTime = SystemTimer;
 
             while (!TryGetWriteLock(fileName))
             {
                 if (secondsToWait > 0)
                 {
-                    if (Common.SystemTimer > startTime + secondsToWait)
+                    if (SystemTimer > startTime + secondsToWait)
                         throw new IOException("Could not open \"" + fileName + "\" for write access, tried for " + secondsToWait + " seconds");
                 }
 
@@ -930,13 +1085,13 @@ namespace gemstone.io
         public static void WaitTillExists(string fileName, double secondsToWait)
         {
             // Keeps waiting for a file to be created.
-            double startTime = Common.SystemTimer;
+            double startTime = SystemTimer;
 
             while (!File.Exists(fileName))
             {
                 if (secondsToWait > 0)
                 {
-                    if (Common.SystemTimer > startTime + secondsToWait)
+                    if (SystemTimer > startTime + secondsToWait)
                         throw new IOException("Waited for \"" + fileName + "\" to exist for " + secondsToWait + " seconds, but it was never created");
                 }
 
@@ -944,6 +1099,12 @@ namespace gemstone.io
                 Thread.Sleep(250);
             }
         }
+
+        private static double SystemTimer => DateTime.UtcNow.Ticks / (double)TimeSpan.TicksPerSecond;
+
+        [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetDiskFreeSpaceEx(string lpDirectoryName, out ulong lpFreeBytesAvailable, out ulong lpTotalNumberOfBytes, out ulong lpTotalNumberOfFreeBytes);
 
         #endregion
     }

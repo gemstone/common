@@ -44,24 +44,28 @@
 //******************************************************************************************************
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Microsoft.Win32;
+using gemstone.console;
+using gemstone.collections;
+using gemstone.io;
 
 namespace gemstone
 {
-    // This is the location for handy miscellaneous functions that are difficult to categorize elsewhere. For the most
-    // part these functions may have the most value in a Visual Basic application which supports importing functions
-    // down to a class level, e.g.: Imports GSF.Common
-
     /// <summary>
     /// Defines common global functions.
     /// </summary>
-    public static partial class Common
+    public static class Common
     {
+        private static string s_osPlatformName;
+        private static PlatformID s_osPlatformID = PlatformID.Win32S;
+
         /// <summary>
         /// Determines if the current system is a POSIX style environment.
         /// </summary>
@@ -101,10 +105,7 @@ namespace gemstone
         /// </para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T IIf<T>(bool expression, T truePart, T falsePart)
-        {
-            return expression ? truePart : falsePart;
-        }
+        public static T IIf<T>(bool expression, T truePart, T falsePart) => expression ? truePart : falsePart;
 
         /// <summary>Creates a strongly-typed Array.</summary>
         /// <returns>New array of specified type.</returns>
@@ -154,9 +155,7 @@ namespace gemstone
 
             // Initializes all elements with the default value.
             for (int x = 0; x < typedArray.Length; x++)
-            {
                 typedArray[x] = initialValue;
-            }
 
             return typedArray;
         }
@@ -175,10 +174,7 @@ namespace gemstone
         /// <param name="value">Value to convert to string.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, empty string ("") will be returned. </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToNonNullString<T>(this T value) where T : class
-        {
-            return (object)value == null || value is DBNull ? "" : value.ToString();
-        }
+        public static string ToNonNullString<T>(this T value) where T : class => value == null || value is DBNull ? "" : value.ToString();
 
         /// <summary>
         /// Converts value to string; null objects (or DBNull objects) will return specified <paramref name="nonNullValue"/>.
@@ -188,13 +184,7 @@ namespace gemstone
         /// <param name="nonNullValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, <paramref name="nonNullValue"/> will be returned.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="nonNullValue"/> cannot be null.</exception>
-        public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class
-        {
-            if ((object)nonNullValue == null)
-                throw new ArgumentNullException(nameof(nonNullValue));
-
-            return (object)value == null || value is DBNull ? nonNullValue : value.ToString();
-        }
+        public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class => nonNullValue == null ? throw new ArgumentNullException(nameof(nonNullValue)) : value == null || value is DBNull ? nonNullValue : value.ToString();
 
         // We handle strings as a special version of the ToNullNullString extension to handle documentation a little differently
 
@@ -204,10 +194,7 @@ namespace gemstone
         /// <param name="value"><see cref="String"/> to verify is not null.</param>
         /// <returns><see cref="String"/> value; if <paramref name="value"/> is null, empty string ("") will be returned.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToNonNullString(this string value)
-        {
-            return (object)value == null ? "" : value;
-        }
+        public static string ToNonNullString(this string value) => value ?? "";
 
         /// <summary>
         /// Converts value to string; null objects, DBNull objects or empty strings will return specified <paramref name="nonNullNorEmptyValue"/>.
@@ -267,10 +254,7 @@ namespace gemstone
         /// original <see cref="Type"/>.
         /// </para>
         /// </remarks>
-        public static string TypeConvertToString(object value)
-        {
-            return TypeConvertToString(value, null);
-        }
+        public static string TypeConvertToString(object value) => TypeConvertToString(value, null);
 
         /// <summary>
         /// Converts <paramref name="value"/> to a <see cref="String"/> using an appropriate <see cref="TypeConverter"/>.
@@ -296,10 +280,8 @@ namespace gemstone
                 return string.Empty;
 
             // If value is already a string, no need to attempt conversion
-            string valueAsString = value as string;
-
-            if ((object)valueAsString != null)
-                return valueAsString;
+            if (value is string stringVal)
+                return stringVal;
 
             // Initialize culture info if not specified.
             if (culture == null)
@@ -343,10 +325,7 @@ namespace gemstone
         /// is empty or <c>null</c>.
         /// </para>
         /// </remarks>
-        public static object TypeConvertFromString(string value, Type type)
-        {
-            return TypeConvertFromString(value, type, null);
-        }
+        public static object TypeConvertFromString(string value, Type type) => TypeConvertFromString(value, type, null);
 
         /// <summary>
         /// Converts this string into the specified type.
@@ -380,12 +359,6 @@ namespace gemstone
             return value.ConvertToType(type, culture);
         }
 
-        /// <summary>
-        /// Gets a high-resolution number of seconds, including fractional seconds, that have
-        /// elapsed since 12:00:00 midnight, January 1, 0001.
-        /// </summary>
-        public static double SystemTimer => Ticks.ToSeconds(DateTime.UtcNow.Ticks);
-
         /// <summary>Determines if given item is equal to its default value (e.g., null or 0.0).</summary>
         /// <param name="item">Object to evaluate.</param>
         /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
@@ -404,16 +377,14 @@ namespace gemstone
                 return false;
 
             // Handle common types
-            IConvertible convertible = item as IConvertible;
-
-            if (convertible != null)
+            if (item is IConvertible convertible)
             {
                 try
                 {
                     switch (convertible.GetTypeCode())
                     {
                         case TypeCode.Boolean:
-                            return (bool)item == default(bool);
+                            return (bool)item == default;
                         case TypeCode.SByte:
                             return (sbyte)item == default(sbyte);
                         case TypeCode.Byte:
@@ -423,23 +394,23 @@ namespace gemstone
                         case TypeCode.UInt16:
                             return (ushort)item == default(ushort);
                         case TypeCode.Int32:
-                            return (int)item == default(int);
+                            return (int)item == default;
                         case TypeCode.UInt32:
-                            return (uint)item == default(uint);
+                            return (uint)item == default;
                         case TypeCode.Int64:
-                            return (long)item == default(long);
+                            return (long)item == default;
                         case TypeCode.UInt64:
-                            return (ulong)item == default(ulong);
+                            return (ulong)item == default;
                         case TypeCode.Single:
-                            return (float)item == default(float);
+                            return (float)item == default;
                         case TypeCode.Double:
-                            return (double)item == default(double);
+                            return (double)item == default;
                         case TypeCode.Decimal:
-                            return (decimal)item == default(decimal);
+                            return (decimal)item == default;
                         case TypeCode.Char:
                             return (char)item == default(char);
                         case TypeCode.DateTime:
-                            return (DateTime)item == default(DateTime);
+                            return (DateTime)item == default;
                     }
                 }
                 catch (InvalidCastException)
@@ -458,19 +429,13 @@ namespace gemstone
         /// <param name="item">Object to evaluate.</param>
         /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsReference(object item)
-        {
-            return !(item is ValueType);
-        }
+        public static bool IsReference(object item) => !(item is ValueType);
 
         /// <summary>Determines if given item is a reference type but not a string.</summary>
         /// <param name="item">Object to evaluate.</param>
         /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNonStringReference(object item)
-        {
-            return IsReference(item) && !(item is string);
-        }
+        public static bool IsNonStringReference(object item) => IsReference(item) && !(item is string);
 
         /// <summary>
         /// Determines if <paramref name="typeCode"/> is a numeric type, i.e., one of:
@@ -551,13 +516,7 @@ namespace gemstone
         /// value, result will be <c>true</c>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNumeric(object item)
-        {
-            if (IsNumericType(item))
-                return true;
-
-            return (item is char || item is string) && decimal.TryParse(item.ToString(), out _);
-        }
+        public static bool IsNumeric(object item) => IsNumericType(item) || (item is char || item is string) && decimal.TryParse(item.ToString(), out _);
 
         /// <summary>Returns the smallest item from a list of parameters.</summary>
         /// <typeparam name="T">Return type <see cref="Type"/> that is the minimum value in the <paramref name="itemList"/>.</typeparam>
@@ -591,38 +550,149 @@ namespace gemstone
             if (value3 == null)
                 throw new ArgumentNullException(nameof(value3));
 
-            int comp1to2 = value1.CompareTo(value2);
-            int comp1to3 = value1.CompareTo(value3);
-            int comp2to3 = value2.CompareTo(value3);
+            int comp1To2 = value1.CompareTo(value2);
+            int comp1To3 = value1.CompareTo(value3);
+            int comp2To3 = value2.CompareTo(value3);
 
             // If 3 is the smallest, pick the smaller of 1 and 2
-            if (comp1to3 >= 0 && comp2to3 >= 0)
-                return comp1to2 <= 0 ? value1 : value2;
+            if (comp1To3 >= 0 && comp2To3 >= 0)
+                return comp1To2 <= 0 ? value1 : value2;
 
             // If 2 is the smallest, pick the smaller of 1 and 3
-            if (comp1to2 >= 0 && comp2to3 <= 0)
-                return comp1to3 <= 0 ? value1 : value3;
+            if (comp1To2 >= 0 && comp2To3 <= 0)
+                return comp1To3 <= 0 ? value1 : value3;
 
             // 1 is the smallest so pick the smaller of 2 and 3
-            return comp2to3 <= 0 ? value2 : value3;
+            return comp2To3 <= 0 ? value2 : value3;
         }
 
         /// <summary>
-        /// Returns <paramref name="value"/> if not <c>null</c>; otherwise <paramref name="nonNullValue"/>.
+        /// Gets the operating system <see cref="PlatformID"/>
         /// </summary>
-        /// <param name="value">Value to test.</param>
-        /// <param name="nonNullValue">Value to return if primary value is null.</param>
-        /// <returns><paramref name="value"/> if not <c>null</c>; otherwise <paramref name="nonNullValue"/>.</returns>
+        /// <returns>The operating system <see cref="PlatformID"/>.</returns>
         /// <remarks>
-        /// This function is useful when using evaluated code parsers based on older versions of .NET, e.g.,
-        /// the RazorEngine or the ExpressionEvaluator.
+        /// This function will properly detect the platform ID, even if running on Mac.
         /// </remarks>
-        public static object NotNull(object value, object nonNullValue)
+        public static PlatformID GetOSPlatformID()
         {
-            if (nonNullValue == null)
-                return new ArgumentNullException(nameof(nonNullValue));
+            if (s_osPlatformID != PlatformID.Win32S)
+                return s_osPlatformID;
 
-            return value == null || value is DBNull ? nonNullValue : value;
+            s_osPlatformID = Environment.OSVersion.Platform;
+
+            if (s_osPlatformID == PlatformID.Unix)
+            {
+                // Environment.OSVersion.Platform can report Unix when running on Mac OS X
+                try
+                {
+                    s_osPlatformID = Command.Execute("uname").StandardOutput.StartsWith("Darwin", StringComparison.OrdinalIgnoreCase) ? PlatformID.MacOSX : PlatformID.Unix;
+                }
+                catch
+                {
+                    // Fall back on looking for Mac specific root folders:
+                    if (Directory.Exists("/Applications") && Directory.Exists("/System") && Directory.Exists("/Users") && Directory.Exists("/Volumes"))
+                        s_osPlatformID = PlatformID.MacOSX;
+                }
+            }
+
+            return s_osPlatformID;
+        }
+
+        /// <summary>
+        /// Gets the operating system product name.
+        /// </summary>
+        /// <returns>Operating system product name.</returns>
+        public static string GetOSProductName()
+        {
+            if ((object)s_osPlatformName != null)
+                return s_osPlatformName;
+
+            switch (GetOSPlatformID())
+            {
+                case PlatformID.Unix:
+                case PlatformID.MacOSX:
+                    // Call sw_vers on Mac to get product name and version information, Linux could have this
+                    try
+                    {
+                        string output = Command.Execute("sw_vers").StandardOutput;
+                        Dictionary<string, string> kvps = output.ParseKeyValuePairs('\n', ':');
+                        if (kvps.Count > 0)
+                            s_osPlatformName = kvps.Values.Select(val => val.Trim()).ToDelimitedString(" ");
+                    }
+                    catch
+                    {
+                        s_osPlatformName = null;
+                    }
+
+                    if (string.IsNullOrEmpty(s_osPlatformName))
+                    {
+                        // Try some common ways to get product name on Linux, some might work on Mac
+                        try
+                        {
+                            foreach (string fileName in FilePath.GetFileList("/etc/*release*"))
+                            {
+                                using (StreamReader reader = new StreamReader(fileName))
+                                {
+                                    string line = reader.ReadLine();
+
+                                    while ((object)line != null)
+                                    {
+                                        if (line.StartsWith("PRETTY_NAME", StringComparison.OrdinalIgnoreCase) && !line.Contains('#'))
+                                        {
+                                            string[] parts = line.Split('=');
+
+                                            if (parts.Length == 2)
+                                            {
+                                                s_osPlatformName = parts[1].Replace("\"", "");
+                                                break;
+                                            }
+                                        }
+
+                                        line = reader.ReadLine();
+                                    }
+                                }
+
+                                if (!string.IsNullOrEmpty(s_osPlatformName))
+                                    break;
+                            }
+                        }
+                        catch
+                        {
+                            try
+                            {
+                                string output = Command.Execute("lsb_release", "-a").StandardOutput;
+                                Dictionary<string, string> kvps = output.ParseKeyValuePairs('\n', ':');
+                                if (kvps.TryGetValue("Description", out s_osPlatformName) && !string.IsNullOrEmpty(s_osPlatformName))
+                                    s_osPlatformName = s_osPlatformName.Trim();
+
+                            }
+                            catch
+                            {
+                                s_osPlatformName = null;
+                            }
+                        }
+                    }
+                    break;
+                default:
+                    // Get Windows product name
+                    try
+                    {
+                        s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null).ToString();
+                    }
+                    catch
+                    {
+                        s_osPlatformName = null;
+                    }
+                    break;
+            }
+
+            if (string.IsNullOrWhiteSpace(s_osPlatformName))
+                s_osPlatformName = GetOSPlatformID().ToString();
+
+            if (IsMono)
+                s_osPlatformName += " using Mono";
+
+            return s_osPlatformName;
         }
     }
 }

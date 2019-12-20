@@ -261,10 +261,7 @@ namespace gemstone
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
-        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2)
-        {
-            return new[] { source, other1, other2 }.Combine();
-        }
+        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2) => new[] { source, other1, other2 }.Combine();
 
         /// <summary>
         /// Combines arrays together into a single array.
@@ -285,10 +282,7 @@ namespace gemstone
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
-        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3)
-        {
-            return new[] { source, other1, other2, other3 }.Combine();
-        }
+        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3) => new[] { source, other1, other2, other3 }.Combine();
 
         /// <summary>
         /// Combines arrays together into a single array.
@@ -310,10 +304,7 @@ namespace gemstone
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
-        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3, T[] other4)
-        {
-            return new[] { source, other1, other2, other3, other4 }.Combine();
-        }
+        public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3, T[] other4) => new[] { source, other1, other2, other3, other4 }.Combine();
 
         /// <summary>
         /// Combines array of arrays together into a single array.
@@ -660,10 +651,7 @@ namespace gemstone
         /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
         /// iterate over the combined buffers.
         /// </remarks>
-        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2)
-        {
-            return new[] { source, other1, other2 }.Combine();
-        }
+        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2) => new[] { source, other1, other2 }.Combine();
 
         /// <summary>
         /// Combines buffers together as a single image.
@@ -679,10 +667,7 @@ namespace gemstone
         /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
         /// iterate over the combined buffers.
         /// </remarks>
-        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3)
-        {
-            return new[] { source, other1, other2, other3 }.Combine();
-        }
+        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3) => new[] { source, other1, other2, other3 }.Combine();
 
         /// <summary>
         /// Combines buffers together as a single image.
@@ -699,10 +684,7 @@ namespace gemstone
         /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
         /// iterate over the combined buffers.
         /// </remarks>
-        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3, byte[] other4)
-        {
-            return new[] { source, other1, other2, other3, other4 }.Combine();
-        }
+        public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3, byte[] other4) => new[] { source, other1, other2, other3, other4 }.Combine();
 
         /// <summary>
         /// Combines an array of buffers together as a single image.
@@ -748,9 +730,7 @@ namespace gemstone
             T structure;
 
             fixed (byte* ptrToBytes = bytes)
-            {
                 structure = (T)Marshal.PtrToStructure(new IntPtr(ptrToBytes), typeof(T));
-            }
 
             return structure;
         }
@@ -762,9 +742,6 @@ namespace gemstone
         /// <param name="reader"><see cref="BinaryReader"/> positioned at desired structure.</param>
         /// <returns>A structure read from <see cref="BinaryReader"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T ReadStructure<T>(this BinaryReader reader) where T : struct
-        {
-            return reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
-        }
+        public static T ReadStructure<T>(this BinaryReader reader) where T : struct => reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
     }
 }

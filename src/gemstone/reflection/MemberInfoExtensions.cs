@@ -59,8 +59,7 @@ namespace gemstone.reflection
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute
         {
-            TAttribute value;
-            return member.TryGetAttribute(out value);
+            return member.TryGetAttribute(out TAttribute value);
         }
 
         /// <summary>
@@ -81,10 +80,12 @@ namespace gemstone.reflection
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as TAttribute;
+
                 return true;
             }
 
             attribute = null;
+
             return false;
         }
 
@@ -103,10 +104,12 @@ namespace gemstone.reflection
             if (customAttributes.Length > 0)
             {
                 attributes = customAttributes.Cast<TAttribute>().ToArray();
+
                 return true;
             }
 
             attributes = null;
+
             return false;
         }
 
@@ -128,10 +131,12 @@ namespace gemstone.reflection
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as Attribute;
+
                 return true;
             }
 
             attribute = null;
+
             return false;
         }
 
@@ -150,10 +155,12 @@ namespace gemstone.reflection
             if (customAttributes.Length > 0)
             {
                 attributes = customAttributes.Cast<Attribute>().ToArray();
+
                 return true;
             }
 
             attributes = null;
+
             return false;
         }
 
@@ -195,6 +202,7 @@ namespace gemstone.reflection
                 return true;
 
             attributes = null;
+
             return false;
         }
     }

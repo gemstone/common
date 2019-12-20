@@ -51,10 +51,7 @@ namespace gemstone
             string name = enumeration.ToString();
             string description = enumeration.GetType().GetField(name).GetDescription();
 
-            if (!string.IsNullOrWhiteSpace(description))
-                return description;
-
-            return name;
+            return !string.IsNullOrWhiteSpace(description) ? description : name;
         }
 
         /// <summary>
@@ -78,10 +75,7 @@ namespace gemstone
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static T GetEnumValueOrDefault<T>(this object value, object defaultValue = null)
-        {
-            return (T)value.GetEnumValueOrDefault(typeof(T), defaultValue);
-        }
+        public static T GetEnumValueOrDefault<T>(this object value, object defaultValue = null) => (T)value.GetEnumValueOrDefault(typeof(T), defaultValue);
 
         /// <summary>
         /// Gets the enumeration constant for value, if defined in the enumeration, or a default value.
@@ -104,13 +98,7 @@ namespace gemstone
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static object GetEnumValueOrDefault(this object value, Type type, object defaultValue = null)
-        {
-            if (Enum.IsDefined(type, value))
-                return value;
-
-            return defaultValue ?? Enum.GetValues(type).GetValue(0);
-        }
+        public static object GetEnumValueOrDefault(this object value, Type type, object defaultValue = null) => Enum.IsDefined(type, value) ? value : defaultValue ?? Enum.GetValues(type).GetValue(0);
 
         /// <summary>
         /// Gets the enumeration of the specified <paramref name="type"/> whose description matches this <paramref name="description"/>.
@@ -165,11 +153,10 @@ namespace gemstone
         {
             StringBuilder image = new StringBuilder();
             char[] chars = enumeration.ToString().ToCharArray();
-            char letter;
 
             for (int i = 0; i < chars.Length; i++)
             {
-                letter = chars[i];
+                char letter = chars[i];
 
                 // Create word spaces at every capital letter
                 if (char.IsUpper(letter) && image.Length > 0)
@@ -211,17 +198,6 @@ namespace gemstone
         }
 
         // Internal extension to lookup description from DescriptionAttribute
-        private static string GetDescription(this FieldInfo value)
-        {
-            if ((object)value != null)
-            {
-                DescriptionAttribute descriptionAttribute;
-
-                if (value.TryGetAttribute(out descriptionAttribute))
-                    return descriptionAttribute.Description;
-            }
-
-            return string.Empty;
-        }
+        private static string GetDescription(this FieldInfo value) => value == null ? string.Empty : value.TryGetAttribute(out DescriptionAttribute descriptionAttribute) ? descriptionAttribute.Description : string.Empty;
     }
 }

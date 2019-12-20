@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  DynamicObjectPool`1.cs - Gbtc
+//  DynamicObjectPool.cs - Gbtc
 //
 //  Copyright © 2016, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -18,7 +18,6 @@
 //  ----------------------------------------------------------------------------------------------------
 //  11/17/2016 - Steven E. Chisholm
 //       Generated original version of source code. 
-//       
 //
 //******************************************************************************************************
 
@@ -35,10 +34,8 @@ namespace gemstone.collections
     /// Provides a thread safe queue that acts as a buffer pool. 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1001:TypesThatOwnDisposableFieldsShouldBeDisposable")]
     public class DynamicObjectPool<T> where T : class
     {
-        private readonly ScheduledTask m_collection;
         private readonly ConcurrentQueue<T> m_queue;
         private readonly Func<T> m_instanceObject;
         private readonly Queue<int> m_countHistory;
@@ -57,27 +54,29 @@ namespace gemstone.collections
             m_instanceObject = instance ?? throw new ArgumentNullException(nameof(instance));
             m_queue = new ConcurrentQueue<T>();
 
-            m_collection = new ScheduledTask();
-            m_collection.Running += CollectionRunning;
-            m_collection.Start(1000);
+            new Action(RunCollection).DelayAndExecute(1000);
         }
 
-        private void CollectionRunning(object sender, EventArgs e)
+        private void RunCollection()
         {
-            m_collection.Start(1000);
-
-            m_countHistory.Enqueue(m_queue.Count);
-            
-            if (m_countHistory.Count >= 60)
+            try
             {
+                m_countHistory.Enqueue(m_queue.Count);
+
+                if (m_countHistory.Count < 60)
+                    return;
+
                 int objectsCreated = Interlocked.Exchange(ref m_objectsCreated, 0);
-                
+
                 // If there were ever more than the target items in the queue over the past 60 seconds remove some items.
                 // However, don't remove items if the pool ever got to 0 and had objects that had to be created.
                 int min = m_countHistory.Min();
                 m_countHistory.Clear();
 
-                while (min > m_targetCount && objectsCreated == 0)
+                if (objectsCreated != 0)
+                    return;
+
+                while (min > m_targetCount)
                 {
                     if (m_queue.TryDequeue(out T item))
                         (item as IDisposable)?.Dispose();
@@ -86,6 +85,10 @@ namespace gemstone.collections
 
                     min--;
                 }
+            }
+            finally
+            {
+                new Action(RunCollection).DelayAndExecute(1000);
             }
         }
 

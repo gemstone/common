@@ -141,15 +141,13 @@ namespace gemstone
             if (value.Length > 0)
             {
                 // Try to parse string a number
-                int iresult;
 
-                if (int.TryParse(value, out iresult))
+                if (int.TryParse(value, out int iresult))
                     return iresult != 0;
 
                 // Try to parse string as a boolean
-                bool bresult;
 
-                if (bool.TryParse(value, out bresult))
+                if (bool.TryParse(value, out bool bresult))
                     return bresult;
 
                 char test = value.ToUpper()[0];
@@ -1802,8 +1800,7 @@ namespace gemstone
 
             if (AssureParseDouble)
             {
-                double test;
-                if (!double.TryParse(value, out test))
+                if (!double.TryParse(value, out double test))
                     return "0";
 
                 return test.ToString(CultureInfo.InvariantCulture);

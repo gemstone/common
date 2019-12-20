@@ -32,7 +32,7 @@ namespace gemstone.security.cryptography
     /// <remarks>
     /// This class exists to simplify usage of basic cryptography functionality.
     /// </remarks>
-    public static partial class Cipher
+    public static class Cipher
     {
         /// <summary>
         /// Gets a flag that determines if system will allow use of managed, i.e., non-FIPS compliant, security algorithms.
@@ -56,12 +56,7 @@ namespace gemstone.security.cryptography
             {
                 SystemAllowsManagedEncryption = true;
             }
-
-            // Continue with any needed static construction activities
-            OnCreated();
         }
-
-        static partial void OnCreated();
 
         /// <summary>
         /// Creates a <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.

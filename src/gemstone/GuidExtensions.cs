@@ -22,7 +22,6 @@
 //******************************************************************************************************
 
 using System;
-using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
 namespace gemstone
@@ -135,10 +134,7 @@ namespace gemstone
         /// </summary>
         /// <param name="buffer">Buffer containing a serialized big-endian encoded <see cref="Guid"/>.</param>
         /// <returns><see cref="Guid"/> deserialized from <paramref name="buffer"/>.</returns>
-        public static Guid ToRfcGuid(this byte[] buffer)
-        {
-            return buffer.ToRfcGuid(0);
-        }
+        public static Guid ToRfcGuid(this byte[] buffer) => buffer.ToRfcGuid(0);
 
         /// <summary>
         /// Decodes a <see cref="Guid"/> following RFC 4122
@@ -236,17 +232,13 @@ namespace gemstone
 
         #region [ Little Endian Encoding ]
 
-        //---------------------------------------------------------------------------------------------------------
-        // To encourage the use of RFCBytes, these methods will not be extension methods. 
-        //---------------------------------------------------------------------------------------------------------
-
         /// <summary>
         /// Gets the little endian encoded bytes.
         /// </summary>
         /// <param name="guid">the <see cref="Guid"/> to serialize</param>
         /// <returns>A <see cref="byte"/>[] that represents a big endian encoded Guid.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static byte[] ToLittleEndianBytes(Guid guid)
+        public static byte[] ToLittleEndianBytes(this Guid guid)
         {
             byte[] rv = new byte[16];
             CopyLittleEndianBytes(guid, rv, 0);
@@ -260,7 +252,7 @@ namespace gemstone
         /// <param name="buffer">where to store the <paramref name="guid"/></param>
         /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static int CopyLittleEndianBytes(Guid guid, byte[] buffer, int startingIndex)
+        public static int CopyLittleEndianBytes(this Guid guid, byte[] buffer, int startingIndex)
         {
             buffer.ValidateParameters(startingIndex, 16);
             fixed (byte* dst = &buffer[startingIndex])
@@ -272,7 +264,7 @@ namespace gemstone
         /// </summary>
         /// <param name="guid">the <see cref="Guid"/> to serialize</param>
         /// <param name="buffer">where to store the <paramref name="guid"/></param>
-        public static int CopyLittleEndianBytes(Guid guid, byte* buffer)
+        public static int CopyLittleEndianBytes(this Guid guid, byte* buffer)
         {
             byte* src = (byte*)&guid;
             if (BitConverter.IsLittleEndian)
@@ -306,7 +298,7 @@ namespace gemstone
         /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Guid ToLittleEndianGuid(byte[] buffer)
+        public static Guid ToLittleEndianGuid(this byte[] buffer)
         {
             buffer.ValidateParameters(0, 16);
             fixed (byte* src = buffer)
@@ -320,7 +312,7 @@ namespace gemstone
         /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Guid ToLittleEndianGuid(byte[] buffer, int startingIndex)
+        public static Guid ToLittleEndianGuid(this byte[] buffer, int startingIndex)
         {
             buffer.ValidateParameters(startingIndex, 16);
             fixed (byte* src = &buffer[startingIndex])
@@ -362,165 +354,5 @@ namespace gemstone
         }
 
         #endregion
-
-        //---------------------------------------------------------------------------------------------------------
-        // Obsolete methods for compatibility with incorrectly implemented old code in EndianOrder's Guid methods
-        // EndianOrder's encoding methods were not architecture independent. Therefore, the little endian
-        // Architecture was assumed and these methods were deprecated
-        //---------------------------------------------------------------------------------------------------------
-
-        /// <summary>
-        /// Mimicks the encoding that was present in BigEndianOrder. 
-        /// </summary>
-        /// <param name="guid">the <see cref="Guid"/> to serialize</param>
-        /// <returns>A <see cref="byte"/>[] that represents a big endian encoded Guid.</returns>
-        [Obsolete("This method is for backwards compatibility only. Use ToRfcBytes from now on.", false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static byte[] __ToBigEndianOrderBytes(Guid guid)
-        {
-            byte[] rv = new byte[16];
-            __ToBigEndianOrderBytes(guid, rv, 0);
-            return rv;
-        }
-
-        /// <summary>
-        /// Mimicks the encoding that was present in BigEndianOrder. 
-        /// </summary>
-        /// <param name="guid">the <see cref="Guid"/> to serialize</param>
-        /// <param name="buffer">where to store the <paramref name="guid"/></param>
-        /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
-        [Obsolete("This method is for backwards compatibility only. Use ToRfcBytes from now on.", false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static int __ToBigEndianOrderBytes(Guid guid, byte[] buffer, int startingIndex)
-        {
-            buffer.ValidateParameters(startingIndex, 16);
-
-            byte* src = (byte*)&guid;
-            fixed (byte* dst = &buffer[startingIndex])
-            {
-                if (BitConverter.IsLittleEndian)
-                {
-                    dst[15] = src[0];
-                    dst[14] = src[1];
-                    dst[13] = src[2];
-                    dst[12] = src[3];
-                    dst[11] = src[4];
-                    dst[10] = src[5];
-                    dst[9] = src[6];
-                    dst[8] = src[7];
-                    dst[7] = src[8];
-                    dst[6] = src[9];
-                    dst[5] = src[10];
-                    dst[4] = src[11];
-                    dst[3] = src[12];
-                    dst[2] = src[13];
-                    dst[1] = src[14];
-                    dst[0] = src[15];
-                }
-                else
-                {
-                    //Guid._a (int)  //swap endian
-                    dst[15] = src[3];
-                    dst[14] = src[2];
-                    dst[13] = src[1];
-                    dst[12] = src[0];
-                    //Guid._b (short) //swap endian
-                    dst[11] = src[5];
-                    dst[10] = src[4];
-                    //Guid._c (short) //swap endian
-                    dst[9] = src[7];
-                    dst[8] = src[6];
-                    //Guid._d - Guid._k (8 bytes)
-                    dst[7] = src[8];
-                    dst[6] = src[9];
-                    dst[5] = src[10];
-                    dst[4] = src[11];
-                    dst[3] = src[12];
-                    dst[2] = src[13];
-                    dst[1] = src[14];
-                    dst[0] = src[15];
-                }
-            }
-            return 16;
-        }
-
-        /// <summary>
-        /// Mimicks the encoding that was present in BigEndianOrder. 
-        /// </summary>
-        /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
-        /// <returns></returns>
-        [Obsolete("This method is for backwards compatibility only. Use ToRfcGuid from now on.", false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Guid __ToBigEndianOrderGuid(byte[] buffer)
-        {
-            return __ToBigEndianOrderGuid(buffer, 0);
-        }
-
-        /// <summary>
-        /// Mimicks the encoding that was present in BigEndianOrder. 
-        /// </summary>
-        /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
-        /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
-        /// <returns></returns>
-        [Obsolete("This method is for backwards compatibility only. Use ToRfcGuid from now on.", false)]
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public static Guid __ToBigEndianOrderGuid(byte[] buffer, int startingIndex)
-        {
-            buffer.ValidateParameters(startingIndex, 16);
-
-            Guid rv;
-            byte* dst = (byte*)&rv;
-            fixed (byte* src = &buffer[startingIndex])
-            {
-                if (BitConverter.IsLittleEndian)
-                {
-                    dst[15] = src[0];
-                    dst[14] = src[1];
-                    dst[13] = src[2];
-                    dst[12] = src[3];
-                    dst[11] = src[4];
-                    dst[10] = src[5];
-                    dst[9] = src[6];
-                    dst[8] = src[7];
-                    dst[7] = src[8];
-                    dst[6] = src[9];
-                    dst[5] = src[10];
-                    dst[4] = src[11];
-                    dst[3] = src[12];
-                    dst[2] = src[13];
-                    dst[1] = src[14];
-                    dst[0] = src[15];
-                }
-                else
-                {
-                    //ToDo: Test this on a big endian architecture.
-
-                    //Guid._a (int)  //swap endian
-                    dst[15] = src[3];
-                    dst[14] = src[2];
-                    dst[13] = src[1];
-                    dst[12] = src[0];
-                    //Guid._b (short) //swap endian
-                    dst[11] = src[5];
-                    dst[10] = src[4];
-                    //Guid._c (short) //swap endian
-                    dst[9] = src[7];
-                    dst[8] = src[6];
-                    //Guid._d - Guid._k (8 bytes)
-                    dst[7] = src[8];
-                    dst[6] = src[9];
-                    dst[5] = src[10];
-                    dst[4] = src[11];
-                    dst[3] = src[12];
-                    dst[2] = src[13];
-                    dst[1] = src[14];
-                    dst[0] = src[15];
-                }
-                return rv;
-            }
-        }
-
-
-      
     }
 }

@@ -1,7 +1,7 @@
-//******************************************************************************************************
-//  AssemblyLoadedVersionNumber.cs - Gbtc
+﻿//******************************************************************************************************
+//  Standard.cs - Gbtc
 //
-//  Copyright � 2016, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2012, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,34 +16,22 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  11/19/2016 - Steven E. Chisholm
+//  07/16/2009 - J. Ritchie Carroll
 //       Generated original version of source code.
+//  09/14/2009 - Stephen C. Wills
+//       Added new header and license agreement.
+//  12/14/2012 - Starlynn Danyelle Gilliam
+//       Modified Header.
 //
 //******************************************************************************************************
 
-using System;
-using System.Threading;
-
-namespace gemstone.reflection
+namespace gemstone.security.cryptography
 {
     /// <summary>
-    /// Maintains a version number that increments every time an <see cref="AppDomain"/> AssemblyLoad event is raised.
+    /// This class is used internally do define a standard buffer size.
     /// </summary>
-    public static class AssemblyLoadedVersionNumber
+    internal static class Standard
     {
-        private static int s_versionNumber;
-
-        /// <summary>
-        /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
-        /// </summary>
-        public static int VersionNumber => s_versionNumber;
-
-        static AssemblyLoadedVersionNumber()
-        {
-            s_versionNumber = 1;
-            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
-        }
-
-        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args) => Interlocked.Increment(ref s_versionNumber);
+        public const int BufferSize = 262144; // 256K
     }
 }

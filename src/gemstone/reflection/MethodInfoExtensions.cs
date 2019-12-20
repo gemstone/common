@@ -50,27 +50,27 @@ namespace gemstone.reflection
 
             lock (s_compiledCallbacks)
             {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // void Fun(object obj)
-                    // {
-                    //    ((NativeType)obj.Method();
-                    // }
+                if (s_compiledCallbacks.TryGetValue(method, out callback))
+                    return (Action<object>)callback;
 
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    Expression targetType = null;
+                // Creates method
+                // void Fun(object obj)
+                // {
+                //    ((NativeType)obj.Method();
+                // }
 
-                    if (!method.IsStatic)
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                Expression targetType = null;
 
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method);
-                    callback = Expression.Lambda<Action<object>>(methodCall, paramTargetObj).Compile();
+                if (!method.IsStatic)
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
-                    s_compiledCallbacks.Add(method, callback);
-                }
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method);
+                callback = Expression.Lambda<Action<object>>(methodCall, paramTargetObj).Compile();
+
+                s_compiledCallbacks.Add(method, callback);
             }
 
             return (Action<object>)callback;
@@ -228,7 +228,6 @@ namespace gemstone.reflection
             }
 
             return (Func<object, TResult>)callback;
-
         }
 
         /// <summary>
@@ -296,7 +295,7 @@ namespace gemstone.reflection
 
                     if (!method.IsStatic)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
-                    
+
                     // Call items
                     Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2);
                     callback = Expression.Lambda<Func<object, T1, T2, TResult>>(methodCall, paramTargetObj, paramT1, paramT2).Compile();

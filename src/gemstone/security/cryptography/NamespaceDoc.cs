@@ -1,7 +1,7 @@
-//******************************************************************************************************
-//  AssemblyLoadedVersionNumber.cs - Gbtc
+﻿//******************************************************************************************************
+//  NamespaceDoc.cs - Gbtc
 //
-//  Copyright � 2016, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2012, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,34 +16,23 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  11/19/2016 - Steven E. Chisholm
+//  09/29/2009 - Pinal C. Patel
 //       Generated original version of source code.
+//  12/14/2012 - Starlynn Danyelle Gilliam
+//       Modified Header.
 //
 //******************************************************************************************************
 
-using System;
-using System.Threading;
+using System.Runtime.CompilerServices;
 
-namespace gemstone.reflection
+namespace gemstone.security.cryptography
 {
     /// <summary>
-    /// Maintains a version number that increments every time an <see cref="AppDomain"/> AssemblyLoad event is raised.
+    /// Contains classes and extension functions used to simplify and standardize usage of basic cryptography using a combination 
+    /// of standard and proprietary encryption algorithms to produce decent obfuscations of strings, buffers and streams of data.
     /// </summary>
-    public static class AssemblyLoadedVersionNumber
+    [CompilerGenerated]
+    class NamespaceDoc
     {
-        private static int s_versionNumber;
-
-        /// <summary>
-        /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
-        /// </summary>
-        public static int VersionNumber => s_versionNumber;
-
-        static AssemblyLoadedVersionNumber()
-        {
-            s_versionNumber = 1;
-            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
-        }
-
-        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args) => Interlocked.Increment(ref s_versionNumber);
     }
 }

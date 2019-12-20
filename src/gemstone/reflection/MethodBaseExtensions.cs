@@ -39,7 +39,7 @@ namespace gemstone.reflection
         /// <returns>Friendly method name of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
         public static string GetFriendlyMethodName(this MethodBase method)
         {
-            if ((object)method == null)
+            if (method == null)
                 return string.Empty;
 
             bool appendComma;
