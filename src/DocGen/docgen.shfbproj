@@ -91,7 +91,7 @@
       </PlugInConfig>
     </PlugInConfigurations>
     <DocumentationSources>
-      <DocumentationSource sourceFile="..\gemstone.common\gemstone.common.csproj" />
+      <DocumentationSource sourceFile="..\gemstone\gemstone.common.csproj" />
     </DocumentationSources>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
     <HelpTitle>Gemstone Common Library</HelpTitle>

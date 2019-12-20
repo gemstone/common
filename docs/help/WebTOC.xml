@@ -1,11 +1,952 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <HelpTOC>
 
-  <HelpTOCNode Id="6a33f735-81b0-4b02-b979-c420b2244d0b" Title="gemstone" Url="html/gemstone.htm">
-    <HelpTOCNode Id="59686b6e-417a-47b4-aa5d-1de1951fe5be" Title="gemstone.common" Url="html/N_gemstone_common.htm">
-      <HelpTOCNode Id="5d3af4e2-ab39-40ba-8afe-059b5d2b5dca" Title="Class Class" Url="html/T_gemstone_common_Class.htm">
-        <HelpTOCNode Title="Class Constructor " Url="html/M_gemstone_common_Class__ctor.htm" />
-        <HelpTOCNode Title="Class Methods" Url="html/Methods_T_gemstone_common_Class.htm" />
+  <HelpTOCNode Id="cb9f2c40-320a-46da-ad66-fac583bf04ac" Title="gemstone" Url="html/gemstone.htm">
+    <HelpTOCNode Id="ae4148ea-b3d9-4245-88a8-85dac67824fe" Title="gemstone" Url="html/N_gemstone.htm">
+      <HelpTOCNode Id="feb9a667-5f9f-4e1c-8556-fac626bea7ca" Title="ArrayExtensions Class" Url="html/T_gemstone_ArrayExtensions.htm">
+        <HelpTOCNode Id="bd37f1bb-cf99-4ad0-8568-dad3ea128360" Title="ArrayExtensions Methods" Url="html/Methods_T_gemstone_ArrayExtensions.htm">
+          <HelpTOCNode Title="BlockCopy(T) Method " Url="html/M_gemstone_ArrayExtensions_BlockCopy__1.htm" />
+          <HelpTOCNode Id="c1999543-e768-45b4-8de4-8ce82604704e" Title="Combine Method " Url="html/Overload_gemstone_ArrayExtensions_Combine.htm">
+            <HelpTOCNode Title="Combine Method (Byte[][])" Url="html/M_gemstone_ArrayExtensions_Combine_3.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[][])" Url="html/M_gemstone_ArrayExtensions_Combine__1_5.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[], T[])" Url="html/M_gemstone_ArrayExtensions_Combine__1_1.htm" />
+            <HelpTOCNode Title="Combine Method (Byte[], Byte[], Byte[])" Url="html/M_gemstone_ArrayExtensions_Combine.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[], T[], T[])" Url="html/M_gemstone_ArrayExtensions_Combine__1_2.htm" />
+            <HelpTOCNode Title="Combine Method (Byte[], Byte[], Byte[], Byte[])" Url="html/M_gemstone_ArrayExtensions_Combine_1.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[], T[], T[], T[])" Url="html/M_gemstone_ArrayExtensions_Combine__1_3.htm" />
+            <HelpTOCNode Title="Combine Method (Byte[], Byte[], Byte[], Byte[], Byte[])" Url="html/M_gemstone_ArrayExtensions_Combine_2.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[], T[], T[], T[], T[])" Url="html/M_gemstone_ArrayExtensions_Combine__1_4.htm" />
+            <HelpTOCNode Title="Combine(T) Method (T[], Int32, Int32, T[], Int32, Int32)" Url="html/M_gemstone_ArrayExtensions_Combine__1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="d603fc36-93f6-43b9-a005-768ff658b7cf" Title="CompareTo Method " Url="html/Overload_gemstone_ArrayExtensions_CompareTo.htm">
+            <HelpTOCNode Title="CompareTo(T) Method (T[], T[])" Url="html/M_gemstone_ArrayExtensions_CompareTo__1_1.htm" />
+            <HelpTOCNode Title="CompareTo(T) Method (T[], Int32, T[], Int32, Int32)" Url="html/M_gemstone_ArrayExtensions_CompareTo__1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="c9aa13c4-f479-47ac-8b7d-c2d732c47f40" Title="IndexOfSequence Method " Url="html/Overload_gemstone_ArrayExtensions_IndexOfSequence.htm">
+            <HelpTOCNode Title="IndexOfSequence(T) Method (T[], T[])" Url="html/M_gemstone_ArrayExtensions_IndexOfSequence__1.htm" />
+            <HelpTOCNode Title="IndexOfSequence(T) Method (T[], T[], Int32)" Url="html/M_gemstone_ArrayExtensions_IndexOfSequence__1_1.htm" />
+            <HelpTOCNode Title="IndexOfSequence(T) Method (T[], T[], Int32, Int32)" Url="html/M_gemstone_ArrayExtensions_IndexOfSequence__1_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="1093953b-6284-4279-9cf8-681c6d345251" Title="ReadStructure Method " Url="html/Overload_gemstone_ArrayExtensions_ReadStructure.htm">
+            <HelpTOCNode Title="ReadStructure(T) Method (Byte[])" Url="html/M_gemstone_ArrayExtensions_ReadStructure__1.htm" />
+            <HelpTOCNode Title="ReadStructure(T) Method (BinaryReader)" Url="html/M_gemstone_ArrayExtensions_ReadStructure__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ValidateParameters(T) Method " Url="html/M_gemstone_ArrayExtensions_ValidateParameters__1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="29172b4b-2858-48b3-bacb-e4b0bac882f7" Title="BitMath Class" Url="html/T_gemstone_BitMath.htm">
+        <HelpTOCNode Id="6d319e30-7521-4e73-b506-9bf20b52a5e2" Title="BitMath Methods" Url="html/Methods_T_gemstone_BitMath.htm">
+          <HelpTOCNode Id="4b00da96-eda8-48db-9043-d2f98874e566" Title="CountBitsCleared Method " Url="html/Overload_gemstone_BitMath_CountBitsCleared.htm">
+            <HelpTOCNode Title="CountBitsCleared Method (UInt32)" Url="html/M_gemstone_BitMath_CountBitsCleared.htm" />
+            <HelpTOCNode Title="CountBitsCleared Method (UInt64)" Url="html/M_gemstone_BitMath_CountBitsCleared_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="e56dad9e-8c65-4f75-97ea-f26666ffa46e" Title="CountBitsSet Method " Url="html/Overload_gemstone_BitMath_CountBitsSet.htm">
+            <HelpTOCNode Title="CountBitsSet Method (UInt32)" Url="html/M_gemstone_BitMath_CountBitsSet.htm" />
+            <HelpTOCNode Title="CountBitsSet Method (UInt64)" Url="html/M_gemstone_BitMath_CountBitsSet_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="8617f628-a76a-4c46-b43c-3dc6b264bbe0" Title="CountLeadingOnes Method " Url="html/Overload_gemstone_BitMath_CountLeadingOnes.htm">
+            <HelpTOCNode Title="CountLeadingOnes Method (UInt32)" Url="html/M_gemstone_BitMath_CountLeadingOnes.htm" />
+            <HelpTOCNode Title="CountLeadingOnes Method (UInt64)" Url="html/M_gemstone_BitMath_CountLeadingOnes_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="297dc620-3ee8-4b5a-9ffe-c2e4d0f1dff0" Title="CountLeadingZeros Method " Url="html/Overload_gemstone_BitMath_CountLeadingZeros.htm">
+            <HelpTOCNode Title="CountLeadingZeros Method (UInt32)" Url="html/M_gemstone_BitMath_CountLeadingZeros.htm" />
+            <HelpTOCNode Title="CountLeadingZeros Method (UInt64)" Url="html/M_gemstone_BitMath_CountLeadingZeros_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="7a8feacb-49db-4f88-b91c-dcfca958e630" Title="CountTrailingOnes Method " Url="html/Overload_gemstone_BitMath_CountTrailingOnes.htm">
+            <HelpTOCNode Title="CountTrailingOnes Method (UInt32)" Url="html/M_gemstone_BitMath_CountTrailingOnes.htm" />
+            <HelpTOCNode Title="CountTrailingOnes Method (UInt64)" Url="html/M_gemstone_BitMath_CountTrailingOnes_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="84b81b53-54bf-47e5-80e1-9b78c2761036" Title="CountTrailingZeros Method " Url="html/Overload_gemstone_BitMath_CountTrailingZeros.htm">
+            <HelpTOCNode Title="CountTrailingZeros Method (UInt32)" Url="html/M_gemstone_BitMath_CountTrailingZeros.htm" />
+            <HelpTOCNode Title="CountTrailingZeros Method (UInt64)" Url="html/M_gemstone_BitMath_CountTrailingZeros_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="CreateBitMask Method " Url="html/M_gemstone_BitMath_CreateBitMask.htm" />
+          <HelpTOCNode Id="0627f58f-ca49-4809-a578-c4a3a761e9e6" Title="GetClearedBitPositions Method " Url="html/Overload_gemstone_BitMath_GetClearedBitPositions.htm">
+            <HelpTOCNode Title="GetClearedBitPositions Method (UInt32)" Url="html/M_gemstone_BitMath_GetClearedBitPositions.htm" />
+            <HelpTOCNode Title="GetClearedBitPositions Method (UInt64)" Url="html/M_gemstone_BitMath_GetClearedBitPositions_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="636ba37d-ddaa-4067-a714-c11b09095792" Title="GetSetBitPositions Method " Url="html/Overload_gemstone_BitMath_GetSetBitPositions.htm">
+            <HelpTOCNode Title="GetSetBitPositions Method (UInt32)" Url="html/M_gemstone_BitMath_GetSetBitPositions.htm" />
+            <HelpTOCNode Title="GetSetBitPositions Method (UInt64)" Url="html/M_gemstone_BitMath_GetSetBitPositions_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="4f041d18-b738-41bc-9cce-059f36e2db6e" Title="IsPowerOfTwo Method " Url="html/Overload_gemstone_BitMath_IsPowerOfTwo.htm">
+            <HelpTOCNode Title="IsPowerOfTwo Method (Int32)" Url="html/M_gemstone_BitMath_IsPowerOfTwo.htm" />
+            <HelpTOCNode Title="IsPowerOfTwo Method (Int64)" Url="html/M_gemstone_BitMath_IsPowerOfTwo_1.htm" />
+            <HelpTOCNode Title="IsPowerOfTwo Method (UInt32)" Url="html/M_gemstone_BitMath_IsPowerOfTwo_2.htm" />
+            <HelpTOCNode Title="IsPowerOfTwo Method (UInt64)" Url="html/M_gemstone_BitMath_IsPowerOfTwo_3.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="f18f6afd-a1e9-4994-a540-7c7f43344369" Title="RoundDownToNearestPowerOfTwo Method " Url="html/Overload_gemstone_BitMath_RoundDownToNearestPowerOfTwo.htm">
+            <HelpTOCNode Title="RoundDownToNearestPowerOfTwo Method (UInt32)" Url="html/M_gemstone_BitMath_RoundDownToNearestPowerOfTwo.htm" />
+            <HelpTOCNode Title="RoundDownToNearestPowerOfTwo Method (UInt64)" Url="html/M_gemstone_BitMath_RoundDownToNearestPowerOfTwo_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="b81bb105-49da-4287-b425-b529286e94c8" Title="RoundUpToNearestPowerOfTwo Method " Url="html/Overload_gemstone_BitMath_RoundUpToNearestPowerOfTwo.htm">
+            <HelpTOCNode Title="RoundUpToNearestPowerOfTwo Method (UInt32)" Url="html/M_gemstone_BitMath_RoundUpToNearestPowerOfTwo.htm" />
+            <HelpTOCNode Title="RoundUpToNearestPowerOfTwo Method (UInt64)" Url="html/M_gemstone_BitMath_RoundUpToNearestPowerOfTwo_1.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="8d7c09db-3b56-4e55-9b09-076c648f3efa" Title="CharExtensions Class" Url="html/T_gemstone_CharExtensions.htm">
+        <HelpTOCNode Id="c2fbac3c-7dfc-469d-94cb-3495c5720185" Title="CharExtensions Methods" Url="html/Methods_T_gemstone_CharExtensions.htm">
+          <HelpTOCNode Title="ConvertHexToBitArray Method " Url="html/M_gemstone_CharExtensions_ConvertHexToBitArray.htm" />
+          <HelpTOCNode Title="ConvertHexToInt Method " Url="html/M_gemstone_CharExtensions_ConvertHexToInt.htm" />
+          <HelpTOCNode Title="IsAnyOf Method " Url="html/M_gemstone_CharExtensions_IsAnyOf.htm" />
+          <HelpTOCNode Title="IsHex Method " Url="html/M_gemstone_CharExtensions_IsHex.htm" />
+          <HelpTOCNode Title="IsInRange Method " Url="html/M_gemstone_CharExtensions_IsInRange.htm" />
+          <HelpTOCNode Title="IsNumeric Method " Url="html/M_gemstone_CharExtensions_IsNumeric.htm" />
+          <HelpTOCNode Title="IsWordTerminator Method " Url="html/M_gemstone_CharExtensions_IsWordTerminator.htm" />
+          <HelpTOCNode Title="RegexEncode Method " Url="html/M_gemstone_CharExtensions_RegexEncode.htm" />
+          <HelpTOCNode Title="ToLower Method " Url="html/M_gemstone_CharExtensions_ToLower.htm" />
+          <HelpTOCNode Title="ToUpper Method " Url="html/M_gemstone_CharExtensions_ToUpper.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="1e8b85cf-3219-46b7-8085-3dae542c6af2" Title="Common Class" Url="html/T_gemstone_Common.htm">
+        <HelpTOCNode Id="c1d78366-ba7b-43c8-9539-0ae9998937b6" Title="Common Methods" Url="html/Methods_T_gemstone_Common.htm">
+          <HelpTOCNode Id="54319846-9cff-4f90-92c8-696ec867ed21" Title="CreateArray Method " Url="html/Overload_gemstone_Common_CreateArray.htm">
+            <HelpTOCNode Title="CreateArray(T) Method (Int32)" Url="html/M_gemstone_Common_CreateArray__1.htm" />
+            <HelpTOCNode Title="CreateArray(T) Method (Int32, T)" Url="html/M_gemstone_Common_CreateArray__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="GetOSPlatformID Method " Url="html/M_gemstone_Common_GetOSPlatformID.htm" />
+          <HelpTOCNode Title="GetOSProductName Method " Url="html/M_gemstone_Common_GetOSProductName.htm" />
+          <HelpTOCNode Title="IIf(T) Method " Url="html/M_gemstone_Common_IIf__1.htm" />
+          <HelpTOCNode Title="IsDefaultValue Method " Url="html/M_gemstone_Common_IsDefaultValue.htm" />
+          <HelpTOCNode Title="IsNonStringReference Method " Url="html/M_gemstone_Common_IsNonStringReference.htm" />
+          <HelpTOCNode Title="IsNumeric Method " Url="html/M_gemstone_Common_IsNumeric.htm" />
+          <HelpTOCNode Id="11ff9897-5f6f-44e5-b0e8-c1afc043a319" Title="IsNumericType Method " Url="html/Overload_gemstone_Common_IsNumericType.htm">
+            <HelpTOCNode Title="IsNumericType(T) Method " Url="html/M_gemstone_Common_IsNumericType__1.htm" />
+            <HelpTOCNode Title="IsNumericType Method (Object)" Url="html/M_gemstone_Common_IsNumericType.htm" />
+            <HelpTOCNode Title="IsNumericType Method (Type)" Url="html/M_gemstone_Common_IsNumericType_1.htm" />
+            <HelpTOCNode Title="IsNumericType Method (TypeCode)" Url="html/M_gemstone_Common_IsNumericType_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="IsReference Method " Url="html/M_gemstone_Common_IsReference.htm" />
+          <HelpTOCNode Title="Max(T) Method " Url="html/M_gemstone_Common_Max__1.htm" />
+          <HelpTOCNode Title="Mid(T) Method " Url="html/M_gemstone_Common_Mid__1.htm" />
+          <HelpTOCNode Title="Min(T) Method " Url="html/M_gemstone_Common_Min__1.htm" />
+          <HelpTOCNode Title="ToNonNullNorEmptyString(T) Method " Url="html/M_gemstone_Common_ToNonNullNorEmptyString__1.htm" />
+          <HelpTOCNode Title="ToNonNullNorWhiteSpace(T) Method " Url="html/M_gemstone_Common_ToNonNullNorWhiteSpace__1.htm" />
+          <HelpTOCNode Id="f6b8a05b-1f2e-444d-822f-f2452ccaf4b6" Title="ToNonNullString Method " Url="html/Overload_gemstone_Common_ToNonNullString.htm">
+            <HelpTOCNode Title="ToNonNullString Method (String)" Url="html/M_gemstone_Common_ToNonNullString.htm" />
+            <HelpTOCNode Title="ToNonNullString(T) Method (T)" Url="html/M_gemstone_Common_ToNonNullString__1.htm" />
+            <HelpTOCNode Title="ToNonNullString(T) Method (T, String)" Url="html/M_gemstone_Common_ToNonNullString__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="ed9ff6d8-eb8d-42ad-a4f4-dface6e067af" Title="TypeConvertFromString Method " Url="html/Overload_gemstone_Common_TypeConvertFromString.htm">
+            <HelpTOCNode Title="TypeConvertFromString Method (String, Type)" Url="html/M_gemstone_Common_TypeConvertFromString.htm" />
+            <HelpTOCNode Title="TypeConvertFromString Method (String, Type, CultureInfo)" Url="html/M_gemstone_Common_TypeConvertFromString_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="63e34e36-5880-4f29-900c-3bcda0406fd8" Title="TypeConvertToString Method " Url="html/Overload_gemstone_Common_TypeConvertToString.htm">
+            <HelpTOCNode Title="TypeConvertToString Method (Object)" Url="html/M_gemstone_Common_TypeConvertToString.htm" />
+            <HelpTOCNode Title="TypeConvertToString Method (Object, CultureInfo)" Url="html/M_gemstone_Common_TypeConvertToString_1.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+        <HelpTOCNode Id="28b7e048-77cd-4764-90ff-751e9fd0aa85" Title="Common Fields" Url="html/Fields_T_gemstone_Common.htm">
+          <HelpTOCNode Title="IsMono Field" Url="html/F_gemstone_Common_IsMono.htm" />
+          <HelpTOCNode Title="IsPosixEnvironment Field" Url="html/F_gemstone_Common_IsPosixEnvironment.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="68992a52-4517-48c1-96c3-f4b4926a15cc" Title="DateTimeExtensions Class" Url="html/T_gemstone_DateTimeExtensions.htm">
+        <HelpTOCNode Id="6a7ded2e-a6f8-4b02-9fdc-a427f8182295" Title="DateTimeExtensions Methods" Url="html/Methods_T_gemstone_DateTimeExtensions.htm">
+          <HelpTOCNode Title="AbbreviatedMonthName Method " Url="html/M_gemstone_DateTimeExtensions_AbbreviatedMonthName.htm" />
+          <HelpTOCNode Title="AbbreviatedWeekdayName Method " Url="html/M_gemstone_DateTimeExtensions_AbbreviatedWeekdayName.htm" />
+          <HelpTOCNode Id="9b673f1d-c198-46cd-9b9d-a8d4860300bc" Title="LocalTimeTo Method " Url="html/Overload_gemstone_DateTimeExtensions_LocalTimeTo.htm">
+            <HelpTOCNode Title="LocalTimeTo Method (DateTime, String)" Url="html/M_gemstone_DateTimeExtensions_LocalTimeTo.htm" />
+            <HelpTOCNode Title="LocalTimeTo Method (DateTime, TimeZoneInfo)" Url="html/M_gemstone_DateTimeExtensions_LocalTimeTo_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="LocalTimeToCentralTime Method " Url="html/M_gemstone_DateTimeExtensions_LocalTimeToCentralTime.htm" />
+          <HelpTOCNode Title="LocalTimeToEasternTime Method " Url="html/M_gemstone_DateTimeExtensions_LocalTimeToEasternTime.htm" />
+          <HelpTOCNode Title="LocalTimeToMountainTime Method " Url="html/M_gemstone_DateTimeExtensions_LocalTimeToMountainTime.htm" />
+          <HelpTOCNode Title="LocalTimeToPacificTime Method " Url="html/M_gemstone_DateTimeExtensions_LocalTimeToPacificTime.htm" />
+          <HelpTOCNode Title="LocalTimeToUniversalTime Method " Url="html/M_gemstone_DateTimeExtensions_LocalTimeToUniversalTime.htm" />
+          <HelpTOCNode Title="MonthName Method " Url="html/M_gemstone_DateTimeExtensions_MonthName.htm" />
+          <HelpTOCNode Title="ShortWeekdayName Method " Url="html/M_gemstone_DateTimeExtensions_ShortWeekdayName.htm" />
+          <HelpTOCNode Id="79732f12-16ac-4e12-89d0-94e0d704aeba" Title="TimeZoneToTimeZone Method " Url="html/Overload_gemstone_DateTimeExtensions_TimeZoneToTimeZone.htm">
+            <HelpTOCNode Title="TimeZoneToTimeZone Method (DateTime, String, String)" Url="html/M_gemstone_DateTimeExtensions_TimeZoneToTimeZone.htm" />
+            <HelpTOCNode Title="TimeZoneToTimeZone Method (DateTime, TimeZoneInfo, TimeZoneInfo)" Url="html/M_gemstone_DateTimeExtensions_TimeZoneToTimeZone_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="ae47d9b4-4e7e-482c-8967-ee1f065524fd" Title="UniversalTimeTo Method " Url="html/Overload_gemstone_DateTimeExtensions_UniversalTimeTo.htm">
+            <HelpTOCNode Title="UniversalTimeTo Method (DateTime, String)" Url="html/M_gemstone_DateTimeExtensions_UniversalTimeTo.htm" />
+            <HelpTOCNode Title="UniversalTimeTo Method (DateTime, TimeZoneInfo)" Url="html/M_gemstone_DateTimeExtensions_UniversalTimeTo_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="UniversalTimeToCentralTime Method " Url="html/M_gemstone_DateTimeExtensions_UniversalTimeToCentralTime.htm" />
+          <HelpTOCNode Title="UniversalTimeToEasternTime Method " Url="html/M_gemstone_DateTimeExtensions_UniversalTimeToEasternTime.htm" />
+          <HelpTOCNode Title="UniversalTimeToMountainTime Method " Url="html/M_gemstone_DateTimeExtensions_UniversalTimeToMountainTime.htm" />
+          <HelpTOCNode Title="UniversalTimeToPacificTime Method " Url="html/M_gemstone_DateTimeExtensions_UniversalTimeToPacificTime.htm" />
+          <HelpTOCNode Title="WeekdayName Method " Url="html/M_gemstone_DateTimeExtensions_WeekdayName.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Title="EnabledState Enumeration" Url="html/T_gemstone_EnabledState.htm" />
+      <HelpTOCNode Id="f9782464-ffdd-41f9-bdf3-870714814021" Title="Encoding7Bit Class" Url="html/T_gemstone_Encoding7Bit.htm">
+        <HelpTOCNode Id="56723484-bacb-4504-ab19-4fedcc96a865" Title="Encoding7Bit Methods" Url="html/Methods_T_gemstone_Encoding7Bit.htm">
+          <HelpTOCNode Id="c84c5b81-f740-4b46-83b9-54a4fe85b36e" Title="GetSize Method " Url="html/Overload_gemstone_Encoding7Bit_GetSize.htm">
+            <HelpTOCNode Title="GetSize Method (UInt32)" Url="html/M_gemstone_Encoding7Bit_GetSize.htm" />
+            <HelpTOCNode Title="GetSize Method (UInt64)" Url="html/M_gemstone_Encoding7Bit_GetSize_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="GetSizeInt15 Method " Url="html/M_gemstone_Encoding7Bit_GetSizeInt15.htm" />
+          <HelpTOCNode Id="4ab7b987-96e4-4911-a652-e727328bb1ca" Title="Measure15 Method " Url="html/Overload_gemstone_Encoding7Bit_Measure15.htm">
+            <HelpTOCNode Title="Measure15 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_Measure15.htm" />
+            <HelpTOCNode Title="Measure15 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_Measure15_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="MeasureInt15 Method " Url="html/M_gemstone_Encoding7Bit_MeasureInt15.htm" />
+          <HelpTOCNode Id="dc7636b9-1135-4942-934c-8cf14e5c961d" Title="MeasureUInt32 Method " Url="html/Overload_gemstone_Encoding7Bit_MeasureUInt32.htm">
+            <HelpTOCNode Title="MeasureUInt32 Method (Byte*)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt32.htm" />
+            <HelpTOCNode Title="MeasureUInt32 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt32_1.htm" />
+            <HelpTOCNode Title="MeasureUInt32 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt32_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="3f7447e5-2eb0-4bb2-9bf1-cc0b04ca7d33" Title="MeasureUInt64 Method " Url="html/Overload_gemstone_Encoding7Bit_MeasureUInt64.htm">
+            <HelpTOCNode Title="MeasureUInt64 Method (Byte*)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt64.htm" />
+            <HelpTOCNode Title="MeasureUInt64 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt64_1.htm" />
+            <HelpTOCNode Title="MeasureUInt64 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_MeasureUInt64_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="de54ecc0-2a4c-4d1b-80d9-8301ca689157" Title="ReadInt15 Method " Url="html/Overload_gemstone_Encoding7Bit_ReadInt15.htm">
+            <HelpTOCNode Title="ReadInt15 Method (Func(Byte))" Url="html/M_gemstone_Encoding7Bit_ReadInt15_2.htm" />
+            <HelpTOCNode Title="ReadInt15 Method (Stream)" Url="html/M_gemstone_Encoding7Bit_ReadInt15_3.htm" />
+            <HelpTOCNode Title="ReadInt15 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_ReadInt15.htm" />
+            <HelpTOCNode Title="ReadInt15 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_ReadInt15_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="d0ace27c-2490-47ef-842e-44390b18fa2e" Title="ReadUInt32 Method " Url="html/Overload_gemstone_Encoding7Bit_ReadUInt32.htm">
+            <HelpTOCNode Title="ReadUInt32 Method (Func(Byte))" Url="html/M_gemstone_Encoding7Bit_ReadUInt32_2.htm" />
+            <HelpTOCNode Title="ReadUInt32 Method (Stream)" Url="html/M_gemstone_Encoding7Bit_ReadUInt32_3.htm" />
+            <HelpTOCNode Title="ReadUInt32 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_ReadUInt32.htm" />
+            <HelpTOCNode Title="ReadUInt32 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_ReadUInt32_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="bd6370aa-4412-4bd6-9d8d-fe6c8f17eca2" Title="ReadUInt64 Method " Url="html/Overload_gemstone_Encoding7Bit_ReadUInt64.htm">
+            <HelpTOCNode Title="ReadUInt64 Method (Func(Byte))" Url="html/M_gemstone_Encoding7Bit_ReadUInt64_2.htm" />
+            <HelpTOCNode Title="ReadUInt64 Method (Stream)" Url="html/M_gemstone_Encoding7Bit_ReadUInt64_3.htm" />
+            <HelpTOCNode Title="ReadUInt64 Method (Byte*, Int32)" Url="html/M_gemstone_Encoding7Bit_ReadUInt64.htm" />
+            <HelpTOCNode Title="ReadUInt64 Method (Byte[], Int32)" Url="html/M_gemstone_Encoding7Bit_ReadUInt64_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="7c8a3c5a-4871-4414-887c-5af582cc971e" Title="Write Method " Url="html/Overload_gemstone_Encoding7Bit_Write.htm">
+            <HelpTOCNode Title="Write Method (Action(Byte), UInt32)" Url="html/M_gemstone_Encoding7Bit_Write.htm" />
+            <HelpTOCNode Title="Write Method (Action(Byte), UInt64)" Url="html/M_gemstone_Encoding7Bit_Write_1.htm" />
+            <HelpTOCNode Title="Write Method (Byte*, UInt32)" Url="html/M_gemstone_Encoding7Bit_Write_4.htm" />
+            <HelpTOCNode Title="Write Method (Byte*, UInt64)" Url="html/M_gemstone_Encoding7Bit_Write_5.htm" />
+            <HelpTOCNode Title="Write Method (Byte*, Int32, UInt32)" Url="html/M_gemstone_Encoding7Bit_Write_2.htm" />
+            <HelpTOCNode Title="Write Method (Byte*, Int32, UInt64)" Url="html/M_gemstone_Encoding7Bit_Write_3.htm" />
+            <HelpTOCNode Title="Write Method (Byte[], Int32, UInt32)" Url="html/M_gemstone_Encoding7Bit_Write_6.htm" />
+            <HelpTOCNode Title="Write Method (Byte[], Int32, UInt64)" Url="html/M_gemstone_Encoding7Bit_Write_7.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="aef03c9d-f9eb-44b2-a2a9-90b2fde720cc" Title="WriteInt15 Method " Url="html/Overload_gemstone_Encoding7Bit_WriteInt15.htm">
+            <HelpTOCNode Title="WriteInt15 Method (Action(Byte), Int16)" Url="html/M_gemstone_Encoding7Bit_WriteInt15.htm" />
+            <HelpTOCNode Title="WriteInt15 Method (Byte*, Int16)" Url="html/M_gemstone_Encoding7Bit_WriteInt15_1.htm" />
+            <HelpTOCNode Title="WriteInt15 Method (Byte*, Int32, Int16)" Url="html/M_gemstone_Encoding7Bit_WriteInt15_2.htm" />
+            <HelpTOCNode Title="WriteInt15 Method (Byte[], Int32, Int16)" Url="html/M_gemstone_Encoding7Bit_WriteInt15_3.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="d9140e6f-a34d-4fc5-baba-d51c773a92a1" Title="EnumExtensions Class" Url="html/T_gemstone_EnumExtensions.htm">
+        <HelpTOCNode Id="84755286-2e81-4399-aca5-b4b85d351881" Title="EnumExtensions Methods" Url="html/Methods_T_gemstone_EnumExtensions.htm">
+          <HelpTOCNode Title="GetDescription Method " Url="html/M_gemstone_EnumExtensions_GetDescription.htm" />
+          <HelpTOCNode Title="GetEnumValueByDescription Method " Url="html/M_gemstone_EnumExtensions_GetEnumValueByDescription.htm" />
+          <HelpTOCNode Title="GetEnumValueByName Method " Url="html/M_gemstone_EnumExtensions_GetEnumValueByName.htm" />
+          <HelpTOCNode Id="36f3181e-f3c3-4948-8920-6fabf9d3b686" Title="GetEnumValueOrDefault Method " Url="html/Overload_gemstone_EnumExtensions_GetEnumValueOrDefault.htm">
+            <HelpTOCNode Title="GetEnumValueOrDefault(T) Method (Object, Object)" Url="html/M_gemstone_EnumExtensions_GetEnumValueOrDefault__1.htm" />
+            <HelpTOCNode Title="GetEnumValueOrDefault Method (Object, Type, Object)" Url="html/M_gemstone_EnumExtensions_GetEnumValueOrDefault.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="GetFormattedName Method " Url="html/M_gemstone_EnumExtensions_GetFormattedName.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="20d35891-9747-47e3-be05-83984fd97930" Title="EventArgs(T) Class" Url="html/T_gemstone_EventArgs_1.htm">
+        <HelpTOCNode Id="e5b7f9f2-baba-491b-bbf0-3eedf5324219" Title="EventArgs(T) Constructor " Url="html/Overload_gemstone_EventArgs_1__ctor.htm">
+          <HelpTOCNode Title="EventArgs(T) Constructor " Url="html/M_gemstone_EventArgs_1__ctor.htm" />
+          <HelpTOCNode Title="EventArgs(T) Constructor (T)" Url="html/M_gemstone_EventArgs_1__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="EventArgs(T) Methods" Url="html/Methods_T_gemstone_EventArgs_1.htm" />
+        <HelpTOCNode Id="3f903c67-f608-4abe-bc58-7622cfcda87d" Title="EventArgs(T) Fields" Url="html/Fields_T_gemstone_EventArgs_1.htm">
+          <HelpTOCNode Title="Argument Field" Url="html/F_gemstone_EventArgs_1_Argument.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="2b527b1a-aff3-46ef-9e99-b68ac3ba58e3" Title="EventArgs(T1, T2) Class" Url="html/T_gemstone_EventArgs_2.htm">
+        <HelpTOCNode Id="2583a80b-1c09-4f1b-8d33-a631c8fa46b2" Title="EventArgs(T1, T2) Constructor " Url="html/Overload_gemstone_EventArgs_2__ctor.htm">
+          <HelpTOCNode Title="EventArgs(T1, T2) Constructor " Url="html/M_gemstone_EventArgs_2__ctor.htm" />
+          <HelpTOCNode Title="EventArgs(T1, T2) Constructor (T1, T2)" Url="html/M_gemstone_EventArgs_2__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="EventArgs(T1, T2) Methods" Url="html/Methods_T_gemstone_EventArgs_2.htm" />
+        <HelpTOCNode Id="f4aef868-52e2-4c05-a294-c97230d3dcaf" Title="EventArgs(T1, T2) Fields" Url="html/Fields_T_gemstone_EventArgs_2.htm">
+          <HelpTOCNode Title="Argument1 Field" Url="html/F_gemstone_EventArgs_2_Argument1.htm" />
+          <HelpTOCNode Title="Argument2 Field" Url="html/F_gemstone_EventArgs_2_Argument2.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="3bf7e965-1afb-4292-8723-8b73f23a898d" Title="EventArgs(T1, T2, T3) Class" Url="html/T_gemstone_EventArgs_3.htm">
+        <HelpTOCNode Id="b6c5b7f2-52c4-414e-b75d-842b052feb85" Title="EventArgs(T1, T2, T3) Constructor " Url="html/Overload_gemstone_EventArgs_3__ctor.htm">
+          <HelpTOCNode Title="EventArgs(T1, T2, T3) Constructor " Url="html/M_gemstone_EventArgs_3__ctor.htm" />
+          <HelpTOCNode Title="EventArgs(T1, T2, T3) Constructor (T1, T2, T3)" Url="html/M_gemstone_EventArgs_3__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="EventArgs(T1, T2, T3) Methods" Url="html/Methods_T_gemstone_EventArgs_3.htm" />
+        <HelpTOCNode Id="ed617fc6-1575-4ca3-a05b-d3fada781139" Title="EventArgs(T1, T2, T3) Fields" Url="html/Fields_T_gemstone_EventArgs_3.htm">
+          <HelpTOCNode Title="Argument1 Field" Url="html/F_gemstone_EventArgs_3_Argument1.htm" />
+          <HelpTOCNode Title="Argument2 Field" Url="html/F_gemstone_EventArgs_3_Argument2.htm" />
+          <HelpTOCNode Title="Argument3 Field" Url="html/F_gemstone_EventArgs_3_Argument3.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="1a3e59f5-190a-448b-b40d-5f23609c1ed6" Title="EventArgs(T1, T2, T3, T4) Class" Url="html/T_gemstone_EventArgs_4.htm">
+        <HelpTOCNode Id="a78740cb-2fc8-4c80-a36a-c5a61dea0ac5" Title="EventArgs(T1, T2, T3, T4) Constructor " Url="html/Overload_gemstone_EventArgs_4__ctor.htm">
+          <HelpTOCNode Title="EventArgs(T1, T2, T3, T4) Constructor " Url="html/M_gemstone_EventArgs_4__ctor.htm" />
+          <HelpTOCNode Title="EventArgs(T1, T2, T3, T4) Constructor (T1, T2, T3, T4)" Url="html/M_gemstone_EventArgs_4__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="EventArgs(T1, T2, T3, T4) Methods" Url="html/Methods_T_gemstone_EventArgs_4.htm" />
+        <HelpTOCNode Id="92dd8062-7a8a-4b94-a262-abce43e194d9" Title="EventArgs(T1, T2, T3, T4) Fields" Url="html/Fields_T_gemstone_EventArgs_4.htm">
+          <HelpTOCNode Title="Argument1 Field" Url="html/F_gemstone_EventArgs_4_Argument1.htm" />
+          <HelpTOCNode Title="Argument2 Field" Url="html/F_gemstone_EventArgs_4_Argument2.htm" />
+          <HelpTOCNode Title="Argument3 Field" Url="html/F_gemstone_EventArgs_4_Argument3.htm" />
+          <HelpTOCNode Title="Argument4 Field" Url="html/F_gemstone_EventArgs_4_Argument4.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="e16664f3-aaaf-459c-9753-bad99939ce46" Title="GuidExtensions Class" Url="html/T_gemstone_GuidExtensions.htm">
+        <HelpTOCNode Id="c7b83102-6e8e-423b-a74b-e06fc8916369" Title="GuidExtensions Methods" Url="html/Methods_T_gemstone_GuidExtensions.htm">
+          <HelpTOCNode Id="f54744d2-259e-45f1-be30-3b88ad509853" Title="CopyLittleEndianBytes Method " Url="html/Overload_gemstone_GuidExtensions_CopyLittleEndianBytes.htm">
+            <HelpTOCNode Title="CopyLittleEndianBytes Method (Guid, Byte*)" Url="html/M_gemstone_GuidExtensions_CopyLittleEndianBytes.htm" />
+            <HelpTOCNode Title="CopyLittleEndianBytes Method (Guid, Byte[], Int32)" Url="html/M_gemstone_GuidExtensions_CopyLittleEndianBytes_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ToLittleEndianBytes Method " Url="html/M_gemstone_GuidExtensions_ToLittleEndianBytes.htm" />
+          <HelpTOCNode Id="bf7b4e26-640b-49de-809a-2b9a615f5ad1" Title="ToLittleEndianGuid Method " Url="html/Overload_gemstone_GuidExtensions_ToLittleEndianGuid.htm">
+            <HelpTOCNode Title="ToLittleEndianGuid Method (Byte*)" Url="html/M_gemstone_GuidExtensions_ToLittleEndianGuid.htm" />
+            <HelpTOCNode Title="ToLittleEndianGuid Method (Byte[])" Url="html/M_gemstone_GuidExtensions_ToLittleEndianGuid_1.htm" />
+            <HelpTOCNode Title="ToLittleEndianGuid Method (Byte[], Int32)" Url="html/M_gemstone_GuidExtensions_ToLittleEndianGuid_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="9e133088-fa57-4514-8e2e-4543bef02cd8" Title="ToRfcBytes Method " Url="html/Overload_gemstone_GuidExtensions_ToRfcBytes.htm">
+            <HelpTOCNode Title="ToRfcBytes Method (Guid)" Url="html/M_gemstone_GuidExtensions_ToRfcBytes.htm" />
+            <HelpTOCNode Title="ToRfcBytes Method (Guid, Byte*)" Url="html/M_gemstone_GuidExtensions_ToRfcBytes_1.htm" />
+            <HelpTOCNode Title="ToRfcBytes Method (Guid, Byte[], Int32)" Url="html/M_gemstone_GuidExtensions_ToRfcBytes_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="3b384df8-b653-4310-b19d-319ed21e73a7" Title="ToRfcGuid Method " Url="html/Overload_gemstone_GuidExtensions_ToRfcGuid.htm">
+            <HelpTOCNode Title="ToRfcGuid Method (Byte*)" Url="html/M_gemstone_GuidExtensions_ToRfcGuid.htm" />
+            <HelpTOCNode Title="ToRfcGuid Method (Byte[])" Url="html/M_gemstone_GuidExtensions_ToRfcGuid_1.htm" />
+            <HelpTOCNode Title="ToRfcGuid Method (Byte[], Int32)" Url="html/M_gemstone_GuidExtensions_ToRfcGuid_2.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="5fe8ce4e-86db-45c8-b8df-4c62bb238282" Title="NullableWeakReference Class" Url="html/T_gemstone_NullableWeakReference.htm">
+        <HelpTOCNode Title="NullableWeakReference Constructor " Url="html/M_gemstone_NullableWeakReference__ctor.htm" />
+        <HelpTOCNode Id="2581bfa2-5ec8-4781-8d25-47bef9b483db" Title="NullableWeakReference Properties" Url="html/Properties_T_gemstone_NullableWeakReference.htm">
+          <HelpTOCNode Title="IsAlive Property " Url="html/P_gemstone_NullableWeakReference_IsAlive.htm" />
+          <HelpTOCNode Title="Target Property " Url="html/P_gemstone_NullableWeakReference_Target.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="0972c687-7245-4d1e-a0ab-cf2760b26a29" Title="NullableWeakReference Methods" Url="html/Methods_T_gemstone_NullableWeakReference.htm">
+          <HelpTOCNode Title="Clear Method " Url="html/M_gemstone_NullableWeakReference_Clear.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="6765ec5f-cc80-4cc3-a5e4-acf23dedfbf3" Title="StringExtensions Class" Url="html/T_gemstone_StringExtensions.htm">
+        <HelpTOCNode Id="d85ebfc3-3c05-487a-b6b7-bcdd3afea8e0" Title="StringExtensions Methods" Url="html/Methods_T_gemstone_StringExtensions.htm">
+          <HelpTOCNode Title="Base64Decode Method " Url="html/M_gemstone_StringExtensions_Base64Decode.htm" />
+          <HelpTOCNode Title="Base64Encode Method " Url="html/M_gemstone_StringExtensions_Base64Encode.htm" />
+          <HelpTOCNode Id="dae9e654-4e8c-4840-bbac-cb7208c7fd94" Title="CenterText Method " Url="html/Overload_gemstone_StringExtensions_CenterText.htm">
+            <HelpTOCNode Title="CenterText Method (String, Int32)" Url="html/M_gemstone_StringExtensions_CenterText.htm" />
+            <HelpTOCNode Title="CenterText Method (String, Int32, Char)" Url="html/M_gemstone_StringExtensions_CenterText_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="CharCount Method " Url="html/M_gemstone_StringExtensions_CharCount.htm" />
+          <HelpTOCNode Id="cc321ea8-050c-4512-883d-118c5beacad9" Title="ConvertToType Method " Url="html/Overload_gemstone_StringExtensions_ConvertToType.htm">
+            <HelpTOCNode Title="ConvertToType(T) Method (String)" Url="html/M_gemstone_StringExtensions_ConvertToType__1.htm" />
+            <HelpTOCNode Title="ConvertToType(T) Method (String, CultureInfo)" Url="html/M_gemstone_StringExtensions_ConvertToType__1_1.htm" />
+            <HelpTOCNode Title="ConvertToType Method (String, Type)" Url="html/M_gemstone_StringExtensions_ConvertToType.htm" />
+            <HelpTOCNode Title="ConvertToType Method (String, Type, CultureInfo)" Url="html/M_gemstone_StringExtensions_ConvertToType_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="6700353a-6ced-4f7c-9544-fa4fc8a898d7" Title="EnsureEnd Method " Url="html/Overload_gemstone_StringExtensions_EnsureEnd.htm">
+            <HelpTOCNode Title="EnsureEnd Method (String, Char)" Url="html/M_gemstone_StringExtensions_EnsureEnd.htm" />
+            <HelpTOCNode Title="EnsureEnd Method (String, String)" Url="html/M_gemstone_StringExtensions_EnsureEnd_2.htm" />
+            <HelpTOCNode Title="EnsureEnd Method (String, Char, Boolean)" Url="html/M_gemstone_StringExtensions_EnsureEnd_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="71a025c5-513c-484b-be5e-cd323502f93f" Title="EnsureStart Method " Url="html/Overload_gemstone_StringExtensions_EnsureStart.htm">
+            <HelpTOCNode Title="EnsureStart Method (String, Char)" Url="html/M_gemstone_StringExtensions_EnsureStart.htm" />
+            <HelpTOCNode Title="EnsureStart Method (String, String)" Url="html/M_gemstone_StringExtensions_EnsureStart_2.htm" />
+            <HelpTOCNode Title="EnsureStart Method (String, Char, Boolean)" Url="html/M_gemstone_StringExtensions_EnsureStart_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="GetComparer Method " Url="html/M_gemstone_StringExtensions_GetComparer.htm" />
+          <HelpTOCNode Title="GetSegments Method " Url="html/M_gemstone_StringExtensions_GetSegments.htm" />
+          <HelpTOCNode Id="6a8b1d6e-45d3-498c-b3d7-02274353c528" Title="IndexOfNot Method " Url="html/Overload_gemstone_StringExtensions_IndexOfNot.htm">
+            <HelpTOCNode Title="IndexOfNot Method (String, Char, Int32)" Url="html/M_gemstone_StringExtensions_IndexOfNot.htm" />
+            <HelpTOCNode Title="IndexOfNot Method (String, Char[], Int32)" Url="html/M_gemstone_StringExtensions_IndexOfNot_1.htm" />
+            <HelpTOCNode Title="IndexOfNot Method (String, Func(Char, Boolean), Int32)" Url="html/M_gemstone_StringExtensions_IndexOfNot_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="4f5a27a1-9999-4b1f-8a2a-23a6b1d8fb4d" Title="IndexOfPrevious Method " Url="html/Overload_gemstone_StringExtensions_IndexOfPrevious.htm">
+            <HelpTOCNode Title="IndexOfPrevious Method (String, Char, Int32)" Url="html/M_gemstone_StringExtensions_IndexOfPrevious.htm" />
+            <HelpTOCNode Title="IndexOfPrevious Method (String, Func(Char, Boolean), Int32)" Url="html/M_gemstone_StringExtensions_IndexOfPrevious_1.htm" />
+            <HelpTOCNode Title="IndexOfPrevious Method (String, String, Int32, Boolean)" Url="html/M_gemstone_StringExtensions_IndexOfPrevious_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="b7ec76cc-45eb-42a4-8d38-53b94054a021" Title="IndexOfPreviousNot Method " Url="html/Overload_gemstone_StringExtensions_IndexOfPreviousNot.htm">
+            <HelpTOCNode Title="IndexOfPreviousNot Method (String, Char, Int32)" Url="html/M_gemstone_StringExtensions_IndexOfPreviousNot.htm" />
+            <HelpTOCNode Title="IndexOfPreviousNot Method (String, Char[], Int32)" Url="html/M_gemstone_StringExtensions_IndexOfPreviousNot_1.htm" />
+            <HelpTOCNode Title="IndexOfPreviousNot Method (String, Func(Char, Boolean), Int32)" Url="html/M_gemstone_StringExtensions_IndexOfPreviousNot_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="8287df4d-d044-45b9-b2c8-023f1dd51e04" Title="IndexOfRepeatedChar Method " Url="html/Overload_gemstone_StringExtensions_IndexOfRepeatedChar.htm">
+            <HelpTOCNode Title="IndexOfRepeatedChar Method (String)" Url="html/M_gemstone_StringExtensions_IndexOfRepeatedChar.htm" />
+            <HelpTOCNode Title="IndexOfRepeatedChar Method (String, Char)" Url="html/M_gemstone_StringExtensions_IndexOfRepeatedChar_1.htm" />
+            <HelpTOCNode Title="IndexOfRepeatedChar Method (String, Int32)" Url="html/M_gemstone_StringExtensions_IndexOfRepeatedChar_3.htm" />
+            <HelpTOCNode Title="IndexOfRepeatedChar Method (String, Char, Int32)" Url="html/M_gemstone_StringExtensions_IndexOfRepeatedChar_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="IsAllDigits Method " Url="html/M_gemstone_StringExtensions_IsAllDigits.htm" />
+          <HelpTOCNode Id="314590a8-a0df-42df-ace2-83cdda7e96a8" Title="IsAllLetters Method " Url="html/Overload_gemstone_StringExtensions_IsAllLetters.htm">
+            <HelpTOCNode Title="IsAllLetters Method (String)" Url="html/M_gemstone_StringExtensions_IsAllLetters.htm" />
+            <HelpTOCNode Title="IsAllLetters Method (String, Boolean)" Url="html/M_gemstone_StringExtensions_IsAllLetters_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="a9ca5e77-3ece-4817-bcc4-aa0a637aba99" Title="IsAllLettersOrDigits Method " Url="html/Overload_gemstone_StringExtensions_IsAllLettersOrDigits.htm">
+            <HelpTOCNode Title="IsAllLettersOrDigits Method (String)" Url="html/M_gemstone_StringExtensions_IsAllLettersOrDigits.htm" />
+            <HelpTOCNode Title="IsAllLettersOrDigits Method (String, Boolean)" Url="html/M_gemstone_StringExtensions_IsAllLettersOrDigits_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="IsAllLower Method " Url="html/M_gemstone_StringExtensions_IsAllLower.htm" />
+          <HelpTOCNode Title="IsAllNumbers Method " Url="html/M_gemstone_StringExtensions_IsAllNumbers.htm" />
+          <HelpTOCNode Title="IsAllUpper Method " Url="html/M_gemstone_StringExtensions_IsAllUpper.htm" />
+          <HelpTOCNode Title="IsNullOrWhiteSpace Method " Url="html/M_gemstone_StringExtensions_IsNullOrWhiteSpace.htm" />
+          <HelpTOCNode Title="JoinKeyValuePairs Method " Url="html/M_gemstone_StringExtensions_JoinKeyValuePairs.htm" />
+          <HelpTOCNode Id="fd19da82-6920-47b9-aa4e-90e94af3d356" Title="NotEmpty Method " Url="html/Overload_gemstone_StringExtensions_NotEmpty.htm">
+            <HelpTOCNode Title="NotEmpty Method (String)" Url="html/M_gemstone_StringExtensions_NotEmpty.htm" />
+            <HelpTOCNode Title="NotEmpty Method (String, String)" Url="html/M_gemstone_StringExtensions_NotEmpty_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ParseBoolean Method " Url="html/M_gemstone_StringExtensions_ParseBoolean.htm" />
+          <HelpTOCNode Title="ParseKeyValuePairs Method " Url="html/M_gemstone_StringExtensions_ParseKeyValuePairs.htm" />
+          <HelpTOCNode Id="2609e575-5766-4411-9aa4-7ec51630170b" Title="QuoteUnwrap Method " Url="html/Overload_gemstone_StringExtensions_QuoteUnwrap.htm">
+            <HelpTOCNode Title="QuoteUnwrap Method (String, Char)" Url="html/M_gemstone_StringExtensions_QuoteUnwrap.htm" />
+            <HelpTOCNode Title="QuoteUnwrap Method (String, Char[])" Url="html/M_gemstone_StringExtensions_QuoteUnwrap_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="QuoteWrap Method " Url="html/M_gemstone_StringExtensions_QuoteWrap.htm" />
+          <HelpTOCNode Title="RegexDecode Method " Url="html/M_gemstone_StringExtensions_RegexDecode.htm" />
+          <HelpTOCNode Title="RemoveCharacter Method " Url="html/M_gemstone_StringExtensions_RemoveCharacter.htm" />
+          <HelpTOCNode Title="RemoveCharacters Method " Url="html/M_gemstone_StringExtensions_RemoveCharacters.htm" />
+          <HelpTOCNode Title="RemoveControlCharacters Method " Url="html/M_gemstone_StringExtensions_RemoveControlCharacters.htm" />
+          <HelpTOCNode Title="RemoveCrLfs Method " Url="html/M_gemstone_StringExtensions_RemoveCrLfs.htm" />
+          <HelpTOCNode Title="RemoveDuplicates Method " Url="html/M_gemstone_StringExtensions_RemoveDuplicates.htm" />
+          <HelpTOCNode Id="b428e43e-d0f1-49c1-81a3-88f7f4ba25a4" Title="RemoveDuplicateWhiteSpace Method " Url="html/Overload_gemstone_StringExtensions_RemoveDuplicateWhiteSpace.htm">
+            <HelpTOCNode Title="RemoveDuplicateWhiteSpace Method (String)" Url="html/M_gemstone_StringExtensions_RemoveDuplicateWhiteSpace.htm" />
+            <HelpTOCNode Title="RemoveDuplicateWhiteSpace Method (String, Char)" Url="html/M_gemstone_StringExtensions_RemoveDuplicateWhiteSpace_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="RemoveInvalidFileNameCharacters Method " Url="html/M_gemstone_StringExtensions_RemoveInvalidFileNameCharacters.htm" />
+          <HelpTOCNode Id="6e54b642-bfdc-4592-9b01-c4fe6fe13f24" Title="RemoveLeadingString Method " Url="html/Overload_gemstone_StringExtensions_RemoveLeadingString.htm">
+            <HelpTOCNode Title="RemoveLeadingString Method (String, Char, Boolean)" Url="html/M_gemstone_StringExtensions_RemoveLeadingString.htm" />
+            <HelpTOCNode Title="RemoveLeadingString Method (String, String, Boolean)" Url="html/M_gemstone_StringExtensions_RemoveLeadingString_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="RemoveLeadingZeros Method " Url="html/M_gemstone_StringExtensions_RemoveLeadingZeros.htm" />
+          <HelpTOCNode Title="RemoveNull Method " Url="html/M_gemstone_StringExtensions_RemoveNull.htm" />
+          <HelpTOCNode Id="3c782100-f4c5-4045-8672-fce602f9adfe" Title="RemoveTrailingString Method " Url="html/Overload_gemstone_StringExtensions_RemoveTrailingString.htm">
+            <HelpTOCNode Title="RemoveTrailingString Method (String, Char, Boolean)" Url="html/M_gemstone_StringExtensions_RemoveTrailingString.htm" />
+            <HelpTOCNode Title="RemoveTrailingString Method (String, String, Boolean)" Url="html/M_gemstone_StringExtensions_RemoveTrailingString_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="RemoveWhiteSpace Method " Url="html/M_gemstone_StringExtensions_RemoveWhiteSpace.htm" />
+          <HelpTOCNode Title="ReplaceCaseInsensitive Method " Url="html/M_gemstone_StringExtensions_ReplaceCaseInsensitive.htm" />
+          <HelpTOCNode Title="ReplaceCharacters Method " Url="html/M_gemstone_StringExtensions_ReplaceCharacters.htm" />
+          <HelpTOCNode Id="25b7191b-f582-4e97-a2f6-b0edf9ca234e" Title="ReplaceControlCharacters Method " Url="html/Overload_gemstone_StringExtensions_ReplaceControlCharacters.htm">
+            <HelpTOCNode Title="ReplaceControlCharacters Method (String)" Url="html/M_gemstone_StringExtensions_ReplaceControlCharacters.htm" />
+            <HelpTOCNode Title="ReplaceControlCharacters Method (String, Char)" Url="html/M_gemstone_StringExtensions_ReplaceControlCharacters_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ReplaceCrLfs Method " Url="html/M_gemstone_StringExtensions_ReplaceCrLfs.htm" />
+          <HelpTOCNode Title="ReplaceInvalidFileNameCharacters Method " Url="html/M_gemstone_StringExtensions_ReplaceInvalidFileNameCharacters.htm" />
+          <HelpTOCNode Title="ReplaceWhiteSpace Method " Url="html/M_gemstone_StringExtensions_ReplaceWhiteSpace.htm" />
+          <HelpTOCNode Title="Reverse Method " Url="html/M_gemstone_StringExtensions_Reverse.htm" />
+          <HelpTOCNode Title="StringCount Method " Url="html/M_gemstone_StringExtensions_StringCount.htm" />
+          <HelpTOCNode Title="SubstringEnd Method " Url="html/M_gemstone_StringExtensions_SubstringEnd.htm" />
+          <HelpTOCNode Title="SubstringPrevious Method " Url="html/M_gemstone_StringExtensions_SubstringPrevious.htm" />
+          <HelpTOCNode Title="ToCamelCase Method " Url="html/M_gemstone_StringExtensions_ToCamelCase.htm" />
+          <HelpTOCNode Title="ToPascalCase Method " Url="html/M_gemstone_StringExtensions_ToPascalCase.htm" />
+          <HelpTOCNode Title="ToSecureString Method " Url="html/M_gemstone_StringExtensions_ToSecureString.htm" />
+          <HelpTOCNode Title="ToStream Method " Url="html/M_gemstone_StringExtensions_ToStream.htm" />
+          <HelpTOCNode Title="ToStreamAsync Method " Url="html/M_gemstone_StringExtensions_ToStreamAsync.htm" />
+          <HelpTOCNode Title="ToTitleCase Method " Url="html/M_gemstone_StringExtensions_ToTitleCase.htm" />
+          <HelpTOCNode Title="ToUnsecureString Method " Url="html/M_gemstone_StringExtensions_ToUnsecureString.htm" />
+          <HelpTOCNode Title="TrimWithEllipsisEnd Method " Url="html/M_gemstone_StringExtensions_TrimWithEllipsisEnd.htm" />
+          <HelpTOCNode Title="TrimWithEllipsisMiddle Method " Url="html/M_gemstone_StringExtensions_TrimWithEllipsisMiddle.htm" />
+          <HelpTOCNode Title="TruncateLeft Method " Url="html/M_gemstone_StringExtensions_TruncateLeft.htm" />
+          <HelpTOCNode Title="TruncateRight Method " Url="html/M_gemstone_StringExtensions_TruncateRight.htm" />
+          <HelpTOCNode Title="UriEncode Method " Url="html/M_gemstone_StringExtensions_UriEncode.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="1c9e110c-819d-4c88-aa57-35ada66ff590" Title="TypeExtensions Class" Url="html/T_gemstone_TypeExtensions.htm">
+        <HelpTOCNode Id="d9ed1c25-e3ea-44a8-8afa-7b43b566ecce" Title="TypeExtensions Methods" Url="html/Methods_T_gemstone_TypeExtensions.htm">
+          <HelpTOCNode Title="GetFriendlyClassName Method " Url="html/M_gemstone_TypeExtensions_GetFriendlyClassName.htm" />
+          <HelpTOCNode Title="GetRootType Method " Url="html/M_gemstone_TypeExtensions_GetRootType.htm" />
+          <HelpTOCNode Title="IsNumeric Method " Url="html/M_gemstone_TypeExtensions_IsNumeric.htm" />
+          <HelpTOCNode Id="e561a00c-f6f4-4020-824f-ee62a4bf6430" Title="LoadImplementations Method " Url="html/Overload_gemstone_TypeExtensions_LoadImplementations.htm">
+            <HelpTOCNode Title="LoadImplementations Method (Type)" Url="html/M_gemstone_TypeExtensions_LoadImplementations.htm" />
+            <HelpTOCNode Title="LoadImplementations Method (Type, Boolean)" Url="html/M_gemstone_TypeExtensions_LoadImplementations_1.htm" />
+            <HelpTOCNode Title="LoadImplementations Method (Type, String)" Url="html/M_gemstone_TypeExtensions_LoadImplementations_2.htm" />
+            <HelpTOCNode Title="LoadImplementations Method (Type, String, Boolean, Boolean)" Url="html/M_gemstone_TypeExtensions_LoadImplementations_3.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="e58a7e24-ef40-4156-825b-e0cf4d04f451" Title="USTimeZones Class" Url="html/T_gemstone_USTimeZones.htm">
+        <HelpTOCNode Id="1fc3c6ab-6f1b-48da-aea0-a1a31b24b490" Title="USTimeZones Properties" Url="html/Properties_T_gemstone_USTimeZones.htm">
+          <HelpTOCNode Title="Alaskan Property " Url="html/P_gemstone_USTimeZones_Alaskan.htm" />
+          <HelpTOCNode Title="Atlantic Property " Url="html/P_gemstone_USTimeZones_Atlantic.htm" />
+          <HelpTOCNode Title="Central Property " Url="html/P_gemstone_USTimeZones_Central.htm" />
+          <HelpTOCNode Title="Eastern Property " Url="html/P_gemstone_USTimeZones_Eastern.htm" />
+          <HelpTOCNode Title="Hawaiian Property " Url="html/P_gemstone_USTimeZones_Hawaiian.htm" />
+          <HelpTOCNode Title="Mountain Property " Url="html/P_gemstone_USTimeZones_Mountain.htm" />
+          <HelpTOCNode Title="Pacific Property " Url="html/P_gemstone_USTimeZones_Pacific.htm" />
+          <HelpTOCNode Title="Samoa Property " Url="html/P_gemstone_USTimeZones_Samoa.htm" />
+          <HelpTOCNode Title="WestPacific Property " Url="html/P_gemstone_USTimeZones_WestPacific.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="92db0d65-121d-4bd0-b4db-f6062f9a71f5" Title="Word Class" Url="html/T_gemstone_Word.htm">
+        <HelpTOCNode Id="1c4a505d-1a77-4759-8c5d-f2b16f47e32f" Title="Word Methods" Url="html/Methods_T_gemstone_Word.htm">
+          <HelpTOCNode Id="7d4cdf3b-de1e-4e4c-b974-82d1198dcdd4" Title="AlignDoubleWord Method " Url="html/Overload_gemstone_Word_AlignDoubleWord.htm">
+            <HelpTOCNode Title="AlignDoubleWord Method (Int32)" Url="html/M_gemstone_Word_AlignDoubleWord.htm" />
+            <HelpTOCNode Title="AlignDoubleWord Method (UInt32)" Url="html/M_gemstone_Word_AlignDoubleWord_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="13686c7a-c421-4c3c-a5d4-1f270049da93" Title="AlignQuadWord Method " Url="html/Overload_gemstone_Word_AlignQuadWord.htm">
+            <HelpTOCNode Title="AlignQuadWord Method (Int64)" Url="html/M_gemstone_Word_AlignQuadWord.htm" />
+            <HelpTOCNode Title="AlignQuadWord Method (UInt64)" Url="html/M_gemstone_Word_AlignQuadWord_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="eb18ae09-5f10-4380-b57b-d69fed5b5e28" Title="AlignWord Method " Url="html/Overload_gemstone_Word_AlignWord.htm">
+            <HelpTOCNode Title="AlignWord Method (Int16)" Url="html/M_gemstone_Word_AlignWord.htm" />
+            <HelpTOCNode Title="AlignWord Method (UInt16)" Url="html/M_gemstone_Word_AlignWord_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="HighByte Method " Url="html/M_gemstone_Word_HighByte.htm" />
+          <HelpTOCNode Title="HighDoubleWord Method " Url="html/M_gemstone_Word_HighDoubleWord.htm" />
+          <HelpTOCNode Title="HighNibble Method " Url="html/M_gemstone_Word_HighNibble.htm" />
+          <HelpTOCNode Title="HighWord Method " Url="html/M_gemstone_Word_HighWord.htm" />
+          <HelpTOCNode Title="LowByte Method " Url="html/M_gemstone_Word_LowByte.htm" />
+          <HelpTOCNode Title="LowDoubleWord Method " Url="html/M_gemstone_Word_LowDoubleWord.htm" />
+          <HelpTOCNode Title="LowNibble Method " Url="html/M_gemstone_Word_LowNibble.htm" />
+          <HelpTOCNode Title="LowWord Method " Url="html/M_gemstone_Word_LowWord.htm" />
+          <HelpTOCNode Title="MakeDoubleWord Method " Url="html/M_gemstone_Word_MakeDoubleWord.htm" />
+          <HelpTOCNode Title="MakeQuadWord Method " Url="html/M_gemstone_Word_MakeQuadWord.htm" />
+          <HelpTOCNode Title="MakeWord Method " Url="html/M_gemstone_Word_MakeWord.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="d2b716bf-e0d9-4dc2-9c77-2c6bf6589c17" Title="gemstone.collections" Url="html/N_gemstone_collections.htm">
+      <HelpTOCNode Id="889cb5ef-3c42-4b82-b154-d358b4471b14" Title="CollectionExtensions Class" Url="html/T_gemstone_collections_CollectionExtensions.htm">
+        <HelpTOCNode Id="2dd8221f-e2de-424d-812c-b496697f07ae" Title="CollectionExtensions Methods" Url="html/Methods_T_gemstone_collections_CollectionExtensions.htm">
+          <HelpTOCNode Id="c1db65ea-5703-4d91-b01f-f59b15fcf66c" Title="AddOrUpdate Method " Url="html/Overload_gemstone_collections_CollectionExtensions_AddOrUpdate.htm">
+            <HelpTOCNode Title="AddOrUpdate(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, Func(TKey, TValue))" Url="html/M_gemstone_collections_CollectionExtensions_AddOrUpdate__2.htm" />
+            <HelpTOCNode Title="AddOrUpdate(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, TValue)" Url="html/M_gemstone_collections_CollectionExtensions_AddOrUpdate__2_2.htm" />
+            <HelpTOCNode Title="AddOrUpdate(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, Func(TKey, TValue), Func(TKey, TValue, TValue))" Url="html/M_gemstone_collections_CollectionExtensions_AddOrUpdate__2_1.htm" />
+            <HelpTOCNode Title="AddOrUpdate(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, TValue, Func(TKey, TValue, TValue))" Url="html/M_gemstone_collections_CollectionExtensions_AddOrUpdate__2_3.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="AddRange(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_AddRange__1.htm" />
+          <HelpTOCNode Title="All Method " Url="html/M_gemstone_collections_CollectionExtensions_All.htm" />
+          <HelpTOCNode Title="AllParallel(TSource) Method " Url="html/M_gemstone_collections_CollectionExtensions_AllParallel__1.htm" />
+          <HelpTOCNode Title="Any Method " Url="html/M_gemstone_collections_CollectionExtensions_Any.htm" />
+          <HelpTOCNode Title="CompareTo(TSource) Method " Url="html/M_gemstone_collections_CollectionExtensions_CompareTo__1.htm" />
+          <HelpTOCNode Title="Copy(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_Copy__1.htm" />
+          <HelpTOCNode Title="DistinctBy(TSource, TKey) Method " Url="html/M_gemstone_collections_CollectionExtensions_DistinctBy__2.htm" />
+          <HelpTOCNode Id="575c09d1-a47e-47d4-95ec-5a0a7296ce5e" Title="GetOrAdd Method " Url="html/Overload_gemstone_collections_CollectionExtensions_GetOrAdd.htm">
+            <HelpTOCNode Title="GetOrAdd(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, Func(TKey, TValue))" Url="html/M_gemstone_collections_CollectionExtensions_GetOrAdd__2.htm" />
+            <HelpTOCNode Title="GetOrAdd(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, TValue)" Url="html/M_gemstone_collections_CollectionExtensions_GetOrAdd__2_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="70945d40-677e-4a11-abe8-7be5113f2825" Title="GetOrDefault Method " Url="html/Overload_gemstone_collections_CollectionExtensions_GetOrDefault.htm">
+            <HelpTOCNode Title="GetOrDefault(TKey, TValue) Method (IDictionary(TKey, TValue), TKey)" Url="html/M_gemstone_collections_CollectionExtensions_GetOrDefault__2.htm" />
+            <HelpTOCNode Title="GetOrDefault(TKey, TValue) Method (IDictionary(TKey, TValue), TKey, Func(TKey, TValue))" Url="html/M_gemstone_collections_CollectionExtensions_GetOrDefault__2_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="GetRange(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_GetRange__1.htm" />
+          <HelpTOCNode Title="IndexOf(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_IndexOf__1.htm" />
+          <HelpTOCNode Id="678669e0-3cdd-4ec4-8aba-67e630ed4a5d" Title="LoadDelimitedString Method " Url="html/Overload_gemstone_collections_CollectionExtensions_LoadDelimitedString.htm">
+            <HelpTOCNode Title="LoadDelimitedString(TSource) Method (IList(TSource), String, Func(String, TSource))" Url="html/M_gemstone_collections_CollectionExtensions_LoadDelimitedString__1_1.htm" />
+            <HelpTOCNode Title="LoadDelimitedString(TSource) Method (IList(TSource), String, Char, Func(String, TSource))" Url="html/M_gemstone_collections_CollectionExtensions_LoadDelimitedString__1.htm" />
+            <HelpTOCNode Title="LoadDelimitedString(TSource) Method (IList(TSource), String, String[], Func(String, TSource))" Url="html/M_gemstone_collections_CollectionExtensions_LoadDelimitedString__1_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="34c1d742-1cfd-46a4-ba25-9a3841989070" Title="Majority Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Majority.htm">
+            <HelpTOCNode Title="Majority(T) Method (IEnumerable(T), Boolean, IEqualityComparer(T))" Url="html/M_gemstone_collections_CollectionExtensions_Majority__1.htm" />
+            <HelpTOCNode Title="Majority(T) Method (IEnumerable(T), T, Boolean, IEqualityComparer(T))" Url="html/M_gemstone_collections_CollectionExtensions_Majority__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="e162fe2c-043c-4d80-a35b-fee556656a6a" Title="MajorityBy Method " Url="html/Overload_gemstone_collections_CollectionExtensions_MajorityBy.htm">
+            <HelpTOCNode Title="MajorityBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey), Boolean, IEqualityComparer(TKey))" Url="html/M_gemstone_collections_CollectionExtensions_MajorityBy__2.htm" />
+            <HelpTOCNode Title="MajorityBy(TSource, TKey) Method (IEnumerable(TSource), TSource, Func(TSource, TKey), Boolean, IEqualityComparer(TKey))" Url="html/M_gemstone_collections_CollectionExtensions_MajorityBy__2_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="06f5b31b-5c47-438d-b1c1-502539d4a126" Title="Max Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Max.htm">
+            <HelpTOCNode Title="Max(TSource) Method (IEnumerable(TSource), IComparer(TSource))" Url="html/M_gemstone_collections_CollectionExtensions_Max__1.htm" />
+            <HelpTOCNode Title="Max(TSource) Method (IEnumerable(TSource), Func(TSource, TSource, Int32))" Url="html/M_gemstone_collections_CollectionExtensions_Max__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="MaxBy(TSource, TKey) Method " Url="html/M_gemstone_collections_CollectionExtensions_MaxBy__2.htm" />
+          <HelpTOCNode Title="Median(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_Median__1.htm" />
+          <HelpTOCNode Id="ec925ffc-516b-457c-99fe-55d487dad17a" Title="Merge Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Merge.htm">
+            <HelpTOCNode Title="Merge(T, TKey, TValue) Method (T, IDictionary(TKey, TValue)[])" Url="html/M_gemstone_collections_CollectionExtensions_Merge__3_1.htm" />
+            <HelpTOCNode Title="Merge(T, TKey, TValue) Method (T, Boolean, IDictionary(TKey, TValue)[])" Url="html/M_gemstone_collections_CollectionExtensions_Merge__3.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="afae1c33-227c-41ff-afc7-2a7e53fefdee" Title="Min Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Min.htm">
+            <HelpTOCNode Title="Min(TSource) Method (IEnumerable(TSource), IComparer(TSource))" Url="html/M_gemstone_collections_CollectionExtensions_Min__1.htm" />
+            <HelpTOCNode Title="Min(TSource) Method (IEnumerable(TSource), Func(TSource, TSource, Int32))" Url="html/M_gemstone_collections_CollectionExtensions_Min__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="MinBy(TSource, TKey) Method " Url="html/M_gemstone_collections_CollectionExtensions_MinBy__2.htm" />
+          <HelpTOCNode Id="7664a51e-6b71-4ed6-89ad-362abca20ed8" Title="Minority Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Minority.htm">
+            <HelpTOCNode Title="Minority(T) Method (IEnumerable(T), Boolean, IEqualityComparer(T))" Url="html/M_gemstone_collections_CollectionExtensions_Minority__1.htm" />
+            <HelpTOCNode Title="Minority(T) Method (IEnumerable(T), T, Boolean, IEqualityComparer(T))" Url="html/M_gemstone_collections_CollectionExtensions_Minority__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="65b6e67d-727d-4f06-98c2-bf4f48ec6f27" Title="MinorityBy Method " Url="html/Overload_gemstone_collections_CollectionExtensions_MinorityBy.htm">
+            <HelpTOCNode Title="MinorityBy(TSource, TKey) Method (IEnumerable(TSource), Func(TSource, TKey), Boolean, IEqualityComparer(TKey))" Url="html/M_gemstone_collections_CollectionExtensions_MinorityBy__2.htm" />
+            <HelpTOCNode Title="MinorityBy(TSource, TKey) Method (IEnumerable(TSource), TSource, Func(TSource, TKey), Boolean, IEqualityComparer(TKey))" Url="html/M_gemstone_collections_CollectionExtensions_MinorityBy__2_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="d8905df3-ab3f-49eb-9b7d-e2822f84da49" Title="Scramble Method " Url="html/Overload_gemstone_collections_CollectionExtensions_Scramble.htm">
+            <HelpTOCNode Title="Scramble(TSource) Method (IList(TSource))" Url="html/M_gemstone_collections_CollectionExtensions_Scramble__1.htm" />
+            <HelpTOCNode Title="Scramble(TSource) Method (IList(TSource), Int32)" Url="html/M_gemstone_collections_CollectionExtensions_Scramble__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="99c8d1bf-e763-40f2-9ca5-f5e1da74b5a3" Title="ToDelimitedString Method " Url="html/Overload_gemstone_collections_CollectionExtensions_ToDelimitedString.htm">
+            <HelpTOCNode Title="ToDelimitedString(TSource) Method (IEnumerable(TSource))" Url="html/M_gemstone_collections_CollectionExtensions_ToDelimitedString__1.htm" />
+            <HelpTOCNode Title="ToDelimitedString(TSource) Method (IEnumerable(TSource), Char)" Url="html/M_gemstone_collections_CollectionExtensions_ToDelimitedString__1_1.htm" />
+            <HelpTOCNode Title="ToDelimitedString(TSource) Method (IEnumerable(TSource), String)" Url="html/M_gemstone_collections_CollectionExtensions_ToDelimitedString__1_2.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ToDictionary Method " Url="html/M_gemstone_collections_CollectionExtensions_ToDictionary.htm" />
+          <HelpTOCNode Title="ToPagedList(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_ToPagedList__1.htm" />
+          <HelpTOCNode Title="Unscramble(TSource) Method " Url="html/M_gemstone_collections_CollectionExtensions_Unscramble__1.htm" />
+          <HelpTOCNode Title="UpdateRange(T) Method " Url="html/M_gemstone_collections_CollectionExtensions_UpdateRange__1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="6583c113-bfbd-49e5-8b7f-bb2e8d4dc7cf" Title="DynamicObjectPool(T) Class" Url="html/T_gemstone_collections_DynamicObjectPool_1.htm">
+        <HelpTOCNode Title="DynamicObjectPool(T) Constructor " Url="html/M_gemstone_collections_DynamicObjectPool_1__ctor.htm" />
+        <HelpTOCNode Id="4c677211-3489-4743-9ec5-4d712c758953" Title="DynamicObjectPool(T) Methods" Url="html/Methods_T_gemstone_collections_DynamicObjectPool_1.htm">
+          <HelpTOCNode Title="Dequeue Method " Url="html/M_gemstone_collections_DynamicObjectPool_1_Dequeue.htm" />
+          <HelpTOCNode Title="Enqueue Method " Url="html/M_gemstone_collections_DynamicObjectPool_1_Enqueue.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="ab002ea2-0b3a-4e68-a5e1-2f9a90949708" Title="IPagedList Interface" Url="html/T_gemstone_collections_IPagedList.htm">
+        <HelpTOCNode Id="f54c4454-0e44-4fc5-b74e-3ca9c76ab40e" Title="IPagedList Properties" Url="html/Properties_T_gemstone_collections_IPagedList.htm">
+          <HelpTOCNode Title="Page Property " Url="html/P_gemstone_collections_IPagedList_Page.htm" />
+          <HelpTOCNode Title="PageCount Property " Url="html/P_gemstone_collections_IPagedList_PageCount.htm" />
+          <HelpTOCNode Title="PageSize Property " Url="html/P_gemstone_collections_IPagedList_PageSize.htm" />
+          <HelpTOCNode Title="TotalCount Property " Url="html/P_gemstone_collections_IPagedList_TotalCount.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="IPagedList Methods" Url="html/Methods_T_gemstone_collections_IPagedList.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="ad8975fd-94e4-40c5-9408-08177438e1ce" Title="ListExtensions Class" Url="html/T_gemstone_collections_ListExtensions.htm">
+        <HelpTOCNode Id="b3a26080-5f07-400e-a5ba-e3db14e070ab" Title="ListExtensions Methods" Url="html/Methods_T_gemstone_collections_ListExtensions.htm">
+          <HelpTOCNode Title="RemoveWhere(T) Method " Url="html/M_gemstone_collections_ListExtensions_RemoveWhere__1.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="e601fe44-c434-4306-9777-af97fb82fc8e" Title="PagedList(T) Class" Url="html/T_gemstone_collections_PagedList_1.htm">
+        <HelpTOCNode Title="PagedList(T) Constructor " Url="html/M_gemstone_collections_PagedList_1__ctor.htm" />
+        <HelpTOCNode Id="8b9122e7-ec24-445b-a905-e5400aeb4eec" Title="PagedList(T) Properties" Url="html/Properties_T_gemstone_collections_PagedList_1.htm">
+          <HelpTOCNode Title="Page Property " Url="html/P_gemstone_collections_PagedList_1_Page.htm" />
+          <HelpTOCNode Title="PageCount Property " Url="html/P_gemstone_collections_PagedList_1_PageCount.htm" />
+          <HelpTOCNode Title="PageSize Property " Url="html/P_gemstone_collections_PagedList_1_PageSize.htm" />
+          <HelpTOCNode Title="TotalCount Property " Url="html/P_gemstone_collections_PagedList_1_TotalCount.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="PagedList(T) Methods" Url="html/Methods_T_gemstone_collections_PagedList_1.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="52f66fea-1212-41ff-a90f-7bd20f24e443" Title="gemstone.console" Url="html/N_gemstone_console.htm">
+      <HelpTOCNode Id="4b7caaa1-6545-4ebb-a939-8d07950b5523" Title="Command Class" Url="html/T_gemstone_console_Command.htm">
+        <HelpTOCNode Id="52dc1c5e-53b5-44cd-a2d1-eae29161ba4b" Title="Command Methods" Url="html/Methods_T_gemstone_console_Command.htm">
+          <HelpTOCNode Id="d1f9756d-9540-4d9f-a582-82a3151bd4b3" Title="Execute Method " Url="html/Overload_gemstone_console_Command_Execute.htm">
+            <HelpTOCNode Title="Execute Method (String, String, Int32)" Url="html/M_gemstone_console_Command_Execute.htm" />
+            <HelpTOCNode Title="Execute Method (String, String, String, String, Int32)" Url="html/M_gemstone_console_Command_Execute_2.htm" />
+            <HelpTOCNode Title="Execute Method (String, String, String, String, Boolean, Int32, Int32)" Url="html/M_gemstone_console_Command_Execute_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="ShellDecode Method " Url="html/M_gemstone_console_Command_ShellDecode.htm" />
+          <HelpTOCNode Title="ShellEncode Method " Url="html/M_gemstone_console_Command_ShellEncode.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="7bc850d7-69ae-4ebc-b7bc-bdf18841ed46" Title="CommandException Class" Url="html/T_gemstone_console_CommandException.htm">
+        <HelpTOCNode Id="f4b5cd2a-de9b-4aa0-8c5d-9b24759dffc4" Title="CommandException Constructor " Url="html/Overload_gemstone_console_CommandException__ctor.htm">
+          <HelpTOCNode Title="CommandException Constructor " Url="html/M_gemstone_console_CommandException__ctor.htm" />
+          <HelpTOCNode Title="CommandException Constructor (String, Boolean, Int32, Exception)" Url="html/M_gemstone_console_CommandException__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="77845c28-b3af-4559-a060-74e205addf4b" Title="CommandException Properties" Url="html/Properties_T_gemstone_console_CommandException.htm">
+          <HelpTOCNode Title="ExitCode Property " Url="html/P_gemstone_console_CommandException_ExitCode.htm" />
+          <HelpTOCNode Title="ProcessCompleted Property " Url="html/P_gemstone_console_CommandException_ProcessCompleted.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="CommandException Methods" Url="html/Methods_T_gemstone_console_CommandException.htm" />
+        <HelpTOCNode Title="CommandException Events" Url="html/Events_T_gemstone_console_CommandException.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="23a84db6-02e2-4e1a-9b40-bd822d174780" Title="CommandResponse Class" Url="html/T_gemstone_console_CommandResponse.htm">
+        <HelpTOCNode Title="CommandResponse Constructor " Url="html/M_gemstone_console_CommandResponse__ctor.htm" />
+        <HelpTOCNode Id="dd16df05-188e-483f-8f6a-ea6363c53022" Title="CommandResponse Properties" Url="html/Properties_T_gemstone_console_CommandResponse.htm">
+          <HelpTOCNode Title="ExitCode Property " Url="html/P_gemstone_console_CommandResponse_ExitCode.htm" />
+          <HelpTOCNode Title="StandardOutput Property " Url="html/P_gemstone_console_CommandResponse_StandardOutput.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="CommandResponse Methods" Url="html/Methods_T_gemstone_console_CommandResponse.htm" />
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="28f73935-e54a-4051-ba48-ba6753122dde" Title="gemstone.io" Url="html/N_gemstone_io.htm">
+      <HelpTOCNode Id="0d2c1152-a08a-4fa5-ad57-bbe65661cf36" Title="BlockAllocatedMemoryStream Class" Url="html/T_gemstone_io_BlockAllocatedMemoryStream.htm">
+        <HelpTOCNode Id="f7474f62-9b5a-4340-bbfe-3d056e0ad23f" Title="BlockAllocatedMemoryStream Constructor " Url="html/Overload_gemstone_io_BlockAllocatedMemoryStream__ctor.htm">
+          <HelpTOCNode Title="BlockAllocatedMemoryStream Constructor " Url="html/M_gemstone_io_BlockAllocatedMemoryStream__ctor.htm" />
+          <HelpTOCNode Title="BlockAllocatedMemoryStream Constructor (Byte[])" Url="html/M_gemstone_io_BlockAllocatedMemoryStream__ctor_1.htm" />
+          <HelpTOCNode Title="BlockAllocatedMemoryStream Constructor (Int32)" Url="html/M_gemstone_io_BlockAllocatedMemoryStream__ctor_3.htm" />
+          <HelpTOCNode Title="BlockAllocatedMemoryStream Constructor (Byte[], Int32, Int32)" Url="html/M_gemstone_io_BlockAllocatedMemoryStream__ctor_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="b732a61b-12ca-4eff-9ba3-40146afc022e" Title="BlockAllocatedMemoryStream Properties" Url="html/Properties_T_gemstone_io_BlockAllocatedMemoryStream.htm">
+          <HelpTOCNode Title="CanRead Property " Url="html/P_gemstone_io_BlockAllocatedMemoryStream_CanRead.htm" />
+          <HelpTOCNode Title="CanSeek Property " Url="html/P_gemstone_io_BlockAllocatedMemoryStream_CanSeek.htm" />
+          <HelpTOCNode Title="CanWrite Property " Url="html/P_gemstone_io_BlockAllocatedMemoryStream_CanWrite.htm" />
+          <HelpTOCNode Title="Length Property " Url="html/P_gemstone_io_BlockAllocatedMemoryStream_Length.htm" />
+          <HelpTOCNode Title="Position Property " Url="html/P_gemstone_io_BlockAllocatedMemoryStream_Position.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="c26301c0-39c4-4d13-bf1f-a96c557128e9" Title="BlockAllocatedMemoryStream Methods" Url="html/Methods_T_gemstone_io_BlockAllocatedMemoryStream.htm">
+          <HelpTOCNode Title="Clear Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Clear.htm" />
+          <HelpTOCNode Id="4edb5ead-d72d-47dd-8358-c4b4a47ce97a" Title="Dispose Method " Url="html/Overload_gemstone_io_BlockAllocatedMemoryStream_Dispose.htm">
+            <HelpTOCNode Title="Dispose Method (Boolean)" Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Dispose.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="Flush Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Flush.htm" />
+          <HelpTOCNode Title="Read Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Read.htm" />
+          <HelpTOCNode Title="ReadByte Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_ReadByte.htm" />
+          <HelpTOCNode Title="ReadFrom Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_ReadFrom.htm" />
+          <HelpTOCNode Title="Seek Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Seek.htm" />
+          <HelpTOCNode Title="SetLength Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_SetLength.htm" />
+          <HelpTOCNode Title="ToArray Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_ToArray.htm" />
+          <HelpTOCNode Title="Write Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_Write.htm" />
+          <HelpTOCNode Title="WriteByte Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_WriteByte.htm" />
+          <HelpTOCNode Title="WriteTo Method " Url="html/M_gemstone_io_BlockAllocatedMemoryStream_WriteTo.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="98cd2f75-18c8-4d3e-913f-a4acac472856" Title="FilePath Class" Url="html/T_gemstone_io_FilePath.htm">
+        <HelpTOCNode Id="a65880d3-d836-4a3d-a9db-43d073760eaf" Title="FilePath Methods" Url="html/Methods_T_gemstone_io_FilePath.htm">
+          <HelpTOCNode Title="AddPathSuffix Method " Url="html/M_gemstone_io_FilePath_AddPathSuffix.htm" />
+          <HelpTOCNode Title="DropPathRoot Method " Url="html/M_gemstone_io_FilePath_DropPathRoot.htm" />
+          <HelpTOCNode Title="EnumerateDirectories Method " Url="html/M_gemstone_io_FilePath_EnumerateDirectories.htm" />
+          <HelpTOCNode Title="EnumerateFiles Method " Url="html/M_gemstone_io_FilePath_EnumerateFiles.htm" />
+          <HelpTOCNode Title="GetAbsolutePath Method " Url="html/M_gemstone_io_FilePath_GetAbsolutePath.htm" />
+          <HelpTOCNode Title="GetApplicationDataFolder Method " Url="html/M_gemstone_io_FilePath_GetApplicationDataFolder.htm" />
+          <HelpTOCNode Title="GetAvailableFreeSpace Method " Url="html/M_gemstone_io_FilePath_GetAvailableFreeSpace.htm" />
+          <HelpTOCNode Title="GetCommonApplicationDataFolder Method " Url="html/M_gemstone_io_FilePath_GetCommonApplicationDataFolder.htm" />
+          <HelpTOCNode Title="GetDirectories Method " Url="html/M_gemstone_io_FilePath_GetDirectories.htm" />
+          <HelpTOCNode Title="GetDirectoryName Method " Url="html/M_gemstone_io_FilePath_GetDirectoryName.htm" />
+          <HelpTOCNode Title="GetExtension Method " Url="html/M_gemstone_io_FilePath_GetExtension.htm" />
+          <HelpTOCNode Title="GetFileLength Method " Url="html/M_gemstone_io_FilePath_GetFileLength.htm" />
+          <HelpTOCNode Title="GetFileList Method " Url="html/M_gemstone_io_FilePath_GetFileList.htm" />
+          <HelpTOCNode Title="GetFileLock(T) Method " Url="html/M_gemstone_io_FilePath_GetFileLock__1.htm" />
+          <HelpTOCNode Title="GetFileName Method " Url="html/M_gemstone_io_FilePath_GetFileName.htm" />
+          <HelpTOCNode Title="GetFileNameWithoutExtension Method " Url="html/M_gemstone_io_FilePath_GetFileNameWithoutExtension.htm" />
+          <HelpTOCNode Title="GetFilePatternRegularExpression Method " Url="html/M_gemstone_io_FilePath_GetFilePatternRegularExpression.htm" />
+          <HelpTOCNode Title="GetFiles Method " Url="html/M_gemstone_io_FilePath_GetFiles.htm" />
+          <HelpTOCNode Title="GetLastDirectoryName Method " Url="html/M_gemstone_io_FilePath_GetLastDirectoryName.htm" />
+          <HelpTOCNode Title="GetUniqueFilePath Method " Url="html/M_gemstone_io_FilePath_GetUniqueFilePath.htm" />
+          <HelpTOCNode Title="GetUniqueFilePathWithBinarySearch Method " Url="html/M_gemstone_io_FilePath_GetUniqueFilePathWithBinarySearch.htm" />
+          <HelpTOCNode Title="GetValidFileName Method " Url="html/M_gemstone_io_FilePath_GetValidFileName.htm" />
+          <HelpTOCNode Title="GetValidFilePath Method " Url="html/M_gemstone_io_FilePath_GetValidFilePath.htm" />
+          <HelpTOCNode Title="InApplicationPath Method " Url="html/M_gemstone_io_FilePath_InApplicationPath.htm" />
+          <HelpTOCNode Id="025f9394-ed62-489b-acf3-fb9a3af9390a" Title="IsFilePatternMatch Method " Url="html/Overload_gemstone_io_FilePath_IsFilePatternMatch.htm">
+            <HelpTOCNode Title="IsFilePatternMatch Method (String, String, Boolean)" Url="html/M_gemstone_io_FilePath_IsFilePatternMatch.htm" />
+            <HelpTOCNode Title="IsFilePatternMatch Method (String[], String, Boolean)" Url="html/M_gemstone_io_FilePath_IsFilePatternMatch_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Title="IsValidFileName Method " Url="html/M_gemstone_io_FilePath_IsValidFileName.htm" />
+          <HelpTOCNode Title="RemovePathSuffix Method " Url="html/M_gemstone_io_FilePath_RemovePathSuffix.htm" />
+          <HelpTOCNode Title="TrimFileName Method " Url="html/M_gemstone_io_FilePath_TrimFileName.htm" />
+          <HelpTOCNode Title="TryGetReadLock Method " Url="html/M_gemstone_io_FilePath_TryGetReadLock.htm" />
+          <HelpTOCNode Title="TryGetReadLockExclusive Method " Url="html/M_gemstone_io_FilePath_TryGetReadLockExclusive.htm" />
+          <HelpTOCNode Title="TryGetWriteLock Method " Url="html/M_gemstone_io_FilePath_TryGetWriteLock.htm" />
+          <HelpTOCNode Title="ValidatePathName Method " Url="html/M_gemstone_io_FilePath_ValidatePathName.htm" />
+          <HelpTOCNode Id="2aa781f0-b1df-4e87-bafc-dda9c749cd38" Title="WaitForReadLock Method " Url="html/Overload_gemstone_io_FilePath_WaitForReadLock.htm">
+            <HelpTOCNode Title="WaitForReadLock Method (String)" Url="html/M_gemstone_io_FilePath_WaitForReadLock.htm" />
+            <HelpTOCNode Title="WaitForReadLock Method (String, Double)" Url="html/M_gemstone_io_FilePath_WaitForReadLock_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="b9a095c0-9748-44ab-b30b-68a5363ae4ef" Title="WaitForReadLockExclusive Method " Url="html/Overload_gemstone_io_FilePath_WaitForReadLockExclusive.htm">
+            <HelpTOCNode Title="WaitForReadLockExclusive Method (String)" Url="html/M_gemstone_io_FilePath_WaitForReadLockExclusive.htm" />
+            <HelpTOCNode Title="WaitForReadLockExclusive Method (String, Double)" Url="html/M_gemstone_io_FilePath_WaitForReadLockExclusive_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="36bc951f-83a8-43c4-981f-0279e32b67dd" Title="WaitForWriteLock Method " Url="html/Overload_gemstone_io_FilePath_WaitForWriteLock.htm">
+            <HelpTOCNode Title="WaitForWriteLock Method (String)" Url="html/M_gemstone_io_FilePath_WaitForWriteLock.htm" />
+            <HelpTOCNode Title="WaitForWriteLock Method (String, Double)" Url="html/M_gemstone_io_FilePath_WaitForWriteLock_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="0ee469b6-c440-49d0-b298-27a362395b29" Title="WaitTillExists Method " Url="html/Overload_gemstone_io_FilePath_WaitTillExists.htm">
+            <HelpTOCNode Title="WaitTillExists Method (String)" Url="html/M_gemstone_io_FilePath_WaitTillExists.htm" />
+            <HelpTOCNode Title="WaitTillExists Method (String, Double)" Url="html/M_gemstone_io_FilePath_WaitTillExists_1.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="838cec70-4502-4fe9-9161-de0f5906c113" Title="gemstone.reflection" Url="html/N_gemstone_reflection.htm">
+      <HelpTOCNode Id="4746c538-5ac8-4397-b779-6efc6c770144" Title="AppDomainTypeLookup Class" Url="html/T_gemstone_reflection_AppDomainTypeLookup.htm">
+        <HelpTOCNode Title="AppDomainTypeLookup Constructor " Url="html/M_gemstone_reflection_AppDomainTypeLookup__ctor.htm" />
+        <HelpTOCNode Id="5a13854b-5355-4bb1-8674-6ed555771c10" Title="AppDomainTypeLookup Properties" Url="html/Properties_T_gemstone_reflection_AppDomainTypeLookup.htm">
+          <HelpTOCNode Title="HasChanged Property " Url="html/P_gemstone_reflection_AppDomainTypeLookup_HasChanged.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="6fb69d5c-d478-419b-9602-c1e35da4d9c2" Title="AppDomainTypeLookup Methods" Url="html/Methods_T_gemstone_reflection_AppDomainTypeLookup.htm">
+          <HelpTOCNode Title="FindTypes Method " Url="html/M_gemstone_reflection_AppDomainTypeLookup_FindTypes.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="6a589ccf-ae9c-46cf-8ebb-331954b43679" Title="AssemblyExtensions Class" Url="html/T_gemstone_reflection_AssemblyExtensions.htm">
+        <HelpTOCNode Id="d990f83c-aecb-4a81-a313-64e2d9d48d87" Title="AssemblyExtensions Methods" Url="html/Methods_T_gemstone_reflection_AssemblyExtensions.htm">
+          <HelpTOCNode Title="BuildDate Method " Url="html/M_gemstone_reflection_AssemblyExtensions_BuildDate.htm" />
+          <HelpTOCNode Title="CLSCompliant Method " Url="html/M_gemstone_reflection_AssemblyExtensions_CLSCompliant.htm" />
+          <HelpTOCNode Title="ComCompatibleVersion Method " Url="html/M_gemstone_reflection_AssemblyExtensions_ComCompatibleVersion.htm" />
+          <HelpTOCNode Title="Company Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Company.htm" />
+          <HelpTOCNode Title="ComVisible Method " Url="html/M_gemstone_reflection_AssemblyExtensions_ComVisible.htm" />
+          <HelpTOCNode Title="Configuration Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Configuration.htm" />
+          <HelpTOCNode Title="Copyright Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Copyright.htm" />
+          <HelpTOCNode Title="CultureName Method " Url="html/M_gemstone_reflection_AssemblyExtensions_CultureName.htm" />
+          <HelpTOCNode Title="Debuggable Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Debuggable.htm" />
+          <HelpTOCNode Title="DelaySign Method " Url="html/M_gemstone_reflection_AssemblyExtensions_DelaySign.htm" />
+          <HelpTOCNode Title="Description Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Description.htm" />
+          <HelpTOCNode Title="GetAttributes Method " Url="html/M_gemstone_reflection_AssemblyExtensions_GetAttributes.htm" />
+          <HelpTOCNode Title="GetEmbeddedResource Method " Url="html/M_gemstone_reflection_AssemblyExtensions_GetEmbeddedResource.htm" />
+          <HelpTOCNode Title="Guid Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Guid.htm" />
+          <HelpTOCNode Title="InformationalVersion Method " Url="html/M_gemstone_reflection_AssemblyExtensions_InformationalVersion.htm" />
+          <HelpTOCNode Title="KeyFile Method " Url="html/M_gemstone_reflection_AssemblyExtensions_KeyFile.htm" />
+          <HelpTOCNode Title="Product Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Product.htm" />
+          <HelpTOCNode Title="RootNamespace Method " Url="html/M_gemstone_reflection_AssemblyExtensions_RootNamespace.htm" />
+          <HelpTOCNode Title="SatelliteContractVersion Method " Url="html/M_gemstone_reflection_AssemblyExtensions_SatelliteContractVersion.htm" />
+          <HelpTOCNode Title="ShortName Method " Url="html/M_gemstone_reflection_AssemblyExtensions_ShortName.htm" />
+          <HelpTOCNode Title="Title Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Title.htm" />
+          <HelpTOCNode Title="Trademark Method " Url="html/M_gemstone_reflection_AssemblyExtensions_Trademark.htm" />
+          <HelpTOCNode Title="TryLoadAllReferences Method " Url="html/M_gemstone_reflection_AssemblyExtensions_TryLoadAllReferences.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="9c98ae49-c9a1-466b-8e9e-9026ecd4343f" Title="AssemblyInfo Class" Url="html/T_gemstone_reflection_AssemblyInfo.htm">
+        <HelpTOCNode Title="AssemblyInfo Constructor " Url="html/M_gemstone_reflection_AssemblyInfo__ctor.htm" />
+        <HelpTOCNode Id="41c75f9b-4c20-4cfa-a766-2e6f571931e3" Title="AssemblyInfo Properties" Url="html/Properties_T_gemstone_reflection_AssemblyInfo.htm">
+          <HelpTOCNode Title="Assembly Property " Url="html/P_gemstone_reflection_AssemblyInfo_Assembly.htm" />
+          <HelpTOCNode Title="BuildDate Property " Url="html/P_gemstone_reflection_AssemblyInfo_BuildDate.htm" />
+          <HelpTOCNode Title="CallingAssembly Property " Url="html/P_gemstone_reflection_AssemblyInfo_CallingAssembly.htm" />
+          <HelpTOCNode Title="CLSCompliant Property " Url="html/P_gemstone_reflection_AssemblyInfo_CLSCompliant.htm" />
+          <HelpTOCNode Title="CodeBase Property " Url="html/P_gemstone_reflection_AssemblyInfo_CodeBase.htm" />
+          <HelpTOCNode Title="ComCompatibleVersion Property " Url="html/P_gemstone_reflection_AssemblyInfo_ComCompatibleVersion.htm" />
+          <HelpTOCNode Title="Company Property " Url="html/P_gemstone_reflection_AssemblyInfo_Company.htm" />
+          <HelpTOCNode Title="ComVisible Property " Url="html/P_gemstone_reflection_AssemblyInfo_ComVisible.htm" />
+          <HelpTOCNode Title="Configuration Property " Url="html/P_gemstone_reflection_AssemblyInfo_Configuration.htm" />
+          <HelpTOCNode Title="Copyright Property " Url="html/P_gemstone_reflection_AssemblyInfo_Copyright.htm" />
+          <HelpTOCNode Title="CultureName Property " Url="html/P_gemstone_reflection_AssemblyInfo_CultureName.htm" />
+          <HelpTOCNode Title="Debuggable Property " Url="html/P_gemstone_reflection_AssemblyInfo_Debuggable.htm" />
+          <HelpTOCNode Title="DelaySign Property " Url="html/P_gemstone_reflection_AssemblyInfo_DelaySign.htm" />
+          <HelpTOCNode Title="Description Property " Url="html/P_gemstone_reflection_AssemblyInfo_Description.htm" />
+          <HelpTOCNode Title="EntryAssembly Property " Url="html/P_gemstone_reflection_AssemblyInfo_EntryAssembly.htm" />
+          <HelpTOCNode Title="ExecutingAssembly Property " Url="html/P_gemstone_reflection_AssemblyInfo_ExecutingAssembly.htm" />
+          <HelpTOCNode Title="FullName Property " Url="html/P_gemstone_reflection_AssemblyInfo_FullName.htm" />
+          <HelpTOCNode Title="GACLoaded Property " Url="html/P_gemstone_reflection_AssemblyInfo_GACLoaded.htm" />
+          <HelpTOCNode Title="Guid Property " Url="html/P_gemstone_reflection_AssemblyInfo_Guid.htm" />
+          <HelpTOCNode Title="ImageRuntimeVersion Property " Url="html/P_gemstone_reflection_AssemblyInfo_ImageRuntimeVersion.htm" />
+          <HelpTOCNode Title="InformationalVersion Property " Url="html/P_gemstone_reflection_AssemblyInfo_InformationalVersion.htm" />
+          <HelpTOCNode Title="KeyFile Property " Url="html/P_gemstone_reflection_AssemblyInfo_KeyFile.htm" />
+          <HelpTOCNode Title="Location Property " Url="html/P_gemstone_reflection_AssemblyInfo_Location.htm" />
+          <HelpTOCNode Title="Name Property " Url="html/P_gemstone_reflection_AssemblyInfo_Name.htm" />
+          <HelpTOCNode Title="Product Property " Url="html/P_gemstone_reflection_AssemblyInfo_Product.htm" />
+          <HelpTOCNode Title="RootNamespace Property " Url="html/P_gemstone_reflection_AssemblyInfo_RootNamespace.htm" />
+          <HelpTOCNode Title="SatelliteContractVersion Property " Url="html/P_gemstone_reflection_AssemblyInfo_SatelliteContractVersion.htm" />
+          <HelpTOCNode Title="Title Property " Url="html/P_gemstone_reflection_AssemblyInfo_Title.htm" />
+          <HelpTOCNode Title="Trademark Property " Url="html/P_gemstone_reflection_AssemblyInfo_Trademark.htm" />
+          <HelpTOCNode Title="Version Property " Url="html/P_gemstone_reflection_AssemblyInfo_Version.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="5567ff5d-2f5c-416b-b75f-34227a4acfc7" Title="AssemblyInfo Methods" Url="html/Methods_T_gemstone_reflection_AssemblyInfo.htm">
+          <HelpTOCNode Title="FindType Method " Url="html/M_gemstone_reflection_AssemblyInfo_FindType.htm" />
+          <HelpTOCNode Title="GetAttributes Method " Url="html/M_gemstone_reflection_AssemblyInfo_GetAttributes.htm" />
+          <HelpTOCNode Title="GetCustomAttribute Method " Url="html/M_gemstone_reflection_AssemblyInfo_GetCustomAttribute.htm" />
+          <HelpTOCNode Title="GetEmbeddedResource Method " Url="html/M_gemstone_reflection_AssemblyInfo_GetEmbeddedResource.htm" />
+          <HelpTOCNode Title="LoadAssemblyFromResource Method " Url="html/M_gemstone_reflection_AssemblyInfo_LoadAssemblyFromResource.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="926f29ee-087b-48d2-add3-60a2bd50b165" Title="AssemblyLoadedVersionNumber Class" Url="html/T_gemstone_reflection_AssemblyLoadedVersionNumber.htm">
+        <HelpTOCNode Id="4d843354-6029-4645-8ddb-7de947b81fe8" Title="AssemblyLoadedVersionNumber Properties" Url="html/Properties_T_gemstone_reflection_AssemblyLoadedVersionNumber.htm">
+          <HelpTOCNode Title="VersionNumber Property " Url="html/P_gemstone_reflection_AssemblyLoadedVersionNumber_VersionNumber.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="c9aebed0-d947-4992-82af-21d8b830f836" Title="MemberInfoExtensions Class" Url="html/T_gemstone_reflection_MemberInfoExtensions.htm">
+        <HelpTOCNode Id="3d527324-879d-4df7-a362-e1478e79d52e" Title="MemberInfoExtensions Methods" Url="html/Methods_T_gemstone_reflection_MemberInfoExtensions.htm">
+          <HelpTOCNode Title="AttributeExists(TMemberInfo, TAttribute) Method " Url="html/M_gemstone_reflection_MemberInfoExtensions_AttributeExists__2.htm" />
+          <HelpTOCNode Title="GetFriendlyClassName(TMemberInfo) Method " Url="html/M_gemstone_reflection_MemberInfoExtensions_GetFriendlyClassName__1.htm" />
+          <HelpTOCNode Id="d120998f-de8f-4576-b41e-18c916a39a4d" Title="TryGetAttribute Method " Url="html/Overload_gemstone_reflection_MemberInfoExtensions_TryGetAttribute.htm">
+            <HelpTOCNode Title="TryGetAttribute(TMemberInfo, TAttribute) Method (TMemberInfo, TAttribute)" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttribute__2.htm" />
+            <HelpTOCNode Title="TryGetAttribute(TMemberInfo) Method (TMemberInfo, String, Attribute)" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttribute__1.htm" />
+            <HelpTOCNode Title="TryGetAttribute(TMemberInfo) Method (TMemberInfo, Type, Attribute)" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttribute__1_1.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="4ebdb0dd-0891-4cb6-a046-e3e1a0077837" Title="TryGetAttributes Method " Url="html/Overload_gemstone_reflection_MemberInfoExtensions_TryGetAttributes.htm">
+            <HelpTOCNode Title="TryGetAttributes(TMemberInfo, TAttribute) Method (TMemberInfo, TAttribute[])" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttributes__2.htm" />
+            <HelpTOCNode Title="TryGetAttributes(TMemberInfo) Method (TMemberInfo, String, Attribute[])" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttributes__1.htm" />
+            <HelpTOCNode Title="TryGetAttributes(TMemberInfo) Method (TMemberInfo, Type, Attribute[])" Url="html/M_gemstone_reflection_MemberInfoExtensions_TryGetAttributes__1_1.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="6d9d859a-d6ed-4026-a4e2-aa111d4e3df0" Title="MethodBaseExtensions Class" Url="html/T_gemstone_reflection_MethodBaseExtensions.htm">
+        <HelpTOCNode Id="183c9b11-2243-4451-b6dc-3cca3080a40e" Title="MethodBaseExtensions Methods" Url="html/Methods_T_gemstone_reflection_MethodBaseExtensions.htm">
+          <HelpTOCNode Title="GetFriendlyMethodName Method " Url="html/M_gemstone_reflection_MethodBaseExtensions_GetFriendlyMethodName.htm" />
+          <HelpTOCNode Title="GetFriendlyMethodNameWithClass Method " Url="html/M_gemstone_reflection_MethodBaseExtensions_GetFriendlyMethodNameWithClass.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="532b0f51-51bc-402c-b9c9-86ff48b02fda" Title="MethodInfoExtensions Class" Url="html/T_gemstone_reflection_MethodInfoExtensions.htm">
+        <HelpTOCNode Id="76aec7a8-d71c-4e70-b3c4-4dada5e7d33e" Title="MethodInfoExtensions Methods" Url="html/Methods_T_gemstone_reflection_MethodInfoExtensions.htm">
+          <HelpTOCNode Id="e51027dd-bafe-4c80-897f-1cbc2f9030a3" Title="CreateAction Method " Url="html/Overload_gemstone_reflection_MethodInfoExtensions_CreateAction.htm">
+            <HelpTOCNode Title="CreateAction Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateAction.htm" />
+            <HelpTOCNode Title="CreateAction(T1) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateAction__1.htm" />
+            <HelpTOCNode Title="CreateAction(T1, T2) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateAction__2.htm" />
+            <HelpTOCNode Title="CreateAction(T1, T2, T3) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateAction__3.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="cc76fa55-1b07-46ad-b246-578da22183a4" Title="CreateFunc Method " Url="html/Overload_gemstone_reflection_MethodInfoExtensions_CreateFunc.htm">
+            <HelpTOCNode Title="CreateFunc(TResult) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateFunc__1.htm" />
+            <HelpTOCNode Title="CreateFunc(T1, TResult) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateFunc__2.htm" />
+            <HelpTOCNode Title="CreateFunc(T1, T2, TResult) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateFunc__3.htm" />
+            <HelpTOCNode Title="CreateFunc(T1, T2, T3, TResult) Method (MethodInfo)" Url="html/M_gemstone_reflection_MethodInfoExtensions_CreateFunc__4.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="fd69e317-9ba4-49ee-8546-c27c311c0d80" Title="gemstone.security.cryptography" Url="html/N_gemstone_security_cryptography.htm">
+      <HelpTOCNode Id="e5c47e4a-3fec-427f-b050-e41466edb05c" Title="CharacterGroup Class" Url="html/T_gemstone_security_cryptography_CharacterGroup.htm">
+        <HelpTOCNode Id="e9344084-5c56-4f59-8348-787da7315fae" Title="CharacterGroup Constructor " Url="html/Overload_gemstone_security_cryptography_CharacterGroup__ctor.htm">
+          <HelpTOCNode Title="CharacterGroup Constructor " Url="html/M_gemstone_security_cryptography_CharacterGroup__ctor.htm" />
+          <HelpTOCNode Title="CharacterGroup Constructor (String)" Url="html/M_gemstone_security_cryptography_CharacterGroup__ctor_1.htm" />
+          <HelpTOCNode Title="CharacterGroup Constructor (String, Int32)" Url="html/M_gemstone_security_cryptography_CharacterGroup__ctor_2.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="d9dded0c-20df-47a3-b464-a1cb65b28dab" Title="CharacterGroup Properties" Url="html/Properties_T_gemstone_security_cryptography_CharacterGroup.htm">
+          <HelpTOCNode Title="Characters Property " Url="html/P_gemstone_security_cryptography_CharacterGroup_Characters.htm" />
+          <HelpTOCNode Title="MinOccurrence Property " Url="html/P_gemstone_security_cryptography_CharacterGroup_MinOccurrence.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Title="CharacterGroup Methods" Url="html/Methods_T_gemstone_security_cryptography_CharacterGroup.htm" />
+      </HelpTOCNode>
+      <HelpTOCNode Id="86b2ff70-5831-4baa-be07-1a63cfaf625c" Title="Cipher Class" Url="html/T_gemstone_security_cryptography_Cipher.htm">
+        <HelpTOCNode Id="9f6917a4-c727-4250-bbb7-f9eaab3b1c35" Title="Cipher Properties" Url="html/Properties_T_gemstone_security_cryptography_Cipher.htm">
+          <HelpTOCNode Title="SystemAllowsManagedEncryption Property " Url="html/P_gemstone_security_cryptography_Cipher_SystemAllowsManagedEncryption.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="64121611-5d9e-4b0c-b646-55628d6fccf5" Title="Cipher Methods" Url="html/Methods_T_gemstone_security_cryptography_Cipher.htm">
+          <HelpTOCNode Title="CreateAes Method " Url="html/M_gemstone_security_cryptography_Cipher_CreateAes.htm" />
+          <HelpTOCNode Title="CreateSHA1 Method " Url="html/M_gemstone_security_cryptography_Cipher_CreateSHA1.htm" />
+          <HelpTOCNode Title="CreateSHA256 Method " Url="html/M_gemstone_security_cryptography_Cipher_CreateSHA256.htm" />
+          <HelpTOCNode Title="CreateSHA384 Method " Url="html/M_gemstone_security_cryptography_Cipher_CreateSHA384.htm" />
+          <HelpTOCNode Title="CreateSHA512 Method " Url="html/M_gemstone_security_cryptography_Cipher_CreateSHA512.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="419b808f-41ba-416a-b092-870b54a4d5ba" Title="PasswordGenerator Class" Url="html/T_gemstone_security_cryptography_PasswordGenerator.htm">
+        <HelpTOCNode Id="431bb185-53ea-48b4-bf98-584847a86a6d" Title="PasswordGenerator Constructor " Url="html/Overload_gemstone_security_cryptography_PasswordGenerator__ctor.htm">
+          <HelpTOCNode Title="PasswordGenerator Constructor " Url="html/M_gemstone_security_cryptography_PasswordGenerator__ctor.htm" />
+          <HelpTOCNode Title="PasswordGenerator Constructor (IEnumerable(CharacterGroup))" Url="html/M_gemstone_security_cryptography_PasswordGenerator__ctor_1.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="eb7d4ca5-bbb7-48ab-aa4d-e6dd62a0f2c3" Title="PasswordGenerator Properties" Url="html/Properties_T_gemstone_security_cryptography_PasswordGenerator.htm">
+          <HelpTOCNode Title="AllCharacters Property " Url="html/P_gemstone_security_cryptography_PasswordGenerator_AllCharacters.htm" />
+          <HelpTOCNode Title="CharacterGroups Property " Url="html/P_gemstone_security_cryptography_PasswordGenerator_CharacterGroups.htm" />
+          <HelpTOCNode Title="MinLength Property " Url="html/P_gemstone_security_cryptography_PasswordGenerator_MinLength.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="ee3010e5-eaf9-470d-9a73-6408a0dde7be" Title="PasswordGenerator Methods" Url="html/Methods_T_gemstone_security_cryptography_PasswordGenerator.htm">
+          <HelpTOCNode Id="4c42ced6-62a8-48d2-a648-354ec92691cb" Title="GeneratePassword Method " Url="html/Overload_gemstone_security_cryptography_PasswordGenerator_GeneratePassword.htm">
+            <HelpTOCNode Title="GeneratePassword Method " Url="html/M_gemstone_security_cryptography_PasswordGenerator_GeneratePassword.htm" />
+            <HelpTOCNode Title="GeneratePassword Method (Int32)" Url="html/M_gemstone_security_cryptography_PasswordGenerator_GeneratePassword_1.htm" />
+            <HelpTOCNode Title="GeneratePassword Method (Int32, Int32)" Url="html/M_gemstone_security_cryptography_PasswordGenerator_GeneratePassword_2.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+        <HelpTOCNode Id="e5cb05fc-8245-4c22-bcc6-f47678833f63" Title="PasswordGenerator Fields" Url="html/Fields_T_gemstone_security_cryptography_PasswordGenerator.htm">
+          <HelpTOCNode Title="Default Field" Url="html/F_gemstone_security_cryptography_PasswordGenerator_Default.htm" />
+          <HelpTOCNode Title="DefaultCharacterGroups Field" Url="html/F_gemstone_security_cryptography_PasswordGenerator_DefaultCharacterGroups.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="fe58234a-85b3-47b4-8bb6-642af8c90522" Title="Random Class" Url="html/T_gemstone_security_cryptography_Random.htm">
+        <HelpTOCNode Id="b1340d27-5729-42dd-92a8-3d9588cdb0cd" Title="Random Properties" Url="html/Properties_T_gemstone_security_cryptography_Random.htm">
+          <HelpTOCNode Title="Boolean Property " Url="html/P_gemstone_security_cryptography_Random_Boolean.htm" />
+          <HelpTOCNode Title="Byte Property " Url="html/P_gemstone_security_cryptography_Random_Byte.htm" />
+          <HelpTOCNode Title="Decimal Property " Url="html/P_gemstone_security_cryptography_Random_Decimal.htm" />
+          <HelpTOCNode Title="Int16 Property " Url="html/P_gemstone_security_cryptography_Random_Int16.htm" />
+          <HelpTOCNode Title="Int32 Property " Url="html/P_gemstone_security_cryptography_Random_Int32.htm" />
+          <HelpTOCNode Title="Int64 Property " Url="html/P_gemstone_security_cryptography_Random_Int64.htm" />
+          <HelpTOCNode Title="Number Property " Url="html/P_gemstone_security_cryptography_Random_Number.htm" />
+          <HelpTOCNode Title="UInt16 Property " Url="html/P_gemstone_security_cryptography_Random_UInt16.htm" />
+          <HelpTOCNode Title="UInt32 Property " Url="html/P_gemstone_security_cryptography_Random_UInt32.htm" />
+          <HelpTOCNode Title="UInt64 Property " Url="html/P_gemstone_security_cryptography_Random_UInt64.htm" />
+        </HelpTOCNode>
+        <HelpTOCNode Id="fa289426-eb38-4e37-a636-dbae10e4c0fc" Title="Random Methods" Url="html/Methods_T_gemstone_security_cryptography_Random.htm">
+          <HelpTOCNode Title="Between Method " Url="html/M_gemstone_security_cryptography_Random_Between.htm" />
+          <HelpTOCNode Title="ByteBetween Method " Url="html/M_gemstone_security_cryptography_Random_ByteBetween.htm" />
+          <HelpTOCNode Title="GetBytes Method " Url="html/M_gemstone_security_cryptography_Random_GetBytes.htm" />
+          <HelpTOCNode Title="Int16Between Method " Url="html/M_gemstone_security_cryptography_Random_Int16Between.htm" />
+          <HelpTOCNode Title="Int32Between Method " Url="html/M_gemstone_security_cryptography_Random_Int32Between.htm" />
+          <HelpTOCNode Title="Int64Between Method " Url="html/M_gemstone_security_cryptography_Random_Int64Between.htm" />
+          <HelpTOCNode Title="UInt16Between Method " Url="html/M_gemstone_security_cryptography_Random_UInt16Between.htm" />
+          <HelpTOCNode Title="UInt32Between Method " Url="html/M_gemstone_security_cryptography_Random_UInt32Between.htm" />
+          <HelpTOCNode Title="UInt64Between Method " Url="html/M_gemstone_security_cryptography_Random_UInt64Between.htm" />
+        </HelpTOCNode>
+      </HelpTOCNode>
+      <HelpTOCNode Id="0e3435ea-c4a1-4782-aab6-714d1a813020" Title="SymmetricAlgorithmExtensions Class" Url="html/T_gemstone_security_cryptography_SymmetricAlgorithmExtensions.htm">
+        <HelpTOCNode Id="5587b38e-b28d-4448-b28b-bfe70bcd5e54" Title="SymmetricAlgorithmExtensions Methods" Url="html/Methods_T_gemstone_security_cryptography_SymmetricAlgorithmExtensions.htm">
+          <HelpTOCNode Id="d71ec57f-f349-429b-b1c4-6e512b586af3" Title="Decrypt Method " Url="html/Overload_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Decrypt.htm">
+            <HelpTOCNode Title="Decrypt Method (SymmetricAlgorithm, Stream, Stream, Byte[], Byte[])" Url="html/M_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Decrypt_1.htm" />
+            <HelpTOCNode Title="Decrypt Method (SymmetricAlgorithm, Byte[], Int32, Int32, Byte[], Byte[])" Url="html/M_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Decrypt.htm" />
+          </HelpTOCNode>
+          <HelpTOCNode Id="7861c80c-3cb4-4562-a08a-5d25baddef14" Title="Encrypt Method " Url="html/Overload_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Encrypt.htm">
+            <HelpTOCNode Title="Encrypt Method (SymmetricAlgorithm, Stream, Stream, Byte[], Byte[])" Url="html/M_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Encrypt_1.htm" />
+            <HelpTOCNode Title="Encrypt Method (SymmetricAlgorithm, Byte[], Int32, Int32, Byte[], Byte[])" Url="html/M_gemstone_security_cryptography_SymmetricAlgorithmExtensions_Encrypt.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
+      </HelpTOCNode>
+    </HelpTOCNode>
+    <HelpTOCNode Id="1c5af0be-4a2f-4dc3-8b9e-6f047d913deb" Title="gemstone.threading" Url="html/N_gemstone_threading.htm">
+      <HelpTOCNode Id="30563c36-44a1-4c07-8e55-828d6d7c73de" Title="ActionExtensions Class" Url="html/T_gemstone_threading_ActionExtensions.htm">
+        <HelpTOCNode Id="8258a4b9-c44d-4ac5-a579-1fcd62375fea" Title="ActionExtensions Methods" Url="html/Methods_T_gemstone_threading_ActionExtensions.htm">
+          <HelpTOCNode Id="8fd8ec14-5a4d-4313-8066-41928cbd07ea" Title="DelayAndExecute Method " Url="html/Overload_gemstone_threading_ActionExtensions_DelayAndExecute.htm">
+            <HelpTOCNode Title="DelayAndExecute Method (Action, Int32, Action(Exception))" Url="html/M_gemstone_threading_ActionExtensions_DelayAndExecute.htm" />
+            <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32, Action(Exception))" Url="html/M_gemstone_threading_ActionExtensions_DelayAndExecute_2.htm" />
+            <HelpTOCNode Title="DelayAndExecute Method (Action, Int32, CancellationToken, Action(Exception))" Url="html/M_gemstone_threading_ActionExtensions_DelayAndExecute_1.htm" />
+            <HelpTOCNode Title="DelayAndExecute Method (Action(CancellationToken), Int32, CancellationToken, Action(Exception))" Url="html/M_gemstone_threading_ActionExtensions_DelayAndExecute_3.htm" />
+          </HelpTOCNode>
+        </HelpTOCNode>
       </HelpTOCNode>
     </HelpTOCNode>
   </HelpTOCNode>
