@@ -23,7 +23,6 @@
 
 using System;
 using System.ComponentModel;
-using gemstone.component.model;
 
 namespace gemstone.component.annotations
 {
@@ -38,7 +37,7 @@ namespace gemstone.component.annotations
     /// </para>
     /// <para>
     /// Note that the <see cref="DefaultValueAttribute"/> should be used to set any constant values
-    /// for new modeled record instances and the <see cref="DefaultValueExpressionAttribute"/> should
+    /// for new modeled record instances and the <c>gemstone.expressions.model.DefaultValueExpressionAttribute</c> should
     /// be used for applying any needed server-side run-time expression defaults, either of these will
     /// get assigned when using the <c>gemstone.data.model.TableOperations&lt;T&gt;.NewRecord</c> function.
     /// The <see cref="InitialValueScriptAttribute"/> is used to initialize the property value using

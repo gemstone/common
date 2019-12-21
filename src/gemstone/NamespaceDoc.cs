@@ -28,7 +28,7 @@ namespace gemstone
     /// <summary>
     /// The <see cref="gemstone"/> namespace organizes all common Gemstone library functionality.
     /// The root namespace also includes classes, e.g.,
-    /// <see cref="Int24"/>, <see cref="UnixTimeTag"/> and <see cref="Common"/>.
+    /// <see cref="EventArgs{T}"/>, <see cref="StringExtensions"/> and <see cref="Common"/>.
     /// </summary>
     [CompilerGenerated]
     internal class NamespaceDoc
