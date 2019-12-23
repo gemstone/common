@@ -11,6 +11,7 @@
     <Description>GPA Gemstone Common Library</Description>
     <Copyright>Copyright © 2019</Copyright>
     <PackageProjectUrl>https://github.com/gemstone</PackageProjectUrl>
+    <PackageIcon>gemstone-square-128.png</PackageIcon>
     <RepositoryUrl>https://github.com/gemstone/gemstone.common</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -33,6 +34,13 @@
   <PropertyGroup>
     <DocumentationFile>$(SolutionDir)..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\docs\img\gemstone-square-128.png" Link="gemstone-square-128.png" Visible="false">
+      <Pack>True</Pack>
+      <PackagePath />
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Win32.Registry" Version="4.7.0" />
