@@ -92,18 +92,20 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Gemstone.CharExtensions;
 
-namespace gemstone
+namespace Gemstone.StringExtensions
 {
     /// <summary>
     /// Defines extension functions related to string manipulation.
     /// </summary>
-    public static partial class StringExtensions
+    public static class StringExtensions
     {
         [SuppressMessage("Microsoft.Globalization", "CA1309:UseOrdinalStringComparison")]
         private static readonly Dictionary<StringComparison, StringComparer> s_comparisonComparers = new Dictionary<StringComparison, StringComparer>
@@ -254,6 +256,82 @@ namespace gemstone
             {
                 return null;
             }
+        }
+
+        // The following "ToNonNullString" methods extend all class based objects. Note that these extension methods can be
+        // called even if the base object is null, hence the value of these methods. Our philosophy for this project has been
+        // "not" to apply extensions to all objects (this to avoid general namespace pollution) and make sure extensions are
+        // grouped together in their own source file (e.g., StringExtensions.cs).
+
+        /// <summary>
+        /// Converts value to string; null objects (or DBNull objects) will return an empty string (""). 
+        /// </summary>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <param name="value">Value to convert to string.</param>
+        /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, empty string ("") will be returned. </returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string ToNonNullString<T>(this T value) where T : class => value == null || value is DBNull ? "" : value.ToString();
+
+        /// <summary>
+        /// Converts value to string; null objects (or DBNull objects) will return specified <paramref name="nonNullValue"/>.
+        /// </summary>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <param name="value">Value to convert to string.</param>
+        /// <param name="nonNullValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, <paramref name="nonNullValue"/> will be returned.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="nonNullValue"/> cannot be null.</exception>
+        public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class => nonNullValue == null ? throw new ArgumentNullException(nameof(nonNullValue)) : value == null || value is DBNull ? nonNullValue : value.ToString();
+
+        // We handle strings as a special version of the ToNullNullString extension to handle documentation a little differently
+
+        /// <summary>
+        /// Makes sure returned string value is not null; if this string is null, empty string ("") will be returned. 
+        /// </summary>
+        /// <param name="value"><see cref="String"/> to verify is not null.</param>
+        /// <returns><see cref="String"/> value; if <paramref name="value"/> is null, empty string ("") will be returned.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static string ToNonNullString(this string value) => value ?? "";
+
+        /// <summary>
+        /// Converts value to string; null objects, DBNull objects or empty strings will return specified <paramref name="nonNullNorEmptyValue"/>.
+        /// </summary>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <param name="value">Value to convert to string.</param>
+        /// <param name="nonNullNorEmptyValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, DBNull or an empty string <paramref name="nonNullNorEmptyValue"/> will be returned.</returns>
+        /// <exception cref="ArgumentException"><paramref name="nonNullNorEmptyValue"/> must not be null or an empty string.</exception>
+        public static string ToNonNullNorEmptyString<T>(this T value, string nonNullNorEmptyValue = " ") where T : class
+        {
+            if (string.IsNullOrEmpty(nonNullNorEmptyValue))
+                throw new ArgumentException("Must not be null or an empty string", nameof(nonNullNorEmptyValue));
+
+            if (value == null || value is DBNull)
+                return nonNullNorEmptyValue;
+
+            string valueAsString = value.ToString();
+
+            return string.IsNullOrEmpty(valueAsString) ? nonNullNorEmptyValue : valueAsString;
+        }
+
+        /// <summary>
+        /// Converts value to string; null objects, DBNull objects, empty strings or all white space strings will return specified <paramref name="nonNullNorWhiteSpaceValue"/>.
+        /// </summary>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <param name="value">Value to convert to string.</param>
+        /// <param name="nonNullNorWhiteSpaceValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, DBNull, empty or all white space, <paramref name="nonNullNorWhiteSpaceValue"/> will be returned.</returns>
+        /// <exception cref="ArgumentException"><paramref name="nonNullNorWhiteSpaceValue"/> must not be null, an empty string or white space.</exception>
+        public static string ToNonNullNorWhiteSpace<T>(this T value, string nonNullNorWhiteSpaceValue = "_") where T : class
+        {
+            if (string.IsNullOrWhiteSpace(nonNullNorWhiteSpaceValue))
+                throw new ArgumentException("Must not be null, an empty string or white space", nameof(nonNullNorWhiteSpaceValue));
+
+            if (value == null || value is DBNull)
+                return nonNullNorWhiteSpaceValue;
+
+            string valueAsString = value.ToString();
+
+            return string.IsNullOrWhiteSpace(valueAsString) ? nonNullNorWhiteSpaceValue : valueAsString;
         }
 
         /// <summary>

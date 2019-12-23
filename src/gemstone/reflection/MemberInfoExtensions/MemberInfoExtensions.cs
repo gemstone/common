@@ -30,7 +30,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection.MemberInfoExtensions
 {
     /// <summary>
     /// Defines extensions methods related to <see cref="MemberInfo"/> objects and derived types (e.g., <see cref="FieldInfo"/>,
@@ -46,7 +46,7 @@ namespace gemstone.reflection
         public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo
         {
             // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-            return (object)member != null ? TypeExtensions.GetFriendlyClassName(member.DeclaringType) : string.Empty;
+            return (object)member != null ? TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType) : string.Empty;
         }
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace gemstone.reflection
         [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute
         {
-            return member.TryGetAttribute(out TAttribute value);
+            return member.TryGetAttribute(out TAttribute _);
         }
 
         /// <summary>

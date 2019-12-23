@@ -52,9 +52,10 @@ using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
 using System.Security;
-using gemstone.io;
+using Gemstone.IO;
+using Gemstone.Reflection.AssemblyExtensions;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection
 {
     /// <summary>
     /// Represents a common information provider for an assembly.

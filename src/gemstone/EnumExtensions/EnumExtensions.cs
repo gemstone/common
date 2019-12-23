@@ -31,9 +31,9 @@ using System;
 using System.ComponentModel;
 using System.Reflection;
 using System.Text;
-using gemstone.reflection;
+using Gemstone.Reflection.MemberInfoExtensions;
 
-namespace gemstone
+namespace Gemstone.EnumExtensions
 {
     /// <summary>
     /// Defines extension methods related to enumerations.

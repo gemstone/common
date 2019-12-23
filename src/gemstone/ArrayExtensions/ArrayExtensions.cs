@@ -45,9 +45,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using gemstone.io;
+using Gemstone.IO;
 
-namespace gemstone
+namespace Gemstone.ArrayExtensions
 {
     /// <summary>
     /// Defines extension functions related to <see cref="Array"/> manipulation.

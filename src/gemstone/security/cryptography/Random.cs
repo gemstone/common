@@ -34,7 +34,7 @@
 using System;
 using System.Security.Cryptography;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// Generates cryptographically strong random numbers.

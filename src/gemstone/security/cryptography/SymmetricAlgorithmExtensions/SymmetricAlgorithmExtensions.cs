@@ -27,9 +27,9 @@
 
 using System.IO;
 using System.Security.Cryptography;
-using gemstone.io;
+using Gemstone.IO;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
 {
     /// <summary>
     /// Defines extension functions related to cryptographic <see cref="SymmetricAlgorithm"/> objects.

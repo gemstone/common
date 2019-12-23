@@ -24,7 +24,7 @@
 using System;
 using System.ComponentModel;
 
-namespace gemstone.component.annotations
+namespace Gemstone.ComponentModel.DataAnnotations
 {
     /// <summary>
     /// Defines an attribute that will define an initial value script for a modeled table field

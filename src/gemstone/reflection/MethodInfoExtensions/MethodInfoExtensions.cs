@@ -27,7 +27,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 
 // ReSharper disable AssignNullToNotNullAttribute
-namespace gemstone.reflection
+namespace Gemstone.Reflection.MethodInfoExtensions
 {
     /// <summary>
     /// Defines extensions methods related to <see cref="MethodInfo"/>.

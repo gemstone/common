@@ -44,7 +44,7 @@
 using System;
 using System.Globalization;
 
-namespace gemstone
+namespace Gemstone.DateTimeExtensions
 {
     /// <summary>
     /// Defines extension functions related to Date/Time manipulation.

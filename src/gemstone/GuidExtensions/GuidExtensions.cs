@@ -23,15 +23,16 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using Gemstone.ArrayExtensions;
 
-namespace gemstone
+namespace Gemstone.GuidExtensions
 {
     /// <summary>
     /// Extension methods for <see cref="Guid"/>.
     /// </summary>
     public static unsafe class GuidExtensions
     {
-        #region [ Big Endian Based Encoding (ie RFC 4122) ]
+        #region [ Big Endian Based Encoding (RFC 4122) ]
 
         /// <summary>
         /// Encodes a <see cref="Guid"/> following RFC 4122.

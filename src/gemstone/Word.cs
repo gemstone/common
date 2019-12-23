@@ -27,7 +27,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Represents functions and extensions related to 16-bit words, 32-bit double-words and 64-bit quad-words.

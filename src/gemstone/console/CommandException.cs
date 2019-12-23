@@ -23,7 +23,7 @@
 
 using System;
 
-namespace gemstone.console
+namespace Gemstone.Console
 {
     /// <summary>
     /// Represents an exception that is thrown when <see cref="Command.Execute(string, string, int)"/> reports standard error output.

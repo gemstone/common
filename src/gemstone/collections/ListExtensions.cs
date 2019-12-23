@@ -25,7 +25,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace gemstone.collections
+namespace Gemstone.Collections
 {
     /// <summary>
     /// Extensions for <see cref="List{T}"/>

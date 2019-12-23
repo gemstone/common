@@ -24,7 +24,7 @@
 using System;
 using System.Threading;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection
 {
     /// <summary>
     /// Maintains a version number that increments every time an <see cref="AppDomain"/> AssemblyLoad event is raised.

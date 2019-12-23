@@ -62,13 +62,14 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Random = gemstone.security.cryptography.Random;
+using Gemstone.Collections;
+using Random = Gemstone.Security.Cryptography.Random;
 
 //using Random = GSF.Security.Cryptography.Random;
 
 #pragma warning disable SCS0005 // Weak random generator desired for use cases here
 
-namespace gemstone.collections
+namespace Gemstone.Collections.CollectionExtensions
 {
     /// <summary>
     /// Defines extension functions related to manipulation of arrays and collections.
@@ -1046,7 +1047,7 @@ namespace gemstone.collections
             for (x = 0; x < source.Count; x++)
             {
                 // Calls random function from GSF namespace.
-                y = Random.Int32Between(0, source.Count - 1);
+                y = Security.Cryptography.Random.Int32Between(0, source.Count - 1);
 
                 if (x != y)
                 {

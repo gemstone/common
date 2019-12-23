@@ -23,7 +23,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.component.annotations
+namespace Gemstone.ComponentModel.DataAnnotations
 {
     /// <summary>
     /// Contains classes and attributes used for component modeling used with data annotations.

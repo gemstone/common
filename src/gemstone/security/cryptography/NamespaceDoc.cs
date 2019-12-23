@@ -25,7 +25,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// Contains classes and extension functions used to simplify and standardize usage of basic cryptography using a combination 

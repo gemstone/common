@@ -22,7 +22,7 @@
 //******************************************************************************************************
 
 
-namespace gemstone.console
+namespace Gemstone.Console
 {
     /// <summary>
     /// Represents a response that is returned from <see cref="Command.Execute(string, string, int)"/> with standard output and exit code.

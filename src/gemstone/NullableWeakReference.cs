@@ -23,7 +23,7 @@
 
 using System;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// A <see cref="WeakReference"/> implementation that can have the <see cref="Target"/> object set to null.

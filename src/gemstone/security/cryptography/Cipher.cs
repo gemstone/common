@@ -24,7 +24,7 @@
 using System.Security.Cryptography;
 using Microsoft.Win32;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// Provides general use cryptographic functions.

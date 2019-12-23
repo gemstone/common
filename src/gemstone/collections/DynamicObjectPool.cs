@@ -26,9 +26,9 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using gemstone.threading;
+using Gemstone.ActionExtensions;
 
-namespace gemstone.collections
+namespace Gemstone.Collections
 {
     /// <summary>
     /// Provides a thread safe queue that acts as a buffer pool. 

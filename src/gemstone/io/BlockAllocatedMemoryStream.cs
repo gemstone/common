@@ -28,10 +28,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using gemstone.collections;
+using Gemstone.ArrayExtensions;
+using Gemstone.Collections;
+
 
 // ReSharper disable VirtualMemberCallInConstructor
-namespace gemstone.io
+namespace Gemstone.IO
 {
     /// <summary>
     /// Defines a stream whose backing store is memory. Externally this class operates similar to a <see cref="MemoryStream"/>,
@@ -101,7 +103,7 @@ namespace gemstone.io
         /// <paramref name="buffer"/> as its backing buffer. The buffer will be copied into internally managed reusable
         /// memory buffers. Subsequently, the notion of a non-expandable stream is not supported.
         /// </remarks>
-        public BlockAllocatedMemoryStream(byte[] buffer) : this(buffer, 0, buffer == null ? 0 : buffer.Length)
+        public BlockAllocatedMemoryStream(byte[] buffer) : this(buffer, 0, buffer?.Length ?? 0)
         {
         }
 
@@ -242,7 +244,7 @@ namespace gemstone.io
 
             m_blocks = new List<byte[]>();
 
-            foreach (var block in blocks)
+            foreach (byte[] block in blocks)
                 s_memoryBlockPool.Enqueue(block);
         }
 

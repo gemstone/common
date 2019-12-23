@@ -59,11 +59,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
-using gemstone.console;
-using gemstone.reflection;
-using static gemstone.Common;
+using Gemstone.CharExtensions;
+using Gemstone.Console;
+using Gemstone.Reflection;
+using Gemstone.StringExtensions;
+using static Gemstone.Common;
 
-namespace gemstone.io
+namespace Gemstone.IO
 {
     /// <summary>
     /// Contains File and Path manipulation methods.

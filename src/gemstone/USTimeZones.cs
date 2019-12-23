@@ -27,7 +27,7 @@
 
 using System;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Defines a few common United States time zones.

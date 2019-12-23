@@ -24,7 +24,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace gemstone.component.annotations
+namespace Gemstone.ComponentModel.DataAnnotations
 {
     /// <summary>
     /// Represents a <see cref="RegularExpressionAttribute"/> for validating Acronyms, i.e., expressions

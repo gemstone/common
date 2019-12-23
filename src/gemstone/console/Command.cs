@@ -26,7 +26,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace gemstone.console
+namespace Gemstone.Console
 {
     /// <summary>
     /// Defines methods related to command line operations

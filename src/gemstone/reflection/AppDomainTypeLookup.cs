@@ -26,7 +26,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection
 {
     /// <summary>
     /// Defines a lookup class that searches all assemblies in the current <see cref="AppDomain"/> for all <see cref="Type"/>.

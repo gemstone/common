@@ -23,10 +23,10 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
-    /// The <see cref="gemstone"/> namespace organizes all common Gemstone library functionality.
+    /// The <see cref="Gemstone"/> namespace organizes all common Gemstone library functionality.
     /// The root namespace also includes classes, e.g.,
     /// <see cref="EventArgs{T}"/>, <see cref="StringExtensions"/> and <see cref="Common"/>.
     /// </summary>

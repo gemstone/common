@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable PossibleMultipleEnumeration
-namespace gemstone.collections
+namespace Gemstone.Collections
 {
     /// <summary>
     /// Defines a paged list for an enumeration.

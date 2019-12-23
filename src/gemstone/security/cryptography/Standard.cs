@@ -25,7 +25,7 @@
 //
 //******************************************************************************************************
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// This class is used internally do define a standard buffer size.

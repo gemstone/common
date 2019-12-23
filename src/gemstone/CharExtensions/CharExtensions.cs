@@ -38,7 +38,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 
-namespace gemstone
+namespace Gemstone.CharExtensions
 {
     /// <summary>
     /// Defines extension functions related to character manipulation.

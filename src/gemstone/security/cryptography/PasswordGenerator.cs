@@ -25,9 +25,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using gemstone.collections;
+using Gemstone.Collections.CollectionExtensions;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// Generates random passwords.

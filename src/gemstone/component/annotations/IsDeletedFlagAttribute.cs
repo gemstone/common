@@ -23,7 +23,7 @@
 
 using System;
 
-namespace gemstone.component.annotations
+namespace Gemstone.ComponentModel.DataAnnotations
 {
     /// <summary>
     /// Defines an attribute that will define the field name that represents a record marked for deletion.

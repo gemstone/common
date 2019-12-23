@@ -25,7 +25,7 @@
 
 using System.Runtime.CompilerServices;
 
-namespace gemstone.console
+namespace Gemstone.Console
 {
     /// <summary>
     /// Contains classes used for parsing command line parameters and managing console applications.

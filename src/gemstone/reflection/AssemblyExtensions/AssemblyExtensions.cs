@@ -37,7 +37,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection.AssemblyExtensions
 {
     /// <summary>
     /// Defines extension functions related to Assemblies.

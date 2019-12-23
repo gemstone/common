@@ -23,7 +23,7 @@
 
 using System.Collections;
 
-namespace gemstone.collections
+namespace Gemstone.Collections
 {
     /// <summary>
     /// Defines an interface for <see cref="PagedList{T}"/> instances that is usable

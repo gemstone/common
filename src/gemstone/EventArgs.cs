@@ -64,7 +64,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Represents a generic event arguments class with one data argument.

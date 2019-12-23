@@ -48,10 +48,10 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
-using gemstone.io;
-using gemstone.reflection;
+using Gemstone.IO;
+using Gemstone.Reflection.AssemblyExtensions;
 
-namespace gemstone
+namespace Gemstone.TypeExtensions
 {
     /// <summary>
     /// Extensions to all <see cref="Type"/> objects.

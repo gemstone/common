@@ -24,8 +24,9 @@
 using System;
 using System.Reflection;
 using System.Text;
+using Gemstone.Reflection.MemberInfoExtensions;
 
-namespace gemstone.reflection
+namespace Gemstone.Reflection.MethodBaseExtensions
 {
     /// <summary>
     /// Defines extensions methods related to extension functions for <see cref="MethodBase"/> instances.

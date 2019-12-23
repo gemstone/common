@@ -23,7 +23,7 @@
 
 using System;
 
-namespace gemstone.security.cryptography
+namespace Gemstone.Security.Cryptography
 {
     /// <summary>
     /// Defines a group of characters that can

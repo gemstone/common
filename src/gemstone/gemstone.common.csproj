@@ -28,11 +28,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputPath>$(SolutionDir)..\build\$(Configuration)</OutputPath>
+    <OutputPath>..\..\build\$(Configuration)</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup>
-    <DocumentationFile>$(SolutionDir)..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
+    <DocumentationFile>..\..\build\$(Configuration)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

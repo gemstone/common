@@ -21,7 +21,7 @@
 //
 //******************************************************************************************************
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Enumeration that represents a state of either "automatic", "on" or "off".

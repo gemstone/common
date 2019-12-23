@@ -24,7 +24,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Contains some random and useful functions.

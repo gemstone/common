@@ -26,7 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace gemstone
+namespace Gemstone
 {
     /// <summary>
     /// Contains 7 bit encoding functions
