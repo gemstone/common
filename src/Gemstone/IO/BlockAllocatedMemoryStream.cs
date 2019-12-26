@@ -29,8 +29,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Gemstone.ArrayExtensions;
-using Gemstone.Collections;
-
 
 // ReSharper disable VirtualMemberCallInConstructor
 namespace Gemstone.IO
@@ -579,7 +577,7 @@ namespace Gemstone.IO
 
         // Allow up to 100 items of 8KB items to remain on the buffer pool. This might need to be increased if the buffer pool becomes more 
         // extensively used. Allocation Statistics will be logged in the Logger.
-        private static readonly DynamicObjectPool<byte[]> s_memoryBlockPool = new DynamicObjectPool<byte[]>(() => new byte[BlockSize], 100);
+        private static readonly BufferPool s_memoryBlockPool = new BufferPool(BlockSize, 100);
 
         #endregion
     }

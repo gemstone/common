@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  DynamicObjectPool.cs - Gbtc
+//  BufferPool.cs - Gbtc
 //
 //  Copyright © 2016, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -18,6 +18,8 @@
 //  ----------------------------------------------------------------------------------------------------
 //  11/17/2016 - Steven E. Chisholm
 //       Generated original version of source code. 
+//  12/26/2019 - J. Ritchie Carroll
+//       Simplified DynamicObjectPool as an internal resource renaming to BufferPool.
 //
 //******************************************************************************************************
 
@@ -28,31 +30,30 @@ using System.Linq;
 using System.Threading;
 using Gemstone.ActionExtensions;
 
-namespace Gemstone.Collections
+namespace Gemstone.IO
 {
     /// <summary>
     /// Provides a thread safe queue that acts as a buffer pool. 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class DynamicObjectPool<T> where T : class
+    internal class BufferPool
     {
-        private readonly ConcurrentQueue<T> m_queue;
-        private readonly Func<T> m_instanceObject;
+        private readonly int m_bufferSize;
+        private readonly ConcurrentQueue<byte[]> m_buffers;
         private readonly Queue<int> m_countHistory;
         private readonly int m_targetCount;
         private int m_objectsCreated;
 
         /// <summary>
-        /// Creates a new Resource Queue.
+        /// Creates a new <see cref="BufferPool"/>.
         /// </summary>
-        /// <param name="instance">A delegate that will return the necessary queue.</param>
-        /// <param name="targetCount">the ideal number of objects that are always pending on the queue.</param>
-        public DynamicObjectPool(Func<T> instance, int targetCount)
+        /// <param name="bufferSize">The size of buffers in the pool.</param>
+        /// <param name="targetCount">the ideal number of buffers that are always pending on the queue.</param>
+        public BufferPool(int bufferSize, int targetCount)
         {
+            m_bufferSize = bufferSize;
             m_targetCount = targetCount;
             m_countHistory = new Queue<int>(100);
-            m_instanceObject = instance ?? throw new ArgumentNullException(nameof(instance));
-            m_queue = new ConcurrentQueue<T>();
+            m_buffers = new ConcurrentQueue<byte[]>();
 
             new Action(RunCollection).DelayAndExecute(1000);
         }
@@ -61,7 +62,7 @@ namespace Gemstone.Collections
         {
             try
             {
-                m_countHistory.Enqueue(m_queue.Count);
+                m_countHistory.Enqueue(m_buffers.Count);
 
                 if (m_countHistory.Count < 60)
                     return;
@@ -78,9 +79,7 @@ namespace Gemstone.Collections
 
                 while (min > m_targetCount)
                 {
-                    if (m_queue.TryDequeue(out T item))
-                        (item as IDisposable)?.Dispose();
-                    else
+                    if (!m_buffers.TryDequeue(out _)) 
                         return;
 
                     min--;
@@ -93,22 +92,22 @@ namespace Gemstone.Collections
         }
 
         /// <summary>
-        /// Removes an item from the queue. If one does not exist, one is created.
+        /// Removes a buffer from the queue. If one does not exist, one is created.
         /// </summary>
         /// <returns></returns>
-        public T Dequeue()
+        public byte[] Dequeue()
         {
-            if (m_queue.TryDequeue(out T item))
+            if (m_buffers.TryDequeue(out byte[] item))
                 return item;
 
             Interlocked.Increment(ref m_objectsCreated);
-            return m_instanceObject();
+            return new byte[m_bufferSize];
         }
 
         /// <summary>
-        /// Adds an item back to the queue.
+        /// Adds a buffer back to the queue.
         /// </summary>
-        /// <param name="resource">The resource to queue.</param>
-        public void Enqueue(T resource) => m_queue.Enqueue(resource);
+        /// <param name="buffer">The buffer to queue.</param>
+        public void Enqueue(byte[] buffer) => m_buffers.Enqueue(buffer);
     }
 }
