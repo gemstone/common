@@ -170,7 +170,7 @@ namespace Gemstone.IO
             get
             {
                 if (m_disposed)
-                    throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                    throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
                 return m_length;
             }
@@ -186,14 +186,14 @@ namespace Gemstone.IO
             get
             {
                 if (m_disposed)
-                    throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                    throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
                 return m_position;
             }
             set
             {
                 if (m_disposed)
-                    throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                    throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
                 if (value < 0L)
                     throw new IOException("Seek was attempted before the beginning of the stream.");
@@ -259,7 +259,7 @@ namespace Gemstone.IO
         public override long Seek(long offset, SeekOrigin origin)
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             switch (origin)
             {
@@ -326,7 +326,7 @@ namespace Gemstone.IO
         public override int Read(byte[] buffer, int startIndex, int length)
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             buffer.ValidateParameters(startIndex, length);
 
@@ -368,7 +368,7 @@ namespace Gemstone.IO
         public override int ReadByte()
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             if (m_position >= m_length)
                 return -1;
@@ -394,7 +394,7 @@ namespace Gemstone.IO
         public override void Write(byte[] buffer, int startIndex, int length)
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             buffer.ValidateParameters(startIndex, length);
 
@@ -432,7 +432,7 @@ namespace Gemstone.IO
         public override void WriteByte(byte value)
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             if (m_position + 1 > m_capacity)
                 EnsureCapacity(m_position + 1);
@@ -460,7 +460,7 @@ namespace Gemstone.IO
         public byte[] ToArray()
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             if (m_length > 0x7FFFFFC7L)
                 throw new InvalidOperationException("Cannot create a byte array of size " + m_length);
@@ -486,7 +486,7 @@ namespace Gemstone.IO
         {
             // Note: A faster way would be to write directly to the BlockAllocatedMemoryStream
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             byte[] buffer = s_memoryBlockPool.Dequeue();
 
@@ -513,7 +513,7 @@ namespace Gemstone.IO
         public void WriteTo(Stream destination)
         {
             if (m_disposed)
-                throw new ObjectDisposedException("BlockAllocatedMemoryStream", "The stream is closed.");
+                throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             long originalPosition = m_position;
             m_position = 0;
