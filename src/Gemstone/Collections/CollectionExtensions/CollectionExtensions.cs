@@ -62,7 +62,6 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Gemstone.Collections;
 using Random = Gemstone.Security.Cryptography.Random;
 
 //using Random = GSF.Security.Cryptography.Random;
@@ -1030,6 +1029,47 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>
+        /// Iterates through each item in the list. Allowing items to be removed from the list.
+        /// </summary>
+        /// <param name="list">the list to iterate though</param>
+        /// <param name="shouldRemove">the function to call to determine 
+        /// if the items should be removed from the list. </param>
+        /// <returns>
+        /// The number of items removed from the list.
+        /// </returns>
+        /// <remarks>
+        /// In order to minimize the overhead of a removal. Any item removed with be replaced with
+        /// the last item in the list. Therefore Sequence will not be preserved using this method.
+        /// </remarks>
+        public static int RemoveWhere<T>(this List<T> list, Func<T, bool> shouldRemove)
+        {
+            // 10/24/2016 - Steven E. Chisholm
+            int removedCount = 0;
+
+            if (list == null)
+                throw new ArgumentNullException(nameof(list));
+
+            if (shouldRemove == null)
+                throw new ArgumentNullException(nameof(shouldRemove));
+
+            for (int x = 0; x < list.Count; x++)
+            {
+                if (!shouldRemove(list[x]))
+                    continue;
+
+                removedCount++;
+
+                if (list.Count > 1 && x != list.Count - 1)
+                    list[x] = list[list.Count - 1];
+
+                list.RemoveAt(list.Count - 1);
+                x--;
+            }
+
+            return removedCount;
+        }
+
+        /// <summary>
         /// Rearranges all the elements in the list into a highly-random order.
         /// </summary>
         /// <typeparam name="TSource">The generic type of the list.</typeparam>
@@ -1047,7 +1087,7 @@ namespace Gemstone.Collections.CollectionExtensions
             for (x = 0; x < source.Count; x++)
             {
                 // Calls random function from GSF namespace.
-                y = Security.Cryptography.Random.Int32Between(0, source.Count - 1);
+                y = Random.Int32Between(0, source.Count - 1);
 
                 if (x != y)
                 {
@@ -1196,61 +1236,32 @@ namespace Gemstone.Collections.CollectionExtensions
 
         private class DistinctByWrapper<TKey, TValue> : IEquatable<DistinctByWrapper<TKey, TValue>>
         {
-            #region [ Members ]
-
-            // Fields
-            private readonly TKey m_key;
-            private readonly TValue m_value;
-
-            #endregion
-
             #region [ Constructors ]
 
             public DistinctByWrapper(TKey key, TValue value)
             {
-                m_key = key;
-                m_value = value;
+                Key = key;
+                Value = value;
             }
 
             #endregion
 
             #region [ Properties ]
 
-            public TValue Value
-            {
-                get
-                {
-                    return m_value;
-                }
-            }
+            private TKey Key { get; }
+
+            public TValue Value { get;}
 
             #endregion
 
             #region [ Methods ]
 
-            public bool Equals(DistinctByWrapper<TKey, TValue> other)
-            {
-                // ReSharper disable once PossibleNullReferenceException
-                return Equals(m_key, other.m_key);
-            }
+            // ReSharper disable once PossibleNullReferenceException
+            public bool Equals(DistinctByWrapper<TKey, TValue> other) => Equals(Key, other.Key);
 
-            public override bool Equals(object obj)
-            {
-                DistinctByWrapper<TKey, TValue> wrapper = obj as DistinctByWrapper<TKey, TValue>;
+            public override bool Equals(object obj) => obj is DistinctByWrapper<TKey, TValue> wrapper && Equals(wrapper);
 
-                if (wrapper != null)
-                    return Equals(wrapper);
-
-                return false;
-            }
-
-            public override int GetHashCode()
-            {
-                if (m_key == null)
-                    return 0;
-
-                return m_key.GetHashCode();
-            }
+            public override int GetHashCode() => Key == null ? 0 : Key.GetHashCode();
 
             #endregion
         }
