@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
-    <RootNamespace>gemstone</RootNamespace>
-    <PackageId>gemstone.common</PackageId>
+    <RootNamespace>Gemstone</RootNamespace>
+    <PackageId>Gemstone.Common</PackageId>
     <Authors>Grid Protection Alliance</Authors>
     <Company>Grid Protection Alliance</Company>
-    <Product>gemstone</Product>
+    <Product>Gemstone</Product>
     <PackageDescription>GPA Gemstone Common Library</PackageDescription>
     <Description>GPA Gemstone Common Library</Description>
     <Copyright>Copyright © 2019</Copyright>
@@ -16,7 +16,7 @@
     <RepositoryType>git</RepositoryType>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageTags>GPA;gemstone;library;common</PackageTags>
+    <PackageTags>GPA;Gemstone;library;common</PackageTags>
     <LangVersion>7.3</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <PlatformTarget>AnyCPU</PlatformTarget>
