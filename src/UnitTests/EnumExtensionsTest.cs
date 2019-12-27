@@ -25,7 +25,7 @@
 
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using gemstone;
+using Gemstone.EnumExtensions;
 
 namespace UnitTests
 {

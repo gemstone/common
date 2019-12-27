@@ -24,7 +24,7 @@
 //******************************************************************************************************
 
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using gemstone;
+using Gemstone.StringExtensions;
 
 namespace UnitTests
 {
