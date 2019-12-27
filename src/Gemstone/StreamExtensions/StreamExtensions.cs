@@ -98,6 +98,7 @@ namespace Gemstone.StreamExtensions
             using (BlockAllocatedMemoryStream outStream = new BlockAllocatedMemoryStream())
             {
                 source.CopyTo(outStream);
+
                 return outStream.ToArray();
             }
         }
@@ -140,81 +141,96 @@ namespace Gemstone.StreamExtensions
             if (value == null)
             {
                 stream.Write((byte)ObjectType.Null);
+
                 return;
             }
+
             switch (Type.GetTypeCode(value.GetType()))
             {
                 case TypeCode.Empty:
                     stream.Write((byte)ObjectType.Null);
+
                     break;
                 case TypeCode.DBNull:
                     stream.Write((byte)ObjectType.DBNull);
+
                     break;
                 case TypeCode.Boolean:
                     if ((bool)value)
-                    {
                         stream.Write((byte)ObjectType.BooleanFalse);
-                    }
                     else
-                    {
                         stream.Write((byte)ObjectType.BooleanTrue);
-                    }
+
                     break;
                 case TypeCode.Char:
                     stream.Write((byte)ObjectType.Char);
                     stream.Write((char)value);
+
                     break;
                 case TypeCode.SByte:
                     stream.Write((byte)ObjectType.SByte);
                     stream.Write((sbyte)value);
+
                     break;
                 case TypeCode.Byte:
                     stream.Write((byte)ObjectType.Byte);
                     stream.Write((byte)value);
+
                     break;
                 case TypeCode.Int16:
                     stream.Write((byte)ObjectType.Int16);
                     stream.Write((short)value);
+
                     break;
                 case TypeCode.UInt16:
                     stream.Write((byte)ObjectType.UInt16);
                     stream.Write((ushort)value);
+
                     break;
                 case TypeCode.Int32:
                     stream.Write((byte)ObjectType.Int32);
                     stream.Write((int)value);
+
                     break;
                 case TypeCode.UInt32:
                     stream.Write((byte)ObjectType.UInt32);
                     stream.Write((uint)value);
+
                     break;
                 case TypeCode.Int64:
                     stream.Write((byte)ObjectType.Int64);
                     stream.Write((long)value);
+
                     break;
                 case TypeCode.UInt64:
                     stream.Write((byte)ObjectType.UInt64);
                     stream.Write((ulong)value);
+
                     break;
                 case TypeCode.Single:
                     stream.Write((byte)ObjectType.Single);
                     stream.Write((float)value);
+
                     break;
                 case TypeCode.Double:
                     stream.Write((byte)ObjectType.Double);
                     stream.Write((double)value);
+
                     break;
                 case TypeCode.Decimal:
                     stream.Write((byte)ObjectType.Decimal);
                     stream.Write((decimal)value);
+
                     break;
                 case TypeCode.DateTime:
                     stream.Write((byte)ObjectType.DateTime);
                     stream.Write((DateTime)value);
+
                     break;
                 case TypeCode.String:
                     stream.Write((byte)ObjectType.String);
                     stream.Write((string)value);
+
                     break;
                 case TypeCode.Object:
                     switch (value)
@@ -237,6 +253,7 @@ namespace Gemstone.StreamExtensions
                         default:
                             throw new NotSupportedException("This type cannot be serialized");
                     }
+
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -251,6 +268,7 @@ namespace Gemstone.StreamExtensions
         public static object ReadObject(this Stream stream)
         {
             ObjectType type = (ObjectType)stream.ReadNextByte();
+
             switch (type)
             {
                 case ObjectType.Null:
@@ -320,13 +338,14 @@ namespace Gemstone.StreamExtensions
         /// Will throw an exception if the end of the stream has been reached.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>the value read</returns>
+        /// <returns>Value read.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte ReadNextByte(this Stream stream)
         {
             int value = stream.ReadByte();
             if (value < 0)
                 ThrowEOS();
+
             return (byte)value;
         }
 
@@ -334,7 +353,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static bool ReadBoolean(this Stream stream)
         {
             return stream.ReadNextByte() != 0;
@@ -369,7 +388,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static sbyte ReadSByte(this Stream stream)
         {
             return (sbyte)stream.ReadNextByte();
@@ -416,10 +435,11 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static short ReadInt16(this Stream stream)
         {
             byte[] data = stream.ReadBytes(2);
+
             return LittleEndian.ToInt16(data, 0);
         }
 
@@ -427,7 +447,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static ushort ReadUInt16(this Stream stream)
         {
             return (ushort)stream.ReadInt16();
@@ -437,7 +457,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static char ReadChar(this Stream stream)
         {
             return (char)stream.ReadInt16();
@@ -480,15 +500,15 @@ namespace Gemstone.StreamExtensions
             Write(stream, *(int*)&value);
         }
 
-
         /// <summary>
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static int ReadInt32(this Stream stream)
         {
             byte[] data = stream.ReadBytes(4);
+
             return LittleEndian.ToInt32(data, 0);
         }
 
@@ -496,7 +516,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static uint ReadUInt32(this Stream stream)
         {
             return (uint)stream.ReadInt32();
@@ -506,10 +526,11 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static float ReadSingle(this Stream stream)
         {
             int value = stream.ReadInt32();
+
             return *(float*)&value;
         }
 
@@ -565,10 +586,11 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static long ReadInt64(this Stream stream)
         {
             byte[] data = stream.ReadBytes(8);
+
             return LittleEndian.ToInt64(data, 0);
         }
 
@@ -576,10 +598,11 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static double ReadDouble(this Stream stream)
         {
             long value = stream.ReadInt64();
+
             return *(double*)&value;
         }
 
@@ -587,7 +610,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static ulong ReadUInt64(this Stream stream)
         {
             return (ulong)stream.ReadInt64();
@@ -597,7 +620,7 @@ namespace Gemstone.StreamExtensions
         /// Reads the value from the stream in little endian format.
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
-        /// <returns>The value read</returns>
+        /// <returns>Value read.</returns>
         public static DateTime ReadDateTime(this Stream stream)
         {
             return new DateTime(stream.ReadInt64());
@@ -610,8 +633,8 @@ namespace Gemstone.StreamExtensions
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="value"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="value">Value to write.</param>
         public static void Write(this Stream stream, decimal value)
         {
             stream.Write(LittleEndian.GetBytes(value));
@@ -620,8 +643,8 @@ namespace Gemstone.StreamExtensions
         /// <summary>
         /// Writes a guid in little endian bytes to the stream
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="value"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="value">Value to write.</param>
         public static void Write(this Stream stream, Guid value)
         {
             Write(stream, value.ToLittleEndianBytes());
@@ -685,11 +708,14 @@ namespace Gemstone.StreamExtensions
         public static byte[] ReadBytes(this Stream stream)
         {
             int length = (int)stream.Read7BitUInt32();
+
             if (length < 0)
                 throw new Exception("Invalid length");
+
             byte[] data = new byte[length];
             if (length > 0)
                 stream.ReadAll(data, 0, data.Length);
+
             return data;
         }
 
@@ -704,9 +730,11 @@ namespace Gemstone.StreamExtensions
         {
             if (length < 0)
                 throw new Exception("Invalid length");
+
             byte[] data = new byte[length];
             if (length > 0)
                 stream.ReadAll(data, 0, data.Length);
+
             return data;
         }
 
@@ -723,11 +751,14 @@ namespace Gemstone.StreamExtensions
         public static void ReadAll(this Stream stream, byte[] buffer, int position, int length)
         {
             buffer.ValidateParameters(position, length);
+
             while (length > 0)
             {
                 int bytesRead = stream.Read(buffer, position, length);
+
                 if (bytesRead == 0)
                     throw new EndOfStreamException();
+
                 length -= bytesRead;
                 position += bytesRead;
             }
@@ -740,62 +771,72 @@ namespace Gemstone.StreamExtensions
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="value"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="value">Value to write.</param>
         public static void Write(this Stream stream, string value)
         {
             if (value.Length == 0)
             {
                 stream.WriteByte(0);
+
                 return;
             }
+
             WriteWithLength(stream, Encoding.UTF8.GetBytes(value));
         }
 
         /// <summary>
         /// Writes the supplied Collection to a <see cref="Stream"/>.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="collection"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="collection">Collection to write.</param>
         public static void WriteCollection(this Stream stream, ICollection<string> collection)
         {
             if (collection == null)
             {
                 stream.Write(false);
+
                 return;
             }
+
             stream.Write(true);
             stream.Write(collection.Count);
+
             foreach (string item in collection)
             {
                 stream.WriteNullable(item);
             }
         }
+
         /// <summary>
         /// Writes the supplied Collection to a <see cref="Stream"/>.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="collection"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="collection">Collection to write.</param>
         public static void WriteCollection(this Stream stream, ICollection<int> collection)
         {
             if (collection == null)
             {
                 stream.Write(false);
+
                 return;
             }
+
             stream.Write(true);
             stream.Write(collection.Count);
+
             foreach (int item in collection)
             {
                 stream.Write(item);
             }
         }
+
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> 
         /// in UTF8 encoding with a prefix if the value is null
         /// </summary>
-        /// <param name="stream"></param>
-        /// <param name="value"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <param name="value">Value to write.</param>
         public static void WriteNullable(this Stream stream, string value)
         {
             if (value == null)
@@ -809,7 +850,6 @@ namespace Gemstone.StreamExtensions
             }
         }
 
-
         #endregion
 
         #region [ Read ]
@@ -817,8 +857,8 @@ namespace Gemstone.StreamExtensions
         /// <summary>
         /// Reads the 7-bit encoded value from the stream.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream">Source stream.</param>
+        /// <returns>Value read.</returns>
         public static uint Read7BitUInt32(this Stream stream)
         {
             return Encoding7Bit.ReadUInt32(stream);
@@ -827,13 +867,15 @@ namespace Gemstone.StreamExtensions
         /// <summary>
         /// Reads a string from a <see cref="Stream"/> that was encoded in UTF8.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream">Source stream.</param>
+        /// <returns>Value read.</returns>
         public static string ReadString(this Stream stream)
         {
             byte[] data = stream.ReadBytes();
+
             if (data.Length > 0)
                 return Encoding.UTF8.GetString(data);
+
             return string.Empty;
         }
 
@@ -841,46 +883,53 @@ namespace Gemstone.StreamExtensions
         /// Reads a string from a <see cref="Stream"/> that was encoded in UTF8. 
         /// Value can be null and is prefixed with a boolean.
         /// </summary>
-        /// <param name="stream"></param>
-        /// <returns></returns>
+        /// <param name="stream">Source stream.</param>
+        /// <returns>Value read.</returns>
         public static string ReadNullableString(this Stream stream)
         {
             if (stream.ReadBoolean())
                 return stream.ReadString();
+
             return null;
         }
 
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <returns>Strings read.</returns>
         public static string[] ReadStringCollection(this Stream stream)
         {
             if (!stream.ReadBoolean())
                 return null;
+
             int value = stream.ReadInt32();
             string[] rv = new string[value];
+
             for (int x = 0; x < rv.Length; x++)
             {
                 rv[x] = stream.ReadNullableString();
             }
+
             return rv;
         }
 
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
         /// </summary>
-        /// <param name="stream"></param>
+        /// <param name="stream">Source stream.</param>
+        /// <returns>Integers read.</returns>
         public static int[] ReadInt32Collection(this Stream stream)
         {
             if (!stream.ReadBoolean())
                 return null;
+
             int value = stream.ReadInt32();
             int[] rv = new int[value];
+
             for (int x = 0; x < rv.Length; x++)
-            {
                 rv[x] = stream.ReadInt32();
-            }
+
             return rv;
         }
 

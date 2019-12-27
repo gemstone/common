@@ -65,6 +65,7 @@ namespace Gemstone.ArrayExtensions
         /// <paramref name="startIndex"/> or <paramref name="length"/> is less than 0 -or- 
         /// <paramref name="startIndex"/> and <paramref name="length"/> will exceed <paramref name="array"/> length.
         /// </exception>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ValidateParameters<T>(this T[] array, int startIndex, int length)
         {
@@ -111,6 +112,7 @@ namespace Gemstone.ArrayExtensions
         /// <paramref name="startIndex"/> is outside the range of valid indexes for the source array -or-
         /// <paramref name="length"/> is less than 0.
         /// </exception>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] BlockCopy<T>(this T[] array, int startIndex, int length)
         {
             if (array == null)
@@ -152,6 +154,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, T[] other)
         {
             if (source == null)
@@ -190,6 +193,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, int sourceOffset, int sourceCount, T[] other, int otherOffset, int otherCount)
         {
             if (source == null)
@@ -261,6 +265,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, T[] other1, T[] other2) => new[] { source, other1, other2 }.Combine();
 
         /// <summary>
@@ -282,6 +287,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3) => new[] { source, other1, other2, other3 }.Combine();
 
         /// <summary>
@@ -304,6 +310,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3, T[] other4) => new[] { source, other1, other2, other3, other4 }.Combine();
 
         /// <summary>
@@ -322,6 +329,7 @@ namespace Gemstone.ArrayExtensions
         /// contiguous memory to create an array sized with the combined lengths.
         /// </para>
         /// </remarks>
+        /// <typeparam name="T"><see cref="Type"/> of arrays.</typeparam>
         public static T[] Combine<T>(this T[][] arrays)
         {
             if (arrays == null)
@@ -360,6 +368,7 @@ namespace Gemstone.ArrayExtensions
         /// <param name="array">Array to search.</param>
         /// <param name="sequenceToFind">Sequence of items to search for.</param>
         /// <returns>The zero-based index of the first occurrence of the <paramref name="sequenceToFind"/> in the <paramref name="array"/>, if found; otherwise, -1.</returns>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind) where T : IComparable<T>
         {
             if (array == null)
@@ -379,6 +388,7 @@ namespace Gemstone.ArrayExtensions
         /// <param name="sequenceToFind">Sequence of items to search for.</param>
         /// <param name="startIndex">Start index in the <paramref name="array"/> to start searching.</param>
         /// <returns>The zero-based index of the first occurrence of the <paramref name="sequenceToFind"/> in the <paramref name="array"/>, if found; otherwise, -1.</returns>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind, int startIndex) where T : IComparable<T>
         {
             if (array == null)
@@ -406,6 +416,7 @@ namespace Gemstone.ArrayExtensions
         /// <paramref name="startIndex"/> is outside the range of valid indexes for the source array -or-
         /// <paramref name="length"/> is less than 0.
         /// </exception>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind, int startIndex, int length) where T : IComparable<T>
         {
             if (array == null)
@@ -501,6 +512,7 @@ namespace Gemstone.ArrayExtensions
         /// </list>
         /// </para>
         /// </returns>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int CompareTo<T>(this T[] source, T[] other) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing
@@ -578,6 +590,7 @@ namespace Gemstone.ArrayExtensions
         /// <paramref name="count"/> is less than 0 -or- 
         /// <paramref name="sourceOffset"/> or <paramref name="otherOffset"/> and <paramref name="count"/> do not specify a valid section in the associated array.
         /// </exception>
+        /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int CompareTo<T>(this T[] source, int sourceOffset, T[] other, int otherOffset, int count) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing

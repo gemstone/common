@@ -223,6 +223,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Adds a key/value pair to the <see cref="IDictionary{TKey, TValue}"/> if the key does not already exist,
         /// or updates a key/value pair in the <see cref="IDictionary{TKey, TValue}"/> if the key already exists.
         /// </summary>
+        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
         /// <param name="dictionary">The dictionary to add the key/value pair to if the key does not already exist.</param>
         /// <param name="key">The key to be added or whose value should be updated</param>
         /// <param name="addValueFactory">The function used to generate a value for an absent key</param>
@@ -244,6 +246,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Adds a key/value pair to the <see cref="IDictionary{TKey, TValue}"/> if the key does not already exist,
         /// or updates a key/value pair in the <see cref="IDictionary{TKey, TValue}"/> if the key already exists.
         /// </summary>
+        /// <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
+        /// <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
         /// <param name="dictionary">The dictionary to add the key/value pair to if the key does not already exist.</param>
         /// <param name="key">The key to be added or whose value should be updated</param>
         /// <param name="addValue">The value to be added for an absent key</param>
@@ -398,7 +402,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Returns the majority value in the collection, or default type value if no item represents the majority.
         /// </summary>
         /// <typeparam name="TSource"><see cref="Type"/> of elements in the <paramref name="source"/>.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TKey">The generic <see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration over which to find the majority element.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
@@ -413,7 +417,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
         /// </summary>
         /// <typeparam name="TSource"><see cref="Type"/> of elements in the <paramref name="source"/>.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TKey">The generic <see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration over which to find the majority element.</param>
         /// <param name="defaultValue">Default value to return if no item represents the majority.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
@@ -534,7 +538,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Returns the minority value in the collection, or default type value if no item represents the majority.
         /// </summary>
         /// <typeparam name="TSource"><see cref="Type"/> of elements in the <paramref name="source"/>.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TKey">The generic <see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration over which to find the majority element.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
@@ -549,7 +553,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
         /// </summary>
         /// <typeparam name="TSource"><see cref="Type"/> of elements in the <paramref name="source"/>.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration over which to find the majority element.</param>
         /// <param name="defaultValue">Default value to return if no item represents the majority.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
@@ -710,7 +714,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">A <see cref="IList{T}"/> to find an index in.</param>
         /// <param name="predicate">A function to test each element for a condition.</param>
         /// <returns>Index of the first element in <paramref name="source"/> that matches the specified <paramref name="predicate"/>; otherwise, <c>-1</c>.</returns>
-        /// <typeparam name="T">The type of the elements of <paramref name="source"/>.</typeparam>
+        /// <typeparam name="T"><see cref="Type"/> of elements of <paramref name="source"/>.</typeparam>
         public static int IndexOf<T>(this IList<T> source, Func<T, bool> predicate)
         {
             for (int index = 0; index < source.Count; index++)
@@ -757,8 +761,8 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Selects the smallest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type of the objects to be selected from.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
+        /// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration that contains the objects to be selected from.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
         /// <returns>Returns the smallest item from the enumeration.</returns>
@@ -790,7 +794,7 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Returns the smallest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A delegate that takes two generic types to compare, and returns an integer based on the comparison.</param>
         /// <returns>Returns a generic type.</returns>
@@ -816,7 +820,7 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Returns the smallest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A comparer object.</param>
         /// <returns>Returns a generic type.</returns>
@@ -826,8 +830,8 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Selects the largest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type of the objects to be selected from.</typeparam>
-        /// <typeparam name="TKey">The generic type of the objects to be compared.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
+        /// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
         /// <param name="source">An enumeration that contains the objects to be selected from.</param>
         /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
         /// <returns>Returns the largest item from the enumeration.</returns>
@@ -859,7 +863,7 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Returns the largest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A delegate that takes two generic types to compare, and returns an integer based on the comparison.</param>
         /// <returns>Returns a generic type.</returns>
@@ -885,7 +889,7 @@ namespace Gemstone.Collections.CollectionExtensions
         }
 
         /// <summary>Returns the largest item from the enumeration.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A comparer object.</param>
         /// <returns>Returns a generic type.</returns>
@@ -920,7 +924,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Converts an enumeration to a string, using the default delimiter ("|") that can later be
         /// converted back to a list using LoadDelimitedString.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
         public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source)
@@ -930,7 +934,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting character used.</param>
         /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
@@ -941,7 +945,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting <see cref="string"/> used.</param>
         /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
@@ -952,8 +956,8 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
-        /// <typeparam name="TSource">The generic enumeration type used.</typeparam>
-        /// <typeparam name="TDelimiter">The generic delimiter type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
+        /// <typeparam name="TDelimiter"><see cref="Type"/> of <paramref name="delimiter"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiter of type TDelimiter used.</param>
         /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
@@ -978,7 +982,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <summary>Appends items parsed from delimited string, created with ToDelimitedString, using the default
         /// delimiter ("|") into the given list.</summary>
         /// <remarks>Items that are converted are added to list. The list is not cleared in advance.</remarks>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="destination">The list we are adding items to.</param>
         /// <param name="delimitedString">The delimited string to parse for items.</param>
         /// <param name="convertFromString">Delegate that takes one parameter and converts from string to type TSource.</param>
@@ -989,7 +993,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Appends items parsed from delimited string, created with ToDelimitedString, into the given list.</summary>
         /// <remarks>Items that are converted are added to list. The list is not cleared in advance.</remarks>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="destination">The list we are adding items to.</param>
         /// <param name="delimitedString">The delimited string to parse for items.</param>
         /// <param name="delimiter">The <see cref="char"/> value to look for in the <paramref name="delimitedString"/> as the delimiter.</param>
@@ -1008,7 +1012,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
         /// <summary>Appends items parsed from delimited string, created with ToDelimitedString, into the given list.</summary>
         /// <remarks>Items that are converted are added to list. The list is not cleared in advance.</remarks>
-        /// <typeparam name="TSource">The generic type used.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="destination">The list we are adding items to.</param>
         /// <param name="delimitedString">The delimited string to parse for items.</param>
         /// <param name="delimiters">An array of delimiters to look for in the <paramref name="delimitedString"/> as the delimiter.</param>
@@ -1031,6 +1035,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <summary>
         /// Iterates through each item in the list. Allowing items to be removed from the list.
         /// </summary>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="List{T}"/>.</typeparam>
         /// <param name="list">the list to iterate though</param>
         /// <param name="shouldRemove">the function to call to determine 
         /// if the items should be removed from the list. </param>
@@ -1072,7 +1077,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <summary>
         /// Rearranges all the elements in the list into a highly-random order.
         /// </summary>
-        /// <typeparam name="TSource">The generic type of the list.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="source">The input list of generic types to scramble.</param>
         /// <remarks>This function uses a cryptographically strong random number generator to perform the scramble.</remarks>
         public static void Scramble<TSource>(this IList<TSource> source)
@@ -1102,9 +1107,9 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <summary>
         /// Rearranges all the elements in the list into a repeatable pseudo-random order.
         /// </summary>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="source">The input list of generic types to scramble.</param>
         /// <param name="seed">A number used to calculate a starting value for the pseudo-random number sequence.</param>
-        /// <typeparam name="TSource">The generic type of the list.</typeparam>
         /// <remarks>This function uses the <see cref="System.Random"/> generator to perform the scramble using a sequence that is repeatable.</remarks>
         public static void Scramble<TSource>(this IList<TSource> source, int seed)
         {
@@ -1134,9 +1139,9 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <summary>
         /// Rearranges all the elements in the list previously scrambled with <see cref="Scramble{TSource}(IList{TSource},int)"/> back into their original order.
         /// </summary>
+        /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
         /// <param name="source">The input list of generic types to unscramble.</param>
         /// <param name="seed">The same number used in <see cref="Scramble{TSource}(IList{TSource},int)"/> call to scramble original list.</param>
-        /// <typeparam name="TSource">The generic type of the list.</typeparam>
         /// <remarks>This function uses the <see cref="System.Random"/> generator to perform the unscramble using a sequence that is repeatable.</remarks>
         public static void Unscramble<TSource>(this IList<TSource> source, int seed)
         {
@@ -1175,7 +1180,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="array2">The second type array to compare against.</param>
         /// <param name="orderIsImportant"><c>true</c> if order of elements should be considered for equality; otherwise, <c>false</c>.</param>
         /// <returns>An <see cref="int"/> which returns 0 if they are equal, 1 if <paramref name="array1"/> is larger, or -1 if <paramref name="array2"/> is larger.</returns>
-        /// <typeparam name="TSource">The generic type of the array.</typeparam>
+        /// <typeparam name="TSource"><see cref="Type"/> of the array.</typeparam>
         /// <exception cref="ArgumentException">Cannot compare multidimensional arrays.</exception>
         public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true)
         {

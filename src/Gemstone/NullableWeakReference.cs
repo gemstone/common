@@ -6,7 +6,7 @@
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
 //  The GPA licenses this file to you under the MIT License (MIT), the "License"; you may
-//  not use this file except in compliance with the License. You may obtain a copy of the License at:
+//  not use this file except in compliance with the License. You may obtain a copy of the License a
 //
 //      http://www.opensource.org/licenses/MIT
 //
@@ -44,24 +44,23 @@ namespace Gemstone
         }
 
         /// <summary>
-        /// Gets an indication whether the object referenced by the current <see cref="T:NullableWeakReference" /> object has been cleared or garbage collected.
+        /// Gets an indication whether the object referenced by the current <see cref="NullableWeakReference" /> object has been cleared or garbage collected.
         /// </summary>
         /// <returns>
-        /// true if the object referenced by the current <see cref="T:NullableWeakReference" /> object has not been garbage collected or cleared 
+        /// true if the object referenced by the current <see cref="NullableWeakReference" /> object has not been garbage collected or cleared 
         /// and is still accessible; otherwise, false.
         /// </returns>
-        /// <filterpriority>2</filterpriority>
         public override bool IsAlive => !m_cleared && base.IsAlive;
 
         /// <summary>
-        /// Gets the object (the target) referenced by the current <see cref="T:NullableWeakReference" /> object.
+        /// Gets the object (the target) referenced by the current <see cref="NullableWeakReference" /> object.
         /// Set will only accept null.
         /// </summary>
         /// <returns>
-        /// null if the object referenced by the current <see cref="T:NullableWeakReference" /> object has been garbage collected or cleared;
-        /// otherwise, a reference to the object referenced by the current <see cref="T:NullableWeakReference" /> object.
+        /// null if the object referenced by the current <see cref="NullableWeakReference" /> object has been garbage collected or cleared;
+        /// otherwise, a reference to the object referenced by the current <see cref="NullableWeakReference" /> object.
         /// </returns>
-        /// <exception cref="T:System.InvalidOperationException">If setting this property to anything other than null</exception>
+        /// <exception cref="System.InvalidOperationException">If setting this property to anything other than null</exception>
         public override object Target
         {
             get => m_cleared ? null : base.Target;

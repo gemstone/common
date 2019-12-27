@@ -79,6 +79,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Action<object, T1> CreateAction<T1>(this MethodInfo method)
         {
@@ -117,6 +118,8 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Action<object, T1, T2> CreateAction<T1, T2>(this MethodInfo method)
         {
@@ -156,6 +159,9 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T3">The type of the forth parameter of the method that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Action<object, T1, T2, T3> CreateAction<T1, T2, T3>(this MethodInfo method)
         {
@@ -196,6 +202,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Func<object, TResult> CreateFunc<TResult>(this MethodInfo method)
         {
@@ -233,6 +240,8 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, TResult> CreateFunc<T1, TResult>(this MethodInfo method)
         {
@@ -271,6 +280,9 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, T2, TResult> CreateFunc<T1, T2, TResult>(this MethodInfo method)
         {
@@ -310,6 +322,10 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
         /// </summary>
         /// <param name="method">the method that should be compiled.</param>
+        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="T3">The type of the forth parameter of the function that this delegate encapsulates.</typeparam>
+        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, T2, T3, TResult> CreateFunc<T1, T2, T3, TResult>(this MethodInfo method)
         {

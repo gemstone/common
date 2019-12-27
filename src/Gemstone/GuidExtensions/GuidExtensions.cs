@@ -40,6 +40,7 @@ namespace Gemstone.GuidExtensions
         /// <param name="guid">The <see cref="Guid"/> to serialize.</param>
         /// <param name="buffer">Destination buffer to hold serialized <paramref name="guid"/>.</param>
         /// <param name="startingIndex">Starting index in <paramref name="buffer"/>.</param>
+        /// <returns>Bytes encoded.</returns>
         public static int ToRfcBytes(this Guid guid, byte[] buffer, int startingIndex)
         {
             // Since Microsoft is not very clear how Guid.ToByteArray() performs on big endian processors
@@ -78,6 +79,7 @@ namespace Gemstone.GuidExtensions
                     *(long*)(dst + 8) = *(long*)(src + 8);
                 }
             }
+
             return 16;
         }
 
@@ -86,9 +88,11 @@ namespace Gemstone.GuidExtensions
         /// </summary>
         /// <param name="guid">The <see cref="Guid"/> to serialize.</param>
         /// <param name="buffer">Destination buffer to hold serialized <paramref name="guid"/>.</param>
+        /// <returns>Bytes encoded.</returns>
         public static int ToRfcBytes(this Guid guid, byte* buffer)
         {
             byte* src = (byte*)&guid;
+
             if (BitConverter.IsLittleEndian)
             {
                 // Guid._a (int)
@@ -115,6 +119,7 @@ namespace Gemstone.GuidExtensions
                 *(long*)(buffer + 0) = *(long*)(src + 0);
                 *(long*)(buffer + 8) = *(long*)(src + 8);
             }
+
             return 16;
         }
 
@@ -127,6 +132,7 @@ namespace Gemstone.GuidExtensions
         {
             byte[] rv = new byte[16];
             guid.ToRfcBytes(rv, 0);
+
             return rv;
         }
 
@@ -234,7 +240,7 @@ namespace Gemstone.GuidExtensions
         #region [ Little Endian Encoding ]
 
         /// <summary>
-        /// Gets the little endian encoded bytes.
+        /// Gets the little endian encoded bytes of the <see cref="Guid"/>.
         /// </summary>
         /// <param name="guid">the <see cref="Guid"/> to serialize</param>
         /// <returns>A <see cref="byte"/>[] that represents a big endian encoded Guid.</returns>
@@ -243,65 +249,72 @@ namespace Gemstone.GuidExtensions
         {
             byte[] rv = new byte[16];
             CopyLittleEndianBytes(guid, rv, 0);
+
             return rv;
         }
 
         /// <summary>
-        /// Writes a Guid in Little Endian byte order.
+        /// Writes a <see cref="Guid"/> in Little Endian byte order.
         /// </summary>
         /// <param name="guid">the <see cref="Guid"/> to serialize</param>
         /// <param name="buffer">where to store the <paramref name="guid"/></param>
         /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
+        /// <returns>Bytes written.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static int CopyLittleEndianBytes(this Guid guid, byte[] buffer, int startingIndex)
         {
             buffer.ValidateParameters(startingIndex, 16);
+
             fixed (byte* dst = &buffer[startingIndex])
                 return CopyLittleEndianBytes(guid, dst);
         }
 
         /// <summary>
-        /// Writes a Guid in Little Endian byte order.
+        /// Writes a <see cref="Guid"/> in Little Endian byte order.
         /// </summary>
         /// <param name="guid">the <see cref="Guid"/> to serialize</param>
         /// <param name="buffer">where to store the <paramref name="guid"/></param>
+        /// <returns>Bytes written.</returns>
         public static int CopyLittleEndianBytes(this Guid guid, byte* buffer)
         {
             byte* src = (byte*)&guid;
+
             if (BitConverter.IsLittleEndian)
             {
-                //just copy the data
+                // just copy the data
                 *(long*)(buffer + 0) = *(long*)(src + 0);
                 *(long*)(buffer + 8) = *(long*)(src + 8);
             }
             else
             {
-                //Guid._a (int)  //swap endian
+                // Guid._a (int)  //swap endian
                 buffer[0] = src[3];
                 buffer[1] = src[2];
                 buffer[2] = src[1];
                 buffer[3] = src[0];
-                //Guid._b (short) //swap endian
+                // Guid._b (short) //swap endian
                 buffer[4] = src[5];
                 buffer[5] = src[4];
-                //Guid._c (short) //swap endian
+                // Guid._c (short) //swap endian
                 buffer[6] = src[7];
                 buffer[7] = src[6];
-                //Guid._d - Guid._k (8 bytes)
+                // Guid._d - Guid._k (8 bytes)
                 *(long*)(buffer + 8) = *(long*)(src + 8);
             }
+
             return 16;
         }
 
         /// <summary>
-        /// Reads a Guid in Little Endian byte order.
+        /// Reads a <see cref="Guid"/> in Little Endian byte order.
         /// </summary>
         /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
-        /// <returns></returns>
+        /// <returns>Decoded <see cref="Guid"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Guid ToLittleEndianGuid(this byte[] buffer)
         {
             buffer.ValidateParameters(0, 16);
+
             fixed (byte* src = buffer)
                 return ToLittleEndianGuid(src);
         }
@@ -311,11 +324,12 @@ namespace Gemstone.GuidExtensions
         /// </summary>
         /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
         /// <param name="startingIndex">the starting index in <paramref name="buffer"/></param>
-        /// <returns></returns>
+        /// <returns>Decoded <see cref="Guid"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Guid ToLittleEndianGuid(this byte[] buffer, int startingIndex)
         {
             buffer.ValidateParameters(startingIndex, 16);
+
             fixed (byte* src = &buffer[startingIndex])
                 return ToLittleEndianGuid(src);
         }
@@ -324,33 +338,35 @@ namespace Gemstone.GuidExtensions
         /// Reads a Guid in Little Endian byte order.
         /// </summary>
         /// <param name="buffer">where to read the <see cref="Guid"/>.</param>
-        /// <returns></returns>
+        /// <returns>Decoded <see cref="Guid"/>.</returns>
         public static Guid ToLittleEndianGuid(byte* buffer)
         {
             Guid rv;
             byte* dst = (byte*)&rv;
+
             if (BitConverter.IsLittleEndian)
             {
-                //internal stucture is correct, just copy
+                // internal stucture is correct, just copy
                 *(long*)(dst + 0) = *(long*)(buffer + 0);
                 *(long*)(dst + 8) = *(long*)(buffer + 8);
             }
             else
             {
-                //Guid._a (int) //swap endian
+                // Guid._a (int) //swap endian
                 dst[0] = buffer[3];
                 dst[1] = buffer[2];
                 dst[2] = buffer[1];
                 dst[3] = buffer[0];
-                //Guid._b (short) //swap endian
+                // Guid._b (short) //swap endian
                 dst[4] = buffer[5];
                 dst[5] = buffer[4];
-                //Guid._c (short) //swap endian
+                // Guid._c (short) //swap endian
                 dst[6] = buffer[7];
                 dst[7] = buffer[6];
-                //Guid._d - Guid._k (8 bytes)
+                // Guid._d - Guid._k (8 bytes)
                 *(long*)(dst + 8) = *(long*)(buffer + 8);
             }
+
             return rv;
         }
 

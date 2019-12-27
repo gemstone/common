@@ -412,7 +412,7 @@ namespace Gemstone.IO
         /// </remarks>
         public static void ValidatePathName(string filePath)
         {
-            if (filePath.IsNullOrWhiteSpace())
+            if (string.IsNullOrWhiteSpace(filePath))
                 throw new ArgumentNullException(nameof(filePath), "Path cannot be null or empty space");
 
             if (filePath.IndexOfAny(Path.GetInvalidPathChars()) >= 0)

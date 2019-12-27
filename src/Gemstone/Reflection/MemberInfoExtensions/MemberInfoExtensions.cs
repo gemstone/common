@@ -42,6 +42,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// Gets the friendly class name of the provided <see cref="MemberInfo"/> object, trimming generic parameters.
         /// </summary>
         /// <param name="member">The <see cref="MemberInfo"/> object over which to get friendly class name.</param>
+        /// <typeparam name="TMemberInfo"><see cref="Type"/> of <see cref="MemberInfo"/> instance to retrieve.</typeparam>
         /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
         public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo
         {

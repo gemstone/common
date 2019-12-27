@@ -108,19 +108,13 @@ namespace Gemstone.StringExtensions
     public static class StringExtensions
     {
         [SuppressMessage("Microsoft.Globalization", "CA1309:UseOrdinalStringComparison")]
-        private static readonly Dictionary<StringComparison, StringComparer> s_comparisonComparers = new Dictionary<StringComparison, StringComparer>
-        {
-            [StringComparison.CurrentCulture] = StringComparer.CurrentCulture,
-            [StringComparison.CurrentCultureIgnoreCase] = StringComparer.CurrentCultureIgnoreCase,
-            [StringComparison.InvariantCulture] = StringComparer.InvariantCulture,
-            [StringComparison.InvariantCultureIgnoreCase] = StringComparer.InvariantCultureIgnoreCase,
-            [StringComparison.Ordinal] = StringComparer.Ordinal,
-            [StringComparison.OrdinalIgnoreCase] = StringComparer.OrdinalIgnoreCase
-        };
+        private static readonly Dictionary<StringComparison, StringComparer> s_comparisonComparers = new Dictionary<StringComparison, StringComparer> { [StringComparison.CurrentCulture] = StringComparer.CurrentCulture, [StringComparison.CurrentCultureIgnoreCase] = StringComparer.CurrentCultureIgnoreCase, [StringComparison.InvariantCulture] = StringComparer.InvariantCulture, [StringComparison.InvariantCultureIgnoreCase] = StringComparer.InvariantCultureIgnoreCase, [StringComparison.Ordinal] = StringComparer.Ordinal, [StringComparison.OrdinalIgnoreCase] = StringComparer.OrdinalIgnoreCase };
 
         /// <summary>
         /// Gets appropriate <see cref="StringComparer"/> for the specified <see cref="StringComparison"/>.
         /// </summary>
+        /// <param name="comparison"><see cref="StringComparison"/> type.</param>
+        /// <returns><see cref="StringComparer"/> for the specified <see cref="StringComparison"/>.</returns>
         public static StringComparer GetComparer(this StringComparison comparison) => s_comparisonComparers[comparison];
 
         /// <summary>
@@ -193,6 +187,7 @@ namespace Gemstone.StringExtensions
         public static T ConvertToType<T>(this string value, CultureInfo culture)
         {
             object obj = ConvertToType(value, typeof(T), culture) ?? default(T);
+
             return (T)obj;
         }
 
@@ -517,7 +512,8 @@ namespace Gemstone.StringExtensions
                     if (!valueEscaped)
                     {
                         valueEscaped = true;
-                        continue;   // Don't add tag start delimiter to final value
+
+                        continue; // Don't add tag start delimiter to final value
                     }
 
                     // Handle nested delimiters
@@ -536,7 +532,8 @@ namespace Gemstone.StringExtensions
                         else
                         {
                             valueEscaped = false;
-                            continue;   // Don't add tag stop delimiter to final value
+
+                            continue; // Don't add tag stop delimiter to final value
                         }
                     }
                     else
@@ -591,12 +588,7 @@ namespace Gemstone.StringExtensions
                     key = elements[0].Trim();
 
                     // Get unescaped value expression
-                    unescapedValue = elements[1].Trim().
-                        Replace(escapedParameterDelimiter, parameterDelimiter.ToString()).
-                        Replace(escapedKeyValueDelimiter, keyValueDelimiter.ToString()).
-                        Replace(escapedStartValueDelimiter, startValueDelimiter.ToString()).
-                        Replace(escapedEndValueDelimiter, endValueDelimiter.ToString()).
-                        Replace(backslashDelimiter, "\\");
+                    unescapedValue = elements[1].Trim().Replace(escapedParameterDelimiter, parameterDelimiter.ToString()).Replace(escapedKeyValueDelimiter, keyValueDelimiter.ToString()).Replace(escapedStartValueDelimiter, startValueDelimiter.ToString()).Replace(escapedEndValueDelimiter, endValueDelimiter.ToString()).Replace(backslashDelimiter, "\\");
 
                     // Add key/value pair to dictionary
                     if (ignoreDuplicateKeys)
@@ -1162,21 +1154,6 @@ namespace Gemstone.StringExtensions
         }
 
         /// <summary>
-        /// Test to see if the provided string is null or contains only whitespace characters.
-        /// </summary>
-        /// <param name="value">the value to test.</param>
-        /// <returns></returns>
-        public static bool IsNullOrWhiteSpace(this string value)
-        {
-            if (value == null || value.Length == 0)
-                return true;
-            foreach (char c in value)
-                if (!char.IsWhiteSpace(c))
-                    return false;
-            return true;
-        }
-
-        /// <summary>
         /// Decodes the specified Regular Expression character back into a standard Unicode character.
         /// </summary>
         /// <param name="value">Regular Expression character to decode back into a Unicode character.</param>
@@ -1200,10 +1177,7 @@ namespace Gemstone.StringExtensions
         /// <para>Note: This function encodes a "String". Use the Convert.ToBase64String function to encode a binary data buffer.</para>
         /// </remarks>
         /// <returns>A <see cref="string"></see> value representing the encoded input of <paramref name="value"/>.</returns>
-        public static string Base64Encode(this string value)
-        {
-            return Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
-        }
+        public static string Base64Encode(this string value) => Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
 
         /// <summary>
         /// Decodes a given base-64 encoded string encoded with <see cref="Base64Encode" />.
@@ -1212,10 +1186,7 @@ namespace Gemstone.StringExtensions
         /// <remarks>Note: This function decodes value back into a "String". Use the Convert.FromBase64String function to decode a base-64 encoded
         /// string back into a binary data buffer.</remarks>
         /// <returns>A <see cref="string"></see> value representing the decoded input of <paramref name="value"/>.</returns>
-        public static string Base64Decode(this string value)
-        {
-            return Encoding.Unicode.GetString(Convert.FromBase64String(value));
-        }
+        public static string Base64Decode(this string value) => Encoding.Unicode.GetString(Convert.FromBase64String(value));
 
         /// <summary>
         /// Converts the given string into a <see cref="SecureString"/>.
@@ -1235,6 +1206,7 @@ namespace Gemstone.StringExtensions
                 {
                     secureString = new SecureString(chars, value.Length);
                     secureString.MakeReadOnly();
+
                     return secureString;
                 }
             }
@@ -1264,6 +1236,7 @@ namespace Gemstone.StringExtensions
             try
             {
                 intPtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+
                 return Marshal.PtrToStringUni(intPtr);
             }
             finally
@@ -1292,7 +1265,7 @@ namespace Gemstone.StringExtensions
 
             return culture.TextInfo.ToTitleCase(value.ToLower());
         }
-        
+
         /// <summary>
         /// Converts first letter of string to upper-case.
         /// </summary>
@@ -1374,10 +1347,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">A <see cref="string"/> to be centered.</param>
         /// <param name="maxLength">An <see cref="Int32"/> that is the maximum length of padding.</param>
         /// <returns>The centered string value.</returns>
-        public static string CenterText(this string value, int maxLength)
-        {
-            return value.CenterText(maxLength, ' ');
-        }
+        public static string CenterText(this string value, int maxLength) => value.CenterText(maxLength, ' ');
 
         /// <summary>
         /// Centers text within the specified maximum length, biased to the left.
@@ -1393,19 +1363,18 @@ namespace Gemstone.StringExtensions
         /// <returns>The centered string value.</returns>
         public static string CenterText(this string value, int maxLength, char paddingCharacter)
         {
-            if ((object)value == null)
+            if (value == null)
                 value = "";
 
             // If the text to be centered contains multiple lines, centers all the lines individually.
             StringBuilder result = new StringBuilder();
             string[] lines = value.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            string line;
             int lastLineIndex = lines.Length - 1; //(lines.Length != 0 && lines[lines.Length - 1].Trim() == string.Empty ? lines.Length - 2 : lines.Length - 1);
 
             for (int i = 0; i <= lastLineIndex; i++)
             {
                 // Gets current line.
-                line = lines[i];
+                string line = lines[i];
 
                 // Skips the last empty line as a result of split if original text had multiple lines.
                 if (i == lastLineIndex && line.Trim().Length == 0)
@@ -1442,6 +1411,7 @@ namespace Gemstone.StringExtensions
 
             return result.ToString();
         }
+
         /// <summary>
         /// Performs a case insensitive string replacement.
         /// </summary>
@@ -1460,10 +1430,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string to process.</param>
         /// <param name="startChar">The character desired at string start.</param>
         /// <returns>The sent string with character at the start.</returns>
-        public static string EnsureStart(this string value, char startChar)
-        {
-            return EnsureStart(value, startChar, false);
-        }
+        public static string EnsureStart(this string value, char startChar) => EnsureStart(value, startChar, false);
 
         /// <summary>
         /// Ensures a string starts with a specific character.
@@ -1517,10 +1484,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string to process.</param>
         /// <param name="endChar">The character desired at string's end.</param>
         /// <returns>The sent string with character at the end.</returns>
-        public static string EnsureEnd(this string value, char endChar)
-        {
-            return EnsureEnd(value, endChar, false);
-        }
+        public static string EnsureEnd(this string value, char endChar) => EnsureEnd(value, endChar, false);
 
         /// <summary>
         /// Ensures a string ends with a specific character.
@@ -1542,6 +1506,7 @@ namespace Gemstone.StringExtensions
                 if (removeRepeatingChar)
                 {
                     int i = LastIndexOfRepeatedChar(value.Reverse(), endChar, 0);
+
                     return value.Substring(0, value.Length - i);
                 }
 
@@ -1586,15 +1551,13 @@ namespace Gemstone.StringExtensions
                 return "";
 
             char[] arrChar = value.ToCharArray();
-            char temp;
             int arrLength = arrChar.Length;
-            int j;
 
             // Works for odd and even length strings since middle char is not swapped for an odd length string
             for (int i = 0; i < arrLength / 2; i++)
             {
-                j = arrLength - i - 1;
-                temp = arrChar[i];
+                int j = arrLength - i - 1;
+                char temp = arrChar[i];
                 arrChar[i] = arrChar[j];
                 arrChar[j] = temp;
             }
@@ -1629,10 +1592,7 @@ namespace Gemstone.StringExtensions
                     if (value[i] != c)
                         c = value[i];
                     else
-                    {
-                        //at least one repeating character
-                        return i - 1;
-                    }
+                        return i - 1; // at least one repeating character
                 }
                 else
                 {
@@ -1649,20 +1609,14 @@ namespace Gemstone.StringExtensions
         /// <param name="value">The string to process.</param>
         /// <param name="characterToFind">The character of interest.</param>
         /// <returns>The index of the first instance of the character that is repeated or (-1) if no repeated chars found.</returns>
-        public static int IndexOfRepeatedChar(this string value, char characterToFind)
-        {
-            return IndexOfRepeatedChar(value, characterToFind, 0);
-        }
+        public static int IndexOfRepeatedChar(this string value, char characterToFind) => IndexOfRepeatedChar(value, characterToFind, 0);
 
         /// <summary>
         /// Searches a string for an instance of a repeated character.
         /// </summary>
         /// <param name="value">The string to process.</param>
         /// <returns>The index of the first instance of any character that is repeated or (-1) if no repeated chars found.</returns>
-        public static int IndexOfRepeatedChar(this string value)
-        {
-            return IndexOfRepeatedChar(value, 0);
-        }
+        public static int IndexOfRepeatedChar(this string value) => IndexOfRepeatedChar(value, 0);
 
         /// <summary>
         /// Searches a string for an instance of a repeated character from specified <paramref name="startIndex"/>.
@@ -1744,9 +1698,9 @@ namespace Gemstone.StringExtensions
             if (value.Length <= length)
                 return value;
 
-            int s1_Len = length / 2 - 1;
+            int s1Len = length / 2 - 1;
 
-            return string.Concat(value.Substring(0, s1_Len), "...", value.Substring(value.Length - s1_Len + 1 - length % 2));
+            return string.Concat(value.Substring(0, s1Len), "...", value.Substring(value.Length - s1Len + 1 - length % 2));
         }
 
         /// <summary>
@@ -1770,10 +1724,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length <= length)
-                return value;
-
-            return string.Concat(value.Substring(0, length - 3), "...");
+            return value.Length <= length ? value : string.Concat(value.Substring(0, length - 3), "...");
         }
 
         /// <summary>
@@ -1807,8 +1758,9 @@ namespace Gemstone.StringExtensions
             StringComparison scCase = matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase;
 
             int i = value.IndexOf(stringToRemove, scCase);
+
             if (i < 0)
-                return value;  //handle the "do nothing" case quickly
+                return value; // handle the "do nothing" case quickly
 
             while (value.StartsWith(stringToRemove, scCase))
             {
@@ -1830,7 +1782,6 @@ namespace Gemstone.StringExtensions
         /// <returns>A string with <paramref name="charToRemove"/> deleted from the beginning</returns>
         public static string RemoveLeadingString(this string value, char charToRemove, bool matchCase = true)
         {
-
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
 
@@ -1838,14 +1789,16 @@ namespace Gemstone.StringExtensions
                 return value;
 
             string result = value;
+
             if (!matchCase)
             {
                 value = value.ToLower();
                 charToRemove = charToRemove.ToLower();
             }
 
-            //handle the "do nothing" case quickly
-            if (value[0] != charToRemove) return result;
+            // handle the "do nothing" case quickly
+            if (value[0] != charToRemove)
+                return result;
 
             for (int i = 1; i < value.Length; i++)
             {
@@ -1854,7 +1807,8 @@ namespace Gemstone.StringExtensions
                     return result.Substring(i - 1);
                 }
             }
-            //all the characters are to be removed.
+
+            // all the characters are to be removed.
             return string.Empty;
         }
 
@@ -1929,7 +1883,7 @@ namespace Gemstone.StringExtensions
             int i = value.IndexOf(stringToRemove, scCase);
 
             if (i < 0)
-                return value;  //handle the "do nothing" case quickly
+                return value; //handle the "do nothing" case quickly
 
             while (value.EndsWith(stringToRemove, scCase))
             {
@@ -1958,6 +1912,7 @@ namespace Gemstone.StringExtensions
                 return value;
 
             string result = value;
+
             if (!matchCase)
             {
                 value = value.ToLower();
@@ -1965,7 +1920,8 @@ namespace Gemstone.StringExtensions
             }
 
             //handle the "do nothing" case quickly
-            if (value[value.Length - 1] != charToRemove) return result;
+            if (value[value.Length - 1] != charToRemove)
+                return result;
 
             for (int i = value.Length - 1; i > -1; i--)
             {
@@ -1974,6 +1930,7 @@ namespace Gemstone.StringExtensions
                     return result.Substring(0, i + 1);
                 }
             }
+
             //all the characters are to be removed.
             return string.Empty;
         }
@@ -2319,6 +2276,7 @@ namespace Gemstone.StringExtensions
                 total++;
                 k = value.IndexOf(testString, k + testString.Length, scCase);
             }
+
             return total;
         }
 
@@ -2354,18 +2312,18 @@ namespace Gemstone.StringExtensions
 
             int quoteCount = s.CharCount(quoteChar);
 
-            if (quoteCount > 2 && quoteCount % 2 == 0)  //even number and more than two quotes, assume that quotes are important to retain.
+            if (quoteCount > 2 && quoteCount % 2 == 0) //even number and more than two quotes, assume that quotes are important to retain.
                 return s.Replace(markerString, quoteString);
 
-            while (s.IndexOf(quoteChar) == 0)  //work off front of string -- and reduce it.
+            while (s.IndexOf(quoteChar) == 0) //work off front of string -- and reduce it.
             {
-                if (s[s.Length - 1] == quoteChar)  //have matching end quote
+                if (s[s.Length - 1] == quoteChar) //have matching end quote
                 {
                     s = s.Substring(1, s.Length - 2);
                     int nq = s.IndexOf(quoteChar);
                     int ns = s.IndexOf(' ');
 
-                    if (nq > -1 && ns > -1 && nq > ns)  //allow white spaces between quotes -- but don't strip spaces following quotes
+                    if (nq > -1 && ns > -1 && nq > ns) //allow white spaces between quotes -- but don't strip spaces following quotes
                         s = s.Trim();
 
                     if (s.Length <= 1)

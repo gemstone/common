@@ -74,7 +74,12 @@ namespace Gemstone.CharExtensions
         /// <li>IsWhiteSpace (6) == control char's 9 thru 13, plus 32 -- TAB, LF, VT, FF, CR, SP</li>
         /// </ul>
         /// </remarks>
-        public static bool IsWordTerminator(this char value) => char.IsPunctuation(value) || char.IsWhiteSpace(value) || char.IsSymbol(value) || char.IsControl(value) || value.IsAnyOf(wordSeperators);
+        public static bool IsWordTerminator(this char value) => 
+            char.IsPunctuation(value) || 
+            char.IsWhiteSpace(value) || 
+            char.IsSymbol(value) || 
+            char.IsControl(value) || 
+            value.IsAnyOf(wordSeperators);
 
         /// <summary>
         /// Tests a character to determine if is a common part of a numeric string (digits or one of "+ - , .")
@@ -107,18 +112,20 @@ namespace Gemstone.CharExtensions
         public static bool IsInRange(this char value, char startOfRange, char endOfRange) => value >= startOfRange && value <= endOfRange;
 
         /// <summary>
-        /// Converts <paramref name="value"/> to lower case
+        /// Converts <paramref name="value"/> to lower case.
         /// </summary>
+        /// <param name="value"><see cref="char"/> to convert to lower case.</param>
         /// <returns>
-        /// <paramref name="value"/> converted to lower case
+        /// <paramref name="value"/> converted to lower case.
         /// </returns>
         public static char ToLower(this char value) => value > 64 && value < 91 ? (char)(value + 32) : value;
 
         /// <summary>
-        /// Converts <paramref name="value"/> to upper case
+        /// Converts <paramref name="value"/> to upper case.
         /// </summary>
+        /// <param name="value"><see cref="char"/> to convert to upper case.</param>
         /// <returns>
-        /// <paramref name="value"/> converted to upper case
+        /// <paramref name="value"/> converted to upper case.
         /// </returns>
         public static char ToUpper(this char value) => value > 96 && value < 123 ? (char)(value - 32) : value;
 
@@ -127,7 +134,10 @@ namespace Gemstone.CharExtensions
         /// </summary>
         /// <param name="value">The character to be tested.</param>
         /// <returns>true if char is hexadecimal digit; false otherwise</returns>
-        public static bool IsHex(this char value) => value >= '0' && value <= '9' || value >= 'A' && value <= 'F' || value >= 'a' && value <= 'f';
+        public static bool IsHex(this char value) => 
+            value >= '0' && value <= '9' || 
+            value >= 'A' && value <= 'F' || 
+            value >= 'a' && value <= 'f';
 
         /// <summary>
         /// Converts a hexadecimal character to the integer equivalent.
