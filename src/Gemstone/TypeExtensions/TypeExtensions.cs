@@ -62,14 +62,6 @@ namespace Gemstone.TypeExtensions
         private static readonly Type[] s_numericTypes = { typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) };
 
         /// <summary>
-        /// Exposes exceptions that were suppressed but otherwise unhandled for <see cref="TypeExtensions"/>.
-        /// </summary>
-        /// <remarks>
-        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
-        /// </remarks>
-        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
-
-        /// <summary>
         /// Determines if the specified type is a native structure that represents a numeric value.
         /// </summary>
         /// <param name="type">The <see cref="Type"/> being tested.</param>
@@ -229,13 +221,11 @@ namespace Gemstone.TypeExtensions
                 catch (Exception ex)
                 {
                     // Absorb any exception thrown while processing the assembly.
-                    OnUnhandledException(new Exception($"Type Load Error Occurred: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(typeof(TypeExtensions), new Exception($"Type load error occurred: {ex.Message}", ex));
                 }
             }
 
             return types; // Return the matching types found.
         }
-
-        private static void OnUnhandledException(Exception ex) => UnhandledException?.Invoke(typeof(TypeExtensions), new UnhandledExceptionEventArgs(ex, false));
     }
 }

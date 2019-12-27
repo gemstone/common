@@ -44,14 +44,6 @@ namespace Gemstone.Reflection.AssemblyExtensions
     public static class AssemblyExtensions
     {
         /// <summary>
-        /// Exposes exceptions that were suppressed but otherwise unhandled for <see cref="AssemblyExtensions"/>.
-        /// </summary>
-        /// <remarks>
-        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
-        /// </remarks>
-        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
-
-        /// <summary>
         /// Returns only assembly name and version from full assembly name.
         /// </summary>
         /// <param name="instance">An <see cref="Assembly"/> to get the short name of.</param>
@@ -252,13 +244,11 @@ namespace Gemstone.Reflection.AssemblyExtensions
             }
             catch (Exception ex)
             {
-                OnUnhandledException(new Exception($"AssemblyExtensions::TryLoadAllReferences failed to load: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(typeof(AssemblyExtensions), new Exception($"TryLoadAllReferences failed to load: {ex.Message}", ex));
 
                 // Error loading a referenced assembly
                 return false;
             }
         }
-
-        private static void OnUnhandledException(Exception ex) => UnhandledException?.Invoke(typeof(AssemblyExtensions), new UnhandledExceptionEventArgs(ex, false));
     }
 }

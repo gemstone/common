@@ -69,7 +69,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>List of founf types.</returns>
         public List<Type> FindTypes()
         {
             if (!HasChanged)
@@ -104,7 +104,7 @@ namespace Gemstone.Reflection
             }
             catch (Exception ex)
             {
-                OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
             }
 
             return types;
@@ -122,7 +122,7 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace Gemstone.Reflection
             {
                 // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
                 // to enumerate the types that did not error.
-                OnUnhandledException(this, new Exception($"Reflection Load Error Occurred: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(this, new Exception($"Reflection Load Error Occurred: {ex.Message}", ex));
                 types = ex.Types;
             }
 
@@ -152,28 +152,10 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
                 }
             }
         }
-
-        #endregion
-
-        #region [ Static ]
-
-        // Static Events
-
-        /// <summary>
-        /// Exposes exceptions that were suppressed but otherwise unhandled by <see cref="AppDomainTypeLookup"/>.
-        /// </summary>
-        /// <remarks>
-        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
-        /// </remarks>
-        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
-
-        // Static Methods
-
-        private static void OnUnhandledException(object sender, Exception ex) => UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(ex, false));
 
         #endregion
     }
