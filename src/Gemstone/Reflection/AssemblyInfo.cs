@@ -457,11 +457,7 @@ namespace Gemstone.Reflection
         /// </summary>
         /// <param name="resourceName">The full name (including the namespace) of the embedded resource to get.</param>
         /// <returns>The embedded resource.</returns>
-        public Stream GetEmbeddedResource(string resourceName)
-        {
-            // Extracts and returns the requested embedded resource.
-            return Assembly.GetEmbeddedResource(resourceName);
-        }
+        public Stream GetEmbeddedResource(string resourceName) => Assembly.GetEmbeddedResource(resourceName);
 
         #endregion
 

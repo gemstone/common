@@ -23,7 +23,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Reflection;
 
 namespace Gemstone.Reflection
@@ -33,9 +32,16 @@ namespace Gemstone.Reflection
     /// </summary>
     public class AppDomainTypeLookup
     {
+        #region [ Members ]
+
+        // Fields
         private readonly object m_syncRoot;
         private readonly HashSet<Assembly> m_loadedAssemblies;
         private int m_assemblyVersionNumber;
+
+        #endregion
+
+        #region [ Constructors ]
 
         /// <summary>
         /// Creates a AppDomainTypeLookup
@@ -47,10 +53,18 @@ namespace Gemstone.Reflection
             m_loadedAssemblies = new HashSet<Assembly>();
         }
 
+        #endregion
+
+        #region [ Properties ]
+
         /// <summary>
         /// Gets flag that determines if there is a possibility that a new assembly has been loaded and new types are available.
         /// </summary>
         public bool HasChanged => m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
+
+        #endregion
+
+        #region [ Methods ]
 
         /// <summary>
         /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
@@ -90,7 +104,7 @@ namespace Gemstone.Reflection
             }
             catch (Exception ex)
             {
-                Debug.WriteLine($"Static Constructor Error: {ex.Message}");
+                OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
             }
 
             return types;
@@ -108,7 +122,7 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Static Constructor Error: {ex.Message}");
+                    OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
                 }
             }
         }
@@ -125,7 +139,7 @@ namespace Gemstone.Reflection
             {
                 // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
                 // to enumerate the types that did not error.
-                Debug.WriteLine($"Reflection Load Error Occurred: {ex.Message}");
+                OnUnhandledException(this, new Exception($"Reflection Load Error Occurred: {ex.Message}", ex));
                 types = ex.Types;
             }
 
@@ -138,9 +152,29 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    Debug.WriteLine($"Static Constructor Error: {ex.Message}");
+                    OnUnhandledException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
                 }
             }
         }
+
+        #endregion
+
+        #region [ Static ]
+
+        // Static Events
+
+        /// <summary>
+        /// Exposes exceptions that were suppressed but otherwise unhandled by <see cref="AppDomainTypeLookup"/>.
+        /// </summary>
+        /// <remarks>
+        /// End users should attach to this event so that unhandled exceptions can be exposed to a log.
+        /// </remarks>
+        public static event EventHandler<UnhandledExceptionEventArgs> UnhandledException;
+
+        // Static Methods
+
+        private static void OnUnhandledException(object sender, Exception ex) => UnhandledException?.Invoke(sender, new UnhandledExceptionEventArgs(ex, false));
+
+        #endregion
     }
 }

@@ -27,7 +27,7 @@ using System.Threading;
 namespace Gemstone.Reflection
 {
     /// <summary>
-    /// Maintains a version number that increments every time an <see cref="AppDomain"/> AssemblyLoad event is raised.
+    /// Maintains a version number that increments every time an <see cref="AppDomain.AssemblyLoad"/> event is raised.
     /// </summary>
     public static class AssemblyLoadedVersionNumber
     {
@@ -41,9 +41,7 @@ namespace Gemstone.Reflection
         static AssemblyLoadedVersionNumber()
         {
             s_versionNumber = 1;
-            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+            AppDomain.CurrentDomain.AssemblyLoad += (sender, args) => Interlocked.Increment(ref s_versionNumber);
         }
-
-        private static void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args) => Interlocked.Increment(ref s_versionNumber);
     }
 }

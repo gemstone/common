@@ -46,7 +46,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo
         {
             // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-            return (object)member != null ? TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType) : string.Empty;
+            return member != null ? TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType) : string.Empty;
         }
 
         /// <summary>

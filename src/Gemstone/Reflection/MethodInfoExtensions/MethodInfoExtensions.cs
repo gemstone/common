@@ -26,7 +26,6 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-// ReSharper disable AssignNullToNotNullAttribute
 namespace Gemstone.Reflection.MethodInfoExtensions
 {
     /// <summary>
