@@ -29,18 +29,15 @@ namespace Gemstone
     /// A <see cref="WeakReference"/> implementation that can have the <see cref="Target"/> object set to null.
     /// Natively, setting <see cref="WeakReference.Target"/> to null will throw an <see cref="InvalidOperationException"/>,
     /// </summary>
-    [Serializable]
     public class NullableWeakReference : WeakReference
     {
         private bool m_cleared;
 
-        
         /// <summary>
         /// Creates a <see cref="NullableWeakReference"/>
         /// </summary>
         /// <param name="target">the object to maintain the weak reference to. Cannot be null.</param>
-        public NullableWeakReference(object target)
-            : base(target)
+        public NullableWeakReference(object target) : base(target)
         {
             if (target == null)
                 throw new ArgumentNullException(nameof(target));
@@ -65,35 +62,21 @@ namespace Gemstone
         /// otherwise, a reference to the object referenced by the current <see cref="T:NullableWeakReference" /> object.
         /// </returns>
         /// <exception cref="T:System.InvalidOperationException">If setting this property to anything other than null</exception>
-        /// <filterpriority>2</filterpriority>
         public override object Target
         {
-            get
-            {
-                if (m_cleared)
-                    return null;
-                return base.Target;
-            }
+            get => m_cleared ? null : base.Target;
             set
             {
                 if (value == null)
-                {
                     Clear();
-                }
                 else
-                {
                     throw new InvalidOperationException("This target must be set in the constructor.");
-                }
             }
         }
 
         /// <summary>
-        /// Sets <see cref="Target"/> to null so subsequent calls to <see cref="Target"/> returns null
+        /// Sets <see cref="Target"/> to null so subsequent calls to <see cref="Target"/> returns null.
         /// </summary>
-        public virtual void Clear()
-        {
-            m_cleared = true;
-        }
+        public virtual void Clear() => m_cleared = true;
     }
-
 }
