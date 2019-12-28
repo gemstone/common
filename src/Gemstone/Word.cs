@@ -30,7 +30,7 @@ using System.Runtime.CompilerServices;
 namespace Gemstone
 {
     /// <summary>
-    /// Represents functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
+    /// Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
     /// </summary>
     public static class Word
     {
