@@ -2152,106 +2152,8 @@
     </member>
     <member name="T:Gemstone.Word">
       <summary>
-            Represents functions and extensions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
+            Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
             </summary>
-    </member>
-    <member name="M:Gemstone.Word.AlignDoubleWord(System.Int32)">
-      <summary>
-            Aligns double-word value on a 32-bit boundary.
-            </summary>
-      <param name="doubleWord">Double-word value to align.</param>
-      <returns>Double-word value aligned to next 32-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.AlignDoubleWord(System.UInt32)">
-      <summary>
-            Aligns double-word value on a 32-bit boundary.
-            </summary>
-      <param name="doubleWord">Double-word value to align.</param>
-      <returns>Double-word value aligned to next 32-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.AlignQuadWord(System.Int64)">
-      <summary>
-            Aligns quad-word value on a 64-bit boundary.
-            </summary>
-      <param name="quadWord">Quad-word value to align.</param>
-      <returns>Quad-word value aligned to next 64-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.AlignQuadWord(System.UInt64)">
-      <summary>
-            Aligns quad-word value on a 64-bit boundary.
-            </summary>
-      <param name="quadWord">Quad-word value to align.</param>
-      <returns>Quad-word value aligned to next 64-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.AlignWord(System.Int16)">
-      <summary>
-            Aligns word value on a 16-bit boundary.
-            </summary>
-      <param name="word">Word value to align.</param>
-      <returns>Word value aligned to next 16-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.AlignWord(System.UInt16)">
-      <summary>
-            Aligns word value on a 16-bit boundary.
-            </summary>
-      <param name="word">Word value to align.</param>
-      <returns>Word value aligned to next 16-bit boundary.</returns>
-    </member>
-    <member name="M:Gemstone.Word.HighByte(System.UInt16)">
-      <summary>
-            Returns the high-byte from an unsigned word (UInt16).
-            </summary>
-      <param name="word">2-byte, 16-bit unsigned integer value.</param>
-      <returns>The high-order byte of the specified 16-bit unsigned integer value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.HighDoubleWord(System.UInt64)">
-      <summary>
-            Returns the unsigned high-double-word (UInt32) from an unsigned quad-word (UInt64).
-            </summary>
-      <param name="quadWord">8-byte, 64-bit unsigned integer value.</param>
-      <returns>The high-order double-word of the specified 64-bit unsigned integer value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.HighNibble(System.Byte)">
-      <summary>
-            Returns the high-nibble (high 4-bits) from a byte.
-            </summary>
-      <param name="value">Byte value.</param>
-      <returns>The high-nibble of the specified byte value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.HighWord(System.UInt32)">
-      <summary>
-            Returns the unsigned high-word (UInt16) from an unsigned double-word (UInt32).
-            </summary>
-      <param name="doubleWord">4-byte, 32-bit unsigned integer value.</param>
-      <returns>The unsigned high-order word of the specified 32-bit unsigned integer value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.LowByte(System.UInt16)">
-      <summary>
-            Returns the low-byte from an unsigned word (UInt16).
-            </summary>
-      <param name="word">2-byte, 16-bit unsigned integer value.</param>
-      <returns>The low-order byte of the specified 16-bit unsigned integer value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.LowDoubleWord(System.UInt64)">
-      <summary>
-            Returns the unsigned low-double-word (UInt32) from an unsigned quad-word (UInt64).
-            </summary>
-      <param name="quadWord">8-byte, 64-bit unsigned integer value.</param>
-      <returns>The low-order double-word of the specified 64-bit unsigned integer value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.LowNibble(System.Byte)">
-      <summary>
-            Returns the low-nibble (low 4-bits) from a byte.
-            </summary>
-      <param name="value">Byte value.</param>
-      <returns>The low-nibble of the specified byte value.</returns>
-    </member>
-    <member name="M:Gemstone.Word.LowWord(System.UInt32)">
-      <summary>
-            Returns the unsigned low-word (UInt16) from an unsigned double-word (UInt32).
-            </summary>
-      <param name="doubleWord">4-byte, 32-bit unsigned integer value.</param>
-      <returns>The unsigned low-order word of the specified 32-bit unsigned integer value.</returns>
     </member>
     <member name="M:Gemstone.Word.MakeDoubleWord(System.UInt16,System.UInt16)">
       <summary>
@@ -7711,6 +7613,109 @@
       <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
       <param name="validateReferences">True to validate references of loaded assemblies before attempting to instantiate types; false otherwise.</param>
       <returns>Public types that implement the specified <paramref name="type" />.</returns>
+    </member>
+    <member name="T:Gemstone.WordExtensions.WordExtensions">
+      <summary>
+            Defines extension functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
+            </summary>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignDoubleWord(System.Int32)">
+      <summary>
+            Aligns double-word value on a 32-bit boundary.
+            </summary>
+      <param name="doubleWord">Double-word value to align.</param>
+      <returns>Double-word value aligned to next 32-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignDoubleWord(System.UInt32)">
+      <summary>
+            Aligns double-word value on a 32-bit boundary.
+            </summary>
+      <param name="doubleWord">Double-word value to align.</param>
+      <returns>Double-word value aligned to next 32-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignQuadWord(System.Int64)">
+      <summary>
+            Aligns quad-word value on a 64-bit boundary.
+            </summary>
+      <param name="quadWord">Quad-word value to align.</param>
+      <returns>Quad-word value aligned to next 64-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignQuadWord(System.UInt64)">
+      <summary>
+            Aligns quad-word value on a 64-bit boundary.
+            </summary>
+      <param name="quadWord">Quad-word value to align.</param>
+      <returns>Quad-word value aligned to next 64-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignWord(System.Int16)">
+      <summary>
+            Aligns word value on a 16-bit boundary.
+            </summary>
+      <param name="word">Word value to align.</param>
+      <returns>Word value aligned to next 16-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.AlignWord(System.UInt16)">
+      <summary>
+            Aligns word value on a 16-bit boundary.
+            </summary>
+      <param name="word">Word value to align.</param>
+      <returns>Word value aligned to next 16-bit boundary.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.HighByte(System.UInt16)">
+      <summary>
+            Returns the high-byte from an unsigned word (UInt16).
+            </summary>
+      <param name="word">2-byte, 16-bit unsigned integer value.</param>
+      <returns>The high-order byte of the specified 16-bit unsigned integer value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.HighDoubleWord(System.UInt64)">
+      <summary>
+            Returns the unsigned high-double-word (UInt32) from an unsigned quad-word (UInt64).
+            </summary>
+      <param name="quadWord">8-byte, 64-bit unsigned integer value.</param>
+      <returns>The high-order double-word of the specified 64-bit unsigned integer value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.HighNibble(System.Byte)">
+      <summary>
+            Returns the high-nibble (high 4-bits) from a byte.
+            </summary>
+      <param name="value">Byte value.</param>
+      <returns>The high-nibble of the specified byte value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.HighWord(System.UInt32)">
+      <summary>
+            Returns the unsigned high-word (UInt16) from an unsigned double-word (UInt32).
+            </summary>
+      <param name="doubleWord">4-byte, 32-bit unsigned integer value.</param>
+      <returns>The unsigned high-order word of the specified 32-bit unsigned integer value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.LowByte(System.UInt16)">
+      <summary>
+            Returns the low-byte from an unsigned word (UInt16).
+            </summary>
+      <param name="word">2-byte, 16-bit unsigned integer value.</param>
+      <returns>The low-order byte of the specified 16-bit unsigned integer value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.LowDoubleWord(System.UInt64)">
+      <summary>
+            Returns the unsigned low-double-word (UInt32) from an unsigned quad-word (UInt64).
+            </summary>
+      <param name="quadWord">8-byte, 64-bit unsigned integer value.</param>
+      <returns>The low-order double-word of the specified 64-bit unsigned integer value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.LowNibble(System.Byte)">
+      <summary>
+            Returns the low-nibble (low 4-bits) from a byte.
+            </summary>
+      <param name="value">Byte value.</param>
+      <returns>The low-nibble of the specified byte value.</returns>
+    </member>
+    <member name="M:Gemstone.WordExtensions.WordExtensions.LowWord(System.UInt32)">
+      <summary>
+            Returns the unsigned low-word (UInt16) from an unsigned double-word (UInt32).
+            </summary>
+      <param name="doubleWord">4-byte, 32-bit unsigned integer value.</param>
+      <returns>The unsigned low-order word of the specified 32-bit unsigned integer value.</returns>
     </member>
   </members>
 </doc>

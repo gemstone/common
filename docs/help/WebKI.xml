@@ -22,9 +22,9 @@
   <HelpKINode Title="AddRange(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AddRange__1.htm" />
   <HelpKINode Title="AddRange&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AddRange__1.htm" />
   <HelpKINode Title="Alaskan property" Url="html/P_Gemstone_USTimeZones_Alaskan.htm" />
-  <HelpKINode Title="AlignDoubleWord method" Url="html/Overload_Gemstone_Word_AlignDoubleWord.htm" />
-  <HelpKINode Title="AlignQuadWord method" Url="html/Overload_Gemstone_Word_AlignQuadWord.htm" />
-  <HelpKINode Title="AlignWord method" Url="html/Overload_Gemstone_Word_AlignWord.htm" />
+  <HelpKINode Title="AlignDoubleWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignDoubleWord.htm" />
+  <HelpKINode Title="AlignQuadWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignQuadWord.htm" />
+  <HelpKINode Title="AlignWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignWord.htm" />
   <HelpKINode Title="All method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_All.htm" />
   <HelpKINode Title="AllCharacters property" Url="html/P_Gemstone_Security_Cryptography_PasswordGenerator_AllCharacters.htm" />
   <HelpKINode Title="AllParallel(Of TSource) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AllParallel__1.htm" />
@@ -782,6 +782,8 @@
   <HelpKINode Title="Gemstone.TypeExtensions.TypeExtensions class" Url="html/T_Gemstone_TypeExtensions_TypeExtensions.htm" />
   <HelpKINode Title="Gemstone.USTimeZones class" Url="html/T_Gemstone_USTimeZones.htm" />
   <HelpKINode Title="Gemstone.Word class" Url="html/T_Gemstone_Word.htm" />
+  <HelpKINode Title="Gemstone.WordExtensions namespace" Url="html/N_Gemstone_WordExtensions.htm" />
+  <HelpKINode Title="Gemstone.WordExtensions.WordExtensions class" Url="html/T_Gemstone_WordExtensions_WordExtensions.htm" />
   <HelpKINode Title="GeneratePassword method" Url="html/Overload_Gemstone_Security_Cryptography_PasswordGenerator_GeneratePassword.htm" />
   <HelpKINode Title="GetAbsolutePath method" Url="html/M_Gemstone_IO_FilePath_GetAbsolutePath.htm" />
   <HelpKINode Title="GetApplicationDataFolder method" Url="html/M_Gemstone_IO_FilePath_GetApplicationDataFolder.htm" />
@@ -854,10 +856,10 @@
   <HelpKINode Title="GuidExtensions.ToRfcGuid method" Url="html/Overload_Gemstone_GuidExtensions_GuidExtensions_ToRfcGuid.htm" />
   <HelpKINode Title="HasChanged property" Url="html/P_Gemstone_Reflection_AppDomainTypeLookup_HasChanged.htm" />
   <HelpKINode Title="Hawaiian property" Url="html/P_Gemstone_USTimeZones_Hawaiian.htm" />
-  <HelpKINode Title="HighByte method" Url="html/M_Gemstone_Word_HighByte.htm" />
-  <HelpKINode Title="HighDoubleWord method" Url="html/M_Gemstone_Word_HighDoubleWord.htm" />
-  <HelpKINode Title="HighNibble method" Url="html/M_Gemstone_Word_HighNibble.htm" />
-  <HelpKINode Title="HighWord method" Url="html/M_Gemstone_Word_HighWord.htm" />
+  <HelpKINode Title="HighByte method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighByte.htm" />
+  <HelpKINode Title="HighDoubleWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighDoubleWord.htm" />
+  <HelpKINode Title="HighNibble method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighNibble.htm" />
+  <HelpKINode Title="HighWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighWord.htm" />
   <HelpKINode Title="IIf(Of T) method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="IIf&lt;T&gt; method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="ImageRuntimeVersion property" Url="html/P_Gemstone_Reflection_AssemblyInfo_ImageRuntimeVersion.htm" />
@@ -973,10 +975,10 @@
   <HelpKINode Title="LocalTimeToPacificTime method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_LocalTimeToPacificTime.htm" />
   <HelpKINode Title="LocalTimeToUniversalTime method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_LocalTimeToUniversalTime.htm" />
   <HelpKINode Title="Location property" Url="html/P_Gemstone_Reflection_AssemblyInfo_Location.htm" />
-  <HelpKINode Title="LowByte method" Url="html/M_Gemstone_Word_LowByte.htm" />
-  <HelpKINode Title="LowDoubleWord method" Url="html/M_Gemstone_Word_LowDoubleWord.htm" />
-  <HelpKINode Title="LowNibble method" Url="html/M_Gemstone_Word_LowNibble.htm" />
-  <HelpKINode Title="LowWord method" Url="html/M_Gemstone_Word_LowWord.htm" />
+  <HelpKINode Title="LowByte method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowByte.htm" />
+  <HelpKINode Title="LowDoubleWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowDoubleWord.htm" />
+  <HelpKINode Title="LowNibble method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowNibble.htm" />
+  <HelpKINode Title="LowWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowWord.htm" />
   <HelpKINode Title="Majority method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Majority.htm" />
   <HelpKINode Title="MajorityBy method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_MajorityBy.htm" />
   <HelpKINode Title="MakeDoubleWord method" Url="html/M_Gemstone_Word_MakeDoubleWord.htm" />
@@ -1478,27 +1480,31 @@
   <HelpKINode Title="WaitTillExists method" Url="html/Overload_Gemstone_IO_FilePath_WaitTillExists.htm" />
   <HelpKINode Title="WeekdayName method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_WeekdayName.htm" />
   <HelpKINode Title="welcome">
-    <HelpKINode Title="getting started, root, gemstone" Url="html/gemstone.htm" />
+    <HelpKINode Title="getting started, root, gemstone" Url="html/About.htm" />
   </HelpKINode>
   <HelpKINode Title="WestPacific property" Url="html/P_Gemstone_USTimeZones_WestPacific.htm" />
   <HelpKINode Title="Word class">
     <HelpKINode Title="Word Class" Url="html/T_Gemstone_Word.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Word.htm" />
   </HelpKINode>
-  <HelpKINode Title="Word.AlignDoubleWord method" Url="html/Overload_Gemstone_Word_AlignDoubleWord.htm" />
-  <HelpKINode Title="Word.AlignQuadWord method" Url="html/Overload_Gemstone_Word_AlignQuadWord.htm" />
-  <HelpKINode Title="Word.AlignWord method" Url="html/Overload_Gemstone_Word_AlignWord.htm" />
-  <HelpKINode Title="Word.HighByte method" Url="html/M_Gemstone_Word_HighByte.htm" />
-  <HelpKINode Title="Word.HighDoubleWord method" Url="html/M_Gemstone_Word_HighDoubleWord.htm" />
-  <HelpKINode Title="Word.HighNibble method" Url="html/M_Gemstone_Word_HighNibble.htm" />
-  <HelpKINode Title="Word.HighWord method" Url="html/M_Gemstone_Word_HighWord.htm" />
-  <HelpKINode Title="Word.LowByte method" Url="html/M_Gemstone_Word_LowByte.htm" />
-  <HelpKINode Title="Word.LowDoubleWord method" Url="html/M_Gemstone_Word_LowDoubleWord.htm" />
-  <HelpKINode Title="Word.LowNibble method" Url="html/M_Gemstone_Word_LowNibble.htm" />
-  <HelpKINode Title="Word.LowWord method" Url="html/M_Gemstone_Word_LowWord.htm" />
   <HelpKINode Title="Word.MakeDoubleWord method" Url="html/M_Gemstone_Word_MakeDoubleWord.htm" />
   <HelpKINode Title="Word.MakeQuadWord method" Url="html/M_Gemstone_Word_MakeQuadWord.htm" />
   <HelpKINode Title="Word.MakeWord method" Url="html/M_Gemstone_Word_MakeWord.htm" />
+  <HelpKINode Title="WordExtensions class">
+    <HelpKINode Title="WordExtensions Class" Url="html/T_Gemstone_WordExtensions_WordExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_WordExtensions_WordExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="WordExtensions.AlignDoubleWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignDoubleWord.htm" />
+  <HelpKINode Title="WordExtensions.AlignQuadWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignQuadWord.htm" />
+  <HelpKINode Title="WordExtensions.AlignWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignWord.htm" />
+  <HelpKINode Title="WordExtensions.HighByte method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighByte.htm" />
+  <HelpKINode Title="WordExtensions.HighDoubleWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighDoubleWord.htm" />
+  <HelpKINode Title="WordExtensions.HighNibble method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighNibble.htm" />
+  <HelpKINode Title="WordExtensions.HighWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighWord.htm" />
+  <HelpKINode Title="WordExtensions.LowByte method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowByte.htm" />
+  <HelpKINode Title="WordExtensions.LowDoubleWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowDoubleWord.htm" />
+  <HelpKINode Title="WordExtensions.LowNibble method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowNibble.htm" />
+  <HelpKINode Title="WordExtensions.LowWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_LowWord.htm" />
   <HelpKINode Title="Write method">
     <HelpKINode Title="BlockAllocatedMemoryStream.Write Method " Url="html/M_Gemstone_IO_BlockAllocatedMemoryStream_Write.htm" />
     <HelpKINode Title="Encoding7Bit.Write Method " Url="html/Overload_Gemstone_Encoding7Bit_Write.htm" />
