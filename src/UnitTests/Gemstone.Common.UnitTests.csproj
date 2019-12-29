@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\gemstone\gemstone.common.csproj" />
+    <ProjectReference Include="..\Gemstone\Gemstone.Common.csproj" />
   </ItemGroup>
 
 </Project>
