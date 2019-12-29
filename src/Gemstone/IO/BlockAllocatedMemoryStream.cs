@@ -362,7 +362,7 @@ namespace Gemstone.IO
         /// Reads a byte from the current stream.
         /// </summary>
         /// <returns>
-        /// The current byte cast to an <see cref="Int32"/>, or -1 if the end of the stream has been reached.
+        /// The current byte cast to an <see cref="int"/>, or -1 if the end of the stream has been reached.
         /// </returns>
         /// <exception cref="ObjectDisposedException">The stream is closed.</exception>
         public override int ReadByte()

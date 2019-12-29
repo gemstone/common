@@ -162,10 +162,10 @@ namespace Gemstone
         }
 
         /// <summary>
-        /// Converts <paramref name="value"/> to a <see cref="String"/> using an appropriate <see cref="TypeConverter"/>.
+        /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
         /// </summary>
-        /// <param name="value">Value to convert to a <see cref="String"/>.</param>
-        /// <returns><paramref name="value"/> converted to a <see cref="String"/>.</returns>
+        /// <param name="value">Value to convert to a <see cref="string"/>.</param>
+        /// <returns><paramref name="value"/> converted to a <see cref="string"/>.</returns>
         /// <remarks>
         /// <para>
         /// If <see cref="TypeConverter"/> fails, the value's <c>ToString()</c> value will be returned.
@@ -180,11 +180,11 @@ namespace Gemstone
         public static string TypeConvertToString(object value) => TypeConvertToString(value, null);
 
         /// <summary>
-        /// Converts <paramref name="value"/> to a <see cref="String"/> using an appropriate <see cref="TypeConverter"/>.
+        /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
         /// </summary>
-        /// <param name="value">Value to convert to a <see cref="String"/>.</param>
+        /// <param name="value">Value to convert to a <see cref="string"/>.</param>
         /// <param name="culture"><see cref="CultureInfo"/> to use for the conversion.</param>
-        /// <returns><paramref name="value"/> converted to a <see cref="String"/>.</returns>
+        /// <returns><paramref name="value"/> converted to a <see cref="string"/>.</returns>
         /// <remarks>
         /// <para>
         /// If <see cref="TypeConverter"/> fails, the value's <c>ToString()</c> value will be returned.

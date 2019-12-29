@@ -76,7 +76,7 @@ namespace Gemstone
         #region [ To Value from Pointer ]
 
         /// <summary>
-        /// Returns a <see cref="Boolean"/> value converted from one byte at a specified position in a byte array.
+        /// Returns a <see cref="bool"/> value converted from one byte at a specified position in a byte array.
         /// </summary>
         /// <param name="buffer">An array of bytes.</param>
         /// <returns>true if the byte at startIndex in value is nonzero; otherwise, false.</returns>
@@ -260,7 +260,7 @@ namespace Gemstone
         #region [ To Value from Byte Array ]
 
         /// <summary>
-        /// Returns a <see cref="Boolean"/> value converted from one byte at a specified position in a byte array.
+        /// Returns a <see cref="bool"/> value converted from one byte at a specified position in a byte array.
         /// </summary>
         /// <param name="buffer">An array of bytes.</param>
         /// <param name="startIndex">The starting position within value.</param>
@@ -505,9 +505,9 @@ namespace Gemstone
         }
 
         /// <summary>
-        /// Returns the specified <see cref="Boolean"/> value as an array of bytes in the target endian-order.
+        /// Returns the specified <see cref="bool"/> value as an array of bytes in the target endian-order.
         /// </summary>
-        /// <param name="value">The <see cref="Boolean"/> value to convert.</param>
+        /// <param name="value">The <see cref="bool"/> value to convert.</param>
         /// <returns>An array of bytes with length 1.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static byte[] GetBytes(bool value)
@@ -684,7 +684,7 @@ namespace Gemstone
         /// <summary>
         /// Copies the specified primitive type value as an array of bytes in the target endian-order to the destination array.
         /// </summary>
-        /// <param name="value">The <see cref="Boolean"/> value to convert and copy.</param>
+        /// <param name="value">The <see cref="bool"/> value to convert and copy.</param>
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <typeparam name="T">Native value type to get bytes for.</typeparam>
@@ -729,9 +729,9 @@ namespace Gemstone
         }
 
         /// <summary>
-        /// Copies the specified <see cref="Boolean"/> value as an array of 1 byte in the target endian-order to the destination array.
+        /// Copies the specified <see cref="bool"/> value as an array of 1 byte in the target endian-order to the destination array.
         /// </summary>
-        /// <param name="value">The <see cref="Boolean"/> value to convert and copy.</param>
+        /// <param name="value">The <see cref="bool"/> value to convert and copy.</param>
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
@@ -928,7 +928,7 @@ namespace Gemstone
         /// <summary>
         /// Copies the specified primitive type value as an array of bytes in the target endian-order to the destination array.
         /// </summary>
-        /// <param name="value">The <see cref="Boolean"/> value to convert and copy.</param>
+        /// <param name="value">The <see cref="bool"/> value to convert and copy.</param>
         /// <param name="destination">The destination buffer.</param>
         /// <typeparam name="T">Native value type to get bytes for.</typeparam>
         /// <exception cref="ArgumentException"><paramref name="value"/> type is not primitive.</exception>
@@ -972,9 +972,9 @@ namespace Gemstone
         }
 
         /// <summary>
-        /// Copies the specified <see cref="Boolean"/> value as an array of 1 byte in the target endian-order to the destination array.
+        /// Copies the specified <see cref="bool"/> value as an array of 1 byte in the target endian-order to the destination array.
         /// </summary>
-        /// <param name="value">The <see cref="Boolean"/> value to convert and copy.</param>
+        /// <param name="value">The <see cref="bool"/> value to convert and copy.</param>
         /// <param name="destination">The destination buffer.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

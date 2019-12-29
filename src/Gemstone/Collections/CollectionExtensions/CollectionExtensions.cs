@@ -926,7 +926,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// converted back to a list using LoadDelimitedString.</summary>
         /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
-        /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
+        /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
         public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source)
         {
             return source.ToDelimitedString('|');
@@ -937,7 +937,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting character used.</param>
-        /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
+        /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
         public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter)
         {
             return ToDelimitedString<TSource, char>(source, delimiter);
@@ -948,7 +948,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting <see cref="string"/> used.</param>
-        /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
+        /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
         public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter)
         {
             return ToDelimitedString<TSource, string>(source, delimiter);
@@ -960,7 +960,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="TDelimiter"><see cref="Type"/> of <paramref name="delimiter"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiter of type TDelimiter used.</param>
-        /// <returns>Returns a <see cref="String"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
+        /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
         private static string ToDelimitedString<TSource, TDelimiter>(IEnumerable<TSource> source, TDelimiter delimiter)
         {
             if (Common.IsReference(delimiter) && delimiter == null)
@@ -1016,7 +1016,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="destination">The list we are adding items to.</param>
         /// <param name="delimitedString">The delimited string to parse for items.</param>
         /// <param name="delimiters">An array of delimiters to look for in the <paramref name="delimitedString"/> as the delimiter.</param>
-        /// <param name="convertFromString">Delegate that takes a <see cref="String"/> and converts to type TSource.</param>
+        /// <param name="convertFromString">Delegate that takes a <see cref="string"/> and converts to type TSource.</param>
         public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, string[] delimiters, Func<string, TSource> convertFromString)
         {
             if (delimiters == null)

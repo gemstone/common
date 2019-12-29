@@ -51,6 +51,85 @@ namespace Gemstone.DateTimeExtensions
     /// </summary>
     public static class DateTimeExtensions
     {
+        /// <summary>Determines if the specified UTC time is valid, by comparing it to the system clock.</summary>
+        /// <param name="utcTime">UTC time to test for validity.</param>
+        /// <param name="lagTime">The allowed lag time, in seconds, before assuming time is too old to be valid.</param>
+        /// <param name="leadTime">The allowed lead time, in seconds, before assuming time is too advanced to be
+        /// valid.</param>
+        /// <returns>True, if time is within the specified range.</returns>
+        /// <remarks>
+        /// <para>Time is considered valid if it exists within the specified lag time/lead time range of current
+        /// time.</para>
+        /// <para>Note that lag time and lead time must be greater than zero, but can be set to sub-second
+        /// intervals.</para>
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
+        /// be less than one.</exception>
+        public static bool UtcTimeIsValid(this DateTime utcTime, double lagTime, double leadTime) => ((Ticks)utcTime).UtcTimeIsValid(lagTime, leadTime);
+
+        /// <summary>Determines if the specified local time is valid, by comparing it to the system clock.</summary>
+        /// <param name="localTime">Time to test for validity.</param>
+        /// <param name="lagTime">The allowed lag time, in seconds, before assuming time is too old to be valid.</param>
+        /// <param name="leadTime">The allowed lead time, in seconds, before assuming time is too advanced to be
+        /// valid.</param>
+        /// <returns>True, if time is within the specified range.</returns>
+        /// <remarks>
+        /// <para>Time is considered valid if it exists within the specified lag time/lead time range of current
+        /// time.</para>
+        /// <para>Note that lag time and lead time must be greater than zero, but can be set to sub-second
+        /// intervals.</para>
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
+        /// be less than one.</exception>
+        public static bool LocalTimeIsValid(this DateTime localTime, double lagTime, double leadTime) => ((Ticks)localTime).LocalTimeIsValid(lagTime, leadTime);
+
+        /// <summary>Determines if time is valid, by comparing it to the specified current time.</summary>
+        /// <param name="testTime">Time to test for validity.</param>
+        /// <param name="currentTime">Specified current time (e.g., could be Date.Now or Date.UtcNow).</param>
+        /// <param name="lagTime">The allowed lag time, in seconds, before assuming time is too old to be valid.</param>
+        /// <param name="leadTime">The allowed lead time, in seconds, before assuming time is too advanced to be
+        /// valid.</param>
+        /// <returns>True, if time is within the specified range.</returns>
+        /// <remarks>
+        /// <para>Time is considered valid if it exists within the specified lag time/lead time range of current
+        /// time.</para>
+        /// <para>Note that lag time and lead time must be greater than zero, but can be set to sub-second
+        /// intervals.</para>
+        /// </remarks>
+        /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
+        /// be less than one.</exception>
+        public static bool TimeIsValid(this DateTime testTime, DateTime currentTime, double lagTime, double leadTime) => ((Ticks)testTime).TimeIsValid(currentTime, lagTime, leadTime);
+
+        /// <summary>Gets the distance, in <see cref="Ticks"/>, beyond the top of the <paramref name="timestamp"/> second.</summary>
+        /// <param name="timestamp">Timestamp to evaluate.</param>
+        /// <returns>Timestamp's tick distance from the top of the second.</returns>
+        public static Ticks DistanceBeyondSecond(this DateTime timestamp) => ((Ticks)timestamp).DistanceBeyondSecond();
+
+        /// <summary>Creates a baselined timestamp which begins at the specified time interval.</summary>
+        /// <param name="timestamp">Timestamp to baseline.</param>
+        /// <param name="interval">
+        /// <see cref="BaselineTimeInterval"/> to which <paramref name="timestamp"/> should be baselined.
+        /// </param>
+        /// <returns>
+        /// A new <see cref="DateTime"/> value that represents a baselined timestamp that begins at the
+        /// specified <see cref="BaselineTimeInterval"/>.
+        /// </returns>
+        /// <remarks>
+        /// Baselining to the <see cref="BaselineTimeInterval.Second"/> would return the <see cref="DateTime"/>
+        /// value starting at zero milliseconds.<br/>
+        /// Baselining to the <see cref="BaselineTimeInterval.Minute"/> would return the <see cref="DateTime"/>
+        /// value starting at zero seconds and milliseconds.<br/>
+        /// Baselining to the <see cref="BaselineTimeInterval.Hour"/> would return the <see cref="DateTime"/>
+        /// value starting at zero minutes, seconds and milliseconds.<br/>
+        /// Baselining to the <see cref="BaselineTimeInterval.Day"/> would return the <see cref="DateTime"/>
+        /// value starting at zero hours, minutes, seconds and milliseconds.<br/>
+        /// Baselining to the <see cref="BaselineTimeInterval.Month"/> would return the <see cref="DateTime"/>
+        /// value starting at day one, zero hours, minutes, seconds and milliseconds.<br/>
+        /// Baselining to the <see cref="BaselineTimeInterval.Year"/> would return the <see cref="DateTime"/>
+        /// value starting at month one, day one, zero hours, minutes, seconds and milliseconds.
+        /// </remarks>
+        public static DateTime BaselinedTimestamp(this DateTime timestamp, BaselineTimeInterval interval) => ((Ticks)timestamp).BaselinedTimestamp(interval);
+
         /// <summary>Converts given local time to Eastern time.</summary>
         /// <param name="timestamp">Timestamp in local time to be converted to Eastern time.</param>
         /// <returns>

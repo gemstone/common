@@ -261,7 +261,7 @@ namespace Gemstone.StringExtensions
         /// <summary>
         /// Converts value to string; null objects (or DBNull objects) will return an empty string (""). 
         /// </summary>
-        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="object"/> to convert to string.</typeparam>
         /// <param name="value">Value to convert to string.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, empty string ("") will be returned. </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -270,9 +270,9 @@ namespace Gemstone.StringExtensions
         /// <summary>
         /// Converts value to string; null objects (or DBNull objects) will return specified <paramref name="nonNullValue"/>.
         /// </summary>
-        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="object"/> to convert to string.</typeparam>
         /// <param name="value">Value to convert to string.</param>
-        /// <param name="nonNullValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <param name="nonNullValue"><see cref="string"/> to return if <paramref name="value"/> is null.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, <paramref name="nonNullValue"/> will be returned.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="nonNullValue"/> cannot be null.</exception>
         public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class => nonNullValue == null ? throw new ArgumentNullException(nameof(nonNullValue)) : value == null || value is DBNull ? nonNullValue : value.ToString();
@@ -282,17 +282,17 @@ namespace Gemstone.StringExtensions
         /// <summary>
         /// Makes sure returned string value is not null; if this string is null, empty string ("") will be returned. 
         /// </summary>
-        /// <param name="value"><see cref="String"/> to verify is not null.</param>
-        /// <returns><see cref="String"/> value; if <paramref name="value"/> is null, empty string ("") will be returned.</returns>
+        /// <param name="value"><see cref="string"/> to verify is not null.</param>
+        /// <returns><see cref="string"/> value; if <paramref name="value"/> is null, empty string ("") will be returned.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static string ToNonNullString(this string value) => value ?? "";
 
         /// <summary>
         /// Converts value to string; null objects, DBNull objects or empty strings will return specified <paramref name="nonNullNorEmptyValue"/>.
         /// </summary>
-        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="object"/> to convert to string.</typeparam>
         /// <param name="value">Value to convert to string.</param>
-        /// <param name="nonNullNorEmptyValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <param name="nonNullNorEmptyValue"><see cref="string"/> to return if <paramref name="value"/> is null.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, DBNull or an empty string <paramref name="nonNullNorEmptyValue"/> will be returned.</returns>
         /// <exception cref="ArgumentException"><paramref name="nonNullNorEmptyValue"/> must not be null or an empty string.</exception>
         public static string ToNonNullNorEmptyString<T>(this T value, string nonNullNorEmptyValue = " ") where T : class
@@ -311,9 +311,9 @@ namespace Gemstone.StringExtensions
         /// <summary>
         /// Converts value to string; null objects, DBNull objects, empty strings or all white space strings will return specified <paramref name="nonNullNorWhiteSpaceValue"/>.
         /// </summary>
-        /// <typeparam name="T"><see cref="Type"/> of <see cref="Object"/> to convert to string.</typeparam>
+        /// <typeparam name="T"><see cref="Type"/> of <see cref="object"/> to convert to string.</typeparam>
         /// <param name="value">Value to convert to string.</param>
-        /// <param name="nonNullNorWhiteSpaceValue"><see cref="String"/> to return if <paramref name="value"/> is null.</param>
+        /// <param name="nonNullNorWhiteSpaceValue"><see cref="string"/> to return if <paramref name="value"/> is null.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, DBNull, empty or all white space, <paramref name="nonNullNorWhiteSpaceValue"/> will be returned.</returns>
         /// <exception cref="ArgumentException"><paramref name="nonNullNorWhiteSpaceValue"/> must not be null, an empty string or white space.</exception>
         public static string ToNonNullNorWhiteSpace<T>(this T value, string nonNullNorWhiteSpaceValue = "_") where T : class
@@ -1345,7 +1345,7 @@ namespace Gemstone.StringExtensions
         /// Handles multiple lines of text separated by Environment.NewLine.
         /// </remarks>
         /// <param name="value">A <see cref="string"/> to be centered.</param>
-        /// <param name="maxLength">An <see cref="Int32"/> that is the maximum length of padding.</param>
+        /// <param name="maxLength">An <see cref="int"/> that is the maximum length of padding.</param>
         /// <returns>The centered string value.</returns>
         public static string CenterText(this string value, int maxLength) => value.CenterText(maxLength, ' ');
 
@@ -1358,7 +1358,7 @@ namespace Gemstone.StringExtensions
         /// Handles multiple lines of text separated by <c>Environment.NewLine</c>.
         /// </remarks>
         /// <param name="value">A <see cref="string"/> to be centered.</param>
-        /// <param name="maxLength">An <see cref="Int32"/> that is the maximum length of padding.</param>
+        /// <param name="maxLength">An <see cref="int"/> that is the maximum length of padding.</param>
         /// <param name="paddingCharacter">The <see cref="char"/> value to pad with.</param>
         /// <returns>The centered string value.</returns>
         public static string CenterText(this string value, int maxLength, char paddingCharacter)
