@@ -32,8 +32,8 @@ namespace Gemstone.Common.UnitTests
     [TestClass]
     public class DateTimeExtensionTest
     {
-        private readonly double lagTime = 2;
-        private readonly double leadTime = 2;
+        private readonly double lagTime = 60 * 10;
+        private readonly double leadTime = 60 * 10;
         private readonly BaselineTimeInterval dayInterval = BaselineTimeInterval.Day;
         private readonly DateTime utcTime = DateTime.UtcNow;
         private readonly DateTime localTime;
