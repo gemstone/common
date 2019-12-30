@@ -23,6 +23,8 @@
 //
 //******************************************************************************************************
 
+//#define TestTimestampValidations
+
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.DateTimeExtensions;
@@ -32,8 +34,6 @@ namespace Gemstone.Common.UnitTests
     [TestClass]
     public class DateTimeExtensionTest
     {
-        private readonly double lagTime = 60 * 10;
-        private readonly double leadTime = 60 * 10;
         private readonly BaselineTimeInterval dayInterval = BaselineTimeInterval.Day;
         private readonly DateTime utcTime = DateTime.UtcNow;
         private readonly DateTime localTime;
@@ -42,6 +42,11 @@ namespace Gemstone.Common.UnitTests
         {
             localTime = utcTime.ToLocalTime();
         }
+
+        #if TestTimestampValidations
+
+        private readonly double lagTime = 10;
+        private readonly double leadTime = 10;
 
         // This method will Determines if the specified UTC time is valid or not, by comparing it to the system clock time
         // and returns boolean variable as false for valid case and test will pass.
@@ -112,6 +117,8 @@ namespace Gemstone.Common.UnitTests
             // Assert
             Assert.AreEqual(true, result);
         }
+
+        #endif
 
         // This method will creates a baselined timestamp which begins at the specified time interval,by comparing it to the system clock time
         //  and returns boolean variable as false for valid case and test will pass.
