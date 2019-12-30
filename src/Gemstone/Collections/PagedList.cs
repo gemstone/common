@@ -109,7 +109,7 @@ namespace Gemstone.Collections
                 return 0;
 
             int remainder = totalCount % pageSize;
-            return (totalCount / pageSize) + (remainder == 0 ? 0 : 1);
+            return totalCount / pageSize + (remainder == 0 ? 0 : 1);
         }
 
         #endregion

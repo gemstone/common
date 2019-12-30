@@ -459,7 +459,7 @@ namespace Gemstone.Collections.CollectionExtensions
                 }
 
                 // Find the largest number of items in the list
-                KeyValuePair<TKey, Tuple<int, TSource>> maxItem = itemCounts.Max((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : (a.Value.Item1 > b.Value.Item1 ? 1 : 0));
+                KeyValuePair<TKey, Tuple<int, TSource>> maxItem = itemCounts.Max((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
 
                 // If item with largest count has a plural majority, then it is the majority item
                 if (maxItem.Value.Item1 > 1)
@@ -524,7 +524,7 @@ namespace Gemstone.Collections.CollectionExtensions
                 }
 
                 // Find the largest number of items in the list
-                KeyValuePair<T, int> maxItem = itemCounts.Max((a, b) => a.Value < b.Value ? -1 : (a.Value > b.Value ? 1 : 0));
+                KeyValuePair<T, int> maxItem = itemCounts.Max((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
 
                 // If item with largest count has a plural majority, then it is the majority item
                 if (maxItem.Value > 1)
@@ -595,7 +595,7 @@ namespace Gemstone.Collections.CollectionExtensions
                 }
 
                 // Find the smallest number of items in the list
-                KeyValuePair<TKey, Tuple<int, TSource>> minItem = itemCounts.Min((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : (a.Value.Item1 > b.Value.Item1 ? 1 : 0));
+                KeyValuePair<TKey, Tuple<int, TSource>> minItem = itemCounts.Min((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
                 minority = minItem.Value.Item2;
             }
 
@@ -657,7 +657,7 @@ namespace Gemstone.Collections.CollectionExtensions
                 }
 
                 // Find the smallest number of items in the list
-                KeyValuePair<T, int> minItem = itemCounts.Min((a, b) => a.Value < b.Value ? -1 : (a.Value > b.Value ? 1 : 0));
+                KeyValuePair<T, int> minItem = itemCounts.Min((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
                 minority = minItem.Key;
             }
 
