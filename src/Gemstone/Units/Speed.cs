@@ -275,10 +275,29 @@ namespace Gemstone.Units
             if (value == null)
                 return 1;
 
-            if (!(value is double) && !(value is Speed))
-                throw new ArgumentException("Argument must be a Double or a Speed");
+            double num;
 
-            double num = (double)value;
+            switch (value)
+            {
+                case double dbl:
+                    num = dbl;
+
+                    break;
+                case Speed speed:
+                    num = speed;
+
+                    break;
+                default:
+                    try
+                    {
+                        num = Convert.ToDouble(value);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Argument must be a Double or a Speed", ex);
+                    }
+                    break;
+            }
 
             return m_value < num ? -1 : m_value > num ? 1 : 0;
         }
@@ -323,13 +342,31 @@ namespace Gemstone.Units
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj is double dbl)
-                return Equals(dbl);
+            double num;
 
-            if (obj is Speed speed)
-                return Equals(speed);
+            switch (obj)
+            {
+                case double dbl:
+                    num = dbl;
 
-            return false;
+                    break;
+                case Speed speed:
+                    num = speed;
+
+                    break;
+                default:
+                    try
+                    {
+                        num = Convert.ToDouble(obj);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Argument must be a Double or a Speed", ex);
+                    }
+                    break;
+            }
+
+            return Equals(num);
         }
 
         /// <summary>

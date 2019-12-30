@@ -449,10 +449,33 @@ namespace Gemstone.Units
             if (value == null)
                 return 1;
 
-            if (!(value is double) && !(value is Time) && !(value is DateTime) && !(value is TimeSpan))
-                throw new ArgumentException("Argument must be a Double or a Time");
+            double num;
 
-            double num = (Time)value;
+            switch (value)
+            {
+                case double dbl:
+                    num = dbl;
+
+                    break;
+                case Time time:
+                    num = time;
+
+                    break;
+                case TimeSpan timeSpan:
+                    num = (Time)timeSpan;
+
+                    break;
+                default:
+                    try
+                    {
+                        num = Convert.ToDouble(value);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Argument must be a Double, TimeSpan or a Time", ex);
+                    }
+                    break;
+            }
 
             return m_value < num ? -1 : m_value > num ? 1 : 0;
         }
@@ -512,16 +535,35 @@ namespace Gemstone.Units
         /// </returns>
         public override bool Equals(object obj)
         {
-            if (obj is double dbl)
-                return Equals(dbl);
+            double num;
 
-            if (obj is Time time)
-                return Equals(time);
+            switch (obj)
+            {
+                case double dbl:
+                    num = dbl;
 
-            if (obj is TimeSpan span)
-                return Equals(span);
+                    break;
+                case Time time:
+                    num = time;
 
-            return false;
+                    break;
+                case TimeSpan timeSpan:
+                    num = (Time)timeSpan;
+
+                    break;
+                default:
+                    try
+                    {
+                        num = Convert.ToDouble(obj);
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new ArgumentException("Argument must be a Double, TimeSpan or a Time", ex);
+                    }
+                    break;
+            }
+
+            return Equals(num);
         }
 
         /// <summary>
