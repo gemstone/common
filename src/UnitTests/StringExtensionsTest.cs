@@ -26,18 +26,19 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.StringExtensions;
 
-namespace UnitTests
+namespace Gemstone.Common.UnitTests
 {
     [TestClass]
     public class StringExtensionsTest
     {
         private readonly string strTestMethod = string.Empty;
-        private string testvalue = "test";
-        private string testResult = " ";
-        char c = 'a';
-        int intValue = 0;
-        int intData = -1;
-        bool boolvalue = true;
+        private readonly string testvalue = "test";
+        private readonly string testResult = " ";
+        readonly char c = 'a';
+        readonly int intValue = 0;
+        readonly int intData = -1;
+
+        readonly bool boolvalue = true;
         //Func<char, bool> characterTestFunction;
 
         // This test method validated given String represent a boolean value.

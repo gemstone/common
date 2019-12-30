@@ -27,7 +27,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.EnumExtensions;
 
-namespace UnitTests
+namespace Gemstone.Common.UnitTests
 {
     [TestClass]
     public class EnumExtensionsTest
