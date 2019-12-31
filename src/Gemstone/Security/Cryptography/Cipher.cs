@@ -62,45 +62,30 @@ namespace Gemstone.Security.Cryptography
         /// Creates a <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA1 CreateSHA1()
-        {
-            return SystemAllowsManagedEncryption ? new SHA1Managed() : new SHA1CryptoServiceProvider() as SHA1;
-        }
+        public SHA1 CreateSHA1() => SystemAllowsManagedEncryption ? new SHA1Managed() : new SHA1CryptoServiceProvider() as SHA1;
 
         /// <summary>
         /// Creates a <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA256 CreateSHA256()
-        {
-            return SystemAllowsManagedEncryption ? new SHA256Managed() : new SHA256CryptoServiceProvider() as SHA256;
-        }
+        public SHA256 CreateSHA256() => SystemAllowsManagedEncryption ? new SHA256Managed() : new SHA256CryptoServiceProvider() as SHA256;
 
         /// <summary>
         /// Creates a <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA384 CreateSHA384()
-        {
-            return SystemAllowsManagedEncryption ? new SHA384Managed() : new SHA384CryptoServiceProvider() as SHA384;
-        }
+        public SHA384 CreateSHA384() => SystemAllowsManagedEncryption ? new SHA384Managed() : new SHA384CryptoServiceProvider() as SHA384;
 
         /// <summary>
         /// Creates a <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA512 CreateSHA512()
-        {
-            return SystemAllowsManagedEncryption ? new SHA512Managed() : new SHA512CryptoServiceProvider() as SHA512;
-        }
+        public SHA512 CreateSHA512() => SystemAllowsManagedEncryption ? new SHA512Managed() : new SHA512CryptoServiceProvider() as SHA512;
 
         /// <summary>
         /// Creates an <see cref="Aes"/> encryption algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="Aes"/> encryption algorithm that respects current FIPS setting.</returns>
-        public Aes CreateAes()
-        {
-            return SystemAllowsManagedEncryption ? new AesManaged() : new AesCryptoServiceProvider() as Aes;
-        }
+        public Aes CreateAes() => SystemAllowsManagedEncryption ? new AesManaged() : new AesCryptoServiceProvider() as Aes;
     }
 }
