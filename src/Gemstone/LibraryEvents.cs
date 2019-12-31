@@ -22,6 +22,8 @@
 //******************************************************************************************************
 
 using System;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Gemstone.Data")]
@@ -30,6 +32,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Gemstone.Numeric")]
 [assembly: InternalsVisibleTo("Gemstone.Threading")]
 
+// ReSharper disable DelegateSubtraction
 namespace Gemstone
 {
     /// <summary>
@@ -37,14 +40,92 @@ namespace Gemstone
     /// </summary>
     public static class LibraryEvents
     {
+        private static EventHandler<UnhandledExceptionEventArgs> s_suppressedExceptionHandler;
+        private static readonly object s_suppressedExceptionLock = new object();
+
         /// <summary>
         /// Exposes exceptions that were suppressed but otherwise unhandled.  
         /// </summary>
         /// <remarks>
         /// End users should attach to this event so that suppressed exceptions can be exposed to a log.
         /// </remarks>
-        public static event EventHandler<UnhandledExceptionEventArgs> SuppressedException;
+        public static event EventHandler<UnhandledExceptionEventArgs> SuppressedException
+        {
+            add
+            {
+                lock (s_suppressedExceptionLock)
+                    s_suppressedExceptionHandler += value;
+            }
+            remove
+            {
+                lock (s_suppressedExceptionLock)
+                    s_suppressedExceptionHandler -= value;
+            }
+        }
 
-        internal static void OnSuppressedException(object sender, Exception ex) => SuppressedException?.Invoke(sender, new UnhandledExceptionEventArgs(ex, false));
+        internal static void OnSuppressedException(object sender, Exception ex) =>
+            ExecuteSafeEventPropagation(
+                s_suppressedExceptionHandler,
+                s_suppressedExceptionLock,
+                nameof(SuppressedException),
+                sender,
+                new UnhandledExceptionEventArgs(ex, false));
+
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        private static void ExecuteSafeEventPropagation<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string friendlyName, object sender, TEventArgs args)
+        {
+            if (eventHandler == null)
+                return;
+
+            Delegate[] handlers;
+
+            lock (eventLock)
+                handlers = eventHandler.GetInvocationList();
+
+            // Safely iterate each attached handler, continuing on possible exception, so no handlers are missed
+            foreach (Delegate handler in handlers)
+            {
+                if (!(handler is EventHandler<TEventArgs> userHandler))
+                    continue;
+
+                try
+                {
+                    userHandler(sender, args);
+                }
+                catch (Exception opex)
+                {
+                    LogUserHandlerException($"Failed in {friendlyName} event handler \"{GetHandlerName(userHandler)}\": {opex.Message}");
+                }
+            }
+        }
+
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        private static string GetHandlerName<TEventArgs>(EventHandler<TEventArgs> userHandler)
+        {
+            try
+            {
+                return userHandler.Method.Name;
+            }
+            catch (Exception ex)
+            {
+                LogUserHandlerException($"Failed to get event handler name: {ex.Message}");
+            }
+
+            return "<undetermined>";
+        }
+
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        private static void LogUserHandlerException(string message)
+        {
+            try
+            {
+                Debug.WriteLine(message);
+                System.Console.Error.WriteLine(message);
+            }
+            catch
+            {
+                // System.Console.Error can fail with IOException and ObjectDisposedException
+            }
+        }
     }
 }
