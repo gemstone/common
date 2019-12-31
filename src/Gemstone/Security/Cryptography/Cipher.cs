@@ -32,17 +32,17 @@ namespace Gemstone.Security.Cryptography
     /// <remarks>
     /// This class exists to simplify usage of basic cryptography functionality.
     /// </remarks>
-    public static class Cipher
+    public class Cipher
     {
         /// <summary>
         /// Gets a flag that determines if system will allow use of managed, i.e., non-FIPS compliant, security algorithms.
         /// </summary>
-        public static bool SystemAllowsManagedEncryption { get; }
+        public bool SystemAllowsManagedEncryption { get; set; }
 
         /// <summary>
-        /// Static constructor for the <see cref="Cipher"/> class.
+        /// Creates a new <see cref="Cipher"/> class.
         /// </summary>
-        static Cipher()
+        public Cipher()
         {
             const string fipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
             const string fipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
@@ -62,7 +62,7 @@ namespace Gemstone.Security.Cryptography
         /// Creates a <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.</returns>
-        public static SHA1 CreateSHA1()
+        public SHA1 CreateSHA1()
         {
             return SystemAllowsManagedEncryption ? new SHA1Managed() : new SHA1CryptoServiceProvider() as SHA1;
         }
@@ -71,7 +71,7 @@ namespace Gemstone.Security.Cryptography
         /// Creates a <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.</returns>
-        public static SHA256 CreateSHA256()
+        public SHA256 CreateSHA256()
         {
             return SystemAllowsManagedEncryption ? new SHA256Managed() : new SHA256CryptoServiceProvider() as SHA256;
         }
@@ -80,7 +80,7 @@ namespace Gemstone.Security.Cryptography
         /// Creates a <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.</returns>
-        public static SHA384 CreateSHA384()
+        public SHA384 CreateSHA384()
         {
             return SystemAllowsManagedEncryption ? new SHA384Managed() : new SHA384CryptoServiceProvider() as SHA384;
         }
@@ -89,7 +89,7 @@ namespace Gemstone.Security.Cryptography
         /// Creates a <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.</returns>
-        public static SHA512 CreateSHA512()
+        public SHA512 CreateSHA512()
         {
             return SystemAllowsManagedEncryption ? new SHA512Managed() : new SHA512CryptoServiceProvider() as SHA512;
         }
@@ -98,7 +98,7 @@ namespace Gemstone.Security.Cryptography
         /// Creates an <see cref="Aes"/> encryption algorithm that respects current FIPS setting.
         /// </summary>
         /// <returns>New <see cref="Aes"/> encryption algorithm that respects current FIPS setting.</returns>
-        public static Aes CreateAes()
+        public Aes CreateAes()
         {
             return SystemAllowsManagedEncryption ? new AesManaged() : new AesCryptoServiceProvider() as Aes;
         }
