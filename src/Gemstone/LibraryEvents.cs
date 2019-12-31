@@ -72,7 +72,7 @@ namespace Gemstone
                 new UnhandledExceptionEventArgs(ex, false));
 
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
-        private static void ExecuteSafeEventPropagation<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string friendlyName, object sender, TEventArgs args)
+        private static void ExecuteSafeEventPropagation<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string eventName, object sender, TEventArgs args)
         {
             if (eventHandler == null)
                 return;
@@ -94,7 +94,7 @@ namespace Gemstone
                 }
                 catch (Exception opex)
                 {
-                    LogUserHandlerException($"Failed in {friendlyName} event handler \"{GetHandlerName(userHandler)}\": {opex.Message}");
+                    LogUserHandlerException($"Failed in {eventName} event handler \"{GetHandlerName(userHandler)}\": {opex.Message}");
                 }
             }
         }
