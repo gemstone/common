@@ -64,10 +64,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Random = Gemstone.Security.Cryptography.Random;
 
-//using Random = GSF.Security.Cryptography.Random;
-
-#pragma warning disable SCS0005 // Weak random generator desired for use cases here
-
 namespace Gemstone.Collections.CollectionExtensions
 {
     /// <summary>
@@ -125,9 +121,8 @@ namespace Gemstone.Collections.CollectionExtensions
         public static T Merge<T, TKey, TValue>(this T source, bool overwriteExisting, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new()
         {
             T mergedDictionary = new T();
-            List<IDictionary<TKey, TValue>> allDictionaries = new List<IDictionary<TKey, TValue>>();
+            List<IDictionary<TKey, TValue>> allDictionaries = new List<IDictionary<TKey, TValue>> { source };
 
-            allDictionaries.Add(source);
             allDictionaries.AddRange(others);
 
             foreach (IDictionary<TKey, TValue> dictionary in allDictionaries)
@@ -348,7 +343,7 @@ namespace Gemstone.Collections.CollectionExtensions
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
 
-            if ((object)predicate == null)
+            if (predicate == null)
                 throw new ArgumentNullException(nameof(predicate));
 
             bool succeeded = true;
@@ -909,17 +904,16 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>The elements from <paramref name="source"/> whose keys are distinct.</returns>
         public static IEnumerable<TSource> DistinctBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true)
         {
-            if (forwardSearch)
-                return source
+            return forwardSearch ?
+                source
                     .Select(obj => new DistinctByWrapper<TKey, TSource>(keySelector(obj), obj))
                     .Distinct()
+                    .Select(wrapper => wrapper.Value) :
+                source
+                    .Select(obj => new DistinctByWrapper<TKey, TSource>(keySelector(obj), obj))
+                    .Reverse()
+                    .Distinct()
                     .Select(wrapper => wrapper.Value);
-
-            return source
-                .Select(obj => new DistinctByWrapper<TKey, TSource>(keySelector(obj), obj))
-                .Reverse()
-                .Distinct()
-                .Select(wrapper => wrapper.Value);
         }
 
         /// <summary>Converts an enumeration to a string, using the default delimiter ("|") that can later be
@@ -1000,7 +994,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="convertFromString">Delegate that takes one parameter and converts from string to type TSource.</param>
         public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, char delimiter, Func<string, TSource> convertFromString)
         {
-            if ((object)delimitedString == null)
+            if (delimitedString == null)
                 throw new ArgumentNullException(nameof(delimitedString), "delimitedString cannot be null");
 
             if (destination.IsReadOnly)
@@ -1022,7 +1016,7 @@ namespace Gemstone.Collections.CollectionExtensions
             if (delimiters == null)
                 throw new ArgumentNullException(nameof(delimiters), "delimiters cannot be null");
 
-            if ((object)delimitedString == null)
+            if (delimitedString == null)
                 throw new ArgumentNullException(nameof(delimitedString), "delimitedString cannot be null");
 
             if (destination.IsReadOnly)
