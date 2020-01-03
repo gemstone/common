@@ -38,7 +38,7 @@ namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions
         /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
         /// <param name="value">String value to hash.</param>
         /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-        public static string GetStringHash(HashAlgorithm algorithm, string value) => 
+        public static string GetStringHash(this HashAlgorithm algorithm, string value) => 
             value == null ? null : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
     }
 }
