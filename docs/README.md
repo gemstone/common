@@ -38,29 +38,29 @@ This library includes helpful common classes like the following:
   * Represents a standard Unix timetag.
  
 * Many Extension Functions (all opt-in only by specific extension namespace):
-  * ActionExtensions
-  * ArrayExtensions
-  * BitExtensions
-  * CharExtensions
-  * Collections
-    * CollectionExtensions
-  * DateTimeExtensions
-  * EnumExtensions
-  * GuidExtensions
-  * IO
-    * StreamExtensions
-  * Reflection
-    * AssemblyExtensions
-    * MemberInfoExtensions
-    * MethodBaseExtensions
-    * MethodInfoExtensions
-  * Security.Cryptography
-    * HashAlgorithmExtensions
-    * SymmetricAlgorithmExtensions
-  * StringExtensions
-  * TimeSpanExtensions
-  * TypeExtensions
-  * WordExtensions
+  * [ActionExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_ActionExtensions_ActionExtensions.htm)
+  * [ArrayExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_ArrayExtensions_ArrayExtensions.htm)
+  * [BitExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_BitExtensions_BitExtensions.htm)
+  * [CharExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_CharExtensions_CharExtensions.htm)
+  * [Collections](https://gemstone.github.io/common/help/html/N_Gemstone_Collections.htm)
+    * [CollectionExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Collections_CollectionExtensions_CollectionExtensions.htm)
+  * [DateTimeExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_DateTimeExtensions_DateTimeExtensions.htm)
+  * [EnumExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_EnumExtensions_EnumExtensions.htm)
+  * [GuidExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_GuidExtensions_GuidExtensions.htm)
+  * [IO](https://gemstone.github.io/common/help/html/N_Gemstone_IO.htm)
+    * [StreamExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_IO_StreamExtensions_StreamExtensions.htm)
+  * [Reflection](https://gemstone.github.io/common/help/html/N_Gemstone_Reflection.htm)
+    * [AssemblyExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions.htm)
+    * [MemberInfoExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Reflection_MemberInfoExtensions_MemberInfoExtensions.htm)
+    * [MethodBaseExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Reflection_MethodBaseExtensions_MethodBaseExtensions.htm)
+    * [MethodInfoExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Reflection_MethodInfoExtensions_MethodInfoExtensions.htm)
+  * [Security.Cryptography](https://gemstone.github.io/common/help/html/N_Gemstone_Security_Cryptography.htm)
+    * [HashAlgorithmExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Security_Cryptography_HashAlgorithmExtensions_HashAlgorithmExtensions.htm)
+    * [SymmetricAlgorithmExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Security_Cryptography_SymmetricAlgorithmExtensions_SymmetricAlgorithmExtensions.htm)
+  * [StringExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_StringExtensions_StringExtensions.htm)
+  * [TimeSpanExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_TimeSpanExtensions_TimeSpanExtensions.htm)
+  * [TypeExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_TypeExtensions_TypeExtensions.htm)
+  * [WordExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_WordExtensions_WordExtensions.htm)
 
 Among others.
 
