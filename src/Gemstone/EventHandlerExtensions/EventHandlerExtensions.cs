@@ -44,10 +44,10 @@ namespace Gemstone.EventHandlerExtensions
         /// Any exceptions will be suppressed, see other overloads for custom exception handling.
         /// </remarks>
         public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object sender, TEventArgs args) =>
-            SafeInvoke(eventHandler, null, null, sender, args);
+            SafeInvoke(eventHandler, null, (Action<Exception, EventHandler<TEventArgs>>)null, sender, args);
 
         /// <summary>
-        /// Safely invokes event propagation, continuing even if an attached user handler throws an exception.
+        /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
         /// </summary>
         /// <typeparam name="TEventArgs"></typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
@@ -58,10 +58,24 @@ namespace Gemstone.EventHandlerExtensions
         /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
         /// </remarks>
         public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception> exceptionHandler, object sender, TEventArgs args) =>
+            SafeInvoke(eventHandler, null, (ex, _) => exceptionHandler(ex), sender, args);
+
+        /// <summary>
+        /// Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+        /// </summary>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
+        /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="sender">Event source.</param>
+        /// <param name="args">Event arguments.</param>
+        /// <remarks>
+        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
+        /// </remarks>
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception, EventHandler<TEventArgs>> exceptionHandler, object sender, TEventArgs args) =>
             SafeInvoke(eventHandler, null, exceptionHandler, sender, args);
 
         /// <summary>
-        /// Safely invokes event propagation, continuing even if an attached user handler throws an exception.
+        /// Safely invokes event propagation with custom event lock and exception handler, continuing even if an attached user handler throws an exception.
         /// </summary>
         /// <typeparam name="TEventArgs"></typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
@@ -69,7 +83,19 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object eventLock, Action<Exception> exceptionHandler, object sender, TEventArgs args)
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object eventLock, Action<Exception> exceptionHandler, object sender, TEventArgs args) =>
+            SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler(ex), sender, args);
+
+        /// <summary>
+        /// Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+        /// </summary>
+        /// <typeparam name="TEventArgs"></typeparam>
+        /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
+        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
+        /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="sender">Event source.</param>
+        /// <param name="args">Event arguments.</param>
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object eventLock, Action<Exception, EventHandler<TEventArgs>> exceptionHandler, object sender, TEventArgs args)
         {
             if (eventHandler == null)
                 return;
@@ -97,7 +123,7 @@ namespace Gemstone.EventHandlerExtensions
                     if (exceptionHandler == null)
                         LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke user event handler exception: {ex.Message}", ex));
                     else
-                        exceptionHandler(ex);
+                        exceptionHandler(ex, userHandler);
                 }
             }
         }
