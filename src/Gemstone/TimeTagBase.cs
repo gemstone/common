@@ -69,7 +69,7 @@ using System.Runtime.Serialization;
 namespace Gemstone
 {
     /// <summary>
-    /// Represents the base class for alternate timetag implementations.
+    /// Represents the base class for alternate time-tag implementations.
     /// </summary>
     [Serializable]
     public abstract class TimeTagBase : ISerializable, IComparable, IComparable<TimeTagBase>, IComparable<DateTime>, IEquatable<TimeTagBase>, IEquatable<DateTime>, IFormattable
@@ -94,7 +94,7 @@ namespace Gemstone
         /// <summary>
         /// Creates a new <see cref="TimeTagBase"/>, given number base time (in ticks) and seconds since base time.
         /// </summary>
-        /// <param name="baseDateOffsetTicks">Ticks of timetag base.</param>
+        /// <param name="baseDateOffsetTicks">Ticks of time-tag base.</param>
         /// <param name="seconds">Number of seconds since base time.</param>
         protected TimeTagBase(long baseDateOffsetTicks, decimal seconds)
         {
@@ -105,8 +105,8 @@ namespace Gemstone
         /// <summary>
         /// Creates a new <see cref="TimeTagBase"/>, given standard .NET <see cref="DateTime"/>.
         /// </summary>
-        /// <param name="baseDateOffsetTicks">Ticks of timetag base.</param>
-        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> used to create timetag from.</param>
+        /// <param name="baseDateOffsetTicks">Ticks of time-tag base.</param>
+        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> used to create time-tag from.</param>
         protected TimeTagBase(long baseDateOffsetTicks, Ticks timestamp)
         {
             // Zero base 100-nanosecond ticks from 1/1/1970 and convert to seconds.
@@ -121,7 +121,7 @@ namespace Gemstone
         /// <param name="context">The source <see cref="StreamingContext"/> for this deserialization.</param>
         protected TimeTagBase(SerializationInfo info, StreamingContext context)
         {
-            // Deserializes timetag
+            // Deserializes time-tag
             m_baseDateOffsetTicks = info.GetInt64("baseDateOffsetTicks");
             m_seconds = info.GetDecimal("seconds");
         }
@@ -136,7 +136,7 @@ namespace Gemstone
         public virtual decimal Value => m_seconds;
 
         /// <summary>
-        /// Gets ticks representing the absolute minimum time of this timetag implementation.
+        /// Gets ticks representing the absolute minimum time of this time-tag implementation.
         /// </summary>
         public virtual long BaseDateOffsetTicks => m_baseDateOffsetTicks;
 
@@ -145,43 +145,43 @@ namespace Gemstone
         #region [ Methods ]
 
         /// <summary>
-        /// Returns standard .NET <see cref="DateTime"/> representation for timetag.
+        /// Returns standard .NET <see cref="DateTime"/> representation for time-tag.
         /// </summary>
         /// <returns>A <see cref="DateTime"/>.</returns>
         // Converts m_seconds to 100-nanosecond ticks and add the base time offset.
         public virtual DateTime ToDateTime() => new DateTime((long)(m_seconds * Ticks.PerSecond) + m_baseDateOffsetTicks);
 
         /// <summary>
-        /// Returns basic textual representation for timetag.
+        /// Returns basic textual representation for time-tag.
         /// </summary>
         /// <remarks>
-        /// Format is "yyyy-MM-dd HH:mm:ss.fff" so that textual representation can be sorted in the
+        /// Format is <c>"yyyy-MM-dd HH:mm:ss.fff"</c> so that textual representation can be sorted in the
         /// correct chronological order.
         /// </remarks>
-        /// <returns>A <see cref="string"/> value representing the timetag.</returns>
+        /// <returns>A <see cref="string"/> value representing the time-tag.</returns>
         public override string ToString() => ToString(DefaultFormat);
 
         /// <summary>
-        /// Returns textual representation for timetag in the specified <paramref name="format"/>.
+        /// Returns textual representation for time-tag in the specified <paramref name="format"/>.
         /// </summary>
         /// <param name="format">Format of text output.</param>
-        /// <returns><see cref="string"/> of textual representation for timetag.</returns>
+        /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
         public virtual string ToString(string format) => ToDateTime().ToString(format);
 
         /// <summary>
-        /// Returns textual representation for timetag using the specified <paramref name="provider"/>.
+        /// Returns textual representation for time-tag using the specified <paramref name="provider"/>.
         /// </summary>
         /// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information.</param>
-        /// <returns><see cref="string"/> of textual representation for timetag.</returns>
+        /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
         public virtual string ToString(IFormatProvider provider) => ToDateTime().ToString(DefaultFormat, provider);
 
         /// <summary>
-        /// Returns textual representation for timetag in the specified <paramref name="format"/> using 
+        /// Returns textual representation for time-tag in the specified <paramref name="format"/> using 
         /// the specified <paramref name="provider"/>.
         /// </summary>
         /// <param name="format">Format of text output.</param>
         /// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information.</param>
-        /// <returns><see cref="string"/> of textual representation for timetag.</returns>
+        /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
         public virtual string ToString(string format, IFormatProvider provider) => ToDateTime().ToString(string.IsNullOrEmpty(format) ? DefaultFormat : format, provider);
 
         /// <summary>
@@ -253,7 +253,7 @@ namespace Gemstone
         /// Serves as a hash function for the current <see cref="TimeTagBase"/>.
         /// </summary>
         /// <returns>A hash code for the current <see cref="TimeTagBase"/>.</returns>
-        /// <remarks>Hash code based on number of seconds timetag represents.</remarks>
+        /// <remarks>Hash code based on number of seconds time-tag represents.</remarks>
         public override int GetHashCode() => m_seconds.GetHashCode();
 
         /// <summary>
@@ -263,7 +263,7 @@ namespace Gemstone
         /// <param name="context">The destination <see cref="StreamingContext"/> for this serialization.</param>
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            // Serializes timetag.
+            // Serializes time-tag.
             info.AddValue("baseDateOffsetTicks", m_baseDateOffsetTicks);
             info.AddValue("seconds", m_seconds);
         }
@@ -280,7 +280,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator ==(TimeTagBase value1, TimeTagBase value2) => value1.CompareTo(value2) == 0;
+        public static bool operator ==(TimeTagBase value1, TimeTagBase value2) => value1?.CompareTo(value2) == 0;
 
         /// <summary>
         /// Returns true if <paramref name="value1"/> is equal to <paramref name="value2"/>.
@@ -288,7 +288,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator ==(DateTime value1, TimeTagBase value2) => value1.CompareTo(value2.ToDateTime()) == 0;
+        public static bool operator ==(DateTime value1, TimeTagBase value2) => value1.CompareTo(value2?.ToDateTime()) == 0;
 
         /// <summary>
         /// Returns true if <paramref name="value1"/> is equal to <paramref name="value2"/>.
@@ -296,7 +296,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator ==(TimeTagBase value1, DateTime value2) => value1.CompareTo(value2) == 0;
+        public static bool operator ==(TimeTagBase value1, DateTime value2) => value1?.CompareTo(value2) == 0;
 
         #endregion
 
@@ -308,7 +308,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator !=(TimeTagBase value1, TimeTagBase value2) => value1.CompareTo(value2) != 0;
+        public static bool operator !=(TimeTagBase value1, TimeTagBase value2) => value1?.CompareTo(value2) != 0;
 
         /// <summary>
         /// Returns true if <paramref name="value1"/> is not equal to <paramref name="value2"/>.
@@ -316,7 +316,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator !=(DateTime value1, TimeTagBase value2) => value1.CompareTo(value2.ToDateTime()) != 0;
+        public static bool operator !=(DateTime value1, TimeTagBase value2) => value1.CompareTo(value2?.ToDateTime()) != 0;
 
         /// <summary>
         /// Returns true if <paramref name="value1"/> is not equal to <paramref name="value2"/>.
@@ -324,7 +324,7 @@ namespace Gemstone
         /// <param name="value1">Value 1 in the comparison.</param>
         /// <param name="value2">Value 2 in the comparison.</param>
         /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-        public static bool operator !=(TimeTagBase value1, DateTime value2) => value1.CompareTo(value2) != 0;
+        public static bool operator !=(TimeTagBase value1, DateTime value2) => value1?.CompareTo(value2) != 0;
 
         #endregion
 

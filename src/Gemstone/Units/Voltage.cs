@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -171,17 +173,13 @@ namespace Gemstone.Units
         /// <returns><see cref="Voltage"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(VoltageUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case VoltageUnit.Volts:
-                    return m_value;
-                case VoltageUnit.Abvolts:
-                    return ToAbvolts();
-                case VoltageUnit.Statvolts:
-                    return ToStatvolts();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                VoltageUnit.Volts => m_value,
+                VoltageUnit.Abvolts => ToAbvolts(),
+                VoltageUnit.Statvolts => ToStatvolts(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -834,17 +832,13 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Voltage"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Voltage ConvertFrom(double value, VoltageUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case VoltageUnit.Volts:
-                    return value;
-                case VoltageUnit.Abvolts:
-                    return FromAbvolts(value);
-                case VoltageUnit.Statvolts:
-                    return FromStatvolts(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                VoltageUnit.Volts => value,
+                VoltageUnit.Abvolts => FromAbvolts(value),
+                VoltageUnit.Statvolts => FromStatvolts(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

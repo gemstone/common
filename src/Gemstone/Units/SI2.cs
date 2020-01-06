@@ -66,6 +66,8 @@
 using System;
 using System.Text;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+
 namespace Gemstone.Units
 {
     /// <summary>
@@ -93,7 +95,7 @@ namespace Gemstone.Units
         /// <remarks>
         /// This is the common name.
         /// </remarks>
-        public const long Exa = 1024L * Peta;
+        public const long Exa = Kilo * Peta;
 
         /// <summary>
         /// 1 exbi (Ei) = 1,152,921,504,606,846,976
@@ -109,7 +111,7 @@ namespace Gemstone.Units
         /// <remarks>
         /// This is the common name.
         /// </remarks>
-        public const long Peta = 1024L * Tera;
+        public const long Peta = Kilo * Tera;
 
         /// <summary>
         /// 1 pebi (Pi) = 1,125,899,906,842,624
@@ -125,7 +127,7 @@ namespace Gemstone.Units
         /// <remarks>
         /// This is the common name.
         /// </remarks>
-        public const long Tera = 1024L * Giga;
+        public const long Tera = Kilo * Giga;
 
         /// <summary>
         /// 1 tebi (Ti) = 1,099,511,627,776
@@ -141,7 +143,7 @@ namespace Gemstone.Units
         /// <remarks>
         /// This is the common name.
         /// </remarks>
-        public const long Giga = 1024L * Mega;
+        public const long Giga = Kilo * Mega;
 
         /// <summary>
         /// 1 gibi (Gi) = 1,073,741,824
@@ -157,7 +159,7 @@ namespace Gemstone.Units
         /// <remarks>
         /// This is the common name.
         /// </remarks>
-        public const long Mega = 1024L * Kilo;
+        public const long Mega = Kilo * Kilo;
 
         /// <summary>
         /// 1 mebi (Mi) = 1,048,576
@@ -293,12 +295,12 @@ namespace Gemstone.Units
             int minimumIndex = GetFactorIndex(minimumFactor);
 
             if (minimumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(minimumFactor), "Unknown SI2 factor " + minimumFactor);
+                throw new ArgumentOutOfRangeException(nameof(minimumFactor), $"Unknown SI2 factor {minimumFactor}");
 
             int maximumIndex = GetFactorIndex(maximumFactor);
 
             if (maximumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(maximumFactor), "Unknown SI2 factor " + maximumFactor);
+                throw new ArgumentOutOfRangeException(nameof(maximumFactor), $"Unknown SI2 factor {maximumFactor}");
 
             for (int i = maximumIndex; i >= minimumIndex; i--)
             {

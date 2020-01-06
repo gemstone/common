@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -242,25 +244,17 @@ namespace Gemstone.Units
         /// <returns><see cref="Mass"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(MassUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case MassUnit.Kilograms:
-                    return m_value;
-                case MassUnit.Ounces:
-                    return ToOunces();
-                case MassUnit.Pounds:
-                    return ToPounds();
-                case MassUnit.MetricPounds:
-                    return ToMetricPounds();
-                case MassUnit.Tons:
-                    return ToTons();
-                case MassUnit.MectricTons:
-                    return ToMetricTons();
-                case MassUnit.LongTons:
-                    return ToLongTons();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                MassUnit.Kilograms => m_value,
+                MassUnit.Ounces => ToOunces(),
+                MassUnit.Pounds => ToPounds(),
+                MassUnit.MetricPounds => ToMetricPounds(),
+                MassUnit.Tons => ToTons(),
+                MassUnit.MectricTons => ToMetricTons(),
+                MassUnit.LongTons => ToLongTons(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -953,25 +947,17 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Mass"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Mass ConvertFrom(double value, MassUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case MassUnit.Kilograms:
-                    return value;
-                case MassUnit.Ounces:
-                    return FromOunces(value);
-                case MassUnit.Pounds:
-                    return FromPounds(value);
-                case MassUnit.MetricPounds:
-                    return FromMetricPounds(value);
-                case MassUnit.Tons:
-                    return FromTons(value);
-                case MassUnit.MectricTons:
-                    return FromMetricTons(value);
-                case MassUnit.LongTons:
-                    return FromLongTons(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                MassUnit.Kilograms => value,
+                MassUnit.Ounces => FromOunces(value),
+                MassUnit.Pounds => FromPounds(value),
+                MassUnit.MetricPounds => FromMetricPounds(value),
+                MassUnit.Tons => FromTons(value),
+                MassUnit.MectricTons => FromMetricTons(value),
+                MassUnit.LongTons => FromLongTons(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

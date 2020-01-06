@@ -463,7 +463,7 @@ namespace Gemstone.IO
                 throw new ObjectDisposedException(nameof(BlockAllocatedMemoryStream), "The stream is closed.");
 
             if (m_length > 0x7FFFFFC7L)
-                throw new InvalidOperationException("Cannot create a byte array of size " + m_length);
+                throw new InvalidOperationException($"Cannot create a byte array of size {m_length}");
 
             byte[] destination = new byte[m_length];
             long originalPosition = m_position;

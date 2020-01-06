@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -219,23 +221,16 @@ namespace Gemstone.Units
         /// <returns><see cref="Angle"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(AngleUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case AngleUnit.Radians:
-                    return m_value;
-                case AngleUnit.Degrees:
-                    return ToDegrees();
-                case AngleUnit.Grads:
-                    return ToGrads();
-                case AngleUnit.ArcMinutes:
-                    return ToArcMinutes();
-                case AngleUnit.ArcSeconds:
-                    return ToArcSeconds();
-                case AngleUnit.AngularMil:
-                    return ToAngularMil();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                AngleUnit.Radians => m_value,
+                AngleUnit.Degrees => ToDegrees(),
+                AngleUnit.Grads => ToGrads(),
+                AngleUnit.ArcMinutes => ToArcMinutes(),
+                AngleUnit.ArcSeconds => ToArcSeconds(),
+                AngleUnit.AngularMil => ToAngularMil(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -918,23 +913,16 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Angle"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Angle ConvertFrom(double value, AngleUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case AngleUnit.Radians:
-                    return value;
-                case AngleUnit.Degrees:
-                    return FromDegrees(value);
-                case AngleUnit.Grads:
-                    return FromGrads(value);
-                case AngleUnit.ArcMinutes:
-                    return FromArcMinutes(value);
-                case AngleUnit.ArcSeconds:
-                    return FromArcSeconds(value);
-                case AngleUnit.AngularMil:
-                    return FromAngularMil(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                AngleUnit.Radians => value,
+                AngleUnit.Degrees => FromDegrees(value),
+                AngleUnit.Grads => FromGrads(value),
+                AngleUnit.ArcMinutes => FromArcMinutes(value),
+                AngleUnit.ArcSeconds => FromArcSeconds(value),
+                AngleUnit.AngularMil => FromAngularMil(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

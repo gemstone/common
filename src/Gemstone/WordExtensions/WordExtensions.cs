@@ -35,7 +35,7 @@ namespace Gemstone.WordExtensions
     public static class WordExtensions
     {
         /// <summary>
-        /// Aligns word value on a 16-bit boundary.
+        /// Aligns word length value to a 16-bit boundary.
         /// </summary>
         /// <param name="word">Word value to align.</param>
         /// <returns>Word value aligned to next 16-bit boundary.</returns>
@@ -43,7 +43,7 @@ namespace Gemstone.WordExtensions
         public static short AlignWord(this short word) => (short)(word + 1 - (word - 1) % 2);
 
         /// <summary>
-        /// Aligns word value on a 16-bit boundary.
+        /// Aligns word length value to a 16-bit boundary.
         /// </summary>
         /// <param name="word">Word value to align.</param>
         /// <returns>Word value aligned to next 16-bit boundary.</returns>
@@ -51,7 +51,7 @@ namespace Gemstone.WordExtensions
         public static ushort AlignWord(this ushort word) => (ushort)(word + 1 - (word - 1) % 2);
 
         /// <summary>
-        /// Aligns double-word value on a 32-bit boundary.
+        /// Aligns double-word length value to a 32-bit boundary.
         /// </summary>
         /// <param name="doubleWord">Double-word value to align.</param>
         /// <returns>Double-word value aligned to next 32-bit boundary.</returns>
@@ -59,7 +59,7 @@ namespace Gemstone.WordExtensions
         public static int AlignDoubleWord(this int doubleWord) => doubleWord + 3 - (doubleWord - 1) % 4;
 
         /// <summary>
-        /// Aligns double-word value on a 32-bit boundary.
+        /// Aligns double-word length value to a 32-bit boundary.
         /// </summary>
         /// <param name="doubleWord">Double-word value to align.</param>
         /// <returns>Double-word value aligned to next 32-bit boundary.</returns>
@@ -67,7 +67,7 @@ namespace Gemstone.WordExtensions
         public static uint AlignDoubleWord(this uint doubleWord) => doubleWord + 3 - (doubleWord - 1) % 4;
 
         /// <summary>
-        /// Aligns quad-word value on a 64-bit boundary.
+        /// Aligns quad-word length value to a 64-bit boundary.
         /// </summary>
         /// <param name="quadWord">Quad-word value to align.</param>
         /// <returns>Quad-word value aligned to next 64-bit boundary.</returns>
@@ -75,7 +75,7 @@ namespace Gemstone.WordExtensions
         public static long AlignQuadWord(this long quadWord) => quadWord + 7 - (quadWord - 1) % 8;
 
         /// <summary>
-        /// Aligns quad-word value on a 64-bit boundary.
+        /// Aligns quad-word length value to a 64-bit boundary.
         /// </summary>
         /// <param name="quadWord">Quad-word value to align.</param>
         /// <returns>Quad-word value aligned to next 64-bit boundary.</returns>

@@ -63,10 +63,12 @@ using System;
 using System.Runtime.Serialization;
 using Gemstone.WordExtensions;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone
 {
     /// <summary>
-    /// Represents a standard Network Time Protocol (NTP) timetag.
+    /// Represents a standard Network Time Protocol (NTP) time-tag.
     /// </summary>
     /// <remarks>
     /// As recommended by RFC-2030, all NTP timestamps earlier than 3h 14m 08s UTC on 20 January 1968
@@ -106,7 +108,7 @@ namespace Gemstone
         /// <summary>
         /// Creates a new <see cref="NtpTimeTag"/>, given specified <see cref="Ticks"/>.
         /// </summary>
-        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create Unix timetag from (minimum valid date is 1/1/1900).</param>
+        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create NTP time-tag from (minimum valid date is 1/1/1900).</param>
         /// <remarks>
         /// This constructor will accept a <see cref="DateTime"/> parameter since <see cref="Ticks"/> is implicitly castable to a <see cref="DateTime"/>.
         /// </remarks>
@@ -147,7 +149,7 @@ namespace Gemstone
         public static readonly Ticks BaseTicks = new DateTime(1900, 1, 1, 0, 0, 0).Ticks;
 
         /// <summary>
-        /// Number of ticks since since 2/7/2036 at 6h 28m 16s UTC when MSB is set.
+        /// Number of ticks since 2/7/2036 at 6h 28m 16s UTC when MSB is set.
         /// </summary>
         /// <remarks>
         /// According to RFC-2030, NTP dates can also be measured as the number of seconds since 2/7/2036

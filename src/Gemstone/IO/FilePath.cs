@@ -53,6 +53,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -63,7 +64,10 @@ using Gemstone.CharExtensions;
 using Gemstone.Console;
 using Gemstone.Reflection;
 using Gemstone.StringExtensions;
+using Gemstone.Units;
 using static Gemstone.Common;
+
+#pragma warning disable CA1031 // Do not catch general exception types
 
 namespace Gemstone.IO
 {
@@ -82,6 +86,7 @@ namespace Gemstone.IO
 
         #region [ Constructor ]
 
+        [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
         static FilePath()
         {
             char[] directorySeparatorChars =
@@ -136,8 +141,8 @@ namespace Gemstone.IO
                         {
                             if (long.TryParse(elems[1], out long totalKB) && long.TryParse(elems[3], out long availableKB))
                             {
-                                freeSpace = availableKB * 1024L;
-                                totalSize = totalKB * 1024L;
+                                freeSpace = availableKB * SI2.Kilo;
+                                totalSize = totalKB * SI2.Kilo;
                                 return true;
                             }
                         }
@@ -170,10 +175,7 @@ namespace Gemstone.IO
         /// </summary>
         /// <param name="filePath">File name or relative file path.</param>
         /// <returns><c>true</c> if the specified <paramref name="filePath"/> is contained with the current executable path; otherwise <c>false</c>.</returns>
-        public static bool InApplicationPath(string filePath)
-        {
-            return GetAbsolutePath(filePath).StartsWith(GetAbsolutePath(""), StringComparison.OrdinalIgnoreCase);
-        }
+        public static bool InApplicationPath(string filePath) => GetAbsolutePath(filePath).StartsWith(GetAbsolutePath(""), StringComparison.OrdinalIgnoreCase);
 
         /// <summary>
         /// Gets the path to the folder where data related to the current
@@ -184,10 +186,9 @@ namespace Gemstone.IO
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
 
-            if (string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company))
-                return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name);
-
-            return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+            return string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company) ? 
+                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name) : 
+                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
         }
 
         /// <summary>
@@ -198,10 +199,9 @@ namespace Gemstone.IO
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            if (string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company))
-                return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name);
-
-            return Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+            return string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company) ? 
+                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name) : 
+                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
         }
 
         /// <summary>
@@ -333,10 +333,8 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
         /// <returns>An array of the full names (including paths) of the subdirectories that match the specified criteria, or an empty array if no directories are found.</returns>
-        public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null)
-        {
-            return EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
-        }
+        public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null) => 
+            EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
 
         /// <summary>
         /// Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -372,10 +370,8 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
         /// <returns>An array of the full names (including paths) for the files in the specified directory that match the specified search pattern and option, or an empty array if no files are found.</returns>
-        public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null)
-        {
-            return EnumerateFiles(path, searchPattern, searchOption, exceptionHandler).ToArray();
-        }
+        public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null) => 
+            EnumerateFiles(path, searchPattern, searchOption, exceptionHandler).ToArray();
 
         /// <summary>
         /// Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -439,16 +435,7 @@ namespace Gemstone.IO
         /// <li>Any other character matches itself.</li>
         /// </ul>
         /// </remarks>
-        public static bool IsFilePatternMatch(string[] fileSpecs, string filePath, bool ignoreCase)
-        {
-            foreach (string fileSpec in fileSpecs)
-            {
-                if (IsFilePatternMatch(fileSpec, filePath, ignoreCase))
-                    return true;
-            }
-
-            return false;
-        }
+        public static bool IsFilePatternMatch(string[] fileSpecs, string filePath, bool ignoreCase) => fileSpecs.Any(fileSpec => IsFilePatternMatch(fileSpec, filePath, ignoreCase));
 
         /// <summary>
         /// Determines whether the specified file name matches the given file spec (wild-cards are defined as '*' or '?' characters).
@@ -540,13 +527,7 @@ namespace Gemstone.IO
         /// names and the file name are validated, use the <see cref="GetValidFilePath"/>. Calling the <see cref="GetValidFileName"/>
         /// function will a full path will yield all directory separators replaced with the <paramref name="replaceWithCharacter"/>.
         /// </remarks>
-        public static string GetValidFileName(string fileName, char replaceWithCharacter = '_')
-        {
-            if (replaceWithCharacter == '\0')
-                return fileName.RemoveInvalidFileNameCharacters();
-
-            return fileName.ReplaceInvalidFileNameCharacters(replaceWithCharacter);
-        }
+        public static string GetValidFileName(string fileName, char replaceWithCharacter = '_') => replaceWithCharacter == '\0' ? fileName.RemoveInvalidFileNameCharacters() : fileName.ReplaceInvalidFileNameCharacters(replaceWithCharacter);
 
         /// <summary>
         /// Gets a valid file path by replacing invalid file or directory name characters with <paramref name="replaceWithCharacter"/>.
@@ -565,7 +546,9 @@ namespace Gemstone.IO
                     Path.VolumeSeparatorChar != Path.DirectorySeparatorChar &&
                     Path.VolumeSeparatorChar != Path.AltDirectorySeparatorChar &&
                     fileParts[0].IndexOfAny(new[] { Path.VolumeSeparatorChar }) > 0)
+                {
                     continue;
+                }
 
                 fileParts[i] = GetValidFileName(fileParts[i], replaceWithCharacter);
             }
@@ -636,7 +619,7 @@ namespace Gemstone.IO
                 directory = directory.Remove(directory.LastIndexOf("*", StringComparison.OrdinalIgnoreCase));
             }
 
-            if ((object)exceptionHandler == null)
+            if (exceptionHandler == null)
                 return Directory.GetFiles(directory, filePattern, options);
 
             return GetFiles(directory, filePattern, options, exceptionHandler);
@@ -685,7 +668,7 @@ namespace Gemstone.IO
             }
 
             // Return the output string as the regular expression pattern.
-            return "^" + output + "$";
+            return $"^{output}$";
         }
 
         /// <summary>
@@ -706,10 +689,7 @@ namespace Gemstone.IO
             // this is a file name - whether is exists or not :-(
             string directoryName = AddPathSuffix(filePath);
 
-            if (Directory.Exists(directoryName))
-                return directoryName;
-
-            return AddPathSuffix(Path.GetDirectoryName(filePath) ?? filePath);
+            return Directory.Exists(directoryName) ? directoryName : AddPathSuffix(Path.GetDirectoryName(filePath) ?? filePath);
         }
 
         /// <summary>
@@ -812,56 +792,47 @@ namespace Gemstone.IO
         /// </remarks>
         public static string TrimFileName(string filePath, int length)
         {
-            if (string.IsNullOrEmpty(filePath))
-                filePath = "";
-            else
-                filePath = filePath.Trim();
+            filePath = string.IsNullOrEmpty(filePath) ? "" : filePath.Trim();
 
             if (length < 12)
                 length = 12;
 
-            if (filePath.Length > length)
+            if (filePath.Length <= length)
+                return filePath;
+
+            string justName = GetFileName(filePath);
+
+            if (justName.Length == filePath.Length)
             {
-                string justName = GetFileName(filePath);
+                // This is just a file name. Make sure extension shows.
+                string justExtension = GetExtension(filePath);
+                string trimName = GetFileNameWithoutExtension(filePath);
 
-                if (justName.Length == filePath.Length)
-                {
-                    // This is just a file name. Make sure extension shows.
-                    string justExtension = GetExtension(filePath);
-                    string trimName = GetFileNameWithoutExtension(filePath);
-
-                    if (trimName.Length > 8)
-                    {
-                        if (justExtension.Length > length - 8)
-                            justExtension = justExtension.Substring(0, length - 8);
-
-                        double offsetLen = (length - justExtension.Length - 3) / 2.0D;
-
-                        return trimName.Substring(0, (int)Math.Ceiling(offsetLen)) + "..." +
-                            trimName.Substring((int)Math.Round(trimName.Length - Math.Floor(offsetLen) + 1.0D)) + justExtension;
-                    }
-
-                    // We can not trim file names less than 8 with a "...", so we truncate long extension.
+                // We can not trim file names less than 8 with a "...", so we truncate long extension.
+                if (trimName.Length <= 8)
                     return trimName + justExtension.Substring(0, length - trimName.Length);
-                }
 
-                // File name alone exceeds length - recurses into function without path.
-                if (justName.Length > length)
-                    return TrimFileName(justName, length);
+                if (justExtension.Length > length - 8)
+                    justExtension = justExtension.Substring(0, length - 8);
 
-                // File name contains path. Trims path before file name.
-                string justFilePath = GetDirectoryName(filePath);
-                int offset = length - justName.Length - 4;
+                double offsetLen = (length - justExtension.Length - 3) / 2.0D;
 
-                if (justFilePath.Length > offset && offset > 0)
-                    return justFilePath.Substring(0, offset) + "..." + Path.DirectorySeparatorChar + justName;
-
-                // Can not fit path. Trims file name.
-                return TrimFileName(justName, length);
+                return $"{trimName.Substring(0, (int)Math.Ceiling(offsetLen))}...{trimName.Substring((int)Math.Round(trimName.Length - Math.Floor(offsetLen) + 1.0D))}{justExtension}";
             }
 
-            // Full file name fits within requested length.
-            return filePath;
+            // File name alone exceeds length - recurses into function without path.
+            if (justName.Length > length)
+                return TrimFileName(justName, length);
+
+            // File name contains path. Trims path before file name.
+            string justFilePath = GetDirectoryName(filePath);
+            int offset = length - justName.Length - 4;
+
+            if (justFilePath.Length > offset && offset > 0)
+                return $"{justFilePath.Substring(0, offset)}...{Path.DirectorySeparatorChar}{justName}";
+
+            // Can not fit path. Trims file name.
+            return TrimFileName(justName, length);
         }
 
         /// <summary>
@@ -991,7 +962,7 @@ namespace Gemstone.IO
         public static void WaitForReadLock(string fileName, double secondsToWait)
         {
             if (!File.Exists(fileName))
-                throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
+                throw new FileNotFoundException($"Could not test file lock for \"{fileName}\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
             double startTime = SystemTimer;
@@ -1001,7 +972,7 @@ namespace Gemstone.IO
                 if (secondsToWait > 0)
                 {
                     if (SystemTimer > startTime + secondsToWait)
-                        throw new IOException("Could not open \"" + fileName + "\" for read access, tried for " + secondsToWait + " seconds");
+                        throw new IOException($"Could not open \"{fileName}\" for read access, tried for {secondsToWait} seconds");
                 }
 
                 // Yields to all other system threads.
@@ -1023,7 +994,7 @@ namespace Gemstone.IO
         public static void WaitForReadLockExclusive(string fileName, double secondsToWait)
         {
             if (!File.Exists(fileName))
-                throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
+                throw new FileNotFoundException($"Could not test file lock for \"{fileName}\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
             double startTime = SystemTimer;
@@ -1033,7 +1004,7 @@ namespace Gemstone.IO
                 if (secondsToWait > 0)
                 {
                     if (SystemTimer > startTime + secondsToWait)
-                        throw new IOException("Could not open \"" + fileName + "\" for read access, tried for " + secondsToWait + " seconds");
+                        throw new IOException($"Could not open \"{fileName}\" for read access, tried for {secondsToWait} seconds");
                 }
 
                 // Yields to all other system threads.
@@ -1055,7 +1026,7 @@ namespace Gemstone.IO
         public static void WaitForWriteLock(string fileName, double secondsToWait)
         {
             if (!File.Exists(fileName))
-                throw new FileNotFoundException("Could not test file lock for \"" + fileName + "\", file does not exist", fileName);
+                throw new FileNotFoundException($"Could not test file lock for \"{fileName}\", file does not exist", fileName);
 
             // Keeps trying for a file lock.
             double startTime = SystemTimer;
@@ -1065,7 +1036,7 @@ namespace Gemstone.IO
                 if (secondsToWait > 0)
                 {
                     if (SystemTimer > startTime + secondsToWait)
-                        throw new IOException("Could not open \"" + fileName + "\" for write access, tried for " + secondsToWait + " seconds");
+                        throw new IOException($"Could not open \"{fileName}\" for write access, tried for {secondsToWait} seconds");
                 }
 
                 // Yields to all other system threads.
@@ -1094,7 +1065,7 @@ namespace Gemstone.IO
                 if (secondsToWait > 0)
                 {
                     if (SystemTimer > startTime + secondsToWait)
-                        throw new IOException("Waited for \"" + fileName + "\" to exist for " + secondsToWait + " seconds, but it was never created");
+                        throw new IOException($"Waited for \"{fileName}\" to exist for {secondsToWait} seconds, but it was never created");
                 }
 
                 // Yields to all other system threads.

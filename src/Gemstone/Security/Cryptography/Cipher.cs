@@ -21,6 +21,8 @@
 //
 //******************************************************************************************************
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using Microsoft.Win32;
 
@@ -39,9 +41,11 @@ namespace Gemstone.Security.Cryptography
         /// </summary>
         public bool SystemAllowsManagedEncryption { get; set; }
 
+
         /// <summary>
         /// Creates a new <see cref="Cipher"/> class.
         /// </summary>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public Cipher()
         {
             const string fipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
@@ -52,9 +56,10 @@ namespace Gemstone.Security.Cryptography
             {
                 SystemAllowsManagedEncryption = (Registry.GetValue(fipsKeyNew, "Enabled", 0) ?? Registry.GetValue(fipsKeyOld, "FIPSAlgorithmPolicy", 0)).ToString() == "0";
             }
-            catch
+            catch (Exception ex)
             {
                 SystemAllowsManagedEncryption = true;
+                LibraryEvents.OnSuppressedException(this, new Exception($"Cipher FIPS compliance lookup exception: {ex.Message}", ex));
             }
         }
 

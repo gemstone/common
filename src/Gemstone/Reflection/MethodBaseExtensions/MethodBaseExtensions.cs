@@ -99,7 +99,7 @@ namespace Gemstone.Reflection.MethodBaseExtensions
             if (className.Length == 0)
                 return methodName;
 
-            return className + "." + methodName;
+            return $"{className}.{methodName}";
         }
     }
 }

@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -361,39 +363,24 @@ namespace Gemstone.Units
         /// <returns><see cref="Volume"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(VolumeUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case VolumeUnit.CubicMeters:
-                    return m_value;
-                case VolumeUnit.Liters:
-                    return ToLiters();
-                case VolumeUnit.Teaspoons:
-                    return ToTeaspoons();
-                case VolumeUnit.MetricTeaspoons:
-                    return ToMetricTeaspoons();
-                case VolumeUnit.Tablespoons:
-                    return ToTablespoons();
-                case VolumeUnit.MetricTablespoons:
-                    return ToMetricTablespoons();
-                case VolumeUnit.Cups:
-                    return ToCups();
-                case VolumeUnit.MetricCups:
-                    return ToMetricCups();
-                case VolumeUnit.FluidOunces:
-                    return ToFluidOunces();
-                case VolumeUnit.Pints:
-                    return ToPints();
-                case VolumeUnit.Quarts:
-                    return ToQuarts();
-                case VolumeUnit.Gallons:
-                    return ToGallons();
-                case VolumeUnit.CubicInches:
-                    return ToCubicInches();
-                case VolumeUnit.CubicFeet:
-                    return ToCubicFeet();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                VolumeUnit.CubicMeters => m_value,
+                VolumeUnit.Liters => ToLiters(),
+                VolumeUnit.Teaspoons => ToTeaspoons(),
+                VolumeUnit.MetricTeaspoons => ToMetricTeaspoons(),
+                VolumeUnit.Tablespoons => ToTablespoons(),
+                VolumeUnit.MetricTablespoons => ToMetricTablespoons(),
+                VolumeUnit.Cups => ToCups(),
+                VolumeUnit.MetricCups => ToMetricCups(),
+                VolumeUnit.FluidOunces => ToFluidOunces(),
+                VolumeUnit.Pints => ToPints(),
+                VolumeUnit.Quarts => ToQuarts(),
+                VolumeUnit.Gallons => ToGallons(),
+                VolumeUnit.CubicInches => ToCubicInches(),
+                VolumeUnit.CubicFeet => ToCubicFeet(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -1156,39 +1143,24 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Volume"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Volume ConvertFrom(double value, VolumeUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case VolumeUnit.CubicMeters:
-                    return value;
-                case VolumeUnit.Liters:
-                    return FromLiters(value);
-                case VolumeUnit.Teaspoons:
-                    return FromTeaspoons(value);
-                case VolumeUnit.MetricTeaspoons:
-                    return FromMetricTeaspoons(value);
-                case VolumeUnit.Tablespoons:
-                    return FromTablespoons(value);
-                case VolumeUnit.MetricTablespoons:
-                    return FromMetricTablespoons(value);
-                case VolumeUnit.Cups:
-                    return FromCups(value);
-                case VolumeUnit.MetricCups:
-                    return FromMetricCups(value);
-                case VolumeUnit.FluidOunces:
-                    return FromFluidOunces(value);
-                case VolumeUnit.Pints:
-                    return FromPints(value);
-                case VolumeUnit.Quarts:
-                    return FromQuarts(value);
-                case VolumeUnit.Gallons:
-                    return FromGallons(value);
-                case VolumeUnit.CubicInches:
-                    return FromCubicInches(value);
-                case VolumeUnit.CubicFeet:
-                    return FromCubicFeet(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                VolumeUnit.CubicMeters => value,
+                VolumeUnit.Liters => FromLiters(value),
+                VolumeUnit.Teaspoons => FromTeaspoons(value),
+                VolumeUnit.MetricTeaspoons => FromMetricTeaspoons(value),
+                VolumeUnit.Tablespoons => FromTablespoons(value),
+                VolumeUnit.MetricTablespoons => FromMetricTablespoons(value),
+                VolumeUnit.Cups => FromCups(value),
+                VolumeUnit.MetricCups => FromMetricCups(value),
+                VolumeUnit.FluidOunces => FromFluidOunces(value),
+                VolumeUnit.Pints => FromPints(value),
+                VolumeUnit.Quarts => FromQuarts(value),
+                VolumeUnit.Gallons => FromGallons(value),
+                VolumeUnit.CubicInches => FromCubicInches(value),
+                VolumeUnit.CubicFeet => FromCubicFeet(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

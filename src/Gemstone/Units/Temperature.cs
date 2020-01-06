@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -264,27 +266,18 @@ namespace Gemstone.Units
         /// <returns><see cref="Temperature"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(TemperatureUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case TemperatureUnit.Kelvin:
-                    return m_value;
-                case TemperatureUnit.Celsius:
-                    return ToCelsius();
-                case TemperatureUnit.Fahrenheit:
-                    return ToFahrenheit();
-                case TemperatureUnit.Newton:
-                    return ToNewton();
-                case TemperatureUnit.Rankine:
-                    return ToRankine();
-                case TemperatureUnit.Delisle:
-                    return ToDelisle();
-                case TemperatureUnit.Réaumur:
-                    return ToRéaumur();
-                case TemperatureUnit.Rømer:
-                    return ToRømer();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                TemperatureUnit.Kelvin => m_value,
+                TemperatureUnit.Celsius => ToCelsius(),
+                TemperatureUnit.Fahrenheit => ToFahrenheit(),
+                TemperatureUnit.Newton => ToNewton(),
+                TemperatureUnit.Rankine => ToRankine(),
+                TemperatureUnit.Delisle => ToDelisle(),
+                TemperatureUnit.Réaumur => ToRéaumur(),
+                TemperatureUnit.Rømer => ToRømer(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         // Calculate temperature based on value = (K - offset) / factor - step
@@ -994,27 +987,18 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Temperature"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Temperature ConvertFrom(double value, TemperatureUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case TemperatureUnit.Kelvin:
-                    return value;
-                case TemperatureUnit.Celsius:
-                    return FromCelsius(value);
-                case TemperatureUnit.Fahrenheit:
-                    return FromFahrenheit(value);
-                case TemperatureUnit.Newton:
-                    return FromNewton(value);
-                case TemperatureUnit.Rankine:
-                    return FromRankine(value);
-                case TemperatureUnit.Delisle:
-                    return FromDelisle(value);
-                case TemperatureUnit.Réaumur:
-                    return FromRéaumur(value);
-                case TemperatureUnit.Rømer:
-                    return FromRømer(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                TemperatureUnit.Kelvin => value,
+                TemperatureUnit.Celsius => FromCelsius(value),
+                TemperatureUnit.Fahrenheit => FromFahrenheit(value),
+                TemperatureUnit.Newton => FromNewton(value),
+                TemperatureUnit.Rankine => FromRankine(value),
+                TemperatureUnit.Delisle => FromDelisle(value),
+                TemperatureUnit.Réaumur => FromRéaumur(value),
+                TemperatureUnit.Rømer => FromRømer(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         // Calculate temperature based on K = (value + step) * factor + offset

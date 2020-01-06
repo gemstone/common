@@ -32,6 +32,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -220,7 +221,9 @@ namespace Gemstone.Reflection.AssemblyExtensions
             return TryLoadAllReferences(instance, new HashSet<string>(assemblyNames));
         }
 
+
         // Recursively attempts to load all assemblies referenced from the given assembly.
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         private static bool TryLoadAllReferences(Assembly assembly, ISet<string> validNames)
         {
             try
@@ -244,7 +247,7 @@ namespace Gemstone.Reflection.AssemblyExtensions
             }
             catch (Exception ex)
             {
-                LibraryEvents.OnSuppressedException(typeof(AssemblyExtensions), new Exception($"TryLoadAllReferences failed to load: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(typeof(AssemblyExtensions), new Exception($"TryLoadAllReferences exception: {ex.Message}", ex));
 
                 // Error loading a referenced assembly
                 return false;

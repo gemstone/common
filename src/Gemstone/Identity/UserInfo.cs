@@ -22,6 +22,7 @@
 //******************************************************************************************************
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Principal;
 
@@ -110,6 +111,7 @@ namespace Gemstone.Identity
         private static string s_lastUserID;
         private static UserInfo s_currentUserInfo;
 
+
         // Static Properties
 
         /// <summary>
@@ -118,6 +120,7 @@ namespace Gemstone.Identity
         /// <remarks>
         /// The ID name returned is that of the user account under which the code is executing.
         /// </remarks>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public static string CurrentUserID
         {
             get

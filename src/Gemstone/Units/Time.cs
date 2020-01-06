@@ -72,6 +72,8 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Text;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -337,29 +339,19 @@ namespace Gemstone.Units
         /// </remarks>
         public double ConvertTo(TimeUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case TimeUnit.Seconds:
-                    return m_value;
-                case TimeUnit.Minutes:
-                    return ToMinutes();
-                case TimeUnit.Hours:
-                    return ToHours();
-                case TimeUnit.Days:
-                    return ToDays();
-                case TimeUnit.Weeks:
-                    return ToWeeks();
-                case TimeUnit.Ticks:
-                    return ToTicks();
-                case TimeUnit.AtomicUnitsOfTime:
-                    return ToAtomicUnitsOfTime();
-                case TimeUnit.PlanckTime:
-                    return ToPlanckTime();
-                case TimeUnit.Ke:
-                    return ToKe();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                TimeUnit.Seconds => m_value,
+                TimeUnit.Minutes => ToMinutes(),
+                TimeUnit.Hours => ToHours(),
+                TimeUnit.Days => ToDays(),
+                TimeUnit.Weeks => ToWeeks(),
+                TimeUnit.Ticks => ToTicks(),
+                TimeUnit.AtomicUnitsOfTime => ToAtomicUnitsOfTime(),
+                TimeUnit.PlanckTime => ToPlanckTime(),
+                TimeUnit.Ke => ToKe(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         /// <summary>
@@ -1216,29 +1208,19 @@ namespace Gemstone.Units
         /// </remarks>
         public static Time ConvertFrom(double value, TimeUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case TimeUnit.Seconds:
-                    return value;
-                case TimeUnit.Minutes:
-                    return FromMinutes(value);
-                case TimeUnit.Hours:
-                    return FromHours(value);
-                case TimeUnit.Days:
-                    return FromDays(value);
-                case TimeUnit.Weeks:
-                    return FromWeeks(value);
-                case TimeUnit.Ticks:
-                    return FromTicks((long)value);
-                case TimeUnit.AtomicUnitsOfTime:
-                    return FromAtomicUnitsOfTime(value);
-                case TimeUnit.PlanckTime:
-                    return FromPlanckTime(value);
-                case TimeUnit.Ke:
-                    return FromKe(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                TimeUnit.Seconds => value,
+                TimeUnit.Minutes => FromMinutes(value),
+                TimeUnit.Hours => FromHours(value),
+                TimeUnit.Days => FromDays(value),
+                TimeUnit.Weeks => FromWeeks(value),
+                TimeUnit.Ticks => FromTicks((long)value),
+                TimeUnit.AtomicUnitsOfTime => FromAtomicUnitsOfTime(value),
+                TimeUnit.PlanckTime => FromPlanckTime(value),
+                TimeUnit.Ke => FromKe(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         /// <summary>
@@ -1315,75 +1297,62 @@ namespace Gemstone.Units
             const double SecondsPerYear = 31556952.0D;
 
             if (minimumSubSecondResolution > SI.Milli)
-                throw new ArgumentOutOfRangeException(nameof(minimumSubSecondResolution), "Must be less than or equal to " + SI.Milli);
+                throw new ArgumentOutOfRangeException(nameof(minimumSubSecondResolution), $"Must be less than or equal to {SI.Milli}");
 
             // Future: setup a language specific load for the default time names array
             if (timeNames == null || timeNames.Length != TimeNames.Length)
                 timeNames = TimeNames;
 
             StringBuilder timeImage = new StringBuilder();
-            int years, days, hours, minutes;
 
             // Check if number of seconds ranges in years
-            years = (int)(seconds / SecondsPerYear);
+            int years = (int)(seconds / SecondsPerYear);
 
             if (years > 0)
             {
                 // Remove whole years from remaining seconds
-                seconds = seconds - years * SecondsPerYear;
+                seconds -= years * SecondsPerYear;
 
                 // Append textual representation of years
                 timeImage.Append(years);
-
-                if (years == 1)
-                    timeImage.Append(timeNames[TimeName.Year]);
-                else
-                    timeImage.Append(timeNames[TimeName.Years]);
+                timeImage.Append(years == 1 ? timeNames[TimeName.Year] : timeNames[TimeName.Years]);
             }
 
             // Check if remaining number of seconds ranges in days
-            days = (int)(seconds / SecondsPerDay);
+            int days = (int)(seconds / SecondsPerDay);
 
             if (days > 0)
             {
                 // Remove whole days from remaining seconds
-                seconds = seconds - days * SecondsPerDay;
+                seconds -= days * SecondsPerDay;
 
                 // Append textual representation of days
                 timeImage.Append(' ');
                 timeImage.Append(days);
-
-                if (days == 1)
-                    timeImage.Append(timeNames[TimeName.Day]);
-                else
-                    timeImage.Append(timeNames[TimeName.Days]);
+                timeImage.Append(days == 1 ? timeNames[TimeName.Day] : timeNames[TimeName.Days]);
             }
 
             // Check if remaining number of seconds ranges in hours
-            hours = (int)(seconds / SecondsPerHour);
+            int hours = (int)(seconds / SecondsPerHour);
 
             if (hours > 0)
             {
                 // Remove whole hours from remaining seconds
-                seconds = seconds - hours * SecondsPerHour;
+                seconds -= hours * SecondsPerHour;
 
                 // Append textual representation of hours
                 timeImage.Append(' ');
                 timeImage.Append(hours);
-
-                if (hours == 1)
-                    timeImage.Append(timeNames[TimeName.Hour]);
-                else
-                    timeImage.Append(timeNames[TimeName.Hours]);
+                timeImage.Append(hours == 1 ? timeNames[TimeName.Hour] : timeNames[TimeName.Hours]);
             }
 
             // Check if remaining number of seconds ranges in minutes
-            minutes = (int)(seconds / SecondsPerMinute);
+            int minutes = (int)(seconds / SecondsPerMinute);
 
             if (minutes > 0)
             {
                 // Remove whole minutes from remaining seconds
-                seconds = seconds - minutes * SecondsPerMinute;
+                seconds -= minutes * SecondsPerMinute;
 
                 // If no fractional seconds were requested and remaining seconds
                 // are approximately 60, add another minute
@@ -1396,11 +1365,7 @@ namespace Gemstone.Units
                 // Append textual representation of minutes
                 timeImage.Append(' ');
                 timeImage.Append(minutes);
-
-                if (minutes == 1)
-                    timeImage.Append(timeNames[TimeName.Minute]);
-                else
-                    timeImage.Append(timeNames[TimeName.Minutes]);
+                timeImage.Append(minutes == 1 ? timeNames[TimeName.Minute] : timeNames[TimeName.Minutes]);
             }
 
             // Handle remaining seconds
@@ -1425,11 +1390,7 @@ namespace Gemstone.Units
                             // Append textual representation of whole seconds
                             timeImage.Append(' ');
                             timeImage.Append(wholeSeconds);
-
-                            if (wholeSeconds == 1)
-                                timeImage.Append(timeNames[TimeName.Second]);
-                            else
-                                timeImage.Append(timeNames[TimeName.Seconds]);
+                            timeImage.Append(wholeSeconds == 1 ? timeNames[TimeName.Second] : timeNames[TimeName.Seconds]);
                         }
                     }
                 }
@@ -1463,11 +1424,7 @@ namespace Gemstone.Units
                                 // Append textual representation of seconds
                                 timeImage.Append(' ');
                                 timeImage.Append(seconds.ToString("R"));
-
-                                if (seconds == 1.0D)
-                                    timeImage.Append(timeNames[TimeName.Second]);
-                                else
-                                    timeImage.Append(timeNames[TimeName.Seconds]);
+                                timeImage.Append(seconds == 1.0D ? timeNames[TimeName.Second] : timeNames[TimeName.Seconds]);
                             }
                             else
                             {

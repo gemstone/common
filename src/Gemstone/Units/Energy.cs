@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -291,29 +293,19 @@ namespace Gemstone.Units
         /// <returns><see cref="Energy"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(EnergyUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case EnergyUnit.Joules:
-                    return m_value;
-                case EnergyUnit.WattHours:
-                    return ToWattHours();
-                case EnergyUnit.BTU:
-                    return ToBTU();
-                case EnergyUnit.CelsiusHeatUnits:
-                    return ToCelsiusHeatUnits();
-                case EnergyUnit.LitersAtmosphere:
-                    return ToLitersAtmosphere();
-                case EnergyUnit.Calories:
-                    return ToCalories();
-                case EnergyUnit.HorsepowerHours:
-                    return ToHorsepowerHours();
-                case EnergyUnit.BarrelsOfOil:
-                    return ToBarrelsOfOil();
-                case EnergyUnit.TonsOfCoal:
-                    return ToTonsOfCoal();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                EnergyUnit.Joules => m_value,
+                EnergyUnit.WattHours => ToWattHours(),
+                EnergyUnit.BTU => ToBTU(),
+                EnergyUnit.CelsiusHeatUnits => ToCelsiusHeatUnits(),
+                EnergyUnit.LitersAtmosphere => ToLitersAtmosphere(),
+                EnergyUnit.Calories => ToCalories(),
+                EnergyUnit.HorsepowerHours => ToHorsepowerHours(),
+                EnergyUnit.BarrelsOfOil => ToBarrelsOfOil(),
+                EnergyUnit.TonsOfCoal => ToTonsOfCoal(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -1026,29 +1018,19 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Energy"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Energy ConvertFrom(double value, EnergyUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case EnergyUnit.Joules:
-                    return value;
-                case EnergyUnit.WattHours:
-                    return FromWattHours(value);
-                case EnergyUnit.BTU:
-                    return FromBTU(value);
-                case EnergyUnit.CelsiusHeatUnits:
-                    return FromCelsiusHeatUnits(value);
-                case EnergyUnit.LitersAtmosphere:
-                    return FromLitersAtmosphere(value);
-                case EnergyUnit.Calories:
-                    return FromCalories(value);
-                case EnergyUnit.HorsepowerHours:
-                    return FromHorsepowerHours(value);
-                case EnergyUnit.BarrelsOfOil:
-                    return FromBarrelsOfOil(value);
-                case EnergyUnit.TonsOfCoal:
-                    return FromTonOfCoal(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                EnergyUnit.Joules => value,
+                EnergyUnit.WattHours => FromWattHours(value),
+                EnergyUnit.BTU => FromBTU(value),
+                EnergyUnit.CelsiusHeatUnits => FromCelsiusHeatUnits(value),
+                EnergyUnit.LitersAtmosphere => FromLitersAtmosphere(value),
+                EnergyUnit.Calories => FromCalories(value),
+                EnergyUnit.HorsepowerHours => FromHorsepowerHours(value),
+                EnergyUnit.BarrelsOfOil => FromBarrelsOfOil(value),
+                EnergyUnit.TonsOfCoal => FromTonOfCoal(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

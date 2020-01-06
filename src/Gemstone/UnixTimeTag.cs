@@ -62,10 +62,12 @@
 using System;
 using System.Runtime.Serialization;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone
 {
     /// <summary>
-    /// Represents a standard Unix timetag.
+    /// Represents a standard Unix time-tag.
     /// </summary>
     [Serializable]
     public class UnixTimeTag : TimeTagBase
@@ -91,7 +93,7 @@ namespace Gemstone
         /// <summary>
         /// Creates a new <see cref="UnixTimeTag"/>, given specified <see cref="Ticks"/>.
         /// </summary>
-        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create Unix timetag from (minimum valid date is 1/1/1970).</param>
+        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create Unix time-tag from (minimum valid date is 1/1/1970).</param>
         /// <remarks>
         /// This constructor will accept a <see cref="DateTime"/> parameter since <see cref="Ticks"/> is implicitly castable to a <see cref="DateTime"/>.
         /// </remarks>

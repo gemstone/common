@@ -73,6 +73,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Gemstone.Units;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone
 {
     #region [ Enumerations ]
@@ -580,29 +582,14 @@ namespace Gemstone
             if (value == null)
                 return 1;
 
-            long num;
-
-            switch (value)
+            long num = value switch
             {
-                case long lng:
-                    num = lng;
-
-                    break;
-                case Ticks ticks:
-                    num = ticks.Value;
-
-                    break;
-                case DateTime dateTime:
-                    num = dateTime.Ticks;
-
-                    break;
-                case TimeSpan timeSpan:
-                    num = timeSpan.Ticks;
-
-                    break;
-                default:
-                    throw new ArgumentException("Argument must be an Int64, DateTime, TimeSpan or a Ticks");
-            }
+                long lng => lng,
+                Ticks ticks => ticks.Value,
+                DateTime dateTime => dateTime.Ticks,
+                TimeSpan timeSpan => timeSpan.Ticks,
+                _ => throw new ArgumentException("Argument must be an Int64, DateTime, TimeSpan or a Ticks")
+            };
 
             return Value < num ? -1 : Value > num ? 1 : 0;
         }
@@ -665,19 +652,14 @@ namespace Gemstone
         /// </returns>
         public override bool Equals(object obj)
         {
-            switch (obj)
+            return obj switch
             {
-                case long lng:
-                    return Value == lng;
-                case Ticks ticks:
-                    return Value == ticks.Value;
-                case DateTime dateTime:
-                    return Value == dateTime.Ticks;
-                case TimeSpan timeSpan:
-                    return Value == timeSpan.Ticks;
-                default:
-                    return false;
-            }
+                long lng => (Value == lng),
+                Ticks ticks => (Value == ticks.Value),
+                DateTime dateTime => (Value == dateTime.Ticks),
+                TimeSpan timeSpan => (Value == timeSpan.Ticks),
+                _ => false
+            };
         }
 
         /// <summary>

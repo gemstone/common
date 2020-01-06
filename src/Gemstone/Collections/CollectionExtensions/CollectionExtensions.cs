@@ -86,10 +86,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <paramref name="count"/> parameter as an optimization to prevent a full
         /// enumeration on <paramref name="source"/> to get a count.
         /// </remarks>
-        public static PagedList<T> ToPagedList<T>(this IEnumerable<T> source, int page, int pageSize, int count = -1)
-        {
-            return new PagedList<T>(source, page, pageSize, count);
-        }
+        public static PagedList<T> ToPagedList<T>(this IEnumerable<T> source, int page, int pageSize, int count = -1) => new PagedList<T>(source, page, pageSize, count);
 
         /// <summary>
         /// Merges elements of multiple dictionaries into a single dictionary with no duplicate key values overwritten.
@@ -103,10 +100,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// A merged collection of all unique dictionary elements, all <paramref name="others"/> merged left to the source with no duplicate
         /// key values overwritten (i.e., first encountered key value pair is the one that remains in the returned merged dictionary).
         /// </returns>
-        public static T Merge<T, TKey, TValue>(this T source, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new()
-        {
-            return source.Merge(false, others);
-        }
+        public static T Merge<T, TKey, TValue>(this T source, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new() => source.Merge(false, others);
 
         /// <summary>
         /// Merges elements of multiple dictionaries into a single dictionary.
@@ -125,19 +119,16 @@ namespace Gemstone.Collections.CollectionExtensions
 
             allDictionaries.AddRange(others);
 
-            foreach (IDictionary<TKey, TValue> dictionary in allDictionaries)
+            foreach (KeyValuePair<TKey, TValue> kvPair in allDictionaries.SelectMany(dictionary => dictionary))
             {
-                foreach (KeyValuePair<TKey, TValue> kvPair in dictionary)
+                if (overwriteExisting)
                 {
-                    if (overwriteExisting)
-                    {
-                        mergedDictionary[kvPair.Key] = kvPair.Value;
-                    }
-                    else
-                    {
-                        if (!mergedDictionary.ContainsKey(kvPair.Key))
-                            mergedDictionary.Add(kvPair);
-                    }
+                    mergedDictionary[kvPair.Key] = kvPair.Value;
+                }
+                else
+                {
+                    if (!mergedDictionary.ContainsKey(kvPair.Key))
+                        mergedDictionary.Add(kvPair);
                 }
             }
 
@@ -152,10 +143,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="dictionary">The dictionary to check for the given key.</param>
         /// <param name="key">The key to be checked for the existence of a value.</param>
         /// <returns>The value of the key in the dictionary or the default value if no such value exists.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
-        {
-            return dictionary.GetOrDefault(key, k => default);
-        }
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) => dictionary.GetOrDefault(key, k => default);
 
         /// <summary>
         /// Attempts to get the value for the given key and returns the default value instead if the key does not exist in the <see cref="IDictionary{TKey, TValue}"/>.
@@ -300,10 +288,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// </summary>
         /// <param name="collection">Name/value collection.</param>
         /// <returns>Dictionary converted from a name/value collection.</returns>
-        public static Dictionary<string, string> ToDictionary(this NameValueCollection collection)
-        {
-            return collection.AllKeys.ToDictionary(key => key, key => collection[key]);
-        }
+        public static Dictionary<string, string> ToDictionary(this NameValueCollection collection) => collection.AllKeys.ToDictionary(key => key, key => collection[key]);
 
         /// <summary>
         /// Returns <c>true</c> if any item in <see cref="BitArray"/> is equal to <paramref name="value"/>.
@@ -311,10 +296,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">Source <see cref="BitArray"/>.</param>
         /// <param name="value"><see cref="bool"/> value to test for.</param>
         /// <returns><c>true</c> if any item in <see cref="BitArray"/> is equal to <paramref name="value"/>.</returns>
-        public static bool Any(this BitArray source, bool value)
-        {
-            return source.Cast<bool>().Any(item => item == value);
-        }
+        public static bool Any(this BitArray source, bool value) => source.Cast<bool>().Any(item => item == value);
 
         /// <summary>
         /// Returns <c>true</c> if all items in <see cref="BitArray"/> are equal to <paramref name="value"/>.
@@ -322,10 +304,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">Source <see cref="BitArray"/>.</param>
         /// <param name="value"><see cref="bool"/> value to test for.</param>
         /// <returns><c>true</c> if all items in <see cref="BitArray"/> are equal to <paramref name="value"/>.</returns>
-        public static bool All(this BitArray source, bool value)
-        {
-            return source.Cast<bool>().All(item => item == value);
-        }
+        public static bool All(this BitArray source, bool value) => source.Cast<bool>().All(item => item == value);
 
         /// <summary>
         /// Determines whether all elements of a sequence satisfy a condition with each item being tested in parallel.
@@ -350,11 +329,11 @@ namespace Gemstone.Collections.CollectionExtensions
 
             Parallel.ForEach(source, options ?? new ParallelOptions(), (element, state) =>
             {
-                if (!predicate(element))
-                {
-                    succeeded = false;
-                    state.Break();
-                }
+                if (predicate(element))
+                    return;
+
+                succeeded = false;
+                state.Break();
             });
 
             return succeeded;
@@ -403,10 +382,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null)
-        {
-            return source.MajorityBy(default, keySelector, forwardSearch, comparer);
-        }
+        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null) => 
+            source.MajorityBy(default, keySelector, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -472,10 +449,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static T Majority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null)
-        {
-            return source.Majority(default, forwardSearch, comparer);
-        }
+        public static T Majority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null) => 
+            source.Majority(default, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -539,10 +514,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The minority value in the collection.</returns>
-        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null)
-        {
-            return source.MinorityBy(default, keySelector, forwardSearch, comparer);
-        }
+        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null) => 
+            source.MinorityBy(default, keySelector, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -605,10 +578,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The minority value in the collection.</returns>
-        public static T Minority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null)
-        {
-            return source.Minority(default, forwardSearch, comparer);
-        }
+        public static T Minority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null) => 
+            source.Minority(default, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the minority.
@@ -888,10 +859,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A comparer object.</param>
         /// <returns>Returns a generic type.</returns>
-        public static TSource Max<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer)
-        {
-            return source.Max(comparer.Compare);
-        }
+        public static TSource Max<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer) => source.Max(comparer.Compare);
 
         /// <summary>
         /// Returns only the elements whose keys are distinct.
@@ -921,10 +889,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source)
-        {
-            return source.ToDelimitedString('|');
-        }
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source) => source.ToDelimitedString('|');
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -932,10 +897,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting character used.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter)
-        {
-            return ToDelimitedString<TSource, char>(source, delimiter);
-        }
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter) => ToDelimitedString<TSource, char>(source, delimiter);
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -943,10 +905,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting <see cref="string"/> used.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter)
-        {
-            return ToDelimitedString<TSource, string>(source, delimiter);
-        }
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter) => ToDelimitedString<TSource, string>(source, delimiter);
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -980,10 +939,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="destination">The list we are adding items to.</param>
         /// <param name="delimitedString">The delimited string to parse for items.</param>
         /// <param name="convertFromString">Delegate that takes one parameter and converts from string to type TSource.</param>
-        public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, Func<string, TSource> convertFromString)
-        {
+        public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, Func<string, TSource> convertFromString) => 
             destination.LoadDelimitedString(delimitedString, '|', convertFromString);
-        }
 
         /// <summary>Appends items parsed from delimited string, created with ToDelimitedString, into the given list.</summary>
         /// <remarks>Items that are converted are added to list. The list is not cleared in advance.</remarks>
@@ -1080,7 +1037,6 @@ namespace Gemstone.Collections.CollectionExtensions
                 throw new ArgumentException("Cannot modify items in a read only list");
 
             int x, y;
-            TSource currentItem;
 
             // Mixes up the data in random order.
             for (x = 0; x < source.Count; x++)
@@ -1088,13 +1044,13 @@ namespace Gemstone.Collections.CollectionExtensions
                 // Calls random function from GSF namespace.
                 y = Random.Int32Between(0, source.Count - 1);
 
-                if (x != y)
-                {
-                    // Swaps items
-                    currentItem = source[x];
-                    source[x] = source[y];
-                    source[y] = currentItem;
-                }
+                if (x == y)
+                    continue;
+
+                // Swaps items
+                TSource currentItem = source[x];
+                source[x] = source[y];
+                source[y] = currentItem;
             }
         }
 
@@ -1112,7 +1068,6 @@ namespace Gemstone.Collections.CollectionExtensions
 
             System.Random random = new System.Random(seed);
             int x, y, count = source.Count;
-            TSource currentItem;
 
             // Mixes up the data in random order.
             for (x = 0; x < count; x++)
@@ -1120,13 +1075,13 @@ namespace Gemstone.Collections.CollectionExtensions
                 // Calls random function from System namespace.
                 y = random.Next(count);
 
-                if (x != y)
-                {
-                    // Swaps items
-                    currentItem = source[x];
-                    source[x] = source[y];
-                    source[y] = currentItem;
-                }
+                if (x == y)
+                    continue;
+
+                // Swaps items
+                TSource currentItem = source[x];
+                source[x] = source[y];
+                source[y] = currentItem;
             }
         }
 
@@ -1145,14 +1100,10 @@ namespace Gemstone.Collections.CollectionExtensions
             System.Random random = new System.Random(seed);
             List<int> sequence = new List<int>();
             int x, y, count = source.Count;
-            TSource currentItem;
 
             // Generate original scramble sequence.
             for (x = 0; x < count; x++)
-            {
-                // Calls random function from System namespace.
-                sequence.Add(random.Next(count));
-            }
+                sequence.Add(random.Next(count)); // Calls random function from System namespace.
 
             // Unmix the data order (traverse same sequence in reverse order).
             for (x = count - 1; x >= 0; x--)
@@ -1163,7 +1114,7 @@ namespace Gemstone.Collections.CollectionExtensions
                     continue;
 
                 // Swaps items
-                currentItem = source[x];
+                TSource currentItem = source[x];
                 source[x] = source[y];
                 source[y] = currentItem;
             }
@@ -1176,10 +1127,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>An <see cref="int"/> which returns 0 if they are equal, 1 if <paramref name="array1"/> is larger, or -1 if <paramref name="array2"/> is larger.</returns>
         /// <typeparam name="TSource"><see cref="Type"/> of the array.</typeparam>
         /// <exception cref="ArgumentException">Cannot compare multidimensional arrays.</exception>
-        public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true)
-        {
-            return CompareTo(array1, array2, Comparer<TSource>.Default, orderIsImportant);
-        }
+        public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true) => 
+            CompareTo(array1, array2, Comparer<TSource>.Default, orderIsImportant);
 
         /// <summary>Compares two arrays.</summary>
         /// <param name="array1">The first <see cref="Array"/> to compare to.</param>

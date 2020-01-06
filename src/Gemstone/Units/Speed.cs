@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -237,25 +239,17 @@ namespace Gemstone.Units
         /// <returns><see cref="Speed"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(SpeedUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case SpeedUnit.MetersPerSecond:
-                    return m_value;
-                case SpeedUnit.MilesPerHour:
-                    return ToMilesPerHour();
-                case SpeedUnit.KilometersPerHour:
-                    return ToKilometersPerHour();
-                case SpeedUnit.FeetPerMinute:
-                    return ToFeetPerMinute();
-                case SpeedUnit.InchesPerSecond:
-                    return ToInchesPerSecond();
-                case SpeedUnit.Knots:
-                    return ToKnots();
-                case SpeedUnit.Mach:
-                    return ToMach();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                SpeedUnit.MetersPerSecond => m_value,
+                SpeedUnit.MilesPerHour => ToMilesPerHour(),
+                SpeedUnit.KilometersPerHour => ToKilometersPerHour(),
+                SpeedUnit.FeetPerMinute => ToFeetPerMinute(),
+                SpeedUnit.InchesPerSecond => ToInchesPerSecond(),
+                SpeedUnit.Knots => ToKnots(),
+                SpeedUnit.Mach => ToMach(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -948,25 +942,17 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Speed"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Speed ConvertFrom(double value, SpeedUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case SpeedUnit.MetersPerSecond:
-                    return value;
-                case SpeedUnit.MilesPerHour:
-                    return FromMilesPerHour(value);
-                case SpeedUnit.KilometersPerHour:
-                    return FromKilometersPerHour(value);
-                case SpeedUnit.FeetPerMinute:
-                    return FromFeetPerMinute(value);
-                case SpeedUnit.InchesPerSecond:
-                    return FromInchesPerSecond(value);
-                case SpeedUnit.Knots:
-                    return FromKnots(value);
-                case SpeedUnit.Mach:
-                    return FromMach(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                SpeedUnit.MetersPerSecond => value,
+                SpeedUnit.MilesPerHour => FromMilesPerHour(value),
+                SpeedUnit.KilometersPerHour => FromKilometersPerHour(value),
+                SpeedUnit.FeetPerMinute => FromFeetPerMinute(value),
+                SpeedUnit.InchesPerSecond => FromInchesPerSecond(value),
+                SpeedUnit.Knots => FromKnots(value),
+                SpeedUnit.Mach => FromMach(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

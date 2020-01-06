@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -237,25 +239,17 @@ namespace Gemstone.Units
         /// <returns><see cref="Power"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(PowerUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case PowerUnit.Watts:
-                    return m_value;
-                case PowerUnit.Horsepower:
-                    return ToHorsepower();
-                case PowerUnit.MetricHorsepower:
-                    return ToMetricHorsepower();
-                case PowerUnit.BoilerHorsepower:
-                    return ToBoilerHorsepower();
-                case PowerUnit.BTUPerSecond:
-                    return ToBTUPerSecond();
-                case PowerUnit.CaloriesPerSecond:
-                    return ToCaloriesPerSecond();
-                case PowerUnit.LitersAtmospherePerSecond:
-                    return ToLitersAtmospherePerSecond();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                PowerUnit.Watts => m_value,
+                PowerUnit.Horsepower => ToHorsepower(),
+                PowerUnit.MetricHorsepower => ToMetricHorsepower(),
+                PowerUnit.BoilerHorsepower => ToBoilerHorsepower(),
+                PowerUnit.BTUPerSecond => ToBTUPerSecond(),
+                PowerUnit.CaloriesPerSecond => ToCaloriesPerSecond(),
+                PowerUnit.LitersAtmospherePerSecond => ToLitersAtmospherePerSecond(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -948,25 +942,17 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Power"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Power ConvertFrom(double value, PowerUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case PowerUnit.Watts:
-                    return value;
-                case PowerUnit.Horsepower:
-                    return FromHorsepower(value);
-                case PowerUnit.MetricHorsepower:
-                    return FromMetricHorsepower(value);
-                case PowerUnit.BoilerHorsepower:
-                    return FromBoilerHorsepower(value);
-                case PowerUnit.BTUPerSecond:
-                    return FromBTUPerSecond(value);
-                case PowerUnit.CaloriesPerSecond:
-                    return FromCaloriesPerSecond(value);
-                case PowerUnit.LitersAtmospherePerSecond:
-                    return FromLitersAtmospherePerSecond(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                PowerUnit.Watts => value,
+                PowerUnit.Horsepower => FromHorsepower(value),
+                PowerUnit.MetricHorsepower => FromMetricHorsepower(value),
+                PowerUnit.BoilerHorsepower => FromBoilerHorsepower(value),
+                PowerUnit.BTUPerSecond => FromBTUPerSecond(value),
+                PowerUnit.CaloriesPerSecond => FromCaloriesPerSecond(value),
+                PowerUnit.LitersAtmospherePerSecond => FromLitersAtmospherePerSecond(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

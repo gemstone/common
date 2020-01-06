@@ -57,6 +57,9 @@ using Gemstone.Console;
 using Gemstone.IO;
 using Gemstone.StringExtensions;
 
+#pragma warning disable CA1031 // Do not catch general exception types
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone
 {
     /// <summary>
@@ -87,8 +90,8 @@ namespace Gemstone
         /// Determines if the code base is currently running under Mono.
         /// </summary>
         /// <remarks>
-        /// This property can be used to make a run-time determination if Windows or Mono based .NET is being used. However, it is
-        /// highly recommended to use the MONO compiler directive wherever possible instead of determining this at run-time.
+        /// This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
+        /// recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
         /// </remarks>
         public static bool IsMono = Type.GetType("Mono.Runtime") is object;
 
@@ -128,12 +131,7 @@ namespace Gemstone
         /// </code>
         /// </example>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T[] CreateArray<T>(int length)
-        {
-            // The following provides better performance than "Return New T(length) {}".
-            // ReSharper disable once UseArrayCreationExpression.1
-            return (T[])Array.CreateInstance(typeof(T), length);
-        }
+        public static T[] CreateArray<T>(int length) => new T[length];
 
         /// <summary>Creates a strongly-typed Array with an initial value parameter.</summary>
         /// <returns>New array of specified type.</returns>
@@ -372,24 +370,22 @@ namespace Gemstone
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool IsNumericType(TypeCode typeCode)
         {
-            switch (typeCode)
+            return typeCode switch
             {
-                case TypeCode.Boolean:
-                case TypeCode.SByte:
-                case TypeCode.Byte:
-                case TypeCode.Int16:
-                case TypeCode.UInt16:
-                case TypeCode.Int32:
-                case TypeCode.UInt32:
-                case TypeCode.Int64:
-                case TypeCode.UInt64:
-                case TypeCode.Single:
-                case TypeCode.Double:
-                case TypeCode.Decimal:
-                    return true;
-            }
-
-            return false;
+                TypeCode.Boolean => true,
+                TypeCode.SByte => true,
+                TypeCode.Byte => true,
+                TypeCode.Int16 => true,
+                TypeCode.UInt16 => true,
+                TypeCode.Int32 => true,
+                TypeCode.UInt32 => true,
+                TypeCode.Int64 => true,
+                TypeCode.UInt64 => true,
+                TypeCode.Single => true,
+                TypeCode.Double => true,
+                TypeCode.Decimal => true,
+                _ => false
+            };
         }
 
         /// <summary>
@@ -521,13 +517,15 @@ namespace Gemstone
             return s_osPlatformID;
         }
 
+
         /// <summary>
         /// Gets the operating system product name.
         /// </summary>
         /// <returns>Operating system product name.</returns>
+        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public static string GetOSProductName()
         {
-            if ((object)s_osPlatformName != null)
+            if (s_osPlatformName != null)
                 return s_osPlatformName;
 
             switch (GetOSPlatformID())
@@ -558,7 +556,7 @@ namespace Gemstone
                                 {
                                     string line = reader.ReadLine();
 
-                                    while ((object)line != null)
+                                    while (line != null)
                                     {
                                         if (line.StartsWith("PRETTY_NAME", StringComparison.OrdinalIgnoreCase) && !line.Contains('#'))
                                         {

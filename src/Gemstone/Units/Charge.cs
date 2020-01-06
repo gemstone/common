@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -219,23 +221,16 @@ namespace Gemstone.Units
         /// <returns><see cref="Charge"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(ChargeUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case ChargeUnit.Coulombs:
-                    return m_value;
-                case ChargeUnit.AmpereHours:
-                    return ToAmpereHours();
-                case ChargeUnit.Abcoulombs:
-                    return ToAbcoulombs();
-                case ChargeUnit.Statcoulombs:
-                    return ToStatcoulombs();
-                case ChargeUnit.AtomicUnitsOfCharge:
-                    return ToAtomicUnitsOfCharge();
-                case ChargeUnit.Faraday:
-                    return ToFaraday();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                ChargeUnit.Coulombs => m_value,
+                ChargeUnit.AmpereHours => ToAmpereHours(),
+                ChargeUnit.Abcoulombs => ToAbcoulombs(),
+                ChargeUnit.Statcoulombs => ToStatcoulombs(),
+                ChargeUnit.AtomicUnitsOfCharge => ToAtomicUnitsOfCharge(),
+                ChargeUnit.Faraday => ToFaraday(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -918,23 +913,16 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Charge"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Charge ConvertFrom(double value, ChargeUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case ChargeUnit.Coulombs:
-                    return value;
-                case ChargeUnit.AmpereHours:
-                    return FromAmpereHours(value);
-                case ChargeUnit.Abcoulombs:
-                    return FromAbcoulombs(value);
-                case ChargeUnit.Statcoulombs:
-                    return FromStatcoulombs(value);
-                case ChargeUnit.AtomicUnitsOfCharge:
-                    return FromAtomicUnitsOfCharge(value);
-                case ChargeUnit.Faraday:
-                    return FromFaraday(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                ChargeUnit.Coulombs => value,
+                ChargeUnit.AmpereHours => FromAmpereHours(value),
+                ChargeUnit.Abcoulombs => FromAbcoulombs(value),
+                ChargeUnit.Statcoulombs => FromStatcoulombs(value),
+                ChargeUnit.AtomicUnitsOfCharge => FromAtomicUnitsOfCharge(value),
+                ChargeUnit.Faraday => FromFaraday(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

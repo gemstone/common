@@ -283,10 +283,7 @@ namespace Gemstone.Reflection
                 if (attribute == null)
                     return string.Empty;
 
-                return attribute.ConstructorArguments[0].Value + "." +
-                       attribute.ConstructorArguments[1].Value + "." +
-                       attribute.ConstructorArguments[2].Value + "." +
-                       attribute.ConstructorArguments[3].Value;
+                return $"{attribute.ConstructorArguments[0].Value}.{attribute.ConstructorArguments[1].Value}.{attribute.ConstructorArguments[2].Value}.{attribute.ConstructorArguments[3].Value}";
             }
         }
 
@@ -566,7 +563,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets the <see cref="AssemblyInfo"/> object of the assembly that contains the code that is currently executing.
         /// </summary>
-        public static AssemblyInfo ExecutingAssembly => s_executingAssembly ?? (s_executingAssembly = new AssemblyInfo(Assembly.GetCallingAssembly()));
+        public static AssemblyInfo ExecutingAssembly => s_executingAssembly ??= new AssemblyInfo(Assembly.GetCallingAssembly());
 
         // Static Methods
 
@@ -605,7 +602,7 @@ namespace Gemstone.Reflection
                 foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
                 {
                     // Sees if the embedded resource name matches the assembly it is trying to load.
-                    if (string.Compare(FilePath.GetFileNameWithoutExtension(name), EntryAssembly.RootNamespace + "." + shortName, StringComparison.OrdinalIgnoreCase) != 0)
+                    if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly.RootNamespace}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)
                         continue;
 
                     // If so, loads embedded resource assembly into a binary buffer

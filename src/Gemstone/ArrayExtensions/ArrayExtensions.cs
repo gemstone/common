@@ -344,7 +344,7 @@ namespace Gemstone.ArrayExtensions
             for (int x = 0; x < arrays.Length; x++)
             {
                 if (arrays[x] == null)
-                    throw new ArgumentNullException("arrays[" + x + "]");
+                    throw new ArgumentNullException($"arrays[{x}]");
 
                 length = arrays[x].Length;
 
@@ -715,20 +715,19 @@ namespace Gemstone.ArrayExtensions
             if (buffers == null)
                 throw new ArgumentNullException(nameof(buffers));
 
-            using (BlockAllocatedMemoryStream combinedBuffer = new BlockAllocatedMemoryStream())
+            using BlockAllocatedMemoryStream combinedBuffer = new BlockAllocatedMemoryStream();
+
+            // Combine all currently queued buffers
+            for (int x = 0; x < buffers.Length; x++)
             {
-                // Combine all currently queued buffers
-                for (int x = 0; x < buffers.Length; x++)
-                {
-                    if (buffers[x] == null)
-                        throw new ArgumentNullException("buffers[" + x + "]");
+                if (buffers[x] == null)
+                    throw new ArgumentNullException($"buffers[{x}]");
 
-                    combinedBuffer.Write(buffers[x], 0, buffers[x].Length);
-                }
-
-                // return combined data buffers
-                return combinedBuffer.ToArray();
+                combinedBuffer.Write(buffers[x], 0, buffers[x].Length);
             }
+
+            // return combined data buffers
+            return combinedBuffer.ToArray();
         }
 
         /// <summary>

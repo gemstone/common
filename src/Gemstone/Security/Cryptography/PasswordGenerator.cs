@@ -27,6 +27,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Gemstone.Collections.CollectionExtensions;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Security.Cryptography
 {
     /// <summary>

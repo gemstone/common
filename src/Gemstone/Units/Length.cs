@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -274,29 +276,19 @@ namespace Gemstone.Units
         /// <returns><see cref="Length"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(LengthUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case LengthUnit.Meters:
-                    return m_value;
-                case LengthUnit.Feet:
-                    return ToFeet();
-                case LengthUnit.Inches:
-                    return ToInches();
-                case LengthUnit.Miles:
-                    return ToMiles();
-                case LengthUnit.LightSeconds:
-                    return ToLightSeconds();
-                case LengthUnit.USSurveyFeet:
-                    return ToUSSurveyFeet();
-                case LengthUnit.USSurveyMiles:
-                    return ToUSSurveyMiles();
-                case LengthUnit.NauticalMiles:
-                    return ToNauticalMiles();
-                case LengthUnit.Yards:
-                    return ToYards();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                LengthUnit.Meters => m_value,
+                LengthUnit.Feet => ToFeet(),
+                LengthUnit.Inches => ToInches(),
+                LengthUnit.Miles => ToMiles(),
+                LengthUnit.LightSeconds => ToLightSeconds(),
+                LengthUnit.USSurveyFeet => ToUSSurveyFeet(),
+                LengthUnit.USSurveyMiles => ToUSSurveyMiles(),
+                LengthUnit.NauticalMiles => ToNauticalMiles(),
+                LengthUnit.Yards => ToYards(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -1009,29 +1001,19 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Length"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Length ConvertFrom(double value, LengthUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case LengthUnit.Meters:
-                    return value;
-                case LengthUnit.Feet:
-                    return FromFeet(value);
-                case LengthUnit.Inches:
-                    return FromInches(value);
-                case LengthUnit.Miles:
-                    return FromMiles(value);
-                case LengthUnit.LightSeconds:
-                    return FromLightSeconds(value);
-                case LengthUnit.USSurveyFeet:
-                    return FromUSSurveyFeet(value);
-                case LengthUnit.USSurveyMiles:
-                    return FromUSSurveyMiles(value);
-                case LengthUnit.NauticalMiles:
-                    return FromNauticalMiles(value);
-                case LengthUnit.Yards:
-                    return FromYards(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                LengthUnit.Meters => value,
+                LengthUnit.Feet => FromFeet(value),
+                LengthUnit.Inches => FromInches(value),
+                LengthUnit.Miles => FromMiles(value),
+                LengthUnit.LightSeconds => FromLightSeconds(value),
+                LengthUnit.USSurveyFeet => FromUSSurveyFeet(value),
+                LengthUnit.USSurveyMiles => FromUSSurveyMiles(value),
+                LengthUnit.NauticalMiles => FromNauticalMiles(value),
+                LengthUnit.Yards => FromYards(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

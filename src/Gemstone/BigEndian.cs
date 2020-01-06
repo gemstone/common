@@ -475,33 +475,21 @@ namespace Gemstone
 
             IConvertible nativeValue = value;
 
-            switch (nativeValue.GetTypeCode())
+            return nativeValue.GetTypeCode() switch
             {
-                case TypeCode.Char:
-                    return GetBytes(nativeValue.ToChar(null));
-                case TypeCode.Boolean:
-                    return GetBytes(nativeValue.ToBoolean(null));
-                case TypeCode.Int16:
-                    return GetBytes(nativeValue.ToInt16(null));
-                case TypeCode.UInt16:
-                    return GetBytes(nativeValue.ToUInt16(null));
-                case TypeCode.Int32:
-                    return GetBytes(nativeValue.ToInt32(null));
-                case TypeCode.UInt32:
-                    return GetBytes(nativeValue.ToUInt32(null));
-                case TypeCode.Int64:
-                    return GetBytes(nativeValue.ToInt64(null));
-                case TypeCode.UInt64:
-                    return GetBytes(nativeValue.ToUInt64(null));
-                case TypeCode.Single:
-                    return GetBytes(nativeValue.ToSingle(null));
-                case TypeCode.Double:
-                    return GetBytes(nativeValue.ToDouble(null));
-                case TypeCode.Decimal:
-                    return GetBytes(nativeValue.ToDecimal(null));
-                default:
-                    throw new InvalidOperationException("Cannot get bytes for value type " + nativeValue.GetTypeCode());
-            }
+                TypeCode.Char => GetBytes(nativeValue.ToChar(null)),
+                TypeCode.Boolean => GetBytes(nativeValue.ToBoolean(null)),
+                TypeCode.Int16 => GetBytes(nativeValue.ToInt16(null)),
+                TypeCode.UInt16 => GetBytes(nativeValue.ToUInt16(null)),
+                TypeCode.Int32 => GetBytes(nativeValue.ToInt32(null)),
+                TypeCode.UInt32 => GetBytes(nativeValue.ToUInt32(null)),
+                TypeCode.Int64 => GetBytes(nativeValue.ToInt64(null)),
+                TypeCode.UInt64 => GetBytes(nativeValue.ToUInt64(null)),
+                TypeCode.Single => GetBytes(nativeValue.ToSingle(null)),
+                TypeCode.Double => GetBytes(nativeValue.ToDouble(null)),
+                TypeCode.Decimal => GetBytes(nativeValue.ToDecimal(null)),
+                _ => throw new InvalidOperationException($"Cannot get bytes for value type {nativeValue.GetTypeCode()}")
+            };
         }
 
         /// <summary>
@@ -699,33 +687,21 @@ namespace Gemstone
 
             IConvertible nativeValue = value;
 
-            switch (nativeValue.GetTypeCode())
+            return nativeValue.GetTypeCode() switch
             {
-                case TypeCode.Char:
-                    return CopyBytes(nativeValue.ToChar(null), destinationArray, destinationIndex);
-                case TypeCode.Boolean:
-                    return CopyBytes(nativeValue.ToBoolean(null), destinationArray, destinationIndex);
-                case TypeCode.Int16:
-                    return CopyBytes(nativeValue.ToInt16(null), destinationArray, destinationIndex);
-                case TypeCode.UInt16:
-                    return CopyBytes(nativeValue.ToUInt16(null), destinationArray, destinationIndex);
-                case TypeCode.Int32:
-                    return CopyBytes(nativeValue.ToInt32(null), destinationArray, destinationIndex);
-                case TypeCode.UInt32:
-                    return CopyBytes(nativeValue.ToUInt32(null), destinationArray, destinationIndex);
-                case TypeCode.Int64:
-                    return CopyBytes(nativeValue.ToInt64(null), destinationArray, destinationIndex);
-                case TypeCode.UInt64:
-                    return CopyBytes(nativeValue.ToUInt64(null), destinationArray, destinationIndex);
-                case TypeCode.Single:
-                    return CopyBytes(nativeValue.ToSingle(null), destinationArray, destinationIndex);
-                case TypeCode.Double:
-                    return CopyBytes(nativeValue.ToDouble(null), destinationArray, destinationIndex);
-                case TypeCode.Decimal:
-                    return CopyBytes(nativeValue.ToDecimal(null), destinationArray, destinationIndex);
-                default:
-                    throw new InvalidOperationException("Cannot copy bytes for value type " + nativeValue.GetTypeCode());
-            }
+                TypeCode.Char => CopyBytes(nativeValue.ToChar(null), destinationArray, destinationIndex),
+                TypeCode.Boolean => CopyBytes(nativeValue.ToBoolean(null), destinationArray, destinationIndex),
+                TypeCode.Int16 => CopyBytes(nativeValue.ToInt16(null), destinationArray, destinationIndex),
+                TypeCode.UInt16 => CopyBytes(nativeValue.ToUInt16(null), destinationArray, destinationIndex),
+                TypeCode.Int32 => CopyBytes(nativeValue.ToInt32(null), destinationArray, destinationIndex),
+                TypeCode.UInt32 => CopyBytes(nativeValue.ToUInt32(null), destinationArray, destinationIndex),
+                TypeCode.Int64 => CopyBytes(nativeValue.ToInt64(null), destinationArray, destinationIndex),
+                TypeCode.UInt64 => CopyBytes(nativeValue.ToUInt64(null), destinationArray, destinationIndex),
+                TypeCode.Single => CopyBytes(nativeValue.ToSingle(null), destinationArray, destinationIndex),
+                TypeCode.Double => CopyBytes(nativeValue.ToDouble(null), destinationArray, destinationIndex),
+                TypeCode.Decimal => CopyBytes(nativeValue.ToDecimal(null), destinationArray, destinationIndex),
+                _ => throw new InvalidOperationException($"Cannot copy bytes for value type {nativeValue.GetTypeCode()}")
+            };
         }
 
         /// <summary>
@@ -942,33 +918,21 @@ namespace Gemstone
 
             IConvertible nativeValue = value;
 
-            switch (nativeValue.GetTypeCode())
+            return nativeValue.GetTypeCode() switch
             {
-                case TypeCode.Char:
-                    return CopyBytes(nativeValue.ToChar(null), destination);
-                case TypeCode.Boolean:
-                    return CopyBytes(nativeValue.ToBoolean(null), destination);
-                case TypeCode.Int16:
-                    return CopyBytes(nativeValue.ToInt16(null), destination);
-                case TypeCode.UInt16:
-                    return CopyBytes(nativeValue.ToUInt16(null), destination);
-                case TypeCode.Int32:
-                    return CopyBytes(nativeValue.ToInt32(null), destination);
-                case TypeCode.UInt32:
-                    return CopyBytes(nativeValue.ToUInt32(null), destination);
-                case TypeCode.Int64:
-                    return CopyBytes(nativeValue.ToInt64(null), destination);
-                case TypeCode.UInt64:
-                    return CopyBytes(nativeValue.ToUInt64(null), destination);
-                case TypeCode.Single:
-                    return CopyBytes(nativeValue.ToSingle(null), destination);
-                case TypeCode.Double:
-                    return CopyBytes(nativeValue.ToDouble(null), destination);
-                case TypeCode.Decimal:
-                    return CopyBytes(nativeValue.ToDecimal(null), destination);
-                default:
-                    throw new InvalidOperationException("Cannot copy bytes for value type " + nativeValue.GetTypeCode());
-            }
+                TypeCode.Char => CopyBytes(nativeValue.ToChar(null), destination),
+                TypeCode.Boolean => CopyBytes(nativeValue.ToBoolean(null), destination),
+                TypeCode.Int16 => CopyBytes(nativeValue.ToInt16(null), destination),
+                TypeCode.UInt16 => CopyBytes(nativeValue.ToUInt16(null), destination),
+                TypeCode.Int32 => CopyBytes(nativeValue.ToInt32(null), destination),
+                TypeCode.UInt32 => CopyBytes(nativeValue.ToUInt32(null), destination),
+                TypeCode.Int64 => CopyBytes(nativeValue.ToInt64(null), destination),
+                TypeCode.UInt64 => CopyBytes(nativeValue.ToUInt64(null), destination),
+                TypeCode.Single => CopyBytes(nativeValue.ToSingle(null), destination),
+                TypeCode.Double => CopyBytes(nativeValue.ToDouble(null), destination),
+                TypeCode.Decimal => CopyBytes(nativeValue.ToDecimal(null), destination),
+                _ => throw new InvalidOperationException($"Cannot copy bytes for value type {nativeValue.GetTypeCode()}")
+            };
         }
 
         /// <summary>

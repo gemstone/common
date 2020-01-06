@@ -66,6 +66,8 @@
 using System;
 using System.Text;
 
+#pragma warning disable CA1819 // Properties should not return arrays
+
 namespace Gemstone.Units
 {
     /// <summary>
@@ -277,12 +279,12 @@ namespace Gemstone.Units
             int minimumIndex = GetFactorIndex(minimumFactor);
 
             if (minimumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(minimumFactor), "Unknown SI factor " + minimumFactor);
+                throw new ArgumentOutOfRangeException(nameof(minimumFactor), $"Unknown SI factor {minimumFactor}");
 
             int maximumIndex = GetFactorIndex(maximumFactor);
 
             if (maximumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(maximumFactor), "Unknown SI factor " + maximumFactor);
+                throw new ArgumentOutOfRangeException(nameof(maximumFactor), $"Unknown SI factor {maximumFactor}");
 
             for (int i = maximumIndex; i >= minimumIndex; i--)
             {

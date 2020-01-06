@@ -93,12 +93,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Gemstone.CharExtensions;
+
+#pragma warning disable CA1031 // Do not catch general exception types
 
 namespace Gemstone.StringExtensions
 {
@@ -134,24 +135,20 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length > 0)
-            {
-                // Try to parse string a number
+            if (value.Length <= 0)
+                return false;
+            
+            // Try to parse string a number
+            if (int.TryParse(value, out int iresult))
+                return iresult != 0;
 
-                if (int.TryParse(value, out int iresult))
-                    return iresult != 0;
+            // Try to parse string as a boolean
+            if (bool.TryParse(value, out bool bresult))
+                return bresult;
 
-                // Try to parse string as a boolean
+            char test = value.ToUpper()[0];
 
-                if (bool.TryParse(value, out bool bresult))
-                    return bresult;
-
-                char test = value.ToUpper()[0];
-
-                return test == 'T' || test == 'Y';
-            }
-
-            return false;
+            return test == 'T' || test == 'Y';
         }
 
         /// <summary>
@@ -166,10 +163,7 @@ namespace Gemstone.StringExtensions
         /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
         /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
         /// </remarks>
-        public static T ConvertToType<T>(this string value)
-        {
-            return ConvertToType<T>(value, null);
-        }
+        public static T ConvertToType<T>(this string value) => ConvertToType<T>(value, null);
 
         /// <summary>
         /// Converts this string into the specified type.
@@ -203,10 +197,7 @@ namespace Gemstone.StringExtensions
         /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
         /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
         /// </remarks>
-        public static object ConvertToType(this string value, Type type)
-        {
-            return ConvertToType(value, type, null);
-        }
+        public static object ConvertToType(this string value, Type type) => ConvertToType(value, type, null);
 
         /// <summary>
         /// Converts this string into the specified type.
@@ -228,7 +219,7 @@ namespace Gemstone.StringExtensions
                 return null;
 
             // Initialize return type if not specified.
-            if ((object)type == null)
+            if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
             // Initialize culture info if not specified.
@@ -247,8 +238,9 @@ namespace Gemstone.StringExtensions
                 // ReSharper disable once AssignNullToNotNullAttribute
                 return converter.ConvertFromString(null, culture, value);
             }
-            catch
+            catch (Exception ex)
             {
+                LibraryEvents.OnSuppressedException(typeof(Common), new Exception($"ConvertToType exception: {ex.Message}", ex));
                 return null;
             }
         }
@@ -424,11 +416,10 @@ namespace Gemstone.StringExtensions
 
             char[] delimiters = { parameterDelimiter, keyValueDelimiter, startValueDelimiter, endValueDelimiter };
             List<string> values = new List<string>();
-            string value;
 
             foreach (string key in pairs.Keys)
             {
-                value = pairs[key];
+                string value = pairs[key];
 
                 if (value.IndexOfAny(delimiters) >= 0)
                     value = startValueDelimiter + value + endValueDelimiter;
@@ -436,7 +427,7 @@ namespace Gemstone.StringExtensions
                 values.Add($"{key}{keyValueDelimiter}{value}");
             }
 
-            return string.Join(parameterDelimiter + " ", values);
+            return string.Join($"{parameterDelimiter} ", values);
         }
 
         /// <summary>
@@ -472,6 +463,7 @@ namespace Gemstone.StringExtensions
         /// <exception cref="FormatException">Total nested key/value pair expressions are mismatched -or- encountered
         /// <paramref name="endValueDelimiter"/> before <paramref name="startValueDelimiter"/>.</exception>
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Style", "IDE0011:Add braces")]
         public static Dictionary<string, string> ParseKeyValuePairs(this string value, char parameterDelimiter = ';', char keyValueDelimiter = '=', char startValueDelimiter = '{', char endValueDelimiter = '}', bool ignoreDuplicateKeys = true)
         {
             if (value == null)
@@ -492,21 +484,16 @@ namespace Gemstone.StringExtensions
             string escapedStartValueDelimiter = startValueDelimiter.RegexEncode();
             string escapedEndValueDelimiter = endValueDelimiter.RegexEncode();
             string backslashDelimiter = '\\'.RegexEncode();
-            string[] elements;
-            string key, unescapedValue;
             bool valueEscaped = false;
             int delimiterDepth = 0;
-            char character;
 
             // Escape any parameter or key/value delimiters within tagged value sequences
             //      For example, the following string:
             //          "normalKVP=-1; nestedKVP={p1=true; p2=false}")
             //      would be encoded as:
             //          "normalKVP=-1; nestedKVP=p1\\u003dtrue\\u003b p2\\u003dfalse")
-            for (int x = 0; x < value.Length; x++)
+            foreach (char character in value)
             {
-                character = value[x];
-
                 if (character == startValueDelimiter)
                 {
                     if (!valueEscaped)
@@ -573,22 +560,22 @@ namespace Gemstone.StringExtensions
                 if (valueEscaped)
                     delimiterDepth = 1;
 
-                throw new FormatException($"Failed to parse key/value pairs: invalid delimiter mismatch. Encountered more {(delimiterDepth > 0 ? "start value delimiters \'" + startValueDelimiter + "\'" : "end value delimiters \'" + endValueDelimiter + "\'")} than {(delimiterDepth < 0 ? "start value delimiters \'" + startValueDelimiter + "\'" : "end value delimiters \'" + endValueDelimiter + "\'")}.");
+                throw new FormatException($"Failed to parse key/value pairs: invalid delimiter mismatch. Encountered more {(delimiterDepth > 0 ? $"start value delimiters '{startValueDelimiter}'" : $"end value delimiters '{endValueDelimiter}'")} than {(delimiterDepth < 0 ? $"start value delimiters '{startValueDelimiter}'" : $"end value delimiters '{endValueDelimiter}'")}.");
             }
 
             // Parse key/value pairs from escaped value
             foreach (string parameter in escapedValue.ToString().Split(parameterDelimiter))
             {
                 // Parse out parameter's key/value elements
-                elements = parameter.Split(keyValueDelimiter);
+                string[] elements = parameter.Split(keyValueDelimiter);
 
                 if (elements.Length == 2)
                 {
                     // Get key expression
-                    key = elements[0].Trim();
+                    string key = elements[0].Trim();
 
                     // Get unescaped value expression
-                    unescapedValue = elements[1].Trim().Replace(escapedParameterDelimiter, parameterDelimiter.ToString()).Replace(escapedKeyValueDelimiter, keyValueDelimiter.ToString()).Replace(escapedStartValueDelimiter, startValueDelimiter.ToString()).Replace(escapedEndValueDelimiter, endValueDelimiter.ToString()).Replace(backslashDelimiter, "\\");
+                    string unescapedValue = elements[1].Trim().Replace(escapedParameterDelimiter, parameterDelimiter.ToString()).Replace(escapedKeyValueDelimiter, keyValueDelimiter.ToString()).Replace(escapedStartValueDelimiter, startValueDelimiter.ToString()).Replace(escapedEndValueDelimiter, endValueDelimiter.ToString()).Replace(backslashDelimiter, "\\");
 
                     // Add key/value pair to dictionary
                     if (ignoreDuplicateKeys)
@@ -615,10 +602,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="testValue">Value to test for null or empty.</param>
         /// <returns>A non-empty string.</returns>
-        public static string NotEmpty(this string testValue)
-        {
-            return testValue.NotEmpty(" ");
-        }
+        public static string NotEmpty(this string testValue) => testValue.NotEmpty(" ");
 
         /// <summary>
         /// Ensures parameter is not an empty or null string.
@@ -631,10 +615,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(nonEmptyReturnValue))
                 throw new ArgumentException("nonEmptyReturnValue cannot be null or empty");
 
-            if (string.IsNullOrEmpty(testValue))
-                return nonEmptyReturnValue;
-
-            return testValue;
+            return string.IsNullOrEmpty(testValue) ? nonEmptyReturnValue : testValue;
         }
 
         /// <summary>
@@ -656,17 +637,9 @@ namespace Gemstone.StringExtensions
                 return "";
 
             StringBuilder result = new StringBuilder();
-            char character;
 
-            for (int x = 0; x < value.Length; x++)
-            {
-                character = value[x];
-
-                if (characterTestFunction(character))
-                    result.Append(replacementCharacter);
-                else
-                    result.Append(character);
-            }
+            foreach (char character in value)
+                result.Append(characterTestFunction(character) ? replacementCharacter : character);
 
             return result.ToString();
         }
@@ -688,15 +661,9 @@ namespace Gemstone.StringExtensions
                 return "";
 
             StringBuilder result = new StringBuilder();
-            char character;
 
-            for (int x = 0; x < value.Length; x++)
-            {
-                character = value[x];
-
-                if (!characterTestFunction(character))
-                    result.Append(character);
-            }
+            foreach (char character in value.Where(character => !characterTestFunction(character)))
+                result.Append(character);
 
             return result.ToString();
         }
@@ -713,15 +680,9 @@ namespace Gemstone.StringExtensions
                 return "";
 
             StringBuilder result = new StringBuilder();
-            char character;
 
-            for (int x = 0; x < value.Length; x++)
-            {
-                character = value[x];
-
-                if (character != characterToRemove)
-                    result.Append(character);
-            }
+            foreach (char character in value.Where(character => character != characterToRemove))
+                result.Append(character);
 
             return result.ToString();
         }
@@ -731,10 +692,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all white space removed.</returns>
-        public static string RemoveWhiteSpace(this string value)
-        {
-            return value.RemoveCharacters(char.IsWhiteSpace);
-        }
+        public static string RemoveWhiteSpace(this string value) => value.RemoveCharacters(char.IsWhiteSpace);
 
         /// <summary>
         /// Replaces all white space characters (as defined by IsWhiteSpace) with specified replacement character.
@@ -743,30 +701,21 @@ namespace Gemstone.StringExtensions
         /// <param name="replacementCharacter">Character used to "replace" white space characters.</param>
         /// <returns>Returns <paramref name="value" /> with all white space characters replaced.</returns>
         /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-        public static string ReplaceWhiteSpace(this string value, char replacementCharacter)
-        {
-            return value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
-        }
+        public static string ReplaceWhiteSpace(this string value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
 
         /// <summary>
         /// Removes all control characters from a string.
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all control characters removed.</returns>
-        public static string RemoveControlCharacters(this string value)
-        {
-            return value.RemoveCharacters(char.IsControl);
-        }
+        public static string RemoveControlCharacters(this string value) => value.RemoveCharacters(char.IsControl);
 
         /// <summary>
         /// Replaces all control characters in a string with a single space.
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all control characters replaced as a single space.</returns>
-        public static string ReplaceControlCharacters(this string value)
-        {
-            return value.ReplaceControlCharacters(' ');
-        }
+        public static string ReplaceControlCharacters(this string value) => value.ReplaceControlCharacters(' ');
 
         /// <summary>
         /// Replaces all control characters in a string with specified replacement character.
@@ -775,20 +724,14 @@ namespace Gemstone.StringExtensions
         /// <param name="replacementCharacter">Character used to "replace" control characters.</param>
         /// <returns>Returns <paramref name="value" /> with all control characters replaced.</returns>
         /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-        public static string ReplaceControlCharacters(this string value, char replacementCharacter)
-        {
-            return value.ReplaceCharacters(replacementCharacter, char.IsControl);
-        }
+        public static string ReplaceControlCharacters(this string value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, char.IsControl);
 
         /// <summary>
         /// Removes all carriage returns and line feeds from a string.
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all CR and LF characters removed.</returns>
-        public static string RemoveCrLfs(this string value)
-        {
-            return value.RemoveCharacters(c => c == '\r' || c == '\n');
-        }
+        public static string RemoveCrLfs(this string value) => value.RemoveCharacters(c => c == '\r' || c == '\n');
 
         /// <summary>
         /// Replaces all carriage return and line feed characters (as well as CR/LF sequences) in a string with specified replacement character.
@@ -821,12 +764,10 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(duplicatedValue))
                 return value;
 
-            string duplicate = duplicatedValue + duplicatedValue;
+            string duplicate = $"{duplicatedValue}{duplicatedValue}";
 
             while (value.IndexOf(duplicate, StringComparison.Ordinal) > -1)
-            {
                 value = value.Replace(duplicate, duplicatedValue);
-            }
 
             return value;
         }
@@ -843,10 +784,7 @@ namespace Gemstone.StringExtensions
 
             int nullPos = value.IndexOf('\0');
 
-            if (nullPos > -1)
-                return value.Substring(0, nullPos);
-
-            return value;
+            return nullPos > -1 ? value.Substring(0, nullPos) : value;
         }
 
         /// <summary>
@@ -854,10 +792,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all duplicate white space removed.</returns>
-        public static string RemoveDuplicateWhiteSpace(this string value)
-        {
-            return value.RemoveDuplicateWhiteSpace(' ');
-        }
+        public static string RemoveDuplicateWhiteSpace(this string value) => value.RemoveDuplicateWhiteSpace(' ');
 
         /// <summary>
         /// Replaces all repeating white space with specified spacing character.
@@ -873,12 +808,9 @@ namespace Gemstone.StringExtensions
 
             StringBuilder result = new StringBuilder();
             bool lastCharWasSpace = false;
-            char character;
 
-            for (int x = 0; x < value.Length; x++)
+            foreach (char character in value)
             {
-                character = value[x];
-
                 if (char.IsWhiteSpace(character))
                 {
                     lastCharWasSpace = true;
@@ -901,10 +833,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all invalid file name characters removed.</returns>
-        public static string RemoveInvalidFileNameCharacters(this string value)
-        {
-            return value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
-        }
+        public static string RemoveInvalidFileNameCharacters(this string value) => value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
 
         /// <summary>
         /// Replaces all invalid file name characters (\ / : * ? " &lt; &gt; |) in a string with the specified <paramref name="replacementCharacter"/>.
@@ -912,10 +841,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string.</param>
         /// <param name="replacementCharacter">Character used to replace the invalid characters.</param>
         /// <returns>>Returns <paramref name="value" /> with all invalid file name characters replaced.</returns>
-        public static string ReplaceInvalidFileNameCharacters(this string value, char replacementCharacter)
-        {
-            return value.ReplaceCharacters(replacementCharacter, c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
-        }
+        public static string ReplaceInvalidFileNameCharacters(this string value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
 
         /// <summary>
         /// Wraps <paramref name="value"/> in the <paramref name="quoteChar"/>.
@@ -949,21 +875,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string.</param>
         /// <param name="characterToCount">Character to be counted.</param>
         /// <returns>Total number of the occurrences of <paramref name="characterToCount" /> in the given string.</returns>
-        public static int CharCount(this string value, char characterToCount)
-        {
-            if (string.IsNullOrEmpty(value))
-                return 0;
-
-            int total = 0;
-
-            for (int x = 0; x < value.Length; x++)
-            {
-                if (value[x] == characterToCount)
-                    total++;
-            }
-
-            return total;
-        }
+        public static int CharCount(this string value, char characterToCount) => string.IsNullOrEmpty(value) ? 0 : value.Count(t => t == characterToCount);
 
         /// <summary>
         /// Tests to see if a string is contains only digits based on Char.IsDigit function.
@@ -978,16 +890,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length == 0)
-                return false;
-
-            for (int x = 0; x < value.Length; x++)
-            {
-                if (!char.IsDigit(value[x]))
-                    return false;
-            }
-
-            return true;
+            return value.Length != 0 && value.All(char.IsDigit);
         }
 
         /// <summary>
@@ -1003,16 +906,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length == 0)
-                return false;
-
-            for (int x = 0; x < value.Length; x++)
-            {
-                if (!char.IsNumber(value[x]))
-                    return false;
-            }
-
-            return true;
+            return value.Length != 0 && value.All(char.IsNumber);
         }
 
         /// <summary>
@@ -1027,16 +921,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length == 0)
-                return false;
-
-            for (int x = 0; x < value.Length; x++)
-            {
-                if (char.IsLetter(value[x]) && !char.IsUpper(value[x]))
-                    return false;
-            }
-
-            return true;
+            return value.Length != 0 && value.All(t => !char.IsLetter(t) || char.IsUpper(t));
         }
 
         /// <summary>
@@ -1051,16 +936,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            if (value.Length == 0)
-                return false;
-
-            for (int x = 0; x < value.Length; x++)
-            {
-                if (char.IsLetter(value[x]) && !char.IsLower(value[x]))
-                    return false;
-            }
-
-            return true;
+            return value.Length != 0 && value.All(t => !char.IsLetter(t) || char.IsLower(t));
         }
 
         /// <summary>
@@ -1070,10 +946,7 @@ namespace Gemstone.StringExtensions
         /// <returns>True, if all string's characters are letters; otherwise, false.</returns>
         /// <remarks>Any non-letter character (e.g., punctuation marks) causes this function to return false (See overload to ignore punctuation
         /// marks.).</remarks>
-        public static bool IsAllLetters(this string value)
-        {
-            return value.IsAllLetters(false);
-        }
+        public static bool IsAllLetters(this string value) => value.IsAllLetters(false);
 
         /// <summary>
         /// Tests to see if a string contains only letters.
@@ -1091,16 +964,16 @@ namespace Gemstone.StringExtensions
             if (value.Length == 0)
                 return false;
 
-            for (int x = 0; x < value.Length; x++)
+            foreach (char t in value)
             {
                 if (ignorePunctuation)
                 {
-                    if (!(char.IsLetter(value[x]) || char.IsPunctuation(value[x])))
+                    if (!(char.IsLetter(t) || char.IsPunctuation(t)))
                         return false;
                 }
                 else
                 {
-                    if (!char.IsLetter(value[x]))
+                    if (!char.IsLetter(t))
                         return false;
                 }
             }
@@ -1115,10 +988,7 @@ namespace Gemstone.StringExtensions
         /// <returns>True, if all string's characters are either letters or digits; otherwise, false.</returns>
         /// <remarks>Any non-letter, non-digit character (e.g., punctuation marks) causes this function to return false (See overload to ignore
         /// punctuation marks.).</remarks>
-        public static bool IsAllLettersOrDigits(this string value)
-        {
-            return value.IsAllLettersOrDigits(false);
-        }
+        public static bool IsAllLettersOrDigits(this string value) => value.IsAllLettersOrDigits(false);
 
         /// <summary>
         /// Tests to see if a string contains only letters or digits.
@@ -1136,16 +1006,16 @@ namespace Gemstone.StringExtensions
             if (value.Length == 0)
                 return false;
 
-            for (int x = 0; x < value.Length; x++)
+            foreach (char t in value)
             {
                 if (ignorePunctuation)
                 {
-                    if (!(char.IsLetterOrDigit(value[x]) || char.IsPunctuation(value[x])))
+                    if (!(char.IsLetterOrDigit(t) || char.IsPunctuation(t)))
                         return false;
                 }
                 else
                 {
-                    if (!char.IsLetterOrDigit(value[x]))
+                    if (!char.IsLetterOrDigit(t))
                         return false;
                 }
             }
@@ -1195,16 +1065,14 @@ namespace Gemstone.StringExtensions
         /// <returns>The given string as a <see cref="SecureString"/>.</returns>
         public static SecureString ToSecureString(this string value)
         {
-            SecureString secureString;
-
-            if ((object)value == null)
+            if (value == null)
                 return null;
 
             unsafe
             {
                 fixed (char* chars = value)
                 {
-                    secureString = new SecureString(chars, value.Length);
+                    SecureString secureString = new SecureString(chars, value.Length);
                     secureString.MakeReadOnly();
 
                     return secureString;
@@ -1212,38 +1080,38 @@ namespace Gemstone.StringExtensions
             }
         }
 
-        /// <summary>
-        /// Converts the given <see cref="SecureString"/> into a <see cref="string"/>.
-        /// </summary>
-        /// <param name="value">The <see cref="SecureString"/> to be converted.</param>
-        /// <returns>The given <see cref="SecureString"/> as a <see cref="string"/>.</returns>
-        /// <remarks>
-        /// This method is UNSAFE, as it stores your secure string data in clear text in memory.
-        /// Since strings are immutable, that memory cannot be cleaned up until all references to
-        /// the string are removed and the garbage collector deallocates it. Only use this method
-        /// to interface with APIs that do not support the use of <see cref="SecureString"/> for
-        /// sensitive text data.
-        /// </remarks>
-        public static string ToUnsecureString(this SecureString value)
-        {
-            IntPtr intPtr;
+        ///// <summary>
+        ///// Converts the given <see cref="SecureString"/> into a <see cref="string"/>.
+        ///// </summary>
+        ///// <param name="value">The <see cref="SecureString"/> to be converted.</param>
+        ///// <returns>The given <see cref="SecureString"/> as a <see cref="string"/>.</returns>
+        ///// <remarks>
+        ///// This method is UNSAFE, as it stores your secure string data in clear text in memory.
+        ///// Since strings are immutable, that memory cannot be cleaned up until all references to
+        ///// the string are removed and the garbage collector deallocates it. Only use this method
+        ///// to interface with APIs that do not support the use of <see cref="SecureString"/> for
+        ///// sensitive text data.
+        ///// </remarks>
+        //public static string ToUnsecureString(this SecureString value)
+        //{
+        //    IntPtr intPtr;
 
-            if (value == null)
-                return null;
+        //    if (value == null)
+        //        return null;
 
-            intPtr = IntPtr.Zero;
+        //    intPtr = IntPtr.Zero;
 
-            try
-            {
-                intPtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+        //    try
+        //    {
+        //        intPtr = Marshal.SecureStringToGlobalAllocUnicode(value);
 
-                return Marshal.PtrToStringUni(intPtr);
-            }
-            finally
-            {
-                Marshal.ZeroFreeGlobalAllocUnicode(intPtr);
-            }
-        }
+        //        return Marshal.PtrToStringUni(intPtr);
+        //    }
+        //    finally
+        //    {
+        //        Marshal.ZeroFreeGlobalAllocUnicode(intPtr);
+        //    }
+        //}
 
         /// <summary>
         /// Converts the provided string into title case (upper case first letter of each word).
@@ -1313,10 +1181,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return "";
 
-            if (value.Length > maxLength)
-                return value.Substring(value.Length - maxLength);
-
-            return value;
+            return value.Length > maxLength ? value.Substring(value.Length - maxLength) : value;
         }
 
         /// <summary>
@@ -1330,10 +1195,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return "";
 
-            if (value.Length > maxLength)
-                return value.Substring(0, maxLength);
-
-            return value;
+            return value.Length > maxLength ? value.Substring(0, maxLength) : value;
         }
 
         /// <summary>
@@ -1388,12 +1250,10 @@ namespace Gemstone.StringExtensions
                 else
                 {
                     int remainingSpace = maxLength - line.Length;
-                    int leftSpaces;
-                    int rightSpaces;
 
                     // Splits remaining space between the left and the right.
-                    leftSpaces = remainingSpace / 2;
-                    rightSpaces = leftSpaces;
+                    int leftSpaces = remainingSpace / 2;
+                    int rightSpaces = leftSpaces;
 
                     // Adds any remaining odd space to the right (bias text to the left).
                     if (remainingSpace % 2 > 0)
@@ -1419,10 +1279,7 @@ namespace Gemstone.StringExtensions
         /// <param name="fromText">The value to replace.</param>
         /// <param name="toText">The new value to be inserted</param>
         /// <returns>A string with replacements.</returns>
-        public static string ReplaceCaseInsensitive(this string value, string fromText, string toText)
-        {
-            return new Regex(Regex.Escape(fromText), RegexOptions.IgnoreCase | RegexOptions.Multiline).Replace(value, toText);
-        }
+        public static string ReplaceCaseInsensitive(this string value, string fromText, string toText) => new Regex(Regex.Escape(fromText), RegexOptions.IgnoreCase | RegexOptions.Multiline).Replace(value, toText);
 
         /// <summary>
         /// Ensures a string starts with a specific character.
@@ -1447,15 +1304,10 @@ namespace Gemstone.StringExtensions
             if (startChar == 0)
                 return value;
 
-            if (value[0] == startChar)
-            {
-                if (removeRepeatingChar)
-                    return value.Substring(LastIndexOfRepeatedChar(value, startChar, 0));
+            if (value[0] != startChar)
+                return string.Concat(startChar, value);
 
-                return value;
-            }
-
-            return string.Concat(startChar, value);
+            return removeRepeatingChar ? value.Substring(LastIndexOfRepeatedChar(value, startChar, 0)) : value;
         }
 
         /// <summary>
@@ -1472,10 +1324,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(startString))
                 return value;
 
-            if (value.IndexOf(startString, StringComparison.Ordinal) == 0)
-                return value;
-
-            return string.Concat(startString, value);
+            return value.IndexOf(startString, StringComparison.Ordinal) == 0 ? value : string.Concat(startString, value);
         }
 
         /// <summary>
@@ -1501,19 +1350,16 @@ namespace Gemstone.StringExtensions
             if (endChar == 0)
                 return value;
 
-            if (value[value.Length - 1] == endChar)
-            {
-                if (removeRepeatingChar)
-                {
-                    int i = LastIndexOfRepeatedChar(value.Reverse(), endChar, 0);
+            if (value[value.Length - 1] != endChar)
+                return string.Concat(value, endChar);
 
-                    return value.Substring(0, value.Length - i);
-                }
-
+            if (!removeRepeatingChar)
                 return value;
-            }
 
-            return string.Concat(value, endChar);
+            int i = LastIndexOfRepeatedChar(value.Reverse(), endChar, 0);
+
+            return value.Substring(0, value.Length - i);
+
         }
 
         /// <summary>
@@ -1530,10 +1376,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(endString))
                 return value;
 
-            if (value.EndsWith(endString, StringComparison.Ordinal))
-                return value;
-
-            return string.Concat(value, endString);
+            return value.EndsWith(endString, StringComparison.Ordinal) ? value : string.Concat(value, endString);
         }
 
         /// <summary>
@@ -1639,10 +1482,7 @@ namespace Gemstone.StringExtensions
                 if (value[i] != c)
                     c = value[i];
                 else
-                {
-                    //at least one repeating character
-                    return i - 1;
-                }
+                    return i - 1; // At least one repeating character
             }
 
             return -1;
@@ -1700,7 +1540,7 @@ namespace Gemstone.StringExtensions
 
             int s1Len = length / 2 - 1;
 
-            return string.Concat(value.Substring(0, s1Len), "...", value.Substring(value.Length - s1Len + 1 - length % 2));
+            return $"{value.Substring(0, s1Len)}...{value.Substring(value.Length - s1Len + 1 - length % 2)}";
         }
 
         /// <summary>
@@ -1724,7 +1564,7 @@ namespace Gemstone.StringExtensions
 
             value = value.Trim();
 
-            return value.Length <= length ? value : string.Concat(value.Substring(0, length - 3), "...");
+            return value.Length <= length ? value : $"{value.Substring(0, length - 3)}...";
         }
 
         /// <summary>
@@ -1737,8 +1577,6 @@ namespace Gemstone.StringExtensions
         {
             return Uri.EscapeDataString(value);
         }
-
-        //**********  New methods July 2017, To Be Tested   ********************
 
         /// <summary>
         /// Removes one or more instances of a specified string from the beginning of a string.
@@ -1831,12 +1669,7 @@ namespace Gemstone.StringExtensions
                 return "0";
 
             if (AssureParseDouble)
-            {
-                if (!double.TryParse(value, out double test))
-                    return "0";
-
-                return test.ToString(CultureInfo.InvariantCulture);
-            }
+                return !double.TryParse(value, out double test) ? "0" : test.ToString(CultureInfo.InvariantCulture);
 
             bool isNeg = false;
 
@@ -1855,10 +1688,10 @@ namespace Gemstone.StringExtensions
             }
 
             if (value.Substring(0, 1) == ".")
-                value = "0" + value;
+                value = $"0{value}";
 
             if (isNeg && value != "0.0")
-                value = "-" + value;
+                value = $"-{value}";
 
             return value;
         }
@@ -1926,9 +1759,7 @@ namespace Gemstone.StringExtensions
             for (int i = value.Length - 1; i > -1; i--)
             {
                 if (value[i] != charToRemove)
-                {
                     return result.Substring(0, i + 1);
-                }
             }
 
             //all the characters are to be removed.
@@ -1946,10 +1777,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value) || length <= 0)
                 return string.Empty;
 
-            if (value.Length <= length)
-                return value;
-
-            return value.Substring(value.Length - length);
+            return value.Length <= length ? value : value.Substring(value.Length - length);
         }
 
         /// <summary>
@@ -1995,12 +1823,8 @@ namespace Gemstone.StringExtensions
                 return -1;
 
             if (startIndex > value.Length - 1 || startIndex - testString.Length + 1 < 0)
-            {
-                //return -1;
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
-            }
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
-            //this is the fastest way to do this 
             string s = value.Reverse();
             string v = testString.Reverse();
             int i = s.IndexOf(v, s.Length - startIndex - 1, matchCase ? StringComparison.Ordinal : StringComparison.OrdinalIgnoreCase);
@@ -2030,7 +1854,7 @@ namespace Gemstone.StringExtensions
                 return -1;
 
             if (startIndex > value.Length - 1)
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
             for (int j = startIndex; j > -1; j--)
             {
@@ -2053,14 +1877,14 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if ((object)characterTestFunction == null)
+            if (characterTestFunction == null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex < 0)
                 return -1;
 
             if (startIndex > value.Length - 1)
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
             for (int j = startIndex; j > -1; j--)
             {
@@ -2090,7 +1914,7 @@ namespace Gemstone.StringExtensions
                 return -1;
 
             if (startIndex > value.Length - 1)
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
             for (int j = startIndex; j > -1; j--)
             {
@@ -2120,11 +1944,11 @@ namespace Gemstone.StringExtensions
                 return -1;
 
             if (startIndex > value.Length - 1)
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
             for (int j = startIndex; j > -1; j--)
             {
-                if (!anyOf.Any(c => c == value[j]))
+                if (anyOf.All(c => c != value[j]))
                     return j;
             }
 
@@ -2143,14 +1967,14 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if ((object)characterTestFunction == null)
+            if (characterTestFunction == null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex < 0)
                 return -1;
 
             if (startIndex > value.Length - 1)
-                throw new ArgumentException("IndexOfPrevious startIndex Invalid " + startIndex.ToString());
+                throw new ArgumentException($"IndexOfPrevious startIndex is invalid: {startIndex}");
 
             for (int j = startIndex; j > -1; j--)
             {
@@ -2181,7 +2005,7 @@ namespace Gemstone.StringExtensions
 
             for (int i = startIndex; i < value.Length; i++)
             {
-                if (!anyOf.Any(c => value[i] == c))
+                if (anyOf.All(c => value[i] != c))
                     return i;
             }
 
@@ -2227,7 +2051,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if ((object)characterTestFunction == null)
+            if (characterTestFunction == null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex >= value.Length)
@@ -2260,9 +2084,7 @@ namespace Gemstone.StringExtensions
                 return 0;
 
             if (startIndex >= value.Length)
-            {
-                throw new ArgumentException("StringCount startIndex Invalid " + startIndex.ToString());
-            }
+                throw new ArgumentException($"StringCount startIndex is invalid: {startIndex}");
 
             if (string.IsNullOrEmpty(testString))
                 return 0;
@@ -2286,8 +2108,8 @@ namespace Gemstone.StringExtensions
         /// <param name="value">The string to process</param>
         /// <param name="quoteChar">The quote char to use.  Default is double quote. Due to trimming, quoteChar of whitespace is not allowed.</param>
         /// <remarks> 
-        ///           To remove all quote chars at beginning and end of a string regardless of match use .Trim('"')  It's faster.
-        ///           Three consecutive quotes assures a singe quote char in output.
+        /// To remove all quote chars at beginning and end of a string regardless of match use .Trim('"')  It's faster.
+        /// Three consecutive quotes assures a singe quote char in output.
         /// </remarks>
         /// <returns>The sent string with matched surrounding quotes removed.</returns>
         public static string QuoteUnwrap(this string value, char quoteChar = '"')

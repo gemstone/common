@@ -34,33 +34,21 @@ namespace Gemstone.Collections
         /// <summary>
         /// Gets total count of elements in enumeration.
         /// </summary>
-        int TotalCount
-        {
-            get;
-        }
+        int TotalCount { get; }
 
         /// <summary>
         /// Gets calculated page count based on page size and total items count.
         /// </summary>
-        int PageCount
-        {
-            get;
-        }
+        int PageCount { get; }
 
         /// <summary>
         /// Gets current page number.
         /// </summary>
-        int Page
-        {
-            get;
-        }
+        int Page { get; }
 
         /// <summary>
         /// Gets current page size.
         /// </summary>
-        int PageSize
-        {
-            get;
-        }
+        int PageSize { get; }
     }
 }

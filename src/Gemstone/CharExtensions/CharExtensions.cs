@@ -46,15 +46,15 @@ namespace Gemstone.CharExtensions
     public static class CharExtensions
     {
         // so that this only happens one time
-        private static readonly char[] wordSeperators = { '\"', '/', '\\', '<', '>', '=', '{', '}', '(', ')', '[', ']', '@', '*' };
-        private static readonly char[] numericValues = { '-', '+', ',', '.' };
+        private static readonly char[] s_wordSeperators = { '\"', '/', '\\', '<', '>', '=', '{', '}', '(', ')', '[', ']', '@', '*' };
+        private static readonly char[] s_numericValues = { '-', '+', ',', '.' };
 
         /// <summary>
         /// Encodes the specified Unicode character in proper Regular Expression format.
         /// </summary>
         /// <param name="item">Unicode character to encode in Regular Expression format.</param>
         /// <returns>Specified Unicode character in proper Regular Expression format.</returns>
-        public static string RegexEncode(this char item) => "\\u" + Convert.ToUInt16(item).ToString("x").PadLeft(4, '0');
+        public static string RegexEncode(this char item) => $"\\u{Convert.ToUInt16(item).ToString("x").PadLeft(4, '0')}";
 
         /// <summary>
         /// Tests a character to determine if it marks the end of a typical English word.
@@ -79,14 +79,14 @@ namespace Gemstone.CharExtensions
             char.IsWhiteSpace(value) || 
             char.IsSymbol(value) || 
             char.IsControl(value) || 
-            value.IsAnyOf(wordSeperators);
+            value.IsAnyOf(s_wordSeperators);
 
         /// <summary>
         /// Tests a character to determine if is a common part of a numeric string (digits or one of "+ - , .")
         /// </summary>
         /// <param name="value">The character to check.</param>
         /// <returns><c>true</c> if numeric character.</returns>
-        public static bool IsNumeric(this char value) => char.IsDigit(value) || value.IsAnyOf(numericValues);
+        public static bool IsNumeric(this char value) => char.IsDigit(value) || value.IsAnyOf(s_numericValues);
 
         /// <summary>
         /// Determines if a character matches any character in a sent array.

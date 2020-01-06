@@ -70,6 +70,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
+#pragma warning disable IDE1006 // Naming Styles
+
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -171,17 +173,13 @@ namespace Gemstone.Units
         /// <returns><see cref="Current"/> converted to <paramref name="targetUnit"/>.</returns>
         public double ConvertTo(CurrentUnit targetUnit)
         {
-            switch (targetUnit)
+            return targetUnit switch
             {
-                case CurrentUnit.Amperes:
-                    return m_value;
-                case CurrentUnit.Abamperes:
-                    return ToAbamperes();
-                case CurrentUnit.Statamperes:
-                    return ToStatamperes();
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null);
-            }
+                CurrentUnit.Amperes => m_value,
+                CurrentUnit.Abamperes => ToAbamperes(),
+                CurrentUnit.Statamperes => ToStatamperes(),
+                _ => throw new ArgumentOutOfRangeException(nameof(targetUnit), targetUnit, null)
+            };
         }
 
         #region [ Numeric Interface Implementations ]
@@ -834,17 +832,13 @@ namespace Gemstone.Units
         /// <returns>New <see cref="Current"/> from the specified <paramref name="value"/> in <paramref name="sourceUnit"/>.</returns>
         public static Current ConvertFrom(double value, CurrentUnit sourceUnit)
         {
-            switch (sourceUnit)
+            return sourceUnit switch
             {
-                case CurrentUnit.Amperes:
-                    return value;
-                case CurrentUnit.Abamperes:
-                    return FromAbamperes(value);
-                case CurrentUnit.Statamperes:
-                    return FromStatamperes(value);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null);
-            }
+                CurrentUnit.Amperes => value,
+                CurrentUnit.Abamperes => FromAbamperes(value),
+                CurrentUnit.Statamperes => FromStatamperes(value),
+                _ => throw new ArgumentOutOfRangeException(nameof(sourceUnit), sourceUnit, null)
+            };
         }
 
         #endregion

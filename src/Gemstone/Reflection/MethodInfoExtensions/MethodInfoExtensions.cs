@@ -62,7 +62,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                 ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                 Expression targetType = null;
 
-                if (!method.IsStatic)
+                if (!method.IsStatic && method.DeclaringType != null)
                     targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                 // Call items
@@ -100,7 +100,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -141,7 +141,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -184,7 +184,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -222,7 +222,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -262,7 +262,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -304,7 +304,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items
@@ -348,7 +348,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
                     Expression targetType = null;
 
-                    if (!method.IsStatic)
+                    if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
                     // Call items

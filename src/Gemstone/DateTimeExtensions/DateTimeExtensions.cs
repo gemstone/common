@@ -174,7 +174,10 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => 
+            destinationTimeZoneStandardName == null ? 
+                throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+                TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>Converts given local time to time in specified time zone.</summary>
         /// <param name="timestamp">Timestamp in local time to be converted to time in specified time zone.</param>
@@ -182,7 +185,10 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
+        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => 
+            destinationTimeZone == null ? 
+                throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+                TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
 
         /// <summary>
         /// Converts the specified Universally Coordinated Time timestamp to Eastern time timestamp.
@@ -219,7 +225,10 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZoneStandardName">The time zone standard name to which the Universally
         /// Coordinated Time timestamp is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => 
+            destinationTimeZoneStandardName == null ? 
+                throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+                TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>
         /// Converts the specified Universally Coordinated Time timestamp to timestamp in specified time zone.
@@ -228,7 +237,10 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZone">The time zone to which the Universally Coordinated Time timestamp
         /// is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => 
+            destinationTimeZone == null ? 
+                throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+                TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
 
         /// <summary>Converts given timestamp from one time zone to another using standard names for time zones.</summary>
         /// <param name="timestamp">Timestamp in source time zone to be converted to time in destination time zone.</param>

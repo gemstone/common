@@ -44,12 +44,13 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Gemstone.IO;
 using Gemstone.Reflection.AssemblyExtensions;
+
+#pragma warning disable CA1031 // Do not catch general exception types
 
 namespace Gemstone.TypeExtensions
 {
@@ -71,10 +72,7 @@ namespace Gemstone.TypeExtensions
         /// This expression returns <c>true</c> if the type is one of the following:<br/><br/>
         ///     SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal
         /// </remarks>
-        public static bool IsNumeric(this Type type)
-        {
-            return s_numericTypes.Contains(type);
-        }
+        public static bool IsNumeric(this Type type) => s_numericTypes.Contains(type);
 
         /// <summary>
         /// Gets the friendly class name of the provided type, trimming generic parameters.
@@ -114,11 +112,14 @@ namespace Gemstone.TypeExtensions
         /// </remarks>
         public static Type GetRootType(this Type type)
         {
-            // Recurse through types until you reach a base type of "System.Object" or "System.MarshalByRef".
-            if (type.BaseType == null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
-                return type;
+            while (true)
+            {
+                // Recurse through types until you reach a base type of "System.Object" or "System.MarshalByRef".
+                if (type.BaseType == null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
+                    return type;
 
-            return GetRootType(type.BaseType);
+                type = type.BaseType;
+            }
         }
 
         /// <summary>
@@ -127,10 +128,7 @@ namespace Gemstone.TypeExtensions
         /// </summary>
         /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
         /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-        public static List<Type> LoadImplementations(this Type type)
-        {
-            return LoadImplementations(type, true);
-        }
+        public static List<Type> LoadImplementations(this Type type) => LoadImplementations(type, true);
 
         /// <summary>
         /// Loads public types from assemblies in the application binaries directory that implement the specified 
@@ -139,10 +137,7 @@ namespace Gemstone.TypeExtensions
         /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
         /// <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
         /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-        public static List<Type> LoadImplementations(this Type type, bool excludeAbstractTypes)
-        {
-            return LoadImplementations(type, string.Empty, excludeAbstractTypes);
-        }
+        public static List<Type> LoadImplementations(this Type type, bool excludeAbstractTypes) => LoadImplementations(type, string.Empty, excludeAbstractTypes);
 
         /// <summary>
         /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 
@@ -151,10 +146,7 @@ namespace Gemstone.TypeExtensions
         /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
         /// <param name="binariesDirectory">The directory containing the assemblies to be processed.</param>
         /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-        public static List<Type> LoadImplementations(this Type type, string binariesDirectory)
-        {
-            return LoadImplementations(type, binariesDirectory, true);
-        }
+        public static List<Type> LoadImplementations(this Type type, string binariesDirectory) => LoadImplementations(type, binariesDirectory, true);
 
         /// <summary>
         /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 
@@ -199,29 +191,20 @@ namespace Gemstone.TypeExtensions
 
                             // Either the current type is not abstract or it's OK to include abstract types.
                             if (type.IsClass && asmType.IsSubclassOf(type))
-                            {
-                                // The type being tested is a class and current type derives from it.
-                                types.Add(asmType);
-                            }
+                                types.Add(asmType); // The type being tested is a class and current type derives from it.
 
-                            if (type.IsInterface && (object)asmType.GetInterface(type.FullName) != null)
-                            {
-                                // The type being tested is an interface and current type implements it.
-                                types.Add(asmType);
-                            }
+                            if (type.IsInterface && asmType.GetInterface(type.FullName) != null)
+                                types.Add(asmType); // The type being tested is an interface and current type implements it.
 
                             if (type.GetRootType() == typeof(Attribute) && asmType.GetCustomAttributes(type, true).Length > 0)
-                            {
-                                // The type being tested is an attribute and current type has the attribute.
-                                types.Add(asmType);
-                            }
+                                types.Add(asmType); // The type being tested is an attribute and current type has the attribute.
                         }
                     }
                 }
                 catch (Exception ex)
                 {
                     // Absorb any exception thrown while processing the assembly.
-                    LibraryEvents.OnSuppressedException(typeof(TypeExtensions), new Exception($"Type load error occurred: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(typeof(TypeExtensions), new Exception($"Type load exception: {ex.Message}", ex));
                 }
             }
 

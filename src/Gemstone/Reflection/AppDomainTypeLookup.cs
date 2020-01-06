@@ -25,6 +25,8 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
+#pragma warning disable CA1031 // Do not catch general exception types
+
 namespace Gemstone.Reflection
 {
     /// <summary>
@@ -69,7 +71,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
         /// </summary>
-        /// <returns>List of founf types.</returns>
+        /// <returns>List of found types.</returns>
         public List<Type> FindTypes()
         {
             if (!HasChanged)
@@ -104,7 +106,7 @@ namespace Gemstone.Reflection
             }
             catch (Exception ex)
             {
-                LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
             }
 
             return types;
@@ -122,7 +124,7 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
                 }
             }
         }
@@ -139,7 +141,7 @@ namespace Gemstone.Reflection
             {
                 // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
                 // to enumerate the types that did not error.
-                LibraryEvents.OnSuppressedException(this, new Exception($"Reflection Load Error Occurred: {ex.Message}", ex));
+                LibraryEvents.OnSuppressedException(this, new Exception($"Reflection load exception: {ex.Message}", ex));
                 types = ex.Types;
             }
 
@@ -152,7 +154,7 @@ namespace Gemstone.Reflection
                 }
                 catch (Exception ex)
                 {
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Static Constructor Error: {ex.Message}", ex));
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
                 }
             }
         }

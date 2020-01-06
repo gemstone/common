@@ -31,7 +31,7 @@ namespace Gemstone.Reflection
     /// </summary>
     public static class AssemblyLoadedVersionNumber
     {
-        private static int s_versionNumber;
+        private static int s_versionNumber = 1;
 
         /// <summary>
         /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
@@ -40,7 +40,6 @@ namespace Gemstone.Reflection
 
         static AssemblyLoadedVersionNumber()
         {
-            s_versionNumber = 1;
             AppDomain.CurrentDomain.AssemblyLoad += (sender, args) => Interlocked.Increment(ref s_versionNumber);
         }
     }

@@ -41,7 +41,7 @@ namespace Gemstone.Security.Cryptography
     /// </summary>
     public static class Random
     {
-        private static readonly RNGCryptoServiceProvider RandomNumberGenerator = new RNGCryptoServiceProvider();
+        private static readonly RNGCryptoServiceProvider s_randomNumberGenerator = new RNGCryptoServiceProvider();
 
         /// <summary>
         /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one. i.e. [0-1)
@@ -80,7 +80,7 @@ namespace Gemstone.Security.Cryptography
         /// </remarks>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <exception cref="ArgumentNullException">buffer is null.</exception>
-        public static void GetBytes(byte[] buffer) => RandomNumberGenerator.GetBytes(buffer);
+        public static void GetBytes(byte[] buffer) => s_randomNumberGenerator.GetBytes(buffer);
 
         /// <summary>
         /// Generates a cryptographically strong random boolean (i.e., a coin toss).
@@ -92,7 +92,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[1];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return (value[0] & 1) == 0;
             }
@@ -108,7 +108,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[1];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return value[0];
             }
@@ -139,7 +139,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[2];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToInt16(value, 0);
             }
@@ -170,7 +170,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[2];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToUInt16(value, 0);
             }
@@ -201,7 +201,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[4];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToInt32(value, 0);
             }
@@ -232,7 +232,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[4];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToUInt32(value, 0);
             }
@@ -263,7 +263,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[8];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToInt64(value, 0);
             }
@@ -294,7 +294,7 @@ namespace Gemstone.Security.Cryptography
             {
                 byte[] value = new byte[8];
 
-                RandomNumberGenerator.GetBytes(value);
+                s_randomNumberGenerator.GetBytes(value);
 
                 return BitConverter.ToUInt64(value, 0);
             }
