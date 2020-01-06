@@ -23,8 +23,8 @@
 
 using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Gemstone.EventHandlerExtensions;
 
 [assembly: InternalsVisibleTo("Gemstone.Data")]
 [assembly: InternalsVisibleTo("Gemstone.Expressions")]
@@ -32,7 +32,9 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("Gemstone.Numeric")]
 [assembly: InternalsVisibleTo("Gemstone.Threading")]
 
+#pragma warning disable CA1031 // Do not catch general exception types
 // ReSharper disable DelegateSubtraction
+
 namespace Gemstone
 {
     /// <summary>
@@ -64,67 +66,30 @@ namespace Gemstone
         }
 
         internal static void OnSuppressedException(object sender, Exception ex) =>
-            ExecuteSafeEventPropagation(
+            SafeInvoke(
                 s_suppressedExceptionHandler,
                 s_suppressedExceptionLock,
                 nameof(SuppressedException),
                 sender,
                 new UnhandledExceptionEventArgs(ex, false));
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
-        private static void ExecuteSafeEventPropagation<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string eventName, object sender, TEventArgs args)
+        private static void SafeInvoke<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string eventName, object sender, TEventArgs args)
         {
-            if (eventHandler == null)
-                return;
+            void exceptionHandler(Exception ex, EventHandler<TEventArgs> handler) =>
+                throw new Exception($"Failed in {eventName} event handler \"{GetHandlerName(handler)}\": {ex.Message}", ex);
 
-            Delegate[] handlers;
-
-            lock (eventLock)
-                handlers = eventHandler.GetInvocationList();
-
-            // Safely iterate each attached handler, continuing on possible exception, so no handlers are missed
-            foreach (Delegate handler in handlers)
-            {
-                if (!(handler is EventHandler<TEventArgs> userHandler))
-                    continue;
-
-                try
-                {
-                    userHandler(sender, args);
-                }
-                catch (Exception opex)
-                {
-                    LogUserHandlerException($"Failed in {eventName} event handler \"{GetHandlerName(userHandler)}\": {opex.Message}");
-                }
-            }
+            eventHandler.SafeInvoke(eventLock, exceptionHandler, sender, args);
         }
 
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         private static string GetHandlerName<TEventArgs>(EventHandler<TEventArgs> userHandler)
         {
             try
             {
                 return userHandler.Method.Name;
             }
-            catch (Exception ex)
-            {
-                LogUserHandlerException($"Failed to get event handler name: {ex.Message}");
-            }
-
-            return "<undetermined>";
-        }
-
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
-        private static void LogUserHandlerException(string message)
-        {
-            try
-            {
-                Debug.WriteLine(message);
-                System.Console.Error.WriteLine(message);
-            }
             catch
             {
-                // System.Console.Error can fail with IOException and ObjectDisposedException
+                return "<undetermined>";
             }
         }
     }
