@@ -31,8 +31,8 @@ This library includes helpful common classes like the following:
 * [Word](https://gemstone.github.io/common/help/html/T_Gemstone_Word.htm):
   * Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
 
-* [Units]()
-  * Namesspace defines units, e.g., [Angle](), useful for common unit and [SI]() conversions.
+* [Units](https://gemstone.github.io/common/help/html/N_Gemstone_Units.htm)
+  * Namesspace defines units, e.g., [Angle](https://gemstone.github.io/common/help/html/T_Gemstone_Units_Angle.htm), useful for common unit and [SI](https://gemstone.github.io/common/help/html/T_Gemstone_Units_SI.htm) conversions.
 
 * [UnixTimeTag](https://gemstone.github.io/common/help/html/T_Gemstone_UnixTimeTag.htm):
   * Represents a standard Unix timetag.
