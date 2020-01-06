@@ -46,6 +46,7 @@ This library includes helpful common classes like the following:
     * [CollectionExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_Collections_CollectionExtensions_CollectionExtensions.htm)
   * [DateTimeExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_DateTimeExtensions_DateTimeExtensions.htm)
   * [EnumExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_EnumExtensions_EnumExtensions.htm)
+  * [EventHandlerExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_EventHandlerExtensions_EventHandlerExtensions.htm)
   * [GuidExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_GuidExtensions_GuidExtensions.htm)
   * [IO](https://gemstone.github.io/common/help/html/N_Gemstone_IO.htm)
     * [StreamExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_IO_StreamExtensions_StreamExtensions.htm)
