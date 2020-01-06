@@ -191,68 +191,6 @@ namespace Gemstone.Security.Cryptography
             return (ushort)(GetRandomNumberLessThan((uint)stopNumber - (uint)startNumber) + (uint)startNumber);
         }
 
-        ///// <summary>
-        ///// Generates a cryptographically strong 24-bit random integer.
-        ///// </summary>
-        ///// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        //public static Int24 Int24
-        //{
-        //    get
-        //    {
-        //        byte[] value = new byte[3];
-
-        //        RandomNumberGenerator.GetBytes(value);
-
-        //        return Int24.GetValue(value, 0);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Generates a cryptographically strong 24-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
-        ///// </summary>
-        ///// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        ///// <param name="startNumber">A <see cref="Int24"/> that is the low end of our range.</param>
-        ///// <param name="stopNumber">A <see cref="Int24"/> that is the high end of our range.</param>
-        ///// <returns>A <see cref="Int24"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        //public static Int24 Int24Between(Int24 startNumber, Int24 stopNumber)
-        //{
-        //    if (stopNumber < startNumber)
-        //        throw new ArgumentException("stopNumber must be greater than startNumber");
-
-        //    return (Int24)(GetRandomNumberLessThan((int)stopNumber - (int)startNumber) + (int)startNumber);
-        //}
-
-        ///// <summary>
-        ///// Generates a cryptographically strong unsigned 24-bit random integer.
-        ///// </summary>
-        ///// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        //public static UInt24 UInt24
-        //{
-        //    get
-        //    {
-        //        byte[] value = new byte[3];
-
-        //        RandomNumberGenerator.GetBytes(value);
-
-        //        return UInt24.GetValue(value, 0);
-        //    }
-        //}
-
-        ///// <summary>
-        ///// Generates a cryptographically strong unsigned 24-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
-        ///// </summary>
-        ///// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        ///// <param name="startNumber">A <see cref="UInt24"/> that is the low end of our range.</param>
-        ///// <param name="stopNumber">A <see cref="UInt24"/> that is the high end of our range.</param>
-        ///// <returns>A <see cref="UInt24"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        //public static UInt24 Int24Between(UInt24 startNumber, UInt24 stopNumber)
-        //{
-        //    if (stopNumber < startNumber)
-        //        throw new ArgumentException("stopNumber must be greater than startNumber");
-
-        //    return (UInt24)(GetRandomNumberLessThan((uint)stopNumber - (uint)startNumber) + (uint)startNumber);
-        //}
-
         /// <summary>
         /// Generates a cryptographically strong 32-bit random integer.
         /// </summary>
@@ -385,7 +323,7 @@ namespace Gemstone.Security.Cryptography
         /// <remarks>
         /// if 0 is provided, 0 is returned
         /// </remarks>
-        private static uint GetRandomNumberLessThan(uint maxValue)
+        internal static uint GetRandomNumberLessThan(uint maxValue)
         {
             //  A crypto number cannot be achieved via *, /, or % since these 
             //operations have rounding and uneven redistribution properties. 
@@ -427,7 +365,7 @@ namespace Gemstone.Security.Cryptography
         /// <remarks>
         /// if 0 is provided, 0 is returned
         /// </remarks>
-        private static ulong GetRandomNumberLessThan(ulong maxValue)
+        internal static ulong GetRandomNumberLessThan(ulong maxValue)
         {
             // A crypto number cannot be achieved via *, /, or % since these 
             // operations have rounding and uneven redistribution properties. 
@@ -470,7 +408,7 @@ namespace Gemstone.Security.Cryptography
         /// A number less than a negative number rolls down to long.MinValue, then to long.MaxValue
         /// if 0 is provided, 0 is returned
         /// </remarks>
-        private static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
+        internal static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
 
         /// <summary>
         /// Returns a cryptographically strong number that is less the the supplied value
@@ -481,6 +419,6 @@ namespace Gemstone.Security.Cryptography
         /// A number less than a negative number rolls down to int.MinValue, then to int.MaxValue
         /// if 0 is provided, 0 is returned
         /// </remarks>
-        private static int GetRandomNumberLessThan(int maxValue) => (int)GetRandomNumberLessThan((uint)maxValue);
+        internal static int GetRandomNumberLessThan(int maxValue) => (int)GetRandomNumberLessThan((uint)maxValue);
     }
 }
