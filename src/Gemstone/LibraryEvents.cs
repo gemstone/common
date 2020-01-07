@@ -22,7 +22,6 @@
 //******************************************************************************************************
 
 using System;
-using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using Gemstone.EventHandlerExtensions;
 
@@ -31,6 +30,7 @@ using Gemstone.EventHandlerExtensions;
 [assembly: InternalsVisibleTo("Gemstone.IO")]
 [assembly: InternalsVisibleTo("Gemstone.Numeric")]
 [assembly: InternalsVisibleTo("Gemstone.Threading")]
+[assembly: InternalsVisibleTo("Gemstone.Security")]
 
 #pragma warning disable CA1031 // Do not catch general exception types
 // ReSharper disable DelegateSubtraction
