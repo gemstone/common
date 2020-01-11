@@ -2101,14 +2101,14 @@
     </member>
     <member name="T:Gemstone.NtpTimeTag">
       <summary>
-            Represents a standard Network Time Protocol (NTP) timetag.
+            Represents a standard Network Time Protocol (NTP) time-tag.
             </summary>
     </member>
     <member name="M:Gemstone.NtpTimeTag.#ctor(Gemstone.Ticks)">
       <summary>
             Creates a new <see cref="T:Gemstone.NtpTimeTag" />, given specified <see cref="T:Gemstone.Ticks" />.
             </summary>
-      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> to create Unix timetag from (minimum valid date is 1/1/1900).</param>
+      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> to create NTP time-tag from (minimum valid date is 1/1/1900).</param>
     </member>
     <member name="M:Gemstone.NtpTimeTag.#ctor(System.Decimal)">
       <summary>
@@ -2138,7 +2138,7 @@
     </member>
     <member name="F:Gemstone.NtpTimeTag.AlternateBaseTicks">
       <summary>
-            Number of ticks since since 2/7/2036 at 6h 28m 16s UTC when MSB is set.
+            Number of ticks since 2/7/2036 at 6h 28m 16s UTC when MSB is set.
             </summary>
     </member>
     <member name="F:Gemstone.NtpTimeTag.BaseTicks">
@@ -3146,21 +3146,21 @@
     </member>
     <member name="T:Gemstone.TimeTagBase">
       <summary>
-            Represents the base class for alternate timetag implementations.
+            Represents the base class for alternate time-tag implementations.
             </summary>
     </member>
     <member name="M:Gemstone.TimeTagBase.#ctor(System.Int64,Gemstone.Ticks)">
       <summary>
             Creates a new <see cref="T:Gemstone.TimeTagBase" />, given standard .NET <see cref="T:System.DateTime" />.
             </summary>
-      <param name="baseDateOffsetTicks">Ticks of timetag base.</param>
-      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> used to create timetag from.</param>
+      <param name="baseDateOffsetTicks">Ticks of time-tag base.</param>
+      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> used to create time-tag from.</param>
     </member>
     <member name="M:Gemstone.TimeTagBase.#ctor(System.Int64,System.Decimal)">
       <summary>
             Creates a new <see cref="T:Gemstone.TimeTagBase" />, given number base time (in ticks) and seconds since base time.
             </summary>
-      <param name="baseDateOffsetTicks">Ticks of timetag base.</param>
+      <param name="baseDateOffsetTicks">Ticks of time-tag base.</param>
       <param name="seconds">Number of seconds since base time.</param>
     </member>
     <member name="M:Gemstone.TimeTagBase.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
@@ -3172,7 +3172,7 @@
     </member>
     <member name="P:Gemstone.TimeTagBase.BaseDateOffsetTicks">
       <summary>
-            Gets ticks representing the absolute minimum time of this timetag implementation.
+            Gets ticks representing the absolute minimum time of this time-tag implementation.
             </summary>
     </member>
     <member name="M:Gemstone.TimeTagBase.CompareTo(Gemstone.TimeTagBase)">
@@ -3394,41 +3394,41 @@
     </member>
     <member name="M:Gemstone.TimeTagBase.ToDateTime">
       <summary>
-            Returns standard .NET <see cref="T:System.DateTime" /> representation for timetag.
+            Returns standard .NET <see cref="T:System.DateTime" /> representation for time-tag.
             </summary>
       <returns>A <see cref="T:System.DateTime" />.</returns>
     </member>
     <member name="M:Gemstone.TimeTagBase.ToString">
       <summary>
-            Returns basic textual representation for timetag.
+            Returns basic textual representation for time-tag.
             </summary>
-      <returns>A <see cref="T:System.String" /> value representing the timetag.</returns>
+      <returns>A <see cref="T:System.String" /> value representing the time-tag.</returns>
     </member>
     <member name="M:Gemstone.TimeTagBase.ToString(System.IFormatProvider)">
       <summary>
-            Returns textual representation for timetag using the specified <paramref name="provider" />.
+            Returns textual representation for time-tag using the specified <paramref name="provider" />.
             </summary>
       <param name="provider">An <see cref="T:System.IFormatProvider" /> that supplies culture-specific formatting information.</param>
       <returns>
-        <see cref="T:System.String" /> of textual representation for timetag.</returns>
+        <see cref="T:System.String" /> of textual representation for time-tag.</returns>
     </member>
     <member name="M:Gemstone.TimeTagBase.ToString(System.String)">
       <summary>
-            Returns textual representation for timetag in the specified <paramref name="format" />.
+            Returns textual representation for time-tag in the specified <paramref name="format" />.
             </summary>
       <param name="format">Format of text output.</param>
       <returns>
-        <see cref="T:System.String" /> of textual representation for timetag.</returns>
+        <see cref="T:System.String" /> of textual representation for time-tag.</returns>
     </member>
     <member name="M:Gemstone.TimeTagBase.ToString(System.String,System.IFormatProvider)">
       <summary>
-            Returns textual representation for timetag in the specified <paramref name="format" /> using 
+            Returns textual representation for time-tag in the specified <paramref name="format" /> using 
             the specified <paramref name="provider" />.
             </summary>
       <param name="format">Format of text output.</param>
       <param name="provider">An <see cref="T:System.IFormatProvider" /> that supplies culture-specific formatting information.</param>
       <returns>
-        <see cref="T:System.String" /> of textual representation for timetag.</returns>
+        <see cref="T:System.String" /> of textual representation for time-tag.</returns>
     </member>
     <member name="P:Gemstone.TimeTagBase.Value">
       <summary>
@@ -3437,14 +3437,14 @@
     </member>
     <member name="T:Gemstone.UnixTimeTag">
       <summary>
-            Represents a standard Unix timetag.
+            Represents a standard Unix time-tag.
             </summary>
     </member>
     <member name="M:Gemstone.UnixTimeTag.#ctor(Gemstone.Ticks)">
       <summary>
             Creates a new <see cref="T:Gemstone.UnixTimeTag" />, given specified <see cref="T:Gemstone.Ticks" />.
             </summary>
-      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> to create Unix timetag from (minimum valid date is 1/1/1970).</param>
+      <param name="timestamp">Timestamp in <see cref="T:Gemstone.Ticks" /> to create Unix time-tag from (minimum valid date is 1/1/1970).</param>
     </member>
     <member name="M:Gemstone.UnixTimeTag.#ctor(System.Decimal)">
       <summary>
@@ -6270,6 +6270,67 @@
         <see cref="T:System.Enum" /> to operate on.</param>
       <returns>Formatted enumeration name of the specified value for visual display.</returns>
     </member>
+    <member name="T:Gemstone.EventHandlerExtensions.EventHandlerExtensions">
+      <summary>
+            Defines extension methods related to event handlers.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Action{System.Exception},System.Object,``0,System.Boolean)">
+      <summary>
+            Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel.</param>
+      <typeparam name="TEventArgs"></typeparam>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Action{System.Exception,System.EventHandler{``0}},System.Object,``0,System.Boolean)">
+      <summary>
+            Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel.</param>
+      <typeparam name="TEventArgs"></typeparam>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,System.Action{System.Exception},System.Object,``0,System.Boolean)">
+      <summary>
+            Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
+      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel.</param>
+      <typeparam name="TEventArgs"></typeparam>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,System.Action{System.Exception,System.EventHandler{``0}},System.Object,``0,System.Boolean)">
+      <summary>
+            Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
+      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel.</param>
+      <typeparam name="TEventArgs"></typeparam>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,``0,System.Boolean)">
+      <summary>
+            Safely invokes event propagation, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel.</param>
+      <typeparam name="TEventArgs"></typeparam>
+    </member>
     <member name="T:Gemstone.GuidExtensions.GuidExtensions">
       <summary>
             Extension methods for <see cref="T:System.Guid" />.
@@ -7305,7 +7366,7 @@
       <summary>
             Searches all assemblies of this <see cref="T:System.AppDomain" /> for all <see cref="T:System.Type" />s.
             </summary>
-      <returns>List of founf types.</returns>
+      <returns>List of found types.</returns>
     </member>
     <member name="P:Gemstone.Reflection.AppDomainTypeLookup.HasChanged">
       <summary>
@@ -8984,13 +9045,6 @@
       <param name="culture">The <see cref="T:System.Globalization.CultureInfo" /> that corresponds to the language rules applied for title casing of words; defaults to <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.</param>
       <returns>A <see cref="T:System.String" /> that has the first letter of each word capitalized.</returns>
     </member>
-    <member name="M:Gemstone.StringExtensions.StringExtensions.ToUnsecureString(System.Security.SecureString)">
-      <summary>
-            Converts the given <see cref="T:System.Security.SecureString" /> into a <see cref="T:System.String" />.
-            </summary>
-      <param name="value">The <see cref="T:System.Security.SecureString" /> to be converted.</param>
-      <returns>The given <see cref="T:System.Security.SecureString" /> as a <see cref="T:System.String" />.</returns>
-    </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.TrimWithEllipsisEnd(System.String,System.Int32)">
       <summary>
             Places an ellipsis at the end of a string as it is trimmed to length specified.
@@ -9049,6 +9103,27 @@
       <param name="minimumSubSecondResolution">Minimum sub-second resolution to display. Defaults to <see cref="F:Gemstone.Units.SI.Milli" />.</param>
       <returns>
             The string representation of the value of this <see cref="T:System.TimeSpan" />, consisting of the number of
+            years, days, hours, minutes and seconds represented by this value.
+            </returns>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="minimumSubSecondResolution" /> is not less than or equal to <see cref="F:Gemstone.Units.SI.Milli" /> or
+            <paramref name="minimumSubSecondResolution" /> is not defined in <see cref="P:Gemstone.Units.SI.Factors" /> array.
+            </exception>
+    </member>
+    <member name="M:Gemstone.TimeSpanExtensions.TimeSpanExtensions.ToElapsedTimeString(System.TimeSpan,System.Int32,System.String[],System.Double)">
+      <summary>
+            Converts the <see cref="T:System.TimeSpan" /> value into a textual representation of years, days, hours,
+            minutes and seconds with the specified number of fractional digits given string array of
+            time names.
+            </summary>
+      <param name="value">The <see cref="T:System.TimeSpan" /> to process.</param>
+      <param name="secondPrecision">Number of fractional digits to display for seconds.</param>
+      <param name="timeNames">Time names array to use during textual conversion.</param>
+      <param name="minimumSubSecondResolution">
+            Minimum sub-second resolution to display. Defaults to <see cref="F:Gemstone.Units.SI.Milli" />.
+            </param>
+      <returns>
+            The string representation of the value of this instance, consisting of the number of
             years, days, hours, minutes and seconds represented by this value.
             </returns>
       <exception cref="T:System.ArgumentOutOfRangeException">
@@ -15657,42 +15732,42 @@
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignDoubleWord(System.Int32)">
       <summary>
-            Aligns double-word value on a 32-bit boundary.
+            Aligns double-word length value to a 32-bit boundary.
             </summary>
       <param name="doubleWord">Double-word value to align.</param>
       <returns>Double-word value aligned to next 32-bit boundary.</returns>
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignDoubleWord(System.UInt32)">
       <summary>
-            Aligns double-word value on a 32-bit boundary.
+            Aligns double-word length value to a 32-bit boundary.
             </summary>
       <param name="doubleWord">Double-word value to align.</param>
       <returns>Double-word value aligned to next 32-bit boundary.</returns>
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignQuadWord(System.Int64)">
       <summary>
-            Aligns quad-word value on a 64-bit boundary.
+            Aligns quad-word length value to a 64-bit boundary.
             </summary>
       <param name="quadWord">Quad-word value to align.</param>
       <returns>Quad-word value aligned to next 64-bit boundary.</returns>
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignQuadWord(System.UInt64)">
       <summary>
-            Aligns quad-word value on a 64-bit boundary.
+            Aligns quad-word length value to a 64-bit boundary.
             </summary>
       <param name="quadWord">Quad-word value to align.</param>
       <returns>Quad-word value aligned to next 64-bit boundary.</returns>
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignWord(System.Int16)">
       <summary>
-            Aligns word value on a 16-bit boundary.
+            Aligns word length value to a 16-bit boundary.
             </summary>
       <param name="word">Word value to align.</param>
       <returns>Word value aligned to next 16-bit boundary.</returns>
     </member>
     <member name="M:Gemstone.WordExtensions.WordExtensions.AlignWord(System.UInt16)">
       <summary>
-            Aligns word value on a 16-bit boundary.
+            Aligns word length value to a 16-bit boundary.
             </summary>
       <param name="word">Word value to align.</param>
       <returns>Word value aligned to next 16-bit boundary.</returns>

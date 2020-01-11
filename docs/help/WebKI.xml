@@ -1000,6 +1000,11 @@
   </HelpKINode>
   <HelpKINode Title="EventArgs&lt;T&gt;.Argument field" Url="html/F_Gemstone_EventArgs_1_Argument.htm" />
   <HelpKINode Title="EventArgs&lt;T&gt;.EventArgs constructor" Url="html/Overload_Gemstone_EventArgs_1__ctor.htm" />
+  <HelpKINode Title="EventHandlerExtensions class">
+    <HelpKINode Title="EventHandlerExtensions Class" Url="html/T_Gemstone_EventHandlerExtensions_EventHandlerExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_EventHandlerExtensions_EventHandlerExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="EventHandlerExtensions.SafeInvoke method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvoke.htm" />
   <HelpKINode Title="Exa field">
     <HelpKINode Title="SI.Exa Field" Url="html/F_Gemstone_Units_SI_Exa.htm" />
     <HelpKINode Title="SI2.Exa Field" Url="html/F_Gemstone_Units_SI2_Exa.htm" />
@@ -1217,6 +1222,8 @@
   <HelpKINode Title="Gemstone.EventArgs&lt;T1, T2, T3&gt; class" Url="html/T_Gemstone_EventArgs_3.htm" />
   <HelpKINode Title="Gemstone.EventArgs&lt;T1, T2&gt; class" Url="html/T_Gemstone_EventArgs_2.htm" />
   <HelpKINode Title="Gemstone.EventArgs&lt;T&gt; class" Url="html/T_Gemstone_EventArgs_1.htm" />
+  <HelpKINode Title="Gemstone.EventHandlerExtensions namespace" Url="html/N_Gemstone_EventHandlerExtensions.htm" />
+  <HelpKINode Title="Gemstone.EventHandlerExtensions.EventHandlerExtensions class" Url="html/T_Gemstone_EventHandlerExtensions_EventHandlerExtensions.htm" />
   <HelpKINode Title="Gemstone.GuidExtensions namespace" Url="html/N_Gemstone_GuidExtensions.htm" />
   <HelpKINode Title="Gemstone.GuidExtensions.GuidExtensions class" Url="html/T_Gemstone_GuidExtensions_GuidExtensions.htm" />
   <HelpKINode Title="Gemstone.Identity namespace" Url="html/N_Gemstone_Identity.htm" />
@@ -2146,6 +2153,7 @@
   <HelpKINode Title="RoundUpToNearestPowerOfTwo method" Url="html/Overload_Gemstone_BitMath_RoundUpToNearestPowerOfTwo.htm" />
   <HelpKINode Title="R&#233;aumur enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="R&#248;mer enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
+  <HelpKINode Title="SafeInvoke method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvoke.htm" />
   <HelpKINode Title="Samoa property" Url="html/P_Gemstone_USTimeZones_Samoa.htm" />
   <HelpKINode Title="SatelliteContractVersion method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_SatelliteContractVersion.htm" />
   <HelpKINode Title="SatelliteContractVersion property" Url="html/P_Gemstone_Reflection_AssemblyInfo_SatelliteContractVersion.htm" />
@@ -2368,7 +2376,6 @@
   <HelpKINode Title="StringExtensions.ToStream method" Url="html/M_Gemstone_StringExtensions_StringExtensions_ToStream.htm" />
   <HelpKINode Title="StringExtensions.ToStreamAsync method" Url="html/M_Gemstone_StringExtensions_StringExtensions_ToStreamAsync.htm" />
   <HelpKINode Title="StringExtensions.ToTitleCase method" Url="html/M_Gemstone_StringExtensions_StringExtensions_ToTitleCase.htm" />
-  <HelpKINode Title="StringExtensions.ToUnsecureString method" Url="html/M_Gemstone_StringExtensions_StringExtensions_ToUnsecureString.htm" />
   <HelpKINode Title="StringExtensions.TrimWithEllipsisEnd method" Url="html/M_Gemstone_StringExtensions_StringExtensions_TrimWithEllipsisEnd.htm" />
   <HelpKINode Title="StringExtensions.TrimWithEllipsisMiddle method" Url="html/M_Gemstone_StringExtensions_StringExtensions_TrimWithEllipsisMiddle.htm" />
   <HelpKINode Title="StringExtensions.TruncateLeft method" Url="html/M_Gemstone_StringExtensions_StringExtensions_TruncateLeft.htm" />
@@ -2605,7 +2612,7 @@
     <HelpKINode Title="TimeSpanExtensions Class" Url="html/T_Gemstone_TimeSpanExtensions_TimeSpanExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_TimeSpanExtensions_TimeSpanExtensions.htm" />
   </HelpKINode>
-  <HelpKINode Title="TimeSpanExtensions.ToElapsedTimeString method" Url="html/M_Gemstone_TimeSpanExtensions_TimeSpanExtensions_ToElapsedTimeString.htm" />
+  <HelpKINode Title="TimeSpanExtensions.ToElapsedTimeString method" Url="html/Overload_Gemstone_TimeSpanExtensions_TimeSpanExtensions_ToElapsedTimeString.htm" />
   <HelpKINode Title="Timestamp property" Url="html/P_Gemstone_NtpTimeTag_Timestamp.htm" />
   <HelpKINode Title="TimeTagBase class">
     <HelpKINode Title="TimeTagBase Class" Url="html/T_Gemstone_TimeTagBase.htm" />
@@ -2687,7 +2694,7 @@
   <HelpKINode Title="ToElapsedTimeString method">
     <HelpKINode Title="Ticks.ToElapsedTimeString Method " Url="html/Overload_Gemstone_Ticks_ToElapsedTimeString.htm" />
     <HelpKINode Title="Time.ToElapsedTimeString Method " Url="html/M_Gemstone_Units_Time_ToElapsedTimeString.htm" />
-    <HelpKINode Title="TimeSpanExtensions.ToElapsedTimeString Method " Url="html/M_Gemstone_TimeSpanExtensions_TimeSpanExtensions_ToElapsedTimeString.htm" />
+    <HelpKINode Title="TimeSpanExtensions.ToElapsedTimeString Method " Url="html/Overload_Gemstone_TimeSpanExtensions_TimeSpanExtensions_ToElapsedTimeString.htm" />
   </HelpKINode>
   <HelpKINode Title="ToFahrenheit method" Url="html/M_Gemstone_Units_Temperature_ToFahrenheit.htm" />
   <HelpKINode Title="ToFaraday method" Url="html/M_Gemstone_Units_Charge_ToFaraday.htm" />
@@ -2819,7 +2826,6 @@
     <HelpKINode Title="BigEndian.ToUInt64 Method " Url="html/Overload_Gemstone_BigEndian_ToUInt64.htm" />
     <HelpKINode Title="LittleEndian.ToUInt64 Method " Url="html/Overload_Gemstone_LittleEndian_ToUInt64.htm" />
   </HelpKINode>
-  <HelpKINode Title="ToUnsecureString method" Url="html/M_Gemstone_StringExtensions_StringExtensions_ToUnsecureString.htm" />
   <HelpKINode Title="ToUpper method" Url="html/M_Gemstone_CharExtensions_CharExtensions_ToUpper.htm" />
   <HelpKINode Title="ToUSSurveyFeet method" Url="html/M_Gemstone_Units_Length_ToUSSurveyFeet.htm" />
   <HelpKINode Title="ToUSSurveyMiles method" Url="html/M_Gemstone_Units_Length_ToUSSurveyMiles.htm" />
