@@ -20,9 +20,9 @@
     <LangVersion>8</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Version>1.0.5</Version>
-    <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.5 -- Release Build</InformationalVersion>
-    <InformationalVersion Condition="'$(Configuration)'!='Release'">1.0.5 -- Debug Build</InformationalVersion>
+    <Version>1.0.6</Version>
+    <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.6 -- Release Build</InformationalVersion>
+    <InformationalVersion Condition="'$(Configuration)'!='Release'">1.0.6 -- Debug Build</InformationalVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Configurations>Debug;Release;Development</Configurations>
   </PropertyGroup>
