@@ -1,0 +1,18 @@
+version: AppVeyor Gemstone Common Build {build}
+branches:
+  only:
+  - master
+skip_tags: true
+image: Visual Studio 2019
+configuration: Release
+platform: Any CPU
+environment:
+  SHFBROOT: C:\Program Files (x86)\EWSoftware\Sandcastle Help File Builder\
+before_build:
+- cmd: >-
+    choco install sandcastle
+
+    nuget restore src\Gemstone.Common.sln
+build:
+  parallel: true
+  verbosity: minimal
