@@ -1,10 +1,9 @@
 theme: jekyll-theme-cayman
-title: Gemstone.Common
-description: GPA Gemstone Common Library
+title: Gemstone.{sc:ProjectName}
+description: GPA Gemstone {sc:ProjectName} Library
 github:
-  repository_name: gemstone/common
+  repository_name: gemstone/{sc:repo-name}
   owner_url: https://www.gridprotectionalliance.org
   owner_name: Grid Protection Alliance
 plugins:
   - jemoji
-
