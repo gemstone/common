@@ -21,6 +21,7 @@
     <PackageTags>GPA;Gemstone;library;common</PackageTags>
     <LangVersion>8</LangVersion>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+    <Nullable>enable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Version>1.0.19</Version>
     <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.19 -- Release Build</InformationalVersion>

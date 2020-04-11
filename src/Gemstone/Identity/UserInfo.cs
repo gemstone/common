@@ -45,7 +45,8 @@ namespace Gemstone.Identity
         /// if available, or the domain of the identity that owns the host process.
         /// </param>
         /// <exception cref="ArgumentNullException"><paramref name="loginID"/> is a null or empty string.</exception>
-        public UserInfo(string loginID)
+        #pragma warning disable CS8618 // Domain is not null
+        public UserInfo(string loginID)        
         {
             if (string.IsNullOrEmpty(loginID))
                 throw new ArgumentNullException(nameof(loginID));
@@ -76,7 +77,7 @@ namespace Gemstone.Identity
             }
 
             if (string.IsNullOrEmpty(Domain))
-                Domain = Environment.MachineName;
+                Domain = Environment.MachineName ?? "";
         }
 
         #endregion
@@ -121,7 +122,7 @@ namespace Gemstone.Identity
         /// The ID name returned is that of the user account under which the code is executing.
         /// </remarks>
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
-        public static string CurrentUserID
+        public static string? CurrentUserID
         {
             get
             {
@@ -139,11 +140,11 @@ namespace Gemstone.Identity
         /// <summary>
         /// Gets the <see cref="UserInfo"/> object for the <see cref="CurrentUserID"/>.
         /// </summary>
-        public static UserInfo CurrentUserInfo
+        public static UserInfo? CurrentUserInfo
         {
             get
             {
-                string currentUserID = CurrentUserID;
+                string currentUserID = CurrentUserID!;
 
                 if (!string.IsNullOrEmpty(currentUserID))
                 {

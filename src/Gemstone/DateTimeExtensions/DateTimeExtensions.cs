@@ -174,9 +174,7 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => 
-            destinationTimeZoneStandardName == null ? 
-                throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
                 TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>Converts given local time to time in specified time zone.</summary>
@@ -185,9 +183,7 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => 
-            destinationTimeZone == null ? 
-                throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
                 TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
 
         /// <summary>
@@ -225,9 +221,7 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZoneStandardName">The time zone standard name to which the Universally
         /// Coordinated Time timestamp is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => 
-            destinationTimeZoneStandardName == null ? 
-                throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
                 TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>
@@ -237,9 +231,7 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZone">The time zone to which the Universally Coordinated Time timestamp
         /// is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => 
-            destinationTimeZone == null ? 
-                throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
                 TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
 
         /// <summary>Converts given timestamp from one time zone to another using standard names for time zones.</summary>
@@ -283,26 +275,26 @@ namespace Gemstone.DateTimeExtensions
         /// <summary>Gets the abbreviated month name for month of the timestamp.</summary>
         /// <param name="timestamp">Timestamp from which month name is extracted.</param>
         /// <returns>String representation of the month name based on <paramref name="timestamp"/></returns>
-        public static string AbbreviatedMonthName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetAbbreviatedMonthName(timestamp.Month);
+        public static string AbbreviatedMonthName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetAbbreviatedMonthName(timestamp.Month) ?? timestamp.Month.ToString();
 
         /// <summary>Gets the full month name for month of the timestamp.</summary>
         /// <param name="timestamp">Timestamp from which month name is extracted.</param>
         /// <returns>String representation of the month name based on <paramref name="timestamp"/></returns>
-        public static string MonthName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetMonthName(timestamp.Month);
+        public static string MonthName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetMonthName(timestamp.Month) ?? timestamp.Month.ToString();
 
         /// <summary>Gets the abbreviated weekday name for weekday of the timestamp.</summary>
         /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
         /// <returns>String representation of the weekday name based on <paramref name="timestamp"/></returns>
-        public static string AbbreviatedWeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetAbbreviatedDayName(timestamp.DayOfWeek);
+        public static string AbbreviatedWeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetAbbreviatedDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
 
         /// <summary>Gets the shortest weekday name for weekday of the timestamp.</summary>
         /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
         /// <returns>String representation of the short weekday name based on <paramref name="timestamp"/></returns>
-        public static string ShortWeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetShortestDayName(timestamp.DayOfWeek);
+        public static string ShortWeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetShortestDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
 
         /// <summary>Gets the full weekday name for weekday of the timestamp.</summary>
         /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
         /// <returns>String representation of the weekday name based on <paramref name="timestamp"/></returns>
-        public static string WeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetDayName(timestamp.DayOfWeek);
+        public static string WeekdayName(this DateTime timestamp) => DateTimeFormatInfo.CurrentInfo?.GetDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
     }
 }

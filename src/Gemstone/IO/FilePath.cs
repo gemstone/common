@@ -185,10 +185,9 @@ namespace Gemstone.IO
         public static string GetCommonApplicationDataFolder()
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+            AssemblyInfo assembly = GetHostAssembly();
 
-            return string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company) ? 
-                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name) : 
-                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
         }
 
         /// <summary>
@@ -198,10 +197,9 @@ namespace Gemstone.IO
         public static string GetApplicationDataFolder()
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            AssemblyInfo assembly = GetHostAssembly();
 
-            return string.IsNullOrEmpty(AssemblyInfo.EntryAssembly.Company) ? 
-                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Name) : 
-                Path.Combine(rootFolder, AssemblyInfo.EntryAssembly.Company, AssemblyInfo.EntryAssembly.Name);
+            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
         }
 
         /// <summary>
@@ -212,19 +210,21 @@ namespace Gemstone.IO
         public static string GetAbsolutePath(string filePath)
         {
             if (!Path.IsPathRooted(filePath))
-            {
-                try
-                {
-                    filePath = Path.Combine(GetDirectoryName(AssemblyInfo.EntryAssembly.Location), filePath);
-                }
-                catch
-                {
-                    // Fall back on executing assembly path if entry assembly is not available
-                    filePath = Path.Combine(GetDirectoryName(AssemblyInfo.ExecutingAssembly.Location), filePath);
-                }
-            }
+                filePath = Path.Combine(GetDirectoryName(GetHostAssembly().Location), filePath);
 
             return RemovePathSuffix(filePath);
+        }
+
+        private static AssemblyInfo GetHostAssembly()
+        {
+            try
+            {
+                return AssemblyInfo.EntryAssembly ?? AssemblyInfo.ExecutingAssembly;
+            }
+            catch
+            {
+                return AssemblyInfo.ExecutingAssembly;
+            }
         }
 
         /// <summary>
@@ -333,7 +333,7 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
         /// <returns>An array of the full names (including paths) of the subdirectories that match the specified criteria, or an empty array if no directories are found.</returns>
-        public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null) => 
+        public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) => 
             EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
         /// <returns>An enumerable collection of the full names (including paths) for the directories in the directory specified by <paramref name="path"/> and that match the specified search pattern and option.</returns>
-        public static IEnumerable<string> EnumerateDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null)
+        public static IEnumerable<string> EnumerateDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -370,7 +370,7 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
         /// <returns>An array of the full names (including paths) for the files in the specified directory that match the specified search pattern and option, or an empty array if no files are found.</returns>
-        public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null) => 
+        public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) => 
             EnumerateFiles(path, searchPattern, searchOption, exceptionHandler).ToArray();
 
         /// <summary>
@@ -381,7 +381,7 @@ namespace Gemstone.IO
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
         /// <returns>An enumerable collection of the full names (including paths) for the files in the directory specified by <paramref name="path"/> and that match the specified search pattern and option.</returns>
-        public static IEnumerable<string> EnumerateFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception> exceptionHandler = null)
+        public static IEnumerable<string> EnumerateFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
         {
             try
             {
@@ -602,7 +602,7 @@ namespace Gemstone.IO
         /// <param name="path">The path for which a list of files is to be returned.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
         /// <returns>A list of files under the given path.</returns>
-        public static string[] GetFileList(string path, Action<Exception> exceptionHandler = null)
+        public static string[] GetFileList(string path, Action<Exception>? exceptionHandler = null)
         {
             string directory = GetDirectoryName(path);
             string filePattern = GetFileName(path);

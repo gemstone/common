@@ -42,7 +42,7 @@ namespace Gemstone
     /// </summary>
     public static class LibraryEvents
     {
-        private static EventHandler<UnhandledExceptionEventArgs> s_suppressedExceptionHandler;
+        private static EventHandler<UnhandledExceptionEventArgs>? s_suppressedExceptionHandler;
         private static readonly object s_suppressedExceptionLock = new object();
 
         /// <summary>
@@ -65,13 +65,18 @@ namespace Gemstone
             }
         }
 
-        internal static void OnSuppressedException(object sender, Exception ex) =>
+        internal static void OnSuppressedException(object sender, Exception ex)
+        {
+            if (s_suppressedExceptionHandler == null)
+                return;
+
             SafeInvoke(
                 s_suppressedExceptionHandler,
                 s_suppressedExceptionLock,
                 nameof(SuppressedException),
                 sender,
                 new UnhandledExceptionEventArgs(ex, false));
+        }
 
         private static void SafeInvoke<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string eventName, object sender, TEventArgs args)
         {

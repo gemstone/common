@@ -60,7 +60,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
 
                 // Parameters
                 ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                Expression targetType = null;
+                Expression? targetType = null;
 
                 if (!method.IsStatic && method.DeclaringType != null)
                     targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -98,7 +98,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     // Parameters
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -139,7 +139,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -182,7 +182,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
                     ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -220,7 +220,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
 
                     // Parameters
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -260,7 +260,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     // Parameters
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -302,7 +302,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
@@ -346,7 +346,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
                     ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
                     ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
                     ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
-                    Expression targetType = null;
+                    Expression? targetType = null;
 
                     if (!method.IsStatic && method.DeclaringType != null)
                         targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);

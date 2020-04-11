@@ -67,7 +67,7 @@ namespace Gemstone
     /// </summary>
     public static class Common
     {
-        private static string s_osPlatformName;
+        private static string? s_osPlatformName;
         private static PlatformID s_osPlatformID = PlatformID.Win32S;
 
         /// <summary>
@@ -194,7 +194,7 @@ namespace Gemstone
         /// the string back to its original <see cref="Type"/>.
         /// </para>
         /// </remarks>
-        public static string TypeConvertToString(object value, CultureInfo culture)
+        public static string TypeConvertToString(object value, CultureInfo? culture)
         {
             // Don't proceed further if value is null.
             if (value == null)
@@ -246,7 +246,7 @@ namespace Gemstone
         /// is empty or <c>null</c>.
         /// </para>
         /// </remarks>
-        public static object TypeConvertFromString(string value, Type type) => TypeConvertFromString(value, type, null);
+        public static object? TypeConvertFromString(string value, Type type) => TypeConvertFromString(value, type, null);
 
         /// <summary>
         /// Converts this string into the specified type.
@@ -272,7 +272,7 @@ namespace Gemstone
         /// <paramref name="value"/> is empty or <c>null</c>.
         /// </para>
         /// </remarks>
-        public static object TypeConvertFromString(string value, Type type, CultureInfo culture)
+        public static object? TypeConvertFromString(string value, Type type, CultureInfo? culture)
         {
             if (string.IsNullOrWhiteSpace(value))
                 value = Activator.CreateInstance(type).ToString();
@@ -613,7 +613,7 @@ namespace Gemstone
             if (IsMono)
                 s_osPlatformName += " using Mono";
 
-            return s_osPlatformName;
+            return s_osPlatformName ?? "Undetermined";
         }
     }
 }

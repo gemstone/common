@@ -76,13 +76,11 @@ namespace Gemstone.Reflection.MemberInfoExtensions
 
             if (customAttributes.Length > 0)
             {
-                attribute = customAttributes[0] as TAttribute;
-
-                return true;
+                attribute = customAttributes[0] as TAttribute ?? default!;
+                return attribute != null;
             }
 
-            attribute = null;
-
+            attribute = default!;
             return false;
         }
 
@@ -101,12 +99,10 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attributes = customAttributes.Cast<TAttribute>().ToArray();
-
                 return true;
             }
 
-            attributes = null;
-
+            attributes = default!;
             return false;
         }
 
@@ -127,13 +123,11 @@ namespace Gemstone.Reflection.MemberInfoExtensions
 
             if (customAttributes.Length > 0)
             {
-                attribute = customAttributes[0] as Attribute;
-
-                return true;
+                attribute = customAttributes[0] as Attribute ?? default!;
+                return attribute != null;
             }
 
-            attribute = null;
-
+            attribute = default!;
             return false;
         }
 
@@ -152,12 +146,10 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attributes = customAttributes.Cast<Attribute>().ToArray();
-
                 return true;
             }
 
-            attributes = null;
-
+            attributes = default!;
             return false;
         }
 
@@ -176,7 +168,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         {
             object[] customAttributes = member.GetCustomAttributes(true);
 
-            attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute;
+            attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute ?? default!;
 
             return attribute != null;
         }
@@ -198,8 +190,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (attributes.Length != 0)
                 return true;
 
-            attributes = null;
-
+            attributes = default!;
             return false;
         }
     }

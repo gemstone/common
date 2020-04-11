@@ -67,7 +67,7 @@ namespace Gemstone.ArrayExtensions
         /// </exception>
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void ValidateParameters<T>(this T[] array, int startIndex, int length)
+        public static void ValidateParameters<T>(this T[]? array, int startIndex, int length)
         {
             if (array == null || startIndex < 0 || length < 0 || startIndex + length > array.Length)
                 RaiseValidationError(array, startIndex, length);
@@ -75,7 +75,7 @@ namespace Gemstone.ArrayExtensions
 
         // This method will raise the actual error - this is needed since .NET will not inline anything that might throw an exception
         [MethodImpl(MethodImplOptions.NoInlining)]
-        private static void RaiseValidationError<T>(T[] array, int startIndex, int length)
+        private static void RaiseValidationError<T>(T[]? array, int startIndex, int length)
         {
             if (array == null)
                 throw new ArgumentNullException(nameof(array));

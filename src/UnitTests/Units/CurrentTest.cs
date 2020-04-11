@@ -441,7 +441,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToBoolean
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToBooleanTest()
         {
             IConvertible target = new Current(10F);
@@ -456,7 +456,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToByte
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToByteTest()
         {
             IConvertible target = new Current(10F);
@@ -471,7 +471,7 @@ namespace Gemstone.Common.UnitTests.Units
         /////A test for System.IConvertible.ToChar
         /////</summary>
         //[TestMethod]
-        //[DeploymentItem("GSF.Core.dll")]
+        //[DeploymentItem("Gemstone.Common.dll")]
         //public void ToCharTest()
         //{
         //    Assert.Inconclusive("Invalid cast from 'Double' to 'Char'.");
@@ -481,7 +481,7 @@ namespace Gemstone.Common.UnitTests.Units
         /////A test for System.IConvertible.ToDateTime
         /////</summary>
         //[TestMethod]
-        //[DeploymentItem("GSF.Core.dll")]
+        //[DeploymentItem("Gemstone.Common.dll")]
         //public void ToDateTimeTest()
         //{
         //    Assert.Inconclusive("Invalid cast from 'Double' to 'DateTime'.");
@@ -491,7 +491,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToDecimal
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToDecimalTest()
         {
             IConvertible target = new Current(10F);
@@ -506,7 +506,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToDouble
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToDoubleTest()
         {
             IConvertible target = new Current(10F);
@@ -521,7 +521,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToInt16
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToInt16Test()
         {
             IConvertible target = new Current(10F);
@@ -536,7 +536,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToInt32
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToInt32Test()
         {
             IConvertible target = new Current(10F);
@@ -551,7 +551,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToInt64
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToInt64Test()
         {
             IConvertible target = new Current(10F);
@@ -566,7 +566,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToSByte
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToSByteTest()
         {
             IConvertible target = new Current(10F);
@@ -581,7 +581,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToSingle
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToSingleTest()
         {
             IConvertible target = new Current(10F);
@@ -596,7 +596,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToType
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToTypeTest()
         {
             IConvertible target = new Current(10F);
@@ -612,7 +612,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToUInt16
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToUInt16Test()
         {
             IConvertible target = new Current(10F);
@@ -627,7 +627,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToUInt32
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToUInt32Test()
         {
             IConvertible target = new Current(10F);
@@ -642,7 +642,7 @@ namespace Gemstone.Common.UnitTests.Units
         ///A test for System.IConvertible.ToUInt64
         ///</summary>
         [TestMethod]
-        [DeploymentItem("GSF.Core.dll")]
+        [DeploymentItem("Gemstone.Common.dll")]
         public void ToUInt64Test()
         {
             IConvertible target = new Current(10F);

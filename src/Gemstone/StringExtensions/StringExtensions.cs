@@ -178,11 +178,11 @@ namespace Gemstone.StringExtensions
         /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
         /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
         /// </remarks>
-        public static T ConvertToType<T>(this string value, CultureInfo culture)
+        public static T ConvertToType<T>(this string value, CultureInfo? culture)
         {
-            object obj = ConvertToType(value, typeof(T), culture) ?? default(T);
+            object? obj = ConvertToType(value, typeof(T), culture) ?? default(T);
 
-            return (T)obj;
+            return (T)obj!;
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace Gemstone.StringExtensions
         /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
         /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
         /// </remarks>
-        public static object ConvertToType(this string value, Type type) => ConvertToType(value, type, null);
+        public static object? ConvertToType(this string value, Type type) => ConvertToType(value, type, null);
 
         /// <summary>
         /// Converts this string into the specified type.
@@ -212,7 +212,7 @@ namespace Gemstone.StringExtensions
         /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
         /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
         /// </remarks>
-        public static object ConvertToType(this string value, Type type, CultureInfo culture)
+        public static object? ConvertToType(this string value, Type type, CultureInfo? culture)
         {
             // Don't proceed further if string is empty.
             if (string.IsNullOrEmpty(value))
@@ -327,7 +327,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input to string to convert to a string.</param>
         /// <param name="encoding">String encoding to use; defaults to <see cref="Encoding.UTF8"/>.</param>
         /// <returns>String <paramref name="value"/> encoded onto a stream.</returns>
-        public static Stream ToStream(this string value, Encoding encoding = null)
+        public static Stream ToStream(this string value, Encoding? encoding = null)
         {
             MemoryStream stream = new MemoryStream();
 
@@ -348,7 +348,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input to string to convert to a string.</param>
         /// <param name="encoding">String encoding to use; defaults to <see cref="Encoding.UTF8"/>.</param>
         /// <returns>String <paramref name="value"/> encoded onto a stream.</returns>
-        public static async Task<Stream> ToStreamAsync(this string value, Encoding encoding = null)
+        public static async Task<Stream> ToStreamAsync(this string value, Encoding? encoding = null)
         {
             MemoryStream stream = new MemoryStream();
 
@@ -1063,7 +1063,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">The string to be converted.</param>
         /// <returns>The given string as a <see cref="SecureString"/>.</returns>
-        public static SecureString ToSecureString(this string value)
+        public static SecureString? ToSecureString(this string value)
         {
             if (value == null)
                 return null;
@@ -1123,7 +1123,7 @@ namespace Gemstone.StringExtensions
         /// This way, even strings formatted in all-caps will still be properly formatted.
         /// </remarks>
         /// <returns>A <see cref="string"/> that has the first letter of each word capitalized.</returns>
-        public static string ToTitleCase(this string value, CultureInfo culture = null)
+        public static string ToTitleCase(this string value, CultureInfo? culture = null)
         {
             if (string.IsNullOrEmpty(value))
                 return "";

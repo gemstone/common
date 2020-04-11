@@ -461,10 +461,10 @@ namespace Gemstone.Reflection
         #region [ Static ]
 
         // Static Fields
-        private static AssemblyInfo s_callingAssembly;
-        private static AssemblyInfo s_entryAssembly;
-        private static AssemblyInfo s_executingAssembly;
-        private static Dictionary<string, Assembly> s_assemblyCache;
+        private static AssemblyInfo? s_callingAssembly;
+        private static AssemblyInfo? s_entryAssembly;
+        private static AssemblyInfo? s_executingAssembly;
+        private static Dictionary<string, Assembly>? s_assemblyCache;
         private static bool s_addedResolver;
         private static readonly Dictionary<string, Type> s_typeCache = new Dictionary<string, Type>();
         private static readonly AppDomainTypeLookup s_typeLookup = new AppDomainTypeLookup();
@@ -495,7 +495,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets the <see cref="AssemblyInfo"/> object of the assembly that invoked the currently executing method.
         /// </summary>
-        public static AssemblyInfo CallingAssembly
+        public static AssemblyInfo? CallingAssembly
         {
             get
             {
@@ -512,7 +512,7 @@ namespace Gemstone.Reflection
                     {
                         foreach (StackFrame frame in stackFrames)
                         {
-                            MethodBase method = frame?.GetMethod();
+                            MethodBase? method = frame?.GetMethod();
 
                             if (method == null || method.DeclaringType == null)
                                 continue;
@@ -537,7 +537,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets the <see cref="AssemblyInfo"/> object of the process executable in the default application domain.
         /// </summary>
-        public static AssemblyInfo EntryAssembly
+        public static AssemblyInfo? EntryAssembly
         {
             get
             {
@@ -547,12 +547,15 @@ namespace Gemstone.Reflection
 
                     if (entryAssembly == null)
                     {
-                        string mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
+                        string? mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
 
                         if (!string.IsNullOrWhiteSpace(mainModuleFileName))
                             entryAssembly = Assembly.ReflectionOnlyLoadFrom(mainModuleFileName);
                     }
 
+                    if (entryAssembly == null)
+                        return null;
+                    
                     s_entryAssembly = new AssemblyInfo(entryAssembly);
                 }
 
@@ -571,7 +574,7 @@ namespace Gemstone.Reflection
         /// Loads the specified assembly that is embedded as a resource in the assembly.
         /// </summary>
         /// <param name="assemblyName">Name of the assembly to load.</param>
-        /// <remarks>Note that this function cannot be used to load GSF.Core itself, since this is where function resides.</remarks>
+        /// <remarks>Note that this function cannot be used to load Gemstone.Core itself, since this is where function resides.</remarks>
         [SecurityCritical]
         public static void LoadAssemblyFromResource(string assemblyName)
         {
@@ -586,7 +589,7 @@ namespace Gemstone.Reflection
             AppDomain.CurrentDomain.Load(assemblyName);
         }
 
-        private static Assembly ResolveAssemblyFromResource(object sender, ResolveEventArgs e)
+        private static Assembly? ResolveAssemblyFromResource(object sender, ResolveEventArgs e)
         {
             Assembly resourceAssembly;
             string shortName = e.Name.Split(',')[0];
@@ -602,11 +605,11 @@ namespace Gemstone.Reflection
                 foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
                 {
                     // Sees if the embedded resource name matches the assembly it is trying to load.
-                    if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly.RootNamespace}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)
+                    if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly?.RootNamespace ?? nameof(Gemstone)}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)
                         continue;
 
                     // If so, loads embedded resource assembly into a binary buffer
-                    Stream resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
+                    Stream? resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
 
                     if (resourceStream != null)
                     {

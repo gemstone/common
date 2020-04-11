@@ -61,7 +61,7 @@ namespace Gemstone
         /// otherwise, a reference to the object referenced by the current <see cref="NullableWeakReference" /> object.
         /// </returns>
         /// <exception cref="System.InvalidOperationException">If setting this property to anything other than null</exception>
-        public override object Target
+        public override object? Target
         {
             get => m_cleared ? null : base.Target;
             set

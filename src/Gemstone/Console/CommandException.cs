@@ -48,7 +48,7 @@ namespace Gemstone.Console
         /// <param name="processCompleted">Flag that determines if the source of command exception completed processing.</param>
         /// <param name="exitCode">Exit code of command process, assuming process successfully completed.</param>
         /// <param name="innerException">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
-        public CommandException(string message, bool processCompleted, int exitCode, Exception innerException = null) : base(message, innerException)
+        public CommandException(string message, bool processCompleted, int exitCode, Exception? innerException = null) : base(message, innerException)
         {
             ProcessCompleted = processCompleted;
             ExitCode = exitCode;

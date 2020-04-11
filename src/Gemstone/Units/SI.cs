@@ -212,7 +212,7 @@ namespace Gemstone.Units
         /// </remarks>
         /// <returns>A <see cref="string"/> representation of the number of units.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(double totalUnits, string unitName, string[] symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+        public static string ToScaledString(double totalUnits, string unitName, string[]? symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
 
         /// <summary>
         /// Turns the given number of units into a textual representation with an appropriate unit scaling.
@@ -246,7 +246,7 @@ namespace Gemstone.Units
         /// <returns>A <see cref="string"/> representation of the number of units.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="decimalPlaces"/> cannot be negative.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(double totalUnits, int decimalPlaces, string unitName, string[] symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta)
+        public static string ToScaledString(double totalUnits, int decimalPlaces, string unitName, string[]? symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta)
         {
             if (decimalPlaces < 0)
                 throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "decimalPlaces cannot be negative");

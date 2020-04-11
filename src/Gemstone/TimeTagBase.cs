@@ -207,9 +207,7 @@ namespace Gemstone
         /// <exception cref="ArgumentException"><see cref="object"/> is not an <see cref="TimeTagBase"/> or a <see cref="DateTime"/>.</exception>
         public virtual int CompareTo(object obj)
         {
-            TimeTagBase other = obj as TimeTagBase;
-
-            if (other != null)
+            if (obj is TimeTagBase other)
                 return CompareTo(other);
 
             if (obj is DateTime time)

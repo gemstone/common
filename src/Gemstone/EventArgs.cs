@@ -81,7 +81,7 @@ namespace Gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T}"/> class.
         /// </summary>
-        public EventArgs() : this(default)
+        public EventArgs() : this(default!)
         {
         }
 
@@ -113,7 +113,7 @@ namespace Gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2}"/> class.
         /// </summary>
-        public EventArgs() : this(default, default)
+        public EventArgs() : this(default!, default!)
         {
         }
 
@@ -156,7 +156,7 @@ namespace Gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2,T3}"/> class.
         /// </summary>
-        public EventArgs() : this(default, default, default)
+        public EventArgs() : this(default!, default!, default!)
         {
         }
 
@@ -207,7 +207,7 @@ namespace Gemstone
         /// <summary>
         /// Initializes a new instance of the <see cref="EventArgs{T1,T2,T3,T4}"/> class.
         /// </summary>
-        public EventArgs() : this(default, default, default, default)
+        public EventArgs() : this(default!, default!, default!, default!)
         {
         }
 

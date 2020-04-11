@@ -103,7 +103,7 @@ namespace Gemstone.TimeSpanExtensions
         /// <paramref name="minimumSubSecondResolution"/> is not less than or equal to <see cref="SI.Milli"/> or
         /// <paramref name="minimumSubSecondResolution"/> is not defined in <see cref="SI.Factors"/> array.
         /// </exception>
-        public static string ToElapsedTimeString(this TimeSpan value, int secondPrecision = 2, string[] timeNames = null, double minimumSubSecondResolution = SI.Milli) => 
+        public static string ToElapsedTimeString(this TimeSpan value, int secondPrecision = 2, string[]? timeNames = null, double minimumSubSecondResolution = SI.Milli) => 
             Time.ToElapsedTimeString(value.TotalSeconds, secondPrecision, timeNames, minimumSubSecondResolution);
     }
 }

@@ -45,7 +45,7 @@ namespace Gemstone.ActionExtensions
         /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
         /// <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
-        public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception> exceptionAction = null) =>
+        public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
             new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken, exceptionAction);
 
         /// <summary>
@@ -59,7 +59,7 @@ namespace Gemstone.ActionExtensions
         /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
         /// <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
-        public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception> exceptionAction = null) =>
+        public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
             Task.Delay(delay, cancellationToken)
                 .ContinueWith(task => action(cancellationToken), cancellationToken)
                 .ContinueWith(task =>
@@ -82,13 +82,13 @@ namespace Gemstone.ActionExtensions
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <returns>
         /// A function to call which will cancel the operation.
-        /// Cancel function returns true if <paramref name="action"/> is cancelled in time, false if not.
+        /// Cancel function returns true if <paramref name="action"/> is canceled in time, false if not.
         /// </returns>
         /// <remarks>
         /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
         /// <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
-        public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception> exceptionAction = null) =>
+        public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception>? exceptionAction = null) =>
             new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, exceptionAction);
 
         /// <summary>
@@ -99,13 +99,13 @@ namespace Gemstone.ActionExtensions
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <returns>
         /// A function to call which will cancel the operation.
-        /// Cancel function returns true if <paramref name="action"/> is cancelled, false if not.
+        /// Cancel function returns true if <paramref name="action"/> is canceled, false if not.
         /// </returns>
         /// <remarks>
         /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
         /// <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
-        public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay, Action<Exception> exceptionAction = null)
+        public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay, Action<Exception>? exceptionAction = null)
         {
             // All this state complexity ensures that the token source
             // is not disposed until after the action finishes executing;
@@ -130,7 +130,7 @@ namespace Gemstone.ActionExtensions
                 // tokenSource.Cancel();
                 //
                 // if (state == Cancelling)
-                //     state = Cancelled;
+                //     state = Canceled;
                 // else if (state == Disposing)
                 //     tokenSource.Dispose();
                 //

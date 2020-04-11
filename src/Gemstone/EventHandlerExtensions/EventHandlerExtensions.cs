@@ -46,7 +46,7 @@ namespace Gemstone.EventHandlerExtensions
         /// Any exceptions will be suppressed, see other overloads for custom exception handling.
         /// </remarks>
         public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object sender, TEventArgs args, bool parallel = true) =>
-            SafeInvoke(eventHandler, null, (Action<Exception, EventHandler<TEventArgs>>)null, sender, args, parallel);
+            SafeInvoke(eventHandler, null, (Action<Exception, EventHandler<TEventArgs>>?)null, sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
@@ -60,8 +60,8 @@ namespace Gemstone.EventHandlerExtensions
         /// <remarks>
         /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
         /// </remarks>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception> exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
-            SafeInvoke(eventHandler, null, (ex, _) => exceptionHandler(ex), sender, args, parallel);
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+            SafeInvoke(eventHandler, null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
@@ -75,7 +75,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <remarks>
         /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
         /// </remarks>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception, EventHandler<TEventArgs>> exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception, EventHandler<TEventArgs>>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
             SafeInvoke(eventHandler, null, exceptionHandler, sender, args, parallel);
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object eventLock, Action<Exception> exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
-            SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler(ex), sender, args, parallel);
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+            SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
@@ -101,7 +101,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object eventLock, Action<Exception, EventHandler<TEventArgs>> exceptionHandler, object sender, TEventArgs args, bool parallel = true)
+        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object? eventLock, Action<Exception, EventHandler<TEventArgs>>? exceptionHandler, object sender, TEventArgs args, bool parallel = true)
         {
             if (eventHandler == null)
                 return;

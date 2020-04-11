@@ -63,8 +63,14 @@ namespace Gemstone.Security.Cryptography
         /// <param name="minOccurrence">The minimum number of occurrences of this character group in the password.</param>
         public CharacterGroup(string characters, int minOccurrence)
         {
-            Characters = characters;
-            MinOccurrence = minOccurrence;
+            if (string.IsNullOrEmpty(characters))
+                throw new ArgumentException("Character group must have at least one character.", nameof(characters));
+
+            if (minOccurrence < 0)
+                throw new ArgumentOutOfRangeException(nameof(minOccurrence));
+
+            m_characters = characters;
+            m_minOccurrence = minOccurrence;
         }
 
         #endregion

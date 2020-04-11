@@ -79,11 +79,11 @@ namespace Gemstone.TypeExtensions
         /// </summary>
         /// <param name="type">Type to get friendly class name for.</param>
         /// <returns>Friendly class name of the provided type, or <see cref="string.Empty"/> if <paramref name="type"/> is <c>null</c>.</returns>
-        public static string GetFriendlyClassName(this Type type)
+        public static string GetFriendlyClassName(this Type? type)
         {
-            string name = type?.FullName;
+            string name = type?.FullName ?? string.Empty;
 
-            if (string.IsNullOrEmpty(name))
+            if (string.IsNullOrWhiteSpace(name))
                 return string.Empty;
 
             int length = name.Length;

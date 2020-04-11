@@ -143,7 +143,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="dictionary">The dictionary to check for the given key.</param>
         /// <param name="key">The key to be checked for the existence of a value.</param>
         /// <returns>The value of the key in the dictionary or the default value if no such value exists.</returns>
-        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) => dictionary.GetOrDefault(key, k => default);
+        public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) => dictionary.GetOrDefault(key, k => default!);
 
         /// <summary>
         /// Attempts to get the value for the given key and returns the default value instead if the key does not exist in the <see cref="IDictionary{TKey, TValue}"/>.
@@ -317,7 +317,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// </returns>
         /// <typeparam name="TSource">The type of the elements of <paramref name="source" />.</typeparam>
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <c>null</c>.</exception>
-        public static bool AllParallel<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, ParallelOptions options = null)
+        public static bool AllParallel<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, ParallelOptions? options = null)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));
@@ -349,7 +349,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="T"><see cref="Type"/> of elements in the <paramref name="source"/></typeparam>
         /// <param name="source">An enumeration over which to find the median element(s).</param>
         /// <returns>The median item(s) from an enumeration, or <c>null</c> if <paramref name="source"/> is <c>null</c>.</returns>
-        public static T[] Median<T>(this IEnumerable<T> source)
+        public static T[]? Median<T>(this IEnumerable<T> source)
         {
             if (source == null)
                 return null;
@@ -382,8 +382,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null) => 
-            source.MajorityBy(default, keySelector, forwardSearch, comparer);
+        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) => 
+            source.MajorityBy(default!, keySelector, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -396,7 +396,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, TSource defaultValue, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null)
+        public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource> source, TSource defaultValue, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null)
         {
             TSource majority = defaultValue;
 
@@ -449,8 +449,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static T Majority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null) => 
-            source.Majority(default, forwardSearch, comparer);
+        public static T Majority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) => 
+            source.Majority(default!, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -461,7 +461,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static T Majority<T>(this IEnumerable<T> source, T defaultValue, bool forwardSearch = true, IEqualityComparer<T> comparer = null)
+        public static T Majority<T>(this IEnumerable<T> source, T defaultValue, bool forwardSearch = true, IEqualityComparer<T>? comparer = null)
         {
             T majority = defaultValue;
 
@@ -514,8 +514,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The minority value in the collection.</returns>
-        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null) => 
-            source.MinorityBy(default, keySelector, forwardSearch, comparer);
+        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) => 
+            source.MinorityBy(default!, keySelector, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -528,7 +528,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The majority value in the collection.</returns>
-        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, TSource defaultValue, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey> comparer = null)
+        public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource> source, TSource defaultValue, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null)
         {
             TSource minority = defaultValue;
 
@@ -578,8 +578,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The minority value in the collection.</returns>
-        public static T Minority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T> comparer = null) => 
-            source.Minority(default, forwardSearch, comparer);
+        public static T Minority<T>(this IEnumerable<T> source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) => 
+            source.Minority(default!, forwardSearch, comparer);
 
         /// <summary>
         /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the minority.
@@ -590,7 +590,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
         /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
         /// <returns>The minority value in the collection.</returns>
-        public static T Minority<T>(this IEnumerable<T> source, T defaultValue, bool forwardSearch = true, IEqualityComparer<T> comparer = null)
+        public static T Minority<T>(this IEnumerable<T> source, T defaultValue, bool forwardSearch = true, IEqualityComparer<T>? comparer = null)
         {
             T minority = defaultValue;
 
@@ -734,7 +734,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns the smallest item from the enumeration.</returns>
         public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
         {
-            TSource minItem = default;
+            TSource minItem = default!;
 
             using (IEnumerator<TSource> enumerator = source.GetEnumerator())
             {
@@ -766,7 +766,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns a generic type.</returns>
         public static TSource Min<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, int> comparer)
         {
-            TSource minItem = default;
+            TSource minItem = default!;
 
             using (IEnumerator<TSource> enumerator = source.GetEnumerator())
             {
@@ -803,7 +803,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns the largest item from the enumeration.</returns>
         public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
         {
-            TSource maxItem = default;
+            TSource maxItem = default!;
 
             using (IEnumerator<TSource> enumerator = source.GetEnumerator())
             {
@@ -835,7 +835,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns a generic type.</returns>
         public static TSource Max<TSource>(this IEnumerable<TSource> source, Func<TSource, TSource, int> comparer)
         {
-            TSource maxItem = default;
+            TSource maxItem = default!;
 
             using (IEnumerator<TSource> enumerator = source.GetEnumerator())
             {
@@ -916,7 +916,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
         private static string ToDelimitedString<TSource, TDelimiter>(IEnumerable<TSource> source, TDelimiter delimiter)
         {
-            if (Common.IsReference(delimiter) && delimiter == null)
+            if (Common.IsReference(delimiter!) && delimiter == null)
                 throw new ArgumentNullException(nameof(delimiter), "delimiter cannot be null");
 
             StringBuilder delimitedString = new StringBuilder();
@@ -1041,7 +1041,7 @@ namespace Gemstone.Collections.CollectionExtensions
             // Mixes up the data in random order.
             for (x = 0; x < source.Count; x++)
             {
-                // Calls random function from GSF namespace.
+                // Calls random function from Gemstone namespace.
                 y = Random.Int32Between(0, source.Count - 1);
 
                 if (x == y)

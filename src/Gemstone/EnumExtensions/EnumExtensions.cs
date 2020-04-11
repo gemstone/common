@@ -75,7 +75,7 @@ namespace Gemstone.EnumExtensions
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static T GetEnumValueOrDefault<T>(this object value, object defaultValue = null) => (T)value.GetEnumValueOrDefault(typeof(T), defaultValue);
+        public static T GetEnumValueOrDefault<T>(this object value, object? defaultValue = null) => (T)value.GetEnumValueOrDefault(typeof(T), defaultValue);
 
         /// <summary>
         /// Gets the enumeration constant for value, if defined in the enumeration, or a default value.
@@ -98,7 +98,7 @@ namespace Gemstone.EnumExtensions
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static object GetEnumValueOrDefault(this object value, Type type, object defaultValue = null) => Enum.IsDefined(type, value) ? value : defaultValue ?? Enum.GetValues(type).GetValue(0);
+        public static object GetEnumValueOrDefault(this object value, Type type, object? defaultValue = null) => Enum.IsDefined(type, value) ? value : defaultValue ?? Enum.GetValues(type).GetValue(0);
 
         /// <summary>
         /// Gets the enumeration of the specified <paramref name="type"/> whose description matches this <paramref name="description"/>.
@@ -108,7 +108,7 @@ namespace Gemstone.EnumExtensions
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
         /// <returns>An enumeration of the specified <paramref name="type"/> if a match is found, otherwise null.</returns>
         /// <exception cref="ArgumentException">The <paramref name="type"/> is not an enumeration.</exception>
-        public static object GetEnumValueByDescription(this string description, Type type, bool ignoreCase = false)
+        public static object? GetEnumValueByDescription(this string description, Type type, bool ignoreCase = false)
         {
             if (!type.IsEnum)
                 throw new ArgumentException("Type must be an enum", nameof(type));
@@ -130,7 +130,7 @@ namespace Gemstone.EnumExtensions
         /// <param name="ignoreCase"><c>true</c> to ignore case during the comparison; otherwise, <c>false</c>.</param>
         /// <returns>Specific value of the enumerated constant in terms of its underlying type associated with the specified <paramref name="name"/>, or <c>null</c>
         /// if no matching enumerated value was found.</returns>
-        public static object GetEnumValueByName(this string name, Type type, bool ignoreCase = false)
+        public static object? GetEnumValueByName(this string name, Type type, bool ignoreCase = false)
         {
             if (!type.IsEnum)
                 throw new ArgumentException("Type must be an enum", nameof(type));
@@ -198,6 +198,15 @@ namespace Gemstone.EnumExtensions
         }
 
         // Internal extension to lookup description from DescriptionAttribute
-        private static string GetDescription(this FieldInfo value) => value == null ? string.Empty : value.TryGetAttribute(out DescriptionAttribute descriptionAttribute) ? descriptionAttribute.Description : string.Empty;
+        private static string GetDescription(this FieldInfo? value)
+        {
+            if (value == null)
+                return string.Empty;
+
+            if (value.TryGetAttribute(out DescriptionAttribute descriptionAttribute))
+                return descriptionAttribute.Description ?? string.Empty;
+
+            return string.Empty;
+        }
     }
 }

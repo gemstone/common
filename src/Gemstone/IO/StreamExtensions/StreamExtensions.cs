@@ -263,13 +263,13 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <returns>Decoded object.</returns>
-        public static object ReadObject(this Stream stream)
+        public static object? ReadObject(this Stream stream)
         {
             ObjectType type = (ObjectType)stream.ReadNextByte();
 
             return type switch
             {
-                ObjectType.Null => (object)null,
+                ObjectType.Null => null,
                 ObjectType.DBNull => DBNull.Value,
                 ObjectType.BooleanTrue => true,
                 ObjectType.BooleanFalse => false,
@@ -787,25 +787,23 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <returns>Value read.</returns>
-        public static string ReadNullableString(this Stream stream) => stream.ReadBoolean() ? stream.ReadString() : null;
+        public static string? ReadNullableString(this Stream stream) => stream.ReadBoolean() ? stream.ReadString() : null;
 
         /// <summary>
         /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <returns>Strings read.</returns>
-        public static string[] ReadStringCollection(this Stream stream)
+        public static string?[]? ReadStringCollection(this Stream stream)
         {
             if (!stream.ReadBoolean())
                 return null;
 
             int value = stream.ReadInt32();
-            string[] rv = new string[value];
+            string?[] rv = new string[value];
 
             for (int x = 0; x < rv.Length; x++)
-            {
                 rv[x] = stream.ReadNullableString();
-            }
 
             return rv;
         }
@@ -815,7 +813,7 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <returns>Integers read.</returns>
-        public static int[] ReadInt32Collection(this Stream stream)
+        public static int[]? ReadInt32Collection(this Stream stream)
         {
             if (!stream.ReadBoolean())
                 return null;

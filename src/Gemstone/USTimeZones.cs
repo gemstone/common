@@ -35,15 +35,15 @@ namespace Gemstone
     public static class USTimeZones
     {
         // We define a few common timezones for convenience.
-        private static TimeZoneInfo s_atlanticTimeZone;
-        private static TimeZoneInfo s_easternTimeZone;
-        private static TimeZoneInfo s_centralTimeZone;
-        private static TimeZoneInfo s_mountainTimeZone;
-        private static TimeZoneInfo s_pacificTimeZone;
-        private static TimeZoneInfo s_alaskanTimeZone;
-        private static TimeZoneInfo s_hawaiianTimeZone;
-        private static TimeZoneInfo s_westPacificTimeZone;
-        private static TimeZoneInfo s_samoaTimeZone;
+        private static TimeZoneInfo? s_atlanticTimeZone;
+        private static TimeZoneInfo? s_easternTimeZone;
+        private static TimeZoneInfo? s_centralTimeZone;
+        private static TimeZoneInfo? s_mountainTimeZone;
+        private static TimeZoneInfo? s_pacificTimeZone;
+        private static TimeZoneInfo? s_alaskanTimeZone;
+        private static TimeZoneInfo? s_hawaiianTimeZone;
+        private static TimeZoneInfo? s_westPacificTimeZone;
+        private static TimeZoneInfo? s_samoaTimeZone;
 
         /// <summary>
         /// Gets the Atlantic time zone.

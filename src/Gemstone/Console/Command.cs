@@ -178,7 +178,7 @@ namespace Gemstone.Console
         /// <exception cref="CommandException">
         /// Exception occurs when executed command process reports standard error output or process times-out.
         /// </exception>
-        public static CommandResponse Execute(string fileName, string arguments = null, int timeout = Timeout.Infinite)
+        public static CommandResponse Execute(string fileName, string? arguments = null, int timeout = Timeout.Infinite)
         {
             if (!Execute(fileName, arguments, out string standardOutput, out string standardError, out bool processCompleted, out int exitCode, timeout))
                 throw new CommandException(standardError, processCompleted, exitCode);
@@ -213,7 +213,7 @@ namespace Gemstone.Console
         /// <param name="exitCode">Exit code of the process, assuming process successfully completed.</param>
         /// <param name="timeout">Timeout, in milliseconds, to wait for command line operation to complete. Set to <see cref="Timeout.Infinite"/>, i.e., -1, for infinite wait.</param>
         /// <returns><c>true</c> if there was no standard error reported; otherwise, <c>false</c>.</returns>
-        public static bool Execute(string fileName, string arguments, out string standardOutput, out string standardError, out bool processCompleted, out int exitCode, int timeout)
+        public static bool Execute(string fileName, string? arguments, out string standardOutput, out string standardError, out bool processCompleted, out int exitCode, int timeout)
         {
             using (CommandProcess process = new CommandProcess(fileName, arguments ?? ""))
             {
