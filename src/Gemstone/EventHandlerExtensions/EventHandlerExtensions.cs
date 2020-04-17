@@ -42,7 +42,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        /// <param name="parallel">Call event handlers in parallel.</param>
+        /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         /// <remarks>
         /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// Any exceptions will be suppressed, see other overloads for custom exception handling.
@@ -60,7 +60,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        /// <param name="parallel">Call event handlers in parallel.</param>
+        /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         /// <remarks>
         /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
@@ -77,7 +77,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        /// <param name="parallel">Call event handlers in parallel.</param>
+        /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         /// <remarks>
         /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
@@ -95,7 +95,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        /// <param name="parallel">Call event handlers in parallel.</param>
+        /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
@@ -110,7 +110,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
-        /// <param name="parallel">Call event handlers in parallel.</param>
+        /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
         {
@@ -141,7 +141,7 @@ namespace Gemstone.EventHandlerExtensions
             }
 
             // Safely iterate each attached handler, continuing on possible exception, so no handlers are missed
-            if (parallel)
+            if (parallel && handlers.Length > 1)
             {
                 Parallel.ForEach(handlers, invokeHandler);
             }
