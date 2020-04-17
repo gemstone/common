@@ -34,6 +34,7 @@ using System.ComponentModel;
 using System.IO;
 using System.Text;
 using Gemstone.ArrayExtensions;
+using Gemstone.EventHandlerExtensions;
 using Gemstone.Units;
 
 // ReSharper disable VirtualMemberCallInConstructor
@@ -506,18 +507,18 @@ namespace Gemstone.IO.Parsing
         /// Raises the <see cref="DataDiscarded"/> event.
         /// </summary>
         /// <param name="buffer">Source buffer that contains output that failed to parse.</param>
-        protected virtual void OnDataDiscarded(byte[] buffer) => DataDiscarded?.Invoke(this, new EventArgs<byte[]>(buffer));
+        protected virtual void OnDataDiscarded(byte[] buffer) => DataDiscarded?.SafeInvoke(this, new EventArgs<byte[]>(buffer));
 
         /// <summary>
         /// Raises the <see cref="ParsingException"/> event.
         /// </summary>
         /// <param name="ex">The <see cref="Exception"/> that was encountered during parsing.</param>
-        protected virtual void OnParsingException(Exception ex) => ParsingException?.Invoke(this, new EventArgs<Exception>(ex));
+        protected virtual void OnParsingException(Exception ex) => ParsingException?.SafeInvoke(this, new EventArgs<Exception>(ex));
 
         /// <summary>
         /// Raises the <see cref="BufferParsed"/> event.
         /// </summary>
-        protected virtual void OnBufferParsed() => BufferParsed?.Invoke(this, EventArgs.Empty);
+        protected virtual void OnBufferParsed() => BufferParsed?.SafeInvoke(this, EventArgs.Empty);
 
         #endregion
     }

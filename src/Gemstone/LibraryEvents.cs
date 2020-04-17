@@ -25,6 +25,8 @@ using System;
 using System.Runtime.CompilerServices;
 using Gemstone.EventHandlerExtensions;
 
+// TODO: Add new libraries to internals visible list as needed
+[assembly: InternalsVisibleTo("Gemstone.Communication")]
 [assembly: InternalsVisibleTo("Gemstone.Data")]
 [assembly: InternalsVisibleTo("Gemstone.Expressions")]
 [assembly: InternalsVisibleTo("Gemstone.IO")]
@@ -78,15 +80,15 @@ namespace Gemstone
                 new UnhandledExceptionEventArgs(ex, false));
         }
 
-        private static void SafeInvoke<TEventArgs>(EventHandler<TEventArgs> eventHandler, object eventLock, string eventName, object sender, TEventArgs args)
+        private static void SafeInvoke(EventHandler<UnhandledExceptionEventArgs> eventHandler, object eventLock, string eventName, object sender, UnhandledExceptionEventArgs args)
         {
-            void exceptionHandler(Exception ex, EventHandler<TEventArgs> handler) =>
+            void exceptionHandler(Exception ex, EventHandler handler) =>
                 throw new Exception($"Failed in {eventName} event handler \"{GetHandlerName(handler)}\": {ex.Message}", ex);
 
             eventHandler.SafeInvoke(eventLock, exceptionHandler, sender, args);
         }
 
-        private static string GetHandlerName<TEventArgs>(EventHandler<TEventArgs> userHandler)
+        private static string GetHandlerName(EventHandler userHandler)
         {
             try
             {
