@@ -46,7 +46,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         /// <remarks>
         /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
-        /// Any exceptions will be suppressed, see other overloads for custom exception handling.
+        /// Any exceptions will be suppressed, see <see cref="LibraryEvents.SuppressedException"/> and other overloads for custom exception handling.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
@@ -58,7 +58,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="LibraryEvents.SuppressedException"/>.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
@@ -75,7 +75,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="LibraryEvents.SuppressedException"/>.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
@@ -93,7 +93,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler"/>.</param>
-        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="LibraryEvents.SuppressedException"/>.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
@@ -108,7 +108,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler"/>.</param>
-        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed.</param>
+        /// <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="LibraryEvents.SuppressedException"/>.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
