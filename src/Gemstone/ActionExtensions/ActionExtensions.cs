@@ -42,8 +42,8 @@ namespace Gemstone.ActionExtensions
         /// <param name="cancellationToken">The token used to cancel execution.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <remarks>
-        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
-        /// <paramref name="exceptionAction"/> is not defined.
+        /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
+        /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
         public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
             new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken, exceptionAction);
@@ -56,8 +56,8 @@ namespace Gemstone.ActionExtensions
         /// <param name="cancellationToken">The token used to cancel execution.</param>
         /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
         /// <remarks>
-        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
-        /// <paramref name="exceptionAction"/> is not defined.
+        /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
+        /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
         public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
             Task.Delay(delay, cancellationToken)
@@ -85,8 +85,8 @@ namespace Gemstone.ActionExtensions
         /// Cancel function returns true if <paramref name="action"/> is canceled in time, false if not.
         /// </returns>
         /// <remarks>
-        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
-        /// <paramref name="exceptionAction"/> is not defined.
+        /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
+        /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
         public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception>? exceptionAction = null) =>
             new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, exceptionAction);
@@ -102,8 +102,8 @@ namespace Gemstone.ActionExtensions
         /// Cancel function returns true if <paramref name="action"/> is canceled, false if not.
         /// </returns>
         /// <remarks>
-        /// End users should attach to the <see cref="TaskScheduler.UnobservedTaskException"/> event to log exceptions if the
-        /// <paramref name="exceptionAction"/> is not defined.
+        /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
+        /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
         /// </remarks>
         public static Func<bool> DelayAndExecute(this Action<CancellationToken> action, int delay, Action<Exception>? exceptionAction = null)
         {

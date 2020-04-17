@@ -24,6 +24,7 @@
 using System;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Gemstone.Reflection.MethodBaseExtensions;
 
 #pragma warning disable CA1031 // Do not catch general exception types
 
@@ -134,7 +135,7 @@ namespace Gemstone.EventHandlerExtensions
                 catch (Exception ex)
                 {
                     if (exceptionHandler == null)
-                        LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke user event handler exception: {ex.Message}", ex));
+                        LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke caught exception in {typeof(TEventHandler).FullName} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex));
                     else
                         exceptionHandler(ex, userHandler);
                 }
@@ -149,6 +150,24 @@ namespace Gemstone.EventHandlerExtensions
             {
                 foreach (Delegate handler in handlers)
                     invokeHandler(handler);
+            }
+        }
+
+        /// <summary>
+        /// Gets the method name attached to an event handler.
+        /// </summary>
+        /// <typeparam name="TEventHandler"><see cref="Delegate"/> type representing single handler of <see cref="EventHandler"/>.</typeparam>
+        /// <param name="handler">Attached event handler.</param>
+        /// <returns>Name of event handler method including parameters and class name.</returns>
+        public static string GetHandlerName<TEventHandler>(this TEventHandler handler) where TEventHandler : Delegate
+        {
+            try
+            {
+                return handler.Method.GetFriendlyMethodNameWithClass();
+            }
+            catch
+            {
+                return "<undetermined>";
             }
         }
     }
