@@ -22,6 +22,7 @@
 //******************************************************************************************************
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 #pragma warning disable CA1031 // Do not catch general exception types
@@ -36,78 +37,88 @@ namespace Gemstone.EventHandlerExtensions
         /// <summary>
         /// Safely invokes event propagation, continuing even if an attached user handler throws an exception.
         /// </summary>
-        /// <typeparam name="TEventArgs"></typeparam>
+        /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
+        /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
+        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
         /// Any exceptions will be suppressed, see other overloads for custom exception handling.
         /// </remarks>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object sender, TEventArgs args, bool parallel = true) =>
-            SafeInvoke(eventHandler, null, (Action<Exception, EventHandler<TEventArgs>>?)null, sender, args, parallel);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+            SafeInvoke(eventHandler, null, (Action<Exception, EventHandler>?)null, sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
         /// </summary>
-        /// <typeparam name="TEventArgs"></typeparam>
+        /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
+        /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
+        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
         /// </remarks>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
         /// </summary>
-        /// <typeparam name="TEventArgs"></typeparam>
+        /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
+        /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.
+        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
         /// </remarks>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, Action<Exception, EventHandler<TEventArgs>>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, null, exceptionHandler, sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
         /// </summary>
-        /// <typeparam name="TEventArgs"></typeparam>
+        /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
+        /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
+        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler)</c>.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) =>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
         /// Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
         /// </summary>
-        /// <typeparam name="TEventArgs"></typeparam>
+        /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
+        /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
+        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler)</c>.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
-        public static void SafeInvoke<TEventArgs>(this EventHandler<TEventArgs> eventHandler, object? eventLock, Action<Exception, EventHandler<TEventArgs>>? exceptionHandler, object sender, TEventArgs args, bool parallel = true)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
         {
             if (eventHandler == null)
                 return;
 
             if (eventLock == null)
-                eventLock = typeof(EventHandler<TEventArgs>);
+                eventLock = typeof(EventHandler);
 
             Delegate[] handlers;
 
@@ -116,7 +127,7 @@ namespace Gemstone.EventHandlerExtensions
 
             void invokeHandler(Delegate handler)
             {
-                if (!(handler is EventHandler<TEventArgs> userHandler))
+                if (!(handler is EventHandler userHandler))
                     return;
 
                 try
