@@ -68,7 +68,7 @@ namespace Gemstone
             TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 
         /// <summary>
-        /// Disables automatic handling of <see cref="TaskScheduler.UnobservedTaskException"/> events. When disabled,  any unobserved
+        /// Disables automatic handling of <see cref="TaskScheduler.UnobservedTaskException"/> events. When disabled, any unobserved
         /// task exceptions encountered will not be marked as observed nor exposed via the <see cref="SuppressedException"/> event.
         /// </summary>
         public static void DisableUnobservedTaskExceptionHandling() =>

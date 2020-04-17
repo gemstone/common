@@ -93,6 +93,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -1080,38 +1081,37 @@ namespace Gemstone.StringExtensions
             }
         }
 
-        ///// <summary>
-        ///// Converts the given <see cref="SecureString"/> into a <see cref="string"/>.
-        ///// </summary>
-        ///// <param name="value">The <see cref="SecureString"/> to be converted.</param>
-        ///// <returns>The given <see cref="SecureString"/> as a <see cref="string"/>.</returns>
-        ///// <remarks>
-        ///// This method is UNSAFE, as it stores your secure string data in clear text in memory.
-        ///// Since strings are immutable, that memory cannot be cleaned up until all references to
-        ///// the string are removed and the garbage collector deallocates it. Only use this method
-        ///// to interface with APIs that do not support the use of <see cref="SecureString"/> for
-        ///// sensitive text data.
-        ///// </remarks>
-        //public static string ToUnsecureString(this SecureString value)
-        //{
-        //    IntPtr intPtr;
+        /// <summary>
+        /// Converts the given <see cref="SecureString"/> into a <see cref="string"/>.
+        /// </summary>
+        /// <param name="value">The <see cref="SecureString"/> to be converted.</param>
+        /// <returns>The given <see cref="SecureString"/> as a <see cref="string"/>.</returns>
+        /// <remarks>
+        /// This method is not safe, as it stores your secure string data in clear text in memory.
+        /// Since strings are immutable, that memory cannot be cleaned up until all references to
+        /// the string are removed and the garbage collector deallocates it. Only use this method
+        /// to interface with APIs that do not support the use of <see cref="SecureString"/> for
+        /// sensitive text data.
+        /// </remarks>
+        public static string? ToUnsecureString(this SecureString value)
+        {
+            IntPtr intPtr;
 
-        //    if (value == null)
-        //        return null;
+            if (value == null)
+                return null;
 
-        //    intPtr = IntPtr.Zero;
+            intPtr = IntPtr.Zero;
 
-        //    try
-        //    {
-        //        intPtr = Marshal.SecureStringToGlobalAllocUnicode(value);
-
-        //        return Marshal.PtrToStringUni(intPtr);
-        //    }
-        //    finally
-        //    {
-        //        Marshal.ZeroFreeGlobalAllocUnicode(intPtr);
-        //    }
-        //}
+            try
+            {
+                intPtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(intPtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(intPtr);
+            }
+        }
 
         /// <summary>
         /// Converts the provided string into title case (upper case first letter of each word).
