@@ -44,7 +44,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
+        /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// Any exceptions will be suppressed, see other overloads for custom exception handling.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -62,7 +62,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
+        /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
@@ -79,7 +79,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel.</param>
         /// <remarks>
-        /// Accessing event handler invocation list will be locked will be on <c>typeof(EventHandler)</c>.
+        /// Accessing event handler invocation list will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
@@ -91,7 +91,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler)</c>.</param>
+        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler"/>.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
@@ -106,7 +106,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <typeparam name="TEventHandler"><see cref="MulticastDelegate"/> type commonly derived from <see cref="EventHandler"/>.</typeparam>
         /// <typeparam name="TEventArgs">Type derived from <see cref="EventArgs"/>.</typeparam>
         /// <param name="eventHandler">Source <see cref="EventHandler"/> to safely invoke.</param>
-        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler)</c>.</param>
+        /// <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler"/>.</param>
         /// <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
         /// <param name="sender">Event source.</param>
         /// <param name="args">Event arguments.</param>
@@ -117,12 +117,9 @@ namespace Gemstone.EventHandlerExtensions
             if (eventHandler == null)
                 return;
 
-            if (eventLock == null)
-                eventLock = typeof(EventHandler);
-
             Delegate[] handlers;
 
-            lock (eventLock)
+            lock (eventLock ?? eventHandler)
                 handlers = eventHandler.GetInvocationList();
 
             void invokeHandler(Delegate handler)
