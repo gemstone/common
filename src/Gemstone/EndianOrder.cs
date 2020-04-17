@@ -68,7 +68,7 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Runtime.CompilerServices;
 using LE = Gemstone.LittleEndian;
 using BE = Gemstone.BigEndian;
 
@@ -166,7 +166,7 @@ namespace Gemstone
         /// <summary>
         /// Returns the target endian-order of this <see cref="EndianOrder"/> representation.
         /// </summary>
-        public Endianness TargetEndianness { get; }
+        public readonly Endianness TargetEndianness;
 
         #endregion
 
@@ -180,7 +180,7 @@ namespace Gemstone
         /// <returns>true if the byte at startIndex in value is nonzero; otherwise, false.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
-        [SuppressMessage("Microsoft.Performance", "CA1822")]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool ToBoolean(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToBoolean(value, startIndex) :
             BE.ToBoolean(value, startIndex);
@@ -193,6 +193,7 @@ namespace Gemstone
         /// <returns>A character formed by two bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public char ToChar(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToChar(value, startIndex) :
             BE.ToChar(value, startIndex);
@@ -205,6 +206,7 @@ namespace Gemstone
         /// <returns>A double-precision floating point number formed by eight bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public double ToDouble(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToDouble(value, startIndex) :
             BE.ToDouble(value, startIndex);
@@ -217,6 +219,7 @@ namespace Gemstone
         /// <returns>A 16-bit signed integer formed by two bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public short ToInt16(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToInt16(value, startIndex) :
             BE.ToInt16(value, startIndex);
@@ -229,6 +232,7 @@ namespace Gemstone
         /// <returns>A 32-bit signed integer formed by four bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int ToInt32(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToInt32(value, startIndex) :
             BE.ToInt32(value, startIndex);
@@ -241,6 +245,7 @@ namespace Gemstone
         /// <returns>A 64-bit signed integer formed by eight bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public long ToInt64(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToInt64(value, startIndex) :
             BE.ToInt64(value, startIndex);
@@ -253,6 +258,7 @@ namespace Gemstone
         /// <returns>A single-precision floating point number formed by four bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public float ToSingle(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToSingle(value, startIndex) :
             BE.ToSingle(value, startIndex);
@@ -265,6 +271,7 @@ namespace Gemstone
         /// <returns>A 16-bit unsigned integer formed by two bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ushort ToUInt16(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToUInt16(value, startIndex) :
             BE.ToUInt16(value, startIndex);
@@ -277,6 +284,7 @@ namespace Gemstone
         /// <returns>A 32-bit unsigned integer formed by four bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public uint ToUInt32(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToUInt32(value, startIndex) :
             BE.ToUInt32(value, startIndex);
@@ -289,6 +297,7 @@ namespace Gemstone
         /// <returns>A 64-bit unsigned integer formed by eight bytes beginning at startIndex.</returns>
         /// <exception cref="ArgumentNullException">value is null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public ulong ToUInt64(byte[] value, int startIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.ToUInt64(value, startIndex) :
             BE.ToUInt64(value, startIndex);
@@ -301,6 +310,7 @@ namespace Gemstone
         /// <typeparam name="T">Native value type to get bytes for.</typeparam>
         /// <exception cref="ArgumentException"><paramref name="value"/> type is not primitive.</exception>
         /// <exception cref="InvalidOperationException">Cannot get bytes for <paramref name="value"/> type.</exception>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes<T>(T value) where T : struct, IConvertible => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -310,6 +320,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The <see cref="bool"/> value to convert.</param>
         /// <returns>An array of bytes with length 1.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(bool value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -319,6 +330,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The Unicode character value to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(char value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -328,6 +340,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(double value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -337,6 +350,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(short value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -346,6 +360,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(int value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -355,6 +370,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(long value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -364,6 +380,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(float value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -373,6 +390,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 2.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(ushort value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -382,6 +400,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 4.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(uint value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -391,6 +410,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The number to convert.</param>
         /// <returns>An array of bytes with length 8.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public byte[] GetBytes(ulong value) => TargetEndianness == Endianness.LittleEndian ?
             LE.GetBytes(value) :
             BE.GetBytes(value);
@@ -405,6 +425,7 @@ namespace Gemstone
         /// <exception cref="ArgumentException"><paramref name="value"/> type is not primitive.</exception>
         /// <exception cref="InvalidOperationException">Cannot get bytes for <paramref name="value"/> type.</exception>
         /// <returns>Length of bytes copied into array based on size of <typeparamref name="T"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes<T>(T value, byte[] destinationArray, int destinationIndex) where T : struct, IConvertible => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -416,6 +437,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(bool value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -427,6 +449,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(char value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -438,6 +461,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(double value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -449,6 +473,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(short value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -460,6 +485,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(int value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -471,6 +497,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(long value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -482,6 +509,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(float value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -493,6 +521,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(ushort value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -504,6 +533,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(uint value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
@@ -515,6 +545,7 @@ namespace Gemstone
         /// <param name="destinationArray">The destination buffer.</param>
         /// <param name="destinationIndex">The byte offset into <paramref name="destinationArray"/>.</param>
         /// <returns>Length of bytes copied into array based on size of <paramref name="value"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public int CopyBytes(ulong value, byte[] destinationArray, int destinationIndex) => TargetEndianness == Endianness.LittleEndian ?
             LE.CopyBytes(value, destinationArray, destinationIndex) :
             BE.CopyBytes(value, destinationArray, destinationIndex);
