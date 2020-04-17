@@ -72,20 +72,10 @@ namespace Gemstone
             if (s_suppressedExceptionHandler == null)
                 return;
 
-            SafeInvoke(
-                s_suppressedExceptionHandler,
-                s_suppressedExceptionLock,
-                nameof(SuppressedException),
-                sender,
-                new UnhandledExceptionEventArgs(ex, false));
-        }
+            static void exceptionHandler(Exception ex, EventHandler handler) =>
+                throw new Exception($"Failed in {nameof(SuppressedException)} event handler \"{GetHandlerName(handler)}\": {ex.Message}", ex);
 
-        private static void SafeInvoke(EventHandler<UnhandledExceptionEventArgs> eventHandler, object eventLock, string eventName, object sender, UnhandledExceptionEventArgs args)
-        {
-            void exceptionHandler(Exception ex, EventHandler handler) =>
-                throw new Exception($"Failed in {eventName} event handler \"{GetHandlerName(handler)}\": {ex.Message}", ex);
-
-            eventHandler.SafeInvoke(eventLock, exceptionHandler, sender, args);
+            s_suppressedExceptionHandler.SafeInvoke(s_suppressedExceptionLock, exceptionHandler, sender, new UnhandledExceptionEventArgs(ex, false));
         }
 
         private static string GetHandlerName(EventHandler userHandler)
