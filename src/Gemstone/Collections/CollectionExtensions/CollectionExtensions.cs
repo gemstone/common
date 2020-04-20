@@ -72,6 +72,27 @@ namespace Gemstone.Collections.CollectionExtensions
     public static class CollectionExtensions
     {
         /// <summary>
+        /// Gets a column of data out of a 2-dimensional array.
+        /// </summary>
+        /// <typeparam name="T">Type of array.</typeparam>
+        /// <param name="source">Source array.</param>
+        /// <param name="columnIndex">Column index, i.e., dimension zero value, to retrieve.</param>
+        /// <returns>Values from specified <paramref name="columnIndex"/>.</returns>
+        public static IEnumerable<T> GetColumn<T>(this T[,] source, int columnIndex)
+        {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
+            if (columnIndex < 0 || source.GetLength(0) > 1)
+                throw new ArgumentOutOfRangeException(nameof(columnIndex));
+            
+            int length = source.GetLength(1);
+
+            for (int i = 0; i < length; i++)
+                yield return source[columnIndex, i];
+        }
+        
+        /// <summary>
         /// Gets a <see cref="PagedList{T}"/> to paginate <paramref name="source"/> enumeration for
         /// a given <paramref name="page"/> and specified <paramref name="pageSize"/>.
         /// </summary>
