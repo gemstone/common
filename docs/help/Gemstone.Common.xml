@@ -553,6 +553,21 @@
       <exception cref="T:System.ArgumentNullException">value is null.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
     </member>
+    <member name="T:Gemstone.BigEndianOrder">
+      <summary>
+            Represents a big-endian byte order interoperability class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.BigEndianOrder.#ctor">
+      <summary>
+            Constructs a new instance of the <see cref="T:Gemstone.BigEndianOrder" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.BigEndianOrder.Default">
+      <summary>
+            Returns the default instance of the <see cref="T:Gemstone.BigEndianOrder" /> class.
+            </summary>
+    </member>
     <member name="T:Gemstone.BitMath">
       <summary>
             Contains some random and useful functions.
@@ -954,6 +969,181 @@
     </member>
     <member name="F:Gemstone.Bits.Bit63">
       <summary>Bit 63 (0x8000000000000000)</summary>
+    </member>
+    <member name="T:Gemstone.ByteEncoding">
+      <summary>
+            Defines a set of methods used to convert byte buffers to and from user presentable data formats.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.ByteEncoding</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.ASCII">
+      <summary>Handles encoding and decoding of a byte buffer into an ASCII character presentation format.</summary>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.Base64">
+      <summary>Handles encoding and decoding of a byte buffer into a base64 presentation format.</summary>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.BigEndianBinary">
+      <summary>
+            Handles encoding and decoding of a byte buffer into a big-endian binary (i.e., 0 and 1's) based
+            presentation format.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.Decimal">
+      <summary>Handles encoding and decoding of a byte buffer into an integer-based presentation format.</summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetBytes(System.String)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="value">Encoded string to decode.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="value">Encoded string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetString(System.Byte[])">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <returns>String representation of byte array.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetString(System.Byte[],System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetString(System.Byte[],System.Int32,System.Int32)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.Hexadecimal">
+      <summary>Handles encoding and decoding of a byte buffer into a hexadecimal-based presentation format.</summary>
+    </member>
+    <member name="P:Gemstone.ByteEncoding.LittleEndianBinary">
+      <summary>
+            Handles encoding and decoding of a byte buffer into a little-endian binary (i.e., 0 and 1's) based
+            presentation format.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ByteEncoding.NoSpacing">
+      <summary>
+            Constant used to specify that "no spacing" should be used for data conversion.
+            </summary>
+    </member>
+    <member name="T:Gemstone.ByteEncoding.ASCIIEncoding">
+      <summary>
+            Handles conversion of byte buffers to and from a ASCII data format.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.ASCIIEncoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="binaryData">Encoded binary data string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.ASCIIEncoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="T:Gemstone.ByteEncoding.Base64Encoding">
+      <summary>
+            Handles conversion of byte buffers to and from a base64 data format.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.Base64Encoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="binaryData">Encoded binary data string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.Base64Encoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="T:Gemstone.ByteEncoding.BinaryEncoding">
+      <summary>
+            Handles conversion of byte buffers to and from a binary (i.e., 0 and 1's) data format.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.BinaryEncoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="binaryData">Encoded binary data string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.BinaryEncoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="T:Gemstone.ByteEncoding.DecimalEncoding">
+      <summary>
+            Handles conversion of byte buffers to and from a decimal data format.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.DecimalEncoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="decData">Encoded decimal data string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.DecimalEncoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
+    </member>
+    <member name="T:Gemstone.ByteEncoding.HexadecimalEncoding">
+      <summary>
+            Handles conversion of byte buffers to and from a hexadecimal data format.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.HexadecimalEncoding.GetBytes(System.String,System.Char)">
+      <summary>Decodes given string back into a byte buffer.</summary>
+      <param name="hexData">Encoded hexadecimal data string to decode.</param>
+      <param name="spacingCharacter">Original spacing character that was inserted between encoded bytes.</param>
+      <returns>Decoded bytes.</returns>
+    </member>
+    <member name="M:Gemstone.ByteEncoding.HexadecimalEncoding.GetString(System.Byte[],System.Int32,System.Int32,System.Char)">
+      <summary>Encodes given buffer into a user presentable representation.</summary>
+      <param name="bytes">Bytes to encode.</param>
+      <param name="offset">Offset into buffer to begin encoding.</param>
+      <param name="length">Length of buffer to encode.</param>
+      <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
+      <returns>String of encoded bytes.</returns>
     </member>
     <member name="T:Gemstone.Common">
       <summary>
@@ -1445,6 +1635,341 @@
             This field will be updated when the function returns.</param>
       <param name="value">Value to write.</param>
     </member>
+    <member name="T:Gemstone.Endianness">
+      <summary>
+            Endian Byte Order Enumeration.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Endianness.BigEndian">
+      <summary>
+            Big-endian byte order.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Endianness.LittleEndian">
+      <summary>
+            Little-endian byte order.
+            </summary>
+    </member>
+    <member name="T:Gemstone.EndianOrder">
+      <summary>
+            Represents an endian byte order interoperability class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EndianOrder.#ctor(Gemstone.Endianness)">
+      <summary>
+            Constructs a new instance of the <see cref="T:Gemstone.EndianOrder" /> class.
+            </summary>
+      <param name="targetEndianness">Endianness parameter.</param>
+    </member>
+    <member name="F:Gemstone.EndianOrder.BigEndian">
+      <summary>
+            Default instance of the <see cref="T:Gemstone.BigEndianOrder" /> conversion class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Boolean,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified <see cref="T:System.Boolean" /> value as an array of 1 byte in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The <see cref="T:System.Boolean" /> value to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Char,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified Unicode character value as an array of 2 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The Unicode character value to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Double,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified double-precision floating point value as an array of 8 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Int16,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 16-bit signed integer value as an array of 2 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Int32,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 32-bit signed integer value as an array of 4 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Int64,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 64-bit signed integer value as an array of 8 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.Single,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified single-precision floating point value as an array of 4 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.UInt16,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 16-bit unsigned integer value as an array of 2 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.UInt32,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 32-bit unsigned integer value as an array of 4 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes(System.UInt64,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified 64-bit unsigned integer value as an array of 8 bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The number to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <returns>Length of bytes copied into array based on size of <paramref name="value" />.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.CopyBytes``1(``0,System.Byte[],System.Int32)">
+      <summary>
+            Copies the specified primitive type value as an array of bytes in the target endian-order to the destination array.
+            </summary>
+      <param name="value">The <see cref="T:System.Boolean" /> value to convert and copy.</param>
+      <param name="destinationArray">The destination buffer.</param>
+      <param name="destinationIndex">The byte offset into <paramref name="destinationArray" />.</param>
+      <typeparam name="T">Native value type to get bytes for.</typeparam>
+      <returns>Length of bytes copied into array based on size of <typeparamref name="T" />.</returns>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="value" /> type is not primitive.</exception>
+      <exception cref="T:System.InvalidOperationException">Cannot get bytes for <paramref name="value" /> type.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Boolean)">
+      <summary>
+            Returns the specified <see cref="T:System.Boolean" /> value as an array of bytes in the target endian-order.
+            </summary>
+      <param name="value">The <see cref="T:System.Boolean" /> value to convert.</param>
+      <returns>An array of bytes with length 1.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Char)">
+      <summary>
+            Returns the specified Unicode character value as an array of bytes in the target endian-order.
+            </summary>
+      <param name="value">The Unicode character value to convert.</param>
+      <returns>An array of bytes with length 2.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Double)">
+      <summary>
+            Returns the specified double-precision floating point value as an array of bytes in the target endian-order.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 8.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Int16)">
+      <summary>
+            Returns the specified 16-bit signed integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 2.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Int32)">
+      <summary>
+            Returns the specified 32-bit signed integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 4.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Int64)">
+      <summary>
+            Returns the specified 64-bit signed integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 8.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.Single)">
+      <summary>
+            Returns the specified single-precision floating point value as an array of bytes in the target endian-order.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 4.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.UInt16)">
+      <summary>
+            Returns the specified 16-bit unsigned integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 2.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.UInt32)">
+      <summary>
+            Returns the specified 32-bit unsigned integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 4.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes(System.UInt64)">
+      <summary>
+            Returns the specified 64-bit unsigned integer value as an array of bytes.
+            </summary>
+      <param name="value">The number to convert.</param>
+      <returns>An array of bytes with length 8.</returns>
+    </member>
+    <member name="M:Gemstone.EndianOrder.GetBytes``1(``0)">
+      <summary>
+            Returns the specified value as an array of bytes in the target endian-order.
+            </summary>
+      <param name="value">The value to convert.</param>
+      <typeparam name="T">Native value type to get bytes for.</typeparam>
+      <returns>An array of bytes with length 1.</returns>
+      <exception cref="T:System.ArgumentException">
+        <paramref name="value" /> type is not primitive.</exception>
+      <exception cref="T:System.InvalidOperationException">Cannot get bytes for <paramref name="value" /> type.</exception>
+    </member>
+    <member name="F:Gemstone.EndianOrder.LittleEndian">
+      <summary>
+            Default instance of the <see cref="T:Gemstone.LittleEndianOrder" /> conversion class.
+            </summary>
+    </member>
+    <member name="F:Gemstone.EndianOrder.NativeEndian">
+      <summary>
+            Default instance of the <see cref="T:Gemstone.NativeEndianOrder" /> conversion class.
+            </summary>
+    </member>
+    <member name="F:Gemstone.EndianOrder.NativeEndianness">
+      <summary>
+            Gets the native <see cref="T:Gemstone.Endianness" /> of the executing architecture.
+            </summary>
+    </member>
+    <member name="F:Gemstone.EndianOrder.TargetEndianness">
+      <summary>
+            Returns the target endian-order of this <see cref="T:Gemstone.EndianOrder" /> representation.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToBoolean(System.Byte[],System.Int32)">
+      <summary>
+            Returns a <see cref="T:System.Boolean" /> value converted from one byte at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes.</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>true if the byte at startIndex in value is nonzero; otherwise, false.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToChar(System.Byte[],System.Int32)">
+      <summary>
+            Returns a Unicode character converted from two bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A character formed by two bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToDouble(System.Byte[],System.Int32)">
+      <summary>
+            Returns a double-precision floating point number converted from eight bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A double-precision floating point number formed by eight bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToInt16(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 16-bit signed integer converted from two bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 16-bit signed integer formed by two bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToInt32(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 32-bit signed integer converted from four bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 32-bit signed integer formed by four bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToInt64(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 64-bit signed integer converted from eight bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 64-bit signed integer formed by eight bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToSingle(System.Byte[],System.Int32)">
+      <summary>
+            Returns a single-precision floating point number converted from four bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A single-precision floating point number formed by four bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToUInt16(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 16-bit unsigned integer converted from two bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 16-bit unsigned integer formed by two bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToUInt32(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 32-bit unsigned integer converted from four bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 32-bit unsigned integer formed by four bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="M:Gemstone.EndianOrder.ToUInt64(System.Byte[],System.Int32)">
+      <summary>
+            Returns a 64-bit unsigned integer converted from eight bytes, accounting for target endian-order, at a specified position in a byte array.
+            </summary>
+      <param name="value">An array of bytes (i.e., buffer containing binary image of value).</param>
+      <param name="startIndex">The starting position within value.</param>
+      <returns>A 64-bit unsigned integer formed by eight bytes beginning at startIndex.</returns>
+      <exception cref="T:System.ArgumentNullException">value is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
     <member name="T:Gemstone.EventArgs`1">
       <summary>
             Represents a generic event arguments class with one data argument.
@@ -1575,9 +2100,62 @@
             Gets or sets the fourth data argument for the event using <see cref="T:Gemstone.EventArgs`4" /> for its <see cref="T:System.EventArgs" />.
             </summary>
     </member>
+    <member name="T:Gemstone.IProvideStatus">
+      <summary>
+            Defines an interface for any object to allow it to provide a name and status
+            that can be displayed for informational purposes.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IProvideStatus.Name">
+      <summary>
+            Gets the name of the object providing status information.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IProvideStatus.Status">
+      <summary>
+            Gets the current status details about object providing status information.
+            </summary>
+    </member>
+    <member name="T:Gemstone.ISupportLifecycle">
+      <summary>
+            Specifies that this object provides support for performing tasks during the key stages of object life-cycle.
+            </summary>
+    </member>
+    <member name="E:Gemstone.ISupportLifecycle.Disposed">
+      <summary>
+            Raised after the source object has been properly disposed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ISupportLifecycle.Enabled">
+      <summary>
+            Gets or sets a boolean value that indicates whether the object is enabled.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ISupportLifecycle.Initialize">
+      <summary>
+            Initializes the state of the object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ISupportLifecycle.IsDisposed">
+      <summary>
+            Gets a flag that indicates whether the object has been disposed.
+            </summary>
+    </member>
     <member name="T:Gemstone.LibraryEvents">
       <summary>
             Defines library-level static events.
+            </summary>
+    </member>
+    <member name="M:Gemstone.LibraryEvents.DisableUnobservedTaskExceptionHandling">
+      <summary>
+            Disables automatic handling of <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" /> events. When disabled, any unobserved
+            task exceptions encountered will not be marked as observed nor exposed via the <see cref="E:Gemstone.LibraryEvents.SuppressedException" /> event.
+            </summary>
+    </member>
+    <member name="M:Gemstone.LibraryEvents.EnableUnobservedTaskExceptionHandling">
+      <summary>
+            Enables automatic handling of <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" /> events. When enabled, any unobserved
+            task exceptions encountered are marked as observed and exposed via the <see cref="E:Gemstone.LibraryEvents.SuppressedException" /> event.
             </summary>
     </member>
     <member name="E:Gemstone.LibraryEvents.SuppressedException">
@@ -2098,6 +2676,36 @@
       <returns>A 64-bit unsigned integer formed by eight bytes beginning at startIndex.</returns>
       <exception cref="T:System.ArgumentNullException">value is null.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">startIndex is less than zero or greater than the length of value minus 1.</exception>
+    </member>
+    <member name="T:Gemstone.LittleEndianOrder">
+      <summary>
+            Represents a little-endian byte order interoperability class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.LittleEndianOrder.#ctor">
+      <summary>
+            Constructs a new instance of the <see cref="T:Gemstone.LittleEndianOrder" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.LittleEndianOrder.Default">
+      <summary>
+            Returns the default instance of the <see cref="T:Gemstone.LittleEndianOrder" /> class.
+            </summary>
+    </member>
+    <member name="T:Gemstone.NativeEndianOrder">
+      <summary>
+            Represents a native-endian byte order interoperability class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.NativeEndianOrder.#ctor">
+      <summary>
+            Constructs a new instance of the <see cref="T:Gemstone.NativeEndianOrder" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.NativeEndianOrder.Default">
+      <summary>
+            Returns the default instance of the <see cref="T:Gemstone.NativeEndianOrder" /> class.
+            </summary>
     </member>
     <member name="T:Gemstone.NtpTimeTag">
       <summary>
@@ -3563,7 +4171,7 @@
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
       <returns>
             A function to call which will cancel the operation.
-            Cancel function returns true if <paramref name="action" /> is cancelled in time, false if not.
+            Cancel function returns true if <paramref name="action" /> is canceled in time, false if not.
             </returns>
     </member>
     <member name="M:Gemstone.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action,System.Int32,System.Threading.CancellationToken,System.Action{System.Exception})">
@@ -3584,7 +4192,7 @@
       <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
       <returns>
             A function to call which will cancel the operation.
-            Cancel function returns true if <paramref name="action" /> is cancelled, false if not.
+            Cancel function returns true if <paramref name="action" /> is canceled, false if not.
             </returns>
     </member>
     <member name="M:Gemstone.ActionExtensions.ActionExtensions.DelayAndExecute(System.Action{System.Threading.CancellationToken},System.Int32,System.Threading.CancellationToken,System.Action{System.Exception})">
@@ -5370,6 +5978,15 @@
       <typeparam name="TKey">The type of the keys to be compared.</typeparam>
       <returns>The elements from <paramref name="source" /> whose keys are distinct.</returns>
     </member>
+    <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.GetColumn``1(``0[0:,0:],System.Int32)">
+      <summary>
+            Gets a column of data out of a 2-dimensional array.
+            </summary>
+      <param name="source">Source array.</param>
+      <param name="columnIndex">Column index, i.e., dimension zero value, to retrieve.</param>
+      <typeparam name="T">Type of array.</typeparam>
+      <returns>Values from specified <paramref name="columnIndex" />.</returns>
+    </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.GetOrAdd``2(System.Collections.Generic.IDictionary{``0,``1},``0,System.Func{``0,``1})">
       <summary>
             Adds a key/value pair to the <see cref="T:System.Collections.Generic.IDictionary`2" /> if the key does not already exist.
@@ -6275,61 +6892,80 @@
             Defines extension methods related to event handlers.
             </summary>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Action{System.Exception},System.Object,``0,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.GetHandlerName``1(``0)">
+      <summary>
+            Gets the method name attached to an event handler.
+            </summary>
+      <param name="handler">Attached event handler.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.Delegate" /> type representing single handler of <see cref="T:System.EventHandler" />.</typeparam>
+      <returns>Name of event handler method including parameters and class name.</returns>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Action{System.Exception},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
             </summary>
       <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
-      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
       <param name="sender">Event source.</param>
       <param name="args">Event arguments.</param>
-      <param name="parallel">Call event handlers in parallel.</param>
-      <typeparam name="TEventArgs"></typeparam>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Action{System.Exception,System.EventHandler{``0}},System.Object,``0,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Action{System.Exception,System.EventHandler},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
             </summary>
       <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
-      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
       <param name="sender">Event source.</param>
       <param name="args">Event arguments.</param>
-      <param name="parallel">Call event handlers in parallel.</param>
-      <typeparam name="TEventArgs"></typeparam>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,System.Action{System.Exception},System.Object,``0,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Object,System.Action{System.Exception},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
             </summary>
       <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
-      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
-      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler" />.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
       <param name="sender">Event source.</param>
       <param name="args">Event arguments.</param>
-      <param name="parallel">Call event handlers in parallel.</param>
-      <typeparam name="TEventArgs"></typeparam>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,System.Action{System.Exception,System.EventHandler{``0}},System.Object,``0,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Object,System.Action{System.Exception,System.EventHandler},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
             </summary>
       <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
-      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <c>typeof(EventHandler&lt;TEventArgs&gt;)</c>.</param>
-      <param name="exceptionHandler">Exception handler; when set to <c>null</c>, exception will be suppressed.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler" />.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
       <param name="sender">Event source.</param>
       <param name="args">Event arguments.</param>
-      <param name="parallel">Call event handlers in parallel.</param>
-      <typeparam name="TEventArgs"></typeparam>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``1(System.EventHandler{``0},System.Object,``0,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation, continuing even if an attached user handler throws an exception.
             </summary>
       <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
       <param name="sender">Event source.</param>
       <param name="args">Event arguments.</param>
-      <param name="parallel">Call event handlers in parallel.</param>
-      <typeparam name="TEventArgs"></typeparam>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
     <member name="T:Gemstone.GuidExtensions.GuidExtensions">
       <summary>
@@ -6982,6 +7618,758 @@
       <param name="fileName">The name of the file to wait for until it is created.</param>
       <param name="secondsToWait">The time to wait for in seconds for the file to be created. Set to zero to wait infinitely.</param>
     </member>
+    <member name="T:Gemstone.IO.Parsing.BinaryImageBase">
+      <summary>
+            Defines a base class that represents binary images for parsing or generation in terms of a header, body and footer.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.IO.Parsing.BinaryImageBase</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageBase.BinaryLength">
+      <summary>
+            Gets the length of the <see cref="T:Gemstone.IO.Parsing.BinaryImageBase" /> object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageBase.BodyLength">
+      <summary>
+            Gets the length of the body portion of the <see cref="T:Gemstone.IO.Parsing.BinaryImageBase" /> object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageBase.FooterLength">
+      <summary>
+            Gets the length of the footer portion of the <see cref="T:Gemstone.IO.Parsing.BinaryImageBase" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.GenerateBinaryImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates binary image of the object and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="startIndex" /> or <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> is less than 0 -or- 
+            <paramref name="startIndex" /> and <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> will exceed <paramref name="buffer" /> length.
+            </exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.GenerateBodyImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates the binary body image and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.BinaryImageBase.BodyLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.GenerateFooterImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates the binary footer image and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.BinaryImageBase.FooterLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.GenerateHeaderImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates the binary header image and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.BinaryImageBase.HeaderLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageBase.HeaderLength">
+      <summary>
+            Gets the length of the header portion of the <see cref="T:Gemstone.IO.Parsing.BinaryImageBase" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.ParseBinaryImage(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Initializes object by parsing the specified <paramref name="buffer" /> containing a binary image.
+            </summary>
+      <param name="buffer">Buffer containing binary image to parse.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start parsing.</param>
+      <param name="length">Valid number of bytes within <paramref name="buffer" /> from <paramref name="startIndex" />.</param>
+      <returns>The number of bytes used for initialization in the <paramref name="buffer" /> (i.e., the number of bytes parsed).</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="startIndex" /> or <paramref name="length" /> is less than 0 -or- 
+            <paramref name="startIndex" /> and <paramref name="length" /> will exceed <paramref name="buffer" /> length.
+            </exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.ParseBodyImage(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Parses the binary body image.
+            </summary>
+      <param name="buffer">Buffer containing binary image to parse.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start parsing.</param>
+      <param name="length">Valid number of bytes within <paramref name="buffer" /> from <paramref name="startIndex" />.</param>
+      <returns>The number of bytes used for initialization in the <paramref name="buffer" /> (i.e., the number of bytes parsed).</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.ParseFooterImage(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Parses the binary footer image.
+            </summary>
+      <param name="buffer">Buffer containing binary image to parse.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start parsing.</param>
+      <param name="length">Valid number of bytes within <paramref name="buffer" /> from <paramref name="startIndex" />.</param>
+      <returns>The number of bytes used for initialization in the <paramref name="buffer" /> (i.e., the number of bytes parsed).</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageBase.ParseHeaderImage(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Parses the binary header image.
+            </summary>
+      <param name="buffer">Buffer containing binary image to parse.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start parsing.</param>
+      <param name="length">Valid number of bytes within <paramref name="buffer" /> from <paramref name="startIndex" />.</param>
+      <returns>The number of bytes used for initialization in the <paramref name="buffer" /> (i.e., the number of bytes parsed).</returns>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.BinaryImageParserBase">
+      <summary>
+            This class defines the fundamental functionality for parsing any stream of binary data.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.IO.Parsing.BinaryImageParserBase" /> class.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.Parsing.BinaryImageParserBase.BufferParsed">
+      <summary>
+            Occurs when buffer parsing has completed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.CanRead">
+      <summary>
+            Gets a value indicating whether the current stream supports reading.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.CanSeek">
+      <summary>
+            Gets a value indicating whether the current stream supports seeking.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.CanWrite">
+      <summary>
+            Gets a value indicating whether the current stream supports writing.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.Parsing.BinaryImageParserBase.DataDiscarded">
+      <summary>
+            Occurs when data image fails deserialized due to an exception.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.Parsing.BinaryImageParserBase.DefaultProtocolSyncBytes">
+      <summary>
+            Specifies the default value for the <see cref="P:Gemstone.IO.Parsing.BinaryImageParserBase.ProtocolSyncBytes" /> property.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.Enabled">
+      <summary>
+            Gets or sets a boolean value that indicates whether the data parser is currently enabled.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Flush">
+      <summary>
+            When overridden in a derived class, clears all buffers for this stream and causes any buffered data
+            to be written to the underlying device.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.Length">
+      <summary>
+            The parser is designed as a write only stream, so this method is not implemented.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.Name">
+      <summary>
+            Gets the name of <see cref="T:Gemstone.IO.Parsing.BinaryImageParserBase" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.OnBufferParsed">
+      <summary>
+            Raises the <see cref="E:Gemstone.IO.Parsing.BinaryImageParserBase.BufferParsed" /> event.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.OnDataDiscarded(System.Byte[])">
+      <summary>
+            Raises the <see cref="E:Gemstone.IO.Parsing.BinaryImageParserBase.DataDiscarded" /> event.
+            </summary>
+      <param name="buffer">Source buffer that contains output that failed to parse.</param>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.OnParsingException(System.Exception)">
+      <summary>
+            Raises the <see cref="E:Gemstone.IO.Parsing.BinaryImageParserBase.ParsingException" /> event.
+            </summary>
+      <param name="ex">The <see cref="T:System.Exception" /> that was encountered during parsing.</param>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Parse(Gemstone.IO.Parsing.ISupportBinaryImage)">
+      <summary>
+            Parses the object implementing the <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> interface.
+            </summary>
+      <param name="image">Object to be parsed that implements the <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> interface.</param>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.ParseFrame(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Protocol specific frame parsing algorithm.
+            </summary>
+      <param name="buffer">Buffer containing data to parse.</param>
+      <param name="offset">Offset index into buffer that represents where to start parsing.</param>
+      <param name="length">Maximum length of valid data from offset.</param>
+      <returns>The length of the data that was parsed.</returns>
+    </member>
+    <member name="E:Gemstone.IO.Parsing.BinaryImageParserBase.ParsingException">
+      <summary>
+            Occurs when an <see cref="T:System.Exception" /> is encountered while attempting to parse data.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.Position">
+      <summary>
+            The parser is designed as a write only stream, so this method is not implemented.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.ProtocolSyncBytes">
+      <summary>
+            Gets or sets synchronization bytes for this parsing implementation, if used.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.ProtocolUsesSyncBytes">
+      <summary>
+            Gets flag that determines if this protocol parsing implementation uses synchronization bytes.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Read(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            The parser is designed as a write only stream, so this method is not implemented.
+            </summary>
+      <param name="buffer">Array of <see cref="T:System.Byte" />s.</param>
+      <param name="count">An <see cref="T:System.Int32" /> value for the offset.</param>
+      <param name="offset">An <see cref="T:System.Int32" /> value for the count.</param>
+      <returns>An <see cref="T:System.Int32" /> as the number of bytes read. Well. It would, if implemented.</returns>
+      <exception cref="T:System.NotImplementedException">Cannot read from WriteOnly stream.</exception>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.RunTime">
+      <summary>
+            Gets the total amount of time, in seconds, that the <see cref="T:Gemstone.IO.Parsing.BinaryImageParserBase" /> has been active.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Seek(System.Int64,System.IO.SeekOrigin)">
+      <summary>
+            The parser is designed as a write only stream, so this method is not implemented.
+            </summary>
+      <param name="offset">A <see cref="T:System.Int64" /> value for the offset.</param>
+      <param name="origin">A <see cref="T:System.IO.SeekOrigin" />.</param>
+      <returns>Returns a <see cref="T:System.Int64" /> value indicating the point that was sought.</returns>
+      <exception cref="T:System.NotImplementedException">WriteOnly stream has no position.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.SetLength(System.Int64)">
+      <summary>
+            The parser is designed as a write only stream, so this method is not implemented.
+            </summary>
+      <param name="value">A <see cref="T:System.Int64" /> value.</param>
+      <exception cref="T:System.NotImplementedException">WriteOnly stream has no length.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Start">
+      <summary>
+            Start the streaming data parser.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.Status">
+      <summary>
+            Gets current status of <see cref="T:Gemstone.IO.Parsing.BinaryImageParserBase" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Stop">
+      <summary>
+            Stops the streaming data parser.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.Parsing.BinaryImageParserBase.StreamInitialized">
+      <summary>
+            Tracks if data stream has been initialized.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BinaryImageParserBase.TotalProcessedBuffers">
+      <summary>
+            Gets the total number of buffer images processed so far.
+            </summary>
+      <returns>Total number of buffer images processed so far.</returns>
+    </member>
+    <member name="F:Gemstone.IO.Parsing.BinaryImageParserBase.UnparsedBuffer">
+      <summary>
+            Remaining unparsed buffer from last parsing execution, if any.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BinaryImageParserBase.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Writes a sequence of bytes onto the stream for parsing.
+            </summary>
+      <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current stream.</param>
+      <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
+      <param name="count">The number of bytes to be written to the current stream.</param>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.BooleanExpression">
+      <summary>
+            Represents a boolean expression that can be parsed and executed at runtime.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BooleanExpression.#ctor(System.String)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.IO.Parsing.BooleanExpression" /> class.
+            </summary>
+      <param name="expressionText">The expression text to be parsed as a boolean expression.</param>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BooleanExpression.#ctor(System.String,System.Collections.Generic.IEqualityComparer{System.String})">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.IO.Parsing.BooleanExpression" /> class.
+            </summary>
+      <param name="expressionText">The expression text to be parsed as a boolean expression.</param>
+      <param name="identifierComparer">Comparer used to compare identifiers.</param>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BooleanExpression.Evaluate">
+      <summary>
+            Evaluates the expression using the
+            current values of the variables.
+            </summary>
+      <returns>The result of the evaluation.</returns>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BooleanExpression.Item(System.String)">
+      <summary>
+            Gets the variable identified by the given identifier.
+            </summary>
+      <param name="identifier">The identifier used to refer to the variable.</param>
+      <returns>The variable identified by the given identifier.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BooleanExpression.TryGetVariable(System.String,Gemstone.IO.Parsing.BooleanExpression.Variable@)">
+      <summary>
+            Attempts to get the variable identified by the given identifier.
+            </summary>
+      <param name="identifier">The identifier used to refer to the variable.</param>
+      <param name="variable">The variable identified by the given identifier.</param>
+      <returns>True if the variable is present in the expression; false otherwise.</returns>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.BooleanExpression.Variables">
+      <summary>
+            Gets the list of variables found while parsing the boolean expression.
+            </summary>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.BooleanExpression.Variable">
+      <summary>
+            Represents a variable that can be tweaked at runtime.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.BooleanExpression.Variable.#ctor(System.String)">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.IO.Parsing.BooleanExpression.Variable" /> class.
+            </summary>
+      <param name="identifier">The identifier used to refer to the variable.</param>
+    </member>
+    <member name="F:Gemstone.IO.Parsing.BooleanExpression.Variable.Identifier">
+      <summary>
+            The identifier used to refer to the variable.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.Parsing.BooleanExpression.Variable.Value">
+      <summary>
+            The value of the variable.
+            </summary>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.IBinaryImageParser">
+      <summary>
+            This interface represents the protocol independent representation of a streaming data parser.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.Parsing.IBinaryImageParser.DataDiscarded">
+      <summary>
+            Occurs when data image fails deserialization due to an exception.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.IBinaryImageParser.Enabled">
+      <summary>
+            Gets or sets a boolean value that indicates whether the data parser is currently enabled.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.Parsing.IBinaryImageParser.ParsingException">
+      <summary>
+            Occurs when an <see cref="T:System.Exception" /> is encountered while attempting to parse data.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.IBinaryImageParser.Start">
+      <summary>
+            Start the streaming data parser.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.IBinaryImageParser.Stop">
+      <summary>
+            Stops the streaming data parser.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.IBinaryImageParser.TotalProcessedBuffers">
+      <summary>
+            Gets the total number of buffer images processed so far.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.IBinaryImageParser.Write(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Writes a sequence of bytes onto the <see cref="T:Gemstone.IO.Parsing.IBinaryImageParser" /> stream for parsing.
+            </summary>
+      <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current stream.</param>
+      <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
+      <param name="count">The number of bytes to be written to the current stream.</param>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.ISupportBinaryImage">
+      <summary>
+            Specifies that an object can support production or consumption of a binary image that represents the object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength">
+      <summary>
+            Gets the length of the binary image.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImage.GenerateBinaryImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates binary image of the object and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImage.ParseBinaryImage(System.Byte[],System.Int32,System.Int32)">
+      <summary>
+            Initializes object by parsing the specified <paramref name="buffer" /> containing a binary image.
+            </summary>
+      <param name="buffer">Buffer containing binary image to parse.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start parsing.</param>
+      <param name="length">Valid number of bytes within <paramref name="buffer" /> to read from <paramref name="startIndex" />.</param>
+      <returns>The number of bytes used for initialization in the <paramref name="buffer" /> (i.e., the number of bytes parsed).</returns>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.ISupportBinaryImageExtensions">
+      <summary>
+            Defines extension functions related to <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> implementations.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.BinaryImage(Gemstone.IO.Parsing.ISupportBinaryImage)">
+      <summary>
+            Returns a binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.
+            </summary>
+      <param name="imageSource">
+        <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
+      <returns>A binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="imageSource" /> cannot be null.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.CopyBinaryImageToStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream)">
+      <summary>
+            Copies binary image of object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> to a <see cref="T:System.IO.Stream" />.
+            </summary>
+      <param name="imageSource">
+        <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
+      <param name="stream">Destination <see cref="T:System.IO.Stream" />.</param>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="imageSource" /> cannot be null.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.ParseBinaryImageFromStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream)">
+      <summary>
+            Parses binary image of object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> from a <see cref="T:System.IO.Stream" />.
+            </summary>
+      <param name="imageSource">
+        <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
+      <param name="stream">Source <see cref="T:System.IO.Stream" />.</param>
+      <returns>The number of bytes parsed from the <paramref name="stream" />.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="imageSource" /> cannot be null.</exception>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.StringParser">
+      <summary>
+            Like the Excel CSV Parser, only better.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.ExpectedFieldNamesMatch(System.String[],System.String[],System.Boolean,System.Int32,System.Int32)">
+      <summary>
+            Validates that expected field names match field names found.
+            </summary>
+      <param name="expectedFieldNames">The string array of expected field names.</param>
+      <param name="actualFieldNames">The string array of actual field names.</param>
+      <param name="matchCase">Set to TRUE to require case to match.</param>
+      <param name="length">The number of fields to check.  Less than 1 sets length to expectedFieldName length</param>
+      <param name="startIndex">The index to use to start matching test.</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.ExpectedFieldNamesMatch(System.String[],System.String[],System.Boolean,System.Int32,System.Int32)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.FindIndex(System.String,System.String[],System.Boolean,System.Boolean)">
+      <summary>
+            Finds the index of the first matching (or containing) field name
+            </summary>
+      <param name="fieldNameValueSought">the field name to find</param>
+      <param name="fieldNames">the string array of fields</param>
+      <param name="matchCase">set to FALSE for case insensitive tests</param>
+      <param name="contains">Set to TRUE to find index that CONTAINS the fileNameValueSought</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.FindIndex(System.String,System.String[],System.Boolean,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.GetBetweenDelimiters(System.String,System.Int32@,System.Char,System.Char,System.Int32,System.Boolean,System.Boolean)">
+      <summary>
+            Returns the string that is between two delimiter strings beginning the first startDelimiter found.
+            ALSO, returns the index of the payload (the index of the first char past the startDelimiter)
+            </summary>
+      <param name="inString">The input string</param>
+      <param name="startToken">The beginning token or delimiter</param>
+      <param name="endToken">The ending token or delimiter</param>
+      <param name="startIndex">The index on which to begin searching inString</param>
+      <param name="matchCase">set to FALSE for case insensitive test for delimiters</param>
+      <param name="includeTokensInReturn">set to TRUE for the return string to include the opening and closing tokens.</param>
+      <param name="payloadIndex">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>payloadIndex</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.GetBetweenDelimiters(System.String,System.Int32@,System.Char,System.Char,System.Int32,System.Boolean,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>A string, and the string starting index (payload Index)</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.Char,System.Char,System.Int32,System.Boolean)">
+      <summary>
+            Looks to the RIGHT for the first open token and returns the matching close token
+            </summary>
+      <param name="inString">The string to process</param>
+      <param name="openToken">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>openToken</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.Char,System.Char,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="closeToken">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>closeToken</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.Char,System.Char,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="startIndex">The index from with to begin processing inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.Char,System.Char,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.String,System.String,System.Int32,System.Boolean)">
+      <summary>
+            Looks to the RIGHT for the first open token and returns the matching close token
+            </summary>
+      <param name="inString">The string to process</param>
+      <param name="openToken">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>openToken</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.String,System.String,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="closeToken">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>closeToken</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.String,System.String,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="startIndex">The index from with to begin processing inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndexOfMatchingCloseToken(System.String,System.String,System.String,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfNextToken(System.String,System.Char,System.Int32,System.Int32,System.Boolean)">
+      <summary>
+             Finds the index of the "n" occurrence of a character (a token) within a string
+            </summary>
+      <param name="inString">The string to process.</param>
+      <param name="token">The token character sought</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="occurrenceCount">The occurrence sought</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>Returns the starting index of the nth occurrence of a character.
+             Returns -1 if nth occurrence does not exist.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfNextToken(System.String,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>
+             Finds the index of the "n" occurrence of one string (a token) within another
+            </summary>
+      <param name="inString">The string to process.</param>
+      <param name="token">The string to find</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="occurrenceCount">The occurrence of the token sought</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>Returns the starting index of the nth occurrence of a string. 
+            Returns -1 if nth occurrence does not exist.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfNextTokens(System.String,System.Char[],System.Int32,System.Boolean)">
+      <summary>
+             Finds the index of the "n" occurrence any one of the chars in the token array within a string
+            </summary>
+      <param name="inString">The string to process.</param>
+      <param name="tokens">The token characters sought</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>Returns the starting index of the nth occurrence of a character.
+             Returns -1 if nth occurrence does not exist.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfPreviousToken(System.String,System.Char,System.Int32,System.Int32,System.Boolean)">
+      <summary>
+             Processing from RIGHT to LEFT, finds the index of the "n" occurrence of a character (a token) within a string
+            </summary>
+      <param name="inString">The string to process.</param>
+      <param name="token">The token character sought</param>
+      <param name="startIndex">Default of zero (0) begins testing end of inString, otherwise
+            The index from with to begin processing inString from RIGHT to LEFT</param>
+      <param name="occurrenceCount">The occurrence sought</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>Returns the starting index of the nth occurrence of a character.
+            Returns -1 if nth occurrence does not exist.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndexOfPreviousToken(System.String,System.String,System.Int32,System.Int32,System.Boolean)">
+      <summary>
+             Processing from RIGHT to LEFT, finds the index of the "n"occurrence of one string (a token) within a string
+            </summary>
+      <param name="inString">The string to process.</param>
+      <param name="token">The token string sought</param>
+      <param name="startIndex">Default of zero (0) begins testing end of inString, otherwise
+            The index from with to begin processing inString from RIGHT to LEFT</param>
+      <param name="occurrenceCount">The occurrence sought</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>Returns the starting index of the nth occurrence of a string.
+            Returns -1 if nth occurrence does not exist.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndicesOfToken(System.String,System.Char,System.Int32,System.Boolean)">
+      <summary>
+            Returns an array indices where the token char was found.  Null for no tokens found.
+            </summary>
+      <param name="inString">The string to process</param>
+      <param name="token">The token string sought</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndicesOfToken(System.String,System.Char,System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndicesOfToken(System.String,System.String,System.Int32,System.Boolean)">
+      <summary>
+            Returns an array of indices where the token string was found
+            </summary>
+      <param name="inString">The string to process</param>
+      <param name="token">The token string sought</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>null for no tokens found</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.IndicesOfTokens(System.String,System.Char[],System.Int32,System.Boolean)">
+      <summary>
+            Returns an array of the indices where the token chars were found.  Null for no tokens found.
+            </summary>
+      <param name="inString">The string to process</param>
+      <param name="tokens">The char array of the tokens</param>
+      <param name="startIndex">The index from which to begin searching inString</param>
+      <param name="matchCase">Set to FALSE for case insensitive search</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.IndicesOfTokens(System.String,System.Char[],System.Int32,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.ParseCheck(System.String[],System.TypeCode[],System.Object[]@)">
+      <summary>
+            Parses strings and validates they match expected type codes.
+            </summary>
+      <param name="parsedStrings">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>parsedStrings</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.ParseCheck(System.String[],System.TypeCode[],System.Object[]@)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="expectedTypeCodes">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>expectedTypeCodes</parameter>
+            <parameter>M:Gemstone.IO.Parsing.StringParser.ParseCheck(System.String[],System.TypeCode[],System.Object[]@)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="values">the returned values from the try parse.</param>
+      <returns>TRUE if all values parse successfully.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.ParseLine(System.String,System.Char[],System.Char[],System.Int32,System.Boolean)">
+      <summary>
+            Parses a line based on a collection of quote and delimiter characters,
+            </summary>
+      <param name="inString">The string to parse</param>
+      <param name="quoteChars">
+                          An array of characters to be used as the framing within fields or the "quote" characters.  Quotes must matched. 
+                          Set to null to disable (split line at delimiter regardless of quotes).</param>
+      <param name="delimiters">An array of characters to be used as delimiter characters.  These characters have equal weight in breaking up the line.</param>
+      <param name="startIndex">The index in the line from which to start parsing.</param>
+      <param name="removeResultQuotes">Set to TRUE to unwrap quotes in returned array vis-a-vis Excel.</param>
+      <returns>An array of the parsed strings</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.StringParser.ParseStandardCSV(System.String,System.Int32,System.Boolean)">
+      <summary>
+            Parses a line based on a comma as the separator.  Commas wrapped in matched double quotes are not separators.  
+            Matched double quotes are normally removed prior to field return.  Fields are NOT trimmed of white spaces prior to return.
+            </summary>
+      <param name="inString">The string to parse.</param>
+      <param name="startIndex">The index in the line from which to start parsing.</param>
+      <param name="removeResultQuotes">Set to TRUE to unwrap quotes in returned array vis-a-vis Excel.</param>
+      <returns>An array of the parsed strings (the fields within the line)</returns>
+    </member>
     <member name="T:Gemstone.IO.StreamExtensions.StreamExtensions">
       <summary>
             Defines extension functions related to <see cref="T:System.IO.Stream" /> manipulation.
@@ -7351,6 +8739,491 @@
             </summary>
       <param name="stream">the stream to write to</param>
       <param name="value">the value to write</param>
+    </member>
+    <member name="T:Gemstone.Net.Security.CertificateGenerator">
+      <summary>
+            The CertificateGenerator searches certificate stores for existing certificates and creates
+            self-signed certificates if no matching certificate exists in any accessible store.
+            It then generates a certificate file at the specified certificate path.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificateGenerator.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Net.Security.CertificateGenerator" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificateGenerator.CertificatePath">
+      <summary>
+            Gets or sets the path to the certificate file
+            that is generated by this certificate generator.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificateGenerator.DebugLog">
+      <summary>
+            Gets a list of detailed log messages
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificateGenerator.ExportCertificateWithPrivateKey(System.String,System.Security.SecureString)">
+      <summary>
+            Exports the private key of the certificate that is currently in use to the given path,
+            encrypting the file with the given password.
+            </summary>
+      <param name="exportPath">The path to which the certificate will be exported.</param>
+      <param name="password">The password used to encrypt the certificate file.</param>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificateGenerator.GenerateCertificate">
+      <summary>
+            Generates the certificate.
+            </summary>
+      <returns>The certificate that was generated by this certificate generator.</returns>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificateGenerator.ImportCertificateWithPrivateKey(System.String,System.Security.SecureString)">
+      <summary>
+            Imports the given certificate into the current user store and then exports the public key.
+            </summary>
+      <param name="importPath">The file with the certificate and private key to be imported.</param>
+      <param name="password">The password used to encrypt the certificate file with the private key.</param>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificateGenerator.Issuer">
+      <summary>
+            Gets or sets the name of the entity issuing the certificate.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificateGenerator.SubjectNames">
+      <summary>
+            Gets or sets the subject names (common names)
+            of the entity that this certificate identifies.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Net.Security.CertificatePolicy">
+      <summary>
+            Represents a set of flags to be checked when validating remote certificates.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicy.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Net.Security.CertificatePolicy" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificatePolicy.ValidChainFlags">
+      <summary>
+            Gets or sets the set of valid chain flags used when
+            validating remote certificates using this policy.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificatePolicy.ValidPolicyErrors">
+      <summary>
+            Gets or sets the set of valid policy errors used when
+            validating remote certificates using this policy.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Net.Security.CertificatePolicyChecker">
+      <summary>
+            Certificate checker that validates remote certificates based
+            on certificate policies associated with each certificate.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Net.Security.CertificatePolicyChecker" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificatePolicyChecker.DefaultCertificatePolicy">
+      <summary>
+            Gets the default certificate policy used to validate
+            certificates that do not have their own certificate policy.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.Distrust(System.Security.Cryptography.X509Certificates.X509Certificate)">
+      <summary>
+            Removes the given certificate from the list of trusted certificates.
+            </summary>
+      <param name="certificate">The certificate to be distrusted.</param>
+      <returns>
+        <c>true</c> if certificate was removed; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.DistrustAll">
+      <summary>
+            Removes all certificates from the list of trusted certificates.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.GetTrustedCertificate(System.Security.Cryptography.X509Certificates.X509Certificate)">
+      <summary>
+            Searches the list of trusted certificates for a certificate that matches the given remote certificate. 
+            </summary>
+      <param name="remoteCertificate">Remote certificate to search for.</param>
+      <returns>Trusted X509 certificate, if found; otherwise, <c>null</c>.</returns>
+    </member>
+    <member name="P:Gemstone.Net.Security.CertificatePolicyChecker.ReasonForFailure">
+      <summary>
+            Gets the reason why the remote certificate validation
+            failed, or null if certificate validation did not fail.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.Trust(System.Security.Cryptography.X509Certificates.X509Certificate)">
+      <summary>
+            Trusts the given certificate, using the default policy for validation.
+            </summary>
+      <param name="certificate">The certificate to be trusted.</param>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.Trust(System.Security.Cryptography.X509Certificates.X509Certificate,Gemstone.Net.Security.CertificatePolicy)">
+      <summary>
+            Trusts the given certificate, using the given policy for validation.
+            </summary>
+      <param name="certificate">The certificate to be trusted.</param>
+      <param name="policy">The policy by which to evaluate the certificate.</param>
+    </member>
+    <member name="M:Gemstone.Net.Security.CertificatePolicyChecker.ValidateRemoteCertificate(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+      <summary>
+            Verifies the remote certificate used for authentication.
+            </summary>
+      <param name="sender">An object that contains state information for this validation.</param>
+      <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+      <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+      <param name="errors">One or more errors associated with the remote certificate.</param>
+      <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    </member>
+    <member name="T:Gemstone.Net.Security.ICertificateChecker">
+      <summary>
+            Defines the interface for a generic X.509 certificate checker.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.ICertificateChecker.ReasonForFailure">
+      <summary>
+            Gets the reason why the remote certificate validation
+            failed, or null if certificate validation did not fail.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.ICertificateChecker.ValidateRemoteCertificate(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+      <summary>
+            Verifies the remote certificate used for authentication.
+            </summary>
+      <param name="sender">An object that contains state information for this validation.</param>
+      <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+      <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+      <param name="errors">One or more errors associated with the remote certificate.</param>
+      <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    </member>
+    <member name="T:Gemstone.Net.Security.SimpleCertificateChecker">
+      <summary>
+            Simple implementation of <see cref="T:Gemstone.Net.Security.ICertificateChecker" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.SimpleCertificateChecker.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Net.Security.SimpleCertificateChecker" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimpleCertificateChecker.ReasonForFailure">
+      <summary>
+            Gets the reason why the remote certificate validation
+            failed, or null if certificate validation did not fail.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimpleCertificateChecker.TrustedCertificates">
+      <summary>
+            Gets the list of certificates on the system which are
+            considered trusted when validating remote certificates.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.SimpleCertificateChecker.ValidateRemoteCertificate(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+      <summary>
+            Verifies the remote certificate used for authentication.
+            </summary>
+      <param name="sender">An object that contains state information for this validation.</param>
+      <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+      <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+      <param name="errors">One or more errors associated with the remote certificate.</param>
+      <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    </member>
+    <member name="M:Gemstone.Net.Security.SimpleCertificateChecker.ValidateRemoteCertificate(System.Security.Cryptography.X509Certificates.X509Certificate)">
+      <summary>
+            Validates the given remote certificate to determine if the host is trusted.
+            </summary>
+      <param name="remoteCertificate">Certificate of the remote host.</param>
+      <returns>True if the remote certificate is trusted; false otherwise.</returns>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimpleCertificateChecker.ValidChainFlags">
+      <summary>
+            Gets or sets the set of invalid chain flags.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimpleCertificateChecker.ValidPolicyErrors">
+      <summary>
+            Gets or sets the set of invalid policy errors.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Net.Security.SimplePolicyChecker">
+      <summary>
+            Simple implementation of <see cref="T:Gemstone.Net.Security.ICertificateChecker" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.SimplePolicyChecker.#ctor">
+      <summary>
+            Creates a new instance of the <see cref="T:Gemstone.Net.Security.SimplePolicyChecker" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimplePolicyChecker.ReasonForFailure">
+      <summary>
+            Gets the reason why the remote certificate validation
+            failed, or null if certificate validation did not fail.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Security.SimplePolicyChecker.ValidateRemoteCertificate(System.Object,System.Security.Cryptography.X509Certificates.X509Certificate,System.Security.Cryptography.X509Certificates.X509Chain,System.Net.Security.SslPolicyErrors)">
+      <summary>
+            Verifies the remote certificate used for authentication.
+            </summary>
+      <param name="sender">An object that contains state information for this validation.</param>
+      <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+      <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+      <param name="errors">One or more errors associated with the remote certificate.</param>
+      <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimplePolicyChecker.ValidChainFlags">
+      <summary>
+            Gets or sets the set of invalid chain flags.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Security.SimplePolicyChecker.ValidPolicyErrors">
+      <summary>
+            Gets or sets the set of invalid policy errors.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Net.Smtp.Mail">
+      <summary>
+             A wrapper class to the <see cref="T:System.Net.Mail.MailMessage" /> class that simplifies sending mail messages.
+             </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Net.Smtp.Mail" /> class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Net.Smtp.Mail" /> class.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.#ctor(System.String,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Net.Smtp.Mail" /> class.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.#ctor(System.String,System.String,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Net.Smtp.Mail" /> class.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Attachments">
+      <summary>
+            Gets or sets the comma-separated or semicolon-separated list of file names to be attached to the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.BccRecipients">
+      <summary>
+            Gets or sets the comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message blank carbon copy (BCC) recipients.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Body">
+      <summary>
+            Gets or sets the body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.CcRecipients">
+      <summary>
+            Gets or sets the comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message carbon copy (CC) recipients.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Client">
+      <summary>
+            Gets the <see cref="T:System.Net.Mail.SmtpClient" /> object used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Net.Smtp.Mail.DefaultSmtpServer">
+      <summary>
+            Default <see cref="P:Gemstone.Net.Smtp.Mail.SmtpServer" /> to be used if one is not specified.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.Net.Smtp.Mail" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.Net.Smtp.Mail" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.EnableSSL">
+      <summary>
+            Gets or sets the flag that determines whether
+            to use SSL when communicating with the SMTP server.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.Net.Smtp.Mail" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.From">
+      <summary>
+            Gets or sets the e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">Value being assigned is a null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.IsBodyHtml">
+      <summary>
+            Gets or sets a boolean value that indicating whether the <see cref="T:Gemstone.Net.Smtp.Mail" /> message <see cref="P:Gemstone.Net.Smtp.Mail.Body" /> is to be formatted as HTML.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Password">
+      <summary>
+            Gets or sets the password used to authenticate to the SMTP server.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.SecurePassword">
+      <summary>
+            Gets or sets the password used to authenticate to the SMTP server.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send">
+      <summary>
+            Send the <see cref="T:Gemstone.Net.Smtp.Mail" /> message with <see cref="P:Gemstone.Net.Smtp.Mail.Attachments" /> to the <see cref="P:Gemstone.Net.Smtp.Mail.ToRecipients" />, 
+            <see cref="P:Gemstone.Net.Smtp.Mail.CcRecipients" /> and <see cref="P:Gemstone.Net.Smtp.Mail.BccRecipients" /> using the specified <see cref="P:Gemstone.Net.Smtp.Mail.SmtpServer" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+      <summary>
+            Sends a <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)">
+      <summary>
+            Sends a <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="attachments">A comma-separated or semicolon-separated list of file names to be attached to the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Security.SecureString)">
+      <summary>
+            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
+      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Security.SecureString,System.Boolean)">
+      <summary>
+            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
+      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
+      <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.String)">
+      <summary>
+            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
+      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.String,System.Boolean)">
+      <summary>
+            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
+      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
+      <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+      <summary>
+            Sends a <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="ccRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message carbon copy (CC) recipients.</param>
+      <param name="bccRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message blank carbon copy (BCC) recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+    </member>
+    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String)">
+      <summary>
+            Sends a <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
+      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
+      <param name="ccRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message carbon copy (CC) recipients.</param>
+      <param name="bccRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message blank carbon copy (BCC) recipients.</param>
+      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
+      <param name="attachments">A comma-separated or semicolon-separated list of file names to be attached to the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.SmtpServer">
+      <summary>
+            Gets or sets the name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">Value being assigned is a null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Subject">
+      <summary>
+            Gets or sets the subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.ToRecipients">
+      <summary>
+            Gets or sets the comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">Value being assigned is a null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.Net.Smtp.Mail.Username">
+      <summary>
+            Gets or sets the username used to authenticate to the SMTP server.
+            </summary>
     </member>
     <member name="T:Gemstone.Reflection.AppDomainTypeLookup">
       <summary>
@@ -9044,6 +10917,13 @@
       <param name="value">Input string.</param>
       <param name="culture">The <see cref="T:System.Globalization.CultureInfo" /> that corresponds to the language rules applied for title casing of words; defaults to <see cref="P:System.Globalization.CultureInfo.CurrentCulture" />.</param>
       <returns>A <see cref="T:System.String" /> that has the first letter of each word capitalized.</returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.ToUnsecureString(System.Security.SecureString)">
+      <summary>
+            Converts the given <see cref="T:System.Security.SecureString" /> into a <see cref="T:System.String" />.
+            </summary>
+      <param name="value">The <see cref="T:System.Security.SecureString" /> to be converted.</param>
+      <returns>The given <see cref="T:System.Security.SecureString" /> as a <see cref="T:System.String" />.</returns>
     </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.TrimWithEllipsisEnd(System.String,System.Int32)">
       <summary>
