@@ -5983,7 +5983,7 @@
             Gets a column of data out of a 2-dimensional array.
             </summary>
       <param name="source">Source array.</param>
-      <param name="columnIndex">Column index, i.e., dimension zero value, to retrieve.</param>
+      <param name="columnIndex">Column index, i.e., dimension one value, to retrieve.</param>
       <typeparam name="T">Type of array.</typeparam>
       <returns>Values from specified <paramref name="columnIndex" />.</returns>
     </member>
@@ -6040,6 +6040,15 @@
       <typeparam name="T">
         <see cref="T:System.Type" /> of elements in the <paramref name="collection" />.</typeparam>
       <returns>An <see cref="T:System.Collections.Generic.IList`1" /> object.</returns>
+    </member>
+    <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.GetRow``1(``0[0:,0:],System.Int32)">
+      <summary>
+            Gets a row of data out of a 2-dimensional array.
+            </summary>
+      <param name="source">Source array.</param>
+      <param name="rowIndex">Row index, i.e., dimension zero value, to retrieve.</param>
+      <typeparam name="T">Type of array.</typeparam>
+      <returns>Values from specified <paramref name="rowIndex" />.</returns>
     </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.IndexOf``1(System.Collections.Generic.IList{``0},System.Func{``0,System.Boolean})">
       <summary>

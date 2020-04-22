@@ -698,6 +698,8 @@
   <HelpKINode Title="CollectionExtensions.GetOrDefault method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetOrDefault.htm" />
   <HelpKINode Title="CollectionExtensions.GetRange(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRange__1.htm" />
   <HelpKINode Title="CollectionExtensions.GetRange&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRange__1.htm" />
+  <HelpKINode Title="CollectionExtensions.GetRow(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRow__1.htm" />
+  <HelpKINode Title="CollectionExtensions.GetRow&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRow__1.htm" />
   <HelpKINode Title="CollectionExtensions.IndexOf(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_IndexOf__1.htm" />
   <HelpKINode Title="CollectionExtensions.IndexOf&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_IndexOf__1.htm" />
   <HelpKINode Title="CollectionExtensions.LoadDelimitedString method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_LoadDelimitedString.htm" />
@@ -1682,6 +1684,8 @@
   <HelpKINode Title="GetRange(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRange__1.htm" />
   <HelpKINode Title="GetRange&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRange__1.htm" />
   <HelpKINode Title="GetRootType method" Url="html/M_Gemstone_TypeExtensions_TypeExtensions_GetRootType.htm" />
+  <HelpKINode Title="GetRow(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRow__1.htm" />
+  <HelpKINode Title="GetRow&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_GetRow__1.htm" />
   <HelpKINode Title="GetSegments method" Url="html/M_Gemstone_StringExtensions_StringExtensions_GetSegments.htm" />
   <HelpKINode Title="GetSetBitPositions method" Url="html/Overload_Gemstone_BitMath_GetSetBitPositions.htm" />
   <HelpKINode Title="GetSize method" Url="html/Overload_Gemstone_Encoding7Bit_GetSize.htm" />
