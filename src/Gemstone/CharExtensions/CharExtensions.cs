@@ -33,9 +33,7 @@
 //******************************************************************************************************
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace Gemstone.CharExtensions
@@ -118,7 +116,7 @@ namespace Gemstone.CharExtensions
         /// <returns>
         /// <paramref name="value"/> converted to lower case.
         /// </returns>
-        public static char ToLower(this char value) => value > 64 && value < 91 ? (char)(value + 32) : value;
+        public static char ToLower(this char value) => char.ToLowerInvariant(value);
 
         /// <summary>
         /// Converts <paramref name="value"/> to upper case.
@@ -127,7 +125,7 @@ namespace Gemstone.CharExtensions
         /// <returns>
         /// <paramref name="value"/> converted to upper case.
         /// </returns>
-        public static char ToUpper(this char value) => value > 96 && value < 123 ? (char)(value - 32) : value;
+        public static char ToUpper(this char value) => char.ToUpperInvariant(value);
 
         /// <summary>
         /// Returns true if char is hexadecimal digit.
@@ -139,40 +137,42 @@ namespace Gemstone.CharExtensions
             value >= 'A' && value <= 'F' || 
             value >= 'a' && value <= 'f';
 
-        /// <summary>
-        /// Converts a hexadecimal character to the integer equivalent.
-        /// </summary>
-        /// <param name="value">A valid hexadecimal character.</param>
-        /// <returns>The integer equivalent of the given hexadecimal character.</returns>
-        public static int ConvertHexToInt(this char value)
-        {
-            if (!IsHex(value))
-                throw new ArgumentException("Character must be a hexadecimal character.");
+        // These functions need further testing for high-end Unicode characters
 
-            if (value < 58)
-                return value - 48;
+        ///// <summary>
+        ///// Converts a hexadecimal character to the integer equivalent.
+        ///// </summary>
+        ///// <param name="value">A valid hexadecimal character.</param>
+        ///// <returns>The integer equivalent of the given hexadecimal character.</returns>
+        //public static int ConvertHexToInt(this char value)
+        //{
+        //    if (!IsHex(value))
+        //        throw new ArgumentException("Character must be a hexadecimal character.");
 
-            value = char.ToUpper(value);
-            return value - 55;
-        }
+        //    if (value < 58)
+        //        return value - 48;
 
-        /// <summary>
-        /// Converts a hexadecimal character to a 4-bit integer equivalent.
-        /// </summary>
-        /// <param name="value">A valid hexadecimal character.</param>
-        /// <returns>A 4-bit <see cref="BitArray"/> representing the integer equivalent of the given hexadecimal character.</returns>
-        public static BitArray ConvertHexToBitArray(this char value)
-        {
-            if (!IsHex(value))
-                throw new ArgumentException("Character must be a hexadecimal character.");
+        //    value = char.ToUpper(value);
+        //    return value - 55;
+        //}
 
-            BitArray bitArray = new BitArray(4);
-            byte bval = byte.Parse(value.ToString(), NumberStyles.HexNumber);
+        ///// <summary>
+        ///// Converts a hexadecimal character to a 4-bit integer equivalent.
+        ///// </summary>
+        ///// <param name="value">A valid hexadecimal character.</param>
+        ///// <returns>A 4-bit <see cref="BitArray"/> representing the integer equivalent of the given hexadecimal character.</returns>
+        //public static BitArray ConvertHexToBitArray(this char value)
+        //{
+        //    if (!IsHex(value))
+        //        throw new ArgumentException("Character must be a hexadecimal character.");
 
-            for (int j = 0; j < 4; j++)
-                bitArray.Set(j, (bval & (1 << (3 - j))) != 0);
+        //    BitArray bitArray = new BitArray(4);
+        //    byte bval = byte.Parse(value.ToString(), NumberStyles.HexNumber);
 
-            return bitArray;
-        }
+        //    for (int j = 0; j < 4; j++)
+        //        bitArray.Set(j, (bval & (1 << (3 - j))) != 0);
+
+        //    return bitArray;
+        //}
     }
 }
