@@ -599,8 +599,6 @@
     <HelpKINode Title="CharExtensions Class" Url="html/T_Gemstone_CharExtensions_CharExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_CharExtensions_CharExtensions.htm" />
   </HelpKINode>
-  <HelpKINode Title="CharExtensions.ConvertHexToBitArray method" Url="html/M_Gemstone_CharExtensions_CharExtensions_ConvertHexToBitArray.htm" />
-  <HelpKINode Title="CharExtensions.ConvertHexToInt method" Url="html/M_Gemstone_CharExtensions_CharExtensions_ConvertHexToInt.htm" />
   <HelpKINode Title="CharExtensions.IsAnyOf method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsAnyOf.htm" />
   <HelpKINode Title="CharExtensions.IsHex method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsHex.htm" />
   <HelpKINode Title="CharExtensions.IsInRange method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsInRange.htm" />
@@ -820,8 +818,6 @@
     <HelpKINode Title="Voltage.ConvertFrom Method " Url="html/M_Gemstone_Units_Voltage_ConvertFrom.htm" />
     <HelpKINode Title="Volume.ConvertFrom Method " Url="html/M_Gemstone_Units_Volume_ConvertFrom.htm" />
   </HelpKINode>
-  <HelpKINode Title="ConvertHexToBitArray method" Url="html/M_Gemstone_CharExtensions_CharExtensions_ConvertHexToBitArray.htm" />
-  <HelpKINode Title="ConvertHexToInt method" Url="html/M_Gemstone_CharExtensions_CharExtensions_ConvertHexToInt.htm" />
   <HelpKINode Title="ConvertTo method">
     <HelpKINode Title="Angle.ConvertTo Method " Url="html/M_Gemstone_Units_Angle_ConvertTo.htm" />
     <HelpKINode Title="Charge.ConvertTo Method " Url="html/M_Gemstone_Units_Charge_ConvertTo.htm" />

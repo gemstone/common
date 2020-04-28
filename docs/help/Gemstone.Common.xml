@@ -5699,20 +5699,6 @@
             Defines extension functions related to character manipulation.
             </summary>
     </member>
-    <member name="M:Gemstone.CharExtensions.CharExtensions.ConvertHexToBitArray(System.Char)">
-      <summary>
-            Converts a hexadecimal character to a 4-bit integer equivalent.
-            </summary>
-      <param name="value">A valid hexadecimal character.</param>
-      <returns>A 4-bit <see cref="T:System.Collections.BitArray" /> representing the integer equivalent of the given hexadecimal character.</returns>
-    </member>
-    <member name="M:Gemstone.CharExtensions.CharExtensions.ConvertHexToInt(System.Char)">
-      <summary>
-            Converts a hexadecimal character to the integer equivalent.
-            </summary>
-      <param name="value">A valid hexadecimal character.</param>
-      <returns>The integer equivalent of the given hexadecimal character.</returns>
-    </member>
     <member name="M:Gemstone.CharExtensions.CharExtensions.IsAnyOf(System.Char,System.Collections.Generic.IEnumerable{System.Char})">
       <summary>
             Determines if a character matches any character in a sent array.
