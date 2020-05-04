@@ -49,7 +49,7 @@ namespace Gemstone.EventHandlerExtensions
         /// Any exceptions will be suppressed, see <see cref="LibraryEvents.SuppressedException"/> and other overloads for custom exception handling.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, null, (Action<Exception, EventHandler>?)null, sender, args, parallel);
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Gemstone.EventHandlerExtensions
         /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace Gemstone.EventHandlerExtensions
         /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, null, exceptionHandler, sender, args, parallel);
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
             SafeInvoke(eventHandler, eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Gemstone.EventHandlerExtensions
         /// <param name="args">Event arguments.</param>
         /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler eventHandler, object? eventLock, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+        public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception, EventHandler>? exceptionHandler, object sender, TEventArgs args, bool parallel = true) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
         {
             if (eventHandler == null)
                 return;
