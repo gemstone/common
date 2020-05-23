@@ -3479,7 +3479,7 @@
             </summary>
       <param name="timestamp">Timestamp to align.</param>
       <param name="samplesPerSecond">Samples per second to use for distribution.</param>
-      <param name="Baseline"> Starting Timestamp of the Distribution.</param>
+      <param name="baseline"> Starting Timestamp of the Distribution.</param>
       <returns>The nearest distribution timestamp for given <paramref name="timestamp" />.</returns>
     </member>
     <member name="M:Gemstone.Ticks.RoundToSubsecondDistribution(Gemstone.Ticks,System.Int32)">
@@ -9971,7 +9971,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.Between(System.Double,System.Double)">
       <summary>
-            Generates a semi cryptographically strong random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a semi cryptographically strong random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.Double" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.Double" /> that is the high end of our range.</param>
@@ -9992,7 +9992,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.ByteBetween(System.Byte,System.Byte)">
       <summary>
-            Generates a cryptographically strong 8-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong 8-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.Byte" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.Byte" /> that is the high end of our range.</param>
@@ -10001,7 +10001,7 @@
     </member>
     <member name="P:Gemstone.Security.Cryptography.Random.Decimal">
       <summary>
-            Generates a semi cryptographically strong random decimal between zero and one. i.e. [0-1)
+            Generates a semi cryptographically strong random decimal between zero and one.
             </summary>
       <exception cref="T:System.Security.Cryptography.CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
     </member>
@@ -10021,7 +10021,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.Int16Between(System.Int16,System.Int16)">
       <summary>
-            Generates a cryptographically strong 16-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong 16-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.Int16" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.Int16" /> that is the high end of our range.</param>
@@ -10036,7 +10036,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.Int32Between(System.Int32,System.Int32)">
       <summary>
-            Generates a cryptographically strong 32-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong 32-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.Int32" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.Int32" /> that is the high end of our range.</param>
@@ -10051,7 +10051,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.Int64Between(System.Int64,System.Int64)">
       <summary>
-            Generates a cryptographically strong 64-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong 64-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.Int64" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.Int64" /> that is the high end of our range.</param>
@@ -10060,7 +10060,7 @@
     </member>
     <member name="P:Gemstone.Security.Cryptography.Random.Number">
       <summary>
-            Generates a semi cryptographically strong double-precision floating-point random number between zero and one. i.e. [0-1)
+            Generates a semi cryptographically strong double-precision floating-point random number between zero and one.
             </summary>
       <exception cref="T:System.Security.Cryptography.CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
     </member>
@@ -10072,7 +10072,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.UInt16Between(System.UInt16,System.UInt16)">
       <summary>
-            Generates a cryptographically strong unsigned 16-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong unsigned 16-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.UInt16" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.UInt16" /> that is the high end of our range.</param>
@@ -10087,7 +10087,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.UInt32Between(System.UInt32,System.UInt32)">
       <summary>
-            Generates a cryptographically strong unsigned 32-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong unsigned 32-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.UInt32" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.UInt32" /> that is the high end of our range.</param>
@@ -10102,7 +10102,7 @@
     </member>
     <member name="M:Gemstone.Security.Cryptography.Random.UInt64Between(System.UInt64,System.UInt64)">
       <summary>
-            Generates a cryptographically strong unsigned 64-bit random integer between specified values. i.e. [<paramref name="startNumber" />-<paramref name="stopNumber" />)
+            Generates a cryptographically strong unsigned 64-bit random integer between specified values.
             </summary>
       <param name="startNumber">A <see cref="T:System.UInt64" /> that is the low end of our range.</param>
       <param name="stopNumber">A <see cref="T:System.UInt64" /> that is the high end of our range.</param>
