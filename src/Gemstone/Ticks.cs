@@ -155,27 +155,27 @@ namespace Gemstone
         /// <summary>
         /// Number of 100-nanosecond ticks in one millisecond.
         /// </summary>
-        public const long PerMillisecond = (long)(Ticks.PerSecond * SI.Milli);
+        public const long PerMillisecond = (long)(PerSecond * SI.Milli);
 
         /// <summary>
         /// Number of 100-nanosecond ticks in one microsecond.
         /// </summary>
-        public const long PerMicrosecond = (long)(Ticks.PerSecond * SI.Micro);
+        public const long PerMicrosecond = (long)(PerSecond * SI.Micro);
 
         /// <summary>
         /// Number of 100-nanosecond ticks in one minute.
         /// </summary>
-        public const long PerMinute = 60L * Ticks.PerSecond;
+        public const long PerMinute = 60L * PerSecond;
 
         /// <summary>
         /// Number of 100-nanosecond ticks in one hour.
         /// </summary>
-        public const long PerHour = 60L * Ticks.PerMinute;
+        public const long PerHour = 60L * PerMinute;
 
         /// <summary>
         /// Number of 100-nanosecond ticks in one day.
         /// </summary>
-        public const long PerDay = 24L * Ticks.PerHour;
+        public const long PerDay = 24L * PerHour;
 
         // Fields
 
@@ -248,7 +248,7 @@ namespace Gemstone
         /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of seconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public double ToSeconds() => Value / (double)Ticks.PerSecond;
+        public double ToSeconds() => Value / (double)PerSecond;
 
         /// <summary>
         /// Gets the <see cref="Ticks"/> value in equivalent number of milliseconds.
@@ -258,7 +258,7 @@ namespace Gemstone
         /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of milliseconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public double ToMilliseconds() => Value / (double)Ticks.PerMillisecond;
+        public double ToMilliseconds() => Value / (double)PerMillisecond;
 
         /// <summary>
         /// Gets the <see cref="Ticks"/> value in equivalent number of microseconds.
@@ -268,7 +268,7 @@ namespace Gemstone
         /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of microseconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public double ToMicroseconds() => Value / (double)Ticks.PerMicrosecond;
+        public double ToMicroseconds() => Value / (double)PerMicrosecond;
 
         /// <summary>
         /// Determines if time, represented by <see cref="Ticks"/> value in UTC time, is valid by comparing it to
@@ -365,7 +365,7 @@ namespace Gemstone
             if (leadTime <= 0)
                 throw new ArgumentOutOfRangeException(nameof(leadTime), "leadTime must be greater than zero, but it can be less than one");
 
-            double distance = (currentTime.Value - Value) / (double)Ticks.PerSecond;
+            double distance = (currentTime.Value - Value) / (double)PerSecond;
 
             return distance >= -leadTime && distance <= lagTime;
         }
@@ -407,7 +407,7 @@ namespace Gemstone
         /// Number of 100-nanoseconds intervals <see cref="Ticks"/> value is from the top of the second.
         /// </returns>
         // Calculate the number of ticks past the top of the second
-        public Ticks DistanceBeyondSecond() => Value - (Value - Value % Ticks.PerSecond);
+        public Ticks DistanceBeyondSecond() => Value - (Value - Value % PerSecond);
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> value that represents a base-lined timestamp, in 100-nanoseconds
@@ -439,13 +439,13 @@ namespace Gemstone
             switch (interval)
             {
                 case BaselineTimeInterval.Second:
-                    return Value - Value % Ticks.PerSecond;
+                    return Value - Value % PerSecond;
                 case BaselineTimeInterval.Minute:
-                    return Value - Value % Ticks.PerMinute;
+                    return Value - Value % PerMinute;
                 case BaselineTimeInterval.Hour:
-                    return Value - Value % Ticks.PerHour;
+                    return Value - Value % PerHour;
                 case BaselineTimeInterval.Day:
-                    return Value - Value % Ticks.PerDay;
+                    return Value - Value % PerDay;
                 case BaselineTimeInterval.Month:
                     DateTime toMonth = new DateTime(Value);
 
@@ -1018,7 +1018,7 @@ namespace Gemstone
         /// Gets a high-resolution number of seconds, including fractional seconds, that have
         /// elapsed since 12:00:00 midnight, January 1, 0001.
         /// </summary>
-        public static double SystemTimer => Ticks.ToSeconds(DateTime.UtcNow.Ticks);
+        public static double SystemTimer => ToSeconds(DateTime.UtcNow.Ticks);
 
         // Static Methods
 
@@ -1031,7 +1031,7 @@ namespace Gemstone
         /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of seconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public static double ToSeconds(Ticks value) => value / (double)Ticks.PerSecond;
+        public static double ToSeconds(Ticks value) => value / (double)PerSecond;
 
         /// <summary>
         /// Converts <paramref name="value"/>, in 100-nanosecond tick intervals, to milliseconds.
@@ -1042,7 +1042,7 @@ namespace Gemstone
         /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of milliseconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public static double ToMilliseconds(Ticks value) => value / (double)Ticks.PerMillisecond;
+        public static double ToMilliseconds(Ticks value) => value / (double)PerMillisecond;
 
         /// <summary>
         /// Converts <paramref name="value"/>, in 100-nanosecond tick intervals, to microseconds.
@@ -1053,28 +1053,28 @@ namespace Gemstone
         /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of microseconds
         /// that have elapsed since 12:00:00 midnight, January 1, 0001.
         /// </remarks>
-        public static double ToMicroseconds(Ticks value) => value / (double)Ticks.PerMicrosecond;
+        public static double ToMicroseconds(Ticks value) => value / (double)PerMicrosecond;
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in seconds.
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in seconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in seconds.</returns>
-        public static Ticks FromSeconds(double value) => new Ticks((long)(value * Ticks.PerSecond));
+        public static Ticks FromSeconds(double value) => new Ticks((long)(value * PerSecond));
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in milliseconds.
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in milliseconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in milliseconds.</returns>
-        public static Ticks FromMilliseconds(double value) => new Ticks((long)(value * Ticks.PerMillisecond));
+        public static Ticks FromMilliseconds(double value) => new Ticks((long)(value * PerMillisecond));
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in microseconds.
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in microseconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in microseconds.</returns>
-        public static Ticks FromMicroseconds(double value) => new Ticks((long)(value * Ticks.PerMicrosecond));
+        public static Ticks FromMicroseconds(double value) => new Ticks((long)(value * PerMicrosecond));
 
         /// <summary>
         /// Converts the string representation of a number to its <see cref="Ticks"/> equivalent.
@@ -1217,7 +1217,7 @@ namespace Gemstone
             double sampleFraction = 1.0D / samplesPerSecond;
 
             for (int i = 0; i < samplesPerSecond; i++)
-                sampleTimes[i] = new Ticks((long)(Ticks.PerSecond * (i * sampleFraction)));
+                sampleTimes[i] = new Ticks((long)(PerSecond * (i * sampleFraction)));
 
             return sampleTimes;
         }
@@ -1281,17 +1281,17 @@ namespace Gemstone
             long ticks = timestamp.Value, baseTicks, ticksBeyondSecond, frameIndex, destinationTicks, nextDestinationTicks;
 
             // Baseline timestamp to the top of the second
-            baseTicks = ticks - ticks % Ticks.PerSecond;
+            baseTicks = ticks - ticks % PerSecond;
 
             // Remove the seconds from ticks
             ticksBeyondSecond = ticks - baseTicks;
 
             // Calculate a frame index between 0 and m_framesPerSecond-1, corresponding to ticks
             // rounded down to the nearest frame
-            frameIndex = (long)(ticksBeyondSecond / (Ticks.PerSecond / (double)samplesPerSecond));
+            frameIndex = (long)(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
 
             // Calculate the timestamp of the nearest frame rounded up
-            nextDestinationTicks = (frameIndex + 1) * Ticks.PerSecond / samplesPerSecond;
+            nextDestinationTicks = (frameIndex + 1) * PerSecond / samplesPerSecond;
 
             // Determine whether the desired frame is the nearest
             // frame rounded down or the nearest frame rounded up
@@ -1300,7 +1300,7 @@ namespace Gemstone
                 if (nextDestinationTicks <= ticksBeyondSecond)
                     destinationTicks = nextDestinationTicks;
                 else
-                    destinationTicks = frameIndex * Ticks.PerSecond / samplesPerSecond;
+                    destinationTicks = frameIndex * PerSecond / samplesPerSecond;
             }
             else
             {
@@ -1309,7 +1309,7 @@ namespace Gemstone
                 if (nextDestinationTicks / timeResolution * timeResolution <= ticksBeyondSecond)
                     destinationTicks = nextDestinationTicks;
                 else
-                    destinationTicks = frameIndex * Ticks.PerSecond / samplesPerSecond;
+                    destinationTicks = frameIndex * PerSecond / samplesPerSecond;
             }
 
             // Recover the seconds that were removed
@@ -1324,7 +1324,7 @@ namespace Gemstone
         /// <param name="timestamp">Timestamp to align.</param>
         /// <param name="samplesPerSecond">Samples per second to use for distribution.</param>
         /// <returns>A floor-aligned millisecond distribution timestamp for given <paramref name="timestamp"/>.</returns>
-        public static Ticks AlignToMillisecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, Ticks.PerMillisecond);
+        public static Ticks AlignToMillisecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMillisecond);
 
         /// <summary>
         /// Returns a floor-aligned microsecond distribution timestamp for given <paramref name="timestamp"/>.
@@ -1332,7 +1332,7 @@ namespace Gemstone
         /// <param name="timestamp">Timestamp to align.</param>
         /// <param name="samplesPerSecond">Samples per second to use for distribution.</param>
         /// <returns>A floor-aligned microsecond distribution timestamp for given <paramref name="timestamp"/>.</returns>
-        public static Ticks AlignToMicrosecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, Ticks.PerMicrosecond);
+        public static Ticks AlignToMicrosecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMicrosecond);
 
         /// <summary>
         /// Returns the nearest sub-second distribution timestamp for given <paramref name="timestamp"/>.
@@ -1347,17 +1347,17 @@ namespace Gemstone
             long ticks = timestamp.Value, baseTicks, ticksBeyondSecond, frameIndex, destinationTicks;
 
             // Baseline timestamp to the top of the second
-            baseTicks = ticks - ticks % Ticks.PerSecond;
+            baseTicks = ticks - ticks % PerSecond;
 
             // Remove the seconds from ticks
             ticksBeyondSecond = ticks - baseTicks;
 
             // Calculate a frame index between 0 and m_framesPerSecond-1,
             // corresponding to ticks rounded to the nearest frame
-            frameIndex = (long)Math.Round(ticksBeyondSecond / (Ticks.PerSecond / (double)samplesPerSecond));
+            frameIndex = (long)Math.Round(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
 
             // Calculate the timestamp of the nearest frame
-            destinationTicks = frameIndex * Ticks.PerSecond / samplesPerSecond;
+            destinationTicks = frameIndex * PerSecond / samplesPerSecond;
 
             // Recover the seconds that were removed
             destinationTicks += baseTicks;
@@ -1370,26 +1370,26 @@ namespace Gemstone
         /// </summary>
         /// <param name="timestamp">Timestamp to align.</param>
         /// <param name="samplesPerSecond">Samples per second to use for distribution.</param>
-        /// <param name="Baseline"> Starting Timestamp of the Distribution.</param>
+        /// <param name="baseline"> Starting Timestamp of the Distribution.</param>
         /// <returns>The nearest distribution timestamp for given <paramref name="timestamp"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static Ticks RoundToSecondDistribution(Ticks timestamp, double samplesPerSecond, Ticks Baseline)
+        public static Ticks RoundToSecondDistribution(Ticks timestamp, double samplesPerSecond, Ticks baseline)
         {
             // Calculate destination ticks for this frame
             long ticks = timestamp.Value;
 
             // Baseline timestamp based on start Time
-            long baseTicks = ticks - ticks % Baseline;
+            long baseTicks = ticks - ticks % baseline;
 
             // Remove the seconds from ticks
             long ticksBeyondSecond = ticks - baseTicks;
 
             // Calculate a frame index between 0 and m_framesPerSecond-1,
             // corresponding to ticks rounded to the nearest frame
-            double frameIndex = Math.Round(ticksBeyondSecond / (Ticks.PerSecond / samplesPerSecond));
+            double frameIndex = Math.Round(ticksBeyondSecond / (PerSecond / samplesPerSecond));
 
             // Calculate the timestamp of the nearest frame
-            long destinationTicks = (long)(frameIndex * Ticks.PerSecond / samplesPerSecond);
+            long destinationTicks = (long)(frameIndex * PerSecond / samplesPerSecond);
 
             // Recover the seconds that were removed
             destinationTicks += baseTicks;
@@ -1410,7 +1410,7 @@ namespace Gemstone
         {
             Ticks result = RoundToSecondDistribution(timestamp, samplesPerSecond, baseline);
 
-            return Math.Abs(result.Value - timestamp.Value) > tolerance ? Ticks.MinValue : result;
+            return Math.Abs(result.Value - timestamp.Value) > tolerance ? MinValue : result;
         }
 
         #endregion

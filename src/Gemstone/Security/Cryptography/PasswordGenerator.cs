@@ -155,12 +155,12 @@ namespace Gemstone.Security.Cryptography
         /// Default set of character groups used by the <see cref="PasswordGenerator"/>.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly IReadOnlyList<CharacterGroup> DefaultCharacterGroups = new List<CharacterGroup>()
+        public static readonly IReadOnlyList<CharacterGroup> DefaultCharacterGroups = new List<CharacterGroup>
         {
-            new CharacterGroup() { Characters = "abcdefghijklmnopqrstuvwxyz", MinOccurrence = 1 },
-            new CharacterGroup() { Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", MinOccurrence = 1 },
-            new CharacterGroup() { Characters = "0123456789", MinOccurrence = 1 },
-            new CharacterGroup() { Characters = "~!@#$%^&*-_+:,.?", MinOccurrence = 1 }
+            new CharacterGroup { Characters = "abcdefghijklmnopqrstuvwxyz", MinOccurrence = 1 },
+            new CharacterGroup { Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", MinOccurrence = 1 },
+            new CharacterGroup { Characters = "0123456789", MinOccurrence = 1 },
+            new CharacterGroup { Characters = "~!@#$%^&*-_+:,.?", MinOccurrence = 1 }
         };
 
         /// <summary>

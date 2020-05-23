@@ -557,22 +557,22 @@ namespace Gemstone
         /// <summary>
         /// Gets the native <see cref="Endianness"/> of the executing architecture.
         /// </summary>
-        public readonly static Endianness NativeEndianness = BitConverter.IsLittleEndian ? Endianness.LittleEndian : Endianness.BigEndian;
+        public static readonly Endianness NativeEndianness = BitConverter.IsLittleEndian ? Endianness.LittleEndian : Endianness.BigEndian;
 
         /// <summary>
         /// Default instance of the <see cref="BigEndianOrder"/> conversion class.
         /// </summary>
-        public readonly static EndianOrder BigEndian = BigEndianOrder.Default;
+        public static readonly EndianOrder BigEndian = BigEndianOrder.Default;
 
         /// <summary>
         /// Default instance of the <see cref="LittleEndianOrder"/> conversion class.
         /// </summary>
-        public readonly static EndianOrder LittleEndian = LittleEndianOrder.Default;
+        public static readonly EndianOrder LittleEndian = LittleEndianOrder.Default;
 
         /// <summary>
         /// Default instance of the <see cref="NativeEndianOrder"/> conversion class.
         /// </summary>
-        public readonly static EndianOrder NativeEndian = NativeEndianOrder.Default;
+        public static readonly EndianOrder NativeEndian = NativeEndianOrder.Default;
 
         #endregion
     }

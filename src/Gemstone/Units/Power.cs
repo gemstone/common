@@ -72,6 +72,7 @@ using System.Runtime.CompilerServices;
 
 #pragma warning disable IDE1006 // Naming Styles
 
+// ReSharper disable InconsistentNaming
 namespace Gemstone.Units
 {
     #region [ Enumerations ]

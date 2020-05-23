@@ -26,6 +26,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using Microsoft.Win32;
 
+// ReSharper disable InconsistentNaming
 namespace Gemstone.Security.Cryptography
 {
     /// <summary>
@@ -48,13 +49,13 @@ namespace Gemstone.Security.Cryptography
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public Cipher()
         {
-            const string fipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
-            const string fipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
+            const string FipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
+            const string FipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
 
             // Determine if the user needs to use FIPS-compliant algorithms
             try
             {
-                SystemAllowsManagedEncryption = (Registry.GetValue(fipsKeyNew, "Enabled", 0) ?? Registry.GetValue(fipsKeyOld, "FIPSAlgorithmPolicy", 0)).ToString() == "0";
+                SystemAllowsManagedEncryption = (Registry.GetValue(FipsKeyNew, "Enabled", 0) ?? Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0)).ToString() == "0";
             }
             catch (Exception ex)
             {

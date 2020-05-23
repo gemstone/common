@@ -139,10 +139,10 @@ namespace Gemstone.IO
 
                         if (elems.Length > 4)
                         {
-                            if (long.TryParse(elems[1], out long totalKB) && long.TryParse(elems[3], out long availableKB))
+                            if (long.TryParse(elems[1], out long totalKilobytes) && long.TryParse(elems[3], out long availableKilobytes))
                             {
-                                freeSpace = availableKB * SI2.Kilo;
-                                totalSize = totalKB * SI2.Kilo;
+                                freeSpace = availableKilobytes * SI2.Kilo;
+                                totalSize = totalKilobytes * SI2.Kilo;
                                 return true;
                             }
                         }
@@ -632,7 +632,7 @@ namespace Gemstone.IO
         /// <returns>Regular expression pattern that simulates wild-card matching for filenames.</returns>
         public static string GetFilePatternRegularExpression(string fileSpec)
         {
-            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>()
+            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>
             {
                 // Replaces directory separator characters with their equivalent regular expressions.
                 Tuple.Create($"{s_directorySeparatorCharPattern}+", $"{s_directorySeparatorCharPattern}+"),

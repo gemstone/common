@@ -23,8 +23,8 @@
 //
 //******************************************************************************************************
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.StringExtensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Common.UnitTests
 {

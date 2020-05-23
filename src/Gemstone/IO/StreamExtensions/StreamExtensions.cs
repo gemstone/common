@@ -33,6 +33,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -106,7 +107,7 @@ namespace Gemstone.IO.StreamExtensions
         private enum ObjectType : byte
         {
             Null = 0,
-            DBNull = 1,
+            DbNull = 1,
             BooleanTrue = 2,
             BooleanFalse = 3,
             SByte = 5,
@@ -133,7 +134,7 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Destination stream.</param>
         /// <param name="value">Object to encode.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
+        [SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
         public static void WriteObject(this Stream stream, object value)
         {
             if (value == null)
@@ -150,7 +151,7 @@ namespace Gemstone.IO.StreamExtensions
 
                     break;
                 case TypeCode.DBNull:
-                    stream.Write((byte)ObjectType.DBNull);
+                    stream.Write((byte)ObjectType.DbNull);
 
                     break;
                 case TypeCode.Boolean:
@@ -270,7 +271,7 @@ namespace Gemstone.IO.StreamExtensions
             return type switch
             {
                 ObjectType.Null => null,
-                ObjectType.DBNull => DBNull.Value,
+                ObjectType.DbNull => DBNull.Value,
                 ObjectType.BooleanTrue => true,
                 ObjectType.BooleanFalse => false,
                 ObjectType.Char => stream.ReadChar(),

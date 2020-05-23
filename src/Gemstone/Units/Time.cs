@@ -1254,9 +1254,7 @@ namespace Gemstone.Units
             long total = 0;
 
             for (int month = 1; month <= 12; month++)
-            {
                 total += SecondsPerMonth(year, month);
-            }
 
             return total;
         }

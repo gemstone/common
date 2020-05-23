@@ -51,11 +51,11 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Microsoft.Win32;
 using Gemstone.Collections.CollectionExtensions;
 using Gemstone.Console;
 using Gemstone.IO;
 using Gemstone.StringExtensions;
+using Microsoft.Win32;
 
 #pragma warning disable CA1031 // Do not catch general exception types
 #pragma warning disable IDE1006 // Naming Styles
@@ -93,7 +93,7 @@ namespace Gemstone
         /// This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
         /// recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
         /// </remarks>
-        public static bool IsMono = Type.GetType("Mono.Runtime") is object;
+        public static bool IsMono = Type.GetType("Mono.Runtime") != null;
 
         /// <summary>Returns one of two strongly-typed objects.</summary>
         /// <returns>One of two objects, depending on the evaluation of given expression.</returns>
@@ -109,6 +109,7 @@ namespace Gemstone
         /// </para>
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        // ReSharper disable once InconsistentNaming
         public static T IIf<T>(bool expression, T truePart, T falsePart) => expression ? truePart : falsePart;
 
         /// <summary>Creates a strongly-typed Array.</summary>
@@ -492,6 +493,7 @@ namespace Gemstone
         /// <remarks>
         /// This function will properly detect the platform ID, even if running on Mac.
         /// </remarks>
+        // ReSharper disable once InconsistentNaming
         public static PlatformID GetOSPlatformID()
         {
             if (s_osPlatformID != PlatformID.Win32S)
@@ -523,6 +525,7 @@ namespace Gemstone
         /// </summary>
         /// <returns>Operating system product name.</returns>
         [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
+        // ReSharper disable once InconsistentNaming
         public static string GetOSProductName()
         {
             if (s_osPlatformName != null)

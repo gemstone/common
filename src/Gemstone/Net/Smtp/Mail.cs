@@ -43,6 +43,7 @@ using System.Net.Mime;
 using System.Security;
 using Gemstone.StringExtensions;
 
+// ReSharper disable InconsistentNaming
 namespace Gemstone.Net.Smtp
 {
     /// <summary>

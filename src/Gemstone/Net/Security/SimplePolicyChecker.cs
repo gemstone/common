@@ -82,7 +82,7 @@ namespace Gemstone.Net.Security
 
             if ((errors & ~ValidPolicyErrors) != SslPolicyErrors.None)
             {
-                ReasonForFailure = string.Format("Policy errors encountered during validation: {0}", errors & ~ValidPolicyErrors);
+                ReasonForFailure = $"Policy errors encountered during validation: {errors & ~ValidPolicyErrors}";
                 return false;
             }
 
@@ -90,7 +90,7 @@ namespace Gemstone.Net.Security
 
             if (chainFlags != X509ChainStatusFlags.NoError)
             {
-                ReasonForFailure = string.Format("Invalid chain flags found during validation: {0}", chainFlags);
+                ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
                 return false;
             }
 

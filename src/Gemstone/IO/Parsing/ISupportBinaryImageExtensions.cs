@@ -29,6 +29,7 @@ namespace Gemstone.IO.Parsing
     /// <summary>
     /// Defines extension functions related to <see cref="ISupportBinaryImage"/> implementations.
     /// </summary>
+    // ReSharper disable once InconsistentNaming
     public static class ISupportBinaryImageExtensions
     {
         /// <summary>

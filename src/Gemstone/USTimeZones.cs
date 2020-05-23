@@ -27,6 +27,7 @@
 
 using System;
 
+// ReSharper disable InconsistentNaming
 namespace Gemstone
 {
     /// <summary>

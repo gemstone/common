@@ -45,7 +45,6 @@ namespace Gemstone.Identity
         /// if available, or the domain of the identity that owns the host process.
         /// </param>
         /// <exception cref="ArgumentNullException"><paramref name="loginID"/> is a null or empty string.</exception>
-        #pragma warning disable CS8618 // Domain is not null
         public UserInfo(string loginID)        
         {
             if (string.IsNullOrEmpty(loginID))
@@ -87,7 +86,7 @@ namespace Gemstone.Identity
         /// <summary>
         /// Gets the domain for the user.
         /// </summary>
-        public string Domain { get; }
+        public string Domain { get; } = default!;
 
         /// <summary>
         /// Gets the user name of the user.
@@ -109,8 +108,8 @@ namespace Gemstone.Identity
         #region [ Static ]
 
         // Static Fields
-        private static string s_lastUserID;
-        private static UserInfo s_currentUserInfo;
+        private static string s_lastUserID = default!;
+        private static UserInfo s_currentUserInfo = default!;
 
 
         // Static Properties

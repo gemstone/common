@@ -23,9 +23,9 @@
 
 using System;
 using System.IO;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.IO;
 using Gemstone.IO.StreamExtensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Random = Gemstone.Security.Cryptography.Random;
 
 namespace Gemstone.Common.UnitTests.IO

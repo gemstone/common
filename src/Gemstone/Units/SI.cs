@@ -68,6 +68,7 @@ using System.Text;
 
 #pragma warning disable CA1819 // Properties should not return arrays
 
+// ReSharper disable InconsistentNaming
 namespace Gemstone.Units
 {
     /// <summary>

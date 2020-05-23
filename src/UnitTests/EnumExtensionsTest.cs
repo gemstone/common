@@ -24,8 +24,8 @@
 //******************************************************************************************************
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.EnumExtensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Common.UnitTests
 {

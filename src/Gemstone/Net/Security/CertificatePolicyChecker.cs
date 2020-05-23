@@ -62,7 +62,7 @@ namespace Gemstone.Net.Security
         /// Gets the default certificate policy used to validate
         /// certificates that do not have their own certificate policy.
         /// </summary>
-        public CertificatePolicy DefaultCertificatePolicy { get; private set; }
+        public CertificatePolicy DefaultCertificatePolicy { get; }
 
         /// <summary>
         /// Gets the reason why the remote certificate validation
@@ -130,7 +130,7 @@ namespace Gemstone.Net.Security
             // policy errors, remote certificate is rejected
             if ((errors & ~policy.ValidPolicyErrors) != SslPolicyErrors.None)
             {
-                ReasonForFailure = string.Format("Policy errors encountered during validation: {0}", errors & ~policy.ValidPolicyErrors);
+                ReasonForFailure = $"Policy errors encountered during validation: {errors & ~policy.ValidPolicyErrors}";
                 return false;
             }
 
@@ -140,7 +140,7 @@ namespace Gemstone.Net.Security
 
             if (chainFlags != X509ChainStatusFlags.NoError)
             {
-                ReasonForFailure = string.Format("Invalid chain flags found during validation: {0}", chainFlags);
+                ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
                 return false;
             }
 

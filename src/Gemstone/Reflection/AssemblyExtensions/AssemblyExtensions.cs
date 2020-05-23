@@ -178,6 +178,7 @@ namespace Gemstone.Reflection.AssemblyExtensions
         /// </summary>
         /// <param name="instance">Source assembly.</param>
         /// <returns><c>true</c>, if the program element is CLS-compliant; otherwise, <c>false</c>.</returns>
+        // ReSharper disable once InconsistentNaming
         public static bool CLSCompliant(this Assembly instance) => new AssemblyInfo(instance).CLSCompliant;
 
         /// <summary>

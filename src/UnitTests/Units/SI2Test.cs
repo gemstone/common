@@ -40,8 +40,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.Units;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Common.UnitTests.Units
 {
@@ -398,7 +398,7 @@ namespace Gemstone.Common.UnitTests.Units
             long totalUnits = long.Parse(Math.Pow(2, 10).ToString());
             string format = string.Empty;
             string unitName = "";
-            string[] symbolNames = new[] { "kilo", "mega", "giga", "tera", "peta", "exa" };
+            string[] symbolNames = { "kilo", "mega", "giga", "tera", "peta", "exa" };
             string expected = "1 kilo";
             string actual;
             actual = SI2.ToScaledString(totalUnits, format, unitName, symbolNames);

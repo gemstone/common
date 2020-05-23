@@ -26,8 +26,8 @@
 //#define TestTimestampValidations
 
 using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.DateTimeExtensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Common.UnitTests
 {

@@ -44,19 +44,19 @@ namespace Gemstone.Security.Cryptography
         private static readonly RNGCryptoServiceProvider s_randomNumberGenerator = new RNGCryptoServiceProvider();
 
         /// <summary>
-        /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one. i.e. [0-1)
+        /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         public static double Number => UInt32 / (uint.MaxValue + 1.0D);
 
         /// <summary>
-        /// Generates a semi cryptographically strong random decimal between zero and one. i.e. [0-1)
+        /// Generates a semi cryptographically strong random decimal between zero and one.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         public static decimal Decimal => UInt64 / (ulong.MaxValue + 1.0M);
 
         /// <summary>
-        /// Generates a semi cryptographically strong random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a semi cryptographically strong random integer between specified values.
         /// </summary>
         /// <param name="startNumber">A <see cref="double"/> that is the low end of our range.</param>
         /// <param name="stopNumber">A <see cref="double"/> that is the high end of our range.</param>
@@ -115,7 +115,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong 8-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong 8-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="byte"/> that is the low end of our range.</param>
@@ -126,7 +126,7 @@ namespace Gemstone.Security.Cryptography
             if (stopNumber < startNumber)
                 throw new ArgumentException("stopNumber must be greater than startNumber");
 
-            return (byte)(GetRandomNumberLessThan((uint)stopNumber - (uint)startNumber) + (uint)startNumber);
+            return (byte)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
         }
 
         /// <summary>
@@ -146,7 +146,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong 16-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong 16-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="short"/> that is the low end of our range.</param>
@@ -157,7 +157,7 @@ namespace Gemstone.Security.Cryptography
             if (stopNumber < startNumber)
                 throw new ArgumentException("stopNumber must be greater than startNumber");
 
-            return (short)(GetRandomNumberLessThan((int)stopNumber - (int)startNumber) + (int)startNumber);
+            return (short)(GetRandomNumberLessThan(stopNumber - startNumber) + startNumber);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong unsigned 16-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong unsigned 16-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="ushort"/> that is the low end of our range.</param>
@@ -188,7 +188,7 @@ namespace Gemstone.Security.Cryptography
             if (stopNumber < startNumber)
                 throw new ArgumentException("stopNumber must be greater than startNumber");
 
-            return (ushort)(GetRandomNumberLessThan((uint)stopNumber - (uint)startNumber) + (uint)startNumber);
+            return (ushort)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong 32-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong 32-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="int"/> that is the low end of our range.</param>
@@ -239,7 +239,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong unsigned 32-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong unsigned 32-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="uint"/> that is the low end of our range.</param>
@@ -270,7 +270,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong 64-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong 64-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="long"/> that is the low end of our range.</param>
@@ -301,7 +301,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Generates a cryptographically strong unsigned 64-bit random integer between specified values. i.e. [<paramref name="startNumber"/>-<paramref name="stopNumber"/>)
+        /// Generates a cryptographically strong unsigned 64-bit random integer between specified values.
         /// </summary>
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         /// <param name="startNumber">A <see cref="ulong"/> that is the low end of our range.</param>
@@ -316,7 +316,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Returns a cryptographically strong number that is less than the the supplied value
+        /// Returns a cryptographically strong number that is less than the supplied value.
         /// </summary>
         /// <param name="maxValue">the max value to return exclusive</param>
         /// <returns></returns>
@@ -339,7 +339,7 @@ namespace Gemstone.Security.Cryptography
             if (maxValue == 0 || maxValue == 1)
                 return 0;
 
-            // Determine the number of random bits that I need
+            // Determine the number of random bits needed
             int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
 
             uint value = UInt32;
@@ -358,7 +358,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Returns a cryptographically strong number that is less than the the supplied value
+        /// Returns a cryptographically strong number that is less than the supplied value.
         /// </summary>
         /// <param name="maxValue">the max value to return exclusive</param>
         /// <returns></returns>
@@ -381,7 +381,7 @@ namespace Gemstone.Security.Cryptography
             if (maxValue == 0 || maxValue == 1)
                 return 0;
 
-            //Determine the number of random bits that I need
+            // Determine the number of random bits needed
             int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
 
             ulong value = UInt64;
@@ -400,7 +400,7 @@ namespace Gemstone.Security.Cryptography
         }
 
         /// <summary>
-        /// Returns a cryptographically strong number that is less the the supplied value
+        /// Returns a cryptographically strong number that is less than the supplied value.
         /// </summary>
         /// <param name="maxValue">the max value to return exclusive</param>
         /// <returns></returns>
@@ -411,7 +411,7 @@ namespace Gemstone.Security.Cryptography
         internal static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
 
         /// <summary>
-        /// Returns a cryptographically strong number that is less the the supplied value
+        /// Returns a cryptographically strong number that is less the supplied value.
         /// </summary>
         /// <param name="maxValue">the max value to return exclusive</param>
         /// <returns></returns>

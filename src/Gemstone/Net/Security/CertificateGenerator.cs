@@ -122,7 +122,7 @@ namespace Gemstone.Net.Security
 
             m_debugLog.Clear();
 
-            stores = new List<X509Store>()
+            stores = new List<X509Store>
             {
                 new X509Store(StoreName.My, StoreLocation.LocalMachine),
                 new X509Store(StoreName.My, StoreLocation.CurrentUser)
@@ -160,11 +160,11 @@ namespace Gemstone.Net.Security
                 TryOpenStores(stores, OpenFlags.ReadOnly);
 
                 if (stores.Count == 0)
-                    m_debugLog.Add($"Opening certificate stores with read-only access...failed");
+                    m_debugLog.Add("Opening certificate stores with read-only access...failed");
                 else if (stores.Count == 1)
                     m_debugLog.Add($"Opening certificate stores with read only access...opened {stores[0].Location} store");
                 else
-                    m_debugLog.Add($"Opening certificate stores with read-only access...success");
+                    m_debugLog.Add("Opening certificate stores with read-only access...success");
 
                 // If a valid certificate exists on the certificate path,
                 // search the certificate stores to determine if we have
@@ -178,9 +178,9 @@ namespace Gemstone.Net.Security
                     canAccessPrivateKey = storedCertificates.Any(CanAccessPrivateKey);
 
                     if (canAccessPrivateKey)
-                        m_debugLog.Add($"Attempting to access existing certificate's private key...success");
+                        m_debugLog.Add("Attempting to access existing certificate's private key...success");
                     else
-                        m_debugLog.Add($"Attempting to access existing certificate's private key...failed");
+                        m_debugLog.Add("Attempting to access existing certificate's private key...failed");
 
                     if (canAccessPrivateKey)
                         return certificate;
@@ -193,9 +193,9 @@ namespace Gemstone.Net.Security
                 certificate = storedCertificates.FirstOrDefault(storedCertificate => storedCertificate.Issuer.Equals(commonNameList) && CanAccessPrivateKey(storedCertificate));
 
                 if (certificate != null)
-                    m_debugLog.Add($"Searching stores for a usable certificate with accessible private key...success");
+                    m_debugLog.Add("Searching stores for a usable certificate with accessible private key...success");
                 else
-                    m_debugLog.Add($"Searching stores for a usable certificate with accessible private key...failed");
+                    m_debugLog.Add("Searching stores for a usable certificate with accessible private key...failed");
 
                 // If such a certificate exists, generate the certificate file and return the result
                 if (certificate != null)
@@ -221,11 +221,11 @@ namespace Gemstone.Net.Security
                 TryOpenStores(stores, OpenFlags.ReadWrite);
 
                 if (stores.Count == 0)
-                    m_debugLog.Add($"Opening certificate stores with read-write access...failed");
+                    m_debugLog.Add("Opening certificate stores with read-write access...failed");
                 else if (stores.Count == 1)
                     m_debugLog.Add($"Opening certificate stores with read-write access...opened {stores[0].Location} store");
                 else
-                    m_debugLog.Add($"Opening certificate stores with read-write access...success");
+                    m_debugLog.Add("Opening certificate stores with read-write access...success");
             }
             finally
             {
@@ -244,9 +244,11 @@ namespace Gemstone.Net.Security
             {
                 foreach (X509Store store in stores)
                 {
-                    processInfo = new ProcessStartInfo(makeCertPath);
-                    processInfo.Arguments = string.Format("-r -pe -n \"{0}\" -ss My -sr {1} \"{2}\"", commonNameList, store.Location, certificatePath);
-                    processInfo.UseShellExecute = true;
+                    processInfo = new ProcessStartInfo(makeCertPath)
+                    {
+                        Arguments = $"-r -pe -n \"{commonNameList}\" -ss My -sr {store.Location} \"{certificatePath}\"",
+                        UseShellExecute = true
+                    };
 
                     using (Process makeCertProcess = Process.Start(processInfo))
                         makeCertProcess.WaitForExit();
@@ -321,7 +323,7 @@ namespace Gemstone.Net.Security
         // makecert when generating self-signed certificates.
         private string GetCommonNameList()
         {
-            return string.Join(",", new string[] { Issuer }.Concat(SubjectNames).Distinct().Select(name => "CN=" + name));
+            return string.Join(",", new[] { Issuer }.Concat(SubjectNames).Distinct().Select(name => "CN=" + name));
         }
 
         // Gets the default value for the issuer.
@@ -343,12 +345,12 @@ namespace Gemstone.Net.Security
                 .Distinct()
                 .Select(address => address.ToString())
                 .Concat(hostEntry.Aliases)
-                .Concat(new string[] { Environment.MachineName, hostEntry.HostName })
+                .Concat(new[] { Environment.MachineName, hostEntry.HostName })
                 .ToArray();
         }
 
         // Gets the default path to which the certificate file will be generated.
-        private string GetDefaultCertificatePath() => string.Format("{0}.cer", Issuer);
+        private string GetDefaultCertificatePath() => $"{Issuer}.cer";
 
         // Attempts to open all the stores in the given list of stores.
         // After returning, the list of stores contains only the stores which could be opened.

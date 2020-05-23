@@ -215,13 +215,12 @@ namespace Gemstone.Console
         /// <returns><c>true</c> if there was no standard error reported; otherwise, <c>false</c>.</returns>
         public static bool Execute(string fileName, string? arguments, out string standardOutput, out string standardError, out bool processCompleted, out int exitCode, int timeout)
         {
-            using (CommandProcess process = new CommandProcess(fileName, arguments ?? ""))
-            {
-                processCompleted = process.Execute(timeout);
-                standardOutput = process.StandardOutput;
-                standardError = process.StandardError;
-                exitCode = process.ExitCode;
-            }
+            using CommandProcess process = new CommandProcess(fileName, arguments ?? "");
+
+            processCompleted = process.Execute(timeout);
+            standardOutput = process.StandardOutput;
+            standardError = process.StandardError;
+            exitCode = process.ExitCode;
 
             return string.IsNullOrWhiteSpace(standardError);
         }

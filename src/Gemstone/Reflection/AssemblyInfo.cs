@@ -335,6 +335,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets a boolean value indicating whether the <see cref="Assembly"/> is CLS-compliant.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public bool CLSCompliant
         {
             get
@@ -382,6 +383,7 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets a boolean value indicating whether the <see cref="Assembly"/> was loaded from the global assembly cache.
         /// </summary>
+        // ReSharper disable once InconsistentNaming
         public bool GACLoaded => Assembly.GlobalAssemblyCache;
 
         /// <summary>

@@ -574,6 +574,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="removeResultQuotes">Set to TRUE to unwrap quotes in returned array vis-a-vis Excel.</param>
         /// <returns>An array of the parsed strings (the fields within the line)</returns>
         /// <remarks>The string.split method is about 4 times faster.</remarks>
+        // ReSharper disable once InconsistentNaming
         public static string[]? ParseStandardCSV(string inString, int startIndex = 0, bool removeResultQuotes = true)
         {
             if (string.IsNullOrEmpty(inString))
@@ -747,14 +748,12 @@ namespace Gemstone.IO.Parsing
 
                             return p;
                         }
+
+                        if (removeResultQuotes)
+                            p[index] = inString.Substring(startIndex, nextD - startIndex).QuoteUnwrap(quoteChars);
                         else
-                        {
-                            if (removeResultQuotes)
-                                p[index] = inString.Substring(startIndex, nextD - startIndex).QuoteUnwrap(quoteChars);
-                            else
-                                p[index] = inString.Substring(startIndex, nextD - startIndex);
-                            startIndex = nextD + 1;
-                        }
+                            p[index] = inString.Substring(startIndex, nextD - startIndex);
+                        startIndex = nextD + 1;
                     }
                 }
                 else if (nextD < 0 && nextQ < 0) //we're done
@@ -820,6 +819,7 @@ namespace Gemstone.IO.Parsing
 
             for (int i = 0; i < parsedStrings.Length; i++)
             {
+                #pragma warning disable 8602
                 switch (expectedTypeCodes[i])
                 {
                     case TypeCode.Boolean:
@@ -1009,6 +1009,7 @@ namespace Gemstone.IO.Parsing
 
                         break;
                 }
+                #pragma warning restore 8602
             }
 
             return checkParse;

@@ -40,8 +40,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 using System;
 using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Gemstone.Units;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Gemstone.Common.UnitTests.Units
 {

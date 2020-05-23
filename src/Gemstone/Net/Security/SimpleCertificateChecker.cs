@@ -55,7 +55,7 @@ namespace Gemstone.Net.Security
         /// Gets the list of certificates on the system which are
         /// considered trusted when validating remote certificates.
         /// </summary>
-        public List<X509Certificate> TrustedCertificates { get; private set; }
+        public List<X509Certificate> TrustedCertificates { get; }
 
         /// <summary>
         /// Gets or sets the set of invalid policy errors.
@@ -117,7 +117,7 @@ namespace Gemstone.Net.Security
 
             if ((errors & ~ValidPolicyErrors) != SslPolicyErrors.None)
             {
-                ReasonForFailure = string.Format("Policy errors encountered during validation: {0}", errors & ~ValidPolicyErrors);
+                ReasonForFailure = $"Policy errors encountered during validation: {errors & ~ValidPolicyErrors}";
                 return false;
             }
 
@@ -125,7 +125,7 @@ namespace Gemstone.Net.Security
 
             if (chainFlags != X509ChainStatusFlags.NoError)
             {
-                ReasonForFailure = string.Format("Invalid chain flags found during validation: {0}", chainFlags);
+                ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
                 return false;
             }
 
