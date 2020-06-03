@@ -10449,6 +10449,27 @@
       <param name="startIndex">The index from which to begin the search.</param>
       <returns>The index of the first instance of any character that is repeated or (-1) if no repeated chars found.</returns>
     </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.Interpolate(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})">
+      <summary>
+             Applies string interpolation to the given format string at runtime.
+             </summary>
+      <param name="format">The format string to be interpolated.</param>
+      <param name="parameters">The parameters that can be referenced by the format string.</param>
+      <returns>
+             A copy of <paramref name="format" /> in which the format items have been replaced by the string representation of the
+             corresponding <paramref name="parameters" />.</returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.Interpolate``1(System.String,``0)">
+      <summary>
+            Applies string interpolation to the given format string at runtime.
+            </summary>
+      <param name="format">The format string to be interpolated.</param>
+      <param name="parameters">The parameters that can be referenced by the format string.</param>
+      <typeparam name="T">The type of the object that defines the parameters for the format string.</typeparam>
+      <returns>
+            A copy of <paramref name="format" /> in which the format items have been replaced by the string representation of the
+            corresponding <paramref name="parameters" />.</returns>
+    </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.IsAllDigits(System.String)">
       <summary>
             Tests to see if a string is contains only digits based on Char.IsDigit function.
@@ -10679,7 +10700,7 @@
             Adds a leading zero in front of a decimal, if present
             </summary>
       <param name="value">The string to process</param>
-      <param name="AssureParseDouble">Set to TRUE to assure that value parses to Double</param>
+      <param name="assureParseDouble">Set to TRUE to assure that value parses to Double</param>
       <returns>A string with deleted from the beginning</returns>
     </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.RemoveNull(System.String)">

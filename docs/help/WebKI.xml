@@ -1863,6 +1863,7 @@
   <HelpKINode Title="Int64 property" Url="html/P_Gemstone_Security_Cryptography_Random_Int64.htm" />
   <HelpKINode Title="Int64 to Ticks conversion" Url="html/M_Gemstone_Ticks_op_Implicit_7.htm" />
   <HelpKINode Title="Int64Between method" Url="html/M_Gemstone_Security_Cryptography_Random_Int64Between.htm" />
+  <HelpKINode Title="Interpolate method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_Interpolate.htm" />
   <HelpKINode Title="IPagedList interface">
     <HelpKINode Title="IPagedList Interface" Url="html/T_Gemstone_Collections_IPagedList.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Collections_IPagedList.htm" />
@@ -2864,6 +2865,7 @@
   <HelpKINode Title="StringExtensions.IndexOfPrevious method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_IndexOfPrevious.htm" />
   <HelpKINode Title="StringExtensions.IndexOfPreviousNot method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_IndexOfPreviousNot.htm" />
   <HelpKINode Title="StringExtensions.IndexOfRepeatedChar method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_IndexOfRepeatedChar.htm" />
+  <HelpKINode Title="StringExtensions.Interpolate method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_Interpolate.htm" />
   <HelpKINode Title="StringExtensions.IsAllDigits method" Url="html/M_Gemstone_StringExtensions_StringExtensions_IsAllDigits.htm" />
   <HelpKINode Title="StringExtensions.IsAllLetters method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_IsAllLetters.htm" />
   <HelpKINode Title="StringExtensions.IsAllLettersOrDigits method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_IsAllLettersOrDigits.htm" />
@@ -3493,8 +3495,8 @@
   <HelpKINode Title="UserInfo.LoginID property" Url="html/P_Gemstone_Identity_UserInfo_LoginID.htm" />
   <HelpKINode Title="UserInfo.UserInfo constructor" Url="html/M_Gemstone_Identity_UserInfo__ctor.htm" />
   <HelpKINode Title="UserInfo.UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
-  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
+  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="USSurveyFeet enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USSurveyMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USTimeZones class">
