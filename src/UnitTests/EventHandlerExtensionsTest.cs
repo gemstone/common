@@ -22,8 +22,7 @@
 //******************************************************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
 using Gemstone.EventHandlerExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -47,10 +46,165 @@ namespace Gemstone.Common.UnitTests
     [TestClass]
     public class EventHandlerExtensionsTest
     {
+        public TestContext TestContext { get; set; }
+
         [TestMethod]
-        public void TestSafeInvoke()
+        public void TestSafeInvokeSequential()
+        {
+            TestSafeInvoke(false);
+        }
+
+        [TestMethod]
+        public void TestSafeInvokeParallel()
+        {
+            TestSafeInvoke(true);
+        }
+
+        private void TestSafeInvoke(bool parallel)
         {
             EventTest eventTest = new EventTest();
+            InvalidOperationException exception = new InvalidOperationException("Test");
+            byte[] buffer = { 0x09, 0x08, 0x21 };
+            int tests = 0;
+
+            void simpleEventHandler1(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 1 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler2(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 2 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler3(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 3 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler4(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 4 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler5(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 5 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler6(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 6 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler7(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 7 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler8(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 8 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler9(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 9 succeeded...");
+                tests++;
+            }
+
+            void simpleEventHandler10(object sender, EventArgs e)
+            {
+                Assert.AreEqual(e, EventArgs.Empty);
+                TestContext.WriteLine("Simple event test 10 succeeded...");
+                tests++;
+            }
+
+            void oneParamEventHandler1(object sender, EventArgs<Exception> e)
+            {
+                Assert.AreEqual(e.Argument, exception);
+                TestContext.WriteLine("One param event test 1 succeeded...");
+                tests++;
+            }
+            
+            void oneParamEventHandler2(object sender, EventArgs<Exception> e)
+            {
+                Assert.AreEqual(e.Argument, exception);
+                TestContext.WriteLine("One param event test 2 succeeded...");
+                tests++;
+            }
+
+            void threeParamEventHandler1(object sender, EventArgs<byte[], int, int> e)
+            {
+                Assert.AreEqual(e.Argument1, buffer);
+                Assert.AreEqual(e.Argument2, 0);
+                Assert.AreEqual(e.Argument3, buffer.Length);
+                TestContext.WriteLine("Three param event test 1 succeeded...");
+                tests++;
+            }
+
+            void threeParamEventHandler2(object sender, EventArgs<byte[], int, int> e)
+            {
+                Assert.AreEqual(e.Argument1, buffer);
+                Assert.AreEqual(e.Argument2, 0);
+                Assert.AreEqual(e.Argument3, buffer.Length);
+                TestContext.WriteLine("Three param event test 2 succeeded...");
+                tests++;
+            }
+
+            eventTest.SimpleEvent += simpleEventHandler1;
+            eventTest.SimpleEvent += simpleEventHandler2;
+            eventTest.SimpleEvent += simpleEventHandler3;
+            eventTest.SimpleEvent += simpleEventHandler4;
+            eventTest.SimpleEvent += simpleEventHandler5;
+            eventTest.SimpleEvent += simpleEventHandler6;
+            eventTest.SimpleEvent += simpleEventHandler7;
+            eventTest.SimpleEvent += simpleEventHandler8;
+            eventTest.SimpleEvent += simpleEventHandler9;
+            eventTest.SimpleEvent += simpleEventHandler10;
+            eventTest.OneParamEvent += oneParamEventHandler1;
+            eventTest.OneParamEvent += oneParamEventHandler1;
+            eventTest.OneParamEvent += oneParamEventHandler1;
+            eventTest.OneParamEvent += oneParamEventHandler1;
+            eventTest.OneParamEvent += oneParamEventHandler2;
+            eventTest.OneParamEvent += oneParamEventHandler2;
+            eventTest.OneParamEvent += oneParamEventHandler2;
+            eventTest.OneParamEvent += oneParamEventHandler2;
+            eventTest.ThreeParamEvent += threeParamEventHandler1;
+            eventTest.ThreeParamEvent += threeParamEventHandler1;
+            eventTest.ThreeParamEvent += threeParamEventHandler1;
+            eventTest.ThreeParamEvent += threeParamEventHandler1;
+            eventTest.ThreeParamEvent += threeParamEventHandler2;
+            eventTest.ThreeParamEvent += threeParamEventHandler2;
+            eventTest.ThreeParamEvent += threeParamEventHandler2;
+            eventTest.ThreeParamEvent += threeParamEventHandler2;
+
+            Stopwatch timer = Stopwatch.StartNew();
+            eventTest.OnSimpleEvent(parallel);
+            eventTest.OnOneParamEvent(exception, parallel);
+            eventTest.OnThreeParamEvent(buffer, 0, buffer.Length, parallel);
+            timer.Stop();
+
+            Assert.AreEqual(tests, 26);
+
+            TestContext.WriteLine($">> Completed {tests:N0} {(parallel ? "parallel" : "sequential")} tests in {timer.ElapsedTicks / (double)TimeSpan.TicksPerSecond:N4} seconds");
         }
     }
 }
