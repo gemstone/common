@@ -350,6 +350,16 @@ namespace Gemstone.IO
             IEnumerable<string> enumerable;
             IEnumerator<string> enumerator;
 
+            void handleException(Exception ex)
+            {
+                InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex);
+
+                if (exceptionHandler != null)
+                    exceptionHandler(enumerationEx);
+                else
+                    LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
+            }
+
             try
             {
                 IEnumerable<string> topDirectory = Directory.EnumerateDirectories(path, searchPattern, SearchOption.TopDirectoryOnly);
@@ -366,7 +376,7 @@ namespace Gemstone.IO
             }
             catch (Exception ex)
             {
-                exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex));
+                handleException(ex);
                 yield break;
             }
 
@@ -389,7 +399,7 @@ namespace Gemstone.IO
                     }
                     catch (Exception ex)
                     {
-                        exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex));
+                        handleException(ex);
 
                         // To avoid an infinite exception loop,
                         // break out at the first sign of trouble
@@ -425,6 +435,16 @@ namespace Gemstone.IO
             IEnumerable<string> enumerable;
             IEnumerator<string> enumerator;
 
+            void handleException(Exception ex)
+            {
+                InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex);
+
+                if (exceptionHandler != null)
+                    exceptionHandler(enumerationEx);
+                else
+                    LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
+            }
+
             try
             {
                 IEnumerable<string> topDirectory = Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
@@ -441,7 +461,7 @@ namespace Gemstone.IO
             }
             catch (Exception ex)
             {
-                exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex));
+                handleException(ex);
                 yield break;
             }
 
@@ -464,7 +484,7 @@ namespace Gemstone.IO
                     }
                     catch (Exception ex)
                     {
-                        exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex));
+                        handleException(ex);
 
                         // To avoid an infinite exception loop,
                         // break out at the first sign of trouble
