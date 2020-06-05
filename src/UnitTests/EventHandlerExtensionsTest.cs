@@ -23,6 +23,7 @@
 
 using System;
 using System.Diagnostics;
+using System.IO;
 using Gemstone.EventHandlerExtensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -36,11 +37,15 @@ namespace Gemstone.Common.UnitTests
 
         public event EventHandler<EventArgs<byte[], int, int>> ThreeParamEvent;
 
+        public event FileSystemEventHandler CustomEvent;
+
         public void OnSimpleEvent(bool parallel) => SimpleEvent?.SafeInvoke(this, EventArgs.Empty, parallel);
 
         public void OnOneParamEvent(Exception ex, bool parallel) => OneParamEvent?.SafeInvoke(this, new EventArgs<Exception>(ex), parallel);
 
         public void OnThreeParamEvent(byte[] buffer, int offset, int length, bool parallel) => ThreeParamEvent?.SafeInvoke(this, new EventArgs<byte[], int, int>(buffer, offset, length), parallel);
+
+        public void OnCustomEvent(FileSystemEventArgs fileArgs, bool parallel) => CustomEvent?.SafeInvoke(this, fileArgs, parallel);
     }
 
     [TestClass]
@@ -168,6 +173,20 @@ namespace Gemstone.Common.UnitTests
                 TestContext.WriteLine("Three param event test 2 succeeded...");
                 tests++;
             }
+            
+            void customEventHandler1(object sender, FileSystemEventArgs e)
+            {
+                Assert.AreEqual(e.ChangeType, WatcherChangeTypes.Changed);
+                TestContext.WriteLine("Custom event test 1 succeeded...");
+                tests++;
+            }
+
+            void customEventHandler2(object sender, FileSystemEventArgs e)
+            {
+                Assert.AreEqual(e.ChangeType, WatcherChangeTypes.Changed);
+                TestContext.WriteLine("Custom event test 2 succeeded...");
+                tests++;
+            }
 
             eventTest.SimpleEvent += simpleEventHandler1;
             eventTest.SimpleEvent += simpleEventHandler2;
@@ -195,14 +214,23 @@ namespace Gemstone.Common.UnitTests
             eventTest.ThreeParamEvent += threeParamEventHandler2;
             eventTest.ThreeParamEvent += threeParamEventHandler2;
             eventTest.ThreeParamEvent += threeParamEventHandler2;
+            eventTest.CustomEvent += customEventHandler1;
+            eventTest.CustomEvent += customEventHandler1;
+            eventTest.CustomEvent += customEventHandler1;
+            eventTest.CustomEvent += customEventHandler1;
+            eventTest.CustomEvent += customEventHandler2;
+            eventTest.CustomEvent += customEventHandler2;
+            eventTest.CustomEvent += customEventHandler2;
+            eventTest.CustomEvent += customEventHandler2;
 
             Stopwatch timer = Stopwatch.StartNew();
             eventTest.OnSimpleEvent(parallel);
             eventTest.OnOneParamEvent(exception, parallel);
             eventTest.OnThreeParamEvent(buffer, 0, buffer.Length, parallel);
+            eventTest.OnCustomEvent(new FileSystemEventArgs(WatcherChangeTypes.Changed, "", ""), parallel);
             timer.Stop();
 
-            Assert.AreEqual(tests, 26);
+            Assert.AreEqual(tests, 34);
 
             TestContext.WriteLine($">> Completed {tests:N0} {(parallel ? "parallel" : "sequential")} tests in {timer.ElapsedTicks / (double)TimeSpan.TicksPerSecond:N4} seconds");
         }
