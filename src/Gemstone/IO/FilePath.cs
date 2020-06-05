@@ -336,30 +336,69 @@ namespace Gemstone.IO
         public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) => 
             EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
 
+
         /// <summary>
         /// Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
         /// </summary>
         /// <param name="path">The relative or absolute path to the directory to search. This string is not case-sensitive.</param>
-        /// <param name="searchPattern">The search string to match against the names of directories in <paramref name="path"/>. This parameter can contain a combination of valid literal path and wild-card (* and ?) characters, but doesn't support regular expressions.</param>
+        /// <param name="searchPattern">The search string to match against the names of directories in <paramref name="path"/>. This parameter can contain a combination of valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.</param>
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
         /// <returns>An enumerable collection of the full names (including paths) for the directories in the directory specified by <paramref name="path"/> and that match the specified search pattern and option.</returns>
         public static IEnumerable<string> EnumerateDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
         {
+            IEnumerable<string> enumerable;
+            IEnumerator<string> enumerator;
+
             try
             {
-                return searchOption == SearchOption.TopDirectoryOnly
-                    ? Directory.EnumerateDirectories(path, searchPattern, SearchOption.TopDirectoryOnly)
-                    : Directory.EnumerateDirectories(path, searchPattern, SearchOption.TopDirectoryOnly)
-                        .Concat(Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
-                            .SelectMany(directory => EnumerateDirectories(directory, searchPattern, searchOption, exceptionHandler)));
+                IEnumerable<string> topDirectory = Directory.EnumerateDirectories(path, searchPattern, SearchOption.TopDirectoryOnly);
+                IEnumerable<string> recursive = Enumerable.Empty<string>();
+
+                if (searchOption == SearchOption.AllDirectories)
+                {
+                    recursive = Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
+                        .SelectMany(directory => EnumerateDirectories(directory, searchPattern, searchOption, exceptionHandler));
+                }
+
+                enumerable = topDirectory.Concat(recursive);
+                enumerator = enumerable.GetEnumerator();
             }
             catch (Exception ex)
             {
-                exceptionHandler?.Invoke(ex);
+                exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex));
+                yield break;
             }
 
-            return Enumerable.Empty<string>();
+            // yield return cannot be used in a try block with a catch clause,
+            // so in order to handle errors in enumerator.MoveNext() and enumerator.Current,
+            // the enumerator must be accessed directly rather than using foreach
+            using (enumerable as IDisposable)
+            using (enumerator)
+            {
+                while (true)
+                {
+                    string current;
+
+                    try
+                    {
+                        if (!enumerator.MoveNext())
+                            break;
+
+                        current = enumerator.Current;
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex));
+
+                        // To avoid an infinite exception loop,
+                        // break out at the first sign of trouble
+                        break;
+                    }
+
+                    yield return current;
+                }
+            }
         }
 
         /// <summary>
@@ -377,26 +416,64 @@ namespace Gemstone.IO
         /// Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
         /// </summary>
         /// <param name="path">The relative or absolute path to the directory to search. This string is not case-sensitive.</param>
-        /// <param name="searchPattern">The search string to match against the names of files in <paramref name="path"/>. This parameter can contain a combination of valid literal path and wild-card (* and ?) characters, but doesn't support regular expressions.</param>
+        /// <param name="searchPattern">The search string to match against the names of files in <paramref name="path"/>. This parameter can contain a combination of valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.</param>
         /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
         /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
         /// <returns>An enumerable collection of the full names (including paths) for the files in the directory specified by <paramref name="path"/> and that match the specified search pattern and option.</returns>
         public static IEnumerable<string> EnumerateFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
         {
+            IEnumerable<string> enumerable;
+            IEnumerator<string> enumerator;
+
             try
             {
-                return searchOption == SearchOption.TopDirectoryOnly
-                    ? Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly)
-                    : Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly)
-                        .Concat(Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
-                            .SelectMany(directory => EnumerateFiles(directory, searchPattern, searchOption, exceptionHandler)));
+                IEnumerable<string> topDirectory = Directory.EnumerateFiles(path, searchPattern, SearchOption.TopDirectoryOnly);
+                IEnumerable<string> recursive = Enumerable.Empty<string>();
+
+                if (searchOption == SearchOption.AllDirectories)
+                {
+                    recursive = Directory.EnumerateDirectories(path, "*", SearchOption.TopDirectoryOnly)
+                        .SelectMany(directory => EnumerateFiles(directory, searchPattern, searchOption, exceptionHandler));
+                }
+
+                enumerable = topDirectory.Concat(recursive);
+                enumerator = enumerable.GetEnumerator();
             }
             catch (Exception ex)
             {
-                exceptionHandler?.Invoke(ex);
+                exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex));
+                yield break;
             }
 
-            return Enumerable.Empty<string>();
+            // yield return cannot be used in a try block with a catch clause,
+            // so in order to handle errors in enumerator.MoveNext() and enumerator.Current,
+            // the enumerator must be accessed directly rather than using foreach
+            using (enumerable as IDisposable)
+            using (enumerator)
+            {
+                while (true)
+                {
+                    string current;
+
+                    try
+                    {
+                        if (!enumerator.MoveNext())
+                            break;
+
+                        current = enumerator.Current;
+                    }
+                    catch (Exception ex)
+                    {
+                        exceptionHandler?.Invoke(new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex));
+
+                        // To avoid an infinite exception loop,
+                        // break out at the first sign of trouble
+                        break;
+                    }
+
+                    yield return current;
+                }
+            }
         }
 
         /// <summary>
