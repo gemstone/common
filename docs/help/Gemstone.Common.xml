@@ -6909,7 +6909,7 @@
         <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
       <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Action{System.Exception,System.EventHandler},System.Object,``1,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
             </summary>
@@ -6936,7 +6936,7 @@
         <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
       <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
-    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Object,System.Action{System.Exception,System.EventHandler},System.Object,``1,System.Boolean)">
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvoke``2(``0,System.Object,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)">
       <summary>
             Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
             </summary>
@@ -7310,7 +7310,7 @@
             Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
             </summary>
       <param name="path">The relative or absolute path to the directory to search. This string is not case-sensitive.</param>
-      <param name="searchPattern">The search string to match against the names of directories in <paramref name="path" />. This parameter can contain a combination of valid literal path and wild-card (* and ?) characters, but doesn't support regular expressions.</param>
+      <param name="searchPattern">The search string to match against the names of directories in <paramref name="path" />. This parameter can contain a combination of valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.</param>
       <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
       <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
       <returns>An enumerable collection of the full names (including paths) for the directories in the directory specified by <paramref name="path" /> and that match the specified search pattern and option.</returns>
@@ -7320,7 +7320,7 @@
             Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
             </summary>
       <param name="path">The relative or absolute path to the directory to search. This string is not case-sensitive.</param>
-      <param name="searchPattern">The search string to match against the names of files in <paramref name="path" />. This parameter can contain a combination of valid literal path and wild-card (* and ?) characters, but doesn't support regular expressions.</param>
+      <param name="searchPattern">The search string to match against the names of files in <paramref name="path" />. This parameter can contain a combination of valid literal path and wildcard (* and ?) characters, but doesn't support regular expressions.</param>
       <param name="searchOption">One of the enumeration values that specifies whether the search operation should include only the current directory or should include all subdirectories.</param>
       <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
       <returns>An enumerable collection of the full names (including paths) for the files in the directory specified by <paramref name="path" /> and that match the specified search pattern and option.</returns>
