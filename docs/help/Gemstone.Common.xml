@@ -6364,6 +6364,163 @@
         <see cref="T:System.Type" /> of elements in the <paramref name="collection" />.</typeparam>
       <exception cref="T:System.ArgumentOutOfRangeException">The specified <paramref name="index" /> is present in the <paramref name="collection" />.</exception>
     </member>
+    <member name="T:Gemstone.ComplexExtensions.ComplexExtensions">
+      <summary>
+            Defines extension methods for complex numbers.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.FromComplexNotation(System.String,System.Nullable{System.Char})">
+      <summary>
+            Converts the given string to a complex number.
+            </summary>
+      <param name="notation">The string using complex notation</param>
+      <param name="imaginarySymbol">The symbol used for the square root of -1</param>
+      <returns>The complex number</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,Gemstone.ComplexExtensions.ComplexNotationOptions)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="options">The options that define various aspects of the notation</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.Char)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="imaginarySymbol">The symbol used for the square root of -1</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.Char,Gemstone.ComplexExtensions.ComplexNotationOptions)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="imaginarySymbol">The symbol used for the square root of -1</param>
+      <param name="options">The options that define various aspects of the notation</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.String)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="numericFormat">The format string to use when converting numbers to their string representation</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.String,Gemstone.ComplexExtensions.ComplexNotationOptions)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="numericFormat">The format string to use when converting numbers to their string representation</param>
+      <param name="options">The options that define various aspects of the notation</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.String,System.Char)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="numericFormat">The format string to use when converting numbers to their string representation</param>
+      <param name="imaginarySymbol">The symbol used for the square root of -1</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="M:Gemstone.ComplexExtensions.ComplexExtensions.ToComplexNotation(System.Numerics.Complex,System.String,System.Char,Gemstone.ComplexExtensions.ComplexNotationOptions)">
+      <summary>
+            Converts the given complex number to a string using complex notation.
+            </summary>
+      <param name="complex">The complex number</param>
+      <param name="numericFormat">The format string to use when converting numbers to their string representation</param>
+      <param name="imaginarySymbol">The symbol used for the square root of -1</param>
+      <param name="options">The options that define various aspects of the notation</param>
+      <returns>A string representation of the complex number.</returns>
+    </member>
+    <member name="T:Gemstone.ComplexExtensions.ComplexNotationOptions">
+      <summary>
+            Provides options for customizing the notation
+            used for representing complex numbers as text.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.Default">
+      <summary>
+            The default notation if no options are specified.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.PrefixSymbol">
+      <summary>
+            Specifies that the symbol on the imaginary term should be prefixed.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.InsertAsterisk">
+      <summary>
+            Inserts an asterisk between the number and the symbol on
+            the imaginary term to explicitly indicate multiplication.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.ImaginaryFirst">
+      <summary>
+            Specifies that the imaginary term should come first.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.AllowSubtraction">
+      <summary>
+            Specifies that the subtraction operator should
+            be used if the second term is negative.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.PreferSubtraction">
+      <summary>
+            Specifies terms should be swapped if doing
+            so would convert addition into subtraction.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.NoSimplify">
+      <summary>
+            Specifies numbers and terms are always displayed regardless
+            of whether they can be mathematically simplified.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.OperatorWhitespace">
+      <summary>
+            Inserts whitespace around the plus/minus operator.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.AsteriskWhitespace">
+      <summary>
+            Inserts whitespace around the asterisk.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.SymbolWhitespace">
+      <summary>
+            Inserts whitespace between the symbol and the number.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.UseWhitespace">
+      <summary>
+            Enables all whitespace options.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.Verbose">
+      <summary>
+            Provides a verbose output with consistent ordering of terms,
+            no subtraction, asterisks, and all whitespace options.
+            </summary>
+    </member>
+    <member name="F:Gemstone.ComplexExtensions.ComplexNotationOptions.None">
+      <summary>
+            No options are enabled.
+            </summary>
+    </member>
     <member name="T:Gemstone.ComponentModel.DataAnnotations.AcronymValidationAttribute">
       <summary>
             Represents a <see cref="T:System.ComponentModel.DataAnnotations.RegularExpressionAttribute" /> for validating Acronyms, i.e., expressions
@@ -8734,6 +8891,26 @@
             </summary>
       <param name="stream">the stream to write to</param>
       <param name="value">the value to write</param>
+    </member>
+    <member name="T:Gemstone.Net.Http.URLHelper">
+      <summary>
+            Defines helper functions for handling URLs.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Net.Http.URLHelper.IsValid(System.String)">
+      <summary>
+            Determines if the string contains a valid URL.
+            </summary>
+      <param name="url">The string to check for a valid URL.</param>
+      <returns>True if the URL is valid; otherwise false.</returns>
+    </member>
+    <member name="M:Gemstone.Net.Http.URLHelper.NavigateInDefaultBrowser(System.String)">
+      <summary>
+            Opens the user's default browser to the given URL.
+            </summary>
+      <param name="url">The URL to navigate to in the user's browser.</param>
+      <exception cref="T:System.Security.SecurityException">The input string is not a valid URL.</exception>
+      <exception cref="T:System.NotSupportedException">Navigation attempted on a platform other than Windows, Linux, or OSX.</exception>
     </member>
     <member name="T:Gemstone.Net.Security.CertificateGenerator">
       <summary>

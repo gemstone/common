@@ -48,6 +48,7 @@
   <HelpKINode Title="AlignWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignWord.htm" />
   <HelpKINode Title="All method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_All.htm" />
   <HelpKINode Title="AllCharacters property" Url="html/P_Gemstone_Security_Cryptography_PasswordGenerator_AllCharacters.htm" />
+  <HelpKINode Title="AllowSubtraction enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="AllParallel(Of TSource) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AllParallel__1.htm" />
   <HelpKINode Title="AllParallel&lt;TSource&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AllParallel__1.htm" />
   <HelpKINode Title="AlternateBaseTicks field" Url="html/F_Gemstone_NtpTimeTag_AlternateBaseTicks.htm" />
@@ -216,6 +217,7 @@
     <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Reflection_AssemblyLoadedVersionNumber.htm" />
   </HelpKINode>
   <HelpKINode Title="AssemblyLoadedVersionNumber.VersionNumber property" Url="html/P_Gemstone_Reflection_AssemblyLoadedVersionNumber_VersionNumber.htm" />
+  <HelpKINode Title="AsteriskWhitespace enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Atlantic property" Url="html/P_Gemstone_USTimeZones_Atlantic.htm" />
   <HelpKINode Title="AtomicUnitsOfCharge enumeration member" Url="html/T_Gemstone_Units_ChargeUnit.htm" />
   <HelpKINode Title="AtomicUnitsOfTime enumeration member" Url="html/T_Gemstone_Units_TimeUnit.htm" />
@@ -800,6 +802,13 @@
   </HelpKINode>
   <HelpKINode Title="CompareTo(Of TSource) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_CompareTo__1.htm" />
   <HelpKINode Title="CompareTo&lt;TSource&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_CompareTo__1.htm" />
+  <HelpKINode Title="ComplexExtensions class">
+    <HelpKINode Title="ComplexExtensions Class" Url="html/T_Gemstone_ComplexExtensions_ComplexExtensions.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_ComplexExtensions_ComplexExtensions.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ComplexExtensions.FromComplexNotation method" Url="html/M_Gemstone_ComplexExtensions_ComplexExtensions_FromComplexNotation.htm" />
+  <HelpKINode Title="ComplexExtensions.ToComplexNotation method" Url="html/Overload_Gemstone_ComplexExtensions_ComplexExtensions_ToComplexNotation.htm" />
+  <HelpKINode Title="ComplexNotationOptions enumeration" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="ComVisible method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_ComVisible.htm" />
   <HelpKINode Title="ComVisible property" Url="html/P_Gemstone_Reflection_AssemblyInfo_ComVisible.htm" />
   <HelpKINode Title="Configuration method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_Configuration.htm" />
@@ -952,6 +961,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_ByteEncoding_DecimalEncoding.htm" />
   </HelpKINode>
   <HelpKINode Title="Decrypt method" Url="html/Overload_Gemstone_Security_Cryptography_SymmetricAlgorithmExtensions_SymmetricAlgorithmExtensions_Decrypt.htm" />
+  <HelpKINode Title="Default enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Default field" Url="html/F_Gemstone_Security_Cryptography_PasswordGenerator_Default.htm" />
   <HelpKINode Title="Default property">
     <HelpKINode Title="BigEndianOrder.Default Property " Url="html/P_Gemstone_BigEndianOrder_Default.htm" />
@@ -1370,6 +1380,7 @@
   <HelpKINode Title="FromCaloriesPerSecond method" Url="html/M_Gemstone_Units_Power_FromCaloriesPerSecond.htm" />
   <HelpKINode Title="FromCelsius method" Url="html/M_Gemstone_Units_Temperature_FromCelsius.htm" />
   <HelpKINode Title="FromCelsiusHeatUnits method" Url="html/M_Gemstone_Units_Energy_FromCelsiusHeatUnits.htm" />
+  <HelpKINode Title="FromComplexNotation method" Url="html/M_Gemstone_ComplexExtensions_ComplexExtensions_FromComplexNotation.htm" />
   <HelpKINode Title="FromCubicFeet method" Url="html/M_Gemstone_Units_Volume_FromCubicFeet.htm" />
   <HelpKINode Title="FromCubicInches method" Url="html/M_Gemstone_Units_Volume_FromCubicInches.htm" />
   <HelpKINode Title="FromCups method" Url="html/M_Gemstone_Units_Volume_FromCups.htm" />
@@ -1465,6 +1476,9 @@
   <HelpKINode Title="Gemstone.Collections.PagedList(Of T) class" Url="html/T_Gemstone_Collections_PagedList_1.htm" />
   <HelpKINode Title="Gemstone.Collections.PagedList&lt;T&gt; class" Url="html/T_Gemstone_Collections_PagedList_1.htm" />
   <HelpKINode Title="Gemstone.Common class" Url="html/T_Gemstone_Common.htm" />
+  <HelpKINode Title="Gemstone.ComplexExtensions namespace" Url="html/N_Gemstone_ComplexExtensions.htm" />
+  <HelpKINode Title="Gemstone.ComplexExtensions.ComplexExtensions class" Url="html/T_Gemstone_ComplexExtensions_ComplexExtensions.htm" />
+  <HelpKINode Title="Gemstone.ComplexExtensions.ComplexNotationOptions enumeration" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Gemstone.ComponentModel.DataAnnotations namespace" Url="html/N_Gemstone_ComponentModel_DataAnnotations.htm" />
   <HelpKINode Title="Gemstone.ComponentModel.DataAnnotations.AcronymValidationAttribute class" Url="html/T_Gemstone_ComponentModel_DataAnnotations_AcronymValidationAttribute.htm" />
   <HelpKINode Title="Gemstone.ComponentModel.DataAnnotations.EmailValidationAttribute class" Url="html/T_Gemstone_ComponentModel_DataAnnotations_EmailValidationAttribute.htm" />
@@ -1519,6 +1533,8 @@
   <HelpKINode Title="Gemstone.LittleEndian class" Url="html/T_Gemstone_LittleEndian.htm" />
   <HelpKINode Title="Gemstone.LittleEndianOrder class" Url="html/T_Gemstone_LittleEndianOrder.htm" />
   <HelpKINode Title="Gemstone.NativeEndianOrder class" Url="html/T_Gemstone_NativeEndianOrder.htm" />
+  <HelpKINode Title="Gemstone.Net.Http namespace" Url="html/N_Gemstone_Net_Http.htm" />
+  <HelpKINode Title="Gemstone.Net.Http.URLHelper class" Url="html/T_Gemstone_Net_Http_URLHelper.htm" />
   <HelpKINode Title="Gemstone.Net.Security namespace" Url="html/N_Gemstone_Net_Security.htm" />
   <HelpKINode Title="Gemstone.Net.Security.CertificateGenerator class" Url="html/T_Gemstone_Net_Security_CertificateGenerator.htm" />
   <HelpKINode Title="Gemstone.Net.Security.CertificatePolicy class" Url="html/T_Gemstone_Net_Security_CertificatePolicy.htm" />
@@ -1811,6 +1827,7 @@
   <HelpKINode Title="IIf(Of T) method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="IIf&lt;T&gt; method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="ImageRuntimeVersion property" Url="html/P_Gemstone_Reflection_AssemblyInfo_ImageRuntimeVersion.htm" />
+  <HelpKINode Title="ImaginaryFirst enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="ImportCertificateWithPrivateKey method" Url="html/M_Gemstone_Net_Security_CertificateGenerator_ImportCertificateWithPrivateKey.htm" />
   <HelpKINode Title="InApplicationPath method" Url="html/M_Gemstone_IO_FilePath_InApplicationPath.htm" />
   <HelpKINode Title="Inches enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
@@ -1856,6 +1873,7 @@
   </HelpKINode>
   <HelpKINode Title="InitialValueScriptAttribute.InitialValueScript property" Url="html/P_Gemstone_ComponentModel_DataAnnotations_InitialValueScriptAttribute_InitialValueScript.htm" />
   <HelpKINode Title="InitialValueScriptAttribute.InitialValueScriptAttribute constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_InitialValueScriptAttribute__ctor.htm" />
+  <HelpKINode Title="InsertAsterisk enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Int16 property" Url="html/P_Gemstone_Security_Cryptography_Random_Int16.htm" />
   <HelpKINode Title="Int16Between method" Url="html/M_Gemstone_Security_Cryptography_Random_Int16Between.htm" />
   <HelpKINode Title="Int32 property" Url="html/P_Gemstone_Security_Cryptography_Random_Int32.htm" />
@@ -1938,6 +1956,7 @@
   <HelpKINode Title="ISupportLifecycle.Enabled property" Url="html/P_Gemstone_ISupportLifecycle_Enabled.htm" />
   <HelpKINode Title="ISupportLifecycle.Initialize method" Url="html/M_Gemstone_ISupportLifecycle_Initialize.htm" />
   <HelpKINode Title="ISupportLifecycle.IsDisposed property" Url="html/P_Gemstone_ISupportLifecycle_IsDisposed.htm" />
+  <HelpKINode Title="IsValid method" Url="html/M_Gemstone_Net_Http_URLHelper_IsValid.htm" />
   <HelpKINode Title="IsValidFileName method" Url="html/M_Gemstone_IO_FilePath_IsValidFileName.htm" />
   <HelpKINode Title="IsWordTerminator method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsWordTerminator.htm" />
   <HelpKINode Title="Item property" Url="html/P_Gemstone_IO_Parsing_BooleanExpression_Item.htm" />
@@ -2340,8 +2359,11 @@
   <HelpKINode Title="NativeEndianOrder.Default property" Url="html/P_Gemstone_NativeEndianOrder_Default.htm" />
   <HelpKINode Title="NativeEndianOrder.NativeEndianOrder constructor" Url="html/M_Gemstone_NativeEndianOrder__ctor.htm" />
   <HelpKINode Title="NauticalMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
+  <HelpKINode Title="NavigateInDefaultBrowser method" Url="html/M_Gemstone_Net_Http_URLHelper_NavigateInDefaultBrowser.htm" />
   <HelpKINode Title="Newton enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="Nil enumeration member" Url="html/T_Gemstone_Bits.htm" />
+  <HelpKINode Title="None enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
+  <HelpKINode Title="NoSimplify enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="NoSpacing field" Url="html/F_Gemstone_ByteEncoding_NoSpacing.htm" />
   <HelpKINode Title="NotEmpty method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_NotEmpty.htm" />
   <HelpKINode Title="NtpTimeTag class">
@@ -2374,6 +2396,7 @@
   <HelpKINode Title="OnDataDiscarded method" Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_OnDataDiscarded.htm" />
   <HelpKINode Title="OnesComplement operator" Url="html/M_Gemstone_Ticks_op_OnesComplement.htm" />
   <HelpKINode Title="OnParsingException method" Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_OnParsingException.htm" />
+  <HelpKINode Title="OperatorWhitespace enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Ounces enumeration member" Url="html/T_Gemstone_Units_MassUnit.htm" />
   <HelpKINode Title="Pacific property" Url="html/P_Gemstone_USTimeZones_Pacific.htm" />
   <HelpKINode Title="Page property">
@@ -2523,6 +2546,8 @@
   <HelpKINode Title="Power.ToString method" Url="html/Overload_Gemstone_Units_Power_ToString.htm" />
   <HelpKINode Title="Power.TryParse method" Url="html/Overload_Gemstone_Units_Power_TryParse.htm" />
   <HelpKINode Title="PowerUnit enumeration" Url="html/T_Gemstone_Units_PowerUnit.htm" />
+  <HelpKINode Title="PreferSubtraction enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
+  <HelpKINode Title="PrefixSymbol enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="PrimaryLabelAttribute class">
     <HelpKINode Title="PrimaryLabelAttribute Class" Url="html/T_Gemstone_ComponentModel_DataAnnotations_PrimaryLabelAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_PrimaryLabelAttribute__ctor.htm" />
@@ -2959,6 +2984,7 @@
     <HelpKINode Title="SI.Symbols Property " Url="html/P_Gemstone_Units_SI_Symbols.htm" />
     <HelpKINode Title="SI2.Symbols Property " Url="html/P_Gemstone_Units_SI2_Symbols.htm" />
   </HelpKINode>
+  <HelpKINode Title="SymbolWhitespace enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="SymmetricAlgorithmExtensions class">
     <HelpKINode Title="SymmetricAlgorithmExtensions Class" Url="html/T_Gemstone_Security_Cryptography_SymmetricAlgorithmExtensions_SymmetricAlgorithmExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Security_Cryptography_SymmetricAlgorithmExtensions_SymmetricAlgorithmExtensions.htm" />
@@ -3228,6 +3254,7 @@
     <HelpKINode Title="EndianOrder.ToChar Method " Url="html/M_Gemstone_EndianOrder_ToChar.htm" />
     <HelpKINode Title="LittleEndian.ToChar Method " Url="html/Overload_Gemstone_LittleEndian_ToChar.htm" />
   </HelpKINode>
+  <HelpKINode Title="ToComplexNotation method" Url="html/Overload_Gemstone_ComplexExtensions_ComplexExtensions_ToComplexNotation.htm" />
   <HelpKINode Title="ToCoulombs method" Url="html/M_Gemstone_Units_Energy_ToCoulombs.htm" />
   <HelpKINode Title="ToCubicFeet method" Url="html/M_Gemstone_Units_Volume_ToCubicFeet.htm" />
   <HelpKINode Title="ToCubicInches method" Url="html/M_Gemstone_Units_Volume_ToCubicInches.htm" />
@@ -3472,6 +3499,12 @@
   <HelpKINode Title="UpdateRange(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_UpdateRange__1.htm" />
   <HelpKINode Title="UpdateRange&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_UpdateRange__1.htm" />
   <HelpKINode Title="UriEncode method" Url="html/M_Gemstone_StringExtensions_StringExtensions_UriEncode.htm" />
+  <HelpKINode Title="URLHelper class">
+    <HelpKINode Title="URLHelper Class" Url="html/T_Gemstone_Net_Http_URLHelper.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Net_Http_URLHelper.htm" />
+  </HelpKINode>
+  <HelpKINode Title="URLHelper.IsValid method" Url="html/M_Gemstone_Net_Http_URLHelper_IsValid.htm" />
+  <HelpKINode Title="URLHelper.NavigateInDefaultBrowser method" Url="html/M_Gemstone_Net_Http_URLHelper_NavigateInDefaultBrowser.htm" />
   <HelpKINode Title="UrlValidationAttribute class">
     <HelpKINode Title="UrlValidationAttribute Class" Url="html/T_Gemstone_ComponentModel_DataAnnotations_UrlValidationAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_UrlValidationAttribute__ctor.htm" />
@@ -3497,6 +3530,7 @@
   <HelpKINode Title="UserInfo.UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
   <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
   <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
+  <HelpKINode Title="UseWhitespace enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="USSurveyFeet enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USSurveyMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USTimeZones class">
@@ -3550,6 +3584,7 @@
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_IO_Parsing_BooleanExpression_Variable.htm" />
   </HelpKINode>
   <HelpKINode Title="Variables property" Url="html/P_Gemstone_IO_Parsing_BooleanExpression_Variables.htm" />
+  <HelpKINode Title="Verbose enumeration member" Url="html/T_Gemstone_ComplexExtensions_ComplexNotationOptions.htm" />
   <HelpKINode Title="Version property" Url="html/P_Gemstone_Reflection_AssemblyInfo_Version.htm" />
   <HelpKINode Title="VersionNumber property" Url="html/P_Gemstone_Reflection_AssemblyLoadedVersionNumber_VersionNumber.htm" />
   <HelpKINode Title="Voltage structure">
