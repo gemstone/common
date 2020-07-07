@@ -804,6 +804,10 @@
   <HelpKINode Title="ComVisible property" Url="html/P_Gemstone_Reflection_AssemblyInfo_ComVisible.htm" />
   <HelpKINode Title="Configuration method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_Configuration.htm" />
   <HelpKINode Title="Configuration property" Url="html/P_Gemstone_Reflection_AssemblyInfo_Configuration.htm" />
+  <HelpKINode Title="Contains method">
+    <HelpKINode Title="Range(T).Contains Method " Url="html/Overload_Gemstone_Range_1_Contains.htm" />
+    <HelpKINode Title="Range(TRange, TState).Contains Method " Url="html/Overload_Gemstone_Range_2_Contains.htm" />
+  </HelpKINode>
   <HelpKINode Title="ConvertFrom method">
     <HelpKINode Title="Angle.ConvertFrom Method " Url="html/M_Gemstone_Units_Angle_ConvertFrom.htm" />
     <HelpKINode Title="Charge.ConvertFrom Method " Url="html/M_Gemstone_Units_Charge_ConvertFrom.htm" />
@@ -1053,6 +1057,10 @@
   <HelpKINode Title="Encoding7Bit.Write method" Url="html/Overload_Gemstone_Encoding7Bit_Write.htm" />
   <HelpKINode Title="Encoding7Bit.WriteInt15 method" Url="html/Overload_Gemstone_Encoding7Bit_WriteInt15.htm" />
   <HelpKINode Title="Encrypt method" Url="html/Overload_Gemstone_Security_Cryptography_SymmetricAlgorithmExtensions_SymmetricAlgorithmExtensions_Encrypt.htm" />
+  <HelpKINode Title="End property">
+    <HelpKINode Title="Range(T).End Property " Url="html/P_Gemstone_Range_1_End.htm" />
+    <HelpKINode Title="Range(TRange, TState).End Property " Url="html/P_Gemstone_Range_2_End.htm" />
+  </HelpKINode>
   <HelpKINode Title="Endianness enumeration" Url="html/T_Gemstone_Endianness.htm" />
   <HelpKINode Title="EndianOrder class">
     <HelpKINode Title="EndianOrder Class" Url="html/T_Gemstone_EndianOrder.htm" />
@@ -1499,6 +1507,8 @@
   <HelpKINode Title="Gemstone.GuidExtensions.GuidExtensions class" Url="html/T_Gemstone_GuidExtensions_GuidExtensions.htm" />
   <HelpKINode Title="Gemstone.Identity namespace" Url="html/N_Gemstone_Identity.htm" />
   <HelpKINode Title="Gemstone.Identity.UserInfo class" Url="html/T_Gemstone_Identity_UserInfo.htm" />
+  <HelpKINode Title="Gemstone.IMergeable(Of T) interface" Url="html/T_Gemstone_IMergeable_1.htm" />
+  <HelpKINode Title="Gemstone.IMergeable&lt;T&gt; interface" Url="html/T_Gemstone_IMergeable_1.htm" />
   <HelpKINode Title="Gemstone.IO namespace" Url="html/N_Gemstone_IO.htm" />
   <HelpKINode Title="Gemstone.IO.BlockAllocatedMemoryStream class" Url="html/T_Gemstone_IO_BlockAllocatedMemoryStream.htm" />
   <HelpKINode Title="Gemstone.IO.FilePath class" Url="html/T_Gemstone_IO_FilePath.htm" />
@@ -1532,6 +1542,10 @@
   <HelpKINode Title="Gemstone.Net.Smtp.Mail class" Url="html/T_Gemstone_Net_Smtp_Mail.htm" />
   <HelpKINode Title="Gemstone.NtpTimeTag class" Url="html/T_Gemstone_NtpTimeTag.htm" />
   <HelpKINode Title="Gemstone.NullableWeakReference class" Url="html/T_Gemstone_NullableWeakReference.htm" />
+  <HelpKINode Title="Gemstone.Range(Of T) class" Url="html/T_Gemstone_Range_1.htm" />
+  <HelpKINode Title="Gemstone.Range(Of TRange, TState) class" Url="html/T_Gemstone_Range_2.htm" />
+  <HelpKINode Title="Gemstone.Range&lt;T&gt; class" Url="html/T_Gemstone_Range_1.htm" />
+  <HelpKINode Title="Gemstone.Range&lt;TRange, TState&gt; class" Url="html/T_Gemstone_Range_2.htm" />
   <HelpKINode Title="Gemstone.Reflection namespace" Url="html/N_Gemstone_Reflection.htm" />
   <HelpKINode Title="Gemstone.Reflection.AppDomainTypeLookup class" Url="html/T_Gemstone_Reflection_AppDomainTypeLookup.htm" />
   <HelpKINode Title="Gemstone.Reflection.AssemblyExtensions namespace" Url="html/N_Gemstone_Reflection_AssemblyExtensions.htm" />
@@ -1813,6 +1827,16 @@
   <HelpKINode Title="IIf(Of T) method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="IIf&lt;T&gt; method" Url="html/M_Gemstone_Common_IIf__1.htm" />
   <HelpKINode Title="ImageRuntimeVersion property" Url="html/P_Gemstone_Reflection_AssemblyInfo_ImageRuntimeVersion.htm" />
+  <HelpKINode Title="IMergeable(Of T) interface">
+    <HelpKINode Title="IMergeable(T) Interface" Url="html/T_Gemstone_IMergeable_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_IMergeable_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IMergeable(Of T).Merge method" Url="html/M_Gemstone_IMergeable_1_Merge.htm" />
+  <HelpKINode Title="IMergeable&lt;T&gt; interface">
+    <HelpKINode Title="IMergeable(T) Interface" Url="html/T_Gemstone_IMergeable_1.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_IMergeable_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="IMergeable&lt;T&gt;.Merge method" Url="html/M_Gemstone_IMergeable_1_Merge.htm" />
   <HelpKINode Title="ImportCertificateWithPrivateKey method" Url="html/M_Gemstone_Net_Security_CertificateGenerator_ImportCertificateWithPrivateKey.htm" />
   <HelpKINode Title="InApplicationPath method" Url="html/M_Gemstone_IO_FilePath_InApplicationPath.htm" />
   <HelpKINode Title="Inches enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
@@ -2234,7 +2258,20 @@
   <HelpKINode Title="MemberInfoExtensions.GetFriendlyClassName&lt;TMemberInfo&gt; method" Url="html/M_Gemstone_Reflection_MemberInfoExtensions_MemberInfoExtensions_GetFriendlyClassName__1.htm" />
   <HelpKINode Title="MemberInfoExtensions.TryGetAttribute method" Url="html/Overload_Gemstone_Reflection_MemberInfoExtensions_MemberInfoExtensions_TryGetAttribute.htm" />
   <HelpKINode Title="MemberInfoExtensions.TryGetAttributes method" Url="html/Overload_Gemstone_Reflection_MemberInfoExtensions_MemberInfoExtensions_TryGetAttributes.htm" />
-  <HelpKINode Title="Merge method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Merge.htm" />
+  <HelpKINode Title="Merge method">
+    <HelpKINode Title="CollectionExtensions.Merge Method " Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Merge.htm" />
+    <HelpKINode Title="IMergeable(T).Merge Method " Url="html/M_Gemstone_IMergeable_1_Merge.htm" />
+    <HelpKINode Title="Range(T).Merge Method " Url="html/Overload_Gemstone_Range_1_Merge.htm" />
+    <HelpKINode Title="Range(TRange, TState).Merge Method " Url="html/Overload_Gemstone_Range_2_Merge.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MergeAllOverlapping method">
+    <HelpKINode Title="Range(T).MergeAllOverlapping Method " Url="html/Overload_Gemstone_Range_1_MergeAllOverlapping.htm" />
+    <HelpKINode Title="Range(TRange, TState).MergeAllOverlapping Method " Url="html/Overload_Gemstone_Range_2_MergeAllOverlapping.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MergeConsecutiveOverlapping method">
+    <HelpKINode Title="Range(T).MergeConsecutiveOverlapping Method " Url="html/Overload_Gemstone_Range_1_MergeConsecutiveOverlapping.htm" />
+    <HelpKINode Title="Range(TRange, TState).MergeConsecutiveOverlapping Method " Url="html/Overload_Gemstone_Range_2_MergeConsecutiveOverlapping.htm" />
+  </HelpKINode>
   <HelpKINode Title="Meters enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="MetersPerSecond enumeration member" Url="html/T_Gemstone_Units_SpeedUnit.htm" />
   <HelpKINode Title="MethodBaseExtensions class">
@@ -2379,6 +2416,10 @@
   <HelpKINode Title="OnesComplement operator" Url="html/M_Gemstone_Ticks_op_OnesComplement.htm" />
   <HelpKINode Title="OnParsingException method" Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_OnParsingException.htm" />
   <HelpKINode Title="Ounces enumeration member" Url="html/T_Gemstone_Units_MassUnit.htm" />
+  <HelpKINode Title="Overlaps method">
+    <HelpKINode Title="Range(T).Overlaps Method " Url="html/Overload_Gemstone_Range_1_Overlaps.htm" />
+    <HelpKINode Title="Range(TRange, TState).Overlaps Method " Url="html/Overload_Gemstone_Range_2_Overlaps.htm" />
+  </HelpKINode>
   <HelpKINode Title="Pacific property" Url="html/P_Gemstone_USTimeZones_Pacific.htm" />
   <HelpKINode Title="Page property">
     <HelpKINode Title="IPagedList.Page Property " Url="html/P_Gemstone_Collections_IPagedList_Page.htm" />
@@ -2568,6 +2609,64 @@
   <HelpKINode Title="Random.UInt32Between method" Url="html/M_Gemstone_Security_Cryptography_Random_UInt32Between.htm" />
   <HelpKINode Title="Random.UInt64 property" Url="html/P_Gemstone_Security_Cryptography_Random_UInt64.htm" />
   <HelpKINode Title="Random.UInt64Between method" Url="html/M_Gemstone_Security_Cryptography_Random_UInt64Between.htm" />
+  <HelpKINode Title="Range(Of T) class">
+    <HelpKINode Title="Range(T) Class" Url="html/T_Gemstone_Range_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Range_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Range_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Range_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range(Of T).Contains method" Url="html/Overload_Gemstone_Range_1_Contains.htm" />
+  <HelpKINode Title="Range(Of T).End property" Url="html/P_Gemstone_Range_1_End.htm" />
+  <HelpKINode Title="Range(Of T).Merge method" Url="html/Overload_Gemstone_Range_1_Merge.htm" />
+  <HelpKINode Title="Range(Of T).MergeAllOverlapping method" Url="html/Overload_Gemstone_Range_1_MergeAllOverlapping.htm" />
+  <HelpKINode Title="Range(Of T).MergeConsecutiveOverlapping method" Url="html/Overload_Gemstone_Range_1_MergeConsecutiveOverlapping.htm" />
+  <HelpKINode Title="Range(Of T).Overlaps method" Url="html/Overload_Gemstone_Range_1_Overlaps.htm" />
+  <HelpKINode Title="Range(Of T).Range constructor" Url="html/M_Gemstone_Range_1__ctor.htm" />
+  <HelpKINode Title="Range(Of T).Start property" Url="html/P_Gemstone_Range_1_Start.htm" />
+  <HelpKINode Title="Range(Of TRange, TState) class">
+    <HelpKINode Title="Range(TRange, TState) Class" Url="html/T_Gemstone_Range_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Range_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Range_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Range_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range(Of TRange, TState).Contains method" Url="html/Overload_Gemstone_Range_2_Contains.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).End property" Url="html/P_Gemstone_Range_2_End.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).Merge method" Url="html/Overload_Gemstone_Range_2_Merge.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).MergeAllOverlapping method" Url="html/Overload_Gemstone_Range_2_MergeAllOverlapping.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).MergeConsecutiveOverlapping method" Url="html/Overload_Gemstone_Range_2_MergeConsecutiveOverlapping.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).Overlaps method" Url="html/Overload_Gemstone_Range_2_Overlaps.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).Range constructor" Url="html/M_Gemstone_Range_2__ctor.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).Start property" Url="html/P_Gemstone_Range_2_Start.htm" />
+  <HelpKINode Title="Range(Of TRange, TState).State property" Url="html/P_Gemstone_Range_2_State.htm" />
+  <HelpKINode Title="Range&lt;T&gt; class">
+    <HelpKINode Title="Range(T) Class" Url="html/T_Gemstone_Range_1.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Range_1__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Range_1.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Range_1.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range&lt;T&gt;.Contains method" Url="html/Overload_Gemstone_Range_1_Contains.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.End property" Url="html/P_Gemstone_Range_1_End.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Merge method" Url="html/Overload_Gemstone_Range_1_Merge.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.MergeAllOverlapping method" Url="html/Overload_Gemstone_Range_1_MergeAllOverlapping.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.MergeConsecutiveOverlapping method" Url="html/Overload_Gemstone_Range_1_MergeConsecutiveOverlapping.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Overlaps method" Url="html/Overload_Gemstone_Range_1_Overlaps.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Range constructor" Url="html/M_Gemstone_Range_1__ctor.htm" />
+  <HelpKINode Title="Range&lt;T&gt;.Start property" Url="html/P_Gemstone_Range_1_Start.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt; class">
+    <HelpKINode Title="Range(TRange, TState) Class" Url="html/T_Gemstone_Range_2.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Range_2__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Range_2.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Range_2.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.Contains method" Url="html/Overload_Gemstone_Range_2_Contains.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.End property" Url="html/P_Gemstone_Range_2_End.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.Merge method" Url="html/Overload_Gemstone_Range_2_Merge.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.MergeAllOverlapping method" Url="html/Overload_Gemstone_Range_2_MergeAllOverlapping.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.MergeConsecutiveOverlapping method" Url="html/Overload_Gemstone_Range_2_MergeConsecutiveOverlapping.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.Overlaps method" Url="html/Overload_Gemstone_Range_2_Overlaps.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.Range constructor" Url="html/M_Gemstone_Range_2__ctor.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.Start property" Url="html/P_Gemstone_Range_2_Start.htm" />
+  <HelpKINode Title="Range&lt;TRange, TState&gt;.State property" Url="html/P_Gemstone_Range_2_State.htm" />
   <HelpKINode Title="Rankine enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="Read method">
     <HelpKINode Title="BinaryImageParserBase.Read Method " Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_Read.htm" />
@@ -2805,8 +2904,13 @@
     <HelpKINode Title="BinaryImageParserBase.Start Method " Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_Start.htm" />
     <HelpKINode Title="IBinaryImageParser.Start Method " Url="html/M_Gemstone_IO_Parsing_IBinaryImageParser_Start.htm" />
   </HelpKINode>
+  <HelpKINode Title="Start property">
+    <HelpKINode Title="Range(T).Start Property " Url="html/P_Gemstone_Range_1_Start.htm" />
+    <HelpKINode Title="Range(TRange, TState).Start Property " Url="html/P_Gemstone_Range_2_Start.htm" />
+  </HelpKINode>
   <HelpKINode Title="Statamperes enumeration member" Url="html/T_Gemstone_Units_CurrentUnit.htm" />
   <HelpKINode Title="Statcoulombs enumeration member" Url="html/T_Gemstone_Units_ChargeUnit.htm" />
+  <HelpKINode Title="State property" Url="html/P_Gemstone_Range_2_State.htm" />
   <HelpKINode Title="Status property">
     <HelpKINode Title="BinaryImageParserBase.Status Property " Url="html/P_Gemstone_IO_Parsing_BinaryImageParserBase_Status.htm" />
     <HelpKINode Title="IProvideStatus.Status Property " Url="html/P_Gemstone_IProvideStatus_Status.htm" />
