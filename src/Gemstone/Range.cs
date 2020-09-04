@@ -68,10 +68,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The value to be compared with.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(T value)
-        {
-            return Contains(value, Comparer<T>.Default);
-        }
+        public bool Contains(T value) => 
+            Contains(value, Comparer<T>.Default);
 
         /// <summary>
         /// Determines whether the range contains the given value.
@@ -79,10 +77,8 @@ namespace Gemstone
         /// <param name="value">The value to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(T value, IComparer<T> comparer)
-        {
-            return Contains(value, comparer.Compare);
-        }
+        public bool Contains(T value, IComparer<T> comparer) => 
+            Contains(value, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range contains the given value.
@@ -90,20 +86,16 @@ namespace Gemstone
         /// <param name="value">The value to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(T value, Comparison<T> comparison)
-        {
-            return comparison(Start, value) <= 0 && comparison(value, End) <= 0;
-        }
+        public bool Contains(T value, Comparison<T> comparison) => 
+            comparison(Start, value) <= 0 && comparison(value, End) <= 0;
 
         /// <summary>
         /// Determines whether the range contains the given range.
         /// </summary>
         /// <param name="range">The range to be compared with.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<T> range)
-        {
-            return Contains(range, Comparer<T>.Default);
-        }
+        public bool Contains(Range<T> range) => 
+            Contains(range, Comparer<T>.Default);
 
         /// <summary>
         /// Determines whether the range contains the given range.
@@ -111,10 +103,8 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<T> range, IComparer<T> comparer)
-        {
-            return Contains(range, comparer.Compare);
-        }
+        public bool Contains(Range<T> range, IComparer<T> comparer) => 
+            Contains(range, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range contains the given range.
@@ -122,20 +112,16 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<T> range, Comparison<T> comparison)
-        {
-            return comparison(Start, range.Start) <= 0 && comparison(range.End, End) <= 0;
-        }
+        public bool Contains(Range<T> range, Comparison<T> comparison) => 
+            comparison(Start, range.Start) <= 0 && comparison(range.End, End) <= 0;
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
         /// </summary>
         /// <param name="range">The range to be compared with.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<T> range)
-        {
-            return Overlaps(range, Comparer<T>.Default);
-        }
+        public bool Overlaps(Range<T> range) => 
+            Overlaps(range, Comparer<T>.Default);
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
@@ -143,10 +129,8 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<T> range, IComparer<T> comparer)
-        {
-            return Overlaps(range, comparer.Compare);
-        }
+        public bool Overlaps(Range<T> range, IComparer<T> comparer) => 
+            Overlaps(range, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
@@ -154,20 +138,16 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<T> range, Comparison<T> comparison)
-        {
-            return comparison(Start, range.End) <= 0 && comparison(range.Start, End) <= 0;
-        }
+        public bool Overlaps(Range<T> range, Comparison<T> comparison) => 
+            comparison(Start, range.End) <= 0 && comparison(range.Start, End) <= 0;
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
         /// </summary>
         /// <param name="range">The range to be merged with this one.</param>
         /// <returns>The range that fully encompasses the merged ranges.</returns>
-        public Range<T> Merge(Range<T> range)
-        {
-            return Merge(range, Comparer<T>.Default);
-        }
+        public Range<T> Merge(Range<T> range) => 
+            Merge(range, Comparer<T>.Default);
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
@@ -175,10 +155,8 @@ namespace Gemstone
         /// <param name="range">The range to be merged with this one.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>The range that fully encompasses the merged ranges.</returns>
-        public Range<T> Merge(Range<T> range, IComparer<T> comparer)
-        {
-            return Merge(range, comparer.Compare);
-        }
+        public Range<T> Merge(Range<T> range, IComparer<T> comparer) => 
+            Merge(range, comparer.Compare);
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
@@ -204,10 +182,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<T> Merge(IEnumerable<Range<T>> ranges)
-        {
-            return Merge(ranges, Comparer<T>.Default);
-        }
+        public static Range<T> Merge(IEnumerable<Range<T>> ranges) => 
+            Merge(ranges, Comparer<T>.Default);
 
         /// <summary>
         /// Merges all ranges in a collection of ranges.
@@ -215,10 +191,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<T> Merge(IEnumerable<Range<T>> ranges, Comparer<T> comparer)
-        {
-            return Merge(ranges, comparer.Compare);
-        }
+        public static Range<T> Merge(IEnumerable<Range<T>> ranges, Comparer<T> comparer) => 
+            Merge(ranges, comparer.Compare);
 
         /// <summary>
         /// Merges all ranges in a collection of ranges.
@@ -226,10 +200,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<T> Merge(IEnumerable<Range<T>> ranges, Comparison<T> comparison)
-        {
-            return ranges.Aggregate((range1, range2) => range1.Merge(range2, comparison));
-        }
+        public static Range<T> Merge(IEnumerable<Range<T>> ranges, Comparison<T> comparison) => 
+            ranges.Aggregate((range1, range2) => range1.Merge(range2, comparison));
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -237,10 +209,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="ranges">The collection of ranges.</param>
         /// <returns>The collection of merged ranges.</returns>
-        public static IEnumerable<Range<T>> MergeConsecutiveOverlapping(IEnumerable<Range<T>> ranges)
-        {
-            return MergeConsecutiveOverlapping(ranges, Comparer<T>.Default);
-        }
+        public static IEnumerable<Range<T>> MergeConsecutiveOverlapping(IEnumerable<Range<T>> ranges) => 
+            MergeConsecutiveOverlapping(ranges, Comparer<T>.Default);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -249,10 +219,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
-        public static IEnumerable<Range<T>> MergeConsecutiveOverlapping(IEnumerable<Range<T>> ranges, IComparer<T> comparer)
-        {
-            return MergeConsecutiveOverlapping(ranges, comparer.Compare);
-        }
+        public static IEnumerable<Range<T>> MergeConsecutiveOverlapping(IEnumerable<Range<T>> ranges, IComparer<T> comparer) => 
+            MergeConsecutiveOverlapping(ranges, comparer.Compare);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -263,11 +231,11 @@ namespace Gemstone
         /// <returns>The collection of merged ranges.</returns>
         public static IEnumerable<Range<T>> MergeConsecutiveOverlapping(IEnumerable<Range<T>> ranges, Comparison<T> comparison)
         {
-            Range<T> currentRange = null;
+            Range<T>? currentRange = null;
 
             foreach (Range<T> range in ranges)
             {
-                if ((object)currentRange == null)
+                if (currentRange is null)
                 {
                     currentRange = range;
                 }
@@ -282,7 +250,7 @@ namespace Gemstone
                 }
             }
 
-            if ((object)currentRange != null)
+            if (!(currentRange is null))
                 yield return currentRange;
         }
 
@@ -293,10 +261,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges)
-        {
-            return MergeAllOverlapping(ranges, Comparer<T>.Default);
-        }
+        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges) => 
+            MergeAllOverlapping(ranges, Comparer<T>.Default);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -306,10 +272,8 @@ namespace Gemstone
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges, Comparison<T> comparison)
-        {
-            return MergeAllOverlapping(ranges, Comparer<T>.Create(comparison));
-        }
+        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges, Comparison<T> comparison) => 
+            MergeAllOverlapping(ranges, Comparer<T>.Create(comparison));
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -319,10 +283,8 @@ namespace Gemstone
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="T"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges, IComparer<T> comparer)
-        {
-            return MergeConsecutiveOverlapping(ranges.OrderBy(range => range.Start, comparer));
-        }
+        public static IEnumerable<Range<T>> MergeAllOverlapping(IEnumerable<Range<T>> ranges, IComparer<T> comparer) => 
+            MergeConsecutiveOverlapping(ranges.OrderBy(range => range.Start, comparer));
 
         #endregion
     }
@@ -380,10 +342,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">The value to be compared with.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(TRange value)
-        {
-            return Contains(value, Comparer<TRange>.Default);
-        }
+        public bool Contains(TRange value) => 
+            Contains(value, Comparer<TRange>.Default);
 
         /// <summary>
         /// Determines whether the range contains the given value.
@@ -391,10 +351,8 @@ namespace Gemstone
         /// <param name="value">The value to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(TRange value, IComparer<TRange> comparer)
-        {
-            return Contains(value, comparer.Compare);
-        }
+        public bool Contains(TRange value, IComparer<TRange> comparer) => 
+            Contains(value, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range contains the given value.
@@ -402,20 +360,16 @@ namespace Gemstone
         /// <param name="value">The value to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the value exists within the range; false otherwise.</returns>
-        public bool Contains(TRange value, Comparison<TRange> comparison)
-        {
-            return comparison(Start, value) <= 0 && comparison(value, End) <= 0;
-        }
+        public bool Contains(TRange value, Comparison<TRange> comparison) => 
+            comparison(Start, value) <= 0 && comparison(value, End) <= 0;
 
         /// <summary>
         /// Determines whether the range contains the given range.
         /// </summary>
         /// <param name="range">The range to be compared with.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<TRange, TState> range)
-        {
-            return Contains(range, Comparer<TRange>.Default);
-        }
+        public bool Contains(Range<TRange, TState> range) => 
+            Contains(range, Comparer<TRange>.Default);
 
         /// <summary>
         /// Determines whether the range contains the given range.
@@ -423,10 +377,8 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<TRange, TState> range, IComparer<TRange> comparer)
-        {
-            return Contains(range, comparer.Compare);
-        }
+        public bool Contains(Range<TRange, TState> range, IComparer<TRange> comparer) => 
+            Contains(range, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range contains the given range.
@@ -434,20 +386,16 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the given range exists within this range; false otherwise.</returns>
-        public bool Contains(Range<TRange, TState> range, Comparison<TRange> comparison)
-        {
-            return comparison(Start, range.Start) <= 0 && comparison(range.End, End) <= 0;
-        }
+        public bool Contains(Range<TRange, TState> range, Comparison<TRange> comparison) => 
+            comparison(Start, range.Start) <= 0 && comparison(range.End, End) <= 0;
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
         /// </summary>
         /// <param name="range">The range to be compared with.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<TRange, TState> range)
-        {
-            return Overlaps(range, Comparer<TRange>.Default);
-        }
+        public bool Overlaps(Range<TRange, TState> range) => 
+            Overlaps(range, Comparer<TRange>.Default);
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
@@ -455,10 +403,8 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<TRange, TState> range, IComparer<TRange> comparer)
-        {
-            return Overlaps(range, comparer.Compare);
-        }
+        public bool Overlaps(Range<TRange, TState> range, IComparer<TRange> comparer) => 
+            Overlaps(range, comparer.Compare);
 
         /// <summary>
         /// Determines whether the range overlaps with the given range.
@@ -466,10 +412,8 @@ namespace Gemstone
         /// <param name="range">The range to be compared with.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>True if the ranges overlap; false otherwise.</returns>
-        public bool Overlaps(Range<TRange, TState> range, Comparison<TRange> comparison)
-        {
-            return comparison(Start, range.End) <= 0 && comparison(range.Start, End) <= 0;
-        }
+        public bool Overlaps(Range<TRange, TState> range, Comparison<TRange> comparison) => 
+            comparison(Start, range.End) <= 0 && comparison(range.Start, End) <= 0;
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
@@ -477,10 +421,8 @@ namespace Gemstone
         /// <param name="range">The range to be merged with this one.</param>
         /// <returns>The range that fully encompasses the merged ranges.</returns>
         /// <exception cref="InvalidOperationException"><typeparamref name="TState"/> is not <see cref="IMergeable{TState}"/>.</exception>
-        public Range<TRange, TState> Merge(Range<TRange, TState> range)
-        {
-            return Merge(range, Comparer<TRange>.Default);
-        }
+        public Range<TRange, TState> Merge(Range<TRange, TState> range) => 
+            Merge(range, Comparer<TRange>.Default);
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
@@ -489,10 +431,8 @@ namespace Gemstone
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>The range that fully encompasses the merged ranges.</returns>
         /// <exception cref="InvalidOperationException"><typeparamref name="TState"/> is not <see cref="IMergeable{TState}"/>.</exception>
-        public Range<TRange, TState> Merge(Range<TRange, TState> range, IComparer<TRange> comparer)
-        {
-            return Merge(range, comparer.Compare);
-        }
+        public Range<TRange, TState> Merge(Range<TRange, TState> range, IComparer<TRange> comparer) => 
+            Merge(range, comparer.Compare);
 
         /// <summary>
         /// Merges two ranges into one range that fully encompasses both ranges.
@@ -503,13 +443,13 @@ namespace Gemstone
         /// <exception cref="InvalidOperationException"><typeparamref name="TState"/> is not <see cref="IMergeable{TState}"/>.</exception>
         public Range<TRange, TState> Merge(Range<TRange, TState> range, Comparison<TRange> comparison)
         {
-            if (!(State is IMergeable<TState>))
+            if (!(State is IMergeable<TState> mergeableState))
                 throw new InvalidOperationException("Unable to merge ranges because TState is not IMergeable<TState>.");
 
             TRange start = comparison(Start, range.Start) <= 0 ? Start : range.Start;
             TRange end = comparison(End, range.End) >= 0 ? End : range.End;
-            IMergeable<TState> mergeableState = (IMergeable<TState>)State;
             TState state = mergeableState.Merge(range.State);
+
             return new Range<TRange, TState>(start, end, state);
         }
 
@@ -524,10 +464,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges)
-        {
-            return Merge(ranges, Comparer<TRange>.Default);
-        }
+        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges) => 
+            Merge(ranges, Comparer<TRange>.Default);
 
         /// <summary>
         /// Merges all ranges in a collection of ranges.
@@ -535,10 +473,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges, Comparer<TRange> comparer)
-        {
-            return Merge(ranges, comparer.Compare);
-        }
+        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges, Comparer<TRange> comparer) => 
+            Merge(ranges, comparer.Compare);
 
         /// <summary>
         /// Merges all ranges in a collection of ranges.
@@ -546,10 +482,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges to be merged.</param>
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>A range that is the result of merging all ranges in the collection.</returns>
-        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges, Comparison<TRange> comparison)
-        {
-            return ranges.Aggregate((range1, range2) => range1.Merge(range2, comparison));
-        }
+        public static Range<TRange, TState> Merge(IEnumerable<Range<TRange, TState>> ranges, Comparison<TRange> comparison) => 
+            ranges.Aggregate((range1, range2) => range1.Merge(range2, comparison));
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -557,10 +491,8 @@ namespace Gemstone
         /// </summary>
         /// <param name="ranges">The collection of ranges.</param>
         /// <returns>The collection of merged ranges.</returns>
-        public static IEnumerable<Range<TRange, TState>> MergeConsecutiveOverlapping(IEnumerable<Range<TRange, TState>> ranges)
-        {
-            return MergeConsecutiveOverlapping(ranges, Comparer<TRange>.Default);
-        }
+        public static IEnumerable<Range<TRange, TState>> MergeConsecutiveOverlapping(IEnumerable<Range<TRange, TState>> ranges) => 
+            MergeConsecutiveOverlapping(ranges, Comparer<TRange>.Default);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -569,10 +501,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges.</param>
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
-        public static IEnumerable<Range<TRange, TState>> MergeConsecutiveOverlapping(IEnumerable<Range<TRange, TState>> ranges, IComparer<TRange> comparer)
-        {
-            return MergeConsecutiveOverlapping(ranges, comparer.Compare);
-        }
+        public static IEnumerable<Range<TRange, TState>> MergeConsecutiveOverlapping(IEnumerable<Range<TRange, TState>> ranges, IComparer<TRange> comparer) => 
+            MergeConsecutiveOverlapping(ranges, comparer.Compare);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -583,11 +513,11 @@ namespace Gemstone
         /// <returns>The collection of merged ranges.</returns>
         public static IEnumerable<Range<TRange, TState>> MergeConsecutiveOverlapping(IEnumerable<Range<TRange, TState>> ranges, Comparison<TRange> comparison)
         {
-            Range<TRange, TState> currentRange = null;
+            Range<TRange, TState>? currentRange = null;
 
             foreach (Range<TRange, TState> range in ranges)
             {
-                if ((object)currentRange == null)
+                if (currentRange is null)
                 {
                     currentRange = range;
                 }
@@ -602,7 +532,7 @@ namespace Gemstone
                 }
             }
 
-            if ((object)currentRange != null)
+            if (!(currentRange is null))
                 yield return currentRange;
         }
 
@@ -613,10 +543,8 @@ namespace Gemstone
         /// <param name="ranges">The collection of ranges.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges)
-        {
-            return MergeAllOverlapping(ranges, Comparer<TRange>.Default);
-        }
+        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges) => 
+            MergeAllOverlapping(ranges, Comparer<TRange>.Default);
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -626,10 +554,8 @@ namespace Gemstone
         /// <param name="comparison">The comparison used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges, Comparison<TRange> comparison)
-        {
-            return MergeAllOverlapping(ranges, Comparer<TRange>.Create(comparison));
-        }
+        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges, Comparison<TRange> comparison) => 
+            MergeAllOverlapping(ranges, Comparer<TRange>.Create(comparison));
 
         /// <summary>
         /// Merges all consecutive groups of overlapping ranges in a
@@ -639,10 +565,8 @@ namespace Gemstone
         /// <param name="comparer">The comparer used to compare objects of type <typeparamref name="TRange"/>.</param>
         /// <returns>The collection of merged ranges.</returns>
         /// <remarks>This method does not preserve the order of the source collection.</remarks>
-        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges, IComparer<TRange> comparer)
-        {
-            return MergeConsecutiveOverlapping(ranges.OrderBy(range => range.Start, comparer));
-        }
+        public static IEnumerable<Range<TRange, TState>> MergeAllOverlapping(IEnumerable<Range<TRange, TState>> ranges, IComparer<TRange> comparer) => 
+            MergeConsecutiveOverlapping(ranges.OrderBy(range => range.Start, comparer));
 
         #endregion
     }
