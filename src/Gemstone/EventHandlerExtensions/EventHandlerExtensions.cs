@@ -115,7 +115,7 @@ namespace Gemstone.EventHandlerExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception, Delegate>? exceptionHandler, object sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
         {
-            if (eventHandler == null)
+            if (eventHandler is null)
                 return;
 
             Delegate[] handlers;
@@ -134,7 +134,7 @@ namespace Gemstone.EventHandlerExtensions
                         }
                         catch (Exception ex)
                         {
-                            if (exceptionHandler == null)
+                            if (exceptionHandler is null)
                                 LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke caught exception in {typeof(TEventHandler).FullName} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex));
                             else
                                 exceptionHandler(ex, simpleHandler);
@@ -147,7 +147,7 @@ namespace Gemstone.EventHandlerExtensions
                         }
                         catch (Exception ex)
                         {
-                            if (exceptionHandler == null)
+                            if (exceptionHandler is null)
                                 LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke caught exception in {typeof(TEventHandler).FullName} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex));
                             else
                                 exceptionHandler(ex, typedHandler);
@@ -160,7 +160,7 @@ namespace Gemstone.EventHandlerExtensions
                         }
                         catch (Exception ex)
                         {
-                            if (exceptionHandler == null)
+                            if (exceptionHandler is null)
                                 LibraryEvents.OnSuppressedException(typeof(EventHandlerExtensions), new Exception($"Safe invoke caught exception in {typeof(TEventHandler).FullName} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex));
                             else
                                 exceptionHandler(ex, handler);

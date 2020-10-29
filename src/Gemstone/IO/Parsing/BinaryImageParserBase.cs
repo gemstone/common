@@ -390,7 +390,7 @@ namespace Gemstone.IO.Parsing
             try
             {
                 // Prepend any left over buffer data from last parse call
-                if (UnparsedBuffer != null)
+                if (!(UnparsedBuffer is null))
                 {
                     // Combine remaining buffer from last call and current buffer together as a single image
                     buffer = UnparsedBuffer.Combine(0, UnparsedBuffer.Length, buffer, offset, count);

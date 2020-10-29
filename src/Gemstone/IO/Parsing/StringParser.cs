@@ -82,7 +82,7 @@ namespace Gemstone.IO.Parsing
                     int[]? opentags = IndicesOfToken(testString.Substring(iStart, iEnd - iStart), startToken);
 
                     //If so, reach to the matching closing Token
-                    if (opentags != null && opentags.Length > 0)
+                    if (!(opentags is null) && opentags.Length > 0)
                     {
                         for (int i = 0; i < opentags.Length; i++)
                         {
@@ -215,7 +215,7 @@ namespace Gemstone.IO.Parsing
 
             int[] indices = new int[WorkingArraySize];
 
-            if (tokens == null || tokens[0] == 0)
+            if (tokens is null || tokens[0] == 0)
                 return null;
 
             int count = 0;
@@ -337,7 +337,7 @@ namespace Gemstone.IO.Parsing
             if (string.IsNullOrEmpty(inString))
                 return -1;
 
-            if (tokens == null)
+            if (tokens is null)
                 return -1;
 
             if (startIndex > inString.Length - 1 || startIndex < 0)
@@ -699,10 +699,10 @@ namespace Gemstone.IO.Parsing
             if (startIndex > inString.Length - 1)
                 return null;
 
-            if (delimiters == null)
+            if (delimiters is null)
                 return null;
 
-            if (quoteChars == null)
+            if (quoteChars is null)
                 return inString.Split(delimiters);
 
             int nextQ = IndexOfNextTokens(inString, quoteChars, startIndex);
@@ -807,7 +807,7 @@ namespace Gemstone.IO.Parsing
         {
             values = null;
 
-            if (parsedStrings == null || expectedTypeCodes == null)
+            if (parsedStrings is null || expectedTypeCodes is null)
                 return false;
 
             if (parsedStrings.Length != expectedTypeCodes.Length)
@@ -1026,7 +1026,7 @@ namespace Gemstone.IO.Parsing
         /// <returns></returns>
         public static bool ExpectedFieldNamesMatch(string[] expectedFieldNames, string[] actualFieldNames, bool matchCase = true, int length = 0, int startIndex = 0)
         {
-            if (expectedFieldNames == null || actualFieldNames == null)
+            if (expectedFieldNames is null || actualFieldNames is null)
                 return false;
 
             if (length <= 0 || length > expectedFieldNames.Length)
@@ -1065,7 +1065,7 @@ namespace Gemstone.IO.Parsing
         /// <returns></returns>
         public static int FindIndex(string fieldNameValueSought, string[] fieldNames, bool matchCase = true, bool contains = false)
         {
-            if (fieldNames == null || fieldNames.Length == 0 || string.IsNullOrEmpty(fieldNameValueSought))
+            if (fieldNames is null || fieldNames.Length == 0 || string.IsNullOrEmpty(fieldNameValueSought))
                 return -1;
 
             if (!matchCase)

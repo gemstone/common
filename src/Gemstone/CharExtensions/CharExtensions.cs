@@ -94,7 +94,7 @@ namespace Gemstone.CharExtensions
         /// <returns>Boolean value indicating a that the character is in the array.</returns>
         public static bool IsAnyOf(this char value, IEnumerable<char> testChars)
         {
-            if (testChars == null)
+            if (testChars is null)
                 throw new ArgumentNullException(nameof(testChars));
 
             return testChars.Any(c => value == c);

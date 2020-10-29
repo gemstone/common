@@ -579,7 +579,7 @@ namespace Gemstone
         /// <exception cref="ArgumentException">value is not an <see cref="long"/>, <see cref="DateTime"/>, <see cref="TimeSpan"/> or <see cref="Ticks"/>.</exception>
         public int CompareTo(object value)
         {
-            if (value == null)
+            if (value is null)
                 return 1;
 
             long num = value switch

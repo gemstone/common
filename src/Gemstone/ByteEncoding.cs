@@ -328,11 +328,11 @@ namespace Gemstone
             /// <returns>String of encoded bytes.</returns>
             public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter)
             {
-                if (bytes == null)
+                if (bytes is null)
                     throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
                 // Initializes byte image array on first call for speed in future calls.
-                if (m_byteImages == null)
+                if (m_byteImages is null)
                 {
                     StringBuilder byteImage;
 
@@ -483,7 +483,7 @@ namespace Gemstone
             /// <returns>String of encoded bytes.</returns>
             public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter)
             {
-                if (bytes == null)
+                if (bytes is null)
                     throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
                 string base64String = Convert.ToBase64String(bytes, offset, length);
@@ -543,7 +543,7 @@ namespace Gemstone
             /// <returns>String of encoded bytes.</returns>
             public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter)
             {
-                if (bytes == null)
+                if (bytes is null)
                     throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
                 string asciiString = Encoding.ASCII.GetString(bytes, offset, length);
@@ -587,7 +587,7 @@ namespace Gemstone
         /// <returns>String of encoded bytes.</returns>
         public virtual string GetString(byte[] bytes, char spacingCharacter)
         {
-            if (bytes == null)
+            if (bytes is null)
                 throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
             return GetString(bytes, 0, bytes.Length, spacingCharacter);
@@ -600,7 +600,7 @@ namespace Gemstone
         /// <returns>String of encoded bytes.</returns>
         public virtual string GetString(byte[] bytes, int offset, int length)
         {
-            if (bytes == null)
+            if (bytes is null)
                 throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
             return GetString(bytes, offset, length, NoSpacing);
@@ -688,7 +688,7 @@ namespace Gemstone
         /// <returns>Decoded string</returns>
         internal static string BytesToString(byte[] bytes, int offset, int length, char spacingCharacter, string format)
         {
-            if (bytes == null)
+            if (bytes is null)
                 throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
             StringBuilder byteString = new StringBuilder();

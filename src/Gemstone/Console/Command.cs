@@ -123,7 +123,7 @@ namespace Gemstone.Console
                     if (!disposing)
                         return;
 
-                    if (m_process != null)
+                    if (!(m_process is null))
                     {
                         m_process.OutputDataReceived -= m_process_OutputDataReceived;
                         m_process.ErrorDataReceived -= m_process_ErrorDataReceived;
@@ -231,7 +231,7 @@ namespace Gemstone.Console
         /// <param name="parameter">Parameter to shell encode.</param>
         /// <returns>Shell encoded <paramref name="parameter"/>.</returns>
         public static string ShellEncode(this string parameter) => 
-            parameter == null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\", "\\\\");
+            parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\", "\\\\");
 
         /// <summary>
         /// Decodes a command line parameter previously encoded by <see cref="ShellEncode"/>.
@@ -239,6 +239,6 @@ namespace Gemstone.Console
         /// <param name="parameter">Parameter to decode.</param>
         /// <returns>Decoded <paramref name="parameter"/>.</returns>
         public static string ShellDecode(this string parameter) => 
-            parameter == null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\\\", "\\");
+            parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\\\", "\\");
     }
 }

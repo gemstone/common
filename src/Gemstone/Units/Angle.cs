@@ -247,7 +247,7 @@ namespace Gemstone.Units
         /// <exception cref="ArgumentException">value is not a <see cref="double"/> or <see cref="Angle"/>.</exception>
         public int CompareTo(object value)
         {
-            if (value == null)
+            if (value is null)
                 return 1;
 
             double num;

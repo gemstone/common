@@ -46,7 +46,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
         public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo => 
             // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-            member != null ? TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType) : string.Empty;
+            member is null ? string.Empty : TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
 
         /// <summary>
         /// Returns a boolean flag that determines if the specified <typeparamref name="TAttribute"/> exists.
@@ -77,7 +77,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as TAttribute ?? default!;
-                return attribute != null;
+                return !(attribute is null);
             }
 
             attribute = default!;
@@ -124,7 +124,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as Attribute ?? default!;
-                return attribute != null;
+                return !(attribute is null);
             }
 
             attribute = default!;
@@ -170,7 +170,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
 
             attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute ?? default!;
 
-            return attribute != null;
+            return !(attribute is null);
         }
 
         /// <summary>

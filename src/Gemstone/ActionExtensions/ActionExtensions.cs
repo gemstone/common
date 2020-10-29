@@ -65,7 +65,7 @@ namespace Gemstone.ActionExtensions
                 .ContinueWith(task =>
                 {
                     // ReSharper disable once PossibleNullReferenceException
-                    if (exceptionAction == null)
+                    if (exceptionAction is null)
                         throw task.Exception;
 
                     exceptionAction(task.Exception);

@@ -221,11 +221,11 @@ namespace Gemstone.StringExtensions
                 return null;
 
             // Initialize return type if not specified.
-            if (type == null)
+            if (type is null)
                 throw new ArgumentNullException(nameof(type));
 
             // Initialize culture info if not specified.
-            if (culture == null)
+            if (culture is null)
                 culture = CultureInfo.InvariantCulture;
 
             try
@@ -259,7 +259,7 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Value to convert to string.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, empty string ("") will be returned. </returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static string ToNonNullString<T>(this T value) where T : class => value == null || value is DBNull ? "" : value.ToString();
+        public static string ToNonNullString<T>(this T value) where T : class => value is null || value is DBNull ? "" : value.ToString();
 
         /// <summary>
         /// Converts value to string; null objects (or DBNull objects) will return specified <paramref name="nonNullValue"/>.
@@ -269,7 +269,7 @@ namespace Gemstone.StringExtensions
         /// <param name="nonNullValue"><see cref="string"/> to return if <paramref name="value"/> is null.</param>
         /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, <paramref name="nonNullValue"/> will be returned.</returns>
         /// <exception cref="ArgumentNullException"><paramref name="nonNullValue"/> cannot be null.</exception>
-        public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class => nonNullValue == null ? throw new ArgumentNullException(nameof(nonNullValue)) : value == null || value is DBNull ? nonNullValue : value.ToString();
+        public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class => nonNullValue is null ? throw new ArgumentNullException(nameof(nonNullValue)) : value is null || value is DBNull ? nonNullValue : value.ToString();
 
         // We handle strings as a special version of the ToNullNullString extension to handle documentation a little differently
 
@@ -294,7 +294,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(nonNullNorEmptyValue))
                 throw new ArgumentException("Must not be null or an empty string", nameof(nonNullNorEmptyValue));
 
-            if (value == null || value is DBNull)
+            if (value is null || value is DBNull)
                 return nonNullNorEmptyValue;
 
             string valueAsString = value.ToString();
@@ -315,7 +315,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrWhiteSpace(nonNullNorWhiteSpaceValue))
                 throw new ArgumentException("Must not be null, an empty string or white space", nameof(nonNullNorWhiteSpaceValue));
 
-            if (value == null || value is DBNull)
+            if (value is null || value is DBNull)
                 return nonNullNorWhiteSpaceValue;
 
             string valueAsString = value.ToString();
@@ -413,7 +413,7 @@ namespace Gemstone.StringExtensions
         /// </remarks>
         public static string JoinKeyValuePairs(this IDictionary<string, string> pairs, char parameterDelimiter = ';', char keyValueDelimiter = '=', char startValueDelimiter = '{', char endValueDelimiter = '}')
         {
-            if (pairs == null)
+            if (pairs is null)
                 throw new ArgumentNullException(nameof(pairs));
 
             char[] delimiters = { parameterDelimiter, keyValueDelimiter, startValueDelimiter, endValueDelimiter };
@@ -468,7 +468,7 @@ namespace Gemstone.StringExtensions
         [SuppressMessage("Style", "IDE0011:Add braces")]
         public static Dictionary<string, string> ParseKeyValuePairs(this string value, char parameterDelimiter = ';', char keyValueDelimiter = '=', char startValueDelimiter = '{', char endValueDelimiter = '}', bool ignoreDuplicateKeys = true)
         {
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(nameof(value));
 
             if (parameterDelimiter == keyValueDelimiter ||
@@ -631,7 +631,7 @@ namespace Gemstone.StringExtensions
         public static string ReplaceCharacters(this string value, char replacementCharacter, Func<char, bool> characterTestFunction)
         {
             // <pex>
-            if (characterTestFunction == null)
+            if (characterTestFunction is null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
             // </pex>
 
@@ -655,7 +655,7 @@ namespace Gemstone.StringExtensions
         public static string RemoveCharacters(this string value, Func<char, bool> characterTestFunction)
         {
             // <pex>
-            if (characterTestFunction == null)
+            if (characterTestFunction is null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
             // </pex>
 
@@ -745,7 +745,7 @@ namespace Gemstone.StringExtensions
         public static string ReplaceCrLfs(this string value, char replacementCharacter)
         {
             // <pex>
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(nameof(value));
             // </pex>
 
@@ -1033,7 +1033,7 @@ namespace Gemstone.StringExtensions
         public static char RegexDecode(this string value)
         {
             // <pex>
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(nameof(value));
             // </pex>
 
@@ -1067,7 +1067,7 @@ namespace Gemstone.StringExtensions
         /// <returns>The given string as a <see cref="SecureString"/>.</returns>
         public static SecureString? ToSecureString(this string value)
         {
-            if (value == null)
+            if (value is null)
                 return null;
 
             unsafe
@@ -1098,7 +1098,7 @@ namespace Gemstone.StringExtensions
         {
             IntPtr intPtr;
 
-            if (value == null)
+            if (value is null)
                 return null;
 
             intPtr = IntPtr.Zero;
@@ -1129,7 +1129,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return "";
 
-            if (culture == null)
+            if (culture is null)
                 culture = CultureInfo.CurrentCulture;
 
             return culture.TextInfo.ToTitleCase(value.ToLower());
@@ -1226,7 +1226,7 @@ namespace Gemstone.StringExtensions
         /// <returns>The centered string value.</returns>
         public static string CenterText(this string value, int maxLength, char paddingCharacter)
         {
-            if (value == null)
+            if (value is null)
                 value = "";
 
             // If the text to be centered contains multiple lines, centers all the lines individually.
@@ -1878,7 +1878,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if (characterTestFunction == null)
+            if (characterTestFunction is null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex < 0)
@@ -1938,7 +1938,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if (anyOf == null || anyOf[0] == 0)
+            if (anyOf is null || anyOf[0] == 0)
                 return -1;
 
             if (startIndex < 0)
@@ -1968,7 +1968,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if (characterTestFunction == null)
+            if (characterTestFunction is null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex < 0)
@@ -1998,7 +1998,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if (anyOf == null || anyOf[0] == 0)
+            if (anyOf is null || anyOf[0] == 0)
                 return -1;
 
             if (startIndex >= value.Length)
@@ -2052,7 +2052,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return -1;
 
-            if (characterTestFunction == null)
+            if (characterTestFunction is null)
                 throw new ArgumentNullException(nameof(characterTestFunction));
 
             if (startIndex >= value.Length)
@@ -2173,7 +2173,7 @@ namespace Gemstone.StringExtensions
             if (string.IsNullOrEmpty(value))
                 return string.Empty;
 
-            if (quoteChars == null || quoteChars.Length == 0 || quoteChars[0] == 0)
+            if (quoteChars is null || quoteChars.Length == 0 || quoteChars[0] == 0)
                 return value;
 
             foreach (char c in quoteChars)

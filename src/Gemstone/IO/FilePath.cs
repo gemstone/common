@@ -354,10 +354,10 @@ namespace Gemstone.IO
             {
                 InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex);
 
-                if (exceptionHandler != null)
-                    exceptionHandler(enumerationEx);
-                else
+                if (exceptionHandler is null)
                     LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
+                else
+                    exceptionHandler(enumerationEx);
             }
 
             try
@@ -439,10 +439,10 @@ namespace Gemstone.IO
             {
                 InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex);
 
-                if (exceptionHandler != null)
-                    exceptionHandler(enumerationEx);
-                else
+                if (exceptionHandler is null)
                     LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
+                else
+                    exceptionHandler(enumerationEx);
             }
 
             try
@@ -716,7 +716,7 @@ namespace Gemstone.IO
                 directory = directory.Remove(directory.LastIndexOf("*", StringComparison.OrdinalIgnoreCase));
             }
 
-            if (exceptionHandler == null)
+            if (exceptionHandler is null)
                 return Directory.GetFiles(directory, filePattern, options);
 
             return GetFiles(directory, filePattern, options, exceptionHandler);
@@ -748,19 +748,19 @@ namespace Gemstone.IO
                 // Determine if any of the replacement patterns match the input.
                 Tuple<string, string> replacement = replacements.FirstOrDefault(r => Regex.IsMatch(input.ToString(), $"^{r.Item1}"));
 
-                if (replacement != null)
+                if (replacement is null)
+                {
+                    // If not, move a single character as-is from input to the output.
+                    output.Append(Regex.Escape(input[0].ToString()));
+                    input.Remove(0, 1);
+                }
+                else
                 {
                     // If one of the replacement patterns matches the input,
                     // apply that replacement and write it to the output.
                     Match match = Regex.Match(input.ToString(), $"^{replacement.Item1}");
                     output.Append(Regex.Replace(match.Value, replacement.Item1, replacement.Item2));
                     input.Remove(0, match.Length);
-                }
-                else
-                {
-                    // If not, move a single character as-is from input to the output.
-                    output.Append(Regex.Escape(input[0].ToString()));
-                    input.Remove(0, 1);
                 }
             }
 

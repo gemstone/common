@@ -69,7 +69,7 @@ namespace Gemstone.ArrayExtensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static void ValidateParameters<T>(this T[]? array, int startIndex, int length)
         {
-            if (array == null || startIndex < 0 || length < 0 || startIndex + length > array.Length)
+            if (array is null || startIndex < 0 || length < 0 || startIndex + length > array.Length)
                 RaiseValidationError(array, startIndex, length);
         }
 
@@ -77,7 +77,7 @@ namespace Gemstone.ArrayExtensions
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static void RaiseValidationError<T>(T[]? array, int startIndex, int length)
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
 
             if (startIndex < 0)
@@ -115,7 +115,7 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] BlockCopy<T>(this T[] array, int startIndex, int length)
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
 
             if (startIndex < 0)
@@ -157,10 +157,10 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, T[] other)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            if (other == null)
+            if (other is null)
                 throw new ArgumentNullException(nameof(other));
 
             return source.Combine(0, source.Length, other, 0, other.Length);
@@ -196,10 +196,10 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static T[] Combine<T>(this T[] source, int sourceOffset, int sourceCount, T[] other, int otherOffset, int otherCount)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            if (other == null)
+            if (other is null)
                 throw new ArgumentNullException(nameof(other));
 
             if (sourceOffset < 0)
@@ -332,7 +332,7 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of arrays.</typeparam>
         public static T[] Combine<T>(this T[][] arrays)
         {
-            if (arrays == null)
+            if (arrays is null)
                 throw new ArgumentNullException(nameof(arrays));
 
             int size = arrays.Sum(array => array.Length);
@@ -343,7 +343,7 @@ namespace Gemstone.ArrayExtensions
 
             for (int x = 0; x < arrays.Length; x++)
             {
-                if (arrays[x] == null)
+                if (arrays[x] is null)
                     throw new ArgumentNullException($"arrays[{x}]");
 
                 length = arrays[x].Length;
@@ -371,10 +371,10 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind) where T : IComparable<T>
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
 
-            if (sequenceToFind == null)
+            if (sequenceToFind is null)
                 throw new ArgumentNullException(nameof(sequenceToFind));
 
             return array.IndexOfSequence(sequenceToFind, 0, array.Length);
@@ -391,10 +391,10 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind, int startIndex) where T : IComparable<T>
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
 
-            if (sequenceToFind == null)
+            if (sequenceToFind is null)
                 throw new ArgumentNullException(nameof(sequenceToFind));
 
             return array.IndexOfSequence(sequenceToFind, startIndex, array.Length - startIndex);
@@ -419,10 +419,10 @@ namespace Gemstone.ArrayExtensions
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
         public static int IndexOfSequence<T>(this T[] array, T[] sequenceToFind, int startIndex, int length) where T : IComparable<T>
         {
-            if (array == null)
+            if (array is null)
                 throw new ArgumentNullException(nameof(array));
 
-            if (sequenceToFind == null || sequenceToFind.Length == 0)
+            if (sequenceToFind is null || sequenceToFind.Length == 0)
                 throw new ArgumentNullException(nameof(sequenceToFind));
 
             if (startIndex < 0)
@@ -516,15 +516,15 @@ namespace Gemstone.ArrayExtensions
         public static int CompareTo<T>(this T[] source, T[] other) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing
-            if (source == null && other == null)
+            if (source is null && other is null)
                 return 0;
 
             // If other array has data and source array is nothing, other array is assumed larger
-            if (source == null)
+            if (source is null)
                 return -1;
 
             // If source array has data and other array is nothing, source array is assumed larger
-            if (other == null)
+            if (other is null)
                 return 1;
 
             int length1 = source.Length;
@@ -594,15 +594,15 @@ namespace Gemstone.ArrayExtensions
         public static int CompareTo<T>(this T[] source, int sourceOffset, T[] other, int otherOffset, int count) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing
-            if (source == null && other == null)
+            if (source is null && other is null)
                 return 0;
 
             // If other array has data and source array is nothing, other array is assumed larger
-            if (source == null)
+            if (source is null)
                 return -1;
 
             // If source array has data and other array is nothing, source array is assumed larger
-            if (other == null)
+            if (other is null)
                 return 1;
 
             if (sourceOffset < 0)
@@ -712,7 +712,7 @@ namespace Gemstone.ArrayExtensions
         /// </remarks>
         public static byte[] Combine(this byte[][] buffers)
         {
-            if (buffers == null)
+            if (buffers is null)
                 throw new ArgumentNullException(nameof(buffers));
 
             using BlockAllocatedMemoryStream combinedBuffer = new BlockAllocatedMemoryStream();
@@ -720,7 +720,7 @@ namespace Gemstone.ArrayExtensions
             // Combine all currently queued buffers
             for (int x = 0; x < buffers.Length; x++)
             {
-                if (buffers[x] == null)
+                if (buffers[x] is null)
                     throw new ArgumentNullException($"buffers[{x}]");
 
                 combinedBuffer.Write(buffers[x], 0, buffers[x].Length);

@@ -438,7 +438,7 @@ namespace Gemstone.Units
         /// <exception cref="ArgumentException">value is not a <see cref="double"/> or <see cref="Time"/>.</exception>
         public int CompareTo(object value)
         {
-            if (value == null)
+            if (value is null)
                 return 1;
 
             double num;
@@ -1298,7 +1298,7 @@ namespace Gemstone.Units
                 throw new ArgumentOutOfRangeException(nameof(minimumSubSecondResolution), $"Must be less than or equal to {SI.Milli}");
 
             // Future: setup a language specific load for the default time names array
-            if (timeNames == null || timeNames.Length != TimeNames.Length)
+            if (timeNames is null || timeNames.Length != TimeNames.Length)
                 timeNames = TimeNames;
 
             StringBuilder timeImage = new StringBuilder();

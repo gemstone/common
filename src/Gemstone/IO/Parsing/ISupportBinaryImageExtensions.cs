@@ -44,7 +44,7 @@ namespace Gemstone.IO.Parsing
         /// </remarks>
         public static byte[] BinaryImage(this ISupportBinaryImage imageSource)
         {
-            if (imageSource == null)
+            if (imageSource is null)
                 throw new ArgumentNullException(nameof(imageSource));
 
             byte[] buffer = new byte[imageSource.BinaryLength];
@@ -62,7 +62,7 @@ namespace Gemstone.IO.Parsing
         /// <exception cref="ArgumentNullException"><paramref name="imageSource"/> cannot be null.</exception>
         public static void CopyBinaryImageToStream(this ISupportBinaryImage imageSource, Stream stream)
         {
-            if (imageSource == null)
+            if (imageSource is null)
                 throw new ArgumentNullException(nameof(imageSource));
 
             int length = imageSource.BinaryLength;
@@ -85,7 +85,7 @@ namespace Gemstone.IO.Parsing
         /// <exception cref="ArgumentNullException"><paramref name="imageSource"/> cannot be null.</exception>
         public static int ParseBinaryImageFromStream(this ISupportBinaryImage imageSource, Stream stream)
         {
-            if (imageSource == null)
+            if (imageSource is null)
                 throw new ArgumentNullException(nameof(imageSource));
 
             int length = imageSource.BinaryLength;

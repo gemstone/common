@@ -39,7 +39,7 @@ namespace Gemstone
         /// <param name="target">the object to maintain the weak reference to. Cannot be null.</param>
         public NullableWeakReference(object target) : base(target)
         {
-            if (target == null)
+            if (target is null)
                 throw new ArgumentNullException(nameof(target));
         }
 
@@ -66,7 +66,7 @@ namespace Gemstone
             get => m_cleared ? null : base.Target;
             set
             {
-                if (value == null)
+                if (value is null)
                     Clear();
                 else
                     throw new InvalidOperationException("This target must be set in the constructor.");

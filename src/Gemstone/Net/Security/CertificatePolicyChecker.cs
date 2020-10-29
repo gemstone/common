@@ -117,7 +117,7 @@ namespace Gemstone.Net.Security
 
             // If we cannot find a trusted certificate matching the remote
             // certificate, then remote certificate is not trusted
-            if (trustedCertificate == null)
+            if (trustedCertificate is null)
             {
                 ReasonForFailure = "No matching certificate found in the list of trusted certificates.";
                 return false;
@@ -154,22 +154,19 @@ namespace Gemstone.Net.Security
         /// <returns>Trusted X509 certificate, if found; otherwise, <c>null</c>.</returns>
         public X509Certificate? GetTrustedCertificate(X509Certificate remoteCertificate)
         {
-            byte[] hash, key;
-            bool hashMatch, keyMatch;
+            if (remoteCertificate is null)
+                return null;
 
-            if (remoteCertificate != null)
+            byte[] hash = remoteCertificate.GetCertHash();
+            byte[] key = remoteCertificate.GetPublicKey();
+
+            foreach (X509Certificate trustedCertificate in m_trustedCertificates.Keys)
             {
-                hash = remoteCertificate.GetCertHash();
-                key = remoteCertificate.GetPublicKey();
+                bool hashMatch = hash.SequenceEqual(trustedCertificate.GetCertHash());
+                bool keyMatch = hashMatch && key.SequenceEqual(trustedCertificate.GetPublicKey());
 
-                foreach (X509Certificate trustedCertificate in m_trustedCertificates.Keys)
-                {
-                    hashMatch = hash.SequenceEqual(trustedCertificate.GetCertHash());
-                    keyMatch = hashMatch && key.SequenceEqual(trustedCertificate.GetPublicKey());
-
-                    if (keyMatch)
-                        return trustedCertificate;
-                }
+                if (keyMatch)
+                    return trustedCertificate;
             }
 
             return null;

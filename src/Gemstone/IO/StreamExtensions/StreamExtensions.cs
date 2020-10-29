@@ -60,13 +60,13 @@ namespace Gemstone.IO.StreamExtensions
         /// This keeps the function from always allocating a new buffer for the copy</param>
         public static void CopyTo(this Stream source, Stream destination, long length, byte[] buffer)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            if (destination == null)
+            if (destination is null)
                 throw new ArgumentNullException(nameof(destination));
 
-            if (buffer == null)
+            if (buffer is null)
                 throw new ArgumentNullException(nameof(buffer));
 
             if (buffer.Length < 1)
@@ -137,7 +137,7 @@ namespace Gemstone.IO.StreamExtensions
         [SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
         public static void WriteObject(this Stream stream, object value)
         {
-            if (value == null)
+            if (value is null)
             {
                 stream.Write((byte)ObjectType.Null);
 
@@ -701,7 +701,7 @@ namespace Gemstone.IO.StreamExtensions
         /// <param name="collection">Collection to write.</param>
         public static void WriteCollection(this Stream stream, ICollection<string> collection)
         {
-            if (collection == null)
+            if (collection is null)
             {
                 stream.Write(false);
 
@@ -724,7 +724,7 @@ namespace Gemstone.IO.StreamExtensions
         /// <param name="collection">Collection to write.</param>
         public static void WriteCollection(this Stream stream, ICollection<int> collection)
         {
-            if (collection == null)
+            if (collection is null)
             {
                 stream.Write(false);
 
@@ -748,7 +748,7 @@ namespace Gemstone.IO.StreamExtensions
         /// <param name="value">Value to write.</param>
         public static void WriteNullable(this Stream stream, string value)
         {
-            if (value == null)
+            if (value is null)
             {
                 Write(stream, false);
             }

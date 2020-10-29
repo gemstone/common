@@ -147,7 +147,7 @@ namespace Gemstone.Identity
 
                 if (!string.IsNullOrEmpty(currentUserID))
                 {
-                    if (s_currentUserInfo == null || string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
+                    if (s_currentUserInfo is null || string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
                         s_currentUserInfo = new UserInfo(currentUserID);
                 }
 

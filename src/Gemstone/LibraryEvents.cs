@@ -116,7 +116,7 @@ namespace Gemstone
         // the OnSuppressedException method via an event handler for the SuppressedException event.
         internal static void OnSuppressedException(object sender, Exception ex)
         {
-            if (s_suppressedExceptionHandler == null)
+            if (s_suppressedExceptionHandler is null)
                 return;
 
             // Have to use custom exception handler here, default SafeInvoke handler already calls LibraryEvents.OnSuppressedException

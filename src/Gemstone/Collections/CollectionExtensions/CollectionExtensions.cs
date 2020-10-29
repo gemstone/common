@@ -80,7 +80,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Values from specified <paramref name="rowIndex"/>.</returns>
         public static IEnumerable<T> GetRow<T>(this T[,] source, int rowIndex)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
             if (rowIndex < 0 || source.GetLength(0) > 1)
@@ -101,7 +101,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Values from specified <paramref name="columnIndex"/>.</returns>
         public static IEnumerable<T> GetColumn<T>(this T[,] source, int columnIndex)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
             if (columnIndex < 0 || source.GetLength(1) > 1)
@@ -361,10 +361,10 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <exception cref="ArgumentNullException"><paramref name="source" /> or <paramref name="predicate" /> is <c>null</c>.</exception>
         public static bool AllParallel<TSource>(this IEnumerable<TSource> source, Func<TSource, bool> predicate, ParallelOptions? options = null)
         {
-            if (source == null)
+            if (source is null)
                 throw new ArgumentNullException(nameof(source));
 
-            if (predicate == null)
+            if (predicate is null)
                 throw new ArgumentNullException(nameof(predicate));
 
             bool succeeded = true;
@@ -393,7 +393,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>The median item(s) from an enumeration, or <c>null</c> if <paramref name="source"/> is <c>null</c>.</returns>
         public static T[]? Median<T>(this IEnumerable<T> source)
         {
-            if (source == null)
+            if (source is null)
                 return null;
 
             T[] values = source as T[] ?? source.ToArray();
@@ -442,7 +442,7 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource majority = defaultValue;
 
-            if (source == null)
+            if (source is null)
                 return majority;
 
             TSource[] values;
@@ -507,7 +507,7 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             T majority = defaultValue;
 
-            if (source == null)
+            if (source is null)
                 return majority;
 
             T[] values;
@@ -574,7 +574,7 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource minority = defaultValue;
 
-            if (source == null)
+            if (source is null)
                 return minority;
 
             TSource[] values;
@@ -636,7 +636,7 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             T minority = defaultValue;
 
-            if (source == null)
+            if (source is null)
                 return minority;
 
             T[] values;
@@ -958,7 +958,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
         private static string ToDelimitedString<TSource, TDelimiter>(IEnumerable<TSource> source, TDelimiter delimiter)
         {
-            if (Common.IsReference(delimiter!) && delimiter == null)
+            if (Common.IsReference(delimiter!) && delimiter is null)
                 throw new ArgumentNullException(nameof(delimiter), "delimiter cannot be null");
 
             StringBuilder delimitedString = new StringBuilder();
@@ -993,7 +993,7 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="convertFromString">Delegate that takes one parameter and converts from string to type TSource.</param>
         public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, char delimiter, Func<string, TSource> convertFromString)
         {
-            if (delimitedString == null)
+            if (delimitedString is null)
                 throw new ArgumentNullException(nameof(delimitedString), "delimitedString cannot be null");
 
             if (destination.IsReadOnly)
@@ -1012,10 +1012,10 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="convertFromString">Delegate that takes a <see cref="string"/> and converts to type TSource.</param>
         public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, string[] delimiters, Func<string, TSource> convertFromString)
         {
-            if (delimiters == null)
+            if (delimiters is null)
                 throw new ArgumentNullException(nameof(delimiters), "delimiters cannot be null");
 
-            if (delimitedString == null)
+            if (delimitedString is null)
                 throw new ArgumentNullException(nameof(delimitedString), "delimitedString cannot be null");
 
             if (destination.IsReadOnly)
@@ -1044,10 +1044,10 @@ namespace Gemstone.Collections.CollectionExtensions
             // 10/24/2016 - Steven E. Chisholm
             int removedCount = 0;
 
-            if (list == null)
+            if (list is null)
                 throw new ArgumentNullException(nameof(list));
 
-            if (shouldRemove == null)
+            if (shouldRemove is null)
                 throw new ArgumentNullException(nameof(shouldRemove));
 
             for (int x = 0; x < list.Count; x++)
@@ -1182,16 +1182,16 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <exception cref="ArgumentException">Cannot compare multidimensional arrays.</exception>
         private static int CompareTo(this Array array1, Array array2, IComparer comparer, bool orderIsImportant = true)
         {
-            if (comparer == null)
+            if (comparer is null)
                 throw new ArgumentNullException(nameof(comparer));
 
-            if (array1 == null && array2 == null)
+            if (array1 is null && array2 is null)
                 return 0;
 
-            if (array1 == null)
+            if (array1 is null)
                 return -1;
 
-            if (array2 == null)
+            if (array2 is null)
                 return 1;
 
             if (array1.Rank != 1 || array2.Rank != 1)
@@ -1251,7 +1251,7 @@ namespace Gemstone.Collections.CollectionExtensions
 
             public override bool Equals(object obj) => obj is DistinctByWrapper<TKey, TValue> wrapper && Equals(wrapper);
 
-            public override int GetHashCode() => Key == null ? 0 : Key.GetHashCode();
+            public override int GetHashCode() => Key?.GetHashCode() ?? 0;
 
             #endregion
         }

@@ -174,7 +174,7 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+        public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName is null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
                 TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>Converts given local time to time in specified time zone.</summary>
@@ -183,7 +183,7 @@ namespace Gemstone.DateTimeExtensions
         /// <returns>
         /// <para>Timestamp in specified time zone.</para>
         /// </returns>
-        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+        public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone is null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
                 TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZoneStandardName">The time zone standard name to which the Universally
         /// Coordinated Time timestamp is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName == null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => destinationTimeZoneStandardName is null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
                 TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
 
         /// <summary>
@@ -231,7 +231,7 @@ namespace Gemstone.DateTimeExtensions
         /// <param name="destinationTimeZone">The time zone to which the Universally Coordinated Time timestamp
         /// is to be converted to.</param>
         /// <returns>The timestamp in the specified time zone.</returns>
-        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone == null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
+        public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => destinationTimeZone is null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
                 TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
 
         /// <summary>Converts given timestamp from one time zone to another using standard names for time zones.</summary>
@@ -244,10 +244,10 @@ namespace Gemstone.DateTimeExtensions
         /// </returns>
         public static DateTime TimeZoneToTimeZone(this DateTime timestamp, string sourceTimeZoneStandardName, string destinationTimeZoneStandardName)
         {
-            if (sourceTimeZoneStandardName == null)
+            if (sourceTimeZoneStandardName is null)
                 throw new ArgumentNullException(nameof(sourceTimeZoneStandardName));
 
-            if (destinationTimeZoneStandardName == null)
+            if (destinationTimeZoneStandardName is null)
                 throw new ArgumentNullException(nameof(destinationTimeZoneStandardName));
 
             return TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.FindSystemTimeZoneById(sourceTimeZoneStandardName), TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
@@ -263,10 +263,10 @@ namespace Gemstone.DateTimeExtensions
         /// </returns>
         public static DateTime TimeZoneToTimeZone(this DateTime timestamp, TimeZoneInfo sourceTimeZone, TimeZoneInfo destinationTimeZone)
         {
-            if (sourceTimeZone == null)
+            if (sourceTimeZone is null)
                 throw new ArgumentNullException(nameof(sourceTimeZone));
 
-            if (destinationTimeZone == null)
+            if (destinationTimeZone is null)
                 throw new ArgumentNullException(nameof(destinationTimeZone));
 
             return TimeZoneInfo.ConvertTime(timestamp, sourceTimeZone, destinationTimeZone);

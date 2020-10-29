@@ -209,8 +209,7 @@ namespace Gemstone.Net.Smtp
                     throw new ArgumentNullException(nameof(value));
 
                 // Dispose existing client.
-                if (Client != null)
-                    Client.Dispose();
+                Client?.Dispose();
 
                 // Instantiate new client.
                 split = value.Split(':');
@@ -296,7 +295,7 @@ namespace Gemstone.Net.Smtp
             {
                 m_enableSSL = value;
 
-                if (Client != null)
+                if (!(Client is null))
                     Client.EnableSsl = value;
             }
         }
@@ -325,23 +324,17 @@ namespace Gemstone.Net.Smtp
         /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (!m_disposed)
-            {
-                try
-                {
-                    // This will be done regardless of whether the object is finalized or disposed.
+            if (m_disposed)
+                return;
 
-                    if (disposing)
-                    {
-                        // This will be done only when the object is disposed by calling Dispose().
-                        if (Client != null)
-                            Client.Dispose();
-                    }
-                }
-                finally
-                {
-                    m_disposed = true;  // Prevent duplicate dispose.
-                }
+            try
+            {
+                if (disposing)
+                    Client?.Dispose();
+            }
+            finally
+            {
+                m_disposed = true;  // Prevent duplicate dispose.
             }
         }
 
@@ -416,11 +409,11 @@ namespace Gemstone.Net.Smtp
         {
             // If the SMTP client is null,
             // we cannot apply security settings
-            if (Client == null)
+            if (Client is null)
                 return;
 
             // Set the username and password used to authenticate to the SMTP server
-            if (!string.IsNullOrEmpty(m_username) && m_password != null)
+            if (!string.IsNullOrEmpty(m_username) && !(m_password is null))
                 Client.Credentials = new NetworkCredential(m_username, m_password);
             else
                 Client.Credentials = null;

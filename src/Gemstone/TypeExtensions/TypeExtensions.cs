@@ -115,7 +115,7 @@ namespace Gemstone.TypeExtensions
             while (true)
             {
                 // Recurse through types until you reach a base type of "System.Object" or "System.MarshalByRef".
-                if (type.BaseType == null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
+                if (type.BaseType is null || type.BaseType == typeof(object) || type.BaseType == typeof(MarshalByRefObject))
                     return type;
 
                 type = type.BaseType;
@@ -193,7 +193,7 @@ namespace Gemstone.TypeExtensions
                             if (type.IsClass && asmType.IsSubclassOf(type))
                                 types.Add(asmType); // The type being tested is a class and current type derives from it.
 
-                            if (type.IsInterface && asmType.GetInterface(type.FullName) != null)
+                            if (type.IsInterface && !(asmType.GetInterface(type.FullName) is null))
                                 types.Add(asmType); // The type being tested is an interface and current type implements it.
 
                             if (type.GetRootType() == typeof(Attribute) && asmType.GetCustomAttributes(type, true).Length > 0)

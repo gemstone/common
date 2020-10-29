@@ -93,7 +93,7 @@ namespace Gemstone
         /// This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
         /// recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
         /// </remarks>
-        public static bool IsMono = Type.GetType("Mono.Runtime") != null;
+        public static bool IsMono = !(Type.GetType("Mono.Runtime") is null);
 
         /// <summary>Returns one of two strongly-typed objects.</summary>
         /// <returns>One of two objects, depending on the evaluation of given expression.</returns>
@@ -198,7 +198,7 @@ namespace Gemstone
         public static string TypeConvertToString(object value, CultureInfo? culture)
         {
             // Don't proceed further if value is null.
-            if (value == null)
+            if (value is null)
                 return string.Empty;
 
             // If value is already a string, no need to attempt conversion
@@ -206,7 +206,7 @@ namespace Gemstone
                 return stringVal;
 
             // Initialize culture info if not specified.
-            if (culture == null)
+            if (culture is null)
                 culture = CultureInfo.InvariantCulture;
 
             try
@@ -290,7 +290,7 @@ namespace Gemstone
         public static bool IsDefaultValue(object item)
         {
             // Only reference types can be null, therefore null is its default value
-            if (item == null)
+            if (item is null)
                 return true;
 
             Type itemType = item.GetType();
@@ -461,13 +461,13 @@ namespace Gemstone
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static T Mid<T>(T value1, T value2, T value3) where T : IComparable<T>
         {
-            if (value1 == null)
+            if (value1 is null)
                 throw new ArgumentNullException(nameof(value1));
 
-            if (value2 == null)
+            if (value2 is null)
                 throw new ArgumentNullException(nameof(value2));
 
-            if (value3 == null)
+            if (value3 is null)
                 throw new ArgumentNullException(nameof(value3));
 
             int comp1To2 = value1.CompareTo(value2);
@@ -528,7 +528,7 @@ namespace Gemstone
         // ReSharper disable once InconsistentNaming
         public static string GetOSProductName()
         {
-            if (s_osPlatformName != null)
+            if (!(s_osPlatformName is null))
                 return s_osPlatformName;
 
             switch (GetOSPlatformID())
@@ -559,7 +559,7 @@ namespace Gemstone
                                 {
                                     string line = reader.ReadLine();
 
-                                    while (line != null)
+                                    while (!(line is null))
                                     {
                                         if (line.StartsWith("PRETTY_NAME", StringComparison.OrdinalIgnoreCase) && !line.Contains('#'))
                                         {

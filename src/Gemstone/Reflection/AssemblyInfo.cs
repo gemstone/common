@@ -86,7 +86,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyTitleAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -102,7 +102,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyDescriptionAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -118,7 +118,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyCompanyAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -134,7 +134,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyProductAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -150,7 +150,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyCopyrightAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -166,7 +166,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyTrademarkAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -182,7 +182,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyConfigurationAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -198,7 +198,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyDelaySignAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return false;
 
                 return (bool)attribute.ConstructorArguments[0].Value;
@@ -214,7 +214,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyInformationalVersionAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -230,7 +230,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyKeyFileAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -246,7 +246,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(NeutralResourcesLanguageAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -263,7 +263,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(SatelliteContractVersionAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -280,7 +280,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(ComCompatibleVersionAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return $"{attribute.ConstructorArguments[0].Value}.{attribute.ConstructorArguments[1].Value}.{attribute.ConstructorArguments[2].Value}.{attribute.ConstructorArguments[3].Value}";
@@ -296,7 +296,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(ComVisibleAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return false;
 
                 return (bool)attribute.ConstructorArguments[0].Value;
@@ -312,7 +312,7 @@ namespace Gemstone.Reflection
             {
                 DebuggableAttribute attribute = Assembly.GetCustomAttributes<DebuggableAttribute>().FirstOrDefault();
 
-                return attribute != null && attribute.IsJITOptimizerDisabled;
+                return attribute?.IsJITOptimizerDisabled ?? false;
             }
         }
 
@@ -325,7 +325,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(GuidAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return string.Empty;
 
                 return (string)attribute.ConstructorArguments[0].Value;
@@ -342,7 +342,7 @@ namespace Gemstone.Reflection
             {
                 CustomAttributeData attribute = GetCustomAttribute(typeof(CLSCompliantAttribute));
 
-                if (attribute == null)
+                if (attribute is null)
                     return false;
 
                 return (bool)attribute.ConstructorArguments[0].Value;
@@ -501,35 +501,34 @@ namespace Gemstone.Reflection
         {
             get
             {
-                if (s_callingAssembly == null)
+                if (!(s_callingAssembly is null))
+                    return s_callingAssembly;
+
+                // We have to find the calling assembly of the caller
+                StackTrace trace = new StackTrace();
+                Assembly caller = Assembly.GetCallingAssembly();
+                Assembly current = Assembly.GetExecutingAssembly();
+
+                StackFrame[] stackFrames = trace.GetFrames();
+
+                if (stackFrames is null)
+                    return s_callingAssembly;
+
+                foreach (StackFrame frame in stackFrames)
                 {
-                    // We have to find the calling assembly of the caller
-                    StackTrace trace = new StackTrace();
-                    Assembly caller = Assembly.GetCallingAssembly();
-                    Assembly current = Assembly.GetExecutingAssembly();
+                    MethodBase? method = frame?.GetMethod();
 
-                    StackFrame[] stackFrames = trace.GetFrames();
+                    if (method?.DeclaringType is null)
+                        continue;
 
-                    if (stackFrames != null)
-                    {
-                        foreach (StackFrame frame in stackFrames)
-                        {
-                            MethodBase? method = frame?.GetMethod();
+                    Assembly assembly = Assembly.GetAssembly(method.DeclaringType);
 
-                            if (method == null || method.DeclaringType == null)
-                                continue;
+                    if (assembly == caller || assembly == current)
+                        continue;
 
-                            Assembly assembly = Assembly.GetAssembly(method.DeclaringType);
-
-                            if (assembly == caller || assembly == current)
-                                continue;
-
-                            // Assembly is neither the current assembly or the calling assembly
-                            s_callingAssembly = new AssemblyInfo(assembly);
-
-                            break;
-                        }
-                    }
+                    // Assembly is neither the current assembly or the calling assembly
+                    s_callingAssembly = new AssemblyInfo(assembly);
+                    break;
                 }
 
                 return s_callingAssembly;
@@ -543,11 +542,11 @@ namespace Gemstone.Reflection
         {
             get
             {
-                if (s_entryAssembly == null)
+                if (s_entryAssembly is null)
                 {
                     Assembly entryAssembly = Assembly.GetEntryAssembly();
 
-                    if (entryAssembly == null)
+                    if (entryAssembly is null)
                     {
                         string? mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
 
@@ -555,7 +554,7 @@ namespace Gemstone.Reflection
                             entryAssembly = Assembly.ReflectionOnlyLoadFrom(mainModuleFileName);
                     }
 
-                    if (entryAssembly == null)
+                    if (entryAssembly is null)
                         return null;
                     
                     s_entryAssembly = new AssemblyInfo(entryAssembly);
@@ -596,12 +595,12 @@ namespace Gemstone.Reflection
             Assembly resourceAssembly;
             string shortName = e.Name.Split(',')[0];
 
-            if (s_assemblyCache == null)
+            if (s_assemblyCache is null)
                 s_assemblyCache = new Dictionary<string, Assembly>();
 
             resourceAssembly = s_assemblyCache[shortName];
 
-            if (resourceAssembly == null)
+            if (resourceAssembly is null)
             {
                 // Loops through all of the resources in the executing assembly
                 foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
@@ -613,7 +612,7 @@ namespace Gemstone.Reflection
                     // If so, loads embedded resource assembly into a binary buffer
                     Stream? resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
 
-                    if (resourceStream != null)
+                    if (!(resourceStream is null))
                     {
                         byte[] buffer = new byte[resourceStream.Length];
                         resourceStream.Read(buffer, 0, (int)resourceStream.Length);
