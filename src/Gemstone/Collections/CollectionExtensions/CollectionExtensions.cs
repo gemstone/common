@@ -778,23 +778,22 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource minItem = default!;
 
-            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            using IEnumerator<TSource> enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                return minItem;
+
+            minItem = enumerator.Current;
+            TKey minKey = keySelector(minItem);
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    return minItem;
+                TKey nextKey = keySelector(enumerator.Current);
 
-                minItem = enumerator.Current;
-                TKey minKey = keySelector(minItem);
-
-                while (enumerator.MoveNext())
+                if (nextKey.CompareTo(minKey) < 0)
                 {
-                    TKey nextKey = keySelector(enumerator.Current);
-
-                    if (nextKey.CompareTo(minKey) < 0)
-                    {
-                        minItem = enumerator.Current;
-                        minKey = nextKey;
-                    }
+                    minItem = enumerator.Current;
+                    minKey = nextKey;
                 }
             }
 
@@ -810,18 +809,17 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource minItem = default!;
 
-            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            using IEnumerator<TSource> enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                return minItem;
+
+            minItem = enumerator.Current;
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    return minItem;
-
-                minItem = enumerator.Current;
-
-                while (enumerator.MoveNext())
-                {
-                    if (comparer(enumerator.Current, minItem) < 0)
-                        minItem = enumerator.Current;
-                }
+                if (comparer(enumerator.Current, minItem) < 0)
+                    minItem = enumerator.Current;
             }
 
             return minItem;
@@ -847,23 +845,22 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource maxItem = default!;
 
-            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            using IEnumerator<TSource> enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                return maxItem;
+
+            maxItem = enumerator.Current;
+            TKey maxKey = keySelector(maxItem);
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    return maxItem;
+                TKey nextKey = keySelector(enumerator.Current);
 
-                maxItem = enumerator.Current;
-                TKey maxKey = keySelector(maxItem);
-
-                while (enumerator.MoveNext())
+                if (nextKey.CompareTo(maxKey) > 0)
                 {
-                    TKey nextKey = keySelector(enumerator.Current);
-
-                    if (nextKey.CompareTo(maxKey) > 0)
-                    {
-                        maxItem = enumerator.Current;
-                        maxKey = nextKey;
-                    }
+                    maxItem = enumerator.Current;
+                    maxKey = nextKey;
                 }
             }
 
@@ -879,18 +876,17 @@ namespace Gemstone.Collections.CollectionExtensions
         {
             TSource maxItem = default!;
 
-            using (IEnumerator<TSource> enumerator = source.GetEnumerator())
+            using IEnumerator<TSource> enumerator = source.GetEnumerator();
+
+            if (!enumerator.MoveNext())
+                return maxItem;
+
+            maxItem = enumerator.Current;
+
+            while (enumerator.MoveNext())
             {
-                if (!enumerator.MoveNext())
-                    return maxItem;
-
-                maxItem = enumerator.Current;
-
-                while (enumerator.MoveNext())
-                {
-                    if (comparer(enumerator.Current, maxItem) > 0)
-                        maxItem = enumerator.Current;
-                }
+                if (comparer(enumerator.Current, maxItem) > 0)
+                    maxItem = enumerator.Current;
             }
 
             return maxItem;
