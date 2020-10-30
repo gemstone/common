@@ -39,6 +39,7 @@
   <HelpKINode Title="AddPathSuffix method" Url="html/M_Gemstone_IO_FilePath_AddPathSuffix.htm" />
   <HelpKINode Title="AddRange(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AddRange__1.htm" />
   <HelpKINode Title="AddRange&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_AddRange__1.htm" />
+  <HelpKINode Title="AddSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_AddSchedule.htm" />
   <HelpKINode Title="Alaskan property" Url="html/P_Gemstone_USTimeZones_Alaskan.htm" />
   <HelpKINode Title="AlignDoubleWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignDoubleWord.htm" />
   <HelpKINode Title="AlignQuadWord method" Url="html/Overload_Gemstone_WordExtensions_WordExtensions_AlignQuadWord.htm" />
@@ -97,6 +98,7 @@
   <HelpKINode Title="Angle.TryParse method" Url="html/Overload_Gemstone_Units_Angle_TryParse.htm" />
   <HelpKINode Title="AngleUnit enumeration" Url="html/T_Gemstone_Units_AngleUnit.htm" />
   <HelpKINode Title="AngularMil enumeration member" Url="html/T_Gemstone_Units_AngleUnit.htm" />
+  <HelpKINode Title="Any enumeration member" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Any method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Any.htm" />
   <HelpKINode Title="AppDomainTypeLookup class">
     <HelpKINode Title="AppDomainTypeLookup Class" Url="html/T_Gemstone_Reflection_AppDomainTypeLookup.htm" />
@@ -650,6 +652,7 @@
   <HelpKINode Title="Charge.ToString method" Url="html/Overload_Gemstone_Units_Charge_ToString.htm" />
   <HelpKINode Title="Charge.TryParse method" Url="html/Overload_Gemstone_Units_Charge_TryParse.htm" />
   <HelpKINode Title="ChargeUnit enumeration" Url="html/T_Gemstone_Units_ChargeUnit.htm" />
+  <HelpKINode Title="CheckAllSchedules method" Url="html/M_Gemstone_Scheduling_ScheduleManager_CheckAllSchedules.htm" />
   <HelpKINode Title="CheckBits method" Url="html/Overload_Gemstone_BitExtensions_BitExtensions_CheckBits.htm" />
   <HelpKINode Title="Cipher class">
     <HelpKINode Title="Cipher Class" Url="html/T_Gemstone_Security_Cryptography_Cipher.htm" />
@@ -941,8 +944,16 @@
   <HelpKINode Title="DateTimeExtensions.UniversalTimeToPacificTime method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_UniversalTimeToPacificTime.htm" />
   <HelpKINode Title="DateTimeExtensions.UtcTimeIsValid method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_UtcTimeIsValid.htm" />
   <HelpKINode Title="DateTimeExtensions.WeekdayName method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_WeekdayName.htm" />
-  <HelpKINode Title="Day enumeration member" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+  <HelpKINode Title="DateTimePart enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  <HelpKINode Title="DateTimePart property" Url="html/P_Gemstone_Scheduling_SchedulePart_DateTimePart.htm" />
+  <HelpKINode Title="Day enumeration member">
+    <HelpKINode Title="BaselineTimeInterval Enumeration" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+    <HelpKINode Title="DateTimePart Enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  </HelpKINode>
+  <HelpKINode Title="DayOfWeek enumeration member" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  <HelpKINode Title="DayPart property" Url="html/P_Gemstone_Scheduling_Schedule_DayPart.htm" />
   <HelpKINode Title="Days enumeration member" Url="html/T_Gemstone_Units_TimeUnit.htm" />
+  <HelpKINode Title="DaysOfWeekPart property" Url="html/P_Gemstone_Scheduling_Schedule_DaysOfWeekPart.htm" />
   <HelpKINode Title="Debuggable method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_Debuggable.htm" />
   <HelpKINode Title="Debuggable property" Url="html/P_Gemstone_Reflection_AssemblyInfo_Debuggable.htm" />
   <HelpKINode Title="DebugLog property" Url="html/P_Gemstone_Net_Security_CertificateGenerator_DebugLog.htm" />
@@ -978,11 +989,16 @@
   <HelpKINode Title="DelaySign property" Url="html/P_Gemstone_Reflection_AssemblyInfo_DelaySign.htm" />
   <HelpKINode Title="Delisle enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="Description method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_Description.htm" />
-  <HelpKINode Title="Description property" Url="html/P_Gemstone_Reflection_AssemblyInfo_Description.htm" />
+  <HelpKINode Title="Description property">
+    <HelpKINode Title="AssemblyInfo.Description Property " Url="html/P_Gemstone_Reflection_AssemblyInfo_Description.htm" />
+    <HelpKINode Title="Schedule.Description Property " Url="html/P_Gemstone_Scheduling_Schedule_Description.htm" />
+    <HelpKINode Title="SchedulePart.Description Property " Url="html/P_Gemstone_Scheduling_SchedulePart_Description.htm" />
+  </HelpKINode>
   <HelpKINode Title="DisableUnobservedTaskExceptionHandling method" Url="html/M_Gemstone_LibraryEvents_DisableUnobservedTaskExceptionHandling.htm" />
   <HelpKINode Title="Dispose method">
     <HelpKINode Title="BlockAllocatedMemoryStream.Dispose Method " Url="html/Overload_Gemstone_IO_BlockAllocatedMemoryStream_Dispose.htm" />
     <HelpKINode Title="Mail.Dispose Method " Url="html/Overload_Gemstone_Net_Smtp_Mail_Dispose.htm" />
+    <HelpKINode Title="ScheduleManager.Dispose Method " Url="html/Overload_Gemstone_Scheduling_ScheduleManager_Dispose.htm" />
   </HelpKINode>
   <HelpKINode Title="Disposed event" Url="html/E_Gemstone_ISupportLifecycle_Disposed.htm" />
   <HelpKINode Title="DistanceBeyondSecond method">
@@ -1037,6 +1053,7 @@
     <HelpKINode Title="BinaryImageParserBase.Enabled Property " Url="html/P_Gemstone_IO_Parsing_BinaryImageParserBase_Enabled.htm" />
     <HelpKINode Title="IBinaryImageParser.Enabled Property " Url="html/P_Gemstone_IO_Parsing_IBinaryImageParser_Enabled.htm" />
     <HelpKINode Title="ISupportLifecycle.Enabled Property " Url="html/P_Gemstone_ISupportLifecycle_Enabled.htm" />
+    <HelpKINode Title="ScheduleManager.Enabled Property " Url="html/P_Gemstone_Scheduling_ScheduleManager_Enabled.htm" />
   </HelpKINode>
   <HelpKINode Title="EnabledState enumeration" Url="html/T_Gemstone_EnabledState.htm" />
   <HelpKINode Title="EnableSSL property" Url="html/P_Gemstone_Net_Smtp_Mail_EnableSSL.htm" />
@@ -1174,6 +1191,7 @@
     <HelpKINode Title="Length.Equals Method " Url="html/Overload_Gemstone_Units_Length_Equals.htm" />
     <HelpKINode Title="Mass.Equals Method " Url="html/Overload_Gemstone_Units_Mass_Equals.htm" />
     <HelpKINode Title="Power.Equals Method " Url="html/Overload_Gemstone_Units_Power_Equals.htm" />
+    <HelpKINode Title="Schedule.Equals Method " Url="html/M_Gemstone_Scheduling_Schedule_Equals.htm" />
     <HelpKINode Title="Speed.Equals Method " Url="html/Overload_Gemstone_Units_Speed_Equals.htm" />
     <HelpKINode Title="Temperature.Equals Method " Url="html/Overload_Gemstone_Units_Temperature_Equals.htm" />
     <HelpKINode Title="Ticks.Equals Method " Url="html/Overload_Gemstone_Ticks_Equals.htm" />
@@ -1266,6 +1284,8 @@
   <HelpKINode Title="EventHandlerExtensions.GetHandlerName(Of TEventHandler) method" Url="html/M_Gemstone_EventHandlerExtensions_EventHandlerExtensions_GetHandlerName__1.htm" />
   <HelpKINode Title="EventHandlerExtensions.GetHandlerName&lt;TEventHandler&gt; method" Url="html/M_Gemstone_EventHandlerExtensions_EventHandlerExtensions_GetHandlerName__1.htm" />
   <HelpKINode Title="EventHandlerExtensions.SafeInvoke method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvoke.htm" />
+  <HelpKINode Title="EventHandlerExtensions.SafeInvokeAsync method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvokeAsync.htm" />
+  <HelpKINode Title="EveryN enumeration member" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Exa field">
     <HelpKINode Title="SI.Exa Field" Url="html/F_Gemstone_Units_SI_Exa.htm" />
     <HelpKINode Title="SI2.Exa Field" Url="html/F_Gemstone_Units_SI2_Exa.htm" />
@@ -1352,6 +1372,7 @@
   <HelpKINode Title="FilePath.WaitTillExists method" Url="html/Overload_Gemstone_IO_FilePath_WaitTillExists.htm" />
   <HelpKINode Title="Finalize method" Url="html/M_Gemstone_Net_Smtp_Mail_Finalize.htm" />
   <HelpKINode Title="FindIndex method" Url="html/M_Gemstone_IO_Parsing_StringParser_FindIndex.htm" />
+  <HelpKINode Title="FindSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_FindSchedule.htm" />
   <HelpKINode Title="FindType method" Url="html/M_Gemstone_Reflection_AssemblyInfo_FindType.htm" />
   <HelpKINode Title="FindTypes method" Url="html/M_Gemstone_Reflection_AppDomainTypeLookup_FindTypes.htm" />
   <HelpKINode Title="FluidOunces enumeration member" Url="html/T_Gemstone_Units_VolumeUnit.htm" />
@@ -1558,6 +1579,12 @@
   <HelpKINode Title="Gemstone.Reflection.MethodBaseExtensions.MethodBaseExtensions class" Url="html/T_Gemstone_Reflection_MethodBaseExtensions_MethodBaseExtensions.htm" />
   <HelpKINode Title="Gemstone.Reflection.MethodInfoExtensions namespace" Url="html/N_Gemstone_Reflection_MethodInfoExtensions.htm" />
   <HelpKINode Title="Gemstone.Reflection.MethodInfoExtensions.MethodInfoExtensions class" Url="html/T_Gemstone_Reflection_MethodInfoExtensions_MethodInfoExtensions.htm" />
+  <HelpKINode Title="Gemstone.Scheduling namespace" Url="html/N_Gemstone_Scheduling.htm" />
+  <HelpKINode Title="Gemstone.Scheduling.DateTimePart enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  <HelpKINode Title="Gemstone.Scheduling.Schedule class" Url="html/T_Gemstone_Scheduling_Schedule.htm" />
+  <HelpKINode Title="Gemstone.Scheduling.ScheduleManager class" Url="html/T_Gemstone_Scheduling_ScheduleManager.htm" />
+  <HelpKINode Title="Gemstone.Scheduling.SchedulePart class" Url="html/T_Gemstone_Scheduling_SchedulePart.htm" />
+  <HelpKINode Title="Gemstone.Scheduling.SchedulePartTextSyntax enumeration" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Gemstone.Security.Cryptography namespace" Url="html/N_Gemstone_Security_Cryptography.htm" />
   <HelpKINode Title="Gemstone.Security.Cryptography.CharacterGroup class" Url="html/T_Gemstone_Security_Cryptography_CharacterGroup.htm" />
   <HelpKINode Title="Gemstone.Security.Cryptography.Cipher class" Url="html/T_Gemstone_Security_Cryptography_Cipher.htm" />
@@ -1678,6 +1705,7 @@
     <HelpKINode Title="Length.GetHashCode Method " Url="html/M_Gemstone_Units_Length_GetHashCode.htm" />
     <HelpKINode Title="Mass.GetHashCode Method " Url="html/M_Gemstone_Units_Mass_GetHashCode.htm" />
     <HelpKINode Title="Power.GetHashCode Method " Url="html/M_Gemstone_Units_Power_GetHashCode.htm" />
+    <HelpKINode Title="Schedule.GetHashCode Method " Url="html/M_Gemstone_Scheduling_Schedule_GetHashCode.htm" />
     <HelpKINode Title="Speed.GetHashCode Method " Url="html/M_Gemstone_Units_Speed_GetHashCode.htm" />
     <HelpKINode Title="Temperature.GetHashCode Method " Url="html/M_Gemstone_Units_Temperature_GetHashCode.htm" />
     <HelpKINode Title="Ticks.GetHashCode Method " Url="html/M_Gemstone_Ticks_GetHashCode.htm" />
@@ -1799,7 +1827,11 @@
   <HelpKINode Title="HighWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighWord.htm" />
   <HelpKINode Title="Horsepower enumeration member" Url="html/T_Gemstone_Units_PowerUnit.htm" />
   <HelpKINode Title="HorsepowerHours enumeration member" Url="html/T_Gemstone_Units_EnergyUnit.htm" />
-  <HelpKINode Title="Hour enumeration member" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+  <HelpKINode Title="Hour enumeration member">
+    <HelpKINode Title="BaselineTimeInterval Enumeration" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+    <HelpKINode Title="DateTimePart Enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  </HelpKINode>
+  <HelpKINode Title="HourPart property" Url="html/P_Gemstone_Scheduling_Schedule_HourPart.htm" />
   <HelpKINode Title="Hours enumeration member" Url="html/T_Gemstone_Units_TimeUnit.htm" />
   <HelpKINode Title="IBinaryImageParser interface">
     <HelpKINode Title="IBinaryImageParser Interface" Url="html/T_Gemstone_IO_Parsing_IBinaryImageParser.htm" />
@@ -1924,6 +1956,7 @@
   <HelpKINode Title="IsDeletedFlagAttribute.FieldName property" Url="html/P_Gemstone_ComponentModel_DataAnnotations_IsDeletedFlagAttribute_FieldName.htm" />
   <HelpKINode Title="IsDeletedFlagAttribute.IsDeletedFlagAttribute constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_IsDeletedFlagAttribute__ctor.htm" />
   <HelpKINode Title="IsDisposed property" Url="html/P_Gemstone_ISupportLifecycle_IsDisposed.htm" />
+  <HelpKINode Title="IsDue method" Url="html/M_Gemstone_Scheduling_Schedule_IsDue.htm" />
   <HelpKINode Title="IsFilePatternMatch method" Url="html/Overload_Gemstone_IO_FilePath_IsFilePatternMatch.htm" />
   <HelpKINode Title="IsHex method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsHex.htm" />
   <HelpKINode Title="IsInRange method" Url="html/M_Gemstone_CharExtensions_CharExtensions_IsInRange.htm" />
@@ -1938,6 +1971,7 @@
   <HelpKINode Title="IsPosixEnvironment field" Url="html/F_Gemstone_Common_IsPosixEnvironment.htm" />
   <HelpKINode Title="IsPowerOfTwo method" Url="html/Overload_Gemstone_BitMath_IsPowerOfTwo.htm" />
   <HelpKINode Title="IsReference method" Url="html/M_Gemstone_Common_IsReference.htm" />
+  <HelpKINode Title="IsRunning property" Url="html/P_Gemstone_Scheduling_ScheduleManager_IsRunning.htm" />
   <HelpKINode Title="Issuer property" Url="html/P_Gemstone_Net_Security_CertificateGenerator_Issuer.htm" />
   <HelpKINode Title="ISupportBinaryImage interface">
     <HelpKINode Title="ISupportBinaryImage Interface" Url="html/T_Gemstone_IO_Parsing_ISupportBinaryImage.htm" />
@@ -1991,6 +2025,7 @@
   </HelpKINode>
   <HelpKINode Title="LabelAttribute.Label property" Url="html/P_Gemstone_ComponentModel_DataAnnotations_LabelAttribute_Label.htm" />
   <HelpKINode Title="LabelAttribute.LabelAttribute constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_LabelAttribute__ctor.htm" />
+  <HelpKINode Title="LastDueAt property" Url="html/P_Gemstone_Scheduling_Schedule_LastDueAt.htm" />
   <HelpKINode Title="LdapID property" Url="html/P_Gemstone_Identity_UserInfo_LdapID.htm" />
   <HelpKINode Title="LeftShift operator" Url="html/M_Gemstone_Ticks_op_LeftShift.htm" />
   <HelpKINode Title="Length property">
@@ -2216,6 +2251,7 @@
   <HelpKINode Title="Mass.ToTons method" Url="html/M_Gemstone_Units_Mass_ToTons.htm" />
   <HelpKINode Title="Mass.TryParse method" Url="html/Overload_Gemstone_Units_Mass_TryParse.htm" />
   <HelpKINode Title="MassUnit enumeration" Url="html/T_Gemstone_Units_MassUnit.htm" />
+  <HelpKINode Title="Matches method" Url="html/M_Gemstone_Scheduling_SchedulePart_Matches.htm" />
   <HelpKINode Title="Max method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Max.htm" />
   <HelpKINode Title="Max(Of T) method" Url="html/M_Gemstone_Common_Max__1.htm" />
   <HelpKINode Title="Max&lt;T&gt; method" Url="html/M_Gemstone_Common_Max__1.htm" />
@@ -2308,7 +2344,11 @@
   <HelpKINode Title="MinOccurrence property" Url="html/P_Gemstone_Security_Cryptography_CharacterGroup_MinOccurrence.htm" />
   <HelpKINode Title="Minority method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Minority.htm" />
   <HelpKINode Title="MinorityBy method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_MinorityBy.htm" />
-  <HelpKINode Title="Minute enumeration member" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+  <HelpKINode Title="Minute enumeration member">
+    <HelpKINode Title="BaselineTimeInterval Enumeration" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+    <HelpKINode Title="DateTimePart Enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  </HelpKINode>
+  <HelpKINode Title="MinutePart property" Url="html/P_Gemstone_Scheduling_Schedule_MinutePart.htm" />
   <HelpKINode Title="Minutes enumeration member" Url="html/T_Gemstone_Units_TimeUnit.htm" />
   <HelpKINode Title="MinValue field">
     <HelpKINode Title="Angle.MinValue Field" Url="html/F_Gemstone_Units_Angle_MinValue.htm" />
@@ -2340,8 +2380,12 @@
     <HelpKINode Title="Voltage.Modulus Operator " Url="html/M_Gemstone_Units_Voltage_op_Modulus.htm" />
     <HelpKINode Title="Volume.Modulus Operator " Url="html/M_Gemstone_Units_Volume_op_Modulus.htm" />
   </HelpKINode>
-  <HelpKINode Title="Month enumeration member" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+  <HelpKINode Title="Month enumeration member">
+    <HelpKINode Title="BaselineTimeInterval Enumeration" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
+    <HelpKINode Title="DateTimePart Enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
+  </HelpKINode>
   <HelpKINode Title="MonthName method" Url="html/M_Gemstone_DateTimeExtensions_DateTimeExtensions_MonthName.htm" />
+  <HelpKINode Title="MonthPart property" Url="html/P_Gemstone_Scheduling_Schedule_MonthPart.htm" />
   <HelpKINode Title="Mountain property" Url="html/P_Gemstone_USTimeZones_Mountain.htm" />
   <HelpKINode Title="Multiply operator">
     <HelpKINode Title="Angle.Multiply Operator " Url="html/M_Gemstone_Units_Angle_op_Multiply.htm" />
@@ -2362,6 +2406,8 @@
     <HelpKINode Title="AssemblyInfo.Name Property " Url="html/P_Gemstone_Reflection_AssemblyInfo_Name.htm" />
     <HelpKINode Title="BinaryImageParserBase.Name Property " Url="html/P_Gemstone_IO_Parsing_BinaryImageParserBase_Name.htm" />
     <HelpKINode Title="IProvideStatus.Name Property " Url="html/P_Gemstone_IProvideStatus_Name.htm" />
+    <HelpKINode Title="Schedule.Name Property " Url="html/P_Gemstone_Scheduling_Schedule_Name.htm" />
+    <HelpKINode Title="ScheduleManager.Name Property " Url="html/P_Gemstone_Scheduling_ScheduleManager_Name.htm" />
   </HelpKINode>
   <HelpKINode Title="Names property">
     <HelpKINode Title="SI.Names Property " Url="html/P_Gemstone_Units_SI_Names.htm" />
@@ -2415,6 +2461,10 @@
   <HelpKINode Title="OnDataDiscarded method" Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_OnDataDiscarded.htm" />
   <HelpKINode Title="OnesComplement operator" Url="html/M_Gemstone_Ticks_op_OnesComplement.htm" />
   <HelpKINode Title="OnParsingException method" Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_OnParsingException.htm" />
+  <HelpKINode Title="OnScheduleDue method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnScheduleDue.htm" />
+  <HelpKINode Title="OnScheduleDueCheck method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnScheduleDueCheck.htm" />
+  <HelpKINode Title="OnStarted method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnStarted.htm" />
+  <HelpKINode Title="OnStarting method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnStarting.htm" />
   <HelpKINode Title="Ounces enumeration member" Url="html/T_Gemstone_Units_MassUnit.htm" />
   <HelpKINode Title="Overlaps method">
     <HelpKINode Title="Range(T).Overlaps Method " Url="html/Overload_Gemstone_Range_1_Overlaps.htm" />
@@ -2609,6 +2659,7 @@
   <HelpKINode Title="Random.UInt32Between method" Url="html/M_Gemstone_Security_Cryptography_Random_UInt32Between.htm" />
   <HelpKINode Title="Random.UInt64 property" Url="html/P_Gemstone_Security_Cryptography_Random_UInt64.htm" />
   <HelpKINode Title="Random.UInt64Between method" Url="html/M_Gemstone_Security_Cryptography_Random_UInt64Between.htm" />
+  <HelpKINode Title="Range enumeration member" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Range(Of T) class">
     <HelpKINode Title="Range(T) Class" Url="html/T_Gemstone_Range_1.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_Range_1__ctor.htm" />
@@ -2667,6 +2718,7 @@
   <HelpKINode Title="Range&lt;TRange, TState&gt;.Range constructor" Url="html/M_Gemstone_Range_2__ctor.htm" />
   <HelpKINode Title="Range&lt;TRange, TState&gt;.Start property" Url="html/P_Gemstone_Range_2_Start.htm" />
   <HelpKINode Title="Range&lt;TRange, TState&gt;.State property" Url="html/P_Gemstone_Range_2_State.htm" />
+  <HelpKINode Title="RangeWithEveryN enumeration member" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Rankine enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="Read method">
     <HelpKINode Title="BinaryImageParserBase.Read Method " Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_Read.htm" />
@@ -2725,6 +2777,7 @@
   <HelpKINode Title="RemoveLeadingZeros method" Url="html/M_Gemstone_StringExtensions_StringExtensions_RemoveLeadingZeros.htm" />
   <HelpKINode Title="RemoveNull method" Url="html/M_Gemstone_StringExtensions_StringExtensions_RemoveNull.htm" />
   <HelpKINode Title="RemovePathSuffix method" Url="html/M_Gemstone_IO_FilePath_RemovePathSuffix.htm" />
+  <HelpKINode Title="RemoveSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_RemoveSchedule.htm" />
   <HelpKINode Title="RemoveTrailingString method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_RemoveTrailingString.htm" />
   <HelpKINode Title="RemoveWhere(Of T) method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_RemoveWhere__1.htm" />
   <HelpKINode Title="RemoveWhere&lt;T&gt; method" Url="html/M_Gemstone_Collections_CollectionExtensions_CollectionExtensions_RemoveWhere__1.htm" />
@@ -2743,13 +2796,82 @@
   <HelpKINode Title="RoundToSecondDistribution method" Url="html/M_Gemstone_Ticks_RoundToSecondDistribution.htm" />
   <HelpKINode Title="RoundToSubsecondDistribution method" Url="html/M_Gemstone_Ticks_RoundToSubsecondDistribution.htm" />
   <HelpKINode Title="RoundUpToNearestPowerOfTwo method" Url="html/Overload_Gemstone_BitMath_RoundUpToNearestPowerOfTwo.htm" />
+  <HelpKINode Title="Rule property" Url="html/P_Gemstone_Scheduling_Schedule_Rule.htm" />
   <HelpKINode Title="RunTime property" Url="html/P_Gemstone_IO_Parsing_BinaryImageParserBase_RunTime.htm" />
   <HelpKINode Title="R&#233;aumur enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="R&#248;mer enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
   <HelpKINode Title="SafeInvoke method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvoke.htm" />
+  <HelpKINode Title="SafeInvokeAsync method" Url="html/Overload_Gemstone_EventHandlerExtensions_EventHandlerExtensions_SafeInvokeAsync.htm" />
   <HelpKINode Title="Samoa property" Url="html/P_Gemstone_USTimeZones_Samoa.htm" />
   <HelpKINode Title="SatelliteContractVersion method" Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_SatelliteContractVersion.htm" />
   <HelpKINode Title="SatelliteContractVersion property" Url="html/P_Gemstone_Reflection_AssemblyInfo_SatelliteContractVersion.htm" />
+  <HelpKINode Title="Schedule class">
+    <HelpKINode Title="Schedule Class" Url="html/T_Gemstone_Scheduling_Schedule.htm" />
+    <HelpKINode Title="constructor" Url="html/Overload_Gemstone_Scheduling_Schedule__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Scheduling_Schedule.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Scheduling_Schedule.htm" />
+  </HelpKINode>
+  <HelpKINode Title="Schedule.DayPart property" Url="html/P_Gemstone_Scheduling_Schedule_DayPart.htm" />
+  <HelpKINode Title="Schedule.DaysOfWeekPart property" Url="html/P_Gemstone_Scheduling_Schedule_DaysOfWeekPart.htm" />
+  <HelpKINode Title="Schedule.Description property" Url="html/P_Gemstone_Scheduling_Schedule_Description.htm" />
+  <HelpKINode Title="Schedule.Equals method" Url="html/M_Gemstone_Scheduling_Schedule_Equals.htm" />
+  <HelpKINode Title="Schedule.GetHashCode method" Url="html/M_Gemstone_Scheduling_Schedule_GetHashCode.htm" />
+  <HelpKINode Title="Schedule.HourPart property" Url="html/P_Gemstone_Scheduling_Schedule_HourPart.htm" />
+  <HelpKINode Title="Schedule.IsDue method" Url="html/M_Gemstone_Scheduling_Schedule_IsDue.htm" />
+  <HelpKINode Title="Schedule.LastDueAt property" Url="html/P_Gemstone_Scheduling_Schedule_LastDueAt.htm" />
+  <HelpKINode Title="Schedule.MinutePart property" Url="html/P_Gemstone_Scheduling_Schedule_MinutePart.htm" />
+  <HelpKINode Title="Schedule.MonthPart property" Url="html/P_Gemstone_Scheduling_Schedule_MonthPart.htm" />
+  <HelpKINode Title="Schedule.Name property" Url="html/P_Gemstone_Scheduling_Schedule_Name.htm" />
+  <HelpKINode Title="Schedule.Rule property" Url="html/P_Gemstone_Scheduling_Schedule_Rule.htm" />
+  <HelpKINode Title="Schedule.Schedule constructor" Url="html/Overload_Gemstone_Scheduling_Schedule__ctor.htm" />
+  <HelpKINode Title="Schedule.Status property" Url="html/P_Gemstone_Scheduling_Schedule_Status.htm" />
+  <HelpKINode Title="Schedule.ToString method" Url="html/M_Gemstone_Scheduling_Schedule_ToString.htm" />
+  <HelpKINode Title="Schedule.UseLocalTime property" Url="html/P_Gemstone_Scheduling_Schedule_UseLocalTime.htm" />
+  <HelpKINode Title="ScheduleDue event" Url="html/E_Gemstone_Scheduling_ScheduleManager_ScheduleDue.htm" />
+  <HelpKINode Title="ScheduleDueCheck event" Url="html/E_Gemstone_Scheduling_ScheduleManager_ScheduleDueCheck.htm" />
+  <HelpKINode Title="ScheduleManager class">
+    <HelpKINode Title="ScheduleManager Class" Url="html/T_Gemstone_Scheduling_ScheduleManager.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Scheduling_ScheduleManager__ctor.htm" />
+    <HelpKINode Title="events" Url="html/Events_T_Gemstone_Scheduling_ScheduleManager.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Scheduling_ScheduleManager.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Scheduling_ScheduleManager.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ScheduleManager.AddSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_AddSchedule.htm" />
+  <HelpKINode Title="ScheduleManager.CheckAllSchedules method" Url="html/M_Gemstone_Scheduling_ScheduleManager_CheckAllSchedules.htm" />
+  <HelpKINode Title="ScheduleManager.Dispose method" Url="html/Overload_Gemstone_Scheduling_ScheduleManager_Dispose.htm" />
+  <HelpKINode Title="ScheduleManager.Enabled property" Url="html/P_Gemstone_Scheduling_ScheduleManager_Enabled.htm" />
+  <HelpKINode Title="ScheduleManager.FindSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_FindSchedule.htm" />
+  <HelpKINode Title="ScheduleManager.IsRunning property" Url="html/P_Gemstone_Scheduling_ScheduleManager_IsRunning.htm" />
+  <HelpKINode Title="ScheduleManager.Name property" Url="html/P_Gemstone_Scheduling_ScheduleManager_Name.htm" />
+  <HelpKINode Title="ScheduleManager.OnScheduleDue method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnScheduleDue.htm" />
+  <HelpKINode Title="ScheduleManager.OnScheduleDueCheck method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnScheduleDueCheck.htm" />
+  <HelpKINode Title="ScheduleManager.OnStarted method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnStarted.htm" />
+  <HelpKINode Title="ScheduleManager.OnStarting method" Url="html/M_Gemstone_Scheduling_ScheduleManager_OnStarting.htm" />
+  <HelpKINode Title="ScheduleManager.RemoveSchedule method" Url="html/M_Gemstone_Scheduling_ScheduleManager_RemoveSchedule.htm" />
+  <HelpKINode Title="ScheduleManager.ScheduleDue event" Url="html/E_Gemstone_Scheduling_ScheduleManager_ScheduleDue.htm" />
+  <HelpKINode Title="ScheduleManager.ScheduleDueCheck event" Url="html/E_Gemstone_Scheduling_ScheduleManager_ScheduleDueCheck.htm" />
+  <HelpKINode Title="ScheduleManager.ScheduleManager constructor" Url="html/M_Gemstone_Scheduling_ScheduleManager__ctor.htm" />
+  <HelpKINode Title="ScheduleManager.Schedules property" Url="html/P_Gemstone_Scheduling_ScheduleManager_Schedules.htm" />
+  <HelpKINode Title="ScheduleManager.Start method" Url="html/M_Gemstone_Scheduling_ScheduleManager_Start.htm" />
+  <HelpKINode Title="ScheduleManager.Started event" Url="html/E_Gemstone_Scheduling_ScheduleManager_Started.htm" />
+  <HelpKINode Title="ScheduleManager.Starting event" Url="html/E_Gemstone_Scheduling_ScheduleManager_Starting.htm" />
+  <HelpKINode Title="ScheduleManager.Status property" Url="html/P_Gemstone_Scheduling_ScheduleManager_Status.htm" />
+  <HelpKINode Title="ScheduleManager.Stop method" Url="html/M_Gemstone_Scheduling_ScheduleManager_Stop.htm" />
+  <HelpKINode Title="SchedulePart class">
+    <HelpKINode Title="SchedulePart Class" Url="html/T_Gemstone_Scheduling_SchedulePart.htm" />
+    <HelpKINode Title="constructor" Url="html/M_Gemstone_Scheduling_SchedulePart__ctor.htm" />
+    <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_Scheduling_SchedulePart.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_Scheduling_SchedulePart.htm" />
+  </HelpKINode>
+  <HelpKINode Title="SchedulePart.DateTimePart property" Url="html/P_Gemstone_Scheduling_SchedulePart_DateTimePart.htm" />
+  <HelpKINode Title="SchedulePart.Description property" Url="html/P_Gemstone_Scheduling_SchedulePart_Description.htm" />
+  <HelpKINode Title="SchedulePart.Matches method" Url="html/M_Gemstone_Scheduling_SchedulePart_Matches.htm" />
+  <HelpKINode Title="SchedulePart.SchedulePart constructor" Url="html/M_Gemstone_Scheduling_SchedulePart__ctor.htm" />
+  <HelpKINode Title="SchedulePart.Values property" Url="html/P_Gemstone_Scheduling_SchedulePart_Values.htm" />
+  <HelpKINode Title="SchedulePart.ValueText property" Url="html/P_Gemstone_Scheduling_SchedulePart_ValueText.htm" />
+  <HelpKINode Title="SchedulePart.ValueTextSyntax property" Url="html/P_Gemstone_Scheduling_SchedulePart_ValueTextSyntax.htm" />
+  <HelpKINode Title="SchedulePartTextSyntax enumeration" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
+  <HelpKINode Title="Schedules property" Url="html/P_Gemstone_Scheduling_ScheduleManager_Schedules.htm" />
   <HelpKINode Title="Scramble method" Url="html/Overload_Gemstone_Collections_CollectionExtensions_CollectionExtensions_Scramble.htm" />
   <HelpKINode Title="Second enumeration member" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
   <HelpKINode Title="Seconds enumeration member" Url="html/T_Gemstone_Units_TimeUnit.htm" />
@@ -2854,6 +2976,7 @@
   <HelpKINode Title="SimplePolicyChecker.ValidChainFlags property" Url="html/P_Gemstone_Net_Security_SimplePolicyChecker_ValidChainFlags.htm" />
   <HelpKINode Title="SimplePolicyChecker.ValidPolicyErrors property" Url="html/P_Gemstone_Net_Security_SimplePolicyChecker_ValidPolicyErrors.htm" />
   <HelpKINode Title="SmtpServer property" Url="html/P_Gemstone_Net_Smtp_Mail_SmtpServer.htm" />
+  <HelpKINode Title="Specific enumeration member" Url="html/T_Gemstone_Scheduling_SchedulePartTextSyntax.htm" />
   <HelpKINode Title="Speed structure">
     <HelpKINode Title="Speed Structure" Url="html/T_Gemstone_Units_Speed.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_Units_Speed__ctor.htm" />
@@ -2903,22 +3026,28 @@
   <HelpKINode Title="Start method">
     <HelpKINode Title="BinaryImageParserBase.Start Method " Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_Start.htm" />
     <HelpKINode Title="IBinaryImageParser.Start Method " Url="html/M_Gemstone_IO_Parsing_IBinaryImageParser_Start.htm" />
+    <HelpKINode Title="ScheduleManager.Start Method " Url="html/M_Gemstone_Scheduling_ScheduleManager_Start.htm" />
   </HelpKINode>
   <HelpKINode Title="Start property">
     <HelpKINode Title="Range(T).Start Property " Url="html/P_Gemstone_Range_1_Start.htm" />
     <HelpKINode Title="Range(TRange, TState).Start Property " Url="html/P_Gemstone_Range_2_Start.htm" />
   </HelpKINode>
+  <HelpKINode Title="Started event" Url="html/E_Gemstone_Scheduling_ScheduleManager_Started.htm" />
+  <HelpKINode Title="Starting event" Url="html/E_Gemstone_Scheduling_ScheduleManager_Starting.htm" />
   <HelpKINode Title="Statamperes enumeration member" Url="html/T_Gemstone_Units_CurrentUnit.htm" />
   <HelpKINode Title="Statcoulombs enumeration member" Url="html/T_Gemstone_Units_ChargeUnit.htm" />
   <HelpKINode Title="State property" Url="html/P_Gemstone_Range_2_State.htm" />
   <HelpKINode Title="Status property">
     <HelpKINode Title="BinaryImageParserBase.Status Property " Url="html/P_Gemstone_IO_Parsing_BinaryImageParserBase_Status.htm" />
     <HelpKINode Title="IProvideStatus.Status Property " Url="html/P_Gemstone_IProvideStatus_Status.htm" />
+    <HelpKINode Title="Schedule.Status Property " Url="html/P_Gemstone_Scheduling_Schedule_Status.htm" />
+    <HelpKINode Title="ScheduleManager.Status Property " Url="html/P_Gemstone_Scheduling_ScheduleManager_Status.htm" />
   </HelpKINode>
   <HelpKINode Title="Statvolts enumeration member" Url="html/T_Gemstone_Units_VoltageUnit.htm" />
   <HelpKINode Title="Stop method">
     <HelpKINode Title="BinaryImageParserBase.Stop Method " Url="html/M_Gemstone_IO_Parsing_BinaryImageParserBase_Stop.htm" />
     <HelpKINode Title="IBinaryImageParser.Stop Method " Url="html/M_Gemstone_IO_Parsing_IBinaryImageParser_Stop.htm" />
+    <HelpKINode Title="ScheduleManager.Stop Method " Url="html/M_Gemstone_Scheduling_ScheduleManager_Stop.htm" />
   </HelpKINode>
   <HelpKINode Title="StreamExtensions class">
     <HelpKINode Title="StreamExtensions Class" Url="html/T_Gemstone_IO_StreamExtensions_StreamExtensions.htm" />
@@ -3468,6 +3597,7 @@
     <HelpKINode Title="Length.ToString Method " Url="html/Overload_Gemstone_Units_Length_ToString.htm" />
     <HelpKINode Title="Mass.ToString Method " Url="html/Overload_Gemstone_Units_Mass_ToString.htm" />
     <HelpKINode Title="Power.ToString Method " Url="html/Overload_Gemstone_Units_Power_ToString.htm" />
+    <HelpKINode Title="Schedule.ToString Method " Url="html/M_Gemstone_Scheduling_Schedule_ToString.htm" />
     <HelpKINode Title="Speed.ToString Method " Url="html/Overload_Gemstone_Units_Speed_ToString.htm" />
     <HelpKINode Title="Temperature.ToString Method " Url="html/Overload_Gemstone_Units_Temperature_ToString.htm" />
     <HelpKINode Title="Ticks.ToString Method " Url="html/Overload_Gemstone_Ticks_ToString.htm" />
@@ -3596,6 +3726,7 @@
   <HelpKINode Title="UrlValidationAttribute.DefaultErrorMessage field" Url="html/F_Gemstone_ComponentModel_DataAnnotations_UrlValidationAttribute_DefaultErrorMessage.htm" />
   <HelpKINode Title="UrlValidationAttribute.UrlValidationAttribute constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_UrlValidationAttribute__ctor.htm" />
   <HelpKINode Title="UrlValidationAttribute.ValidationPattern field" Url="html/F_Gemstone_ComponentModel_DataAnnotations_UrlValidationAttribute_ValidationPattern.htm" />
+  <HelpKINode Title="UseLocalTime property" Url="html/P_Gemstone_Scheduling_Schedule_UseLocalTime.htm" />
   <HelpKINode Title="UserInfo class">
     <HelpKINode Title="UserInfo Class" Url="html/T_Gemstone_Identity_UserInfo.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_Identity_UserInfo__ctor.htm" />
@@ -3609,8 +3740,8 @@
   <HelpKINode Title="UserInfo.LoginID property" Url="html/P_Gemstone_Identity_UserInfo_LoginID.htm" />
   <HelpKINode Title="UserInfo.UserInfo constructor" Url="html/M_Gemstone_Identity_UserInfo__ctor.htm" />
   <HelpKINode Title="UserInfo.UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
-  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
+  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="USSurveyFeet enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USSurveyMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USTimeZones class">
@@ -3659,6 +3790,9 @@
     <HelpKINode Title="Ticks.Value Field" Url="html/F_Gemstone_Ticks_Value.htm" />
   </HelpKINode>
   <HelpKINode Title="Value property" Url="html/P_Gemstone_TimeTagBase_Value.htm" />
+  <HelpKINode Title="Values property" Url="html/P_Gemstone_Scheduling_SchedulePart_Values.htm" />
+  <HelpKINode Title="ValueText property" Url="html/P_Gemstone_Scheduling_SchedulePart_ValueText.htm" />
+  <HelpKINode Title="ValueTextSyntax property" Url="html/P_Gemstone_Scheduling_SchedulePart_ValueTextSyntax.htm" />
   <HelpKINode Title="Variable class">
     <HelpKINode Title="fields" Url="html/Fields_T_Gemstone_IO_Parsing_BooleanExpression_Variable.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_IO_Parsing_BooleanExpression_Variable.htm" />

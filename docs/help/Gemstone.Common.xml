@@ -7392,6 +7392,112 @@
         <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
       <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
     </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Action{System.Exception},System.Object,``1,System.Boolean)">
+      <summary>
+            Safely invokes event propagation asynchronously with custom exception handler, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Action{System.Exception},System.Object,``1,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)">
+      <summary>
+            Safely invokes event propagation asynchronously with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,System.Action{System.Exception},System.Object,``1,System.Boolean)">
+      <summary>
+            Safely invokes event propagation asynchronously with custom exception handler, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler" />.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,System.Action{System.Exception},System.Object,``1,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)">
+      <summary>
+            Safely invokes event propagation asynchronously with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="eventLock">Locking object for accessing event handler invocation list; when set to <c>null</c>, lock will be on <paramref name="eventHandler" />.</param>
+      <param name="exceptionHandler">Custom delegate to handle encountered exceptions which includes parameter for event handler that threw the exception; when set to <c>null</c>, exception will be suppressed, see <see cref="E:Gemstone.LibraryEvents.SuppressedException" />.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,System.Action{System.Exception,System.Delegate},System.Object,``1,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,``1,System.Boolean)">
+      <summary>
+            Safely invokes event propagation asynchronously, continuing even if an attached user handler throws an exception.
+            </summary>
+      <param name="eventHandler">Source <see cref="T:System.EventHandler" /> to safely invoke.</param>
+      <param name="sender">Event source.</param>
+      <param name="args">Event arguments.</param>
+      <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
+      <typeparam name="TEventHandler">
+        <see cref="T:System.MulticastDelegate" /> type commonly derived from <see cref="T:System.EventHandler" />.</typeparam>
+      <typeparam name="TEventArgs">Type derived from <see cref="T:System.EventArgs" />.</typeparam>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.EventHandlerExtensions.EventHandlerExtensions.SafeInvokeAsync``2(``0,System.Object,``1,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
     <member name="T:Gemstone.GuidExtensions.GuidExtensions">
       <summary>
             Extension methods for <see cref="T:System.Guid" />.
@@ -10266,6 +10372,356 @@
       <typeparam name="T3">The type of the forth parameter of the function that this delegate encapsulates.</typeparam>
       <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
       <returns>The compiled method.</returns>
+    </member>
+    <member name="T:Gemstone.Scheduling.DateTimePart">
+      <summary>
+            Indicates the date/time element that a <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.DateTimePart.Minute">
+      <summary>
+        <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents minutes. Legal values are 0 through 59, or 60 which maps to 0.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.DateTimePart.Hour">
+      <summary>
+        <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents hours. Legal values are 0 through 23, or 24 which maps to 0.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.DateTimePart.Day">
+      <summary>
+        <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents day of month. Legal values are 1 through 31.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.DateTimePart.Month">
+      <summary>
+        <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents months. Legal values are 1 through 12.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.DateTimePart.DayOfWeek">
+      <summary>
+        <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents day of week. Legal values are 0 through 6, or 7 which maps to 0. Sunday is 0 and Saturday is 6.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Scheduling.Schedule">
+      <summary>
+            Represents a schedule defined using UNIX crontab syntax.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Scheduling.Schedule" /> class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.#ctor(System.String,System.String,System.Boolean)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Scheduling.Schedule" /> class.
+            </summary>
+      <param name="name">Name of the schedule.</param>
+      <param name="rule">Rule formated in UNIX crontab syntax.</param>
+      <param name="useLocalTime">Flag that determines whether to use local time for schedule.</param>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.DayPart">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePart" /> of the <see cref="T:Gemstone.Scheduling.Schedule" /> that represents day of month <see cref="T:Gemstone.Scheduling.DateTimePart" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.DaysOfWeekPart">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePart" /> of the <see cref="T:Gemstone.Scheduling.Schedule" /> that represents day of week <see cref="T:Gemstone.Scheduling.DateTimePart" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.Description">
+      <summary>
+            Gets a description of the <see cref="P:Gemstone.Scheduling.Schedule.Rule" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.Equals(System.Object)">
+      <summary>
+            Determines whether the specified <see cref="T:Gemstone.Scheduling.Schedule" /> is equal to the current <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+      <param name="obj">The <see cref="T:Gemstone.Scheduling.Schedule" /> to compare with the current <see cref="T:Gemstone.Scheduling.Schedule" />.</param>
+      <returns>
+        <c>true</c> if the specified <see cref="T:Gemstone.Scheduling.Schedule" /> is equal to the current <see cref="T:Gemstone.Scheduling.Schedule" />; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.GetHashCode">
+      <summary>
+            Gets a hash code for the <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+      <returns>An <see cref="T:System.Int32" /> based hash-code.</returns>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.HourPart">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePart" /> of the <see cref="T:Gemstone.Scheduling.Schedule" /> that represents hour <see cref="T:Gemstone.Scheduling.DateTimePart" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.IsDue">
+      <summary>
+            Checks whether the <see cref="T:Gemstone.Scheduling.Schedule" /> is due at the present system time.
+            </summary>
+      <returns>
+        <c>true</c> if the <see cref="T:Gemstone.Scheduling.Schedule" /> is due at the present system time; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.LastDueAt">
+      <summary>
+            Gets the <see cref="T:System.DateTime" /> when the <see cref="T:Gemstone.Scheduling.Schedule" /> was last due.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.MinutePart">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePart" /> of the <see cref="T:Gemstone.Scheduling.Schedule" /> that represents minute <see cref="T:Gemstone.Scheduling.DateTimePart" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.MonthPart">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePart" /> of the <see cref="T:Gemstone.Scheduling.Schedule" /> that represents month <see cref="T:Gemstone.Scheduling.DateTimePart" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.Name">
+      <summary>
+            Gets or sets the name of the <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The value being assigned is null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.Rule">
+      <summary>
+            Gets or sets the rule of the <see cref="T:Gemstone.Scheduling.Schedule" /> defined in UNIX crontab syntax.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The value being assigned is null or empty string.</exception>
+      <exception cref="T:System.ArgumentException">The number of <see cref="T:Gemstone.Scheduling.SchedulePart" /> in the rule is not exactly 5.</exception>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.Status">
+      <summary>
+            Gets the current status of the <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.ToString">
+      <summary>
+            Gets the string representation of <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+      <returns>String representation of <see cref="T:Gemstone.Scheduling.Schedule" />.</returns>
+    </member>
+    <member name="P:Gemstone.Scheduling.Schedule.UseLocalTime">
+      <summary>
+            Gets or sets a flag that determines whether the scheduler uses local time or UTC time for scheduling.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Scheduling.ScheduleManager">
+      <summary>
+             Monitors multiple <see cref="T:Gemstone.Scheduling.Schedule" /> at an interval of one minute to check if they are due.
+             </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> class.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.AddSchedule(System.String,System.String,System.Boolean,System.Boolean)">
+      <summary>
+            Attempts to add a new <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+      <param name="scheduleName">Name of the new <see cref="T:Gemstone.Scheduling.Schedule" />.</param>
+      <param name="scheduleRule">Rule of the new <see cref="T:Gemstone.Scheduling.Schedule" />.</param>
+      <param name="useLocalTime">Flag that determines whether to use local time for schedule.</param>
+      <param name="updateExisting">Flag that determines whether to update existing <see cref="T:Gemstone.Scheduling.Schedule" /> with the specified <paramref name="scheduleRule" />.</param>
+      <returns>
+        <c>true</c> if a new <see cref="T:Gemstone.Scheduling.Schedule" /> was added or an existing one was updated; otherwise <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.CheckAllSchedules">
+      <summary>
+            Checks all of the <see cref="P:Gemstone.Scheduling.ScheduleManager.Schedules" /> to determine if they are due.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="P:Gemstone.Scheduling.ScheduleManager.Enabled">
+      <summary>
+            Gets or sets a boolean value that indicates whether the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> object is currently enabled.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.FindSchedule(System.String)">
+      <summary>
+            Searches for the <see cref="T:Gemstone.Scheduling.Schedule" /> with the specified name.
+            </summary>
+      <param name="scheduleName">Name of the <see cref="T:Gemstone.Scheduling.Schedule" /> to be obtained.</param>
+      <returns>
+        <see cref="T:Gemstone.Scheduling.Schedule" /> object if a match is found; otherwise <c>null</c>.</returns>
+    </member>
+    <member name="P:Gemstone.Scheduling.ScheduleManager.IsRunning">
+      <summary>
+            Gets a boolean value that indicates whether the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> is running.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.ScheduleManager.Name">
+      <summary>
+            Gets or sets the name of the <see cref="T:Gemstone.Scheduling.ScheduleManager" />.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The value being assigned is null or empty string.</exception>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.OnScheduleDue(Gemstone.Scheduling.Schedule)">
+      <summary>
+            Raises the <see cref="E:Gemstone.Scheduling.ScheduleManager.ScheduleDue" /> event.
+            </summary>
+      <param name="schedule">
+        <see cref="T:Gemstone.Scheduling.Schedule" /> to send to <see cref="E:Gemstone.Scheduling.ScheduleManager.ScheduleDue" /> event.</param>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.OnScheduleDueCheck(Gemstone.EventArgs{Gemstone.Scheduling.Schedule})">
+      <summary>
+            Raises the <see cref="E:Gemstone.Scheduling.ScheduleManager.ScheduleDueCheck" /> event.
+            </summary>
+      <param name="e">Event data.</param>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.OnStarted">
+      <summary>
+            Raises the <see cref="E:Gemstone.Scheduling.ScheduleManager.Started" /> event.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.OnStarting">
+      <summary>
+            Raises the <see cref="E:Gemstone.Scheduling.ScheduleManager.Starting" /> event.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.RemoveSchedule(System.String)">
+      <summary>
+            Attempts to remove a <see cref="T:Gemstone.Scheduling.Schedule" /> with the specified name if one exists.
+            </summary>
+      <param name="scheduleName">Name of the <see cref="T:Gemstone.Scheduling.Schedule" /> to be removed.</param>
+      <returns>
+        <c>true</c> if the <see cref="T:Gemstone.Scheduling.Schedule" /> was removed; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="E:Gemstone.Scheduling.ScheduleManager.ScheduleDue">
+      <summary>
+            Occurs asynchronously when a <see cref="T:Gemstone.Scheduling.Schedule" /> is due according to the rule specified for it.
+            </summary>
+    </member>
+    <member name="E:Gemstone.Scheduling.ScheduleManager.ScheduleDueCheck">
+      <summary>
+            Occurs when the a particular <see cref="T:Gemstone.Scheduling.Schedule" /> is being checked to see if it is due.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.ScheduleManager.Schedules">
+      <summary>
+            Gets a list of all <see cref="T:Gemstone.Scheduling.Schedule" /> monitored by the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.Start">
+      <summary>
+            Starts the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> asynchronously if not running.
+            </summary>
+    </member>
+    <member name="E:Gemstone.Scheduling.ScheduleManager.Started">
+      <summary>
+            Occurs when the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> has started at the top of the minute.
+            </summary>
+    </member>
+    <member name="E:Gemstone.Scheduling.ScheduleManager.Starting">
+      <summary>
+            Occurs while the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> is waiting to start at the top of the minute.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.ScheduleManager.Status">
+      <summary>
+            Gets the descriptive status of the <see cref="T:Gemstone.Scheduling.ScheduleManager" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.ScheduleManager.Stop">
+      <summary>
+            Stops the <see cref="T:Gemstone.Scheduling.ScheduleManager" /> if running.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Scheduling.SchedulePart">
+      <summary>
+            Represents a part of the <see cref="T:Gemstone.Scheduling.Schedule" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.SchedulePart.#ctor(System.String,Gemstone.Scheduling.DateTimePart)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Scheduling.SchedulePart" /> class.
+            </summary>
+      <param name="valueText">The text that specifies the values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object.</param>
+      <param name="dateTimePart">The <see cref="P:Gemstone.Scheduling.SchedulePart.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object represents.</param>
+    </member>
+    <member name="P:Gemstone.Scheduling.SchedulePart.DateTimePart">
+      <summary>
+            Gets the <see cref="P:Gemstone.Scheduling.SchedulePart.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object represents.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.SchedulePart.Description">
+      <summary>
+            Gets a meaningful description of the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Scheduling.SchedulePart.Matches(System.DateTime)">
+      <summary>
+            Determines if the <see cref="P:Gemstone.Scheduling.SchedulePart.Values" /> for the <see cref="P:Gemstone.Scheduling.SchedulePart.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> 
+            object represents matches the specified <paramref name="dateTime" />.
+            </summary>
+      <param name="dateTime">The <see cref="T:System.DateTime" /> against which the <see cref="P:Gemstone.Scheduling.SchedulePart.Values" /> are to be matches.</param>
+      <returns>
+        <c>true</c> if one of the <see cref="P:Gemstone.Scheduling.SchedulePart.Values" /> matches the <paramref name="dateTime" />; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="P:Gemstone.Scheduling.SchedulePart.Values">
+      <summary>
+            Gets the list of values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object specified using <see cref="P:Gemstone.Scheduling.SchedulePart.ValueText" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.SchedulePart.ValueText">
+      <summary>
+            Gets the text used to specify the values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Scheduling.SchedulePart.ValueTextSyntax">
+      <summary>
+            Gets the <see cref="T:Gemstone.Scheduling.SchedulePartTextSyntax" /> used in the <see cref="P:Gemstone.Scheduling.SchedulePart.ValueText" /> for specifying the 
+            values of the <see cref="T:Gemstone.Scheduling.SchedulePart" /> object.
+            </summary>
+    </member>
+    <member name="T:Gemstone.Scheduling.SchedulePartTextSyntax">
+      <summary>
+            Indicates the syntax used in a <see cref="T:Gemstone.Scheduling.SchedulePart" /> for specifying its values.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.SchedulePartTextSyntax.Any">
+      <summary>
+            Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the '*' text syntax. Included values are 
+            all legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.SchedulePartTextSyntax.EveryN">
+      <summary>
+            Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the '*/n' text syntax. Included values are 
+            legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents that are 
+            divisible by 'n'. 
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.SchedulePartTextSyntax.Range">
+      <summary>
+            Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the 'n1-nn' text syntax. Included values 
+            are legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents that
+            are within the specified range.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.SchedulePartTextSyntax.Specific">
+      <summary>
+            Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the 'n1,n2,nn' text syntax. Included values 
+            are specific legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Scheduling.SchedulePartTextSyntax.RangeWithEveryN">
+      <summary>
+            Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the 'n1-nn/n' text syntax. Included values 
+            are legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents that
+            are within the specified range and that are divisible by 'n'. 
+            </summary>
     </member>
     <member name="T:Gemstone.Security.Cryptography.CharacterGroup">
       <summary>
