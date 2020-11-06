@@ -53,6 +53,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
@@ -81,6 +82,8 @@ namespace Gemstone.IO
         // Fields
         private static readonly string s_directorySeparatorCharPattern;
         private static readonly string s_fileNameCharPattern;
+        private static AssemblyInfo? s_hostApplicationAssembly;
+        private static string? s_hostPathDirectory;
 
         #endregion
 
@@ -111,6 +114,75 @@ namespace Gemstone.IO
             // allowing any characters except those that would not be valid as part of a filename.
             // This essentially builds the "?" wild-card pattern match.
             s_fileNameCharPattern = $"[^{new string(encodedInvalidFileNameChars)}]";
+        }
+
+        #endregion
+
+        #region [ Properties ]
+
+        /// <summary>
+        /// Gets the <see cref="AssemblyInfo"/> instance of the host application.
+        /// </summary>
+        /// <exception cref="NullReferenceException">Failed to derive host application assembly info.</exception>
+        public static AssemblyInfo HostAssemblyInfo
+        {
+            get
+            {
+                if (s_hostApplicationAssembly is null)
+                {
+                    AssemblyInfo? hostAssemblyInfo = null;
+
+                    try
+                    {
+                        hostAssemblyInfo = AssemblyInfo.EntryAssembly;
+                    }
+                    catch (Exception ex)
+                    {
+                        LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get entry assembly info: {ex.Message}", ex));
+                    }
+
+                    if (hostAssemblyInfo is null)
+                        hostAssemblyInfo = AssemblyInfo.ExecutingAssembly;
+
+                    s_hostApplicationAssembly = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
+                }
+
+                return s_hostApplicationAssembly;
+            }
+        }
+
+        /// <summary>
+        /// Gets the application path of the host application.
+        /// </summary>
+        /// <exception cref="NullReferenceException">Failed to derive host application path.</exception>
+        public static string HostApplicationPath
+        {
+            get
+            {
+                if (s_hostPathDirectory is null)
+                {
+                    string? hostFileName = null;
+                    
+                    try
+                    {
+                        hostFileName = Process.GetCurrentProcess()?.MainModule?.FileName;
+                    }
+                    catch (Exception ex)
+                    {
+                        LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get main module filename of current process: {ex.Message}", ex));
+                    }
+
+                    if (string.IsNullOrEmpty(hostFileName))
+                        hostFileName = HostAssemblyInfo.Location;
+
+                    if (string.IsNullOrEmpty(hostFileName))
+                        throw new NullReferenceException("Failed to derive host application path");
+
+                    s_hostPathDirectory = GetDirectoryName(hostFileName!);
+                }
+
+                return s_hostPathDirectory;
+            }
         }
 
         #endregion
@@ -185,7 +257,7 @@ namespace Gemstone.IO
         public static string GetCommonApplicationDataFolder()
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-            AssemblyInfo assembly = GetHostAssembly();
+            AssemblyInfo assembly = HostAssemblyInfo;
 
             return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
         }
@@ -197,7 +269,7 @@ namespace Gemstone.IO
         public static string GetApplicationDataFolder()
         {
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            AssemblyInfo assembly = GetHostAssembly();
+            AssemblyInfo assembly = HostAssemblyInfo;
 
             return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
         }
@@ -210,21 +282,9 @@ namespace Gemstone.IO
         public static string GetAbsolutePath(string filePath)
         {
             if (!Path.IsPathRooted(filePath))
-                filePath = Path.Combine(GetDirectoryName(GetHostAssembly().Location), filePath);
+                filePath = Path.Combine(HostApplicationPath, filePath);
 
             return RemovePathSuffix(filePath);
-        }
-
-        private static AssemblyInfo GetHostAssembly()
-        {
-            try
-            {
-                return AssemblyInfo.EntryAssembly ?? AssemblyInfo.ExecutingAssembly;
-            }
-            catch
-            {
-                return AssemblyInfo.ExecutingAssembly;
-            }
         }
 
         /// <summary>
