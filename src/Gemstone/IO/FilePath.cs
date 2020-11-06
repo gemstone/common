@@ -82,8 +82,8 @@ namespace Gemstone.IO
         // Fields
         private static readonly string s_directorySeparatorCharPattern;
         private static readonly string s_fileNameCharPattern;
-        private static AssemblyInfo? s_hostApplicationAssembly;
-        private static string? s_hostPathDirectory;
+        private static AssemblyInfo? s_hostAssemblyInfo;
+        private static string? s_hostApplicationPath;
 
         #endregion
 
@@ -123,12 +123,12 @@ namespace Gemstone.IO
         /// <summary>
         /// Gets the <see cref="AssemblyInfo"/> instance of the host application.
         /// </summary>
-        /// <exception cref="NullReferenceException">Failed to derive host application assembly info.</exception>
+        /// <exception cref="NullReferenceException">Failed to derive host assembly info.</exception>
         public static AssemblyInfo HostAssemblyInfo
         {
             get
             {
-                if (s_hostApplicationAssembly is null)
+                if (s_hostAssemblyInfo is null)
                 {
                     AssemblyInfo? hostAssemblyInfo = null;
 
@@ -144,10 +144,10 @@ namespace Gemstone.IO
                     if (hostAssemblyInfo is null)
                         hostAssemblyInfo = AssemblyInfo.ExecutingAssembly;
 
-                    s_hostApplicationAssembly = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
+                    s_hostAssemblyInfo = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
                 }
 
-                return s_hostApplicationAssembly;
+                return s_hostAssemblyInfo;
             }
         }
 
@@ -159,7 +159,7 @@ namespace Gemstone.IO
         {
             get
             {
-                if (s_hostPathDirectory is null)
+                if (s_hostApplicationPath is null)
                 {
                     string? hostFileName = null;
                     
@@ -178,10 +178,10 @@ namespace Gemstone.IO
                     if (string.IsNullOrEmpty(hostFileName))
                         throw new NullReferenceException("Failed to derive host application path");
 
-                    s_hostPathDirectory = GetDirectoryName(hostFileName!);
+                    s_hostApplicationPath = GetDirectoryName(hostFileName!);
                 }
 
-                return s_hostPathDirectory;
+                return s_hostApplicationPath;
             }
         }
 
