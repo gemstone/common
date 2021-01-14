@@ -8013,6 +8013,18 @@
       <param name="replaceWithCharacter">Character to replace invalid file or directory name characters with. Set to '\0' to remove invalid file or directory name characters.</param>
       <returns>A valid file path with no invalid file or directory name characters.</returns>
     </member>
+    <member name="P:Gemstone.IO.FilePath.HostApplicationPath">
+      <summary>
+            Gets the application path of the host application.
+            </summary>
+      <exception cref="T:System.NullReferenceException">Failed to derive host application path.</exception>
+    </member>
+    <member name="P:Gemstone.IO.FilePath.HostAssemblyInfo">
+      <summary>
+            Gets the <see cref="T:Gemstone.Reflection.AssemblyInfo" /> instance of the host application.
+            </summary>
+      <exception cref="T:System.NullReferenceException">Failed to derive host assembly info.</exception>
+    </member>
     <member name="M:Gemstone.IO.FilePath.InApplicationPath(System.String)">
       <summary>
             Determines if the specified <paramref name="filePath" /> is contained with the current executable path.

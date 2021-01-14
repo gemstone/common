@@ -1332,6 +1332,7 @@
   <HelpKINode Title="FilePath class">
     <HelpKINode Title="FilePath Class" Url="html/T_Gemstone_IO_FilePath.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_IO_FilePath.htm" />
+    <HelpKINode Title="properties" Url="html/Properties_T_Gemstone_IO_FilePath.htm" />
   </HelpKINode>
   <HelpKINode Title="FilePath.AddPathSuffix method" Url="html/M_Gemstone_IO_FilePath_AddPathSuffix.htm" />
   <HelpKINode Title="FilePath.DropPathRoot method" Url="html/M_Gemstone_IO_FilePath_DropPathRoot.htm" />
@@ -1357,6 +1358,8 @@
   <HelpKINode Title="FilePath.GetUniqueFilePathWithBinarySearch method" Url="html/M_Gemstone_IO_FilePath_GetUniqueFilePathWithBinarySearch.htm" />
   <HelpKINode Title="FilePath.GetValidFileName method" Url="html/M_Gemstone_IO_FilePath_GetValidFileName.htm" />
   <HelpKINode Title="FilePath.GetValidFilePath method" Url="html/M_Gemstone_IO_FilePath_GetValidFilePath.htm" />
+  <HelpKINode Title="FilePath.HostApplicationPath property" Url="html/P_Gemstone_IO_FilePath_HostApplicationPath.htm" />
+  <HelpKINode Title="FilePath.HostAssemblyInfo property" Url="html/P_Gemstone_IO_FilePath_HostAssemblyInfo.htm" />
   <HelpKINode Title="FilePath.InApplicationPath method" Url="html/M_Gemstone_IO_FilePath_InApplicationPath.htm" />
   <HelpKINode Title="FilePath.IsFilePatternMatch method" Url="html/Overload_Gemstone_IO_FilePath_IsFilePatternMatch.htm" />
   <HelpKINode Title="FilePath.IsValidFileName method" Url="html/M_Gemstone_IO_FilePath_IsValidFileName.htm" />
@@ -1827,6 +1830,8 @@
   <HelpKINode Title="HighWord method" Url="html/M_Gemstone_WordExtensions_WordExtensions_HighWord.htm" />
   <HelpKINode Title="Horsepower enumeration member" Url="html/T_Gemstone_Units_PowerUnit.htm" />
   <HelpKINode Title="HorsepowerHours enumeration member" Url="html/T_Gemstone_Units_EnergyUnit.htm" />
+  <HelpKINode Title="HostApplicationPath property" Url="html/P_Gemstone_IO_FilePath_HostApplicationPath.htm" />
+  <HelpKINode Title="HostAssemblyInfo property" Url="html/P_Gemstone_IO_FilePath_HostAssemblyInfo.htm" />
   <HelpKINode Title="Hour enumeration member">
     <HelpKINode Title="BaselineTimeInterval Enumeration" Url="html/T_Gemstone_BaselineTimeInterval.htm" />
     <HelpKINode Title="DateTimePart Enumeration" Url="html/T_Gemstone_Scheduling_DateTimePart.htm" />
@@ -3740,8 +3745,8 @@
   <HelpKINode Title="UserInfo.LoginID property" Url="html/P_Gemstone_Identity_UserInfo_LoginID.htm" />
   <HelpKINode Title="UserInfo.UserInfo constructor" Url="html/M_Gemstone_Identity_UserInfo__ctor.htm" />
   <HelpKINode Title="UserInfo.UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
-  <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
   <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
+  <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
   <HelpKINode Title="USSurveyFeet enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USSurveyMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USTimeZones class">
