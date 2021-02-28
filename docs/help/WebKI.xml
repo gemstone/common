@@ -1156,8 +1156,8 @@
   <HelpKINode Title="EnsureEnd method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_EnsureEnd.htm" />
   <HelpKINode Title="EnsureStart method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_EnsureStart.htm" />
   <HelpKINode Title="EntryAssembly property" Url="html/P_Gemstone_Reflection_AssemblyInfo_EntryAssembly.htm" />
-  <HelpKINode Title="EnumerateDirectories method" Url="html/M_Gemstone_IO_FilePath_EnumerateDirectories.htm" />
-  <HelpKINode Title="EnumerateFiles method" Url="html/M_Gemstone_IO_FilePath_EnumerateFiles.htm" />
+  <HelpKINode Title="EnumerateDirectories method" Url="html/Overload_Gemstone_IO_FilePath_EnumerateDirectories.htm" />
+  <HelpKINode Title="EnumerateFiles method" Url="html/Overload_Gemstone_IO_FilePath_EnumerateFiles.htm" />
   <HelpKINode Title="EnumExtensions class">
     <HelpKINode Title="EnumExtensions Class" Url="html/T_Gemstone_EnumExtensions_EnumExtensions.htm" />
     <HelpKINode Title="methods" Url="html/Methods_T_Gemstone_EnumExtensions_EnumExtensions.htm" />
@@ -1336,13 +1336,13 @@
   </HelpKINode>
   <HelpKINode Title="FilePath.AddPathSuffix method" Url="html/M_Gemstone_IO_FilePath_AddPathSuffix.htm" />
   <HelpKINode Title="FilePath.DropPathRoot method" Url="html/M_Gemstone_IO_FilePath_DropPathRoot.htm" />
-  <HelpKINode Title="FilePath.EnumerateDirectories method" Url="html/M_Gemstone_IO_FilePath_EnumerateDirectories.htm" />
-  <HelpKINode Title="FilePath.EnumerateFiles method" Url="html/M_Gemstone_IO_FilePath_EnumerateFiles.htm" />
+  <HelpKINode Title="FilePath.EnumerateDirectories method" Url="html/Overload_Gemstone_IO_FilePath_EnumerateDirectories.htm" />
+  <HelpKINode Title="FilePath.EnumerateFiles method" Url="html/Overload_Gemstone_IO_FilePath_EnumerateFiles.htm" />
   <HelpKINode Title="FilePath.GetAbsolutePath method" Url="html/M_Gemstone_IO_FilePath_GetAbsolutePath.htm" />
   <HelpKINode Title="FilePath.GetApplicationDataFolder method" Url="html/M_Gemstone_IO_FilePath_GetApplicationDataFolder.htm" />
   <HelpKINode Title="FilePath.GetAvailableFreeSpace method" Url="html/M_Gemstone_IO_FilePath_GetAvailableFreeSpace.htm" />
   <HelpKINode Title="FilePath.GetCommonApplicationDataFolder method" Url="html/M_Gemstone_IO_FilePath_GetCommonApplicationDataFolder.htm" />
-  <HelpKINode Title="FilePath.GetDirectories method" Url="html/M_Gemstone_IO_FilePath_GetDirectories.htm" />
+  <HelpKINode Title="FilePath.GetDirectories method" Url="html/Overload_Gemstone_IO_FilePath_GetDirectories.htm" />
   <HelpKINode Title="FilePath.GetDirectoryName method" Url="html/M_Gemstone_IO_FilePath_GetDirectoryName.htm" />
   <HelpKINode Title="FilePath.GetExtension method" Url="html/M_Gemstone_IO_FilePath_GetExtension.htm" />
   <HelpKINode Title="FilePath.GetFileLength method" Url="html/M_Gemstone_IO_FilePath_GetFileLength.htm" />
@@ -1352,7 +1352,7 @@
   <HelpKINode Title="FilePath.GetFileName method" Url="html/M_Gemstone_IO_FilePath_GetFileName.htm" />
   <HelpKINode Title="FilePath.GetFileNameWithoutExtension method" Url="html/M_Gemstone_IO_FilePath_GetFileNameWithoutExtension.htm" />
   <HelpKINode Title="FilePath.GetFilePatternRegularExpression method" Url="html/M_Gemstone_IO_FilePath_GetFilePatternRegularExpression.htm" />
-  <HelpKINode Title="FilePath.GetFiles method" Url="html/M_Gemstone_IO_FilePath_GetFiles.htm" />
+  <HelpKINode Title="FilePath.GetFiles method" Url="html/Overload_Gemstone_IO_FilePath_GetFiles.htm" />
   <HelpKINode Title="FilePath.GetLastDirectoryName method" Url="html/M_Gemstone_IO_FilePath_GetLastDirectoryName.htm" />
   <HelpKINode Title="FilePath.GetUniqueFilePath method" Url="html/M_Gemstone_IO_FilePath_GetUniqueFilePath.htm" />
   <HelpKINode Title="FilePath.GetUniqueFilePathWithBinarySearch method" Url="html/M_Gemstone_IO_FilePath_GetUniqueFilePathWithBinarySearch.htm" />
@@ -1674,7 +1674,7 @@
   <HelpKINode Title="GetComparer method" Url="html/M_Gemstone_StringExtensions_StringExtensions_GetComparer.htm" />
   <HelpKINode Title="GetCustomAttribute method" Url="html/M_Gemstone_Reflection_AssemblyInfo_GetCustomAttribute.htm" />
   <HelpKINode Title="GetDescription method" Url="html/M_Gemstone_EnumExtensions_EnumExtensions_GetDescription.htm" />
-  <HelpKINode Title="GetDirectories method" Url="html/M_Gemstone_IO_FilePath_GetDirectories.htm" />
+  <HelpKINode Title="GetDirectories method" Url="html/Overload_Gemstone_IO_FilePath_GetDirectories.htm" />
   <HelpKINode Title="GetDirectoryName method" Url="html/M_Gemstone_IO_FilePath_GetDirectoryName.htm" />
   <HelpKINode Title="GetEmbeddedResource method">
     <HelpKINode Title="AssemblyExtensions.GetEmbeddedResource Method " Url="html/M_Gemstone_Reflection_AssemblyExtensions_AssemblyExtensions_GetEmbeddedResource.htm" />
@@ -1691,7 +1691,7 @@
   <HelpKINode Title="GetFileName method" Url="html/M_Gemstone_IO_FilePath_GetFileName.htm" />
   <HelpKINode Title="GetFileNameWithoutExtension method" Url="html/M_Gemstone_IO_FilePath_GetFileNameWithoutExtension.htm" />
   <HelpKINode Title="GetFilePatternRegularExpression method" Url="html/M_Gemstone_IO_FilePath_GetFilePatternRegularExpression.htm" />
-  <HelpKINode Title="GetFiles method" Url="html/M_Gemstone_IO_FilePath_GetFiles.htm" />
+  <HelpKINode Title="GetFiles method" Url="html/Overload_Gemstone_IO_FilePath_GetFiles.htm" />
   <HelpKINode Title="GetFormattedName method" Url="html/M_Gemstone_EnumExtensions_EnumExtensions_GetFormattedName.htm" />
   <HelpKINode Title="GetFriendlyClassName method" Url="html/M_Gemstone_TypeExtensions_TypeExtensions_GetFriendlyClassName.htm" />
   <HelpKINode Title="GetFriendlyClassName(Of TMemberInfo) method" Url="html/M_Gemstone_Reflection_MemberInfoExtensions_MemberInfoExtensions_GetFriendlyClassName__1.htm" />
