@@ -64,7 +64,7 @@ This library includes helpful common classes like the following:
   * [TypeExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_TypeExtensions_TypeExtensions.htm)
   * [WordExtensions](https://gemstone.github.io/common/help/html/T_Gemstone_WordExtensions_WordExtensions.htm)
 
-Among others.
+Among others
 
 ### Documentation
 [Full Library Documentation](https://gemstone.github.io/common/help)
