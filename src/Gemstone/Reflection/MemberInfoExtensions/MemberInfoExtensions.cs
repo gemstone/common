@@ -77,7 +77,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as TAttribute ?? default!;
-                return !(attribute is null);
+                return attribute is not null;
             }
 
             attribute = default!;
@@ -124,7 +124,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (customAttributes.Length > 0)
             {
                 attribute = customAttributes[0] as Attribute ?? default!;
-                return !(attribute is null);
+                return attribute is not null;
             }
 
             attribute = default!;
@@ -170,7 +170,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
 
             attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute ?? default!;
 
-            return !(attribute is null);
+            return attribute is not null;
         }
 
         /// <summary>

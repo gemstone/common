@@ -193,7 +193,7 @@ namespace Gemstone.TypeExtensions
                             if (type.IsClass && asmType.IsSubclassOf(type))
                                 types.Add(asmType); // The type being tested is a class and current type derives from it.
 
-                            if (type.IsInterface && !(asmType.GetInterface(type.FullName) is null))
+                            if (type.IsInterface && asmType.GetInterface(type.FullName) is not null)
                                 types.Add(asmType); // The type being tested is an interface and current type implements it.
 
                             if (type.GetRootType() == typeof(Attribute) && asmType.GetCustomAttributes(type, true).Length > 0)

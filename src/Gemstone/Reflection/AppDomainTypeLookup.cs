@@ -149,7 +149,7 @@ namespace Gemstone.Reflection
             {
                 try
                 {
-                    if (!(assemblyType is null))
+                    if (assemblyType is not null)
                         newlyFoundObjects.Add(assemblyType);
                 }
                 catch (Exception ex)

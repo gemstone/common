@@ -82,7 +82,7 @@ namespace Gemstone.IO.Parsing
                     int[]? opentags = IndicesOfToken(testString.Substring(iStart, iEnd - iStart), startToken);
 
                     //If so, reach to the matching closing Token
-                    if (!(opentags is null) && opentags.Length > 0)
+                    if (opentags is not null && opentags.Length > 0)
                     {
                         for (int i = 0; i < opentags.Length; i++)
                         {

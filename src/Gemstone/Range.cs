@@ -250,7 +250,7 @@ namespace Gemstone
                 }
             }
 
-            if (!(currentRange is null))
+            if (currentRange is not null)
                 yield return currentRange;
         }
 
@@ -443,7 +443,7 @@ namespace Gemstone
         /// <exception cref="InvalidOperationException"><typeparamref name="TState"/> is not <see cref="IMergeable{TState}"/>.</exception>
         public Range<TRange, TState> Merge(Range<TRange, TState> range, Comparison<TRange> comparison)
         {
-            if (!(State is IMergeable<TState> mergeableState))
+            if (State is not IMergeable<TState> mergeableState)
                 throw new InvalidOperationException("Unable to merge ranges because TState is not IMergeable<TState>.");
 
             TRange start = comparison(Start, range.Start) <= 0 ? Start : range.Start;
@@ -532,7 +532,7 @@ namespace Gemstone
                 }
             }
 
-            if (!(currentRange is null))
+            if (currentRange is not null)
                 yield return currentRange;
         }
 

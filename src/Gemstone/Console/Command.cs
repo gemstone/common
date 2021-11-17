@@ -123,7 +123,7 @@ namespace Gemstone.Console
                     if (!disposing)
                         return;
 
-                    if (!(m_process is null))
+                    if (m_process is not null)
                     {
                         m_process.OutputDataReceived -= m_process_OutputDataReceived;
                         m_process.ErrorDataReceived -= m_process_ErrorDataReceived;

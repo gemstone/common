@@ -295,7 +295,7 @@ namespace Gemstone.Net.Smtp
             {
                 m_enableSSL = value;
 
-                if (!(Client is null))
+                if (Client is not null)
                     Client.EnableSsl = value;
             }
         }
@@ -413,7 +413,7 @@ namespace Gemstone.Net.Smtp
                 return;
 
             // Set the username and password used to authenticate to the SMTP server
-            if (!string.IsNullOrEmpty(m_username) && !(m_password is null))
+            if (!string.IsNullOrEmpty(m_username) && m_password is not null)
                 Client.Credentials = new NetworkCredential(m_username, m_password);
             else
                 Client.Credentials = null;

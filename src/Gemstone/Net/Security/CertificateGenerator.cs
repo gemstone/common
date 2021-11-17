@@ -169,7 +169,7 @@ namespace Gemstone.Net.Security
                 // If a valid certificate exists on the certificate path,
                 // search the certificate stores to determine if we have
                 // access to its private key
-                if (!(certificate is null))
+                if (certificate is not null)
                 {
                     bool canAccessPrivateKey;
 
@@ -198,7 +198,7 @@ namespace Gemstone.Net.Security
                     m_debugLog.Add("Searching stores for a usable certificate with accessible private key...success");
 
                 // If such a certificate exists, generate the certificate file and return the result
-                if (!(certificate is null))
+                if (certificate is not null)
                 {
                     using (FileStream certificateStream = File.OpenWrite(certificatePath))
                     {
@@ -390,7 +390,7 @@ namespace Gemstone.Net.Security
                 // The point here is not only to check if the certificate has a private key,
                 // but also to attempt to access its private key, since doing so might result
                 // in a CryptographicException; certificate.HasPrivateKey will not work
-                return !(certificate.PrivateKey is null);
+                return certificate.PrivateKey is not null;
             }
             catch (CryptographicException)
             {

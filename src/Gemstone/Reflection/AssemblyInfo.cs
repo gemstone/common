@@ -501,7 +501,7 @@ namespace Gemstone.Reflection
         {
             get
             {
-                if (!(s_callingAssembly is null))
+                if (s_callingAssembly is not null)
                     return s_callingAssembly;
 
                 // We have to find the calling assembly of the caller
@@ -612,7 +612,7 @@ namespace Gemstone.Reflection
                     // If so, loads embedded resource assembly into a binary buffer
                     Stream? resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
 
-                    if (!(resourceStream is null))
+                    if (resourceStream is not null)
                     {
                         byte[] buffer = new byte[resourceStream.Length];
                         resourceStream.Read(buffer, 0, (int)resourceStream.Length);

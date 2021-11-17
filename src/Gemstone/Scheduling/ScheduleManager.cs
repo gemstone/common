@@ -285,7 +285,7 @@ namespace Gemstone.Scheduling
         /// </summary>
         public void Start()
         {
-            if (IsRunning || !(m_startTimerThread is null))
+            if (IsRunning || m_startTimerThread is not null)
                 return;
 
             // Initialize timer that checks schedules.
@@ -422,7 +422,7 @@ namespace Gemstone.Scheduling
 
         private void StartTimer()
         {
-            while (!IsRunning && !(m_timer is null))
+            while (!IsRunning && m_timer is not null)
             {
                 OnStarting();
 

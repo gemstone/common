@@ -93,7 +93,7 @@ namespace Gemstone
         /// This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
         /// recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
         /// </remarks>
-        public static bool IsMono = !(Type.GetType("Mono.Runtime") is null);
+        public static bool IsMono = Type.GetType("Mono.Runtime") is not null;
 
         /// <summary>Returns one of two strongly-typed objects.</summary>
         /// <returns>One of two objects, depending on the evaluation of given expression.</returns>
@@ -351,13 +351,13 @@ namespace Gemstone
         /// <param name="item">Object to evaluate.</param>
         /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsReference(object item) => !(item is ValueType);
+        public static bool IsReference(object item) => item is not ValueType;
 
         /// <summary>Determines if given item is a reference type but not a string.</summary>
         /// <param name="item">Object to evaluate.</param>
         /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNonStringReference(object item) => IsReference(item) && !(item is string);
+        public static bool IsNonStringReference(object item) => IsReference(item) && item is not string;
 
         /// <summary>
         /// Determines if <paramref name="typeCode"/> is a numeric type, i.e., one of:
@@ -528,7 +528,7 @@ namespace Gemstone
         // ReSharper disable once InconsistentNaming
         public static string GetOSProductName()
         {
-            if (!(s_osPlatformName is null))
+            if (s_osPlatformName is not null)
                 return s_osPlatformName;
 
             switch (GetOSPlatformID())
@@ -559,7 +559,7 @@ namespace Gemstone
                                 {
                                     string line = reader.ReadLine();
 
-                                    while (!(line is null))
+                                    while (line is not null)
                                     {
                                         if (line.StartsWith("PRETTY_NAME", StringComparison.OrdinalIgnoreCase) && !line.Contains('#'))
                                         {
