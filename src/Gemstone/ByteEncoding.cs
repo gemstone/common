@@ -115,9 +115,9 @@ namespace Gemstone
                     byte[] bytes = new byte[hexData.Length / 2];
                     int index = 0;
 
-                    for (int x = 0; x <= hexData.Length - 1; x += 2)
+                    for (int i = 0; i <= hexData.Length - 1; i += 2)
                     {
-                        bytes[index] = Convert.ToByte(hexData.Substring(x, 2), 16);
+                        bytes[index] = Convert.ToByte(hexData.Substring(i, 2), 16);
                         index++;
                     }
 
@@ -178,9 +178,9 @@ namespace Gemstone
                     byte[] bytes = new byte[decData.Length / 3];
                     int index = 0;
 
-                    for (int x = 0; x <= decData.Length - 1; x += 3)
+                    for (int i = 0; i <= decData.Length - 1; i += 3)
                     {
-                        bytes[index] = Convert.ToByte(decData.Substring(x, 3), 10);
+                        bytes[index] = Convert.ToByte(decData.Substring(i, 3), 10);
                         index++;
                     }
 
@@ -254,60 +254,60 @@ namespace Gemstone
                     byte[] bytes = new byte[binaryData.Length / 8];
                     int index = 0;
 
-                    for (int x = 0; x <= binaryData.Length - 1; x += 8)
+                    for (int i = 0; i <= binaryData.Length - 1; i += 8)
                     {
                         bytes[index] = (byte)Bits.Nil;
 
                         if (m_reverse)
                         {
-                            if (binaryData[x + 7] == '1')
+                            if (binaryData[i + 7] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit00);
 
-                            if (binaryData[x + 6] == '1')
+                            if (binaryData[i + 6] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit01);
 
-                            if (binaryData[x + 5] == '1')
+                            if (binaryData[i + 5] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit02);
 
-                            if (binaryData[x + 4] == '1')
+                            if (binaryData[i + 4] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit03);
 
-                            if (binaryData[x + 3] == '1')
+                            if (binaryData[i + 3] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit04);
 
-                            if (binaryData[x + 2] == '1')
+                            if (binaryData[i + 2] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit05);
 
-                            if (binaryData[x + 1] == '1')
+                            if (binaryData[i + 1] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit06);
 
-                            if (binaryData[x + 0] == '1')
+                            if (binaryData[i + 0] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit07);
                         }
                         else
                         {
-                            if (binaryData[x + 0] == '1')
+                            if (binaryData[i + 0] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit00);
 
-                            if (binaryData[x + 1] == '1')
+                            if (binaryData[i + 1] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit01);
 
-                            if (binaryData[x + 2] == '1')
+                            if (binaryData[i + 2] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit02);
 
-                            if (binaryData[x + 3] == '1')
+                            if (binaryData[i + 3] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit03);
 
-                            if (binaryData[x + 4] == '1')
+                            if (binaryData[i + 4] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit04);
 
-                            if (binaryData[x + 5] == '1')
+                            if (binaryData[i + 5] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit05);
 
-                            if (binaryData[x + 6] == '1')
+                            if (binaryData[i + 6] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit06);
 
-                            if (binaryData[x + 7] == '1')
+                            if (binaryData[i + 7] == '1')
                                 bytes[index] = bytes[index].SetBits(Bits.Bit07);
                         }
 
@@ -433,12 +433,12 @@ namespace Gemstone
 
                 StringBuilder binaryImage = new StringBuilder();
 
-                for (int x = 0; x < length; x++)
+                for (int i = 0; i < length; i++)
                 {
-                    if (spacingCharacter != NoSpacing && x > 0)
+                    if (spacingCharacter != NoSpacing && i > 0)
                         binaryImage.Append(spacingCharacter);
 
-                    binaryImage.Append(m_byteImages[bytes[offset + x]]);
+                    binaryImage.Append(m_byteImages[bytes[offset + i]]);
                 }
 
                 return binaryImage.ToString();
@@ -493,12 +493,12 @@ namespace Gemstone
 
                 StringBuilder base64Image = new StringBuilder();
 
-                for (int x = 0; x <= base64String.Length - 1; x++)
+                for (int i = 0; i <= base64String.Length - 1; i++)
                 {
-                    if (x > 0)
+                    if (i > 0)
                         base64Image.Append(spacingCharacter);
 
-                    base64Image.Append(base64String[x]);
+                    base64Image.Append(base64String[i]);
                 }
 
                 return base64Image.ToString();
@@ -553,12 +553,12 @@ namespace Gemstone
 
                 StringBuilder asciiImage = new StringBuilder();
 
-                for (int x = 0; x <= asciiString.Length - 1; x++)
+                for (int i = 0; i <= asciiString.Length - 1; i++)
                 {
-                    if (x > 0)
+                    if (i > 0)
                         asciiImage.Append(spacingCharacter);
 
-                    asciiImage.Append(asciiString[x]);
+                    asciiImage.Append(asciiString[i]);
                 }
 
                 return asciiImage.ToString();
@@ -693,12 +693,12 @@ namespace Gemstone
 
             StringBuilder byteString = new StringBuilder();
 
-            for (int x = 0; x <= length - 1; x++)
+            for (int i = 0; i <= length - 1; i++)
             {
-                if (spacingCharacter != NoSpacing && x > 0)
+                if (spacingCharacter != NoSpacing && i > 0)
                     byteString.Append(spacingCharacter);
 
-                byteString.Append(bytes[x + offset].ToString(format));
+                byteString.Append(bytes[i + offset].ToString(format));
             }
 
             return byteString.ToString();
