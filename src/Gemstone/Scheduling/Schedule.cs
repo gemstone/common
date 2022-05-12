@@ -124,6 +124,14 @@ namespace Gemstone.Scheduling
             if (string.IsNullOrEmpty(name))
                 throw new ArgumentNullException(nameof(name));
 
+            // These assignments satisfy the nullable compiler warnings
+            // and will be overwritten by the setter for the Rule property
+            MinutePart = new SchedulePart("*", DateTimePart.Minute);
+            HourPart = new SchedulePart("*", DateTimePart.Hour);
+            DayPart = new SchedulePart("*", DateTimePart.Day);
+            MonthPart = new SchedulePart("*", DateTimePart.Month);
+            DaysOfWeekPart = new SchedulePart("*", DateTimePart.DayOfWeek);
+
             m_name = name;
             Rule = rule;
             UseLocalTime = useLocalTime;
@@ -156,7 +164,7 @@ namespace Gemstone.Scheduling
         /// <exception cref="ArgumentException">The number of <see cref="SchedulePart"/> in the rule is not exactly 5.</exception>
         public string Rule
         {
-            get => $"{MinutePart?.ValueText ?? "*"} {HourPart?.ValueText ?? "*"} {DayPart?.ValueText ?? "*"} {MonthPart?.ValueText ?? "*"} {DaysOfWeekPart?.ValueText ?? "*"}";
+            get => $"{MinutePart.ValueText} {HourPart.ValueText} {DayPart.ValueText} {MonthPart.ValueText} {DaysOfWeekPart.ValueText}";
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -186,27 +194,27 @@ namespace Gemstone.Scheduling
         /// <summary>
         /// Gets the <see cref="SchedulePart"/> of the <see cref="Schedule"/> that represents minute <see cref="DateTimePart"/>.
         /// </summary>
-        public SchedulePart? MinutePart { get; private set; }
+        public SchedulePart MinutePart { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="SchedulePart"/> of the <see cref="Schedule"/> that represents hour <see cref="DateTimePart"/>.
         /// </summary>
-        public SchedulePart? HourPart { get; private set; }
+        public SchedulePart HourPart { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="SchedulePart"/> of the <see cref="Schedule"/> that represents day of month <see cref="DateTimePart"/>.
         /// </summary>
-        public SchedulePart? DayPart { get; private set; }
+        public SchedulePart DayPart { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="SchedulePart"/> of the <see cref="Schedule"/> that represents month <see cref="DateTimePart"/>.
         /// </summary>
-        public SchedulePart? MonthPart { get; private set; }
+        public SchedulePart MonthPart { get; private set; }
 
         /// <summary>
         /// Gets the <see cref="SchedulePart"/> of the <see cref="Schedule"/> that represents day of week <see cref="DateTimePart"/>.
         /// </summary>
-        public SchedulePart? DaysOfWeekPart { get; private set; }
+        public SchedulePart DaysOfWeekPart { get; private set; }
 
         /// <summary>
         /// Gets a description of the <see cref="Rule"/>.
@@ -251,11 +259,11 @@ namespace Gemstone.Scheduling
         {
             DateTime currentDateTime = UseLocalTime ? DateTime.Now : DateTime.UtcNow;
 
-            if (!(MinutePart?.Matches(currentDateTime) ?? false) || 
-                !(HourPart?.Matches(currentDateTime) ?? false) || 
-                !(DayPart?.Matches(currentDateTime) ?? false) || 
-                !(MonthPart?.Matches(currentDateTime) ?? false) ||
-                !(DaysOfWeekPart?.Matches(currentDateTime) ?? false))
+            if (!MinutePart.Matches(currentDateTime) ||
+                !HourPart.Matches(currentDateTime) ||
+                !DayPart.Matches(currentDateTime) ||
+                !MonthPart.Matches(currentDateTime) ||
+                !DaysOfWeekPart.Matches(currentDateTime))
                     return false;
 
             LastDueAt = currentDateTime;
