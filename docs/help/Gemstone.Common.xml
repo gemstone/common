@@ -10535,6 +10535,22 @@
             </summary>
       <exception cref="T:System.ArgumentNullException">The value being assigned is null or empty string.</exception>
     </member>
+    <member name="M:Gemstone.Scheduling.Schedule.NextTimeDue(System.DateTime)">
+      <summary>
+            Determines the nearest timestamp past the
+            given timestamp that matches the schedule.
+            </summary>
+      <param name="targetDateTime">The target timestamp</param>
+      <returns>The timestamp past the target that the schedule will next be due</returns>
+    </member>
+    <member name="M:Gemstone.Scheduling.Schedule.PreviousTimeDue(System.DateTime)">
+      <summary>
+            Determines the nearest timestamp older than
+            the given timestamp that matches the schedule.
+            </summary>
+      <param name="targetDateTime">The target timestamp</param>
+      <returns>The timestamp prior to the target that the schedule was previously due</returns>
+    </member>
     <member name="P:Gemstone.Scheduling.Schedule.Rule">
       <summary>
             Gets or sets the rule of the <see cref="T:Gemstone.Scheduling.Schedule" /> defined in UNIX crontab syntax.

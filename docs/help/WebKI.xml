@@ -2433,6 +2433,7 @@
   <HelpKINode Title="NauticalMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="NavigateInDefaultBrowser method" Url="html/M_Gemstone_Net_Http_URLHelper_NavigateInDefaultBrowser.htm" />
   <HelpKINode Title="Newton enumeration member" Url="html/T_Gemstone_Units_TemperatureUnit.htm" />
+  <HelpKINode Title="NextTimeDue method" Url="html/M_Gemstone_Scheduling_Schedule_NextTimeDue.htm" />
   <HelpKINode Title="Nil enumeration member" Url="html/T_Gemstone_Bits.htm" />
   <HelpKINode Title="NoSpacing field" Url="html/F_Gemstone_ByteEncoding_NoSpacing.htm" />
   <HelpKINode Title="NotEmpty method" Url="html/Overload_Gemstone_StringExtensions_StringExtensions_NotEmpty.htm" />
@@ -2623,6 +2624,7 @@
   <HelpKINode Title="Power.ToString method" Url="html/Overload_Gemstone_Units_Power_ToString.htm" />
   <HelpKINode Title="Power.TryParse method" Url="html/Overload_Gemstone_Units_Power_TryParse.htm" />
   <HelpKINode Title="PowerUnit enumeration" Url="html/T_Gemstone_Units_PowerUnit.htm" />
+  <HelpKINode Title="PreviousTimeDue method" Url="html/M_Gemstone_Scheduling_Schedule_PreviousTimeDue.htm" />
   <HelpKINode Title="PrimaryLabelAttribute class">
     <HelpKINode Title="PrimaryLabelAttribute Class" Url="html/T_Gemstone_ComponentModel_DataAnnotations_PrimaryLabelAttribute.htm" />
     <HelpKINode Title="constructor" Url="html/M_Gemstone_ComponentModel_DataAnnotations_PrimaryLabelAttribute__ctor.htm" />
@@ -2827,6 +2829,8 @@
   <HelpKINode Title="Schedule.MinutePart property" Url="html/P_Gemstone_Scheduling_Schedule_MinutePart.htm" />
   <HelpKINode Title="Schedule.MonthPart property" Url="html/P_Gemstone_Scheduling_Schedule_MonthPart.htm" />
   <HelpKINode Title="Schedule.Name property" Url="html/P_Gemstone_Scheduling_Schedule_Name.htm" />
+  <HelpKINode Title="Schedule.NextTimeDue method" Url="html/M_Gemstone_Scheduling_Schedule_NextTimeDue.htm" />
+  <HelpKINode Title="Schedule.PreviousTimeDue method" Url="html/M_Gemstone_Scheduling_Schedule_PreviousTimeDue.htm" />
   <HelpKINode Title="Schedule.Rule property" Url="html/P_Gemstone_Scheduling_Schedule_Rule.htm" />
   <HelpKINode Title="Schedule.Schedule constructor" Url="html/Overload_Gemstone_Scheduling_Schedule__ctor.htm" />
   <HelpKINode Title="Schedule.Status property" Url="html/P_Gemstone_Scheduling_Schedule_Status.htm" />
@@ -3745,8 +3749,8 @@
   <HelpKINode Title="UserInfo.LoginID property" Url="html/P_Gemstone_Identity_UserInfo_LoginID.htm" />
   <HelpKINode Title="UserInfo.UserInfo constructor" Url="html/M_Gemstone_Identity_UserInfo__ctor.htm" />
   <HelpKINode Title="UserInfo.UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
-  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="UserName property" Url="html/P_Gemstone_Identity_UserInfo_UserName.htm" />
+  <HelpKINode Title="Username property" Url="html/P_Gemstone_Net_Smtp_Mail_Username.htm" />
   <HelpKINode Title="USSurveyFeet enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USSurveyMiles enumeration member" Url="html/T_Gemstone_Units_LengthUnit.htm" />
   <HelpKINode Title="USTimeZones class">
