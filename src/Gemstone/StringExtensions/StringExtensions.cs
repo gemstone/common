@@ -120,6 +120,30 @@ namespace Gemstone.StringExtensions
         /// <returns><see cref="StringComparer"/> for the specified <see cref="StringComparison"/>.</returns>
         public static StringComparer GetComparer(this StringComparison comparison) => s_comparisonComparers[comparison];
 
+        // TODO: Need allow a .NET 6.0 target for Gemstone
+        #if NETCORE6_0
+
+        /// <summary>
+        /// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is null -or-
+        /// an <see cref="ArgumentException"/> if <paramref name="argument"/> is Empty.
+        /// </summary>
+        /// <param name="argument">The reference type argument to validate as non-null and non-empty.</param>
+        /// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+        public static void ThrowIfNullOrEmpty([NotNull] this string? argument, [CallerArgumentExpression("argument")] string? paramName = null)
+        {
+            ArgumentNullException.ThrowIfNull(argument, paramName);
+
+            if (argument == string.Empty)
+                ThrowArgumentNullException(paramName);
+
+        }
+        
+        [DoesNotReturn] // This allows ThrowIfNullOrEmpty to be inlined
+        private static void ThrowArgumentNullException(string? paramName) =>
+            throw new ArgumentException("Argument cannot be empty", paramName);
+
+        #endif
+
         /// <summary>
         /// Parses a string intended to represent a boolean value.
         /// </summary>
