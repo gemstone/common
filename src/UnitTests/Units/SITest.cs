@@ -123,8 +123,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             #region DECLARATION
 
-            readonly sSI virt_SI = new sSI();
-            readonly List<sSI> obj_SI = new List<sSI>(22);
+            readonly sSI virt_SI = new();
+            readonly List<sSI> obj_SI = new(22);
             #endregion
 
             #region CONSTRUCTOR

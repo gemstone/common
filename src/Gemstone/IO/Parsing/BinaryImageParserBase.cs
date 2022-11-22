@@ -204,7 +204,7 @@ namespace Gemstone.IO.Parsing
         {
             get
             {
-                StringBuilder status = new StringBuilder();
+                StringBuilder status = new();
 
                 status.Append("      Current parser state: ");
                 status.Append(m_enabled ? "Active" : "Idle");

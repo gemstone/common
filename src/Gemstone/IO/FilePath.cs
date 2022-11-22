@@ -411,7 +411,7 @@ namespace Gemstone.IO
 
             void handleException(Exception ex)
             {
-                InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex);
+                InvalidOperationException enumerationEx = new($"Failed while enumerating directories in \"{path}\": {ex.Message}", ex);
 
                 if (exceptionHandler is null)
                     LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
@@ -496,7 +496,7 @@ namespace Gemstone.IO
 
             void handleException(Exception ex)
             {
-                InvalidOperationException enumerationEx = new InvalidOperationException($"Failed while enumerating files in \"{path}\": {ex.Message}", ex);
+                InvalidOperationException enumerationEx = new($"Failed while enumerating files in \"{path}\": {ex.Message}", ex);
 
                 if (exceptionHandler is null)
                     LibraryEvents.OnSuppressedException(typeof(FilePath), enumerationEx);
@@ -782,7 +782,7 @@ namespace Gemstone.IO
             if (Regex.IsMatch(fileSpec, $"^({recursiveDirPattern}|{pathRootPattern}|{altPathRootPattern})") && Path.IsPathRooted(filePath))
             {
                 fileSpec = fileSpec.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-                filePath = Regex.Replace(filePath, $"^{Regex.Escape(Path.GetPathRoot(filePath))}", "").TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+                filePath = Regex.Replace(filePath, $"^{Regex.Escape(Path.GetPathRoot(filePath) ?? string.Empty)}", "").TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
             }
 
             // Use regular expression matching to determine whether fileSpec matches fileName.
@@ -802,7 +802,7 @@ namespace Gemstone.IO
             try
             {
                 // Attempt to parse directory and file name - this will catch most issues
-                string directory = Path.GetDirectoryName(filePath);
+                string directory = Path.GetDirectoryName(filePath) ?? string.Empty;
                 string filename = Path.GetFileName(filePath);
 
                 // Check for invalid directory characters
@@ -942,7 +942,7 @@ namespace Gemstone.IO
         /// <returns>Regular expression pattern that simulates wild-card matching for filenames.</returns>
         public static string GetFilePatternRegularExpression(string fileSpec)
         {
-            List<Tuple<string, string>> replacements = new List<Tuple<string, string>>
+            List<Tuple<string, string>> replacements = new()
             {
                 // Replaces directory separator characters with their equivalent regular expressions.
                 Tuple.Create($"{s_directorySeparatorCharPattern}+", $"{s_directorySeparatorCharPattern}+"),
@@ -953,13 +953,13 @@ namespace Gemstone.IO
                 Tuple.Create(Regex.Escape("*"), $"{s_fileNameCharPattern}*")
             };
 
-            StringBuilder input = new StringBuilder(fileSpec);
-            StringBuilder output = new StringBuilder();
+            StringBuilder input = new(fileSpec);
+            StringBuilder output = new();
 
             while (input.Length > 0)
             {
                 // Determine if any of the replacement patterns match the input.
-                Tuple<string, string> replacement = replacements.FirstOrDefault(r => Regex.IsMatch(input.ToString(), $"^{r.Item1}"));
+                Tuple<string, string>? replacement = replacements.FirstOrDefault(r => Regex.IsMatch(input.ToString(), $"^{r.Item1}"));
 
                 if (replacement is null)
                 {
@@ -1026,7 +1026,7 @@ namespace Gemstone.IO
 
                 // Keep going through the file path until all directory separator characters are removed.
                 while ((index = filePath.IndexOfAny(dirVolChars)) > -1)
-                    filePath = filePath.Substring(index + 1);
+                    filePath = filePath[(index + 1)..];
 
                 return filePath;
             }
@@ -1047,7 +1047,7 @@ namespace Gemstone.IO
             }
             else
             {
-                char suffixChar = filePath[filePath.Length - 1];
+                char suffixChar = filePath[^1];
 
                 if (suffixChar != Path.DirectorySeparatorChar && suffixChar != Path.AltDirectorySeparatorChar)
                     filePath += Path.DirectorySeparatorChar;
@@ -1069,14 +1069,14 @@ namespace Gemstone.IO
             }
             else
             {
-                char suffixChar = filePath[filePath.Length - 1];
+                char suffixChar = filePath[^1];
 
                 while ((suffixChar == Path.DirectorySeparatorChar || suffixChar == Path.AltDirectorySeparatorChar) && filePath.Length > 0)
                 {
-                    filePath = filePath.Substring(0, filePath.Length - 1);
+                    filePath = filePath[..^1];
 
                     if (filePath.Length > 0)
-                        suffixChar = filePath[filePath.Length - 1];
+                        suffixChar = filePath[^1];
                 }
             }
 
@@ -1088,7 +1088,7 @@ namespace Gemstone.IO
         /// </summary>
         /// <param name="filePath">The file path whose root is to be removed.</param>
         /// <returns>The path with the root removed if it was present.</returns>
-        public static string DropPathRoot(string filePath) => string.IsNullOrEmpty(filePath) ? "" : filePath.Remove(0, Path.GetPathRoot(filePath).Length);
+        public static string DropPathRoot(string filePath) => string.IsNullOrEmpty(filePath) ? "" : filePath.Remove(0, Path.GetPathRoot(filePath)!.Length);
 
         /// <summary>
         /// Returns a file name, for display purposes, of the specified length using "..." to indicate a longer name.
@@ -1120,14 +1120,14 @@ namespace Gemstone.IO
 
                 // We can not trim file names less than 8 with a "...", so we truncate long extension.
                 if (trimName.Length <= 8)
-                    return trimName + justExtension.Substring(0, length - trimName.Length);
+                    return trimName + justExtension[..(length - trimName.Length)];
 
                 if (justExtension.Length > length - 8)
-                    justExtension = justExtension.Substring(0, length - 8);
+                    justExtension = justExtension[..(length - 8)];
 
                 double offsetLen = (length - justExtension.Length - 3) / 2.0D;
 
-                return $"{trimName.Substring(0, (int)Math.Ceiling(offsetLen))}...{trimName.Substring((int)Math.Round(trimName.Length - Math.Floor(offsetLen) + 1.0D))}{justExtension}";
+                return $"{trimName[..(int)Math.Ceiling(offsetLen)]}...{trimName[(int)Math.Round(trimName.Length - Math.Floor(offsetLen) + 1.0D)..]}{justExtension}";
             }
 
             // File name alone exceeds length - recurses into function without path.
@@ -1139,7 +1139,7 @@ namespace Gemstone.IO
             int offset = length - justName.Length - 4;
 
             if (justFilePath.Length > offset && offset > 0)
-                return $"{justFilePath.Substring(0, offset)}...{Path.DirectorySeparatorChar}{justName}";
+                return $"{justFilePath[..offset]}...{Path.DirectorySeparatorChar}{justName}";
 
             // Can not fit path. Trims file name.
             return TrimFileName(justName, length);

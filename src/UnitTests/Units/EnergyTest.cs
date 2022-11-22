@@ -109,14 +109,14 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EnergyConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Energy target = new Energy(value);
+                Energy target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Energy));
                 Assert.IsNotNull(target);
             }
@@ -138,7 +138,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToObjectTest()
         {
 
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             object value = new Energy(10F);
             int expected = 0;
             int actual;
@@ -161,8 +161,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToEnergyTest()
         {
-            Energy target = new Energy(10F);
-            Energy value = new Energy(10F);
+            Energy target = new(10F);
+            Energy value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -183,7 +183,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -202,7 +202,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -221,8 +221,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsEnergyTest()
         {
-            Energy target = new Energy(10F);
-            Energy obj = new Energy(10F);
+            Energy target = new(10F);
+            Energy obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -242,7 +242,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             object obj = new Energy(10F);
             bool expected = true;
             bool actual;
@@ -260,7 +260,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromBTUTest()
         {
             double value = 10F;
-            Energy expected = new Energy(10550.5585262);
+            Energy expected = new(10550.5585262);
             Energy actual;
             actual = Energy.FromBTU(value);
             Assert.AreEqual(expected, actual);
@@ -276,7 +276,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromBarrelsOfOilTest()
         {
             double value = 10F;
-            Energy expected = new Energy(61200000000);
+            Energy expected = new(61200000000);
             Energy actual;
             actual = Energy.FromBarrelsOfOil(value);
             Assert.AreEqual(expected, actual);
@@ -309,7 +309,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromCelsiusHeatUnitsTest()
         {
             double value = 10F;
-            Energy expected = new Energy(18991.00534716);
+            Energy expected = new(18991.00534716);
             Energy actual;
             actual = Energy.FromCelsiusHeatUnits(value);
             Assert.AreEqual(expected, actual);
@@ -341,7 +341,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromLitersAtmosphereTest()
         {
             double value = 10F;
-            Energy expected = new Energy(1013.25);
+            Energy expected = new(1013.25);
             Energy actual;
             actual = Energy.FromLitersAtmosphere(value);
             Assert.AreEqual(expected, actual);
@@ -357,7 +357,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromTonOfCoalTest()
         {
             double value = 10F;
-            Energy expected = new Energy(293076000000);
+            Energy expected = new(293076000000);
             Energy actual;
             actual = Energy.FromTonOfCoal(value);
             Assert.AreEqual(expected, actual);
@@ -373,7 +373,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromWattHoursTest()
         {
             double value = 10F;
-            Energy expected = new Energy(36000);
+            Energy expected = new(36000);
             Energy actual;
             actual = Energy.FromWattHours(value);
             Assert.AreEqual(expected, actual);
@@ -389,7 +389,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -404,8 +404,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Energy target = new Energy(10F);
-            TypeCode expected = new TypeCode();
+            Energy target = new(10F);
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -434,7 +434,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Energy expected = new Energy(value);
+            Energy expected = new(value);
             Energy actual;
             actual = Energy.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -465,8 +465,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Energy expected = new Energy(value);
+            NumberStyles style = new();
+            Energy expected = new(value);
             Energy actual;
             actual = Energy.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -490,7 +490,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Energy expected = new Energy(value);
+            Energy expected = new(value);
             Energy actual;
             actual = Energy.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -524,9 +524,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Energy expected = new Energy(value);
+            Energy expected = new(value);
             Energy actual;
             actual = Energy.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -607,7 +607,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Energy(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -772,7 +772,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToBTUTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.0094781712031331723;
             double actual;
             actual = target.ToBTU();
@@ -787,7 +787,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToBarrelsOfOilTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.0000000016339869281045752;
             double actual;
             actual = target.ToBarrelsOfOil();
@@ -802,7 +802,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCaloriesTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 2.3884589662749596;
             double actual;
             actual = target.ToCalories();
@@ -817,7 +817,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCelsiusHeatUnitsTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.0052656506684073175;
             double actual;
             actual = target.ToCelsiusHeatUnits();
@@ -849,7 +849,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToHorsepowerHoursTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.0000037250613599861884;
             double actual;
             actual = target.ToHorsepowerHours();
@@ -864,7 +864,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToLitersAtmosphereTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.098692326671601285;
             double actual;
             actual = target.ToLitersAtmosphere();
@@ -886,7 +886,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Energy target = new Energy(value);
+            Energy target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -910,7 +910,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Energy target = new Energy(value);
+            Energy target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -931,7 +931,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Energy target = new Energy(value);
+            Energy target = new(value);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -951,7 +951,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Energy target = new Energy(value);
+            Energy target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -967,7 +967,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToTonsOfCoalTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.00000000034120842375356565;
             double actual;
             actual = target.ToTonsOfCoal();
@@ -982,7 +982,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToWattHoursTest()
         {
-            Energy target = new Energy(10F);
+            Energy target = new(10F);
             double expected = 0.0027777777777777779;
             double actual;
             actual = target.ToWattHours();
@@ -1007,8 +1007,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Energy result = new Energy(value);
-            Energy resultExpected = new Energy(value);
+            Energy result = new(value);
+            Energy resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Energy.TryParse(s, out result);
@@ -1044,10 +1044,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Energy result = new Energy(value);
-            Energy resultExpected = new Energy(value);
+            Energy result = new(value);
+            Energy resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Energy.TryParse(s, style, provider, out result);
@@ -1061,9 +1061,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
-            Energy expected = new Energy(20F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
+            Energy expected = new(20F);
             Energy actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -1075,9 +1075,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(20F);
-            Energy expected = new Energy(1 / 2F);
+            Energy value1 = new(10F);
+            Energy value2 = new(20F);
+            Energy expected = new(1 / 2F);
             Energy actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -1089,8 +1089,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -1103,8 +1103,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Energy value1 = new Energy(2F);
-            Energy value2 = new Energy(3F);
+            Energy value1 = new(2F);
+            Energy value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Energy.op_Exponent(value1, value2);
@@ -1117,8 +1117,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(9F);
+            Energy value1 = new(10F);
+            Energy value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -1131,8 +1131,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -1145,7 +1145,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitDoubleTest()
         {
-            Energy value = new Energy(10F);
+            Energy value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -1159,7 +1159,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitEnergyTest()
         {
             double value = 10F;
-            Energy expected = new Energy(value);
+            Energy expected = new(value);
             Energy actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -1171,8 +1171,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
             bool expected = false;
             bool actual;
             actual = value1 != value2;
@@ -1185,8 +1185,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(11F);
+            Energy value1 = new(10F);
+            Energy value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -1199,8 +1199,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(11F);
+            Energy value1 = new(10F);
+            Energy value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -1213,9 +1213,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(20F);
-            Energy expected = new Energy(10F);
+            Energy value1 = new(10F);
+            Energy value2 = new(20F);
+            Energy expected = new(10F);
             Energy actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1227,9 +1227,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
-            Energy expected = new Energy(100F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
+            Energy expected = new(100F);
             Energy actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1242,9 +1242,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Energy value1 = new Energy(10F);
-            Energy value2 = new Energy(10F);
-            Energy expected = new Energy(0F);
+            Energy value1 = new(10F);
+            Energy value2 = new(10F);
+            Energy expected = new(0F);
             Energy actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

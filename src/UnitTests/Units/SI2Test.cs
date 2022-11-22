@@ -149,8 +149,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             #region DECLARATION
 
-            readonly sSI2 virt_SI2 = new sSI2();
-            readonly List<sSI2> obj_SI2 = new List<sSI2>(22);
+            readonly sSI2 virt_SI2 = new();
+            readonly List<sSI2> obj_SI2 = new(22);
             #endregion
 
             #region CONSTRUCTOR

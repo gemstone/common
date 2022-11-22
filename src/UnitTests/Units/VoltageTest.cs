@@ -109,14 +109,14 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void VoltageConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Voltage target = new Voltage(value);
+                Voltage target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Voltage));
                 Assert.IsNotNull(target);
             }
@@ -138,8 +138,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToVoltageTest()
         {
-            Voltage target = new Voltage(10F);
-            Voltage value = new Voltage(10F);
+            Voltage target = new(10F);
+            Voltage value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -160,7 +160,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -182,7 +182,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             object value = new Voltage(10F);
             int expected = 0;
             int actual;
@@ -201,7 +201,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -220,8 +220,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsVoltageTest()
         {
-            Voltage target = new Voltage(10F);
-            Voltage obj = new Voltage(10F);
+            Voltage target = new(10F);
+            Voltage obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -240,7 +240,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             object obj = new Voltage(10F);
             bool expected = true;
             bool actual;
@@ -258,7 +258,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromAbvoltsTest()
         {
             double value = 10F;
-            Voltage expected = new Voltage(1E-07);
+            Voltage expected = new(1E-07);
             Voltage actual;
             actual = Voltage.FromAbvolts(value);
             Assert.AreEqual(expected, actual);
@@ -274,7 +274,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromStatvoltsTest()
         {
             double value = 10F;
-            Voltage expected = new Voltage(2997.92458);
+            Voltage expected = new(2997.92458);
             Voltage actual;
             actual = Voltage.FromStatvolts(value);
             Assert.AreEqual(expected, actual);
@@ -290,7 +290,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -305,8 +305,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Voltage target = new Voltage(10F);
-            TypeCode expected = new TypeCode();
+            Voltage target = new(10F);
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -338,8 +338,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Voltage expected = new Voltage(value);
+            NumberStyles style = new();
+            Voltage expected = new(value);
             Voltage actual;
             actual = Voltage.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -367,7 +367,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Voltage expected = new Voltage(value);
+            Voltage expected = new(value);
             Voltage actual;
             actual = Voltage.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -401,9 +401,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Voltage expected = new Voltage(value);
+            Voltage expected = new(value);
             Voltage actual;
             actual = Voltage.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -427,7 +427,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Voltage expected = new Voltage(value);
+            Voltage expected = new(value);
             Voltage actual;
             actual = Voltage.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -492,7 +492,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Voltage(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -657,7 +657,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToAbvoltsTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             double expected = 1000000000.0;
             double actual;
             actual = target.ToAbvolts();
@@ -672,7 +672,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToStatvoltsTest()
         {
-            Voltage target = new Voltage(10F);
+            Voltage target = new(10F);
             double expected = 0.0333564095198152;
             double actual;
             actual = target.ToStatvolts();
@@ -691,7 +691,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Voltage target = new Voltage(value);
+            Voltage target = new(value);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -713,7 +713,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Voltage target = new Voltage(value);
+            Voltage target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -737,7 +737,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Voltage target = new Voltage(value);
+            Voltage target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -759,7 +759,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Voltage target = new Voltage(value);
+            Voltage target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -795,10 +795,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Voltage result = new Voltage(value);
-            Voltage resultExpected = new Voltage(value);
+            Voltage result = new(value);
+            Voltage resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Voltage.TryParse(s, style, provider, out result);
@@ -824,8 +824,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Voltage result = new Voltage(value);
-            Voltage resultExpected = new Voltage(value);
+            Voltage result = new(value);
+            Voltage resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Voltage.TryParse(s, out result);
@@ -839,9 +839,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
-            Voltage expected = new Voltage(20F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
+            Voltage expected = new(20F);
             Voltage actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -853,9 +853,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
-            Voltage expected = new Voltage(1F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
+            Voltage expected = new(1F);
             Voltage actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -867,8 +867,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -881,8 +881,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Voltage value1 = new Voltage(2F);
-            Voltage value2 = new Voltage(3F);
+            Voltage value1 = new(2F);
+            Voltage value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Voltage.op_Exponent(value1, value2);
@@ -895,8 +895,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(9F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -909,8 +909,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -923,7 +923,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitTest()
         {
-            Voltage value = new Voltage(10F);
+            Voltage value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -937,7 +937,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitTest1()
         {
             double value = 10F;
-            Voltage expected = new Voltage(value);
+            Voltage expected = new(value);
             Voltage actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -949,8 +949,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(9F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 != value2;
@@ -963,8 +963,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(11F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -977,8 +977,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -991,9 +991,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
-            Voltage expected = new Voltage(0F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
+            Voltage expected = new(0F);
             Voltage actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1005,9 +1005,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
-            Voltage expected = new Voltage(100F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
+            Voltage expected = new(100F);
             Voltage actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1019,9 +1019,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Voltage value1 = new Voltage(10F);
-            Voltage value2 = new Voltage(10F);
-            Voltage expected = new Voltage(0F);
+            Voltage value1 = new(10F);
+            Voltage value2 = new(10F);
+            Voltage expected = new(0F);
             Voltage actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

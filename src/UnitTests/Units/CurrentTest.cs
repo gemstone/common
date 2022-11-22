@@ -109,14 +109,14 @@ namespace Gemstone.Common.UnitTests.Units
         public void CurrentConstructorTest()
         {
 
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Current target = new Current(value);
+                Current target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Current));
                 Assert.IsNotNull(target);
             }
@@ -138,8 +138,8 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToCurrentTest()
         {
             //equality
-            Current target = new Current(10F);
-            Current value = new Current(10F);
+            Current target = new(10F);
+            Current value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -161,7 +161,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToDoubleTest()
         {
             //equality
-            Current target = new Current(10F);
+            Current target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -184,7 +184,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToObjectTest()
         {
             //equality
-            Current target = new Current(10F);
+            Current target = new(10F);
             object value = new Current(10F);
             int expected = 0;
             int actual;
@@ -203,7 +203,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Current target = new Current(10F);
+            Current target = new(10F);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -222,8 +222,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsCurrentTest()
         {
-            Current target = new Current(10F);
-            Current obj = new Current(10F);
+            Current target = new(10F);
+            Current obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -242,7 +242,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Current target = new Current(10F);
+            Current target = new(10F);
             object obj = new Current(10F);
             bool expected = true;
             bool actual;
@@ -292,7 +292,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Current target = new Current(10F);
+            Current target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -307,8 +307,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Current target = new Current(10F);
-            TypeCode expected = new TypeCode();
+            Current target = new(10F);
+            TypeCode expected = new();
             expected = TypeCode.Double;
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -340,9 +340,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             style = NumberStyles.Any;
-            Current expected = new Current(10F);
+            Current expected = new(10F);
             Current actual;
             actual = Current.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -370,7 +370,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Current expected = new Current(10F);
+            Current expected = new(10F);
             Current actual;
             actual = Current.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -404,10 +404,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             style = NumberStyles.Any;
             IFormatProvider provider = null;
-            Current expected = new Current(10F);
+            Current expected = new(10F);
             Current actual;
             actual = Current.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -431,7 +431,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Current expected = new Current(10F);
+            Current expected = new(10F);
             Current actual;
             actual = Current.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -496,7 +496,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10);
+            Decimal expected = new(10);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -661,7 +661,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToAbamperesTest()
         {
-            Current target = new Current(10F);
+            Current target = new(10F);
             double expected = 1F;
             double actual;
             actual = target.ToAbamperes();
@@ -676,7 +676,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToStatamperesTest()
         {
-            Current target = new Current(10F);
+            Current target = new(10F);
             double expected = 29979245368.431435;
             double actual;
             actual = target.ToStatamperes();
@@ -695,7 +695,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Current target = new Current(10F);
+            Current target = new(10F);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -717,7 +717,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Current target = new Current(10F);
+            Current target = new(10F);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -741,7 +741,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Current target = new Current(value);
+            Current target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -763,7 +763,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Current target = new Current(value);
+            Current target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -799,10 +799,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Current result = new Current(value);
-            Current resultExpected = new Current(value);
+            Current result = new(value);
+            Current resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Current.TryParse(s, style, provider, out result);
@@ -844,9 +844,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
-            Current expected = new Current(20F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
+            Current expected = new(20F);
             Current actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -858,9 +858,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
-            Current expected = new Current(1F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
+            Current expected = new(1F);
             Current actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -872,8 +872,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -886,8 +886,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Current value1 = new Current(2F);
-            Current value2 = new Current(3F);
+            Current value1 = new(2F);
+            Current value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Current.op_Exponent(value1, value2);
@@ -900,8 +900,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(9F);
+            Current value1 = new(10F);
+            Current value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -914,8 +914,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -928,7 +928,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitCurrentTest()
         {
-            Current value = new Current(10F);
+            Current value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -942,7 +942,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitDoubleTest()
         {
             double value = 10F;
-            Current expected = new Current(value);
+            Current expected = new(value);
             Current actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -954,8 +954,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
             bool expected = false;
             bool actual;
             actual = value1 != value2;
@@ -968,8 +968,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(11F);
+            Current value1 = new(10F);
+            Current value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -982,8 +982,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -996,9 +996,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(20F);
-            Current expected = new Current(10F);
+            Current value1 = new(10F);
+            Current value2 = new(20F);
+            Current expected = new(10F);
             Current actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1011,9 +1011,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
-            Current expected = new Current(100F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
+            Current expected = new(100F);
             Current actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1025,9 +1025,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Current value1 = new Current(10F);
-            Current value2 = new Current(10F);
-            Current expected = new Current(0F);
+            Current value1 = new(10F);
+            Current value2 = new(10F);
+            Current expected = new(0F);
             Current actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

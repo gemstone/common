@@ -49,8 +49,8 @@ namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
         public static byte[] Encrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
         {
             // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
-            using MemoryStream source = new MemoryStream(data, startIndex, length);
-            using BlockAllocatedMemoryStream destination = new BlockAllocatedMemoryStream();
+            using MemoryStream source = new(data, startIndex, length);
+            using BlockAllocatedMemoryStream destination = new();
 
             algorithm.Encrypt(source, destination, key, iv);
             return destination.ToArray();
@@ -67,7 +67,7 @@ namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
         public static void Encrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
         {
             byte[] buffer = new byte[Standard.BufferSize];
-            CryptoStream encodeStream = new CryptoStream(destination, algorithm.CreateEncryptor(key, iv), CryptoStreamMode.Write);
+            CryptoStream encodeStream = new(destination, algorithm.CreateEncryptor(key, iv), CryptoStreamMode.Write);
 
             // Encrypts data onto output stream.
             int read = source.Read(buffer, 0, Standard.BufferSize);
@@ -94,8 +94,8 @@ namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
         public static byte[] Decrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
         {
             // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
-            using MemoryStream source = new MemoryStream(data, startIndex, length);
-            using BlockAllocatedMemoryStream destination = new BlockAllocatedMemoryStream();
+            using MemoryStream source = new(data, startIndex, length);
+            using BlockAllocatedMemoryStream destination = new();
 
             algorithm.Decrypt(source, destination, key, iv);
             return destination.ToArray();
@@ -112,7 +112,7 @@ namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
         public static void Decrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
         {
             byte[] buffer = new byte[Standard.BufferSize];
-            CryptoStream decodeStream = new CryptoStream(destination, algorithm.CreateDecryptor(key, iv), CryptoStreamMode.Write);
+            CryptoStream decodeStream = new(destination, algorithm.CreateDecryptor(key, iv), CryptoStreamMode.Write);
 
             // Decrypts data onto output stream.
             int read = source.Read(buffer, 0, Standard.BufferSize);

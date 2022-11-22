@@ -36,8 +36,8 @@ namespace Gemstone.Common.UnitTests.IO
         [TestMethod]
         public void Test()
         {
-            MemoryStream ms = new MemoryStream();
-            BlockAllocatedMemoryStream ms2 = new BlockAllocatedMemoryStream();
+            MemoryStream ms = new();
+            BlockAllocatedMemoryStream ms2 = new();
 
             for (int x = 0; x < 10000; x++)
             {
@@ -54,8 +54,8 @@ namespace Gemstone.Common.UnitTests.IO
         [TestMethod]
         public void Test2()
         {
-            MemoryStream ms = new MemoryStream();
-            BlockAllocatedMemoryStream ms2 = new BlockAllocatedMemoryStream();
+            MemoryStream ms = new();
+            BlockAllocatedMemoryStream ms2 = new();
 
             for (int x = 0; x < 10000; x++)
             {
@@ -78,8 +78,8 @@ namespace Gemstone.Common.UnitTests.IO
         [TestMethod]
         public void Test3()
         {
-            MemoryStream ms = new MemoryStream();
-            BlockAllocatedMemoryStream ms2 = new BlockAllocatedMemoryStream();
+            MemoryStream ms = new();
+            BlockAllocatedMemoryStream ms2 = new();
 
             for (int x = 0; x < 10000; x++)
             {
@@ -102,8 +102,8 @@ namespace Gemstone.Common.UnitTests.IO
         [TestMethod]
         public void Test4()
         {
-            MemoryStream ms = new MemoryStream();
-            BlockAllocatedMemoryStream ms2 = new BlockAllocatedMemoryStream();
+            MemoryStream ms = new();
+            BlockAllocatedMemoryStream ms2 = new();
 
             for (int x = 0; x < 10000; x++)
             {

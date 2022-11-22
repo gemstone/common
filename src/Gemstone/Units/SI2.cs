@@ -290,7 +290,7 @@ namespace Gemstone.Units
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
         public static string ToScaledString(long totalUnits, string format, string unitName, string[] symbolNames, int decimalPlaces = -1, long minimumFactor = Kilo, long maximumFactor = Exa)
         {
-            StringBuilder image = new StringBuilder();
+            StringBuilder image = new();
 
             int minimumIndex = GetFactorIndex(minimumFactor);
 

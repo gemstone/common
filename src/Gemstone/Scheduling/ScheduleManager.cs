@@ -87,17 +87,17 @@ namespace Gemstone.Scheduling
     ///         Console.ReadLine();
     ///     }
     /// 
-    ///     static void scheduler_Started(object sender, EventArgs e)
+    ///     static void scheduler_Started(object? sender, EventArgs e)
     ///     {
     ///         Console.WriteLine("Scheduler has started successfully.");
     ///     }
     /// 
-    ///     static void scheduler_Starting(object sender, EventArgs e)
+    ///     static void scheduler_Starting(object? sender, EventArgs e)
     ///     {
     ///         Console.WriteLine("Scheduler is waiting to be started.");
     ///     }
     /// 
-    ///     static void scheduler_ScheduleDue(object sender, EventArgs;lt;Schedule&gt; e)
+    ///     static void scheduler_ScheduleDue(object? sender, EventArgs;lt;Schedule&gt; e)
     ///     {
     ///         Console.WriteLine(string.Format("{0} schedule is due for processing.", e.Argument.Name));
     ///     }
@@ -226,7 +226,7 @@ namespace Gemstone.Scheduling
         {
             get
             {
-                StringBuilder status = new StringBuilder();
+                StringBuilder status = new();
                 Schedule[] schedules;
 
                 lock (m_schedules)
@@ -442,7 +442,7 @@ namespace Gemstone.Scheduling
             m_startTimerThread = null;
         }
 
-        private void m_timer_Elapsed(object sender, ElapsedEventArgs e) =>
+        private void m_timer_Elapsed(object? sender, ElapsedEventArgs e) =>
             CheckAllSchedules();
 
         #endregion

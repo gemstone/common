@@ -125,14 +125,20 @@ namespace Gemstone.Identity
         {
             get
             {
+            #if WINDOWS
                 try
                 {
+                    #pragma warning disable CA1416
                     return WindowsIdentity.GetCurrent().Name;
+                    #pragma warning restore CA1416
                 }
                 catch (SecurityException)
                 {
-                    return null;
+                    return Environment.UserName;
                 }
+            #else
+                return Environment.UserName;
+            #endif
             }
         }
 
@@ -143,11 +149,11 @@ namespace Gemstone.Identity
         {
             get
             {
-                string currentUserID = CurrentUserID!;
+                string? currentUserID = CurrentUserID!;
 
                 if (!string.IsNullOrEmpty(currentUserID))
                 {
-                    if (s_currentUserInfo is null || string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
+                    if (string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
                         s_currentUserInfo = new UserInfo(currentUserID);
                 }
 

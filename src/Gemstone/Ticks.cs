@@ -447,7 +447,7 @@ namespace Gemstone
                 case BaselineTimeInterval.Day:
                     return Value - Value % PerDay;
                 case BaselineTimeInterval.Month:
-                    DateTime toMonth = new DateTime(Value);
+                    DateTime toMonth = new(Value);
 
                     return new DateTime(toMonth.Year, toMonth.Month, 1, 0, 0, 0, 0).Ticks;
                 case BaselineTimeInterval.Year:
@@ -471,7 +471,7 @@ namespace Gemstone
         /// <returns>
         /// The string representation of the value of this instance as specified by format.
         /// </returns>
-        public string ToString(string format) => ((DateTime)this).ToString(format);
+        public string ToString(string? format) => ((DateTime)this).ToString(format);
 
         /// <summary>
         /// Converts the <see cref="Ticks"/> value to its equivalent string representation, using
@@ -483,7 +483,7 @@ namespace Gemstone
         /// <returns>
         /// The string representation of the value of this instance as specified by provider.
         /// </returns>
-        public string ToString(IFormatProvider provider) => ((DateTime)this).ToString(provider);
+        public string ToString(IFormatProvider? provider) => ((DateTime)this).ToString(provider);
 
         /// <summary>
         /// Converts the <see cref="Ticks"/> value to its equivalent string representation, using
@@ -496,7 +496,7 @@ namespace Gemstone
         /// <returns>
         /// The string representation of the value of this instance as specified by format and provider.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider) => ((DateTime)this).ToString(format, provider);
+        public string ToString(string? format, IFormatProvider? provider) => ((DateTime)this).ToString(format, provider);
 
         /// <summary>
         /// Converts the <see cref="Ticks"/> value into a textual representation of years, days, hours,
@@ -577,7 +577,7 @@ namespace Gemstone
         /// if this instance is greater than value.
         /// </returns>
         /// <exception cref="ArgumentException">value is not an <see cref="long"/>, <see cref="DateTime"/>, <see cref="TimeSpan"/> or <see cref="Ticks"/>.</exception>
-        public int CompareTo(object value)
+        public int CompareTo(object? value)
         {
             if (value is null)
                 return 1;
@@ -650,7 +650,7 @@ namespace Gemstone
         /// True if obj is an instance of <see cref="long"/> or <see cref="Ticks"/> and equals the value of this instance;
         /// otherwise, False.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return obj switch
             {
@@ -716,35 +716,35 @@ namespace Gemstone
 
         // These are explicitly implemented on the native System.Int64 implementations, so we do the same...
 
-        bool IConvertible.ToBoolean(IFormatProvider provider) => Convert.ToBoolean(Value, provider);
+        bool IConvertible.ToBoolean(IFormatProvider? provider) => Convert.ToBoolean(Value, provider);
 
-        char IConvertible.ToChar(IFormatProvider provider) => Convert.ToChar(Value, provider);
+        char IConvertible.ToChar(IFormatProvider? provider) => Convert.ToChar(Value, provider);
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider) => Convert.ToSByte(Value, provider);
+        sbyte IConvertible.ToSByte(IFormatProvider? provider) => Convert.ToSByte(Value, provider);
 
-        byte IConvertible.ToByte(IFormatProvider provider) => Convert.ToByte(Value, provider);
+        byte IConvertible.ToByte(IFormatProvider? provider) => Convert.ToByte(Value, provider);
 
-        short IConvertible.ToInt16(IFormatProvider provider) => Convert.ToInt16(Value, provider);
+        short IConvertible.ToInt16(IFormatProvider? provider) => Convert.ToInt16(Value, provider);
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider) => Convert.ToUInt16(Value, provider);
+        ushort IConvertible.ToUInt16(IFormatProvider? provider) => Convert.ToUInt16(Value, provider);
 
-        int IConvertible.ToInt32(IFormatProvider provider) => Convert.ToInt32(Value, provider);
+        int IConvertible.ToInt32(IFormatProvider? provider) => Convert.ToInt32(Value, provider);
 
-        uint IConvertible.ToUInt32(IFormatProvider provider) => Convert.ToUInt32(Value, provider);
+        uint IConvertible.ToUInt32(IFormatProvider? provider) => Convert.ToUInt32(Value, provider);
 
-        long IConvertible.ToInt64(IFormatProvider provider) => Value;
+        long IConvertible.ToInt64(IFormatProvider? provider) => Value;
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider) => Convert.ToUInt64(Value, provider);
+        ulong IConvertible.ToUInt64(IFormatProvider? provider) => Convert.ToUInt64(Value, provider);
 
-        float IConvertible.ToSingle(IFormatProvider provider) => Convert.ToSingle(Value, provider);
+        float IConvertible.ToSingle(IFormatProvider? provider) => Convert.ToSingle(Value, provider);
 
-        double IConvertible.ToDouble(IFormatProvider provider) => Convert.ToDouble(Value, provider);
+        double IConvertible.ToDouble(IFormatProvider? provider) => Convert.ToDouble(Value, provider);
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider) => Convert.ToDecimal(Value, provider);
+        decimal IConvertible.ToDecimal(IFormatProvider? provider) => Convert.ToDecimal(Value, provider);
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider) => Convert.ToDateTime(Value, provider);
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider) => Convert.ToDateTime(Value, provider);
 
-        object IConvertible.ToType(Type type, IFormatProvider provider) => Convert.ChangeType(Value, type, provider);
+        object IConvertible.ToType(Type type, IFormatProvider? provider) => Convert.ChangeType(Value, type, provider);
 
         #endregion
 
@@ -813,28 +813,28 @@ namespace Gemstone
         /// </summary>
         /// <param name="value"><see cref="long"/> value to convert.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static implicit operator Ticks(long value) => new Ticks(value);
+        public static implicit operator Ticks(long value) => new(value);
 
         /// <summary>
         /// Implicitly converts value, represented as a <see cref="DateTime"/>, to a <see cref="Ticks"/>.
         /// </summary>
         /// <param name="value"><see cref="DateTime"/> value to convert.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static implicit operator Ticks(DateTime value) => new Ticks(value);
+        public static implicit operator Ticks(DateTime value) => new(value);
 
         /// <summary>
         /// Implicitly converts value, represented as a <see cref="TimeSpan"/>, to a <see cref="Ticks"/>.
         /// </summary>
         /// <param name="value"><see cref="TimeSpan"/> value to convert.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static implicit operator Ticks(TimeSpan value) => new Ticks(value);
+        public static implicit operator Ticks(TimeSpan value) => new(value);
 
         /// <summary>
         /// Implicitly converts value, represented as a <see cref="TimeTagBase"/>, to a <see cref="Ticks"/>.
         /// </summary>
         /// <param name="value"><see cref="TimeTagBase"/> value to convert.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static implicit operator Ticks(TimeTagBase value) => new Ticks(value.ToDateTime());
+        public static implicit operator Ticks(TimeTagBase value) => new(value.ToDateTime());
 
         /// <summary>
         /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to an <see cref="long"/>.
@@ -848,28 +848,28 @@ namespace Gemstone
         /// </summary>
         /// <param name="value"><see cref="Ticks"/> value to convert.</param>
         /// <returns><see cref="DateTime"/> value representing the result.</returns>
-        public static implicit operator DateTime(Ticks value) => new DateTime(value.Value);
+        public static implicit operator DateTime(Ticks value) => new(value.Value);
 
         /// <summary>
         /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to a <see cref="TimeSpan"/>.
         /// </summary>
         /// <param name="value"><see cref="Ticks"/> value to convert.</param>
         /// <returns><see cref="TimeSpan"/> value representing the result.</returns>
-        public static implicit operator TimeSpan(Ticks value) => new TimeSpan(value.Value);
+        public static implicit operator TimeSpan(Ticks value) => new(value.Value);
 
         /// <summary>
         /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to an <see cref="NtpTimeTag"/>.
         /// </summary>
         /// <param name="value"><see cref="Ticks"/> value to convert.</param>
         /// <returns><see cref="NtpTimeTag"/> value representing the result.</returns>
-        public static implicit operator NtpTimeTag(Ticks value) => new NtpTimeTag(new DateTime(value.Value));
+        public static implicit operator NtpTimeTag(Ticks value) => new(new DateTime(value.Value));
 
         /// <summary>
         /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to a <see cref="UnixTimeTag"/>.
         /// </summary>
         /// <param name="value"><see cref="Ticks"/> value to convert.</param>
         /// <returns><see cref="UnixTimeTag"/> value representing the result.</returns>
-        public static implicit operator UnixTimeTag(Ticks value) => new UnixTimeTag(new DateTime(value.Value));
+        public static implicit operator UnixTimeTag(Ticks value) => new(new DateTime(value.Value));
 
         #endregion
 
@@ -894,7 +894,7 @@ namespace Gemstone
         /// </summary>
         /// <param name="value"><see cref="Ticks"/> value to evaluate.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator ~(Ticks value) => new Ticks(~value.Value);
+        public static Ticks operator ~(Ticks value) => new(~value.Value);
 
         /// <summary>
         /// Returns logical bitwise AND of values.
@@ -902,7 +902,7 @@ namespace Gemstone
         /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
         /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator &(Ticks value1, Ticks value2) => new Ticks(value1.Value & value2.Value);
+        public static Ticks operator &(Ticks value1, Ticks value2) => new(value1.Value & value2.Value);
 
         /// <summary>
         /// Returns logical bitwise OR of values.
@@ -910,7 +910,7 @@ namespace Gemstone
         /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
         /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator |(Ticks value1, Ticks value2) => new Ticks(value1.Value | value2.Value);
+        public static Ticks operator |(Ticks value1, Ticks value2) => new(value1.Value | value2.Value);
 
         /// <summary>
         /// Returns logical bitwise exclusive-OR of values.
@@ -918,7 +918,7 @@ namespace Gemstone
         /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
         /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator ^(Ticks value1, Ticks value2) => new Ticks(value1.Value ^ value2.Value);
+        public static Ticks operator ^(Ticks value1, Ticks value2) => new(value1.Value ^ value2.Value);
 
         /// <summary>
         /// Returns value after right shifts of first value by the number of bits specified by second value.
@@ -926,7 +926,7 @@ namespace Gemstone
         /// <param name="value"><see cref="Ticks"/> value to shift.</param>
         /// <param name="shifts"><see cref="int"/> number of bits to shift.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator >>(Ticks value, int shifts) => new Ticks(value.Value >> shifts);
+        public static Ticks operator >>(Ticks value, int shifts) => new(value.Value >> shifts);
 
         /// <summary>
         /// Returns value after left shifts of first value by the number of bits specified by second value.
@@ -934,7 +934,7 @@ namespace Gemstone
         /// <param name="value"><see cref="Ticks"/> value to shift.</param>
         /// <param name="shifts"><see cref="int"/> number of bits to shift.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator <<(Ticks value, int shifts) => new Ticks(value.Value << shifts);
+        public static Ticks operator <<(Ticks value, int shifts) => new(value.Value << shifts);
 
         #endregion
 
@@ -946,7 +946,7 @@ namespace Gemstone
         /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
         /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator %(Ticks value1, Ticks value2) => new Ticks(value1.Value % value2.Value);
+        public static Ticks operator %(Ticks value1, Ticks value2) => new(value1.Value % value2.Value);
 
         /// <summary>
         /// Returns computed sum of values.
@@ -954,7 +954,7 @@ namespace Gemstone
         /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
         /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator +(Ticks value1, Ticks value2) => new Ticks(value1.Value + value2.Value);
+        public static Ticks operator +(Ticks value1, Ticks value2) => new(value1.Value + value2.Value);
 
         /// <summary>
         /// Returns computed difference of values.
@@ -962,7 +962,7 @@ namespace Gemstone
         /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
         /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator -(Ticks value1, Ticks value2) => new Ticks(value1.Value - value2.Value);
+        public static Ticks operator -(Ticks value1, Ticks value2) => new(value1.Value - value2.Value);
 
         /// <summary>
         /// Returns computed product of values.
@@ -970,7 +970,7 @@ namespace Gemstone
         /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
         /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator *(Ticks value1, Ticks value2) => new Ticks(value1.Value * value2.Value);
+        public static Ticks operator *(Ticks value1, Ticks value2) => new(value1.Value * value2.Value);
 
         // Integer division operators
 
@@ -980,7 +980,7 @@ namespace Gemstone
         /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
         /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
         /// <returns><see cref="Ticks"/> value representing the result.</returns>
-        public static Ticks operator /(Ticks value1, Ticks value2) => new Ticks(value1.Value / value2.Value);
+        public static Ticks operator /(Ticks value1, Ticks value2) => new(value1.Value / value2.Value);
 
         // C# doesn't expose an exponent operator but some other .NET languages do,
         // so we expose the operator via its native special IL function name
@@ -1060,21 +1060,21 @@ namespace Gemstone
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in seconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in seconds.</returns>
-        public static Ticks FromSeconds(double value) => new Ticks((long)(value * PerSecond));
+        public static Ticks FromSeconds(double value) => new((long)(value * PerSecond));
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in milliseconds.
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in milliseconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in milliseconds.</returns>
-        public static Ticks FromMilliseconds(double value) => new Ticks((long)(value * PerMillisecond));
+        public static Ticks FromMilliseconds(double value) => new((long)(value * PerMillisecond));
 
         /// <summary>
         /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in microseconds.
         /// </summary>
         /// <param name="value">New <see cref="Ticks"/> value in microseconds.</param>
         /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in microseconds.</returns>
-        public static Ticks FromMicroseconds(double value) => new Ticks((long)(value * PerMicrosecond));
+        public static Ticks FromMicroseconds(double value) => new((long)(value * PerMicrosecond));
 
         /// <summary>
         /// Converts the string representation of a number to its <see cref="Ticks"/> equivalent.
@@ -1126,7 +1126,7 @@ namespace Gemstone
         /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
         /// </exception>
         /// <exception cref="FormatException">s is not in the correct format.</exception>
-        public static Ticks Parse(string s, IFormatProvider provider) => long.Parse(s, provider);
+        public static Ticks Parse(string s, IFormatProvider? provider) => long.Parse(s, provider);
 
         /// <summary>
         /// Converts the string representation of a number in a specified style and culture-specific format to its <see cref="Ticks"/> equivalent.
@@ -1150,7 +1150,7 @@ namespace Gemstone
         /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
         /// </exception>
         /// <exception cref="FormatException">s is not in a format compliant with style.</exception>
-        public static Ticks Parse(string s, NumberStyles style, IFormatProvider provider) => long.Parse(s, style, provider);
+        public static Ticks Parse(string s, NumberStyles style, IFormatProvider? provider) => long.Parse(s, style, provider);
 
         /// <summary>
         /// Converts the string representation of a number to its <see cref="Ticks"/> equivalent. A return value

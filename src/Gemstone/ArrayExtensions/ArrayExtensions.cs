@@ -127,12 +127,13 @@ namespace Gemstone.ArrayExtensions
             if (startIndex >= array.Length)
                 throw new ArgumentOutOfRangeException(nameof(startIndex), "not a valid index into the array");
 
-            T[] copiedBytes = new T[array.Length - startIndex < length ? array.Length - startIndex : length];
+            length = array.Length - startIndex < length ? array.Length - startIndex : length;
+            T[] copiedBytes = new T[length];
 
             if (typeof(T).IsPrimitive)
-                Buffer.BlockCopy(array, startIndex, copiedBytes, 0, copiedBytes.Length);
+                Buffer.BlockCopy(array, startIndex, copiedBytes, 0, length);
             else
-                Array.Copy(array, startIndex, copiedBytes, 0, copiedBytes.Length);
+                Array.Copy(array, startIndex, copiedBytes, 0, length);
 
             return copiedBytes;
         }
@@ -715,7 +716,7 @@ namespace Gemstone.ArrayExtensions
             if (buffers is null)
                 throw new ArgumentNullException(nameof(buffers));
 
-            using BlockAllocatedMemoryStream combinedBuffer = new BlockAllocatedMemoryStream();
+            using BlockAllocatedMemoryStream combinedBuffer = new();
 
             // Combine all currently queued buffers
             for (int x = 0; x < buffers.Length; x++)
@@ -737,12 +738,12 @@ namespace Gemstone.ArrayExtensions
         /// <param name="bytes">Bytes containing structure.</param>
         /// <returns>A structure from <paramref name="bytes"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static unsafe T ReadStructure<T>(this byte[] bytes) where T : struct
+        public static unsafe T? ReadStructure<T>(this byte[] bytes) where T : struct
         {
-            T structure;
+            T? structure;
 
             fixed (byte* ptrToBytes = bytes)
-                structure = (T)Marshal.PtrToStructure(new IntPtr(ptrToBytes), typeof(T));
+                structure = (T?)Marshal.PtrToStructure(new IntPtr(ptrToBytes), typeof(T));
 
             return structure;
         }
@@ -754,6 +755,7 @@ namespace Gemstone.ArrayExtensions
         /// <param name="reader"><see cref="BinaryReader"/> positioned at desired structure.</param>
         /// <returns>A structure read from <see cref="BinaryReader"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T ReadStructure<T>(this BinaryReader reader) where T : struct => reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
+        public static T? ReadStructure<T>(this BinaryReader reader) where T : struct => 
+            reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
     }
 }

@@ -95,7 +95,7 @@ namespace Gemstone.IO.StreamExtensions
         /// <returns>An array of <see cref="byte"/>.</returns>
         public static byte[] ReadStream(this Stream source)
         {
-            using BlockAllocatedMemoryStream outStream = new BlockAllocatedMemoryStream();
+            using BlockAllocatedMemoryStream outStream = new();
 
             source.CopyTo(outStream);
 
@@ -545,7 +545,7 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">the stream to read from.</param>
         /// <returns>Value read.</returns>
-        public static DateTime ReadDateTime(this Stream stream) => new DateTime(stream.ReadInt64());
+        public static DateTime ReadDateTime(this Stream stream) => new(stream.ReadInt64());
 
         #endregion
 

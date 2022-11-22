@@ -108,14 +108,14 @@ namespace Gemstone.Common.UnitTests.Units
         public void AngleConstructorTest()
         {
             //Test Values Collection
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Angle target = new Angle(value);
+                Angle target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Angle));
                 Assert.IsNotNull(target);
             }
@@ -143,10 +143,10 @@ namespace Gemstone.Common.UnitTests.Units
             double value_exp_zero = 10F;
             double value_exp_pos = 9F;
 
-            Angle angle = new Angle(value_target);
-            Angle angle_exp_negative = new Angle(value_exp_negative);
-            Angle angle_exp_zero = new Angle(value_exp_zero);
-            Angle angle_exp_pos = new Angle(value_exp_pos);
+            Angle angle = new(value_target);
+            Angle angle_exp_negative = new(value_exp_negative);
+            Angle angle_exp_zero = new(value_exp_zero);
+            Angle angle_exp_pos = new(value_exp_pos);
 
             bool target = true;
             bool expected = angle.CompareTo(angle_exp_negative) < 0 && angle.CompareTo(angle_exp_zero) == 0 && angle.CompareTo(angle_exp_pos) > 0;
@@ -166,7 +166,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void EqualsTest()
         {
             object angle = 10D;
-            Angle target = new Angle(10D);
+            Angle target = new(10D);
             bool expected = true;
             Assert.AreEqual(target.Equals(angle), expected);
         }
@@ -223,7 +223,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromDegreesTest()
         {
             Angle target = Angle.FromDegrees(10D);
-            Angle expected = new Angle(0.174532925199433);
+            Angle expected = new(0.174532925199433);
             Assert.AreEqual(expected, target, 0.000000000000001);
         }
 
@@ -252,7 +252,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void GetHashCodeTest()
         {
             double value = 10;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             int expected = 1076101120;
             Assert.AreEqual(target.GetHashCode(), expected);
         }
@@ -266,7 +266,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void GetTypeCodeTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             TypeCode expected = value.GetTypeCode();
             Assert.AreEqual(target.GetTypeCode(), expected);
         }
@@ -296,9 +296,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             style = NumberStyles.Any;
-            Angle expected = new Angle(value);
+            Angle expected = new(value);
             Angle actual = Angle.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
@@ -321,7 +321,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Angle expected = new Angle(value);
+            Angle expected = new(value);
             Angle actual = Angle.Parse(s);
             Assert.AreEqual(expected, actual);
         }
@@ -410,7 +410,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(value);
+            Decimal expected = new(value);
             Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
@@ -590,7 +590,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToAngularMilTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             double expected = 10185.9163578813;
             double actual;
             actual = target.ToAngularMil();
@@ -604,7 +604,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToArcMinutesTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             double expected = 34377.467707849391;
             double actual;
             actual = target.ToArcMinutes();
@@ -618,7 +618,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToArcSecondsTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             double expected = 2062648.0624709637;
             double actual;
             actual = target.ToArcSeconds();
@@ -634,7 +634,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToDegreesTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             double expected = 572.95779513082323;
             double actual = target.ToDegrees();
             Assert.AreEqual(expected, actual);
@@ -649,7 +649,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToGradsTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             double expected = 636.61977236758128;
             double actual = target.ToGrads();
             Assert.AreEqual(expected, actual);
@@ -671,7 +671,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Angle target = new Angle(value);
+            Angle target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -707,11 +707,11 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             style = NumberStyles.Any;
             IFormatProvider provider = null;
-            Angle result = new Angle(value);
-            Angle resultExpected = new Angle(value);
+            Angle result = new(value);
+            Angle resultExpected = new(value);
             bool expected = true;
             bool actual = Angle.TryParse(s, style, provider, out result);
             Assert.AreEqual(resultExpected, result);
@@ -736,8 +736,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Angle result = new Angle(value);
-            Angle resultExpected = new Angle(value);
+            Angle result = new(value);
+            Angle resultExpected = new(value);
             bool expected = true;
             bool actual = Angle.TryParse(s, out result);
             Assert.AreEqual(resultExpected, result);
@@ -750,9 +750,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
-            Angle expected = new Angle(20F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
+            Angle expected = new(20F);
 
             Angle actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -765,9 +765,9 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_DivisionTest()
         {
 
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(20F);
-            Angle expected = new Angle(1 / 2F);
+            Angle value1 = new(10F);
+            Angle value2 = new(20F);
+            Angle expected = new(1 / 2F);
 
             Angle actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -779,8 +779,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
 
             bool expected = true;
             bool actual;
@@ -794,8 +794,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Angle value1 = new Angle(2F);
-            Angle value2 = new Angle(3F);
+            Angle value1 = new(2F);
+            Angle value2 = new(3F);
             double expected = 8F;
             double actual = Angle.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
@@ -807,8 +807,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(9F);
+            Angle value1 = new(10F);
+            Angle value2 = new(9F);
             bool expected = true;
             bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
@@ -820,8 +820,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -834,8 +834,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitAngleTest()
         {
-            Angle expected = new Angle(10F);
-            Angle actual = new Angle(10F);
+            Angle expected = new(10F);
+            Angle actual = new(10F);
             Assert.AreEqual(expected, actual);
         }
 
@@ -845,7 +845,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitDoubleTest()
         {
-            Angle value = new Angle(10F);
+            Angle value = new(10F);
             double expected = 10F;
             double actual = value;
             Assert.AreEqual(expected, actual);
@@ -857,8 +857,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(11F);
+            Angle value1 = new(10F);
+            Angle value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 != value2;
@@ -871,8 +871,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(11F);
+            Angle value1 = new(10F);
+            Angle value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -885,8 +885,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -899,9 +899,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
-            Angle expected = new Angle(0F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
+            Angle expected = new(0F);
             Angle actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -913,9 +913,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Angle value1 = new Angle(10F);
-            Angle value2 = new Angle(10F);
-            Angle expected = new Angle(100F);
+            Angle value1 = new(10F);
+            Angle value2 = new(10F);
+            Angle expected = new(100F);
             Angle actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
@@ -926,10 +926,10 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Angle target1 = new Angle(10F);
-            Angle target2 = new Angle(10F);
+            Angle target1 = new(10F);
+            Angle target2 = new(10F);
 
-            Angle actual = new Angle(0F);
+            Angle actual = new(0F);
             Angle expected = target1 - target2;
 
             Assert.AreEqual(expected, actual);

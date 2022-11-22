@@ -66,9 +66,9 @@ namespace Gemstone.ActionExtensions
                 {
                     // ReSharper disable once PossibleNullReferenceException
                     if (exceptionAction is null)
-                        throw task.Exception;
+                        throw task.Exception ?? new Exception("Task failed without an exception.");
 
-                    exceptionAction(task.Exception);
+                    exceptionAction(task.Exception ?? new Exception("Task failed without an exception."));
                 },
                 cancellationToken,
                 TaskContinuationOptions.OnlyOnFaulted,
@@ -116,7 +116,7 @@ namespace Gemstone.ActionExtensions
             const int Cancelled = 2;
             const int Disposing = 3;
 
-            CancellationTokenSource tokenSource = new CancellationTokenSource();
+            CancellationTokenSource tokenSource = new();
             CancellationToken token = tokenSource.Token;
             int state = NotCancelled;
 

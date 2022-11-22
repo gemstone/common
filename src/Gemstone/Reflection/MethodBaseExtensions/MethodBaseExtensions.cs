@@ -44,7 +44,7 @@ namespace Gemstone.Reflection.MethodBaseExtensions
                 return string.Empty;
 
             bool appendComma;
-            StringBuilder name = new StringBuilder();
+            StringBuilder name = new();
 
             name.Append(method.Name);
 

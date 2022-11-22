@@ -618,9 +618,9 @@ namespace Gemstone.IO.Parsing
                         if (nextD < 0)
                         {
                             if (removeResultQuotes)
-                                parsedValues[index] = inString.Substring(startIndex).QuoteUnwrap();
+                                parsedValues[index] = inString[startIndex..].QuoteUnwrap();
                             else
-                                parsedValues[index] = inString.Substring(startIndex);
+                                parsedValues[index] = inString[startIndex..];
 
                             Array.Resize(ref parsedValues, index + 1);
 
@@ -643,9 +643,9 @@ namespace Gemstone.IO.Parsing
                 else if (nextD < 0 && nextQ < 0) //we're done
                 {
                     if (removeResultQuotes)
-                        parsedValues[index] = inString.Substring(startIndex).QuoteUnwrap();
+                        parsedValues[index] = inString[startIndex..].QuoteUnwrap();
                     else
-                        parsedValues[index] = inString.Substring(startIndex);
+                        parsedValues[index] = inString[startIndex..];
 
                     Array.Resize(ref parsedValues, index + 1);
 
@@ -654,9 +654,9 @@ namespace Gemstone.IO.Parsing
                 else if (nextD < 0) //no remaining delimiter, but have quote
                 {
                     if (removeResultQuotes)
-                        parsedValues[index] = inString.Substring(startIndex).QuoteUnwrap();
+                        parsedValues[index] = inString[startIndex..].QuoteUnwrap();
                     else
-                        parsedValues[index] = inString.Substring(startIndex);
+                        parsedValues[index] = inString[startIndex..];
 
                     Array.Resize(ref parsedValues, index + 1);
 
@@ -740,9 +740,9 @@ namespace Gemstone.IO.Parsing
                         if (nextD < 0)
                         {
                             if (removeResultQuotes)
-                                p[index] = inString.Substring(startIndex).QuoteUnwrap(quoteChars);
+                                p[index] = inString[startIndex..].QuoteUnwrap(quoteChars);
                             else
-                                p[index] = inString.Substring(startIndex);
+                                p[index] = inString[startIndex..];
 
                             Array.Resize(ref p, index + 1);
 
@@ -759,9 +759,9 @@ namespace Gemstone.IO.Parsing
                 else if (nextD < 0 && nextQ < 0) //we're done
                 {
                     if (removeResultQuotes)
-                        p[index] = inString.Substring(startIndex).QuoteUnwrap();
+                        p[index] = inString[startIndex..].QuoteUnwrap();
                     else
-                        p[index] = inString.Substring(startIndex);
+                        p[index] = inString[startIndex..];
 
                     Array.Resize(ref p, index + 1);
 
@@ -770,9 +770,9 @@ namespace Gemstone.IO.Parsing
                 else if (nextD < 0) //no remaining delimiter, but have quote
                 {
                     if (removeResultQuotes)
-                        p[index] = inString.Substring(startIndex).QuoteUnwrap(quoteChars);
+                        p[index] = inString[startIndex..].QuoteUnwrap(quoteChars);
                     else
-                        p[index] = inString.Substring(startIndex);
+                        p[index] = inString[startIndex..];
 
                     Array.Resize(ref p, index + 1);
 

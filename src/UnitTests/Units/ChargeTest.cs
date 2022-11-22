@@ -109,14 +109,14 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ChargeConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Charge target = new Charge(value);
+                Charge target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Charge));
                 Assert.IsNotNull(target);
             }
@@ -140,7 +140,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToDoubleEqualTest()
         {
             //equal
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -162,7 +162,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleLessTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double value = 9F;
             int expected = 1;
             int actual;
@@ -184,7 +184,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleGreaterTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double value = 11F;
             int expected = -1;
             int actual;
@@ -206,8 +206,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToChargeEqualTest()
         {
-            Charge target = new Charge(10F);
-            Charge value = new Charge(10F);
+            Charge target = new(10F);
+            Charge value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -228,8 +228,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToChargeLessTest()
         {
-            Charge target = new Charge(10F);
-            Charge value = new Charge(9F);
+            Charge target = new(10F);
+            Charge value = new(9F);
             int expected = 1;
             int actual;
             actual = target.CompareTo(value);
@@ -250,8 +250,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToChargeGreaterTest()
         {
-            Charge target = new Charge(10F);
-            Charge value = new Charge(11F);
+            Charge target = new(10F);
+            Charge value = new(11F);
             int expected = -1;
             int actual;
             actual = target.CompareTo(value);
@@ -272,7 +272,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectEqualTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             object value = new Charge(10F);
             int expected = 0;
             int actual;
@@ -294,7 +294,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectLessTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             object value = new Charge(9F);
             int expected = 1;
             int actual;
@@ -317,7 +317,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectGreaterTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             object value = new Charge(11F);
             int expected = -1;
             int actual;
@@ -337,7 +337,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             object obj = 11F;
             bool expected = false;
             bool actual = target.Equals(obj);
@@ -355,8 +355,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsChargeTest()
         {
-            Charge target = new Charge(10F);
-            Charge obj = new Charge(9F);
+            Charge target = new(10F);
+            Charge obj = new(9F);
             bool expected = false;
             bool actual;
             actual = target.Equals(obj);
@@ -375,7 +375,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double obj = 9F;
             bool expected = false;
             bool actual;
@@ -489,8 +489,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Charge target = new Charge(10F);
-            TypeCode expected = new TypeCode();
+            Charge target = new(10F);
+            TypeCode expected = new();
             expected = TypeCode.Double;
             TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
@@ -521,9 +521,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             style = NumberStyles.Any;
-            Charge expected = new Charge(value);
+            Charge expected = new(value);
             Charge actual = Charge.Parse(s, style);
             Assert.AreEqual(expected, actual);
             //Assert.Inconclusive("Verify the correctness of this test method.");
@@ -556,9 +556,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null; // TODO: Initialize to an appropriate value
-            Charge expected = new Charge(10F);
+            Charge expected = new(10F);
             Charge actual;
             actual = Charge.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -586,7 +586,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null; // TODO: Initialize to an appropriate value
-            Charge expected = new Charge(10F);
+            Charge expected = new(10F);
             Charge actual;
             actual = Charge.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -610,7 +610,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Charge expected = new Charge(10F);
+            Charge expected = new(10F);
             Charge actual;
             actual = Charge.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -692,7 +692,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Charge(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -855,7 +855,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToAbcoulombsTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double expected = 1F;
             double actual;
             actual = target.ToAbcoulombs();
@@ -868,7 +868,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToAmpereHoursTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double expected = 0.0027777777777777779;
             double actual;
             actual = target.ToAmpereHours();
@@ -881,7 +881,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToAtomicUnitsOfChargeTest()
         {
-            Charge target = new Charge(1F);
+            Charge target = new(1F);
             double expected = 6.2415097445115249E+18;
             double actual;
             actual = target.ToAtomicUnitsOfCharge();
@@ -894,7 +894,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToFaradayTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double expected = 0.00010364268992774003;
             double actual;
             actual = target.ToFaraday();
@@ -907,7 +907,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToStatcoulombsTest()
         {
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             double expected = 29979245368.431435;
             double actual;
             actual = target.ToStatcoulombs();
@@ -930,7 +930,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10;
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -951,7 +951,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -973,7 +973,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -994,7 +994,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Charge target = new Charge(10F);
+            Charge target = new(10F);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -1019,8 +1019,8 @@ namespace Gemstone.Common.UnitTests.Units
         public void TryParseTest()
         {
             string s = "10";
-            Charge result = new Charge(10F);
-            Charge resultExpected = new Charge(10F);
+            Charge result = new(10F);
+            Charge resultExpected = new(10F);
             bool expected = true;
             bool actual;
             actual = Charge.TryParse(s, out result);
@@ -1055,10 +1055,10 @@ namespace Gemstone.Common.UnitTests.Units
         public void TryParseStyleProviderTest()
         {
             string s = "10";
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Charge result = new Charge(10F);
-            Charge resultExpected = new Charge(10F);
+            Charge result = new(10F);
+            Charge resultExpected = new(10F);
             bool expected = true;
             bool actual;
             actual = Charge.TryParse(s, style, provider, out result);
@@ -1072,9 +1072,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(10F);
-            Charge expected = new Charge(20F);
+            Charge value1 = new(10F);
+            Charge value2 = new(10F);
+            Charge expected = new(20F);
             Charge actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -1086,9 +1086,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(10F);
-            Charge expected = new Charge(1F);
+            Charge value1 = new(10F);
+            Charge value2 = new(10F);
+            Charge expected = new(1F);
             Charge actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -1100,8 +1100,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(10F);
+            Charge value1 = new(10F);
+            Charge value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -1114,8 +1114,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Charge value1 = new Charge(2F);
-            Charge value2 = new Charge(3F);
+            Charge value1 = new(2F);
+            Charge value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Charge.op_Exponent(value1, value2);
@@ -1128,8 +1128,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Charge value1 = new Charge(11F);
-            Charge value2 = new Charge(10F);
+            Charge value1 = new(11F);
+            Charge value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -1142,8 +1142,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Charge value1 = new Charge(10);
-            Charge value2 = new Charge(10);
+            Charge value1 = new(10);
+            Charge value2 = new(10);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -1157,7 +1157,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitTest()
         {
             double value = 10F;
-            Charge expected = new Charge(10F);
+            Charge expected = new(10F);
             Charge actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -1169,7 +1169,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitTest1()
         {
-            Charge value = new Charge(10);
+            Charge value = new(10);
             double expected = 10F;
             double actual;
             actual = value;
@@ -1182,8 +1182,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(12F);
+            Charge value1 = new(10F);
+            Charge value2 = new(12F);
             bool expected = true;
             bool actual;
             actual = value1 != value2;
@@ -1196,8 +1196,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(12F);
+            Charge value1 = new(10F);
+            Charge value2 = new(12F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -1210,8 +1210,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(11F);
+            Charge value1 = new(10F);
+            Charge value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -1224,9 +1224,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Charge value1 = new Charge(10D);
-            Charge value2 = new Charge(10D);
-            Charge expected = new Charge(0D);
+            Charge value1 = new(10D);
+            Charge value2 = new(10D);
+            Charge expected = new(0D);
             Charge actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1238,9 +1238,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(10F);
-            Charge expected = new Charge(100F);
+            Charge value1 = new(10F);
+            Charge value2 = new(10F);
+            Charge expected = new(100F);
             Charge actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1252,9 +1252,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Charge value1 = new Charge(10F);
-            Charge value2 = new Charge(10F);
-            Charge expected = new Charge(0F);
+            Charge value1 = new(10F);
+            Charge value2 = new(10F);
+            Charge expected = new(0F);
             Charge actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

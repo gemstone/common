@@ -93,7 +93,7 @@ namespace Gemstone.IO.Parsing
         public BooleanExpression(string expressionText, IEqualityComparer<string> identifierComparer)
         {
             m_variables = new Dictionary<string, Variable>(identifierComparer);
-            StringBuilder builder = new StringBuilder(expressionText);
+            StringBuilder builder = new(expressionText);
             Expression expression = ParseExpression(builder);
 
             if (builder.Length > 0)
@@ -135,7 +135,8 @@ namespace Gemstone.IO.Parsing
         /// <param name="identifier">The identifier used to refer to the variable.</param>
         /// <param name="variable">The variable identified by the given identifier.</param>
         /// <returns>True if the variable is present in the expression; false otherwise.</returns>
-        public bool TryGetVariable(string identifier, out Variable variable) => m_variables.TryGetValue(identifier, out variable);
+        public bool TryGetVariable(string identifier, out Variable? variable) =>
+            m_variables.TryGetValue(identifier, out variable);
 
         private Expression ParseExpression(StringBuilder builder)
         {
@@ -196,7 +197,7 @@ namespace Gemstone.IO.Parsing
 
         private Expression ParseIdentifier(StringBuilder builder)
         {
-            StringBuilder nameBuilder = new StringBuilder();
+            StringBuilder nameBuilder = new();
 
             while (builder.Length > 0 && char.IsLetterOrDigit(builder[0]))
             {

@@ -113,7 +113,7 @@ namespace Gemstone.Common.UnitTests
                 System.Console.Write("{0:X2} ", b);
             System.Console.WriteLine();
 
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (var b in data2)
                 sb.AppendFormat("{0:X2}", b);
 

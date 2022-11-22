@@ -41,7 +41,7 @@ namespace Gemstone.Security.Cryptography
     /// </summary>
     public static class Random
     {
-        private static readonly RNGCryptoServiceProvider s_randomNumberGenerator = new RNGCryptoServiceProvider();
+        private static readonly RandomNumberGenerator s_randomNumberGenerator = RandomNumberGenerator.Create();
 
         /// <summary>
         /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one.

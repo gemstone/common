@@ -96,7 +96,7 @@ namespace Gemstone.Net.Security
         /// <summary>
         /// Gets a list of detailed log messages
         /// </summary>
-        public List<string> DebugLog => new List<string>(m_debugLog);
+        public List<string> DebugLog => new(m_debugLog);
 
         #endregion
 
@@ -124,8 +124,8 @@ namespace Gemstone.Net.Security
 
             stores = new List<X509Store>
             {
-                new X509Store(StoreName.My, StoreLocation.LocalMachine),
-                new X509Store(StoreName.My, StoreLocation.CurrentUser)
+                new(StoreName.My, StoreLocation.LocalMachine),
+                new(StoreName.My, StoreLocation.CurrentUser)
             };
 
             // Attempt to get an existing certificate from the given certificate path
@@ -250,8 +250,8 @@ namespace Gemstone.Net.Security
                         UseShellExecute = true
                     };
 
-                    using (Process makeCertProcess = Process.Start(processInfo))
-                        makeCertProcess.WaitForExit();
+                    using (Process? makeCertProcess = Process.Start(processInfo))
+                        makeCertProcess?.WaitForExit();
 
                     if (File.Exists(certificatePath))
                         m_debugLog.Add($"Attempting to generate a new certificate in the {store.Location} store... success");
@@ -277,15 +277,15 @@ namespace Gemstone.Net.Security
         {
             // Attempt to get an existing certificate from the given certificate path
             string certificatePath = FilePath.GetAbsolutePath(CertificatePath);
-            X509Certificate2 certificate = new X509Certificate2(certificatePath);
+            X509Certificate2 certificate = new(certificatePath);
 
-            using X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+            using X509Store store = new(StoreName.My, StoreLocation.CurrentUser);
             store.Open(OpenFlags.ReadOnly);
 
             List<X509Certificate2> certificates = store.Certificates.Cast<X509Certificate2>().ToList();
             FindMatchingCertificates(certificates, certificate);
 
-            X509Certificate2 pvkCertificate = certificates.FirstOrDefault(CanAccessPrivateKey);
+            X509Certificate2? pvkCertificate = certificates.FirstOrDefault(CanAccessPrivateKey);
 
             if (pvkCertificate is null)
                 throw new InvalidOperationException("Could not locate private key in the current user store.");
@@ -305,9 +305,9 @@ namespace Gemstone.Net.Security
         public void ImportCertificateWithPrivateKey(string importPath, SecureString password)
         {
             X509KeyStorageFlags keyStorageFlags = X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet;
-            X509Certificate2 certificate = new X509Certificate2(importPath, password, keyStorageFlags);
+            X509Certificate2 certificate = new(importPath, password, keyStorageFlags);
 
-            using (X509Store store = new X509Store(StoreName.My, StoreLocation.CurrentUser))
+            using (X509Store store = new(StoreName.My, StoreLocation.CurrentUser))
             {
                 store.Open(OpenFlags.ReadWrite);
                 store.Add(certificate);
@@ -390,7 +390,7 @@ namespace Gemstone.Net.Security
                 // The point here is not only to check if the certificate has a private key,
                 // but also to attempt to access its private key, since doing so might result
                 // in a CryptographicException; certificate.HasPrivateKey will not work
-                return certificate.PrivateKey is not null;
+                return certificate.GetRSAPrivateKey() is not null;
             }
             catch (CryptographicException)
             {

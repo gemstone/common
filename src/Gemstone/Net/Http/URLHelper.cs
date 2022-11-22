@@ -58,7 +58,7 @@ namespace Gemstone.Net.Http
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                ProcessStartInfo startInfo = new ProcessStartInfo(url);
+                ProcessStartInfo startInfo = new(url);
                 startInfo.UseShellExecute = true;
                 using (Process.Start(startInfo)) { }
                 return;

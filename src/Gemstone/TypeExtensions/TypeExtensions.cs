@@ -96,7 +96,7 @@ namespace Gemstone.TypeExtensions
             if (indexOfComma >= 0)
                 length = Math.Min(indexOfComma, length);
 
-            name = name.Substring(0, length).Trim();
+            name = name[..length].Trim();
 
             return name;
         }
@@ -160,7 +160,7 @@ namespace Gemstone.TypeExtensions
         [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFrom")]
         public static List<Type> LoadImplementations(this Type type, string binariesDirectory, bool excludeAbstractTypes, bool validateReferences = true)
         {
-            List<Type> types = new List<Type>();
+            List<Type> types = new();
 
             // Use application install directory for application.
             if (string.IsNullOrEmpty(binariesDirectory))
@@ -193,7 +193,7 @@ namespace Gemstone.TypeExtensions
                             if (type.IsClass && asmType.IsSubclassOf(type))
                                 types.Add(asmType); // The type being tested is a class and current type derives from it.
 
-                            if (type.IsInterface && asmType.GetInterface(type.FullName) is not null)
+                            if (type.IsInterface && asmType.GetInterface(type.FullName!) is not null)
                                 types.Add(asmType); // The type being tested is an interface and current type implements it.
 
                             if (type.GetRootType() == typeof(Attribute) && asmType.GetCustomAttributes(type, true).Length > 0)

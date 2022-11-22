@@ -109,9 +109,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
-            Temperature expected = new Temperature(0F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
+            Temperature expected = new(0F);
             Temperature actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);
@@ -123,9 +123,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
-            Temperature expected = new Temperature(100F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
+            Temperature expected = new(100F);
             Temperature actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -137,9 +137,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
-            Temperature expected = new Temperature(0F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
+            Temperature expected = new(0F);
             Temperature actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -151,8 +151,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -165,8 +165,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(11F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -179,8 +179,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(11F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 != value2;
@@ -194,7 +194,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitTemperatureTest()
         {
             double value = 10F;
-            Temperature expected = new Temperature(10F);
+            Temperature expected = new(10F);
             Temperature actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -206,7 +206,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitDoubleTest()
         {
-            Temperature value = new Temperature(10F);
+            Temperature value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -219,8 +219,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -233,8 +233,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(9F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -247,8 +247,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Temperature value1 = new Temperature(2F);
-            Temperature value2 = new Temperature(3F);
+            Temperature value1 = new(2F);
+            Temperature value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Temperature.op_Exponent(value1, value2);
@@ -261,8 +261,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -275,9 +275,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
-            Temperature expected = new Temperature(1F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
+            Temperature expected = new(1F);
             Temperature actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -289,9 +289,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Temperature value1 = new Temperature(10F);
-            Temperature value2 = new Temperature(10F);
-            Temperature expected = new Temperature(20F);
+            Temperature value1 = new(10F);
+            Temperature value2 = new(10F);
+            Temperature expected = new(20F);
             Temperature actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -325,10 +325,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Temperature result = new Temperature(value);
-            Temperature resultExpected = new Temperature(value);
+            Temperature result = new(value);
+            Temperature resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Temperature.TryParse(s, style, provider, out result);
@@ -354,8 +354,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Temperature result = new Temperature(value);
-            Temperature resultExpected = new Temperature(value);
+            Temperature result = new(value);
+            Temperature resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Temperature.TryParse(s, out result);
@@ -388,7 +388,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -408,7 +408,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -430,7 +430,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -454,7 +454,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -472,7 +472,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToRømerTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double expected = -130.65375;
             double actual;
             actual = target.ToRømer();
@@ -487,7 +487,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToRéaumurTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double expected = -210.51999999999998;
             double actual;
             actual = target.ToRéaumur();
@@ -503,7 +503,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToRankineTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double expected = 18F;
             double actual;
             actual = target.ToRankine();
@@ -519,7 +519,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToNewtonTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double expected = -86.839499999999987;
             double actual;
             actual = target.ToNewton();
@@ -535,7 +535,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToFahrenheitTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double expected = -441.67;
             double actual;
             actual = target.ToFahrenheit();
@@ -550,7 +550,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToDelisleTest()
         {
-            Temperature target = new Temperature(10F);
+            Temperature target = new(10F);
             double expected = 544.725;
             double actual;
             actual = target.ToDelisle();
@@ -565,7 +565,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCelsiusTest()
         {
-            Temperature target = new Temperature(10F);
+            Temperature target = new(10F);
             double expected = -263.15;
             double actual;
             actual = target.ToCelsius();
@@ -734,7 +734,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Temperature(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -816,8 +816,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Temperature expected = new Temperature(value);
+            NumberStyles style = new();
+            Temperature expected = new(value);
             Temperature actual;
             actual = Temperature.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -851,9 +851,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Temperature expected = new Temperature(value);
+            Temperature expected = new(value);
             Temperature actual;
             actual = Temperature.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -881,7 +881,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Temperature expected = new Temperature(value);
+            Temperature expected = new(value);
             Temperature actual;
             actual = Temperature.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -905,7 +905,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Temperature expected = new Temperature(value);
+            Temperature expected = new(value);
             Temperature actual;
             actual = Temperature.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -919,8 +919,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Temperature target = new Temperature();
-            TypeCode expected = new TypeCode();
+            Temperature target = new();
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -937,7 +937,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Temperature target = new Temperature(10F);
+            Temperature target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -1065,7 +1065,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromCelsiusTest()
         {
             double value = 10F;
-            Temperature expected = new Temperature(283.15);
+            Temperature expected = new(283.15);
             Temperature actual;
             actual = Temperature.FromCelsius(value);
             Assert.AreEqual(expected, actual);
@@ -1084,7 +1084,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void EqualsTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             object obj = new Temperature(value);
             bool expected = true;
             bool actual;
@@ -1104,8 +1104,8 @@ namespace Gemstone.Common.UnitTests.Units
         public void EqualsTemperatureTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
-            Temperature obj = new Temperature(value);
+            Temperature target = new(value);
+            Temperature obj = new(value);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -1124,7 +1124,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void EqualsDoubleTest()
         {
             double value = 10F;
-            Temperature target = new Temperature(value);
+            Temperature target = new(value);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -1147,7 +1147,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void CompareToDoubleTest()
         {
 
-            Temperature target = new Temperature(10F);
+            Temperature target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -1169,7 +1169,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectTest()
         {
-            Temperature target = new Temperature(10F);
+            Temperature target = new(10F);
             object value = new Temperature(10F);
             int expected = 0;
             int actual;
@@ -1191,8 +1191,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToTemperatureTest()
         {
-            Temperature target = new Temperature(10F);
-            Temperature value = new Temperature(10F);
+            Temperature target = new(10F);
+            Temperature value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -1207,14 +1207,14 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void TemperatureConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Temperature target = new Temperature(value);
+                Temperature target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Temperature));
                 Assert.IsNotNull(target);
             }

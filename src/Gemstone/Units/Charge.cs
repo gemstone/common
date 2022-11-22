@@ -245,7 +245,7 @@ namespace Gemstone.Units
         /// if this instance is greater than value.
         /// </returns>
         /// <exception cref="ArgumentException">value is not a <see cref="double"/> or <see cref="Charge"/>.</exception>
-        public int CompareTo(object value)
+        public int CompareTo(object? value)
         {
             if (value is null)
                 return 1;
@@ -315,7 +315,7 @@ namespace Gemstone.Units
         /// True if obj is an instance of <see cref="double"/> or <see cref="Charge"/> and equals the value of this instance;
         /// otherwise, False.
         /// </returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             double num;
 
@@ -399,7 +399,7 @@ namespace Gemstone.Units
         /// <returns>
         /// The string representation of the value of this instance as specified by format.
         /// </returns>
-        public string ToString(string format)
+        public string ToString(string? format)
         {
             return m_value.ToString(format);
         }
@@ -414,7 +414,7 @@ namespace Gemstone.Units
         /// <returns>
         /// The string representation of the value of this instance as specified by provider.
         /// </returns>
-        public string ToString(IFormatProvider provider)
+        public string ToString(IFormatProvider? provider)
         {
             return m_value.ToString(provider);
         }
@@ -430,7 +430,7 @@ namespace Gemstone.Units
         /// <returns>
         /// The string representation of the value of this instance as specified by format and provider.
         /// </returns>
-        public string ToString(string format, IFormatProvider provider)
+        public string ToString(string? format, IFormatProvider? provider)
         {
             return m_value.ToString(format, provider);
         }
@@ -491,7 +491,7 @@ namespace Gemstone.Units
         /// s represents a number less than <see cref="Charge.MinValue"/> or greater than <see cref="Charge.MaxValue"/>.
         /// </exception>
         /// <exception cref="FormatException">s is not in the correct format.</exception>
-        public static Charge Parse(string s, IFormatProvider provider)
+        public static Charge Parse(string s, IFormatProvider? provider)
         {
             return double.Parse(s, provider);
         }
@@ -518,7 +518,7 @@ namespace Gemstone.Units
         /// s represents a number less than <see cref="Charge.MinValue"/> or greater than <see cref="Charge.MaxValue"/>.
         /// </exception>
         /// <exception cref="FormatException">s is not in a format compliant with style.</exception>
-        public static Charge Parse(string s, NumberStyles style, IFormatProvider provider)
+        public static Charge Parse(string s, NumberStyles style, IFormatProvider? provider)
         {
             return double.Parse(s, style, provider);
         }
@@ -590,79 +590,79 @@ namespace Gemstone.Units
 
         // These are explicitly implemented on the native System.Double implementations, so we do the same...
 
-        bool IConvertible.ToBoolean(IFormatProvider provider)
+        bool IConvertible.ToBoolean(IFormatProvider? provider)
         {
             return Convert.ToBoolean(m_value, provider);
         }
 
-        char IConvertible.ToChar(IFormatProvider provider)
+        char IConvertible.ToChar(IFormatProvider? provider)
         {
             return Convert.ToChar(m_value, provider);
         }
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider)
+        sbyte IConvertible.ToSByte(IFormatProvider? provider)
         {
             return Convert.ToSByte(m_value, provider);
         }
 
-        byte IConvertible.ToByte(IFormatProvider provider)
+        byte IConvertible.ToByte(IFormatProvider? provider)
         {
             return Convert.ToByte(m_value, provider);
         }
 
-        short IConvertible.ToInt16(IFormatProvider provider)
+        short IConvertible.ToInt16(IFormatProvider? provider)
         {
             return Convert.ToInt16(m_value, provider);
         }
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider)
+        ushort IConvertible.ToUInt16(IFormatProvider? provider)
         {
             return Convert.ToUInt16(m_value, provider);
         }
 
-        int IConvertible.ToInt32(IFormatProvider provider)
+        int IConvertible.ToInt32(IFormatProvider? provider)
         {
             return Convert.ToInt32(m_value, provider);
         }
 
-        uint IConvertible.ToUInt32(IFormatProvider provider)
+        uint IConvertible.ToUInt32(IFormatProvider? provider)
         {
             return Convert.ToUInt32(m_value, provider);
         }
 
-        long IConvertible.ToInt64(IFormatProvider provider)
+        long IConvertible.ToInt64(IFormatProvider? provider)
         {
             return Convert.ToInt64(m_value, provider);
         }
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider)
+        ulong IConvertible.ToUInt64(IFormatProvider? provider)
         {
             return Convert.ToUInt64(m_value, provider);
         }
 
-        float IConvertible.ToSingle(IFormatProvider provider)
+        float IConvertible.ToSingle(IFormatProvider? provider)
         {
             return Convert.ToSingle(m_value, provider);
         }
 
-        double IConvertible.ToDouble(IFormatProvider provider)
+        double IConvertible.ToDouble(IFormatProvider? provider)
         {
             return m_value;
         }
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider)
+        decimal IConvertible.ToDecimal(IFormatProvider? provider)
         {
             return Convert.ToDecimal(m_value, provider);
         }
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider)
         {
             return Convert.ToDateTime(m_value, provider);
         }
 
-        object IConvertible.ToType(Type type, IFormatProvider provider)
+        object IConvertible.ToType(Type type, IFormatProvider? provider)
         {
-            return Convert.ChangeType(m_value, type, provider) ?? Activator.CreateInstance(type);
+            return Convert.ChangeType(m_value, type, provider) ?? Activator.CreateInstance(type)!;
         }
 
         #endregion

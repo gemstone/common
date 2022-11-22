@@ -161,9 +161,9 @@ namespace Gemstone.Console
                 return true;
             }
 
-            private void m_process_OutputDataReceived(object sender, DataReceivedEventArgs e) => m_standardOutput.AppendLine(e.Data);
+            private void m_process_OutputDataReceived(object? sender, DataReceivedEventArgs e) => m_standardOutput.AppendLine(e.Data);
 
-            private void m_process_ErrorDataReceived(object sender, DataReceivedEventArgs e) => m_standardError.AppendLine(e.Data);
+            private void m_process_ErrorDataReceived(object? sender, DataReceivedEventArgs e) => m_standardError.AppendLine(e.Data);
 
             #endregion
         }
@@ -215,7 +215,7 @@ namespace Gemstone.Console
         /// <returns><c>true</c> if there was no standard error reported; otherwise, <c>false</c>.</returns>
         public static bool Execute(string fileName, string? arguments, out string standardOutput, out string standardError, out bool processCompleted, out int exitCode, int timeout)
         {
-            using CommandProcess process = new CommandProcess(fileName, arguments ?? "");
+            using CommandProcess process = new(fileName, arguments ?? "");
 
             processCompleted = process.Execute(timeout);
             standardOutput = process.StandardOutput;

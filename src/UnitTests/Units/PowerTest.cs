@@ -110,14 +110,14 @@ namespace Gemstone.Common.UnitTests.Units
         public void PowerConstructorTest()
         {
 
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Power target = new Power(value);
+                Power target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Power));
                 Assert.IsNotNull(target);
             }
@@ -139,8 +139,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToPowerTest()
         {
-            Power target = new Power(10F);
-            Power value = new Power(10F);
+            Power target = new(10F);
+            Power value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -161,7 +161,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             object value = new Power(10F);
             int expected = 0;
             int actual;
@@ -182,7 +182,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -201,7 +201,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double obj = new Power(10F);
             bool expected = true;
             bool actual;
@@ -221,7 +221,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             object obj = new Power(10F);
             bool expected = true;
             bool actual;
@@ -240,8 +240,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsPowerTest()
         {
-            Power target = new Power(10F);
-            Power obj = new Power(10F);
+            Power target = new(10F);
+            Power obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -322,7 +322,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromLitersAtmospherePerSecondTest()
         {
             double value = 10F;
-            Power expected = new Power(1013.25);
+            Power expected = new(1013.25);
             Power actual;
             actual = Power.FromLitersAtmospherePerSecond(value);
             Assert.AreEqual(expected, actual);
@@ -354,7 +354,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -369,8 +369,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Power target = new Power(10F);
-            TypeCode expected = new TypeCode();
+            Power target = new(10F);
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -402,8 +402,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Power expected = new Power(value);
+            NumberStyles style = new();
+            Power expected = new(value);
             Power actual;
             actual = Power.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -437,9 +437,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Power expected = new Power(value);
+            Power expected = new(value);
             Power actual;
             actual = Power.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -467,7 +467,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Power expected = new Power(value);
+            Power expected = new(value);
             Power actual;
             actual = Power.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -491,7 +491,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Power expected = new Power(value);
+            Power expected = new(value);
             Power actual;
             actual = Power.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -572,7 +572,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Power(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -737,7 +737,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToBTUPerSecondTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 0.0094781712031331723;
             double actual;
             actual = target.ToBTUPerSecond();
@@ -752,7 +752,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToBoilerHorsepowerTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 0.0010192997268174803;
             double actual;
             actual = target.ToBoilerHorsepower();
@@ -767,7 +767,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCaloriesPerSecondTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 2.3884589662749596;
             double actual;
             actual = target.ToCaloriesPerSecond();
@@ -782,7 +782,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToHorsepowerTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 0.013410220895950278;
             double actual;
             actual = target.ToHorsepower();
@@ -797,7 +797,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToLitersAtmospherePerSecondTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 0.098692326671601285;
             double actual;
             actual = target.ToLitersAtmospherePerSecond();
@@ -812,7 +812,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToMetricHorsepowerTest()
         {
-            Power target = new Power(10F);
+            Power target = new(10F);
             double expected = 0.013596216173039044;
             double actual;
             actual = target.ToMetricHorsepower();
@@ -834,7 +834,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Power target = new Power(value);
+            Power target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -854,7 +854,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Power target = new Power(10F);
+            Power target = new(10F);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -877,7 +877,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Power target = new Power(value);
+            Power target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -899,7 +899,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Power target = new Power(value);
+            Power target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -935,10 +935,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Power result = new Power(value);
-            Power resultExpected = new Power(value);
+            Power result = new(value);
+            Power resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Power.TryParse(s, style, provider, out result);
@@ -964,8 +964,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Power result = new Power(value);
-            Power resultExpected = new Power(value);
+            Power result = new(value);
+            Power resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Power.TryParse(s, out result);
@@ -979,9 +979,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
-            Power expected = new Power(20F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
+            Power expected = new(20F);
             Power actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -993,9 +993,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
-            Power expected = new Power(1F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
+            Power expected = new(1F);
             Power actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -1007,8 +1007,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -1021,8 +1021,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Power value1 = new Power(2F);
-            Power value2 = new Power(3F);
+            Power value1 = new(2F);
+            Power value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Power.op_Exponent(value1, value2);
@@ -1035,8 +1035,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(9F);
+            Power value1 = new(10F);
+            Power value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -1049,8 +1049,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -1064,7 +1064,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitDoubleTest()
         {
             double value = 10F;
-            Power expected = new Power(value);
+            Power expected = new(value);
             Power actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -1076,7 +1076,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitPowerTest()
         {
-            Power value = new Power(10F);
+            Power value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -1089,8 +1089,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
             bool expected = false;
             bool actual;
             actual = value1 != value2;
@@ -1103,8 +1103,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(11F);
+            Power value1 = new(10F);
+            Power value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -1117,8 +1117,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(11F);
+            Power value1 = new(10F);
+            Power value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -1131,9 +1131,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(20F);
-            Power expected = new Power(10F);
+            Power value1 = new(10F);
+            Power value2 = new(20F);
+            Power expected = new(10F);
             Power actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1145,9 +1145,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
-            Power expected = new Power(100F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
+            Power expected = new(100F);
             Power actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1159,9 +1159,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Power value1 = new Power(10F);
-            Power value2 = new Power(10F);
-            Power expected = new Power(0F);
+            Power value1 = new(10F);
+            Power value2 = new(10F);
+            Power expected = new(0F);
             Power actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

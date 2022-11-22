@@ -236,7 +236,7 @@ namespace Gemstone.Scheduling
         {
             get
             {
-                StringBuilder status = new StringBuilder();
+                StringBuilder status = new();
 
                 status.AppendLine($"             Schedule name: {Name}");
                 status.AppendLine($"             Schedule rule: {Rule}");
@@ -471,7 +471,7 @@ namespace Gemstone.Scheduling
         /// </summary>
         /// <param name="obj">The <see cref="Schedule"/> to compare with the current <see cref="Schedule"/>.</param>
         /// <returns><c>true</c> if the specified <see cref="Schedule"/> is equal to the current <see cref="Schedule"/>; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj) =>
+        public override bool Equals(object? obj) =>
             ReferenceEquals(this, obj) || obj is Schedule other && Name == other.Name && Rule == other.Rule;
 
         /// <summary>

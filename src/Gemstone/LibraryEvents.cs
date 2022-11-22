@@ -52,7 +52,7 @@ namespace Gemstone
     public static class LibraryEvents
     {
         private static EventHandler<UnhandledExceptionEventArgs>? s_suppressedExceptionHandler;
-        private static readonly object s_suppressedExceptionLock = new object();
+        private static readonly object s_suppressedExceptionLock = new();
 
         static LibraryEvents() => EnableUnobservedTaskExceptionHandling();
 
@@ -74,7 +74,7 @@ namespace Gemstone
         public static void DisableUnobservedTaskExceptionHandling() =>
             TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
 
-        private static void TaskScheduler_UnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        private static void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
         {
             e.SetObserved();
             OnSuppressedException(sender, e.Exception);
@@ -114,7 +114,7 @@ namespace Gemstone
         // This method is internal to prevent exceptions from being recursively handled. Consequently, Gemstone libraries
         // should not attach to the SuppressedException event to avoid accidentally passing any caught exceptions back to
         // the OnSuppressedException method via an event handler for the SuppressedException event.
-        internal static void OnSuppressedException(object sender, Exception ex)
+        internal static void OnSuppressedException(object? sender, Exception ex)
         {
             if (s_suppressedExceptionHandler is null)
                 return;

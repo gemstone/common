@@ -97,7 +97,7 @@ namespace Gemstone.IO
         /// <returns></returns>
         public byte[] Dequeue()
         {
-            if (m_buffers.TryDequeue(out byte[] item))
+            if (m_buffers.TryDequeue(out byte[]? item))
                 return item;
 
             Interlocked.Increment(ref m_objectsCreated);

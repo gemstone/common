@@ -3,7 +3,7 @@
   <Import Sdk="Microsoft.NET.Sdk" Project="Sdk.props" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net7.0</TargetFrameworks>
+    <TargetFrameworks>net7.0;netstandard2.1</TargetFrameworks>
     <RootNamespace>Gemstone</RootNamespace>
     <PackageId>Gemstone.Common</PackageId>
     <Authors>Grid Protection Alliance</Authors>
@@ -40,6 +40,10 @@
 
   <PropertyGroup Condition="'$(Configuration)'=='Development'">
     <DebugType>Full</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(OS)' == 'Windows_NT' ">
+    <DefineConstants>WINDOWS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

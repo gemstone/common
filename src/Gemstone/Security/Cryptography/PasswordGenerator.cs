@@ -157,17 +157,17 @@ namespace Gemstone.Security.Cryptography
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly IReadOnlyList<CharacterGroup> DefaultCharacterGroups = new List<CharacterGroup>
         {
-            new CharacterGroup { Characters = "abcdefghijklmnopqrstuvwxyz", MinOccurrence = 1 },
-            new CharacterGroup { Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", MinOccurrence = 1 },
-            new CharacterGroup { Characters = "0123456789", MinOccurrence = 1 },
-            new CharacterGroup { Characters = "~!@#$%^&*-_+:,.?", MinOccurrence = 1 }
+            new() { Characters = "abcdefghijklmnopqrstuvwxyz", MinOccurrence = 1 },
+            new() { Characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ", MinOccurrence = 1 },
+            new() { Characters = "0123456789", MinOccurrence = 1 },
+            new() { Characters = "~!@#$%^&*-_+:,.?", MinOccurrence = 1 }
         };
 
         /// <summary>
         /// Defines the default password generator.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-        public static readonly PasswordGenerator Default = new PasswordGenerator();
+        public static readonly PasswordGenerator Default = new();
 
         #endregion
     }

@@ -184,7 +184,7 @@ namespace Gemstone.Scheduling
                         string[] interval = range[1].Split('/');
                         return $"{range[0]} to {interval[0]} every {interval[1]} {DateTimePart}(s)";
                     default:
-                        return "";
+                        return string.Empty;
                 }
             }
         }

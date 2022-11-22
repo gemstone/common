@@ -111,13 +111,13 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void VolumeConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Volume target = new Volume(value);
+                Volume target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Volume));
                 Assert.IsNotNull(target);
             }
@@ -138,7 +138,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -160,8 +160,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToVolumeTest()
         {
-            Volume target = new Volume(10F);
-            Volume value = new Volume(10F);
+            Volume target = new(10F);
+            Volume value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -182,7 +182,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToObjectTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             object value = new Volume(10F);
             int expected = 0;
             int actual;
@@ -201,8 +201,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsVolumeTest()
         {
-            Volume target = new Volume(10F);
-            Volume obj = new Volume(10F);
+            Volume target = new(10F);
+            Volume obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -220,7 +220,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -240,7 +240,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             object obj = new Volume(10F);
             bool expected = true;
             bool actual;
@@ -258,7 +258,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromCubicFeetTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.28316846592);
+            Volume expected = new(0.28316846592);
             Volume actual;
             actual = Volume.FromCubicFeet(value);
             Assert.AreEqual(expected, actual);
@@ -290,7 +290,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromCupsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.002365882365);
+            Volume expected = new(0.002365882365);
             Volume actual;
             actual = Volume.FromCups(value);
             Assert.AreEqual(expected, actual);
@@ -306,7 +306,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromFluidOuncesTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.000295735295625);
+            Volume expected = new(0.000295735295625);
             Volume actual;
             actual = Volume.FromFluidOunces(value);
             Assert.AreEqual(expected, actual);
@@ -322,7 +322,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromGallonsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.03785411784);
+            Volume expected = new(0.03785411784);
             Volume actual;
             actual = Volume.FromGallons(value);
             Assert.AreEqual(expected, actual);
@@ -338,7 +338,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromLitersTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.01);
+            Volume expected = new(0.01);
             Volume actual;
             actual = Volume.FromLiters(value);
             Assert.AreEqual(expected, actual);
@@ -354,7 +354,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromMetricCupsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.0025);
+            Volume expected = new(0.0025);
             Volume actual;
             actual = Volume.FromMetricCups(value);
             Assert.AreEqual(expected, actual);
@@ -386,7 +386,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromMetricTeaspoonsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(5E-05);
+            Volume expected = new(5E-05);
             Volume actual;
             actual = Volume.FromMetricTeaspoons(value);
             Assert.AreEqual(expected, actual);
@@ -402,7 +402,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromPintsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.00473176473);
+            Volume expected = new(0.00473176473);
             Volume actual;
             actual = Volume.FromPints(value);
             Assert.AreEqual(expected, actual);
@@ -418,7 +418,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromQuartsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(0.00946352946);
+            Volume expected = new(0.00946352946);
             Volume actual;
             actual = Volume.FromQuarts(value);
             Assert.AreEqual(expected, actual);
@@ -450,7 +450,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromTeaspoonsTest()
         {
             double value = 10F;
-            Volume expected = new Volume(4.928921595E-05);
+            Volume expected = new(4.928921595E-05);
             Volume actual;
             actual = Volume.FromTeaspoons(value);
             Assert.AreEqual(expected, actual);
@@ -466,7 +466,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -481,8 +481,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Volume target = new Volume(10F);
-            TypeCode expected = new TypeCode();
+            Volume target = new(10F);
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -514,8 +514,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Volume expected = new Volume(value);
+            NumberStyles style = new();
+            Volume expected = new(value);
             Volume actual;
             actual = Volume.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -539,7 +539,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Volume expected = new Volume(value);
+            Volume expected = new(value);
             Volume actual;
             actual = Volume.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -567,7 +567,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Volume expected = new Volume(value);
+            Volume expected = new(value);
             Volume actual;
             actual = Volume.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -601,9 +601,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Volume expected = new Volume(value);
+            Volume expected = new(value);
             Volume actual;
             actual = Volume.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -668,7 +668,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -833,7 +833,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCubicFeetTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 353.14666721488589;
             double actual;
             actual = target.ToCubicFeet();
@@ -848,7 +848,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCubicInchesTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 610237.44094732287;
             double actual;
             actual = target.ToCubicInches();
@@ -863,7 +863,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToCupsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 42267.528377303744;
             double actual;
             actual = target.ToCups();
@@ -876,7 +876,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToFluidOuncesTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 338140.22701842996;
             double actual;
             actual = target.ToFluidOunces();
@@ -891,7 +891,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToGallonsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 2641.720523581484;
             double actual;
             actual = target.ToGallons();
@@ -906,7 +906,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToLitersTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 10000.0;
             double actual;
             actual = target.ToLiters();
@@ -921,7 +921,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToMetricCupsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 40000.0;
             double actual;
             actual = target.ToMetricCups();
@@ -936,7 +936,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToMetricTablespoonsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 666666.66666666663;
             double actual;
             actual = target.ToMetricTablespoons();
@@ -951,7 +951,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToMetricTeaspoonsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 1999999.9999999998;
             double actual;
             actual = target.ToMetricTeaspoons();
@@ -966,7 +966,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToPintsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 21133.764188651872;
             double actual;
             actual = target.ToPints();
@@ -981,7 +981,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToQuartsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 10566.882094325936;
             double actual;
             actual = target.ToQuarts();
@@ -1004,7 +1004,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Volume target = new Volume(value);
+            Volume target = new(value);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -1025,7 +1025,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Volume target = new Volume(value);
+            Volume target = new(value);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -1045,7 +1045,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Volume target = new Volume(value);
+            Volume target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -1068,7 +1068,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Volume target = new Volume(value);
+            Volume target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -1084,7 +1084,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToTablespoonsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 676280.45397969056;
             double actual;
             actual = target.ToTablespoons();
@@ -1099,7 +1099,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToTeaspoonsTest()
         {
-            Volume target = new Volume(10F);
+            Volume target = new(10F);
             double expected = 2028841.3615960551;
             double actual;
             actual = target.ToTeaspoons();
@@ -1124,8 +1124,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Volume result = new Volume(value);
-            Volume resultExpected = new Volume(value);
+            Volume result = new(value);
+            Volume resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Volume.TryParse(s, out result);
@@ -1161,10 +1161,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Volume result = new Volume(value);
-            Volume resultExpected = new Volume(value);
+            Volume result = new(value);
+            Volume resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Volume.TryParse(s, style, provider, out result);
@@ -1178,9 +1178,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
-            Volume expected = new Volume(20F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
+            Volume expected = new(20F);
             Volume actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -1192,9 +1192,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
-            Volume expected = new Volume(1F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
+            Volume expected = new(1F);
             Volume actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -1206,8 +1206,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -1220,8 +1220,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Volume value1 = new Volume(2F);
-            Volume value2 = new Volume(3F);
+            Volume value1 = new(2F);
+            Volume value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Volume.op_Exponent(value1, value2);
@@ -1234,8 +1234,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(9F);
+            Volume value1 = new(10F);
+            Volume value2 = new(9F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -1248,8 +1248,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -1262,7 +1262,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitTest()
         {
-            Volume value = new Volume(10F);
+            Volume value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -1276,7 +1276,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitTest1()
         {
             double value = 10F;
-            Volume expected = new Volume(10F);
+            Volume expected = new(10F);
             Volume actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -1288,8 +1288,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
             bool expected = false;
             bool actual;
             actual = value1 != value2;
@@ -1302,8 +1302,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(11F);
+            Volume value1 = new(10F);
+            Volume value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -1316,8 +1316,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -1330,9 +1330,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
-            Volume expected = new Volume(0F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
+            Volume expected = new(0F);
             Volume actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1344,9 +1344,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
-            Volume expected = new Volume(100F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
+            Volume expected = new(100F);
             Volume actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1358,9 +1358,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Volume value1 = new Volume(10F);
-            Volume value2 = new Volume(10F);
-            Volume expected = new Volume(0F);
+            Volume value1 = new(10F);
+            Volume value2 = new(10F);
+            Volume expected = new(0F);
             Volume actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

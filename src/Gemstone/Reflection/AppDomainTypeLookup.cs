@@ -87,7 +87,7 @@ namespace Gemstone.Reflection
 
         private List<Type> LoadNewAssemblies()
         {
-            List<Type> types = new List<Type>();
+            List<Type> types = new();
 
             try
             {
@@ -131,7 +131,7 @@ namespace Gemstone.Reflection
 
         private void FindAllTypes(List<Type> newlyFoundObjects, Module module)
         {
-            Type[] types;
+            Type?[] types;
 
             try
             {
@@ -145,7 +145,7 @@ namespace Gemstone.Reflection
                 types = ex.Types;
             }
 
-            foreach (Type assemblyType in types)
+            foreach (Type? assemblyType in types)
             {
                 try
                 {

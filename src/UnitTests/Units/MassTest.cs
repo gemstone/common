@@ -109,14 +109,14 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void MassConstructorTest()
         {
-            List<Double> values = new List<Double>();
+            List<Double> values = new();
 
             //Initialization
             values.Add(0);
 
             foreach (Double value in values)
             {
-                Mass target = new Mass(value);
+                Mass target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Mass));
                 Assert.IsNotNull(target);
             }
@@ -138,7 +138,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToDoubleTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double value = 10F;
             int expected = 0;
             int actual;
@@ -157,8 +157,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToMassTest()
         {
-            Mass target = new Mass(10F);
-            Mass value = new Mass(10F);
+            Mass target = new(10F);
+            Mass value = new(10F);
             int expected = 0;
             int actual;
             actual = target.CompareTo(value);
@@ -179,7 +179,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void CompareToTest2()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             object value = new Mass(10F);
             int expected = 0;
             int actual;
@@ -198,8 +198,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsTest()
         {
-            Mass target = new Mass(10F);
-            Mass obj = new Mass(10F);
+            Mass target = new(10F);
+            Mass obj = new(10F);
             bool expected = true;
             bool actual;
             actual = target.Equals(obj);
@@ -217,7 +217,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsDoubleTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double obj = 10F;
             bool expected = true;
             bool actual;
@@ -236,7 +236,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void EqualsObjectTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             object obj = new Mass(10F);
             bool expected = true;
             bool actual;
@@ -254,7 +254,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromLongTonsTest()
         {
             double value = 10F;
-            Mass expected = new Mass(10160.469088);
+            Mass expected = new(10160.469088);
             Mass actual;
             actual = Mass.FromLongTons(value);
             Assert.AreEqual(expected, actual);
@@ -270,7 +270,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromMetricPoundsTest()
         {
             double value = 10F;
-            Mass expected = new Mass(5F);
+            Mass expected = new(5F);
             Mass actual;
             actual = Mass.FromMetricPounds(value);
             Assert.AreEqual(expected, actual);
@@ -286,7 +286,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromMetricTonsTest()
         {
             double value = 10F;
-            Mass expected = new Mass(10000);
+            Mass expected = new(10000);
             Mass actual;
             actual = Mass.FromMetricTons(value);
             Assert.AreEqual(expected, actual);
@@ -335,7 +335,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void FromTonsTest()
         {
             double value = 10F;
-            Mass expected = new Mass(9071.8474);
+            Mass expected = new(9071.8474);
             Mass actual;
             actual = Mass.FromTons(value);
             Assert.AreEqual(expected, actual);
@@ -351,7 +351,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetHashCodeTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             int expected = 1076101120;
             int actual;
             actual = target.GetHashCode();
@@ -366,8 +366,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void GetTypeCodeTest()
         {
-            Mass target = new Mass(10F);
-            TypeCode expected = new TypeCode();
+            Mass target = new(10F);
+            TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
             TypeCode actual;
             actual = target.GetTypeCode();
@@ -392,7 +392,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Mass expected = new Mass(value);
+            Mass expected = new(value);
             Mass actual;
             actual = Mass.Parse(s);
             Assert.AreEqual(expected, actual);
@@ -423,8 +423,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
-            Mass expected = new Mass(value);
+            NumberStyles style = new();
+            Mass expected = new(value);
             Mass actual;
             actual = Mass.Parse(s, style);
             Assert.AreEqual(expected, actual);
@@ -452,7 +452,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             IFormatProvider provider = null;
-            Mass expected = new Mass(value);
+            Mass expected = new(value);
             Mass actual;
             actual = Mass.Parse(s, provider);
             Assert.AreEqual(expected, actual);
@@ -486,9 +486,9 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Mass expected = new Mass(value);
+            Mass expected = new(value);
             Mass actual;
             actual = Mass.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
@@ -569,7 +569,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
-            Decimal expected = new Decimal(10F);
+            Decimal expected = new(10F);
             Decimal actual;
             actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
@@ -734,7 +734,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToLongTonsTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 0.0098420652761106071;
             double actual;
             actual = target.ToLongTons();
@@ -748,7 +748,7 @@ namespace Gemstone.Common.UnitTests.Units
         /// <returns>Value of <see cref="Mass"/> in metric pounds.</returns>
         public void ToMetricPoundsTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 10F;
             double actual;
             actual = target.ToMetricPounds();
@@ -763,7 +763,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToMetricTonsTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 0.01;
             double actual;
             actual = target.ToMetricTons();
@@ -778,7 +778,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToOuncesTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 352.73961949580411;
             double actual;
             actual = target.ToOunces();
@@ -793,7 +793,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToPoundsTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 22.046226218487757;
             double actual;
             actual = target.ToPounds();
@@ -816,7 +816,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatProviderTest()
         {
             double value = 10F;
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
@@ -837,7 +837,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringTest()
         {
             double value = 10F;
-            Mass target = new Mass(value);
+            Mass target = new(value);
             string expected = value.ToString();
             string actual;
             actual = target.ToString();
@@ -859,7 +859,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringProviderTest()
         {
             double value = 10F;
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             IFormatProvider provider = null;
             string expected = value.ToString();
             string actual;
@@ -880,7 +880,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToStringFormatTest()
         {
             double value = 10F;
-            Mass target = new Mass(value);
+            Mass target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
             string actual;
@@ -896,7 +896,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void ToTonsTest()
         {
-            Mass target = new Mass(10F);
+            Mass target = new(10F);
             double expected = 0.011023113109243879;
             double actual;
             actual = target.ToTons();
@@ -920,8 +920,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            Mass result = new Mass(value);
-            Mass resultExpected = new Mass(value);
+            Mass result = new(value);
+            Mass resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Mass.TryParse(s, out result);
@@ -958,10 +958,10 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             string s = value.ToString();
-            NumberStyles style = new NumberStyles();
+            NumberStyles style = new();
             IFormatProvider provider = null;
-            Mass result = new Mass(value);
-            Mass resultExpected = new Mass(value);
+            Mass result = new(value);
+            Mass resultExpected = new(value);
             bool expected = true;
             bool actual;
             actual = Mass.TryParse(s, style, provider, out result);
@@ -972,9 +972,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_AdditionTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
-            Mass expected = new Mass(20F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
+            Mass expected = new(20F);
             Mass actual;
             actual = value1 + value2;
             Assert.AreEqual(expected, actual);
@@ -986,9 +986,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_DivisionTest()
         {
-            Mass value1 = new Mass(1F);
-            Mass value2 = new Mass(2F);
-            Mass expected = new Mass(1 / 2F);
+            Mass value1 = new(1F);
+            Mass value2 = new(2F);
+            Mass expected = new(1 / 2F);
             Mass actual;
             actual = value1 / value2;
             Assert.AreEqual(expected, actual);
@@ -1000,8 +1000,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_EqualityTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 == value2;
@@ -1014,8 +1014,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ExponentTest()
         {
-            Mass value1 = new Mass(2F);
-            Mass value2 = new Mass(3F);
+            Mass value1 = new(2F);
+            Mass value2 = new(3F);
             double expected = 8F;
             double actual;
             actual = Mass.op_Exponent(value1, value2);
@@ -1028,8 +1028,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanTest()
         {
-            Mass value1 = new Mass(11F);
-            Mass value2 = new Mass(10F);
+            Mass value1 = new(11F);
+            Mass value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 > value2;
@@ -1042,8 +1042,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_GreaterThanOrEqualTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 >= value2;
@@ -1057,7 +1057,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void op_ImplicitMassTest()
         {
             double value = 10F;
-            Mass expected = new Mass(10);
+            Mass expected = new(10);
             Mass actual;
             actual = value;
             Assert.AreEqual(expected, actual);
@@ -1069,7 +1069,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ImplicitDoubleTest()
         {
-            Mass value = new Mass(10F);
+            Mass value = new(10F);
             double expected = 10F;
             double actual;
             actual = value;
@@ -1082,8 +1082,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_InequalityTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
             bool expected = false;
             bool actual;
             actual = value1 != value2;
@@ -1096,8 +1096,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(11F);
+            Mass value1 = new(10F);
+            Mass value2 = new(11F);
             bool expected = true;
             bool actual;
             actual = value1 < value2;
@@ -1110,8 +1110,8 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_LessThanOrEqualTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
             bool expected = true;
             bool actual;
             actual = value1 <= value2;
@@ -1124,9 +1124,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_ModulusTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
-            Mass expected = new Mass(0F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
+            Mass expected = new(0F);
             Mass actual;
             actual = value1 % value2;
             Assert.AreEqual(expected, actual);
@@ -1138,9 +1138,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_MultiplyTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
-            Mass expected = new Mass(100F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
+            Mass expected = new(100F);
             Mass actual;
             actual = value1 * value2;
             Assert.AreEqual(expected, actual);
@@ -1152,9 +1152,9 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void op_SubtractionTest()
         {
-            Mass value1 = new Mass(10F);
-            Mass value2 = new Mass(10F);
-            Mass expected = new Mass(0F);
+            Mass value1 = new(10F);
+            Mass value2 = new(10F);
+            Mass expected = new(0F);
             Mass actual;
             actual = value1 - value2;
             Assert.AreEqual(expected, actual);

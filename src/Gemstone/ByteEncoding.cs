@@ -110,7 +110,7 @@ namespace Gemstone
                     // Trims the end of the string to discard any additional characters, if present in the string,
                     // that would prevent the string from being a hex encoded string.
                     // Note: Requires that each character be represented by its 2 character hex value.
-                    hexData = hexData.Substring(0, hexData.Length - hexData.Length % 2);
+                    hexData = hexData[..^(hexData.Length % 2)];
 
                     byte[] bytes = new byte[hexData.Length / 2];
                     int index = 0;
@@ -173,7 +173,7 @@ namespace Gemstone
                     // Trims the end of the string to discard any additional characters, if present in the
                     // string, that would prevent the string from being an integer encoded string.
                     // Note: Requires that each character be represented by its 3 character decimal value.
-                    decData = decData.Substring(0, decData.Length - decData.Length % 3);
+                    decData = decData[..^(decData.Length % 3)];
 
                     byte[] bytes = new byte[decData.Length / 3];
                     int index = 0;
@@ -249,7 +249,7 @@ namespace Gemstone
                     // Trims the end of the string to discard any additional characters, if present in the
                     // string, that would prevent the string from being a binary encoded string.
                     // Note: Requires each character be represented by its 8 character binary value.
-                    binaryData = binaryData.Substring(0, binaryData.Length - binaryData.Length % 8);
+                    binaryData = binaryData[..^(binaryData.Length % 8)];
 
                     byte[] bytes = new byte[binaryData.Length / 8];
                     int index = 0;
@@ -431,7 +431,7 @@ namespace Gemstone
                     }
                 }
 
-                StringBuilder binaryImage = new StringBuilder();
+                StringBuilder binaryImage = new();
 
                 for (int i = 0; i < length; i++)
                 {
@@ -491,7 +491,7 @@ namespace Gemstone
                 if (spacingCharacter == NoSpacing)
                     return base64String;
 
-                StringBuilder base64Image = new StringBuilder();
+                StringBuilder base64Image = new();
 
                 for (int i = 0; i <= base64String.Length - 1; i++)
                 {
@@ -551,7 +551,7 @@ namespace Gemstone
                 if (spacingCharacter == NoSpacing)
                     return asciiString;
 
-                StringBuilder asciiImage = new StringBuilder();
+                StringBuilder asciiImage = new();
 
                 for (int i = 0; i <= asciiString.Length - 1; i++)
                 {
@@ -691,7 +691,7 @@ namespace Gemstone
             if (bytes is null)
                 throw new ArgumentNullException(nameof(bytes), "Input buffer cannot be null");
 
-            StringBuilder byteString = new StringBuilder();
+            StringBuilder byteString = new();
 
             for (int i = 0; i <= length - 1; i++)
             {

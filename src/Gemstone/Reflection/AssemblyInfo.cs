@@ -84,12 +84,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyTitleAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyTitleAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -100,12 +100,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyDescriptionAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyDescriptionAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -116,12 +116,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyCompanyAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyCompanyAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -132,12 +132,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyProductAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyProductAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -148,12 +148,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyCopyrightAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyCopyrightAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -164,12 +164,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyTrademarkAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyTrademarkAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -180,12 +180,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyConfigurationAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyConfigurationAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -196,12 +196,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyDelaySignAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyDelaySignAttribute));
 
                 if (attribute is null)
                     return false;
 
-                return (bool)attribute.ConstructorArguments[0].Value;
+                return (bool?)attribute.ConstructorArguments[0].Value ?? false;
             }
         }
 
@@ -212,12 +212,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyInformationalVersionAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyInformationalVersionAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -228,12 +228,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(AssemblyKeyFileAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(AssemblyKeyFileAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -244,12 +244,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(NeutralResourcesLanguageAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(NeutralResourcesLanguageAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -261,12 +261,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(SatelliteContractVersionAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(SatelliteContractVersionAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -278,7 +278,7 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(ComCompatibleVersionAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(ComCompatibleVersionAttribute));
 
                 if (attribute is null)
                     return string.Empty;
@@ -294,12 +294,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(ComVisibleAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(ComVisibleAttribute));
 
                 if (attribute is null)
                     return false;
 
-                return (bool)attribute.ConstructorArguments[0].Value;
+                return (bool?)attribute.ConstructorArguments[0].Value ?? false;
             }
         }
 
@@ -310,8 +310,7 @@ namespace Gemstone.Reflection
         {
             get
             {
-                DebuggableAttribute attribute = Assembly.GetCustomAttributes<DebuggableAttribute>().FirstOrDefault();
-
+                DebuggableAttribute? attribute = Assembly.GetCustomAttributes<DebuggableAttribute>().FirstOrDefault();
                 return attribute?.IsJITOptimizerDisabled ?? false;
             }
         }
@@ -323,12 +322,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(GuidAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(GuidAttribute));
 
                 if (attribute is null)
                     return string.Empty;
 
-                return (string)attribute.ConstructorArguments[0].Value;
+                return attribute.ConstructorArguments[0].Value?.ToString() ?? string.Empty;
             }
         }
 
@@ -340,12 +339,12 @@ namespace Gemstone.Reflection
         {
             get
             {
-                CustomAttributeData attribute = GetCustomAttribute(typeof(CLSCompliantAttribute));
+                CustomAttributeData? attribute = GetCustomAttribute(typeof(CLSCompliantAttribute));
 
                 if (attribute is null)
                     return false;
 
-                return (bool)attribute.ConstructorArguments[0].Value;
+                return (bool?)attribute.ConstructorArguments[0].Value ?? false;
             }
         }
 
@@ -355,24 +354,19 @@ namespace Gemstone.Reflection
         public string Location => Assembly.Location;
 
         /// <summary>
-        /// Gets the location of the <see cref="Assembly"/> as specified originally.
-        /// </summary>
-        public string CodeBase => Assembly.CodeBase.Replace("file:///", "");
-
-        /// <summary>
         /// Gets the display name of the <see cref="Assembly"/>.
         /// </summary>
-        public string FullName => Assembly.FullName;
+        public string FullName => Assembly.FullName ?? string.Empty;
 
         /// <summary>
         /// Gets the simple, unencrypted name of the <see cref="Assembly"/>.
         /// </summary>
-        public string Name => Assembly.GetName().Name;
+        public string Name => Assembly.GetName().Name ?? FullName;
 
         /// <summary>
         /// Gets the major, minor, revision, and build numbers of the <see cref="Assembly"/>.
         /// </summary>
-        public Version Version => Assembly.GetName().Version;
+        public Version? Version => Assembly.GetName().Version;
 
         /// <summary>
         /// Gets the string representing the version of the common language runtime (CLR) saved in the file
@@ -381,20 +375,28 @@ namespace Gemstone.Reflection
         public string ImageRuntimeVersion => Assembly.ImageRuntimeVersion;
 
         /// <summary>
-        /// Gets a boolean value indicating whether the <see cref="Assembly"/> was loaded from the global assembly cache.
-        /// </summary>
-        // ReSharper disable once InconsistentNaming
-        public bool GACLoaded => Assembly.GlobalAssemblyCache;
-
-        /// <summary>
         /// Gets the date and time when the <see cref="Assembly"/> was built.
         /// </summary>
         public DateTime BuildDate => File.GetLastWriteTime(Assembly.Location);
 
+        private string? m_rootNamespace;
+
         /// <summary>
         /// Gets the root namespace of the <see cref="Assembly"/>.
         /// </summary>
-        public string RootNamespace => Assembly.GetExportedTypes()[0].Namespace;
+        public string RootNamespace
+        {
+            get
+            {
+                string getRootNamespace()
+                {
+                    Type[] exportedTypes = Assembly.GetExportedTypes();
+                    return exportedTypes.Length == 0 ? string.Empty : exportedTypes[0].Namespace ?? string.Empty;
+                }
+
+                return m_rootNamespace ??= getRootNamespace();
+            }
+        }
 
         #endregion
 
@@ -406,16 +408,16 @@ namespace Gemstone.Reflection
         /// <returns>A System.Specialized.KeyValueCollection of assembly attributes.</returns>
         public NameValueCollection GetAttributes()
         {
-            NameValueCollection assemblyAttributes = new NameValueCollection
+            NameValueCollection assemblyAttributes = new()
             {
                 { "Full Name", FullName },
                 { "Name", Name },
-                { "Version", Version.ToString() },
+                { "Version", Version?.ToString() ?? "<undefined>" },
                 { "Image Runtime Version", ImageRuntimeVersion },
                 { "Build Date", BuildDate.ToString(CultureInfo.InvariantCulture) },
                 { "Location", Location },
-                { "Code Base", CodeBase },
-                { "GAC Loaded", GACLoaded.ToString() },
+                //{ "Code Base", CodeBase },
+                //{ "GAC Loaded", GACLoaded.ToString() },
                 { "Title", Title },
                 { "Description", Description },
                 { "Company", Company },
@@ -445,18 +447,16 @@ namespace Gemstone.Reflection
         /// <remarks>
         /// This method always returns <c>null</c> under Mono deployments.
         /// </remarks>
-        public CustomAttributeData GetCustomAttribute(Type attributeType)
-        {
-            // Returns the requested assembly attribute.
-            return Assembly.GetCustomAttributesData().FirstOrDefault(assemblyAttribute => assemblyAttribute.Constructor.DeclaringType == attributeType);
-        }
+        public CustomAttributeData? GetCustomAttribute(Type attributeType) => // Returns the requested assembly attribute
+            Assembly.GetCustomAttributesData().FirstOrDefault(assemblyAttribute => assemblyAttribute.Constructor.DeclaringType == attributeType);
 
         /// <summary>
         /// Gets the specified embedded resource from the assembly.
         /// </summary>
         /// <param name="resourceName">The full name (including the namespace) of the embedded resource to get.</param>
         /// <returns>The embedded resource.</returns>
-        public Stream GetEmbeddedResource(string resourceName) => Assembly.GetEmbeddedResource(resourceName);
+        public Stream? GetEmbeddedResource(string resourceName) =>
+            Assembly.GetEmbeddedResource(resourceName);
 
         #endregion
 
@@ -468,8 +468,8 @@ namespace Gemstone.Reflection
         private static AssemblyInfo? s_executingAssembly;
         private static Dictionary<string, Assembly>? s_assemblyCache;
         private static bool s_addedResolver;
-        private static readonly Dictionary<string, Type> s_typeCache = new Dictionary<string, Type>();
-        private static readonly AppDomainTypeLookup s_typeLookup = new AppDomainTypeLookup();
+        private static readonly Dictionary<string, Type> s_typeCache = new();
+        private static readonly AppDomainTypeLookup s_typeLookup = new();
 
         // Static Properties
 
@@ -478,7 +478,7 @@ namespace Gemstone.Reflection
         /// </summary>
         /// <param name="typeName">Fully qualified type name.</param>
         /// <returns>The <see cref="Type"/> found; otherwise <c>null</c>.</returns>
-        public static Type FindType(string typeName)
+        public static Type? FindType(string typeName)
         {
             lock (s_typeCache)
             {
@@ -488,7 +488,7 @@ namespace Gemstone.Reflection
                         s_typeCache[type.FullName ?? type.Name] = type;
                 }
 
-                s_typeCache.TryGetValue(typeName, out Type result);
+                s_typeCache.TryGetValue(typeName, out Type? result);
 
                 return result;
             }
@@ -505,25 +505,25 @@ namespace Gemstone.Reflection
                     return s_callingAssembly;
 
                 // We have to find the calling assembly of the caller
-                StackTrace trace = new StackTrace();
+                StackTrace trace = new();
                 Assembly caller = Assembly.GetCallingAssembly();
                 Assembly current = Assembly.GetExecutingAssembly();
 
                 StackFrame[] stackFrames = trace.GetFrames();
 
-                if (stackFrames is null)
-                    return s_callingAssembly;
+                //if (stackFrames is null)
+                //    return s_callingAssembly;
 
                 foreach (StackFrame frame in stackFrames)
                 {
-                    MethodBase? method = frame?.GetMethod();
+                    MethodBase? method = frame.GetMethod();
 
                     if (method?.DeclaringType is null)
                         continue;
 
-                    Assembly assembly = Assembly.GetAssembly(method.DeclaringType);
+                    Assembly? assembly = Assembly.GetAssembly(method.DeclaringType);
 
-                    if (assembly == caller || assembly == current)
+                    if (assembly == caller || assembly == current || assembly is null)
                         continue;
 
                     // Assembly is neither the current assembly or the calling assembly
@@ -542,23 +542,23 @@ namespace Gemstone.Reflection
         {
             get
             {
-                if (s_entryAssembly is null)
-                {
-                    Assembly entryAssembly = Assembly.GetEntryAssembly();
+                if (s_entryAssembly is not null)
+                    return s_entryAssembly;
 
-                    if (entryAssembly is null)
-                    {
-                        string? mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
+                Assembly? entryAssembly = Assembly.GetEntryAssembly();
 
-                        if (!string.IsNullOrWhiteSpace(mainModuleFileName))
-                            entryAssembly = Assembly.ReflectionOnlyLoadFrom(mainModuleFileName);
-                    }
+                //if (entryAssembly is null)
+                //{
+                //    string? mainModuleFileName = Process.GetCurrentProcess().MainModule?.FileName;
 
-                    if (entryAssembly is null)
-                        return null;
+                //    if (!string.IsNullOrWhiteSpace(mainModuleFileName))
+                //        entryAssembly = Assembly.ReflectionOnlyLoadFrom(mainModuleFileName);
+                //}
+
+                if (entryAssembly is null)
+                    return null;
                     
-                    s_entryAssembly = new AssemblyInfo(entryAssembly);
-                }
+                s_entryAssembly = new AssemblyInfo(entryAssembly);
 
                 return s_entryAssembly;
             }
@@ -590,43 +590,40 @@ namespace Gemstone.Reflection
             AppDomain.CurrentDomain.Load(assemblyName);
         }
 
-        private static Assembly? ResolveAssemblyFromResource(object sender, ResolveEventArgs e)
+        private static Assembly? ResolveAssemblyFromResource(object? sender, ResolveEventArgs e)
         {
-            Assembly resourceAssembly;
             string shortName = e.Name.Split(',')[0];
 
-            if (s_assemblyCache is null)
-                s_assemblyCache = new Dictionary<string, Assembly>();
+            s_assemblyCache ??= new Dictionary<string, Assembly>();
 
-            resourceAssembly = s_assemblyCache[shortName];
+            if (s_assemblyCache.TryGetValue(shortName, out Assembly? resourceAssembly))
+                return resourceAssembly;
 
-            if (resourceAssembly is null)
+            // Loops through all of the resources in the executing assembly
+            foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
             {
-                // Loops through all of the resources in the executing assembly
-                foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
+                // Sees if the embedded resource name matches the assembly it is trying to load.
+                if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly?.RootNamespace ?? nameof(Gemstone)}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)
+                    continue;
+
+                // If so, loads embedded resource assembly into a binary buffer
+                Stream? resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
+
+                if (resourceStream is not null)
                 {
-                    // Sees if the embedded resource name matches the assembly it is trying to load.
-                    if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly?.RootNamespace ?? nameof(Gemstone)}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)
-                        continue;
+                    byte[] buffer = new byte[resourceStream.Length];
+                    // ReSharper disable once MustUseReturnValue
+                    resourceStream.Read(buffer, 0, (int)resourceStream.Length);
+                    resourceStream.Close();
 
-                    // If so, loads embedded resource assembly into a binary buffer
-                    Stream? resourceStream = Assembly.GetEntryAssembly()?.GetManifestResourceStream(name);
+                    // Loads assembly from binary buffer
+                    resourceAssembly = Assembly.Load(buffer);
 
-                    if (resourceStream is not null)
-                    {
-                        byte[] buffer = new byte[resourceStream.Length];
-                        resourceStream.Read(buffer, 0, (int)resourceStream.Length);
-                        resourceStream.Close();
-
-                        // Loads assembly from binary buffer
-                        resourceAssembly = Assembly.Load(buffer);
-
-                        // Add assembly to the cache
-                        s_assemblyCache.Add(shortName, resourceAssembly);
-                    }
-
-                    break;
+                    // Add assembly to the cache
+                    s_assemblyCache.Add(shortName, resourceAssembly);
                 }
+
+                break;
             }
 
             return resourceAssembly;

@@ -344,9 +344,9 @@ namespace Gemstone.Net.Smtp
         /// </summary>
         public void Send()
         {
-            MailMessage emailMessage = new MailMessage
+            MailMessage emailMessage = new()
             {
-                From = new MailAddress(m_from),
+                From = new MailAddress(From),
                 Subject = Subject,
                 Body = Body,
                 IsBodyHtml = IsBodyHtml
@@ -380,8 +380,8 @@ namespace Gemstone.Net.Smtp
                 foreach (string attachment in Attachments.Split(';', ','))
                 {
                     // Create the file attachment for the mail message.
-                    Attachment data = new Attachment(attachment.Trim(), MediaTypeNames.Application.Octet);
-                    ContentDisposition header = data.ContentDisposition;
+                    Attachment data = new(attachment.Trim(), MediaTypeNames.Application.Octet);
+                    ContentDisposition? header = data.ContentDisposition;
 
                     // Add time stamp information for the file.
                     header.CreationDate = File.GetCreationTime(attachment);
@@ -479,7 +479,7 @@ namespace Gemstone.Net.Smtp
         /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
         public static void Send(string from, string toRecipients, string? ccRecipients, string? bccRecipients, string? subject, string? body, bool isBodyHtml, string? attachments, string smtpServer)
         {
-            using Mail email = new Mail(from, toRecipients, smtpServer)
+            using Mail email = new(from, toRecipients, smtpServer)
             {
                 CcRecipients = ccRecipients,
                 BccRecipients = bccRecipients,
@@ -549,7 +549,7 @@ namespace Gemstone.Net.Smtp
         /// <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
         public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, SecureString? password, bool enableSSL)
         {
-            using Mail email = new Mail(from, toRecipients, smtpServer)
+            using Mail email = new(from, toRecipients, smtpServer)
             {
                 Subject = subject,
                 Body = body,

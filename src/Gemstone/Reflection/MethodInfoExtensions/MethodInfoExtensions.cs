@@ -36,7 +36,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
     /// </remarks>
     public static class MethodInfoExtensions
     {
-        private static readonly Dictionary<MethodInfo, object> s_compiledCallbacks = new Dictionary<MethodInfo, object>();
+        private static readonly Dictionary<MethodInfo, object> s_compiledCallbacks = new();
 
         /// <summary>
         /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
@@ -45,7 +45,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Action<object> CreateAction(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -83,7 +83,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Action<object, T1> CreateAction<T1>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -123,7 +123,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Action<object, T1, T2> CreateAction<T1, T2>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -165,7 +165,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Action<object, T1, T2, T3> CreateAction<T1, T2, T3>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -206,7 +206,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Func<object, TResult> CreateFunc<TResult>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -245,7 +245,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, TResult> CreateFunc<T1, TResult>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -286,7 +286,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, T2, TResult> CreateFunc<T1, T2, TResult>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {
@@ -329,7 +329,7 @@ namespace Gemstone.Reflection.MethodInfoExtensions
         /// <returns>The compiled method.</returns>
         public static Func<object, T1, T2, T3, TResult> CreateFunc<T1, T2, T3, TResult>(this MethodInfo method)
         {
-            object callback;
+            object? callback;
 
             lock (s_compiledCallbacks)
             {

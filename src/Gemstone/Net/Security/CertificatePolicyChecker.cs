@@ -107,7 +107,7 @@ namespace Gemstone.Net.Security
         /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
         /// <param name="errors">One or more errors associated with the remote certificate.</param>
         /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
-        public bool ValidateRemoteCertificate(object sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
+        public bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
         {
             X509Certificate? trustedCertificate = GetTrustedCertificate(remoteCertificate);
             X509ChainStatusFlags chainFlags;

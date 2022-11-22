@@ -75,7 +75,8 @@ namespace Gemstone.EnumExtensions
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static T GetEnumValueOrDefault<T>(this object value, object? defaultValue = null) => (T)value.GetEnumValueOrDefault(typeof(T), defaultValue);
+        public static T? GetEnumValueOrDefault<T>(this object value, object? defaultValue = null) =>
+            (T?)value.GetEnumValueOrDefault(typeof(T), defaultValue);
 
         /// <summary>
         /// Gets the enumeration constant for value, if defined in the enumeration, or a default value.
@@ -98,7 +99,8 @@ namespace Gemstone.EnumExtensions
         /// <see cref="T:System.Int32"/>, <see cref="T:System.Int64"/>, <see cref="T:System.Byte"/>, <see cref="T:System.UInt16"/>,
         /// <see cref="T:System.UInt32"/>, or <see cref="T:System.UInt64"/>, or <see cref="T:System.String"/>.
         /// </exception>
-        public static object GetEnumValueOrDefault(this object value, Type type, object? defaultValue = null) => Enum.IsDefined(type, value) ? value : defaultValue ?? Enum.GetValues(type).GetValue(0);
+        public static object? GetEnumValueOrDefault(this object? value, Type type, object? defaultValue = null) => 
+            value is null ? defaultValue : Enum.IsDefined(type, value) ? value : defaultValue ?? Enum.GetValues(type).GetValue(0);
 
         /// <summary>
         /// Gets the enumeration of the specified <paramref name="type"/> whose description matches this <paramref name="description"/>.
@@ -151,7 +153,7 @@ namespace Gemstone.EnumExtensions
         /// <returns>Formatted enumeration name of the specified value for visual display.</returns>
         public static string GetFormattedName(this Enum enumeration)
         {
-            StringBuilder image = new StringBuilder();
+            StringBuilder image = new();
             char[] chars = enumeration.ToString().ToCharArray();
 
             for (int i = 0; i < chars.Length; i++)

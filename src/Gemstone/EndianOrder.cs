@@ -106,7 +106,7 @@ namespace Gemstone
         /// <summary>
         /// Returns the default instance of the <see cref="BigEndianOrder"/> class.
         /// </summary>
-        public static BigEndianOrder Default { get; } = new BigEndianOrder();
+        public static BigEndianOrder Default { get; } = new();
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ namespace Gemstone
         /// <summary>
         /// Returns the default instance of the <see cref="LittleEndianOrder"/> class.
         /// </summary>
-        public static LittleEndianOrder Default { get; } = new LittleEndianOrder();
+        public static LittleEndianOrder Default { get; } = new();
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ namespace Gemstone
         /// <summary>
         /// Returns the default instance of the <see cref="NativeEndianOrder"/> class.
         /// </summary>
-        public static NativeEndianOrder Default { get; } = new NativeEndianOrder();
+        public static NativeEndianOrder Default { get; } = new();
     }
 
     /// <summary>

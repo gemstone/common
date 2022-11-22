@@ -195,32 +195,33 @@ namespace Gemstone
         /// the string back to its original <see cref="Type"/>.
         /// </para>
         /// </remarks>
-        public static string TypeConvertToString(object value, CultureInfo? culture)
+        public static string TypeConvertToString(object? value, CultureInfo? culture)
         {
-            // Don't proceed further if value is null.
-            if (value is null)
-                return string.Empty;
-
-            // If value is already a string, no need to attempt conversion
-            if (value is string stringVal)
-                return stringVal;
-
-            // Initialize culture info if not specified.
-            if (culture is null)
-                culture = CultureInfo.InvariantCulture;
-
-            try
+            switch (value)
             {
-                // Attempt to use type converter to set field value
-                TypeConverter converter = TypeDescriptor.GetConverter(value);
+                // Don't proceed further if value is null.
+                case null:
+                    return string.Empty;
+                // If value is already a string, no need to attempt conversion
+                case string stringVal:
+                    return stringVal;
+                default:
+                    // Initialize culture info if not specified.
+                    culture ??= CultureInfo.InvariantCulture;
 
-                // ReSharper disable once AssignNullToNotNullAttribute
-                return converter.ConvertToString(null, culture, value).ToNonNullString();
-            }
-            catch
-            {
-                // Otherwise just call object's ToString method
-                return value.ToNonNullString();
+                    try
+                    {
+                        // Attempt to use type converter to set field value
+                        TypeConverter converter = TypeDescriptor.GetConverter(value);
+
+                        // ReSharper disable once AssignNullToNotNullAttribute
+                        return converter.ConvertToString(null!, culture, value).ToNonNullString();
+                    }
+                    catch
+                    {
+                        // Otherwise just call object's ToString method
+                        return value.ToNonNullString();
+                    }
             }
         }
 
@@ -276,7 +277,7 @@ namespace Gemstone
         public static object? TypeConvertFromString(string value, Type type, CultureInfo? culture)
         {
             if (string.IsNullOrWhiteSpace(value))
-                value = Activator.CreateInstance(type).ToString();
+                value = Activator.CreateInstance(type)?.ToString() ?? string.Empty;
 
             return value.ConvertToType(type, culture);
         }
@@ -443,14 +444,14 @@ namespace Gemstone
         /// <param name="itemList">A variable number of parameters of the specified type.</param>
         /// <returns>Result is the minimum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Min<T>(params T[] itemList) => itemList.Min();
+        public static T? Min<T>(params T[] itemList) => itemList.Min();
 
         /// <summary>Returns the largest item from a list of parameters.</summary>
         /// <typeparam name="T">Return type <see cref="Type"/> that is the maximum value in the <paramref name="itemList"/>.</typeparam>
         /// <param name="itemList">A variable number of parameters of the specified type .</param>
         /// <returns>Result is the maximum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T Max<T>(params T[] itemList) => itemList.Max();
+        public static T? Max<T>(params T[] itemList) => itemList.Max();
 
         /// <summary>Returns the value that is neither the largest nor the smallest.</summary>
         /// <typeparam name="T"><see cref="Type"/> of the objects passed to and returned from this method.</typeparam>
@@ -555,9 +556,9 @@ namespace Gemstone
                         {
                             foreach (string fileName in FilePath.GetFileList("/etc/*release*"))
                             {
-                                using (StreamReader reader = new StreamReader(fileName))
+                                using (StreamReader reader = new(fileName))
                                 {
-                                    string line = reader.ReadLine();
+                                    string? line = reader.ReadLine();
 
                                     while (line is not null)
                                     {
@@ -601,7 +602,9 @@ namespace Gemstone
                     // Get Windows product name
                     try
                     {
-                        s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null).ToString();
+                        #pragma warning disable CA1416
+                        s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null)?.ToString();
+                        #pragma warning restore CA1416
                     }
                     catch
                     {

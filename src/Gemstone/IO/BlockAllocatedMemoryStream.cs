@@ -577,7 +577,7 @@ namespace Gemstone.IO
 
         // Allow up to 100 items of 8KB items to remain on the buffer pool. This might need to be increased if the buffer pool becomes more 
         // extensively used. Allocation Statistics will be logged in the Logger.
-        private static readonly BufferPool s_memoryBlockPool = new BufferPool(BlockSize, 100);
+        private static readonly BufferPool s_memoryBlockPool = new(BlockSize, 100);
 
         #endregion
     }
