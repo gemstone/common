@@ -8766,7 +8766,7 @@
              Usage of this class is fairly simple using the static methods
              built into the <see cref="T:System.IO.File" /> class.
              </para>
-        <code language="cs">
+        <code>
              using (StreamReader reader = GetFileLock(File.OpenText))
              {
                  // Read lines from the file
@@ -12526,7 +12526,7 @@
              are stored in a <see cref="T:System.Collections.Generic.Dictionary`2" /> or <see cref="T:System.Dynamic.ExpandoObject" />.
              Note that dynamic variables cannot be used when calling extension functions.
              </para>
-        <code language="cs">
+        <code>
              string format = "{hello} {world}!";
              dynamic parameters = new ExpandoObject();
              parameters.hello = "Hello";
@@ -13197,7 +13197,7 @@
             " year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than ".
             </para>
         <example>
-          <code language="cs">
+          <code>
               DateTime g_start = DateTime.UtcNow;
               DateTime EndTime = DateTime.UtcNow;
               TimeSpan duration = EndTime.Subtract(g_start);
@@ -14720,7 +14720,7 @@
             Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert energy in joules to megajoules:
-            <code language="cs">
+            <code>
             public double GetMegajoules(Energy joules)
             {
                 return joules / SI.Mega;
@@ -15289,7 +15289,7 @@
             Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert length in meters to kilometers:
-            <code language="cs">
+            <code>
             public double GetKilometers(Length meters)
             {
                 return meters / SI.Kilo;
@@ -16362,7 +16362,7 @@
             for example:
             <example>
             Convert power in watts to megawatts:
-            <code language="cs">
+            <code>
             public double GetMegawatts(Power watts)
             {
                 return watts / SI.Mega;
