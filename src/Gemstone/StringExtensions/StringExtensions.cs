@@ -120,8 +120,8 @@ namespace Gemstone.StringExtensions
         /// <returns><see cref="StringComparer"/> for the specified <see cref="StringComparison"/>.</returns>
         public static StringComparer GetComparer(this StringComparison comparison) => s_comparisonComparers[comparison];
 
-        #if NET6_0_OR_GREATER
-
+    #if NET6_0_OR_GREATER
+        
         /// <summary>
         /// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is null -or-
         /// an <see cref="ArgumentException"/> if <paramref name="argument"/> is Empty.
@@ -133,15 +133,15 @@ namespace Gemstone.StringExtensions
             ArgumentNullException.ThrowIfNull(argument, paramName);
 
             if (argument == string.Empty)
-                ThrowArgumentNullException(paramName);
+                ThrowArgumentEmptyException(paramName);
 
         }
         
         [DoesNotReturn] // This allows ThrowIfNullOrEmpty to be inlined
-        private static void ThrowArgumentNullException(string? paramName) =>
+        private static void ThrowArgumentEmptyException(string? paramName) =>
             throw new ArgumentException("Argument cannot be empty", paramName);
 
-        #endif
+    #endif
 
         /// <summary>
         /// Parses a string intended to represent a boolean value.
