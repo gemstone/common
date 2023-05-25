@@ -27,8 +27,6 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Gemstone.Reflection.MethodBaseExtensions;
 
-#pragma warning disable CA1031 // Do not catch general exception types
-
 namespace Gemstone.EventHandlerExtensions
 {
     /// <summary>

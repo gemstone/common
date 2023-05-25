@@ -21,8 +21,9 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Ldap
+
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Security;
 using System.Security.Principal;
 
@@ -76,7 +77,7 @@ namespace Gemstone.Identity
             }
 
             if (string.IsNullOrEmpty(Domain))
-                Domain = Environment.MachineName ?? "";
+                Domain = Environment.MachineName;
         }
 
         #endregion
@@ -108,8 +109,8 @@ namespace Gemstone.Identity
         #region [ Static ]
 
         // Static Fields
-        private static string s_lastUserID = default!;
-        private static UserInfo s_currentUserInfo = default!;
+        private static string? s_lastUserID ;
+        private static UserInfo? s_currentUserInfo;
 
 
         // Static Properties
@@ -120,7 +121,6 @@ namespace Gemstone.Identity
         /// <remarks>
         /// The ID name returned is that of the user account under which the code is executing.
         /// </remarks>
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         public static string? CurrentUserID
         {
             get
@@ -128,9 +128,7 @@ namespace Gemstone.Identity
             #if WINDOWS
                 try
                 {
-                    #pragma warning disable CA1416
                     return WindowsIdentity.GetCurrent().Name;
-                    #pragma warning restore CA1416
                 }
                 catch (SecurityException)
                 {
@@ -149,7 +147,7 @@ namespace Gemstone.Identity
         {
             get
             {
-                string? currentUserID = CurrentUserID!;
+                string? currentUserID = CurrentUserID;
 
                 if (!string.IsNullOrEmpty(currentUserID))
                 {

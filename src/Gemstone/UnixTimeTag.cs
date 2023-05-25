@@ -62,8 +62,6 @@
 using System;
 using System.Runtime.Serialization;
 
-#pragma warning disable IDE1006 // Naming Styles
-
 namespace Gemstone
 {
     /// <summary>

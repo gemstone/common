@@ -31,9 +31,10 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Nullable
+
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -47,7 +48,7 @@ namespace Gemstone.IO.StreamExtensions
     /// </summary>
     public static unsafe class StreamExtensions
     {
-        private const int BufferSize = 32768;
+        //private const int BufferSize = 32768;
 
         /// <summary>
         /// Writes the contents of a stream to the provided stream.
@@ -134,13 +135,11 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Destination stream.</param>
         /// <param name="value">Object to encode.</param>
-        [SuppressMessage("Microsoft.Performance", "CA1800:DoNotCastUnnecessarily")]
-        public static void WriteObject(this Stream stream, object value)
+        public static void WriteObject(this Stream stream, object? value)
         {
             if (value is null)
             {
                 stream.Write((byte)ObjectType.Null);
-
                 return;
             }
 
@@ -687,7 +686,6 @@ namespace Gemstone.IO.StreamExtensions
             if (value.Length == 0)
             {
                 stream.WriteByte(0);
-
                 return;
             }
 
@@ -699,12 +697,11 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <param name="collection">Collection to write.</param>
-        public static void WriteCollection(this Stream stream, ICollection<string> collection)
+        public static void WriteCollection(this Stream stream, ICollection<string>? collection)
         {
             if (collection is null)
             {
                 stream.Write(false);
-
                 return;
             }
 
@@ -722,12 +719,11 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <param name="collection">Collection to write.</param>
-        public static void WriteCollection(this Stream stream, ICollection<int> collection)
+        public static void WriteCollection(this Stream stream, ICollection<int>? collection)
         {
             if (collection is null)
             {
                 stream.Write(false);
-
                 return;
             }
 
@@ -746,7 +742,7 @@ namespace Gemstone.IO.StreamExtensions
         /// </summary>
         /// <param name="stream">Source stream.</param>
         /// <param name="value">Value to write.</param>
-        public static void WriteNullable(this Stream stream, string value)
+        public static void WriteNullable(this Stream stream, string? value)
         {
             if (value is null)
             {
@@ -822,8 +818,8 @@ namespace Gemstone.IO.StreamExtensions
             int value = stream.ReadInt32();
             int[] rv = new int[value];
 
-            for (int x = 0; x < rv.Length; x++)
-                rv[x] = stream.ReadInt32();
+            for (int i = 0; i < rv.Length; i++)
+                rv[i] = stream.ReadInt32();
 
             return rv;
         }

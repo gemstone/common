@@ -110,8 +110,6 @@ namespace Gemstone.Net.Security
         public bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
         {
             X509Certificate? trustedCertificate = GetTrustedCertificate(remoteCertificate);
-            X509ChainStatusFlags chainFlags;
-            CertificatePolicy policy;
 
             ReasonForFailure = null;
 
@@ -124,7 +122,7 @@ namespace Gemstone.Net.Security
             }
 
             // Get the policy for the remote certificate
-            policy = m_trustedCertificates[trustedCertificate] ?? DefaultCertificatePolicy;
+            CertificatePolicy policy = m_trustedCertificates[trustedCertificate] ?? DefaultCertificatePolicy;
 
             // If there were any errors, excepting the valid
             // policy errors, remote certificate is rejected
@@ -136,7 +134,7 @@ namespace Gemstone.Net.Security
 
             // If an error is found at any part of the chain, excepting
             // valid chain flags, remote certificate is rejected
-            chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~policy.ValidChainFlags));
+            X509ChainStatusFlags chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~policy.ValidChainFlags));
 
             if (chainFlags != X509ChainStatusFlags.NoError)
             {

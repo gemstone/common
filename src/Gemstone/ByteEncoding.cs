@@ -61,7 +61,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Text;
 using System.Text.RegularExpressions;
 using Gemstone.BitExtensions;
@@ -81,7 +80,7 @@ namespace Gemstone
         /// <summary>
         /// Handles conversion of byte buffers to and from a hexadecimal data format.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible"), EditorBrowsable(EditorBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class HexadecimalEncoding : ByteEncoding
         {
             internal HexadecimalEncoding()
@@ -144,7 +143,7 @@ namespace Gemstone
         /// <summary>
         /// Handles conversion of byte buffers to and from a decimal data format.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible"), EditorBrowsable(EditorBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class DecimalEncoding : ByteEncoding
         {
             internal DecimalEncoding()
@@ -207,7 +206,7 @@ namespace Gemstone
         /// <summary>
         /// Handles conversion of byte buffers to and from a binary (i.e., 0 and 1's) data format.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible"), EditorBrowsable(EditorBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class BinaryEncoding : ByteEncoding
         {
             private string[]? m_byteImages;
@@ -452,7 +451,7 @@ namespace Gemstone
         /// <summary>
         /// Handles conversion of byte buffers to and from a base64 data format.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible"), EditorBrowsable(EditorBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class Base64Encoding : ByteEncoding
         {
             internal Base64Encoding()
@@ -512,7 +511,7 @@ namespace Gemstone
         /// <summary>
         /// Handles conversion of byte buffers to and from a ASCII data format.
         /// </summary>
-        [SuppressMessage("Microsoft.Design", "CA1034:NestedTypesShouldNotBeVisible"), EditorBrowsable(EditorBrowsableState.Never)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public class ASCIIEncoding : ByteEncoding
         {
             internal ASCIIEncoding()

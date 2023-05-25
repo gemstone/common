@@ -23,11 +23,8 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Gemstone.Collections.CollectionExtensions;
-
-#pragma warning disable IDE1006 // Naming Styles
 
 namespace Gemstone.Security.Cryptography
 {
@@ -154,7 +151,6 @@ namespace Gemstone.Security.Cryptography
         /// <summary>
         /// Default set of character groups used by the <see cref="PasswordGenerator"/>.
         /// </summary>
-        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly IReadOnlyList<CharacterGroup> DefaultCharacterGroups = new List<CharacterGroup>
         {
             new() { Characters = "abcdefghijklmnopqrstuvwxyz", MinOccurrence = 1 },
@@ -166,7 +162,6 @@ namespace Gemstone.Security.Cryptography
         /// <summary>
         /// Defines the default password generator.
         /// </summary>
-        [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
         public static readonly PasswordGenerator Default = new();
 
         #endregion

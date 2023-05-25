@@ -26,7 +26,6 @@
 //******************************************************************************************************
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -55,7 +54,6 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
         /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
         /// <returns><c>true</c> if attribute exists; otherwise, <c>false</c>.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute => 
             member.TryGetAttribute(out TAttribute _);
 

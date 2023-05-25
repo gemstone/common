@@ -62,7 +62,6 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Gemstone
 {
@@ -135,7 +134,7 @@ namespace Gemstone
     /// <typeparam name="T1">The type of the first data argument for this event arguments instance.</typeparam>
     /// <typeparam name="T2">The type of the second data argument for this event arguments instance.</typeparam>
     /// <typeparam name="T3">The type of the third data argument for this event arguments instance.</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes"), Serializable]
+    [Serializable]
     public class EventArgs<T1, T2, T3> : EventArgs
     {
         /// <summary>
@@ -181,7 +180,7 @@ namespace Gemstone
     /// <typeparam name="T2">The type of the second data argument for this event arguments instance.</typeparam>
     /// <typeparam name="T3">The type of the third data argument for this event arguments instance.</typeparam>
     /// <typeparam name="T4">The type of the fourth data argument for this event arguments instance.</typeparam>
-    [SuppressMessage("Microsoft.Design", "CA1005:AvoidExcessiveParametersOnGenericTypes"), Serializable]
+    [Serializable]
     public class EventArgs<T1, T2, T3, T4> : EventArgs
     {
         /// <summary>

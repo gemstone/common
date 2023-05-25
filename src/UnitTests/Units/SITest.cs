@@ -123,7 +123,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             #region DECLARATION
 
-            readonly sSI virt_SI = new();
+            readonly sSI virt_SI;
             readonly List<sSI> obj_SI = new(22);
             #endregion
 
@@ -326,8 +326,7 @@ namespace Gemstone.Common.UnitTests.Units
             string unitName = " deco";
             string[] symbolNames = SI.Symbols;
             string expected = "10 d deco";
-            string actual;
-            actual = SI.ToScaledString(totalUnits, format, unitName, symbolNames);
+            string actual = SI.ToScaledString(totalUnits, format, unitName, symbolNames);
             Assert.AreEqual(expected, actual);
         }
 
@@ -373,8 +372,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             string unitName = " deco";
             string expected = "10 d deco";
-            string actual;
-            actual = SI.ToScaledString(totalUnits, format, unitName);
+            string actual = SI.ToScaledString(totalUnits, format, unitName);
             Assert.AreEqual(expected, actual);
 
         }

@@ -61,7 +61,7 @@ namespace Gemstone.ActionExtensions
         /// </remarks>
         public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
             Task.Delay(delay, cancellationToken)
-                .ContinueWith(task => action(cancellationToken), cancellationToken)
+                .ContinueWith(_ => action(cancellationToken), cancellationToken)
                 .ContinueWith(task =>
                 {
                     // ReSharper disable once PossibleNullReferenceException

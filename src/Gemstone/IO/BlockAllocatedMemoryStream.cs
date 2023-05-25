@@ -101,7 +101,7 @@ namespace Gemstone.IO
         /// <paramref name="buffer"/> as its backing buffer. The buffer will be copied into internally managed reusable
         /// memory buffers. Subsequently, the notion of a non-expandable stream is not supported.
         /// </remarks>
-        public BlockAllocatedMemoryStream(byte[] buffer) : this(buffer, 0, buffer?.Length ?? 0)
+        public BlockAllocatedMemoryStream(byte[] buffer) : this(buffer, 0, buffer.Length)
         {
         }
 

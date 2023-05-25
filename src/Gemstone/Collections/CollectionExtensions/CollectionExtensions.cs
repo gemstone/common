@@ -835,10 +835,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">An enumeration that is compared against.</param>
         /// <param name="comparer">A comparer object.</param>
         /// <returns>Returns a generic type.</returns>
-        public static TSource Min<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer)
-        {
-            return source.Min(comparer.Compare);
-        }
+        public static TSource Min<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer) => 
+            source.Min(comparer.Compare);
 
         /// <summary>Selects the largest item from the enumeration.</summary>
         /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
@@ -932,7 +930,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source) => source.ToDelimitedString('|');
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source) => 
+            source.ToDelimitedString('|');
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -940,7 +939,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting character used.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter) => ToDelimitedString<TSource, char>(source, delimiter);
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter) => 
+            ToDelimitedString<TSource, char>(source, delimiter);
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -948,7 +948,8 @@ namespace Gemstone.Collections.CollectionExtensions
         /// <param name="source">The source object to be converted into a delimited string.</param>
         /// <param name="delimiter">The delimiting <see cref="string"/> used.</param>
         /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter) => ToDelimitedString<TSource, string>(source, delimiter);
+        public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter) => 
+            ToDelimitedString<TSource, string>(source, delimiter);
 
         /// <summary>Converts an enumeration to a string that can later be converted back to a list using
         /// LoadDelimitedString.</summary>
@@ -1051,18 +1052,18 @@ namespace Gemstone.Collections.CollectionExtensions
             if (shouldRemove is null)
                 throw new ArgumentNullException(nameof(shouldRemove));
 
-            for (int x = 0; x < list.Count; x++)
+            for (int i = 0; i < list.Count; i++)
             {
-                if (!shouldRemove(list[x]))
+                if (!shouldRemove(list[i]))
                     continue;
 
                 removedCount++;
 
-                if (list.Count > 1 && x != list.Count - 1)
-                    list[x] = list[^1];
+                if (list.Count > 1 && i != list.Count - 1)
+                    list[i] = list[^1];
 
                 list.RemoveAt(list.Count - 1);
-                x--;
+                i--;
             }
 
             return removedCount;
@@ -1079,19 +1080,17 @@ namespace Gemstone.Collections.CollectionExtensions
             if (source.IsReadOnly && source is not TSource[])
                 throw new ArgumentException("Cannot modify items in a read only list");
 
-            int x, y;
-
             // Mixes up the data in random order.
-            for (x = 0; x < source.Count; x++)
+            for (int i = 0; i < source.Count; i++)
             {
                 // Calls random function from Gemstone namespace.
-                y = Random.Int32Between(0, source.Count - 1);
+                int j = Random.Int32Between(0, source.Count - 1);
 
-                if (x == y)
+                if (i == j)
                     continue;
 
                 // Swaps items
-                (source[x], source[y]) = (source[y], source[x]);
+                (source[i], source[j]) = (source[j], source[i]);
             }
         }
 
@@ -1108,19 +1107,19 @@ namespace Gemstone.Collections.CollectionExtensions
                 throw new ArgumentException("Cannot modify items in a read only list");
 
             System.Random random = new(seed);
-            int x, y, count = source.Count;
+            int count = source.Count;
 
             // Mixes up the data in random order.
-            for (x = 0; x < count; x++)
+            for (int i = 0; i < count; i++)
             {
                 // Calls random function from System namespace.
-                y = random.Next(count);
+                int j = random.Next(count);
 
-                if (x == y)
+                if (i == j)
                     continue;
 
                 // Swaps items
-                (source[x], source[y]) = (source[y], source[x]);
+                (source[i], source[j]) = (source[j], source[i]);
             }
         }
 
@@ -1138,22 +1137,22 @@ namespace Gemstone.Collections.CollectionExtensions
 
             System.Random random = new(seed);
             List<int> sequence = new();
-            int x, y, count = source.Count;
+            int count = source.Count;
 
             // Generate original scramble sequence.
-            for (x = 0; x < count; x++)
+            for (int i = 0; i < count; i++)
                 sequence.Add(random.Next(count)); // Calls random function from System namespace.
 
             // Unmix the data order (traverse same sequence in reverse order).
-            for (x = count - 1; x >= 0; x--)
+            for (int i = count - 1; i >= 0; i--)
             {
-                y = sequence[x];
+                int j = sequence[i];
 
-                if (x == y)
+                if (i == j)
                     continue;
 
                 // Swaps items
-                (source[x], source[y]) = (source[y], source[x]);
+                (source[i], source[j]) = (source[j], source[i]);
             }
         }
 

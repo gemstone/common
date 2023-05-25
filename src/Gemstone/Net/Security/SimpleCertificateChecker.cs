@@ -112,7 +112,6 @@ namespace Gemstone.Net.Security
         /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
         public bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
         {
-            X509ChainStatusFlags chainFlags;
             ReasonForFailure = null;
 
             if ((errors & ~ValidPolicyErrors) != SslPolicyErrors.None)
@@ -121,7 +120,7 @@ namespace Gemstone.Net.Security
                 return false;
             }
 
-            chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~ValidChainFlags));
+            X509ChainStatusFlags chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~ValidChainFlags));
 
             if (chainFlags != X509ChainStatusFlags.NoError)
             {

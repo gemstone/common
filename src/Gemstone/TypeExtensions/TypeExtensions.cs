@@ -44,13 +44,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 using Gemstone.IO;
 using Gemstone.Reflection.AssemblyExtensions;
-
-#pragma warning disable CA1031 // Do not catch general exception types
 
 namespace Gemstone.TypeExtensions
 {
@@ -157,7 +154,6 @@ namespace Gemstone.TypeExtensions
         /// <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
         /// <param name="validateReferences">True to validate references of loaded assemblies before attempting to instantiate types; false otherwise.</param>
         /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-        [SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFrom")]
         public static List<Type> LoadImplementations(this Type type, string binariesDirectory, bool excludeAbstractTypes, bool validateReferences = true)
         {
             List<Type> types = new();

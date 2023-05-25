@@ -40,7 +40,7 @@ namespace Gemstone.Reflection
 
         static AssemblyLoadedVersionNumber()
         {
-            AppDomain.CurrentDomain.AssemblyLoad += (sender, args) => Interlocked.Increment(ref s_versionNumber);
+            AppDomain.CurrentDomain.AssemblyLoad += (_, _) => Interlocked.Increment(ref s_versionNumber);
         }
     }
 }

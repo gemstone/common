@@ -149,7 +149,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             #region DECLARATION
 
-            readonly sSI2 virt_SI2 = new();
+            readonly sSI2 virt_SI2;
             readonly List<sSI2> obj_SI2 = new(22);
             #endregion
 
@@ -400,8 +400,7 @@ namespace Gemstone.Common.UnitTests.Units
             string unitName = "";
             string[] symbolNames = { "kilo", "mega", "giga", "tera", "peta", "exa" };
             string expected = "1 kilo";
-            string actual;
-            actual = SI2.ToScaledString(totalUnits, format, unitName, symbolNames);
+            string actual = SI2.ToScaledString(totalUnits, format, unitName, symbolNames);
             Assert.AreEqual(expected, actual);
 
         }
@@ -425,8 +424,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             string unitName = " kibi";
             string expected = "1 K kibi";
-            string actual;
-            actual = SI2.ToScaledString(totalUnits, format, unitName);
+            string actual = SI2.ToScaledString(totalUnits, format, unitName);
             Assert.AreEqual(expected, actual);
         }
 
@@ -487,9 +485,7 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void FactorsTest()
         {
-
-            long[] actual;
-            actual = SI2.Factors;
+            long[] actual = SI2.Factors;
             // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 

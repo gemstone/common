@@ -165,8 +165,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             object value = new Time(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -187,8 +186,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             double value = 10F;
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -209,8 +207,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             TimeSpan value = new(0, 0, 10);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -231,8 +228,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             Time value = new(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -250,8 +246,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             double obj = 10F;
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -269,8 +264,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             TimeSpan obj = new(0, 0, 10);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -288,8 +282,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             Time obj = new(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -308,8 +301,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             object obj = new Time(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -324,8 +316,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(0.0000000000000002418884254);
-            Time actual;
-            actual = Time.FromAtomicUnitsOfTime(value);
+            Time actual = Time.FromAtomicUnitsOfTime(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -340,8 +331,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(864000.0);
-            Time actual;
-            actual = Time.FromDays(value);
+            Time actual = Time.FromDays(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -356,8 +346,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 1F;
             Time expected = new(3600);
-            Time actual;
-            actual = Time.FromHours(value);
+            Time actual = Time.FromHours(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -373,8 +362,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(8640.0);
-            Time actual;
-            actual = Time.FromKe(value);
+            Time actual = Time.FromKe(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -388,8 +376,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(600.0);
-            Time actual;
-            actual = Time.FromMinutes(value);
+            Time actual = Time.FromMinutes(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -404,8 +391,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(1.3512118179999999E-42);
-            Time actual;
-            actual = Time.FromPlanckTime(value);
+            Time actual = Time.FromPlanckTime(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -420,8 +406,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(6048000.0);
-            Time actual;
-            actual = Time.FromWeeks(value);
+            Time actual = Time.FromWeeks(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -437,8 +422,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10);
             int expected = 1076101120;
-            int actual;
-            actual = target.GetHashCode();
+            int actual = target.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -453,8 +437,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(10F);
             TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
-            TypeCode actual;
-            actual = target.GetTypeCode();
+            TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -485,8 +468,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             NumberStyles style = new();
             Time expected = new(value);
-            Time actual;
-            actual = Time.Parse(s, style);
+            Time actual = Time.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
 
@@ -509,8 +491,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             Time expected = new(value);
-            Time actual;
-            actual = Time.Parse(s);
+            Time actual = Time.Parse(s);
             Assert.AreEqual(expected, actual);
         }
 
@@ -537,8 +518,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             IFormatProvider provider = null;
             Time expected = new(value);
-            Time actual;
-            actual = Time.Parse(s, provider);
+            Time actual = Time.Parse(s, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -573,8 +553,7 @@ namespace Gemstone.Common.UnitTests.Units
             NumberStyles style = new();
             IFormatProvider provider = null;
             Time expected = new(value);
-            Time actual;
-            actual = Time.Parse(s, style, provider);
+            Time actual = Time.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -596,8 +575,7 @@ namespace Gemstone.Common.UnitTests.Units
             int year = 2012;
             int month = 1;
             int expected = 2678400;
-            int actual;
-            actual = Time.SecondsPerMonth(year, month);
+            int actual = Time.SecondsPerMonth(year, month);
             Assert.AreEqual(expected, actual);
         }
 
@@ -617,8 +595,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             int year = 1;
             long expected = 31536000;
-            long actual;
-            actual = Time.SecondsPerYear(year);
+            long actual = Time.SecondsPerYear(year);
             Assert.AreEqual(expected, actual);
         }
 
@@ -632,8 +609,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -647,8 +623,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -683,8 +658,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             Decimal expected = new(10F);
-            Decimal actual;
-            actual = target.ToDecimal(provider);
+            Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -698,8 +672,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             double expected = 10F;
-            double actual;
-            actual = target.ToDouble(provider);
+            double actual = target.ToDouble(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -713,8 +686,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -728,8 +700,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -743,8 +714,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -758,8 +728,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -773,8 +742,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -790,8 +758,7 @@ namespace Gemstone.Common.UnitTests.Units
             Type conversionType = typeof(Double);
             IFormatProvider provider = null;
             object expected = new Time(value);
-            object actual;
-            actual = target.ToType(conversionType, provider);
+            object actual = target.ToType(conversionType, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -805,8 +772,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -820,8 +786,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -835,8 +800,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Time(10F);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -850,8 +814,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 4.1341374575750989E+17;
-            double actual;
-            actual = target.ToAtomicUnitsOfTime();
+            double actual = target.ToAtomicUnitsOfTime();
             Assert.AreEqual(expected, actual);
         }
 
@@ -863,8 +826,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 0.00011574074074074075;
-            double actual;
-            actual = target.ToDays();
+            double actual = target.ToDays();
             Assert.AreEqual(expected, actual);
         }
 
@@ -876,8 +838,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 0.0027777777777777779;
-            double actual;
-            actual = target.ToHours();
+            double actual = target.ToHours();
             Assert.AreEqual(expected, actual);
         }
 
@@ -891,8 +852,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 0.011574074074074073;
-            double actual;
-            actual = target.ToKe();
+            double actual = target.ToKe();
             Assert.AreEqual(expected, actual);
         }
 
@@ -906,8 +866,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 0.16666666666666666;
-            double actual;
-            actual = target.ToMinutes();
+            double actual = target.ToMinutes();
             Assert.AreEqual(expected, actual);
         }
 
@@ -921,8 +880,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             double expected = 7.4007641635354617E+43;
-            double actual;
-            actual = target.ToPlanckTime();
+            double actual = target.ToPlanckTime();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1037,8 +995,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(provider);
+            string actual = target.ToString(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1100,8 +1057,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(10F);
             Ticks expected = new(100000000);
-            Ticks actual;
-            actual = target.ToTicks();
+            Ticks actual = target.ToTicks();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1115,8 +1071,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time target = new(1000000F);
             double expected = 1.6534391534391535;
-            double actual;
-            actual = target.ToWeeks();
+            double actual = target.ToWeeks();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1141,8 +1096,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time result = new(value);
             Time resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Time.TryParse(s, out result);
+            bool actual = Time.TryParse(s, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -1185,8 +1139,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             Time expected = new(20F);
-            Time actual;
-            actual = value1 + value2;
+            Time actual = value1 + value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1199,8 +1152,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             Time expected = new(1F);
-            Time actual;
-            actual = value1 / value2;
+            Time actual = value1 / value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1213,8 +1165,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1227,8 +1178,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(2F);
             Time value2 = new(3F);
             double expected = 8F;
-            double actual;
-            actual = Time.op_Exponent(value1, value2);
+            double actual = Time.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1241,8 +1191,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 > value2;
+            bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1255,8 +1204,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1281,8 +1229,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Time value = new(10F);
             double expected = 10F;
-            double actual;
-            actual = value;
+            double actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1294,8 +1241,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             TimeSpan value = new(0, 0, 10);
             Time expected = new(10F);
-            Time actual;
-            actual = value;
+            Time actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1307,8 +1253,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Time expected = new(10F);
-            Time actual;
-            actual = value;
+            Time actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1321,8 +1266,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1335,8 +1279,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1349,8 +1292,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1363,8 +1305,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             Time expected = new(0F);
-            Time actual;
-            actual = value1 % value2;
+            Time actual = value1 % value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1377,8 +1318,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             Time expected = new(100F);
-            Time actual;
-            actual = value1 * value2;
+            Time actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1391,8 +1331,7 @@ namespace Gemstone.Common.UnitTests.Units
             Time value1 = new(10F);
             Time value2 = new(10F);
             Time expected = new(0F);
-            Time actual;
-            actual = value1 - value2;
+            Time actual = value1 - value2;
             Assert.AreEqual(expected, actual);
         }
     }

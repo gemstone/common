@@ -25,8 +25,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-#pragma warning disable CA1031 // Do not catch general exception types
-
 namespace Gemstone.Reflection
 {
     /// <summary>

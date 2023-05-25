@@ -21,8 +21,9 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Indices
+
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using Gemstone.CharExtensions;
 using Gemstone.StringExtensions;
@@ -205,7 +206,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="startIndex">The index from which to begin searching inString</param>
         /// <param name="matchCase">Set to FALSE for case insensitive search</param>
         /// <returns></returns>
-        public static int[]? IndicesOfTokens(string inString, char[] tokens, int startIndex = 0, bool matchCase = true)
+        public static int[]? IndicesOfTokens(string inString, char[]? tokens, int startIndex = 0, bool matchCase = true)
         {
             if (string.IsNullOrEmpty(inString))
                 return null;
@@ -332,7 +333,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="matchCase">Set to FALSE for case insensitive search</param>
         /// <returns>Returns the starting index of the nth occurrence of a character.
         ///  Returns -1 if nth occurrence does not exist.</returns>
-        public static int IndexOfNextTokens(string inString, char[] tokens, int startIndex = 0, bool matchCase = true)
+        public static int IndexOfNextTokens(string inString, char[]? tokens, int startIndex = 0, bool matchCase = true)
         {
             if (string.IsNullOrEmpty(inString))
                 return -1;
@@ -691,7 +692,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="removeResultQuotes">Set to TRUE to unwrap quotes in returned array vis-a-vis Excel.</param>
         /// <returns>An array of the parsed strings</returns>
         /// <remarks>The string.split method is about 12 times faster.</remarks>
-        public static string[]? ParseLine(string inString, char[] quoteChars, char[] delimiters, int startIndex = 0, bool removeResultQuotes = true)
+        public static string[]? ParseLine(string inString, char[]? quoteChars, char[]? delimiters, int startIndex = 0, bool removeResultQuotes = true)
         {
             if (string.IsNullOrEmpty(inString))
                 return null;
@@ -802,8 +803,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="expectedTypeCodes"></param>
         /// <param name="values">the returned values from the try parse.</param>
         /// <returns>TRUE if all values parse successfully.</returns>
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        public static bool ParseCheck(string[] parsedStrings, TypeCode[] expectedTypeCodes, out object?[]? values)
+        public static bool ParseCheck(string[]? parsedStrings, TypeCode[]? expectedTypeCodes, out object?[]? values)
         {
             values = null;
 
@@ -819,7 +819,6 @@ namespace Gemstone.IO.Parsing
 
             for (int i = 0; i < parsedStrings.Length; i++)
             {
-                #pragma warning disable 8602
                 switch (expectedTypeCodes[i])
                 {
                     case TypeCode.Boolean:
@@ -1009,7 +1008,6 @@ namespace Gemstone.IO.Parsing
 
                         break;
                 }
-                #pragma warning restore 8602
             }
 
             return checkParse;
@@ -1024,7 +1022,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="length">The number of fields to check.  Less than 1 sets length to expectedFieldName length</param>
         /// <param name="startIndex">The index to use to start matching test.</param>
         /// <returns></returns>
-        public static bool ExpectedFieldNamesMatch(string[] expectedFieldNames, string[] actualFieldNames, bool matchCase = true, int length = 0, int startIndex = 0)
+        public static bool ExpectedFieldNamesMatch(string[]? expectedFieldNames, string[]? actualFieldNames, bool matchCase = true, int length = 0, int startIndex = 0)
         {
             if (expectedFieldNames is null || actualFieldNames is null)
                 return false;
@@ -1063,7 +1061,7 @@ namespace Gemstone.IO.Parsing
         /// <param name="matchCase">set to FALSE for case insensitive tests</param>
         /// <param name="contains">Set to TRUE to find index that CONTAINS the fileNameValueSought</param>
         /// <returns></returns>
-        public static int FindIndex(string fieldNameValueSought, string[] fieldNames, bool matchCase = true, bool contains = false)
+        public static int FindIndex(string fieldNameValueSought, string[]? fieldNames, bool matchCase = true, bool contains = false)
         {
             if (fieldNames is null || fieldNames.Length == 0 || string.IsNullOrEmpty(fieldNameValueSought))
                 return -1;

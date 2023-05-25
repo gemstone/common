@@ -22,7 +22,6 @@
 //******************************************************************************************************
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
 
@@ -103,7 +102,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe void WriteInt15(byte* stream, ref int position, short value)
         {
             if (value < 0)
@@ -129,7 +127,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static void WriteInt15(byte[] stream, ref int position, short value)
         {
             if (value < 0)
@@ -179,7 +176,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded short.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe short ReadInt15(byte* stream, ref int position)
         {
             stream += position;
@@ -204,7 +200,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded short.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static short ReadInt15(byte[] stream, ref int position)
         {
             short value = stream[position];
@@ -397,7 +392,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe void Write(byte* stream, ref int position, uint value)
         {
             if (value < 128)
@@ -450,7 +444,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static void Write(byte[] stream, ref int position, uint value)
         {
             if (value < 128)
@@ -551,7 +544,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded uint.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe uint ReadUInt32(byte* stream, ref int position)
         {
             stream += position;
@@ -603,7 +595,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded uint.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static uint ReadUInt32(byte[] stream, ref int position)
         {
             int pos = position;
@@ -928,7 +919,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe void Write(byte* stream, ref int position, ulong value)
         {
             if (value < 128)
@@ -1021,7 +1011,6 @@ namespace Gemstone
         /// <param name="position">Reference position in stream.
         /// This field will be updated when the function returns.</param>
         /// <param name="value">Value to write.</param>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static void Write(byte[] stream, ref int position, ulong value)
         {
             if (value < 128)
@@ -1198,7 +1187,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded ulong.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static unsafe ulong ReadUInt64(byte* stream, ref int position)
         {
             stream += position;
@@ -1286,7 +1274,6 @@ namespace Gemstone
         /// <param name="stream">Source stream.</param>
         /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
         /// <returns>7-bit encoded ulong.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1045:DoNotPassTypesByReference", MessageId = "1#")]
         public static ulong ReadUInt64(byte[] stream, ref int position)
         {
             int pos = position;

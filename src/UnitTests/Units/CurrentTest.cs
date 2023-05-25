@@ -141,8 +141,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             Current value = new(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -164,8 +163,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             double value = 10F;
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -187,8 +185,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             object value = new Current(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -206,8 +203,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             double obj = 10F;
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -225,8 +221,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             Current obj = new(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -245,8 +240,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             object obj = new Current(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -294,8 +288,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Current target = new(10F);
             int expected = 1076101120;
-            int actual;
-            actual = target.GetHashCode();
+            int actual = target.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -310,8 +303,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             TypeCode expected = new();
             expected = TypeCode.Double;
-            TypeCode actual;
-            actual = target.GetTypeCode();
+            TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -343,8 +335,7 @@ namespace Gemstone.Common.UnitTests.Units
             NumberStyles style = new();
             style = NumberStyles.Any;
             Current expected = new(10F);
-            Current actual;
-            actual = Current.Parse(s, style);
+            Current actual = Current.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
 
@@ -371,8 +362,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             IFormatProvider provider = null;
             Current expected = new(10F);
-            Current actual;
-            actual = Current.Parse(s, provider);
+            Current actual = Current.Parse(s, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -408,8 +398,7 @@ namespace Gemstone.Common.UnitTests.Units
             style = NumberStyles.Any;
             IFormatProvider provider = null;
             Current expected = new(10F);
-            Current actual;
-            actual = Current.Parse(s, style, provider);
+            Current actual = Current.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -432,8 +421,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             Current expected = new(10F);
-            Current actual;
-            actual = Current.Parse(s);
+            Current actual = Current.Parse(s);
             Assert.AreEqual(expected, actual);
         }
 
@@ -447,8 +435,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -462,8 +449,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -497,8 +483,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             Decimal expected = new(10);
-            Decimal actual;
-            actual = target.ToDecimal(provider);
+            Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -512,8 +497,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             double expected = 10F;
-            double actual;
-            actual = target.ToDouble(provider);
+            double actual = target.ToDouble(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -527,8 +511,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -542,8 +525,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -557,8 +539,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -572,8 +553,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -587,8 +567,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -603,8 +582,7 @@ namespace Gemstone.Common.UnitTests.Units
             Type conversionType = typeof(Double);
             IFormatProvider provider = null;
             object expected = new Current(10F);
-            object actual;
-            actual = target.ToType(conversionType, provider);
+            object actual = target.ToType(conversionType, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -618,8 +596,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -633,8 +610,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -648,8 +624,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -663,8 +638,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Current target = new(10F);
             double expected = 1F;
-            double actual;
-            actual = target.ToAbamperes();
+            double actual = target.ToAbamperes();
             Assert.AreEqual(expected, actual);
         }
 
@@ -678,8 +652,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Current target = new(10F);
             double expected = 29979245368.431435;
-            double actual;
-            actual = target.ToStatamperes();
+            double actual = target.ToStatamperes();
             Assert.AreEqual(expected, actual);
         }
 
@@ -697,8 +670,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Current target = new(10F);
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString();
+            string actual = target.ToString();
             Assert.AreEqual(expected, actual);
         }
 
@@ -720,8 +692,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(10F);
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(provider);
+            string actual = target.ToString(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -745,8 +716,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format, provider);
+            string actual = target.ToString(format, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -766,8 +736,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format);
+            string actual = target.ToString(format);
             Assert.AreEqual(expected, actual);
         }
 
@@ -804,8 +773,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current result = new(value);
             Current resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Current.TryParse(s, style, provider, out result);
+            bool actual = Current.TryParse(s, style, provider, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -847,8 +815,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             Current expected = new(20F);
-            Current actual;
-            actual = value1 + value2;
+            Current actual = value1 + value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -861,8 +828,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             Current expected = new(1F);
-            Current actual;
-            actual = value1 / value2;
+            Current actual = value1 / value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -875,8 +841,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -889,8 +854,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(2F);
             Current value2 = new(3F);
             double expected = 8F;
-            double actual;
-            actual = Current.op_Exponent(value1, value2);
+            double actual = Current.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
         }
 
@@ -903,8 +867,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 > value2;
+            bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -917,8 +880,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -930,8 +892,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Current value = new(10F);
             double expected = 10F;
-            double actual;
-            actual = value;
+            double actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -943,8 +904,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Current expected = new(value);
-            Current actual;
-            actual = value;
+            Current actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -957,8 +917,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             bool expected = false;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -971,8 +930,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -985,8 +943,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -999,8 +956,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(20F);
             Current expected = new(10F);
-            Current actual;
-            actual = value1 % value2;
+            Current actual = value1 % value2;
             Assert.AreEqual(expected, actual);
 
         }
@@ -1014,8 +970,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             Current expected = new(100F);
-            Current actual;
-            actual = value1 * value2;
+            Current actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1028,8 +983,7 @@ namespace Gemstone.Common.UnitTests.Units
             Current value1 = new(10F);
             Current value2 = new(10F);
             Current expected = new(0F);
-            Current actual;
-            actual = value1 - value2;
+            Current actual = value1 - value2;
             Assert.AreEqual(expected, actual);
         }
     }

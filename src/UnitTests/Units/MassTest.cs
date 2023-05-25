@@ -141,8 +141,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             double value = 10F;
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -160,8 +159,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             Mass value = new(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -182,8 +180,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             object value = new Mass(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -201,8 +198,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             Mass obj = new(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -220,8 +216,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             double obj = 10F;
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -239,8 +234,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             object obj = new Mass(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -255,8 +249,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Mass expected = new(10160.469088);
-            Mass actual;
-            actual = Mass.FromLongTons(value);
+            Mass actual = Mass.FromLongTons(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -271,8 +264,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Mass expected = new(5F);
-            Mass actual;
-            actual = Mass.FromMetricPounds(value);
+            Mass actual = Mass.FromMetricPounds(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -287,8 +279,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Mass expected = new(10000);
-            Mass actual;
-            actual = Mass.FromMetricTons(value);
+            Mass actual = Mass.FromMetricTons(value);
             Assert.AreEqual(expected, actual);
 
         }
@@ -336,8 +327,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Mass expected = new(9071.8474);
-            Mass actual;
-            actual = Mass.FromTons(value);
+            Mass actual = Mass.FromTons(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -353,8 +343,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             int expected = 1076101120;
-            int actual;
-            actual = target.GetHashCode();
+            int actual = target.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -369,8 +358,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
-            TypeCode actual;
-            actual = target.GetTypeCode();
+            TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -393,8 +381,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             Mass expected = new(value);
-            Mass actual;
-            actual = Mass.Parse(s);
+            Mass actual = Mass.Parse(s);
             Assert.AreEqual(expected, actual);
         }
 
@@ -425,8 +412,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             NumberStyles style = new();
             Mass expected = new(value);
-            Mass actual;
-            actual = Mass.Parse(s, style);
+            Mass actual = Mass.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
 
@@ -453,8 +439,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             IFormatProvider provider = null;
             Mass expected = new(value);
-            Mass actual;
-            actual = Mass.Parse(s, provider);
+            Mass actual = Mass.Parse(s, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -489,8 +474,7 @@ namespace Gemstone.Common.UnitTests.Units
             NumberStyles style = new();
             IFormatProvider provider = null;
             Mass expected = new(value);
-            Mass actual;
-            actual = Mass.Parse(s, style, provider);
+            Mass actual = Mass.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -504,8 +488,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -519,8 +502,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -570,8 +552,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             Decimal expected = new(10F);
-            Decimal actual;
-            actual = target.ToDecimal(provider);
+            Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -585,8 +566,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             double expected = 10F;
-            double actual;
-            actual = target.ToDouble(provider);
+            double actual = target.ToDouble(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -600,8 +580,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -615,8 +594,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -630,8 +608,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -645,8 +622,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -660,8 +636,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -676,8 +651,7 @@ namespace Gemstone.Common.UnitTests.Units
             Type conversionType = typeof(Double);
             IFormatProvider provider = null;
             object expected = new Mass(10F);
-            object actual;
-            actual = target.ToType(conversionType, provider);
+            object actual = target.ToType(conversionType, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -691,8 +665,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -706,8 +679,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -721,8 +693,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -736,8 +707,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 0.0098420652761106071;
-            double actual;
-            actual = target.ToLongTons();
+            double actual = target.ToLongTons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -750,8 +720,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 10F;
-            double actual;
-            actual = target.ToMetricPounds();
+            double actual = target.ToMetricPounds();
             Assert.AreEqual(expected, actual);
         }
 
@@ -765,8 +734,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 0.01;
-            double actual;
-            actual = target.ToMetricTons();
+            double actual = target.ToMetricTons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -780,8 +748,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 352.73961949580411;
-            double actual;
-            actual = target.ToOunces();
+            double actual = target.ToOunces();
             Assert.AreEqual(expected, actual);
         }
 
@@ -795,8 +762,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 22.046226218487757;
-            double actual;
-            actual = target.ToPounds();
+            double actual = target.ToPounds();
             Assert.AreEqual(expected, actual);
         }
 
@@ -820,8 +786,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format, provider);
+            string actual = target.ToString(format, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -839,8 +804,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Mass target = new(value);
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString();
+            string actual = target.ToString();
             Assert.AreEqual(expected, actual);
         }
 
@@ -862,8 +826,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(10F);
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(provider);
+            string actual = target.ToString(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -883,8 +846,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format);
+            string actual = target.ToString(format);
             Assert.AreEqual(expected, actual);
         }
 
@@ -898,8 +860,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             double expected = 0.011023113109243879;
-            double actual;
-            actual = target.ToTons();
+            double actual = target.ToTons();
             Assert.AreEqual(expected, actual);
         }
         /// <summary>
@@ -923,8 +884,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass result = new(value);
             Mass resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Mass.TryParse(s, out result);
+            bool actual = Mass.TryParse(s, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -963,8 +923,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass result = new(value);
             Mass resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Mass.TryParse(s, style, provider, out result);
+            bool actual = Mass.TryParse(s, style, provider, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -975,8 +934,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             Mass expected = new(20F);
-            Mass actual;
-            actual = value1 + value2;
+            Mass actual = value1 + value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -989,8 +947,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(1F);
             Mass value2 = new(2F);
             Mass expected = new(1 / 2F);
-            Mass actual;
-            actual = value1 / value2;
+            Mass actual = value1 / value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1003,8 +960,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1017,8 +973,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(2F);
             Mass value2 = new(3F);
             double expected = 8F;
-            double actual;
-            actual = Mass.op_Exponent(value1, value2);
+            double actual = Mass.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1031,8 +986,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(11F);
             Mass value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 > value2;
+            bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1045,8 +999,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1058,8 +1011,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Mass expected = new(10);
-            Mass actual;
-            actual = value;
+            Mass actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1071,8 +1023,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass value = new(10F);
             double expected = 10F;
-            double actual;
-            actual = value;
+            double actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1085,8 +1036,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             bool expected = false;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1099,8 +1049,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1113,8 +1062,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1127,8 +1075,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             Mass expected = new(0F);
-            Mass actual;
-            actual = value1 % value2;
+            Mass actual = value1 % value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1141,8 +1088,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             Mass expected = new(100F);
-            Mass actual;
-            actual = value1 * value2;
+            Mass actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1155,8 +1101,7 @@ namespace Gemstone.Common.UnitTests.Units
             Mass value1 = new(10F);
             Mass value2 = new(10F);
             Mass expected = new(0F);
-            Mass actual;
-            actual = value1 - value2;
+            Mass actual = value1 - value2;
             Assert.AreEqual(expected, actual);
         }
     }

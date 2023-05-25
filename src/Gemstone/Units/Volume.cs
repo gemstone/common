@@ -70,8 +70,6 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-#pragma warning disable IDE1006 // Naming Styles
-
 namespace Gemstone.Units
 {
     #region [ Enumerations ]
@@ -687,9 +685,7 @@ namespace Gemstone.Units
         /// <returns>true if s was converted successfully; otherwise, false.</returns>
         public static bool TryParse(string s, out Volume result)
         {
-            bool parseResponse;
-
-            parseResponse = double.TryParse(s, out double parseResult);
+            bool parseResponse = double.TryParse(s, out double parseResult);
             result = parseResult;
 
             return parseResponse;
@@ -719,9 +715,7 @@ namespace Gemstone.Units
         /// </exception>
         public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out Volume result)
         {
-            bool parseResponse;
-
-            parseResponse = double.TryParse(s, style, provider, out double parseResult);
+            bool parseResponse = double.TryParse(s, style, provider, out double parseResult);
             result = parseResult;
 
             return parseResponse;

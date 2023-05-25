@@ -39,7 +39,7 @@ namespace Gemstone.Console
             #region [ Members ]
 
             // Fields
-            private readonly Process m_process;
+            private readonly Process? m_process;
             private readonly StringBuilder m_standardOutput;
             private readonly StringBuilder m_standardError;
             private bool m_disposed;
@@ -123,12 +123,12 @@ namespace Gemstone.Console
                     if (!disposing)
                         return;
 
-                    if (m_process is not null)
-                    {
-                        m_process.OutputDataReceived -= m_process_OutputDataReceived;
-                        m_process.ErrorDataReceived -= m_process_ErrorDataReceived;
-                        m_process.Dispose();
-                    }
+                    if (m_process is null)
+                        return;
+
+                    m_process.OutputDataReceived -= m_process_OutputDataReceived;
+                    m_process.ErrorDataReceived -= m_process_ErrorDataReceived;
+                    m_process.Dispose();
                 }
                 finally
                 {
@@ -143,6 +143,9 @@ namespace Gemstone.Console
             /// <returns><c>true</c> if process completed; otherwise, <c>false</c> if process timed-out.</returns>
             public bool Execute(int timeout)
             {
+                if (m_process is null)
+                    return false;
+
                 m_process.Start();
 
                 m_process.BeginOutputReadLine();

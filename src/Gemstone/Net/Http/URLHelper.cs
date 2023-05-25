@@ -58,8 +58,7 @@ namespace Gemstone.Net.Http
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                ProcessStartInfo startInfo = new(url);
-                startInfo.UseShellExecute = true;
+                ProcessStartInfo startInfo = new(url) { UseShellExecute = true };
                 using (Process.Start(startInfo)) { }
                 return;
             }
@@ -76,7 +75,7 @@ namespace Gemstone.Net.Http
                 return;
             }
 
-            throw new NotSupportedException($"Default browser navigation not supported on this platform");
+            throw new NotSupportedException("Default browser navigation not supported on this platform");
         }
     }
 }

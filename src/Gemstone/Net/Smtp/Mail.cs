@@ -202,8 +202,6 @@ namespace Gemstone.Net.Smtp
             }
             set
             {
-                string[] split;
-
                 // This is a required field.
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentNullException(nameof(value));
@@ -212,7 +210,7 @@ namespace Gemstone.Net.Smtp
                 Client?.Dispose();
 
                 // Instantiate new client.
-                split = value.Split(':');
+                string[] split = value.Split(':');
 
                 if (split.Length == 2 && int.TryParse(split[1], out int port))
                     Client = new SmtpClient(split[0], port);
@@ -352,7 +350,6 @@ namespace Gemstone.Net.Smtp
                 IsBodyHtml = IsBodyHtml
             };
 
-            #pragma warning disable CS8602
             if (!string.IsNullOrEmpty(m_toRecipients))
             {
                 // Add the specified To recipients for the mail message.
@@ -390,8 +387,7 @@ namespace Gemstone.Net.Smtp
 
                     emailMessage.Attachments.Add(data); // Attach the file.
                 }
-            }            
-            #pragma warning restore CS8602
+            }
 
             try
             {

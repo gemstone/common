@@ -53,9 +53,7 @@ namespace Gemstone.Security.Cryptography
             // Determine if the user needs to use FIPS-compliant algorithms
             try
             {
-                #pragma warning disable CA1416
                 SystemAllowsManagedEncryption = (Registry.GetValue(FipsKeyNew, "Enabled", 0) ?? Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0))?.ToString() == "0";
-                #pragma warning restore CA1416
             }
             catch (Exception ex)
             {

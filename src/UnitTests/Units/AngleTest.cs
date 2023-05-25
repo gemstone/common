@@ -338,8 +338,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -355,8 +354,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -443,8 +441,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -460,8 +457,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -477,8 +473,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -494,8 +489,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -511,8 +505,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -544,8 +537,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -561,8 +553,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -578,8 +569,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -592,8 +582,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Angle target = new(value);
             double expected = 10185.9163578813;
-            double actual;
-            actual = target.ToAngularMil();
+            double actual = target.ToAngularMil();
             Assert.AreEqual(expected, actual);
         }
 
@@ -606,8 +595,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Angle target = new(value);
             double expected = 34377.467707849391;
-            double actual;
-            actual = target.ToArcMinutes();
+            double actual = target.ToArcMinutes();
             Assert.AreEqual(expected, actual);
         }
 
@@ -620,8 +608,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Angle target = new(value);
             double expected = 2062648.0624709637;
-            double actual;
-            actual = target.ToArcSeconds();
+            double actual = target.ToArcSeconds();
             Assert.AreEqual(expected, actual);
         }
 
@@ -783,8 +770,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value2 = new(10F);
 
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -823,8 +809,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value1 = new(10F);
             Angle value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -860,8 +845,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value1 = new(10F);
             Angle value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -874,8 +858,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value1 = new(10F);
             Angle value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -888,8 +871,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value1 = new(10F);
             Angle value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -902,8 +884,7 @@ namespace Gemstone.Common.UnitTests.Units
             Angle value1 = new(10F);
             Angle value2 = new(10F);
             Angle expected = new(0F);
-            Angle actual;
-            actual = value1 % value2;
+            Angle actual = value1 % value2;
             Assert.AreEqual(expected, actual);
         }
 

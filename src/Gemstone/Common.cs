@@ -46,7 +46,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -56,9 +55,6 @@ using Gemstone.Console;
 using Gemstone.IO;
 using Gemstone.StringExtensions;
 using Microsoft.Win32;
-
-#pragma warning disable CA1031 // Do not catch general exception types
-#pragma warning disable IDE1006 // Naming Styles
 
 namespace Gemstone
 {
@@ -411,7 +407,6 @@ namespace Gemstone
         /// <typeparam name="T"><see cref="Type"/> to check.</typeparam>
         /// <returns><c>true</c> if <typeparamref name="T"/> is a numeric type; otherwise, <c>false</c>.</returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        [SuppressMessage("Microsoft.Design", "CA1004:GenericMethodsShouldProvideTypeParameter")]
         public static bool IsNumericType<T>() => IsNumericType(Type.GetTypeCode(typeof(T)));
 
         /// <summary>
@@ -525,7 +520,6 @@ namespace Gemstone
         /// Gets the operating system product name.
         /// </summary>
         /// <returns>Operating system product name.</returns>
-        [SuppressMessage("Design", "CA1031:Do not catch general exception types")]
         // ReSharper disable once InconsistentNaming
         public static string GetOSProductName()
         {
@@ -602,9 +596,7 @@ namespace Gemstone
                     // Get Windows product name
                     try
                     {
-                        #pragma warning disable CA1416
                         s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null)?.ToString();
-                        #pragma warning restore CA1416
                     }
                     catch
                     {

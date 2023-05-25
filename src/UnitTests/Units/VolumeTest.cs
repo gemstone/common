@@ -141,8 +141,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             double value = 10F;
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -163,8 +162,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             Volume value = new(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -185,8 +183,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             object value = new Volume(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -204,8 +201,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             Volume obj = new(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -223,8 +219,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             double obj = 10F;
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -243,8 +238,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             object obj = new Volume(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -259,8 +253,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.28316846592);
-            Volume actual;
-            actual = Volume.FromCubicFeet(value);
+            Volume actual = Volume.FromCubicFeet(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -291,8 +284,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.002365882365);
-            Volume actual;
-            actual = Volume.FromCups(value);
+            Volume actual = Volume.FromCups(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -307,8 +299,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.000295735295625);
-            Volume actual;
-            actual = Volume.FromFluidOunces(value);
+            Volume actual = Volume.FromFluidOunces(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -323,8 +314,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.03785411784);
-            Volume actual;
-            actual = Volume.FromGallons(value);
+            Volume actual = Volume.FromGallons(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -339,8 +329,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.01);
-            Volume actual;
-            actual = Volume.FromLiters(value);
+            Volume actual = Volume.FromLiters(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -355,8 +344,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.0025);
-            Volume actual;
-            actual = Volume.FromMetricCups(value);
+            Volume actual = Volume.FromMetricCups(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -387,8 +375,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(5E-05);
-            Volume actual;
-            actual = Volume.FromMetricTeaspoons(value);
+            Volume actual = Volume.FromMetricTeaspoons(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -403,8 +390,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.00473176473);
-            Volume actual;
-            actual = Volume.FromPints(value);
+            Volume actual = Volume.FromPints(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -419,8 +405,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(0.00946352946);
-            Volume actual;
-            actual = Volume.FromQuarts(value);
+            Volume actual = Volume.FromQuarts(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -451,8 +436,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(4.928921595E-05);
-            Volume actual;
-            actual = Volume.FromTeaspoons(value);
+            Volume actual = Volume.FromTeaspoons(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -468,8 +452,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             int expected = 1076101120;
-            int actual;
-            actual = target.GetHashCode();
+            int actual = target.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -484,8 +467,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(10F);
             TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
-            TypeCode actual;
-            actual = target.GetTypeCode();
+            TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -516,8 +498,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             NumberStyles style = new();
             Volume expected = new(value);
-            Volume actual;
-            actual = Volume.Parse(s, style);
+            Volume actual = Volume.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
 
@@ -540,8 +521,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             Volume expected = new(value);
-            Volume actual;
-            actual = Volume.Parse(s);
+            Volume actual = Volume.Parse(s);
             Assert.AreEqual(expected, actual);
         }
 
@@ -568,8 +548,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             IFormatProvider provider = null;
             Volume expected = new(value);
-            Volume actual;
-            actual = Volume.Parse(s, provider);
+            Volume actual = Volume.Parse(s, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -604,8 +583,7 @@ namespace Gemstone.Common.UnitTests.Units
             NumberStyles style = new();
             IFormatProvider provider = null;
             Volume expected = new(value);
-            Volume actual;
-            actual = Volume.Parse(s, style, provider);
+            Volume actual = Volume.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -619,8 +597,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -634,8 +611,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -669,8 +645,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             Decimal expected = new(10F);
-            Decimal actual;
-            actual = target.ToDecimal(provider);
+            Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -684,8 +659,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             double expected = 10F;
-            double actual;
-            actual = target.ToDouble(provider);
+            double actual = target.ToDouble(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -699,8 +673,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -714,8 +687,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -729,8 +701,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -744,8 +715,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -759,8 +729,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -775,8 +744,7 @@ namespace Gemstone.Common.UnitTests.Units
             Type conversionType = typeof(Double);
             IFormatProvider provider = null;
             object expected = new Volume(10F);
-            object actual;
-            actual = target.ToType(conversionType, provider);
+            object actual = target.ToType(conversionType, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -790,8 +758,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -805,8 +772,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -820,8 +786,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Volume(10F);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -835,8 +800,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 353.14666721488589;
-            double actual;
-            actual = target.ToCubicFeet();
+            double actual = target.ToCubicFeet();
             Assert.AreEqual(expected, actual);
         }
 
@@ -850,8 +814,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 610237.44094732287;
-            double actual;
-            actual = target.ToCubicInches();
+            double actual = target.ToCubicInches();
             Assert.AreEqual(expected, actual);
         }
 
@@ -865,8 +828,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 42267.528377303744;
-            double actual;
-            actual = target.ToCups();
+            double actual = target.ToCups();
             Assert.AreEqual(expected, actual);
         }
 
@@ -878,8 +840,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 338140.22701842996;
-            double actual;
-            actual = target.ToFluidOunces();
+            double actual = target.ToFluidOunces();
             Assert.AreEqual(expected, actual);
         }
 
@@ -893,8 +854,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 2641.720523581484;
-            double actual;
-            actual = target.ToGallons();
+            double actual = target.ToGallons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -908,8 +868,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 10000.0;
-            double actual;
-            actual = target.ToLiters();
+            double actual = target.ToLiters();
             Assert.AreEqual(expected, actual);
         }
 
@@ -923,8 +882,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 40000.0;
-            double actual;
-            actual = target.ToMetricCups();
+            double actual = target.ToMetricCups();
             Assert.AreEqual(expected, actual);
         }
 
@@ -938,8 +896,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 666666.66666666663;
-            double actual;
-            actual = target.ToMetricTablespoons();
+            double actual = target.ToMetricTablespoons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -953,8 +910,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 1999999.9999999998;
-            double actual;
-            actual = target.ToMetricTeaspoons();
+            double actual = target.ToMetricTeaspoons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -968,8 +924,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 21133.764188651872;
-            double actual;
-            actual = target.ToPints();
+            double actual = target.ToPints();
             Assert.AreEqual(expected, actual);
         }
 
@@ -983,8 +938,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 10566.882094325936;
-            double actual;
-            actual = target.ToQuarts();
+            double actual = target.ToQuarts();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1008,8 +962,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format, provider);
+            string actual = target.ToString(format, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1027,8 +980,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Volume target = new(value);
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString();
+            string actual = target.ToString();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1048,8 +1000,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format);
+            string actual = target.ToString(format);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1071,8 +1022,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(provider);
+            string actual = target.ToString(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1086,8 +1036,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 676280.45397969056;
-            double actual;
-            actual = target.ToTablespoons();
+            double actual = target.ToTablespoons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1101,8 +1050,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume target = new(10F);
             double expected = 2028841.3615960551;
-            double actual;
-            actual = target.ToTeaspoons();
+            double actual = target.ToTeaspoons();
             Assert.AreEqual(expected, actual);
         }
 
@@ -1127,8 +1075,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume result = new(value);
             Volume resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Volume.TryParse(s, out result);
+            bool actual = Volume.TryParse(s, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -1166,8 +1113,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume result = new(value);
             Volume resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Volume.TryParse(s, style, provider, out result);
+            bool actual = Volume.TryParse(s, style, provider, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -1181,8 +1127,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             Volume expected = new(20F);
-            Volume actual;
-            actual = value1 + value2;
+            Volume actual = value1 + value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1195,8 +1140,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             Volume expected = new(1F);
-            Volume actual;
-            actual = value1 / value2;
+            Volume actual = value1 / value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1209,8 +1153,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1223,8 +1166,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(2F);
             Volume value2 = new(3F);
             double expected = 8F;
-            double actual;
-            actual = Volume.op_Exponent(value1, value2);
+            double actual = Volume.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1237,8 +1179,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 > value2;
+            bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1251,8 +1192,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1264,8 +1204,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Volume value = new(10F);
             double expected = 10F;
-            double actual;
-            actual = value;
+            double actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1277,8 +1216,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Volume expected = new(10F);
-            Volume actual;
-            actual = value;
+            Volume actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1291,8 +1229,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             bool expected = false;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1305,8 +1242,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1319,8 +1255,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1333,8 +1268,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             Volume expected = new(0F);
-            Volume actual;
-            actual = value1 % value2;
+            Volume actual = value1 % value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1347,8 +1281,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             Volume expected = new(100F);
-            Volume actual;
-            actual = value1 * value2;
+            Volume actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1361,8 +1294,7 @@ namespace Gemstone.Common.UnitTests.Units
             Volume value1 = new(10F);
             Volume value2 = new(10F);
             Volume expected = new(0F);
-            Volume actual;
-            actual = value1 - value2;
+            Volume actual = value1 - value2;
             Assert.AreEqual(expected, actual);
         }
     }

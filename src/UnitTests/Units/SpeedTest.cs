@@ -143,8 +143,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             Speed value = new(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -165,8 +164,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             object value = new Speed(10F);
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -187,8 +185,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             double value = 10F;
             int expected = 0;
-            int actual;
-            actual = target.CompareTo(value);
+            int actual = target.CompareTo(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -206,8 +203,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             double obj = 10F;
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -226,8 +222,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             object obj = new Speed(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -245,8 +240,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             Speed obj = new(10F);
             bool expected = true;
-            bool actual;
-            actual = target.Equals(obj);
+            bool actual = target.Equals(obj);
             Assert.AreEqual(expected, actual);
         }
 
@@ -277,8 +271,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Speed expected = new(0.254);
-            Speed actual;
-            actual = Speed.FromInchesPerSecond(value);
+            Speed actual = Speed.FromInchesPerSecond(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -293,8 +286,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Speed expected = new(2.777778);
-            Speed actual;
-            actual = Speed.FromKilometersPerHour(value);
+            Speed actual = Speed.FromKilometersPerHour(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -309,8 +301,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Speed expected = new(5.14444);
-            Speed actual;
-            actual = Speed.FromKnots(value);
+            Speed actual = Speed.FromKnots(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -341,8 +332,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Speed expected = new(4.4704);
-            Speed actual;
-            actual = Speed.FromMilesPerHour(value);
+            Speed actual = Speed.FromMilesPerHour(value);
             Assert.AreEqual(expected, actual);
         }
 
@@ -358,8 +348,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             int expected = 1076101120;
-            int actual;
-            actual = target.GetHashCode();
+            int actual = target.GetHashCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -374,8 +363,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(10F);
             TypeCode expected = new();
             expected = Type.GetTypeCode(typeof(Double));
-            TypeCode actual;
-            actual = target.GetTypeCode();
+            TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
 
@@ -406,8 +394,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             NumberStyles style = new();
             Speed expected = new(value);
-            Speed actual;
-            actual = Speed.Parse(s, style);
+            Speed actual = Speed.Parse(s, style);
             Assert.AreEqual(expected, actual);
         }
 
@@ -442,8 +429,7 @@ namespace Gemstone.Common.UnitTests.Units
             NumberStyles style = new();
             IFormatProvider provider = null;
             Speed expected = new(value);
-            Speed actual;
-            actual = Speed.Parse(s, style, provider);
+            Speed actual = Speed.Parse(s, style, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -470,8 +456,7 @@ namespace Gemstone.Common.UnitTests.Units
             string s = value.ToString();
             IFormatProvider provider = null;
             Speed expected = new(value);
-            Speed actual;
-            actual = Speed.Parse(s, provider);
+            Speed actual = Speed.Parse(s, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -494,8 +479,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             string s = value.ToString();
             Speed expected = new(10F);
-            Speed actual;
-            actual = Speed.Parse(s);
+            Speed actual = Speed.Parse(s);
             Assert.AreEqual(expected, actual);
         }
 
@@ -509,8 +493,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             bool expected = true;
-            bool actual;
-            actual = target.ToBoolean(provider);
+            bool actual = target.ToBoolean(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -524,8 +507,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             byte expected = 10;
-            byte actual;
-            actual = target.ToByte(provider);
+            byte actual = target.ToByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -559,8 +541,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             Decimal expected = new(10F);
-            Decimal actual;
-            actual = target.ToDecimal(provider);
+            Decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -574,8 +555,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             double expected = 10F;
-            double actual;
-            actual = target.ToDouble(provider);
+            double actual = target.ToDouble(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -589,8 +569,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             short expected = 10;
-            short actual;
-            actual = target.ToInt16(provider);
+            short actual = target.ToInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -604,8 +583,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             int expected = 10;
-            int actual;
-            actual = target.ToInt32(provider);
+            int actual = target.ToInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -619,8 +597,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             long expected = 10;
-            long actual;
-            actual = target.ToInt64(provider);
+            long actual = target.ToInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -634,8 +611,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             sbyte expected = 10;
-            sbyte actual;
-            actual = target.ToSByte(provider);
+            sbyte actual = target.ToSByte(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -649,8 +625,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             float expected = 10F;
-            float actual;
-            actual = target.ToSingle(provider);
+            float actual = target.ToSingle(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -665,8 +640,7 @@ namespace Gemstone.Common.UnitTests.Units
             Type conversionType = typeof(Double);
             IFormatProvider provider = null;
             object expected = new Speed(10F);
-            object actual;
-            actual = target.ToType(conversionType, provider);
+            object actual = target.ToType(conversionType, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -680,8 +654,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             ushort expected = 10;
-            ushort actual;
-            actual = target.ToUInt16(provider);
+            ushort actual = target.ToUInt16(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -695,8 +668,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             uint expected = 10;
-            uint actual;
-            actual = target.ToUInt32(provider);
+            uint actual = target.ToUInt32(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -710,8 +682,7 @@ namespace Gemstone.Common.UnitTests.Units
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
             ulong expected = 10;
-            ulong actual;
-            actual = target.ToUInt64(provider);
+            ulong actual = target.ToUInt64(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -725,8 +696,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             double expected = 1968.5039370078739;
-            double actual;
-            actual = target.ToFeetPerMinute();
+            double actual = target.ToFeetPerMinute();
             Assert.AreEqual(expected, actual);
         }
 
@@ -740,8 +710,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             double expected = 393.70078740157481;
-            double actual;
-            actual = target.ToInchesPerSecond();
+            double actual = target.ToInchesPerSecond();
             Assert.AreEqual(expected, actual);
         }
 
@@ -755,8 +724,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             double expected = 35.999997120000231;
-            double actual;
-            actual = target.ToKilometersPerHour();
+            double actual = target.ToKilometersPerHour();
             Assert.AreEqual(expected, actual);
         }
 
@@ -770,8 +738,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             double expected = 19.438461717893492;
-            double actual;
-            actual = target.ToKnots();
+            double actual = target.ToKnots();
             Assert.AreEqual(expected, actual);
         }
 
@@ -800,8 +767,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             double expected = 22.369362920544024;
-            double actual;
-            actual = target.ToMilesPerHour();
+            double actual = target.ToMilesPerHour();
             Assert.AreEqual(expected, actual);
         }
 
@@ -823,8 +789,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(value);
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(provider);
+            string actual = target.ToString(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -848,8 +813,7 @@ namespace Gemstone.Common.UnitTests.Units
             string format = string.Empty;
             IFormatProvider provider = null;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format, provider);
+            string actual = target.ToString(format, provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -869,8 +833,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed target = new(value);
             string format = string.Empty;
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString(format);
+            string actual = target.ToString(format);
             Assert.AreEqual(expected, actual);
 
         }
@@ -889,8 +852,7 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             Speed target = new(value);
             string expected = value.ToString();
-            string actual;
-            actual = target.ToString();
+            string actual = target.ToString();
             Assert.AreEqual(expected, actual);
 
         }
@@ -928,8 +890,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed result = new(value);
             Speed resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Speed.TryParse(s, style, provider, out result);
+            bool actual = Speed.TryParse(s, style, provider, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -955,8 +916,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed result = new(value);
             Speed resultExpected = new(value);
             bool expected = true;
-            bool actual;
-            actual = Speed.TryParse(s, out result);
+            bool actual = Speed.TryParse(s, out result);
             Assert.AreEqual(resultExpected, result);
             Assert.AreEqual(expected, actual);
         }
@@ -970,8 +930,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             Speed expected = new(20F);
-            Speed actual;
-            actual = value1 + value2;
+            Speed actual = value1 + value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -984,8 +943,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             Speed expected = new(1F);
-            Speed actual;
-            actual = value1 / value2;
+            Speed actual = value1 / value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -998,8 +956,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 == value2;
+            bool actual = value1 == value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1012,8 +969,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(2F);
             Speed value2 = new(3F);
             double expected = 8F;
-            double actual;
-            actual = Speed.op_Exponent(value1, value2);
+            double actual = Speed.op_Exponent(value1, value2);
             Assert.AreEqual(expected, actual);
         }
 
@@ -1026,8 +982,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 > value2;
+            bool actual = value1 > value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1040,8 +995,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 >= value2;
+            bool actual = value1 >= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1053,8 +1007,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             Speed expected = new(10F);
-            Speed actual;
-            actual = value;
+            Speed actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1066,8 +1019,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed value = new(10F);
             double expected = 10F;
-            double actual;
-            actual = value;
+            double actual = value;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1080,8 +1032,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(9F);
             bool expected = true;
-            bool actual;
-            actual = value1 != value2;
+            bool actual = value1 != value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1094,8 +1045,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(11F);
             bool expected = true;
-            bool actual;
-            actual = value1 < value2;
+            bool actual = value1 < value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1108,8 +1058,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             bool expected = true;
-            bool actual;
-            actual = value1 <= value2;
+            bool actual = value1 <= value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1122,8 +1071,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             Speed expected = new(0F);
-            Speed actual;
-            actual = value1 % value2;
+            Speed actual = value1 % value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1136,8 +1084,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             Speed expected = new(100F);
-            Speed actual;
-            actual = value1 * value2;
+            Speed actual = value1 * value2;
             Assert.AreEqual(expected, actual);
         }
 
@@ -1150,8 +1097,7 @@ namespace Gemstone.Common.UnitTests.Units
             Speed value1 = new(10F);
             Speed value2 = new(10F);
             Speed expected = new(0F);
-            Speed actual;
-            actual = value1 - value2;
+            Speed actual = value1 - value2;
             Assert.AreEqual(expected, actual);
         }
     }

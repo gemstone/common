@@ -54,7 +54,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -67,8 +66,6 @@ using Gemstone.Reflection;
 using Gemstone.StringExtensions;
 using Gemstone.Units;
 using static Gemstone.Common;
-
-#pragma warning disable CA1031 // Do not catch general exception types
 
 namespace Gemstone.IO
 {
@@ -89,7 +86,6 @@ namespace Gemstone.IO
 
         #region [ Constructor ]
 
-        [SuppressMessage("Performance", "CA1810:Initialize reference type static fields inline")]
         static FilePath()
         {
             char[] directorySeparatorChars =
@@ -164,7 +160,7 @@ namespace Gemstone.IO
                     
                     try
                     {
-                        hostFileName = Process.GetCurrentProcess()?.MainModule?.FileName;
+                        hostFileName = Process.GetCurrentProcess().MainModule.FileName;
                     }
                     catch (Exception ex)
                     {
@@ -177,7 +173,7 @@ namespace Gemstone.IO
                     if (string.IsNullOrEmpty(hostFileName))
                         throw new NullReferenceException("Failed to derive host application path");
 
-                    s_hostApplicationPath = GetDirectoryName(hostFileName!);
+                    s_hostApplicationPath = GetDirectoryName(hostFileName);
                 }
 
                 return s_hostApplicationPath;
@@ -446,7 +442,7 @@ namespace Gemstone.IO
             {
                 while (true)
                 {
-                    string current;
+                    string? current;
 
                     try
                     {
@@ -464,7 +460,8 @@ namespace Gemstone.IO
                         break;
                     }
 
-                    yield return current;
+                    if (current is not null)
+                        yield return current;
                 }
             }
         }
@@ -531,7 +528,7 @@ namespace Gemstone.IO
             {
                 while (true)
                 {
-                    string current;
+                    string? current;
 
                     try
                     {
@@ -549,7 +546,8 @@ namespace Gemstone.IO
                         break;
                     }
 
-                    yield return current;
+                    if (current is not null)
+                        yield return current;
                 }
             }
         }
@@ -607,7 +605,7 @@ namespace Gemstone.IO
             {
                 while (true)
                 {
-                    DirectoryInfo current;
+                    DirectoryInfo? current;
 
                     try
                     {
@@ -626,7 +624,8 @@ namespace Gemstone.IO
                         break;
                     }
 
-                    yield return current;
+                    if (current is not null)
+                        yield return current;
                 }
             }
         }
@@ -684,7 +683,7 @@ namespace Gemstone.IO
             {
                 while (true)
                 {
-                    FileInfo current;
+                    FileInfo? current;
 
                     try
                     {
@@ -703,7 +702,8 @@ namespace Gemstone.IO
                         break;
                     }
 
-                    yield return current;
+                    if (current is not null)
+                        yield return current;
                 }
             }
         }
@@ -1195,7 +1195,7 @@ namespace Gemstone.IO
                 }
                 catch (IOException)
                 {
-                    if (secondsToWait != Timeout.Infinite && SystemTimer > endTime)
+                    if ((int)secondsToWait != Timeout.Infinite && SystemTimer > endTime)
                         throw;
                 }
 

@@ -25,6 +25,8 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: bitmask
+
 #region [ Contributor License Agreements ]
 
 /**************************************************************************\
@@ -60,7 +62,6 @@
 #endregion
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace Gemstone.BitExtensions
 {
@@ -75,7 +76,6 @@ namespace Gemstone.BitExtensions
         /// <param name="bit">Bit index (0 - 63)</param>
         /// <returns>Value of the specified <paramref name="bit"/>.</returns>
         /// <exception cref="ArgumentOutOfRangeException">Parameter must be between 0 and 63.</exception>
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public static Bits BitVal(int bit)
         {
             return bit switch

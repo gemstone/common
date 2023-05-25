@@ -73,8 +73,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using Gemstone.Units;
 
-#pragma warning disable IDE1006 // Naming Styles
-
 namespace Gemstone
 {
     #region [ Enumerations ]
@@ -1166,9 +1164,7 @@ namespace Gemstone
         /// <returns>true if s was converted successfully; otherwise, false.</returns>
         public static bool TryParse(string s, out Ticks result)
         {
-            bool parseResponse;
-
-            parseResponse = long.TryParse(s, out long parseResult);
+            bool parseResponse = long.TryParse(s, out long parseResult);
             result = parseResult;
 
             return parseResponse;
@@ -1198,9 +1194,7 @@ namespace Gemstone
         /// </exception>
         public static bool TryParse(string s, NumberStyles style, IFormatProvider provider, out Ticks result)
         {
-            bool parseResponse;
-
-            parseResponse = long.TryParse(s, style, provider, out long parseResult);
+            bool parseResponse = long.TryParse(s, style, provider, out long parseResult);
             result = parseResult;
 
             return parseResponse;
@@ -1278,20 +1272,20 @@ namespace Gemstone
         public static Ticks AlignToSubsecondDistribution(Ticks timestamp, int samplesPerSecond, long timeResolution)
         {
             // Calculate destination ticks for this frame
-            long ticks = timestamp.Value, baseTicks, ticksBeyondSecond, frameIndex, destinationTicks, nextDestinationTicks;
+            long ticks = timestamp.Value, destinationTicks;
 
             // Baseline timestamp to the top of the second
-            baseTicks = ticks - ticks % PerSecond;
+            long baseTicks = ticks - ticks % PerSecond;
 
             // Remove the seconds from ticks
-            ticksBeyondSecond = ticks - baseTicks;
+            long ticksBeyondSecond = ticks - baseTicks;
 
             // Calculate a frame index between 0 and m_framesPerSecond-1, corresponding to ticks
             // rounded down to the nearest frame
-            frameIndex = (long)(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
+            long frameIndex = (long)(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
 
             // Calculate the timestamp of the nearest frame rounded up
-            nextDestinationTicks = (frameIndex + 1) * PerSecond / samplesPerSecond;
+            long nextDestinationTicks = (frameIndex + 1) * PerSecond / samplesPerSecond;
 
             // Determine whether the desired frame is the nearest
             // frame rounded down or the nearest frame rounded up
@@ -1344,20 +1338,20 @@ namespace Gemstone
         public static Ticks RoundToSubsecondDistribution(Ticks timestamp, int samplesPerSecond)
         {
             // Calculate destination ticks for this frame
-            long ticks = timestamp.Value, baseTicks, ticksBeyondSecond, frameIndex, destinationTicks;
+            long ticks = timestamp.Value;
 
             // Baseline timestamp to the top of the second
-            baseTicks = ticks - ticks % PerSecond;
+            long baseTicks = ticks - ticks % PerSecond;
 
             // Remove the seconds from ticks
-            ticksBeyondSecond = ticks - baseTicks;
+            long ticksBeyondSecond = ticks - baseTicks;
 
             // Calculate a frame index between 0 and m_framesPerSecond-1,
             // corresponding to ticks rounded to the nearest frame
-            frameIndex = (long)Math.Round(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
+            long frameIndex = (long)Math.Round(ticksBeyondSecond / (PerSecond / (double)samplesPerSecond));
 
             // Calculate the timestamp of the nearest frame
-            destinationTicks = frameIndex * PerSecond / samplesPerSecond;
+            long destinationTicks = frameIndex * PerSecond / samplesPerSecond;
 
             // Recover the seconds that were removed
             destinationTicks += baseTicks;

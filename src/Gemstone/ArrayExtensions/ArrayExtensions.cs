@@ -337,7 +337,7 @@ namespace Gemstone.ArrayExtensions
                 throw new ArgumentNullException(nameof(arrays));
 
             int size = arrays.Sum(array => array.Length);
-            int length, offset = 0;
+            int offset = 0;
 
             // Combine arrays together as a single image
             T[] combinedBuffer = new T[size];
@@ -347,17 +347,17 @@ namespace Gemstone.ArrayExtensions
                 if (arrays[x] is null)
                     throw new ArgumentNullException($"arrays[{x}]");
 
-                length = arrays[x].Length;
+                int length = arrays[x].Length;
 
-                if (length > 0)
-                {
-                    if (typeof(T).IsPrimitive)
-                        Buffer.BlockCopy(arrays[x], 0, combinedBuffer, offset, length);
-                    else
-                        Array.Copy(arrays[x], 0, combinedBuffer, offset, length);
+                if (length == 0)
+                    continue;
 
-                    offset += length;
-                }
+                if (typeof(T).IsPrimitive)
+                    Buffer.BlockCopy(arrays[x], 0, combinedBuffer, offset, length);
+                else
+                    Array.Copy(arrays[x], 0, combinedBuffer, offset, length);
+
+                offset += length;
             }
 
             return combinedBuffer;
@@ -514,7 +514,7 @@ namespace Gemstone.ArrayExtensions
         /// </para>
         /// </returns>
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
-        public static int CompareTo<T>(this T[] source, T[] other) where T : IComparable<T>
+        public static int CompareTo<T>(this T[]? source, T[]? other) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing
             if (source is null && other is null)
@@ -592,7 +592,7 @@ namespace Gemstone.ArrayExtensions
         /// <paramref name="sourceOffset"/> or <paramref name="otherOffset"/> and <paramref name="count"/> do not specify a valid section in the associated array.
         /// </exception>
         /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
-        public static int CompareTo<T>(this T[] source, int sourceOffset, T[] other, int otherOffset, int count) where T : IComparable<T>
+        public static int CompareTo<T>(this T[]? source, int sourceOffset, T[]? other, int otherOffset, int count) where T : IComparable<T>
         {
             // If both arrays are assumed equal if both are nothing
             if (source is null && other is null)

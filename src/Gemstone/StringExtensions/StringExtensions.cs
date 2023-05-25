@@ -101,8 +101,6 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Gemstone.CharExtensions;
 
-#pragma warning disable CA1031 // Do not catch general exception types
-
 namespace Gemstone.StringExtensions
 {
     /// <summary>
@@ -110,7 +108,6 @@ namespace Gemstone.StringExtensions
     /// </summary>
     public static class StringExtensions
     {
-        [SuppressMessage("Microsoft.Globalization", "CA1309:UseOrdinalStringComparison")]
         private static readonly Dictionary<StringComparison, StringComparer> s_comparisonComparers = new() { [StringComparison.CurrentCulture] = StringComparer.CurrentCulture, [StringComparison.CurrentCultureIgnoreCase] = StringComparer.CurrentCultureIgnoreCase, [StringComparison.InvariantCulture] = StringComparer.InvariantCulture, [StringComparison.InvariantCultureIgnoreCase] = StringComparer.InvariantCultureIgnoreCase, [StringComparison.Ordinal] = StringComparer.Ordinal, [StringComparison.OrdinalIgnoreCase] = StringComparer.OrdinalIgnoreCase };
 
         /// <summary>
@@ -496,7 +493,6 @@ namespace Gemstone.StringExtensions
         /// <paramref name="ignoreDuplicateKeys"/> is set to <c>false</c>.</exception>
         /// <exception cref="FormatException">Total nested key/value pair expressions are mismatched -or- encountered
         /// <paramref name="endValueDelimiter"/> before <paramref name="startValueDelimiter"/>.</exception>
-        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         [SuppressMessage("Style", "IDE0011:Add braces")]
         public static Dictionary<string, string> ParseKeyValuePairs(this string? value, char parameterDelimiter = ';', char keyValueDelimiter = '=', char startValueDelimiter = '{', char endValueDelimiter = '}', bool ignoreDuplicateKeys = true)
         {
@@ -1600,7 +1596,6 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">The string to escape.</param>
         /// <returns>URL encoded string.</returns>
-        [SuppressMessage("Microsoft.Design", "CA1055:UriReturnValuesShouldNotBeStrings")]
         public static string UriEncode(this string? value) => 
             value is null ? string.Empty : Uri.EscapeDataString(value);
 

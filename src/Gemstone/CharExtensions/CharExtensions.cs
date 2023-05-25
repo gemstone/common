@@ -52,7 +52,8 @@ namespace Gemstone.CharExtensions
         /// </summary>
         /// <param name="item">Unicode character to encode in Regular Expression format.</param>
         /// <returns>Specified Unicode character in proper Regular Expression format.</returns>
-        public static string RegexEncode(this char item) => $"\\u{Convert.ToUInt16(item).ToString("x").PadLeft(4, '0')}";
+        public static string RegexEncode(this char item) => 
+            $"\\u{Convert.ToUInt16(item).ToString("x").PadLeft(4, '0')}";
 
         /// <summary>
         /// Tests a character to determine if it marks the end of a typical English word.
@@ -84,7 +85,8 @@ namespace Gemstone.CharExtensions
         /// </summary>
         /// <param name="value">The character to check.</param>
         /// <returns><c>true</c> if numeric character.</returns>
-        public static bool IsNumeric(this char value) => char.IsDigit(value) || value.IsAnyOf(s_numericValues);
+        public static bool IsNumeric(this char value) => 
+            char.IsDigit(value) || value.IsAnyOf(s_numericValues);
 
         /// <summary>
         /// Determines if a character matches any character in a sent array.
@@ -107,7 +109,8 @@ namespace Gemstone.CharExtensions
         /// <param name="startOfRange">Beginning of range character.</param>
         /// <param name="endOfRange">End of range character.</param>
         /// <returns><c>true</c> is the character is within the range.</returns>
-        public static bool IsInRange(this char value, char startOfRange, char endOfRange) => value >= startOfRange && value <= endOfRange;
+        public static bool IsInRange(this char value, char startOfRange, char endOfRange) => 
+            value >= startOfRange && value <= endOfRange;
 
         /// <summary>
         /// Converts <paramref name="value"/> to lower case.
@@ -116,7 +119,8 @@ namespace Gemstone.CharExtensions
         /// <returns>
         /// <paramref name="value"/> converted to lower case.
         /// </returns>
-        public static char ToLower(this char value) => char.ToLowerInvariant(value);
+        public static char ToLower(this char value) => 
+            char.ToLowerInvariant(value);
 
         /// <summary>
         /// Converts <paramref name="value"/> to upper case.
@@ -125,7 +129,8 @@ namespace Gemstone.CharExtensions
         /// <returns>
         /// <paramref name="value"/> converted to upper case.
         /// </returns>
-        public static char ToUpper(this char value) => char.ToUpperInvariant(value);
+        public static char ToUpper(this char value) => 
+            char.ToUpperInvariant(value);
 
         /// <summary>
         /// Returns true if char is hexadecimal digit.
