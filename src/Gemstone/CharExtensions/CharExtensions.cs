@@ -133,9 +133,9 @@ namespace Gemstone.CharExtensions
         /// <param name="value">The character to be tested.</param>
         /// <returns>true if char is hexadecimal digit; false otherwise</returns>
         public static bool IsHex(this char value) => 
-            value >= '0' && value <= '9' || 
-            value >= 'A' && value <= 'F' || 
-            value >= 'a' && value <= 'f';
+            value is >= '0' and <= '9' || 
+            value is >= 'A' and <= 'F' || 
+            value is >= 'a' and <= 'f';
 
         // These functions need further testing for high-end Unicode characters
 
