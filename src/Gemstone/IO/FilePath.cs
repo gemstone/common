@@ -141,8 +141,7 @@ namespace Gemstone.IO
                         LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get entry assembly info: {ex.Message}", ex));
                     }
 
-                    if (hostAssemblyInfo is null)
-                        hostAssemblyInfo = AssemblyInfo.ExecutingAssembly;
+                    hostAssemblyInfo ??= AssemblyInfo.ExecutingAssembly;
 
                     s_hostAssemblyInfo = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
                 }
