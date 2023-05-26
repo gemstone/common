@@ -87,13 +87,11 @@ namespace Gemstone.Net.Security
 
             X509ChainStatusFlags chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~ValidChainFlags));
 
-            if (chainFlags != X509ChainStatusFlags.NoError)
-            {
-                ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
-                return false;
-            }
+            if (chainFlags == X509ChainStatusFlags.NoError)
+                return true;
 
-            return true;
+            ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
+            return false;
         }
 
         #endregion

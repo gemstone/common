@@ -264,7 +264,7 @@ namespace Gemstone.Scheduling
                 !DayPart.Matches(currentDateTime) ||
                 !MonthPart.Matches(currentDateTime) ||
                 !DaysOfWeekPart.Matches(currentDateTime))
-                    return false;
+                return false;
 
             LastDueAt = currentDateTime;
             return true;
@@ -289,7 +289,7 @@ namespace Gemstone.Scheduling
 
             DateTime currentDateTime = ToScheduleTimeZone(targetDateTime);
 
-            bool FindMatchingMonth()
+            bool findMatchingMonth()
             {
                 while (true)
                 {
@@ -301,7 +301,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingDay()
+            bool findMatchingDay()
             {
                 while (true)
                 {
@@ -313,7 +313,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingHour()
+            bool findMatchingHour()
             {
                 while (true)
                 {
@@ -325,7 +325,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingMinute()
+            bool findMatchingMinute()
             {
                 while (true)
                 {
@@ -341,16 +341,16 @@ namespace Gemstone.Scheduling
             {
                 currentDateTime = PreviousMinute(currentDateTime);
 
-                if (!FindMatchingMonth())
+                if (!findMatchingMonth())
                     continue;
 
-                if (!FindMatchingDay())
+                if (!findMatchingDay())
                     continue;
 
-                if (!FindMatchingHour())
+                if (!findMatchingHour())
                     continue;
 
-                if (!FindMatchingMinute())
+                if (!findMatchingMinute())
                     continue;
 
                 return currentDateTime;
@@ -378,7 +378,7 @@ namespace Gemstone.Scheduling
 
             DateTime currentDateTime = ToScheduleTimeZone(targetDateTime);
 
-            bool FindMatchingMonth()
+            bool findMatchingMonth()
             {
                 while (true)
                 {
@@ -390,7 +390,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingDay()
+            bool findMatchingDay()
             {
                 while (true)
                 {
@@ -406,7 +406,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingHour()
+            bool findMatchingHour()
             {
                 while (true)
                 {
@@ -422,7 +422,7 @@ namespace Gemstone.Scheduling
                 }
             }
 
-            bool FindMatchingMinute()
+            bool findMatchingMinute()
             {
                 while (true)
                 {
@@ -442,16 +442,16 @@ namespace Gemstone.Scheduling
             {
                 currentDateTime = NextMinute(currentDateTime);
 
-                if (!FindMatchingMonth())
+                if (!findMatchingMonth())
                     continue;
 
-                if (!FindMatchingDay())
+                if (!findMatchingDay())
                     continue;
 
-                if (!FindMatchingHour())
+                if (!findMatchingHour())
                     continue;
 
-                if (!FindMatchingMinute())
+                if (!findMatchingMinute())
                     continue;
 
                 return currentDateTime;

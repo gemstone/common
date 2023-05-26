@@ -63,6 +63,10 @@
 
 #endregion
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
+// ReSharper disable InconsistentNaming
+#pragma warning disable VSSpell001 // Spell Check
+
 using System;
 using System.Text;
 

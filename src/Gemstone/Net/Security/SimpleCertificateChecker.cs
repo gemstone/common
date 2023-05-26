@@ -86,12 +86,11 @@ namespace Gemstone.Net.Security
         {
             byte[] hash = remoteCertificate.GetCertHash();
             byte[] key = remoteCertificate.GetPublicKey();
-            bool hashMatch, keyMatch;
 
             foreach (X509Certificate certificate in TrustedCertificates)
             {
-                hashMatch = hash.SequenceEqual(certificate.GetCertHash());
-                keyMatch = hashMatch && key.SequenceEqual(certificate.GetPublicKey());
+                bool hashMatch = hash.SequenceEqual(certificate.GetCertHash());
+                bool keyMatch = hashMatch && key.SequenceEqual(certificate.GetPublicKey());
 
                 if (keyMatch)
                     return true;

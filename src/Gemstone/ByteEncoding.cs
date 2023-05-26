@@ -25,6 +25,8 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Endian
+
 #region [ Contributor License Agreements ]
 
 /**************************************************************************\
@@ -333,13 +335,11 @@ namespace Gemstone
                 // Initializes byte image array on first call for speed in future calls.
                 if (m_byteImages is null)
                 {
-                    StringBuilder byteImage;
-
                     m_byteImages = new string[256];
 
                     for (int imageByte = byte.MinValue; imageByte <= byte.MaxValue; imageByte++)
                     {
-                        byteImage = new StringBuilder();
+                        StringBuilder byteImage = new();
 
                         if (m_reverse)
                         {

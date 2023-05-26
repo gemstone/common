@@ -45,7 +45,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
         public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo => 
             // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-            member is null ? string.Empty : TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
+            TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
 
         /// <summary>
         /// Returns a boolean flag that determines if the specified <typeparamref name="TAttribute"/> exists.
@@ -68,17 +68,17 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <remarks>
         /// If more than of the same type of attribute exists on the member, only the first one is returned.
         /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
+        public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute? attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
         {
             object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
 
             if (customAttributes.Length > 0)
             {
-                attribute = customAttributes[0] as TAttribute ?? default!;
+                attribute = customAttributes[0] as TAttribute;
                 return attribute is not null;
             }
 
-            attribute = default!;
+            attribute = null;
             return false;
         }
 
@@ -90,7 +90,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
         /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
         /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute[] attributes) where TMemberInfo : MemberInfo where TAttribute : Attribute
+        public static bool TryGetAttributes<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute[]? attributes) where TMemberInfo : MemberInfo where TAttribute : Attribute
         {
             object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
 
@@ -100,7 +100,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
                 return true;
             }
 
-            attributes = default!;
+            attributes = null;
             return false;
         }
 
@@ -115,17 +115,17 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <remarks>
         /// If more than of the same type of attribute exists on the member, only the first one is returned.
         /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute attribute) where TMemberInfo : MemberInfo
+        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute? attribute) where TMemberInfo : MemberInfo
         {
             object[] customAttributes = member.GetCustomAttributes(attributeType, true);
 
             if (customAttributes.Length > 0)
             {
-                attribute = customAttributes[0] as Attribute ?? default!;
+                attribute = customAttributes[0] as Attribute;
                 return attribute is not null;
             }
 
-            attribute = default!;
+            attribute = null;
             return false;
         }
 
@@ -137,7 +137,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
         /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
         /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute[] attributes) where TMemberInfo : MemberInfo
+        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute[]? attributes) where TMemberInfo : MemberInfo
         {
             object[] customAttributes = member.GetCustomAttributes(attributeType, true);
 
@@ -147,7 +147,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
                 return true;
             }
 
-            attributes = default!;
+            attributes = null;
             return false;
         }
 
@@ -162,11 +162,11 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <remarks>
         /// If more than of the same type of attribute exists on the member, only the first one is returned.
         /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute attribute) where TMemberInfo : MemberInfo
+        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute? attribute) where TMemberInfo : MemberInfo
         {
             object[] customAttributes = member.GetCustomAttributes(true);
 
-            attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute ?? default!;
+            attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute;
 
             return attribute is not null;
         }
@@ -179,7 +179,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
         /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
         /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
         /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute[] attributes) where TMemberInfo : MemberInfo
+        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute[]? attributes) where TMemberInfo : MemberInfo
         {
             object[] customAttributes = member.GetCustomAttributes(true);
 
@@ -188,7 +188,7 @@ namespace Gemstone.Reflection.MemberInfoExtensions
             if (attributes.Length != 0)
                 return true;
 
-            attributes = default!;
+            attributes = null;
             return false;
         }
     }

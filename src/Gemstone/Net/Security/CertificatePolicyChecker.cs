@@ -150,7 +150,7 @@ namespace Gemstone.Net.Security
         /// </summary>
         /// <param name="remoteCertificate">Remote certificate to search for.</param>
         /// <returns>Trusted X509 certificate, if found; otherwise, <c>null</c>.</returns>
-        public X509Certificate? GetTrustedCertificate(X509Certificate remoteCertificate)
+        public X509Certificate? GetTrustedCertificate(X509Certificate? remoteCertificate)
         {
             if (remoteCertificate is null)
                 return null;

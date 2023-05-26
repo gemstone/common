@@ -65,13 +65,14 @@
 
 #endregion
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
+// ReSharper disable InconsistentNaming
+
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
 
-
-// ReSharper disable InconsistentNaming
 namespace Gemstone.Units
 {
     #region [ Enumerations ]

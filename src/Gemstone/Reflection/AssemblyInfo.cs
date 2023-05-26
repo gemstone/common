@@ -41,6 +41,8 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Debuggable
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -356,12 +358,12 @@ namespace Gemstone.Reflection
         /// <summary>
         /// Gets the display name of the <see cref="Assembly"/>.
         /// </summary>
-        public string FullName => Assembly.FullName ?? string.Empty;
+        public string FullName => Assembly.FullName;
 
         /// <summary>
         /// Gets the simple, unencrypted name of the <see cref="Assembly"/>.
         /// </summary>
-        public string Name => Assembly.GetName().Name ?? FullName;
+        public string Name => Assembly.GetName().Name;
 
         /// <summary>
         /// Gets the major, minor, revision, and build numbers of the <see cref="Assembly"/>.
@@ -509,10 +511,10 @@ namespace Gemstone.Reflection
                 Assembly caller = Assembly.GetCallingAssembly();
                 Assembly current = Assembly.GetExecutingAssembly();
 
-                StackFrame[] stackFrames = trace.GetFrames();
+                StackFrame[]? stackFrames = trace.GetFrames();
 
-                //if (stackFrames is null)
-                //    return s_callingAssembly;
+                if (stackFrames is null)
+                    return s_callingAssembly;
 
                 foreach (StackFrame frame in stackFrames)
                 {
@@ -612,7 +614,7 @@ namespace Gemstone.Reflection
                 if (resourceStream is not null)
                 {
                     byte[] buffer = new byte[resourceStream.Length];
-                    // ReSharper disable once MustUseReturnValue
+
                     resourceStream.Read(buffer, 0, (int)resourceStream.Length);
                     resourceStream.Close();
 

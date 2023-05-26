@@ -43,6 +43,8 @@
 //
 //******************************************************************************************************
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -284,7 +286,7 @@ namespace Gemstone
         /// <remarks>
         /// Native types default to zero, not null, therefore this can be used to evaluate if an item is its default (i.e., uninitialized) value.
         /// </remarks>
-        public static bool IsDefaultValue(object item)
+        public static bool IsDefaultValue(object? item)
         {
             // Only reference types can be null, therefore null is its default value
             if (item is null)
@@ -432,7 +434,7 @@ namespace Gemstone
         /// value, result will be <c>true</c>.
         /// </remarks>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool IsNumeric(object item) => IsNumericType(item) || (item is char || item is string) && decimal.TryParse(item.ToString(), out _);
+        public static bool IsNumeric(object item) => IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
 
         /// <summary>Returns the smallest item from a list of parameters.</summary>
         /// <typeparam name="T">Return type <see cref="Type"/> that is the minimum value in the <paramref name="itemList"/>.</typeparam>

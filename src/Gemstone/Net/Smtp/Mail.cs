@@ -35,6 +35,8 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Bcc username
+
 using System;
 using System.IO;
 using System.Net;
@@ -234,7 +236,7 @@ namespace Gemstone.Net.Smtp
         /// <summary>
         /// Gets or sets the username used to authenticate to the SMTP server.
         /// </summary>
-        public string? Username
+        public string? UserName
         {
             get
             {
@@ -378,7 +380,7 @@ namespace Gemstone.Net.Smtp
                 {
                     // Create the file attachment for the mail message.
                     Attachment data = new(attachment.Trim(), MediaTypeNames.Application.Octet);
-                    ContentDisposition? header = data.ContentDisposition;
+                    ContentDisposition header = data.ContentDisposition;
 
                     // Add time stamp information for the file.
                     header.CreationDate = File.GetCreationTime(attachment);
@@ -550,7 +552,7 @@ namespace Gemstone.Net.Smtp
                 Subject = subject,
                 Body = body,
                 IsBodyHtml = isBodyHtml,
-                Username = username,
+                UserName = username,
                 SecurePassword = password,
                 EnableSSL = enableSSL
             };

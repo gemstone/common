@@ -85,6 +85,9 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Lfs Unsecure
+// ReSharper disable InconsistentNaming
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -170,7 +173,7 @@ namespace Gemstone.StringExtensions
 
             char test = value.ToUpper()[0];
 
-            return test == 'T' || test == 'Y';
+            return test is 'T' or 'Y';
         }
 
         /// <summary>
@@ -375,19 +378,11 @@ namespace Gemstone.StringExtensions
         {
             MemoryStream stream = new();
 
-        #if NET6_0_OR_GREATER
             await using (StreamWriter writer = new(stream, encoding ?? Encoding.UTF8, 4096, true))
             {
                 await writer.WriteAsync(value);
                 await writer.FlushAsync();
             }
-        #else
-            using (StreamWriter writer = new(stream, encoding ?? Encoding.UTF8, 4096, true))
-            {
-                await writer.WriteAsync(value);
-                await writer.FlushAsync();
-            }
-        #endif
 
             stream.Position = 0;
 
@@ -412,12 +407,12 @@ namespace Gemstone.StringExtensions
             int totalSegments = (int)Math.Ceiling(value.Length / (double)segmentSize);
             string[] segments = new string[totalSegments];
 
-            for (int x = 0; x < segments.Length; x++)
+            for (int i = 0; i < segments.Length; i++)
             {
-                if (x * segmentSize + segmentSize >= value.Length)
-                    segments[x] = value[(x * segmentSize)..];
+                if (i * segmentSize + segmentSize >= value.Length)
+                    segments[i] = value[(i * segmentSize)..];
                 else
-                    segments[x] = value.Substring(x * segmentSize, segmentSize);
+                    segments[i] = value.Substring(i * segmentSize, segmentSize);
             }
 
             return segments;
@@ -761,7 +756,7 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all CR and LF characters removed.</returns>
-        public static string RemoveCrLfs(this string? value) => value.RemoveCharacters(c => c == '\r' || c == '\n');
+        public static string RemoveCrLfs(this string? value) => value.RemoveCharacters(c => c is '\r' or '\n');
 
         /// <summary>
         /// Replaces all carriage return and line feed characters (as well as CR/LF sequences) in a string with specified replacement character.
@@ -777,7 +772,7 @@ namespace Gemstone.StringExtensions
                 throw new ArgumentNullException(nameof(value));
             // </pex>
 
-            return value.Replace(Environment.NewLine, replacementCharacter.ToString()).ReplaceCharacters(replacementCharacter, c => c == '\r' || c == '\n');
+            return value.Replace(Environment.NewLine, replacementCharacter.ToString()).ReplaceCharacters(replacementCharacter, c => c is '\r' or '\n');
         }
 
         /// <summary>
@@ -863,7 +858,8 @@ namespace Gemstone.StringExtensions
         /// </summary>
         /// <param name="value">Input string.</param>
         /// <returns>Returns <paramref name="value" /> with all invalid file name characters removed.</returns>
-        public static string RemoveInvalidFileNameCharacters(this string? value) => value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+        public static string RemoveInvalidFileNameCharacters(this string? value) => 
+            value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
 
         /// <summary>
         /// Replaces all invalid file name characters (\ / : * ? " &lt; &gt; |) in a string with the specified <paramref name="replacementCharacter"/>.
@@ -871,7 +867,8 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string.</param>
         /// <param name="replacementCharacter">Character used to replace the invalid characters.</param>
         /// <returns>>Returns <paramref name="value" /> with all invalid file name characters replaced.</returns>
-        public static string ReplaceInvalidFileNameCharacters(this string? value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+        public static string ReplaceInvalidFileNameCharacters(this string? value, char replacementCharacter) => 
+            value.ReplaceCharacters(replacementCharacter, c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
 
         /// <summary>
         /// Wraps <paramref name="value"/> in the <paramref name="quoteChar"/>.
@@ -905,7 +902,8 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string.</param>
         /// <param name="characterToCount">Character to be counted.</param>
         /// <returns>Total number of the occurrences of <paramref name="characterToCount" /> in the given string.</returns>
-        public static int CharCount(this string? value, char characterToCount) => string.IsNullOrEmpty(value) ? 0 : value.Count(t => t == characterToCount);
+        public static int CharCount(this string? value, char characterToCount) => 
+            string.IsNullOrEmpty(value) ? 0 : value.Count(t => t == characterToCount);
 
         /// <summary>
         /// Tests to see if a string is contains only digits based on Char.IsDigit function.
@@ -1018,7 +1016,8 @@ namespace Gemstone.StringExtensions
         /// <returns>True, if all string's characters are either letters or digits; otherwise, false.</returns>
         /// <remarks>Any non-letter, non-digit character (e.g., punctuation marks) causes this function to return false (See overload to ignore
         /// punctuation marks.).</remarks>
-        public static bool IsAllLettersOrDigits(this string? value) => value.IsAllLettersOrDigits(false);
+        public static bool IsAllLettersOrDigits(this string? value) => 
+            value.IsAllLettersOrDigits(false);
 
         /// <summary>
         /// Tests to see if a string contains only letters or digits.
@@ -1077,7 +1076,8 @@ namespace Gemstone.StringExtensions
         /// <para>Note: This function encodes a "String". Use the Convert.ToBase64String function to encode a binary data buffer.</para>
         /// </remarks>
         /// <returns>A <see cref="string"></see> value representing the encoded input of <paramref name="value"/>.</returns>
-        public static string Base64Encode(this string? value) => value is null ? string.Empty : Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
+        public static string Base64Encode(this string? value) => 
+            value is null ? string.Empty : Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
 
         /// <summary>
         /// Decodes a given base-64 encoded string encoded with <see cref="Base64Encode" />.
@@ -1086,7 +1086,8 @@ namespace Gemstone.StringExtensions
         /// <remarks>Note: This function decodes value back into a "String". Use the Convert.FromBase64String function to decode a base-64 encoded
         /// string back into a binary data buffer.</remarks>
         /// <returns>A <see cref="string"></see> value representing the decoded input of <paramref name="value"/>.</returns>
-        public static string Base64Decode(this string? value) => value is null ? string.Empty : Encoding.Unicode.GetString(Convert.FromBase64String(value));
+        public static string Base64Decode(this string? value) => 
+            value is null ? string.Empty : Encoding.Unicode.GetString(Convert.FromBase64String(value));
 
         /// <summary>
         /// Converts the given string into a <see cref="SecureString"/>.
@@ -1234,7 +1235,8 @@ namespace Gemstone.StringExtensions
         /// <param name="value">A <see cref="string"/> to be centered.</param>
         /// <param name="maxLength">An <see cref="int"/> that is the maximum length of padding.</param>
         /// <returns>The centered string value.</returns>
-        public static string CenterText(this string? value, int maxLength) => value.CenterText(maxLength, ' ');
+        public static string CenterText(this string? value, int maxLength) => 
+            value.CenterText(maxLength, ' ');
 
         /// <summary>
         /// Centers text within the specified maximum length, biased to the left.
@@ -1359,7 +1361,8 @@ namespace Gemstone.StringExtensions
         /// <param name="value">Input string to process.</param>
         /// <param name="endChar">The character desired at string's end.</param>
         /// <returns>The sent string with character at the end.</returns>
-        public static string EnsureEnd(this string? value, char endChar) => EnsureEnd(value, endChar, false);
+        public static string EnsureEnd(this string? value, char endChar) => 
+            EnsureEnd(value, endChar, false);
 
         /// <summary>
         /// Ensures a string ends with a specific character.
@@ -1476,14 +1479,16 @@ namespace Gemstone.StringExtensions
         /// <param name="value">The string to process.</param>
         /// <param name="characterToFind">The character of interest.</param>
         /// <returns>The index of the first instance of the character that is repeated or (-1) if no repeated chars found.</returns>
-        public static int IndexOfRepeatedChar(this string? value, char characterToFind) => IndexOfRepeatedChar(value, characterToFind, 0);
+        public static int IndexOfRepeatedChar(this string? value, char characterToFind) => 
+            IndexOfRepeatedChar(value, characterToFind, 0);
 
         /// <summary>
         /// Searches a string for an instance of a repeated character.
         /// </summary>
         /// <param name="value">The string to process.</param>
         /// <returns>The index of the first instance of any character that is repeated or (-1) if no repeated chars found.</returns>
-        public static int IndexOfRepeatedChar(this string? value) => IndexOfRepeatedChar(value, 0);
+        public static int IndexOfRepeatedChar(this string? value) => 
+            IndexOfRepeatedChar(value, 0);
 
         /// <summary>
         /// Searches a string for an instance of a repeated character from specified <paramref name="startIndex"/>.

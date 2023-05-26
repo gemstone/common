@@ -65,6 +65,8 @@
 
 #endregion
 
+// ReSharper disable CompareOfFloatsByEqualityOperator
+
 using System;
 using System.ComponentModel;
 using System.Globalization;

@@ -29,6 +29,8 @@
 //
 //******************************************************************************************************
 
+// Ignore Spelling: Debuggable
+
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -49,7 +51,7 @@ namespace Gemstone.Reflection.AssemblyExtensions
         /// <param name="instance">An <see cref="Assembly"/> to get the short name of.</param>
         /// <returns>The assembly name and version from the full assembly name.</returns>
         public static string ShortName(this Assembly instance) => 
-            (instance.FullName ?? string.Empty).Split(',')[0];
+            instance.FullName.Split(',')[0];
 
         /// <summary>
         /// Gets the specified embedded resource from the assembly.

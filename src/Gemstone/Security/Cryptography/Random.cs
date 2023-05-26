@@ -336,7 +336,7 @@ namespace Gemstone.Security.Cryptography
             // create a 75% likelihood (on average) that the number will be in range.
 
             // Exception cases where algorithm doesn't work
-            if (maxValue == 0 || maxValue == 1)
+            if (maxValue is 0 or 1)
                 return 0;
 
             // Determine the number of random bits needed
@@ -378,7 +378,7 @@ namespace Gemstone.Security.Cryptography
             // create a 75% likelihood (on average) that the number will be in range.
 
             // Exception cases where algorithm doesn't work
-            if (maxValue == 0 || maxValue == 1)
+            if (maxValue is 0 or 1)
                 return 0;
 
             // Determine the number of random bits needed
