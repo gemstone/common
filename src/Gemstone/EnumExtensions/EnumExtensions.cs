@@ -205,8 +205,8 @@ namespace Gemstone.EnumExtensions
             if (value is null)
                 return string.Empty;
 
-            if (value.TryGetAttribute(out DescriptionAttribute descriptionAttribute))
-                return descriptionAttribute.Description ?? string.Empty;
+            if (value.TryGetAttribute(out DescriptionAttribute? descriptionAttribute))
+                return descriptionAttribute?.Description ?? string.Empty;
 
             return string.Empty;
         }

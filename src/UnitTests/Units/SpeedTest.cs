@@ -112,12 +112,12 @@ namespace Gemstone.Common.UnitTests.Units
         public void SpeedConstructorTest()
         {
 
-            List<Double> values = new();
+            List<double> values = new();
 
             //Initialization
             values.Add(0);
 
-            foreach (Double value in values)
+            foreach (double value in values)
             {
                 Speed target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Speed));
@@ -362,7 +362,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Speed target = new(10F);
             TypeCode expected = new();
-            expected = Type.GetTypeCode(typeof(Double));
+            expected = Type.GetTypeCode(typeof(double));
             TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
@@ -540,8 +540,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Speed(10F);
             IFormatProvider provider = null;
-            Decimal expected = new(10F);
-            Decimal actual = target.ToDecimal(provider);
+            decimal expected = new(10F);
+            decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -637,7 +637,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToTypeTest()
         {
             IConvertible target = new Speed(10F);
-            Type conversionType = typeof(Double);
+            Type conversionType = typeof(double);
             IFormatProvider provider = null;
             object expected = new Speed(10F);
             object actual = target.ToType(conversionType, provider);

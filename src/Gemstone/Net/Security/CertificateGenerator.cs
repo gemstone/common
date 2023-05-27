@@ -409,7 +409,7 @@ namespace Gemstone.Net.Security
                 // The point here is not only to check if the certificate has a private key,
                 // but also to attempt to access its private key, since doing so might result
                 // in a CryptographicException; certificate.HasPrivateKey will not work
-                return certificate.PrivateKey is not null;
+                return certificate.GetRSAPrivateKey() is not null;
             }
             catch (CryptographicException)
             {

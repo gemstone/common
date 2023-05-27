@@ -109,12 +109,12 @@ namespace Gemstone.Common.UnitTests.Units
         public void CurrentConstructorTest()
         {
 
-            List<Double> values = new();
+            List<double> values = new();
 
             //Initialization
             values.Add(0);
 
-            foreach (Double value in values)
+            foreach (double value in values)
             {
                 Current target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Current));
@@ -482,8 +482,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Current(10F);
             IFormatProvider provider = null;
-            Decimal expected = new(10);
-            Decimal actual = target.ToDecimal(provider);
+            decimal expected = new(10);
+            decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -579,7 +579,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToTypeTest()
         {
             IConvertible target = new Current(10F);
-            Type conversionType = typeof(Double);
+            Type conversionType = typeof(double);
             IFormatProvider provider = null;
             object expected = new Current(10F);
             object actual = target.ToType(conversionType, provider);

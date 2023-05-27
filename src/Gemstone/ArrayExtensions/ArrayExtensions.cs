@@ -342,20 +342,17 @@ namespace Gemstone.ArrayExtensions
             // Combine arrays together as a single image
             T[] combinedBuffer = new T[size];
 
-            for (int x = 0; x < arrays.Length; x++)
+            for (int i = 0; i < arrays.Length; i++)
             {
-                if (arrays[x] is null)
-                    throw new ArgumentNullException($"arrays[{x}]");
+                if (arrays[i] is null)
+                    throw new ArgumentNullException($"arrays[{i}]");
 
-                int length = arrays[x].Length;
+                int length = arrays[i].Length;
 
                 if (length == 0)
                     continue;
 
-                if (typeof(T).IsPrimitive)
-                    Buffer.BlockCopy(arrays[x], 0, combinedBuffer, offset, length);
-                else
-                    Array.Copy(arrays[x], 0, combinedBuffer, offset, length);
+                Array.Copy(arrays[i], 0, combinedBuffer, offset, length);
 
                 offset += length;
             }

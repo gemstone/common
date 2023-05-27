@@ -598,7 +598,9 @@ namespace Gemstone
                     // Get Windows product name
                     try
                     {
+                    #pragma warning disable CA1416
                         s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null)?.ToString();
+                    #pragma warning restore CA1416
                     }
                     catch
                     {

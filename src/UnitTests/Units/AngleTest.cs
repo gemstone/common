@@ -108,12 +108,12 @@ namespace Gemstone.Common.UnitTests.Units
         public void AngleConstructorTest()
         {
             //Test Values Collection
-            List<Double> values = new();
+            List<double> values = new();
 
             //Initialization
             values.Add(0);
 
-            foreach (Double value in values)
+            foreach (double value in values)
             {
                 Angle target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Angle));
@@ -408,8 +408,8 @@ namespace Gemstone.Common.UnitTests.Units
             double value = 10F;
             IConvertible target = new Angle(value);
             IFormatProvider provider = null;
-            Decimal expected = new(value);
-            Decimal actual = target.ToDecimal(provider);
+            decimal expected = new(value);
+            decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -519,7 +519,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             double value = 10F;
             IConvertible target = new Angle(value);
-            Type conversionType = typeof(Double);
+            Type conversionType = typeof(double);
             IFormatProvider provider = null;
             object actual = target.ToType(conversionType, provider);
             Assert.IsInstanceOfType(actual, conversionType);

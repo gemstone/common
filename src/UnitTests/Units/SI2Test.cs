@@ -89,22 +89,22 @@ namespace Gemstone.Common.UnitTests.Units
                 get;
                 set;
             }
-            String name
+            string name
             {
                 get;
                 set;
             }
-            String symbol
+            string symbol
             {
                 get;
                 set;
             }
-            String origin
+            string origin
             {
                 get;
                 set;
             }
-            String derivation
+            string derivation
             {
                 get;
                 set;
@@ -112,7 +112,7 @@ namespace Gemstone.Common.UnitTests.Units
             #endregion
 
             #region CONSTRUCTOR
-            public void Set(int factor, String name, String symbol, String origin, String derivation)
+            public void Set(int factor, string name, string symbol, string origin, string derivation)
             {
                 this.factor = factor;
                 this.name = name;
@@ -123,11 +123,11 @@ namespace Gemstone.Common.UnitTests.Units
             #endregion
 
             #region METHODS
-            public bool Find(Double value)
+            public bool Find(double value)
             {
                 return Find(value.ToString());
             }
-            public bool Find(String value)
+            public bool Find(string value)
             {
                 bool status = false;
                 if (value.ToLower() == value.ToLower() ||
@@ -172,21 +172,21 @@ namespace Gemstone.Common.UnitTests.Units
             #endregion CONSTRUCTOR
 
             #region METHODS
-            private IEnumerable<bool> IsExists(Double value)
+            private IEnumerable<bool> IsExists(double value)
             {
                 foreach (sSI2 obj in obj_SI2)
                 {
                     yield return obj.Find(value);
                 }
             }
-            private IEnumerable<bool> IsExists(String value)
+            private IEnumerable<bool> IsExists(string value)
             {
                 foreach (sSI2 obj in obj_SI2)
                 {
                     yield return obj.Find(value);
                 }
             }
-            private bool DoesExists(String value)
+            private bool DoesExists(string value)
             {
                 bool status = false;
                 foreach (bool Exists in IsExists(value))
@@ -199,7 +199,7 @@ namespace Gemstone.Common.UnitTests.Units
                 }
                 return status;
             }
-            private bool DoesExists(Double value)
+            private bool DoesExists(double value)
             {
                 bool status = false;
                 foreach (bool Exists in IsExists(value))
@@ -212,7 +212,7 @@ namespace Gemstone.Common.UnitTests.Units
                 }
                 return status;
             }
-            public bool IsExists(String[] values)
+            public bool IsExists(string[] values)
             {
                 bool status = true;
                 for (int i = 0; i < values.Length; i++)
@@ -225,7 +225,7 @@ namespace Gemstone.Common.UnitTests.Units
                 }
                 return status;
             }
-            public bool IsExists(Double[] values)
+            public bool IsExists(double[] values)
             {
                 bool status = true;
                 for (int i = 0; i < values.Length; i++)

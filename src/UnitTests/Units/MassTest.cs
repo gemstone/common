@@ -109,12 +109,12 @@ namespace Gemstone.Common.UnitTests.Units
         [TestMethod]
         public void MassConstructorTest()
         {
-            List<Double> values = new();
+            List<double> values = new();
 
             //Initialization
             values.Add(0);
 
-            foreach (Double value in values)
+            foreach (double value in values)
             {
                 Mass target = new(value);
                 Assert.IsInstanceOfType(target, typeof(Mass));
@@ -357,7 +357,7 @@ namespace Gemstone.Common.UnitTests.Units
         {
             Mass target = new(10F);
             TypeCode expected = new();
-            expected = Type.GetTypeCode(typeof(Double));
+            expected = Type.GetTypeCode(typeof(double));
             TypeCode actual = target.GetTypeCode();
             Assert.AreEqual(expected, actual);
         }
@@ -551,8 +551,8 @@ namespace Gemstone.Common.UnitTests.Units
         {
             IConvertible target = new Mass(10F);
             IFormatProvider provider = null;
-            Decimal expected = new(10F);
-            Decimal actual = target.ToDecimal(provider);
+            decimal expected = new(10F);
+            decimal actual = target.ToDecimal(provider);
             Assert.AreEqual(expected, actual);
         }
 
@@ -648,7 +648,7 @@ namespace Gemstone.Common.UnitTests.Units
         public void ToTypeTest()
         {
             IConvertible target = new Mass(10F);
-            Type conversionType = typeof(Double);
+            Type conversionType = typeof(double);
             IFormatProvider provider = null;
             object expected = new Mass(10F);
             object actual = target.ToType(conversionType, provider);

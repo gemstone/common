@@ -380,12 +380,15 @@ namespace Gemstone.Net.Smtp
                 {
                     // Create the file attachment for the mail message.
                     Attachment data = new(attachment.Trim(), MediaTypeNames.Application.Octet);
-                    ContentDisposition header = data.ContentDisposition;
+                    ContentDisposition? header = data.ContentDisposition;
 
-                    // Add time stamp information for the file.
-                    header.CreationDate = File.GetCreationTime(attachment);
-                    header.ModificationDate = File.GetLastWriteTime(attachment);
-                    header.ReadDate = File.GetLastAccessTime(attachment);
+                    if (header is not null)
+                    {
+                        // Add time stamp information for the file.
+                        header.CreationDate = File.GetCreationTime(attachment);
+                        header.ModificationDate = File.GetLastWriteTime(attachment);
+                        header.ReadDate = File.GetLastAccessTime(attachment);
+                    }
 
                     emailMessage.Attachments.Add(data); // Attach the file.
                 }

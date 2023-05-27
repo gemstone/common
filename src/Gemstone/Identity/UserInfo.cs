@@ -125,18 +125,19 @@ namespace Gemstone.Identity
         {
             get
             {
-            #if WINDOWS
+                if (Common.IsPosixEnvironment)
+                    return Environment.UserName;
+
                 try
                 {
+                    #pragma warning disable CA1416
                     return WindowsIdentity.GetCurrent().Name;
+                    #pragma warning restore CA1416
                 }
                 catch (SecurityException)
                 {
                     return Environment.UserName;
                 }
-            #else
-                return Environment.UserName;
-            #endif
             }
         }
 

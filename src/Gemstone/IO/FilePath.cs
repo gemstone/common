@@ -160,7 +160,7 @@ namespace Gemstone.IO
                     
                     try
                     {
-                        hostFileName = Process.GetCurrentProcess().MainModule.FileName;
+                        hostFileName = Process.GetCurrentProcess().MainModule?.FileName;
                     }
                     catch (Exception ex)
                     {
@@ -254,7 +254,7 @@ namespace Gemstone.IO
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
             AssemblyInfo assembly = HostAssemblyInfo;
 
-            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
+            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name!) : Path.Combine(rootFolder, assembly.Company, assembly.Name!);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Gemstone.IO
             string rootFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             AssemblyInfo assembly = HostAssemblyInfo;
 
-            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name) : Path.Combine(rootFolder, assembly.Company, assembly.Name);
+            return string.IsNullOrEmpty(assembly.Company) ? Path.Combine(rootFolder, assembly.Name!) : Path.Combine(rootFolder, assembly.Company, assembly.Name!);
         }
 
         /// <summary>

@@ -46,23 +46,30 @@ namespace Gemstone.Security.Cryptography
         /// </summary>
         public Cipher()
         {
-        #if WINDOWS
-            const string FipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
-            const string FipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
-
-            // Determine if the user needs to use FIPS-compliant algorithms
-            try
-            {
-                SystemAllowsManagedEncryption = (Registry.GetValue(FipsKeyNew, "Enabled", 0) ?? Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0))?.ToString() == "0";
-            }
-            catch (Exception ex)
+            if (Common.IsPosixEnvironment)
             {
                 SystemAllowsManagedEncryption = true;
-                LibraryEvents.OnSuppressedException(this, new Exception($"Cipher FIPS compliance lookup exception: {ex.Message}", ex));
             }
-        #else
-            SystemAllowsManagedEncryption = true;
-        #endif
+            else
+            {
+                const string FipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
+                const string FipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
+
+                // Determine if the user needs to use FIPS-compliant algorithms
+                try
+                {
+                    #pragma warning disable CA1416
+                    SystemAllowsManagedEncryption =
+                        (Registry.GetValue(FipsKeyNew, "Enabled", 0) ??
+                         Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0))?.ToString() == "0";
+                    #pragma warning restore CA1416
+                }
+                catch (Exception ex)
+                {
+                    SystemAllowsManagedEncryption = true;
+                    LibraryEvents.OnSuppressedException(this, new Exception($"Cipher FIPS compliance lookup exception: {ex.Message}", ex));
+                }
+            }
         }
 
         /// <summary>
