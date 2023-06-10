@@ -121,7 +121,7 @@ namespace Gemstone.Identity
         /// <remarks>
         /// The ID name returned is that of the user account under which the code is executing.
         /// </remarks>
-        public static string? CurrentUserID
+        public static string CurrentUserID
         {
             get
             {
@@ -148,7 +148,7 @@ namespace Gemstone.Identity
         {
             get
             {
-                string? currentUserID = CurrentUserID;
+                string currentUserID = CurrentUserID;
 
                 if (!string.IsNullOrEmpty(currentUserID))
                 {
