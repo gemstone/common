@@ -38,8 +38,11 @@ namespace Gemstone.Reflection.MethodBaseExtensions
         /// </summary>
         /// <param name="method">Type to get friendly method name for.</param>
         /// <returns>Friendly method name of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
-        public static string GetFriendlyMethodName(this MethodBase method)
+        public static string GetFriendlyMethodName(this MethodBase? method)
         {
+            if (method is null)
+                return string.Empty;
+
             bool appendComma;
             StringBuilder name = new();
 

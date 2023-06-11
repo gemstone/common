@@ -28,12 +28,21 @@ using Gemstone.EventHandlerExtensions;
 
 // TODO: Add new libraries to internals visible list as needed
 [assembly: InternalsVisibleTo("Gemstone.Communication")]
+[assembly: InternalsVisibleTo("Gemstone.COMTRADE")]
+[assembly: InternalsVisibleTo("Gemstone.Configuration")]
 [assembly: InternalsVisibleTo("Gemstone.Data")]
+[assembly: InternalsVisibleTo("Gemstone.Diagnostics")]
 [assembly: InternalsVisibleTo("Gemstone.Expressions")]
 [assembly: InternalsVisibleTo("Gemstone.IO")]
+[assembly: InternalsVisibleTo("Gemstone.Logging")]
 [assembly: InternalsVisibleTo("Gemstone.Numeric")]
-[assembly: InternalsVisibleTo("Gemstone.Threading")]
+[assembly: InternalsVisibleTo("Gemstone.PhasorProtocols")]
+[assembly: InternalsVisibleTo("Gemstone.PQDIF")]
+[assembly: InternalsVisibleTo("Gemstone.PQDS")]
 [assembly: InternalsVisibleTo("Gemstone.Security")]
+[assembly: InternalsVisibleTo("Gemstone.Threading")]
+[assembly: InternalsVisibleTo("Gemstone.Timeseries")]
+[assembly: InternalsVisibleTo("Gemstone.Web")]
 
 // ReSharper disable DelegateSubtraction
 
