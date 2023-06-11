@@ -3074,6 +3074,185 @@
             </returns>
       <exception cref="T:System.InvalidOperationException">If setting this property to anything other than null</exception>
     </member>
+    <member name="T:Gemstone.PrecisionTimer">
+      <summary>
+            Represents a high-resolution timer and timestamp class.
+            </summary>
+      <remarks>
+            For Windows deployments, implementation is based on the Windows multimedia timer. For other
+            deployments, e.g., POSIX, implementation uses a basic timer for compatibility - this should
+            have ~10ms of resolution when used on standard Linux systems.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.#ctor">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.PrecisionTimer" /> class.
+            </summary>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.AutoReset">
+      <summary>
+            Gets or sets a value indicating whether the <see cref="T:Gemstone.PrecisionTimer" /> should raise the
+            <see cref="E:Gemstone.PrecisionTimer.Tick" /> event each time the specified period elapses or only after the first
+            time it elapses.
+            </summary>
+      <returns>
+        <c>true</c>true if the <see cref="T:Gemstone.PrecisionTimer" /> should raise the <see cref="T:Gemstone.Ticks" />
+            event each time the interval elapses; <c>false</c> if it should raise the event only once
+            after the first time the interval elapses. The default is <c>true</c>.
+            </returns>
+      <remarks></remarks>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.Capabilities">
+      <summary>
+            Gets the system multimedia timer capabilities.
+            </summary>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.ClearMinimumTimerResolution(System.Int32)">
+      <summary>
+            Clears a previously set minimum timer resolution established using <see cref="M:Gemstone.PrecisionTimer.SetMinimumTimerResolution(System.Int32)" />.
+            </summary>
+      <param name="period">
+            Minimum timer resolution specified in the previous call to the <see cref="M:Gemstone.PrecisionTimer.SetMinimumTimerResolution(System.Int32)" /> function.
+            </param>
+      <remarks>
+        <para>
+            Call this function immediately after you are finished using the <see cref="T:Gemstone.PrecisionTimer" />. You must match each call to
+            <see cref="M:Gemstone.PrecisionTimer.SetMinimumTimerResolution(System.Int32)" /> with a call to <see cref="M:Gemstone.PrecisionTimer.ClearMinimumTimerResolution(System.Int32)" />, specifying the same minimum
+            resolution <paramref name="period" /> in both calls. An application can make multiple SetMinimumTimerResolution calls as long
+            as each call is matched with a call to ClearMinimumTimerResolution.
+            </para>
+        <para>
+            This method is currently ignored under Mono deployments.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.PrecisionTimer" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.PrecisionTimer" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.EventArgs">
+      <summary>
+            Gets <see cref="T:System.EventArgs" /> specified in <see cref="M:Gemstone.PrecisionTimer.Start(System.EventArgs)" /> used to pass into <see cref="E:Gemstone.PrecisionTimer.Tick" /> event.
+            </summary>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.PrecisionTimer" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.IsRunning">
+      <summary>
+            Gets a value indicating whether the <see cref="T:Gemstone.PrecisionTimer" /> is running.
+            </summary>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.Period">
+      <summary>
+            Gets or sets the time between <see cref="E:Gemstone.PrecisionTimer.Tick" /> events, in milliseconds.
+            </summary>
+      <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>
+    </member>
+    <member name="P:Gemstone.PrecisionTimer.Resolution">
+      <summary>
+            Gets or sets the <see cref="T:Gemstone.PrecisionTimer" /> resolution, in milliseconds.
+            </summary>
+      <remarks>
+        <para>
+            The resolution is in milliseconds. The resolution increases  with smaller values;
+            a resolution of 0 indicates periodic events should occur with the greatest possible
+            accuracy. To reduce system  overhead, however, you should use the maximum value
+            appropriate for your application.
+            </para>
+        <para>
+            This property is currently ignored under Mono deployments.
+            </para>
+      </remarks>
+      <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.SetMinimumTimerResolution(System.Int32)">
+      <summary>
+            Requests a minimum resolution for periodic timers such as the <see cref="T:Gemstone.PrecisionTimer" />.
+            </summary>
+      <param name="period">
+            Minimum timer resolution, in milliseconds, for the application. A lower value specifies a higher (more accurate) resolution.
+            </param>
+      <remarks>
+        <para>
+            Call this function immediately before using the <see cref="T:Gemstone.PrecisionTimer" /> and call <see cref="M:Gemstone.PrecisionTimer.ClearMinimumTimerResolution(System.Int32)" />
+            immediately after you are finished using the PrecisionTimer. You must match each call to <see cref="M:Gemstone.PrecisionTimer.SetMinimumTimerResolution(System.Int32)" />
+            with a call to ClearMinimumTimerResolution specifying the same minimum resolution <paramref name="period" /> in both calls.
+            An application can make multiple ClearMinimumTimerResolution calls as long as each call is matched with a call to ClearMinimumTimerResolution.
+            This function affects a global Windows setting. Windows uses the lowest value (that is, highest resolution) requested by any process.
+            Setting a higher resolution can improve the accuracy of time-out intervals in wait functions. However, it can also reduce overall system
+            performance, because the thread scheduler switches tasks more often. High resolutions can also prevent the CPU power management system from
+            entering power-saving modes. See timeBeginPeriod Windows API for more information.
+            </para>
+        <para>
+            This method is currently ignored under Mono deployments.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Start">
+      <summary>
+            Starts the <see cref="T:Gemstone.PrecisionTimer" />.
+            </summary>
+      <exception cref="T:System.ObjectDisposedException">
+            The timer has already been disposed.
+            </exception>
+      <exception cref="T:Gemstone.TimerStartException">
+            The timer failed to start.
+            </exception>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Start(System.EventArgs)">
+      <summary>
+            Starts the <see cref="T:Gemstone.PrecisionTimer" /> with the specified <see cref="P:Gemstone.PrecisionTimer.EventArgs" />.
+            </summary>
+      <param name="userArgs">User defined event arguments to pass into raised <see cref="T:Gemstone.Ticks" /> event.</param>
+      <exception cref="T:System.ObjectDisposedException">
+            The timer has already been disposed.
+            </exception>
+      <exception cref="T:Gemstone.TimerStartException">
+            The timer failed to start.
+            </exception>
+    </member>
+    <member name="E:Gemstone.PrecisionTimer.Started">
+      <summary>
+            Occurs when the <see cref="T:Gemstone.PrecisionTimer" /> has started.
+            </summary>
+    </member>
+    <member name="M:Gemstone.PrecisionTimer.Stop">
+      <summary>
+            Stops <see cref="T:Gemstone.PrecisionTimer" />.
+            </summary>
+      <exception cref="T:System.ObjectDisposedException">
+            If the timer has already been disposed.
+            </exception>
+    </member>
+    <member name="E:Gemstone.PrecisionTimer.Stopped">
+      <summary>
+            Occurs when the <see cref="T:Gemstone.PrecisionTimer" /> has stopped.
+            </summary>
+    </member>
+    <member name="E:Gemstone.PrecisionTimer.Tick">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>E:Gemstone.PrecisionTimer.Tick</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
     <member name="T:Gemstone.Range`1">
       <summary>
             Represents a range of values defined by start and end value.
@@ -3501,6 +3680,519 @@
       <summary>
             Gets the state encapsulated by the range.
             </summary>
+    </member>
+    <member name="T:Gemstone.ShortTime">
+      <summary>
+            Represents a high resolution time that is very granular but may drift 
+            if trying to accurately measure long time durations (Such as hours). 
+            This time is not adjusted with changes to the system clock.
+            Typical clock drifts by about 2-3 ms per minute as apposed to 0.4ms
+            per minute for standard <see cref="T:System.DateTime" />.
+            </summary>
+      <remarks>
+            Call times are about 40+ million calls per second.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.ShortTime.Add(System.TimeSpan)">
+      <summary>
+            Adds timespan to this struct
+            </summary>
+      <param name="duration">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>duration</parameter>
+            <parameter>M:Gemstone.ShortTime.Add(System.TimeSpan)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.Add(System.TimeSpan)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.AddMilliseconds(System.Double)">
+      <summary>
+            Adds milliseconds to this struct
+            </summary>
+      <param name="duration">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>duration</parameter>
+            <parameter>M:Gemstone.ShortTime.AddMilliseconds(System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.AddMilliseconds(System.Double)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.AddSeconds(System.Double)">
+      <summary>
+            Adds seconds to this struct
+            </summary>
+      <param name="duration">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>duration</parameter>
+            <parameter>M:Gemstone.ShortTime.AddSeconds(System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.AddSeconds(System.Double)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.AddTicks(System.Double)">
+      <summary>
+            Adds ticks to this struct
+            </summary>
+      <param name="duration">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>duration</parameter>
+            <parameter>M:Gemstone.ShortTime.AddTicks(System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.AddTicks(System.Double)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.Elapsed">
+      <summary>
+            Gets the time that has elapsed since the creation of this time.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.Elapsed</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.Elapsed(Gemstone.ShortTime)">
+      <summary>
+            The elapsed time
+            </summary>
+      <param name="futureTime">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>futureTime</parameter>
+            <parameter>M:Gemstone.ShortTime.Elapsed(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.Elapsed(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedMicroseconds">
+      <summary>
+            The elapsed time in microseconds.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMicroseconds</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedMicroseconds(Gemstone.ShortTime)">
+      <summary>
+            The elapsed time in microseconds
+            </summary>
+      <param name="futureTime">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>futureTime</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMicroseconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMicroseconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedMilliseconds">
+      <summary>
+            The elapsed time in milliseconds.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMilliseconds</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedMilliseconds(Gemstone.ShortTime)">
+      <summary>
+            The elapsed time in milliseconds
+            </summary>
+      <param name="futureTime">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>futureTime</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMilliseconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedMilliseconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedSeconds">
+      <summary>
+            The elapsed time in seconds.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedSeconds</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedSeconds(Gemstone.ShortTime)">
+      <summary>
+            The elapsed time in seconds
+            </summary>
+      <param name="futureTime">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>futureTime</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedSeconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedSeconds(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedTicks">
+      <summary>
+            The elapsed time in ticks.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedTicks</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ElapsedTicks(Gemstone.ShortTime)">
+      <summary>
+            The elapsed time in ticks
+            </summary>
+      <param name="futureTime">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>futureTime</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedTicks(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ElapsedTicks(Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.Equals(Gemstone.ShortTime)">
+      <summary>Indicates whether the current object is equal to another object of the same type.</summary>
+      <param name="other">An object to compare with this object.</param>
+      <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.Equals(System.Object)">
+      <summary>Indicates whether this instance and a specified object are equal.</summary>
+      <param name="obj">The object to compare with the current instance. </param>
+      <returns>true if <paramref name="obj" /> and this instance are the same type and represent the same value; otherwise, false. </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.GetHashCode">
+      <summary>Returns the hash code for this instance.</summary>
+      <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+    </member>
+    <member name="P:Gemstone.ShortTime.Now">
+      <summary>
+            The current time in <see cref="T:Gemstone.ShortTime" /></summary>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_Equality(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Are 2 times equal
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Equality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Equality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Equality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_GreaterThan(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Tests Greater Than
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_GreaterThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Tests Greater than or equal Than
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_GreaterThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_Inequality(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Are 2 times not equal
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Inequality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Inequality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Inequality(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_LessThan(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Tests Less Than
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThan(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_LessThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Tests Less Than or equal
+            </summary>
+      <param name="a">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>a</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="b">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>b</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_LessThanOrEqual(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.op_Subtraction(Gemstone.ShortTime,Gemstone.ShortTime)">
+      <summary>
+            Subtracts two times.
+            </summary>
+      <param name="a"></param>
+      <param name="b"></param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.op_Subtraction(Gemstone.ShortTime,Gemstone.ShortTime)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.ShortTime.ToString">
+      <summary>
+            Shows the UTC time.
+            </summary>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.ShortTime.ToString</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="P:Gemstone.ShortTime.UtcTime">
+      <summary>
+            Calculates the approximate <see cref="T:System.DateTime" /> represented by this time. 
+            </summary>
+      <returns></returns>
     </member>
     <member name="T:Gemstone.Ticks">
       <summary>
@@ -4559,6 +5251,28 @@
       <summary>
             Time value stored in ticks.
             </summary>
+    </member>
+    <member name="T:Gemstone.TimerCapabilities">
+      <summary>
+            Represents information about the system's multimedia timer capabilities.
+            </summary>
+    </member>
+    <member name="F:Gemstone.TimerCapabilities.PeriodMaximum">
+      <summary>Maximum supported period in milliseconds.</summary>
+    </member>
+    <member name="F:Gemstone.TimerCapabilities.PeriodMinimum">
+      <summary>Minimum supported period in milliseconds.</summary>
+    </member>
+    <member name="T:Gemstone.TimerStartException">
+      <summary>
+            Represents an exception that is thrown when a <see cref="T:Gemstone.PrecisionTimer" /> fails to start.
+            </summary>
+    </member>
+    <member name="M:Gemstone.TimerStartException.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.TimerStartException" /> class.
+            </summary>
+      <param name="message">The error message that explains the reason for the exception.</param>
     </member>
     <member name="T:Gemstone.TimeTagBase">
       <summary>
@@ -8326,13 +9040,18 @@
             Initializes a new instance of the <see cref="T:Gemstone.Identity.UserInfo" /> class.
             </summary>
       <param name="loginID">
-            Login ID in 'domain\username' format of the user's account whose information is to be retrieved. Login ID 
-            can also be specified in 'username' format without the domain name, in which case the domain name will be
+            Login ID in 'domain\accountName' format of the user's account whose information is to be retrieved. Login ID 
+            can also be specified in 'accountName' format without the domain name, in which case the domain name will be
             approximated based on the privileged user domain if specified, default login domain of the host machine 
             if available, or the domain of the identity that owns the host process.
             </param>
       <exception cref="T:System.ArgumentNullException">
         <paramref name="loginID" /> is a null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.Identity.UserInfo.accountName">
+      <summary>
+            Gets the user name of the user.
+            </summary>
     </member>
     <member name="P:Gemstone.Identity.UserInfo.CurrentUserID">
       <summary>
@@ -8352,6 +9071,33 @@
             Gets the domain for the user.
             </summary>
     </member>
+    <member name="M:Gemstone.Identity.UserInfo.GroupNameToSID(System.String)">
+      <summary>
+            Converts the given group name to the SID corresponding to that name.
+            </summary>
+      <param name="groupName">The group name for which to look up the SID.</param>
+      <returns>The SID for the given group name, or the group name if no SID can be found.</returns>
+      <remarks>
+            If the <paramref name="groupName" /> cannot be converted to a SID, <paramref name="groupName" />
+            will be the return value.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Identity.UserInfo.IsGroupSID(System.String)">
+      <summary>
+            Determines whether the given security identifier identifies a group.
+            </summary>
+      <param name="sid">The security identifier.</param>
+      <returns>
+        <c>true</c> if the security identifier identifies a group; <c>false</c> otherwise.</returns>
+    </member>
+    <member name="M:Gemstone.Identity.UserInfo.IsUserSID(System.String)">
+      <summary>
+            Determines whether the given security identifier identifies a user account.
+            </summary>
+      <param name="sid">The security identifier.</param>
+      <returns>
+        <c>true</c> if the security identifier identifies a user account; <c>false</c> otherwise.</returns>
+    </member>
     <member name="P:Gemstone.Identity.UserInfo.LdapID">
       <summary>
             Gets the ID of the user in LDAP format.
@@ -8362,10 +9108,16 @@
             Gets the Login ID of the user.
             </summary>
     </member>
-    <member name="P:Gemstone.Identity.UserInfo.UserName">
+    <member name="M:Gemstone.Identity.UserInfo.UserNameToSID(System.String)">
       <summary>
-            Gets the user name of the user.
+            Converts the given user name to the SID corresponding to that name.
             </summary>
+      <param name="accountName">The user name for which to look up the SID.</param>
+      <returns>The SID for the given user name, or the user name if no SID can be found.</returns>
+      <remarks>
+            If the <paramref name="accountName" /> cannot be converted to a SID, <paramref name="accountName" />
+            will be the return value.
+            </remarks>
     </member>
     <member name="T:Gemstone.IO.BlockAllocatedMemoryStream">
       <summary>
@@ -10373,6 +11125,15 @@
             of the entity that this certificate identifies.
             </summary>
     </member>
+    <member name="P:Gemstone.Net.Security.CertificateGenerator.ValidYears">
+      <summary>
+            Gets or sets the number of years self-signed generated
+            certificates should be valid.
+            </summary>
+      <remarks>
+            Defaults to 1.
+            </remarks>
+    </member>
     <member name="T:Gemstone.Net.Security.CertificatePolicy">
       <summary>
             Represents a set of flags to be checked when validating remote certificates.
@@ -10798,7 +11559,7 @@
             </summary>
       <exception cref="T:System.ArgumentNullException">Value being assigned is a null or empty string.</exception>
     </member>
-    <member name="P:Gemstone.Net.Smtp.Mail.Username">
+    <member name="P:Gemstone.Net.Smtp.Mail.UserName">
       <summary>
             Gets or sets the username used to authenticate to the SMTP server.
             </summary>
@@ -12526,7 +13287,7 @@
              are stored in a <see cref="T:System.Collections.Generic.Dictionary`2" /> or <see cref="T:System.Dynamic.ExpandoObject" />.
              Note that dynamic variables cannot be used when calling extension functions.
              </para>
-        <code>
+        <code language="cs">
              string format = "{hello} {world}!";
              dynamic parameters = new ExpandoObject();
              parameters.hello = "Hello";
@@ -13788,7 +14549,7 @@
             and faraday. Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert charge, in coulombs, to kilocoulombs:
-            <code language="cs">
+            <code>
             public double GetKilocoulombs(Charge coulombs)
             {
                 return coulombs / SI.Kilo;
@@ -19090,7 +19851,7 @@
             conversion factor, for example:
             <example>
             Convert volts to megavolts:
-            <code>
+            <code language="cs">
             public double GetMegavolts(Voltage volts)
             {
                 return volts / SI.Mega;
