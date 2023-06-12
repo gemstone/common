@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.WordExtensions
+namespace Gemstone.WordExtensions;
+
+/// <summary>
+/// Contains extension methods for 16-bit words, 32-bit double-words and 64-bit quad-words..
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for 16-bit words, 32-bit double-words and 64-bit quad-words..
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

@@ -24,13 +24,12 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.EventHandlerExtensions
+namespace Gemstone.EventHandlerExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="EventHandler"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="EventHandler"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

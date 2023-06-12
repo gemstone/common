@@ -24,13 +24,12 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.ActionExtensions
+namespace Gemstone.ActionExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="Action"/> delegates.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="Action"/> delegates.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

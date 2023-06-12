@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Identity
+namespace Gemstone.Identity;
+
+/// <summary>
+/// Contains classes used to simplify and standardize access to information about user identity.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used to simplify and standardize access to information about user identity.
-    /// </summary>
-    [CompilerGenerated]
-    internal class NamespaceDoc
-    {
-    }
 }

@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Scheduling
+namespace Gemstone.Scheduling;
+
+/// <summary>
+/// Contains classes used to schedule operations using standard UNIX crontab syntax.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used to schedule operations using standard UNIX crontab syntax.
-    /// </summary>
-    [CompilerGenerated]
-    internal class NamespaceDoc
-    {
-    }
 }

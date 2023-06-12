@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.IO.Parsing
+namespace Gemstone.IO.Parsing;
+
+/// <summary>
+/// Contains classes used to simplify, standardize and automate any kind of IO based parsing operation.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used to simplify, standardize and automate any kind of IO based parsing operation.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

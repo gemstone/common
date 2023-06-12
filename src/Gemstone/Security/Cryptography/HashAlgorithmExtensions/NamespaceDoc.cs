@@ -24,13 +24,12 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions
+namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="HashAlgorithm"/> implementations.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="HashAlgorithm"/> implementations.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

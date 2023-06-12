@@ -24,13 +24,12 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.TypeExtensions
+namespace Gemstone.TypeExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="Type"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="Type"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

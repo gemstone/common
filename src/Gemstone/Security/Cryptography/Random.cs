@@ -34,391 +34,390 @@
 using System;
 using System.Security.Cryptography;
 
-namespace Gemstone.Security.Cryptography
+namespace Gemstone.Security.Cryptography;
+
+/// <summary>
+/// Generates cryptographically strong random numbers.
+/// </summary>
+public static class Random
 {
+    private static readonly RandomNumberGenerator s_randomNumberGenerator = RandomNumberGenerator.Create();
+
     /// <summary>
-    /// Generates cryptographically strong random numbers.
+    /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one.
     /// </summary>
-    public static class Random
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static double Number => UInt32 / (uint.MaxValue + 1.0D);
+
+    /// <summary>
+    /// Generates a semi cryptographically strong random decimal between zero and one.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static decimal Decimal => UInt64 / (ulong.MaxValue + 1.0M);
+
+    /// <summary>
+    /// Generates a semi cryptographically strong random integer between specified values.
+    /// </summary>
+    /// <param name="startNumber">A <see cref="double"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="double"/> that is the high end of our range.</param>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <returns>A <see cref="double"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>, or an exception.  </returns>
+    public static double Between(double startNumber, double stopNumber)
     {
-        private static readonly RandomNumberGenerator s_randomNumberGenerator = RandomNumberGenerator.Create();
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
 
-        /// <summary>
-        /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static double Number => UInt32 / (uint.MaxValue + 1.0D);
-
-        /// <summary>
-        /// Generates a semi cryptographically strong random decimal between zero and one.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static decimal Decimal => UInt64 / (ulong.MaxValue + 1.0M);
-
-        /// <summary>
-        /// Generates a semi cryptographically strong random integer between specified values.
-        /// </summary>
-        /// <param name="startNumber">A <see cref="double"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="double"/> that is the high end of our range.</param>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <returns>A <see cref="double"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>, or an exception.  </returns>
-        public static double Between(double startNumber, double stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return Number * (stopNumber - startNumber) + startNumber;
-        }
-
-        /// <summary>
-        /// Fills an array of bytes with a cryptographically strong sequence of random values.
-        /// </summary>
-        /// <param name="buffer">The array to fill with a cryptographically strong sequence of random values.</param>
-        /// <remarks>
-        /// <para>The length of the byte array determines how many cryptographically strong random bytes are produced.</para>
-        /// <para>This method is thread safe.</para>
-        /// </remarks>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <exception cref="ArgumentNullException">buffer is null.</exception>
-        public static void GetBytes(byte[] buffer) => s_randomNumberGenerator.GetBytes(buffer);
-
-        /// <summary>
-        /// Generates a cryptographically strong random boolean (i.e., a coin toss).
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static bool Boolean
-        {
-            get
-            {
-                byte[] value = new byte[1];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return (value[0] & 1) == 0;
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 8-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static byte Byte
-        {
-            get
-            {
-                byte[] value = new byte[1];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return value[0];
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 8-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="byte"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="byte"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="byte"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static byte ByteBetween(byte startNumber, byte stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return (byte)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 16-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static short Int16
-        {
-            get
-            {
-                byte[] value = new byte[2];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToInt16(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 16-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="short"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="short"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="short"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static short Int16Between(short startNumber, short stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return (short)(GetRandomNumberLessThan(stopNumber - startNumber) + startNumber);
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 16-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static ushort UInt16
-        {
-            get
-            {
-                byte[] value = new byte[2];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToUInt16(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 16-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="ushort"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="ushort"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="ushort"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static ushort UInt16Between(ushort startNumber, ushort stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return (ushort)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 32-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static int Int32
-        {
-            get
-            {
-                byte[] value = new byte[4];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToInt32(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 32-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="int"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="int"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="int"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static int Int32Between(int startNumber, int stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 32-bit random integer. 
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static uint UInt32
-        {
-            get
-            {
-                byte[] value = new byte[4];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToUInt32(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 32-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="uint"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="uint"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="uint"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static uint UInt32Between(uint startNumber, uint stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 64-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static long Int64
-        {
-            get
-            {
-                byte[] value = new byte[8];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToInt64(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong 64-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="long"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="long"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="long"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static long Int64Between(long startNumber, long stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 64-bit random integer.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        public static ulong UInt64
-        {
-            get
-            {
-                byte[] value = new byte[8];
-
-                s_randomNumberGenerator.GetBytes(value);
-
-                return BitConverter.ToUInt64(value, 0);
-            }
-        }
-
-        /// <summary>
-        /// Generates a cryptographically strong unsigned 64-bit random integer between specified values.
-        /// </summary>
-        /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-        /// <param name="startNumber">A <see cref="ulong"/> that is the low end of our range.</param>
-        /// <param name="stopNumber">A <see cref="ulong"/> that is the high end of our range.</param>
-        /// <returns>A <see cref="ulong"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
-        public static ulong UInt64Between(ulong startNumber, ulong stopNumber)
-        {
-            if (stopNumber < startNumber)
-                throw new ArgumentException("stopNumber must be greater than startNumber");
-
-            return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
-        }
-
-        /// <summary>
-        /// Returns a cryptographically strong number that is less than the supplied value.
-        /// </summary>
-        /// <param name="maxValue">the max value to return exclusive</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// if 0 is provided, 0 is returned
-        /// </remarks>
-        internal static uint GetRandomNumberLessThan(uint maxValue)
-        {
-            //  A crypto number cannot be achieved via *, /, or % since these 
-            //operations have rounding and uneven redistribution properties. 
-
-            // Method: In order to get a crypto number <= maxValue
-            // A random number must be generated. If the random number is in range, it 
-            // may be kept, otherwise a new number must be generated.
-            // To increase the likelihood that the number is in range,
-            // bit masking can be used on the higher order bits to
-            // create a 75% likelihood (on average) that the number will be in range.
-
-            // Exception cases where algorithm doesn't work
-            if (maxValue is 0 or 1)
-                return 0;
-
-            // Determine the number of random bits needed
-            int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
-
-            uint value = UInt32;
-
-            // By shifting the value by the number of leading zeros, I'll have
-            // a number with the highest likelihood of being in range
-            while (value >> leadingZeroes >= maxValue)
-            {
-                // If the number is outside of range, all bits must
-                // be discarded and new ones generated. Not doing this
-                // technically alters the crypto-random nature of the value being generated.
-                value = UInt32;
-            }
-
-            return value >> leadingZeroes;
-        }
-
-        /// <summary>
-        /// Returns a cryptographically strong number that is less than the supplied value.
-        /// </summary>
-        /// <param name="maxValue">the max value to return exclusive</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// if 0 is provided, 0 is returned
-        /// </remarks>
-        internal static ulong GetRandomNumberLessThan(ulong maxValue)
-        {
-            // A crypto number cannot be achieved via *, /, or % since these 
-            // operations have rounding and uneven redistribution properties. 
-
-            // Method: In order to get a crypto number <= maxValue
-            // A random number must be generated. If the random number is in range, it 
-            // may be kept, otherwise a new number must be generated.
-            // To increase the likelihood that the number is in range,
-            // bit masking can be used on the higher order bits to
-            // create a 75% likelihood (on average) that the number will be in range.
-
-            // Exception cases where algorithm doesn't work
-            if (maxValue is 0 or 1)
-                return 0;
-
-            // Determine the number of random bits needed
-            int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
-
-            ulong value = UInt64;
-
-            // By shifting the value by the number of leading zeros, I'll have
-            // a number with the highest likelihood of being in range
-            while (value >> leadingZeroes >= maxValue)
-            {
-                // If the number is outside of range, all bits must
-                // be discarded and new ones generated. Not doing this
-                // technically alters the crypto-random nature of the value being generated.
-                value = UInt64;
-            }
-
-            return value >> leadingZeroes;
-        }
-
-        /// <summary>
-        /// Returns a cryptographically strong number that is less than the supplied value.
-        /// </summary>
-        /// <param name="maxValue">the max value to return exclusive</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// A number less than a negative number rolls down to long.MinValue, then to long.MaxValue
-        /// if 0 is provided, 0 is returned
-        /// </remarks>
-        internal static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
-
-        /// <summary>
-        /// Returns a cryptographically strong number that is less the supplied value.
-        /// </summary>
-        /// <param name="maxValue">the max value to return exclusive</param>
-        /// <returns></returns>
-        /// <remarks>
-        /// A number less than a negative number rolls down to int.MinValue, then to int.MaxValue
-        /// if 0 is provided, 0 is returned
-        /// </remarks>
-        internal static int GetRandomNumberLessThan(int maxValue) => (int)GetRandomNumberLessThan((uint)maxValue);
+        return Number * (stopNumber - startNumber) + startNumber;
     }
+
+    /// <summary>
+    /// Fills an array of bytes with a cryptographically strong sequence of random values.
+    /// </summary>
+    /// <param name="buffer">The array to fill with a cryptographically strong sequence of random values.</param>
+    /// <remarks>
+    /// <para>The length of the byte array determines how many cryptographically strong random bytes are produced.</para>
+    /// <para>This method is thread safe.</para>
+    /// </remarks>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <exception cref="ArgumentNullException">buffer is null.</exception>
+    public static void GetBytes(byte[] buffer) => s_randomNumberGenerator.GetBytes(buffer);
+
+    /// <summary>
+    /// Generates a cryptographically strong random boolean (i.e., a coin toss).
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static bool Boolean
+    {
+        get
+        {
+            byte[] value = new byte[1];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return (value[0] & 1) == 0;
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 8-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static byte Byte
+    {
+        get
+        {
+            byte[] value = new byte[1];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return value[0];
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 8-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="byte"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="byte"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="byte"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static byte ByteBetween(byte startNumber, byte stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return (byte)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 16-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static short Int16
+    {
+        get
+        {
+            byte[] value = new byte[2];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToInt16(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 16-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="short"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="short"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="short"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static short Int16Between(short startNumber, short stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return (short)(GetRandomNumberLessThan(stopNumber - startNumber) + startNumber);
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 16-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static ushort UInt16
+    {
+        get
+        {
+            byte[] value = new byte[2];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToUInt16(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 16-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="ushort"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="ushort"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="ushort"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static ushort UInt16Between(ushort startNumber, ushort stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return (ushort)(GetRandomNumberLessThan(stopNumber - (uint)startNumber) + startNumber);
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 32-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static int Int32
+    {
+        get
+        {
+            byte[] value = new byte[4];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToInt32(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 32-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="int"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="int"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="int"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static int Int32Between(int startNumber, int stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 32-bit random integer. 
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static uint UInt32
+    {
+        get
+        {
+            byte[] value = new byte[4];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToUInt32(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 32-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="uint"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="uint"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="uint"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static uint UInt32Between(uint startNumber, uint stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 64-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static long Int64
+    {
+        get
+        {
+            byte[] value = new byte[8];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToInt64(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong 64-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="long"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="long"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="long"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static long Int64Between(long startNumber, long stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 64-bit random integer.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    public static ulong UInt64
+    {
+        get
+        {
+            byte[] value = new byte[8];
+
+            s_randomNumberGenerator.GetBytes(value);
+
+            return BitConverter.ToUInt64(value, 0);
+        }
+    }
+
+    /// <summary>
+    /// Generates a cryptographically strong unsigned 64-bit random integer between specified values.
+    /// </summary>
+    /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
+    /// <param name="startNumber">A <see cref="ulong"/> that is the low end of our range.</param>
+    /// <param name="stopNumber">A <see cref="ulong"/> that is the high end of our range.</param>
+    /// <returns>A <see cref="ulong"/> that is generated between the <paramref name="startNumber"/> and the <paramref name="stopNumber"/>.</returns>
+    public static ulong UInt64Between(ulong startNumber, ulong stopNumber)
+    {
+        if (stopNumber < startNumber)
+            throw new ArgumentException("stopNumber must be greater than startNumber");
+
+        return GetRandomNumberLessThan(stopNumber - startNumber) + startNumber;
+    }
+
+    /// <summary>
+    /// Returns a cryptographically strong number that is less than the supplied value.
+    /// </summary>
+    /// <param name="maxValue">the max value to return exclusive</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// if 0 is provided, 0 is returned
+    /// </remarks>
+    internal static uint GetRandomNumberLessThan(uint maxValue)
+    {
+        //  A crypto number cannot be achieved via *, /, or % since these 
+        //operations have rounding and uneven redistribution properties. 
+
+        // Method: In order to get a crypto number <= maxValue
+        // A random number must be generated. If the random number is in range, it 
+        // may be kept, otherwise a new number must be generated.
+        // To increase the likelihood that the number is in range,
+        // bit masking can be used on the higher order bits to
+        // create a 75% likelihood (on average) that the number will be in range.
+
+        // Exception cases where algorithm doesn't work
+        if (maxValue is 0 or 1)
+            return 0;
+
+        // Determine the number of random bits needed
+        int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
+
+        uint value = UInt32;
+
+        // By shifting the value by the number of leading zeros, I'll have
+        // a number with the highest likelihood of being in range
+        while (value >> leadingZeroes >= maxValue)
+        {
+            // If the number is outside of range, all bits must
+            // be discarded and new ones generated. Not doing this
+            // technically alters the crypto-random nature of the value being generated.
+            value = UInt32;
+        }
+
+        return value >> leadingZeroes;
+    }
+
+    /// <summary>
+    /// Returns a cryptographically strong number that is less than the supplied value.
+    /// </summary>
+    /// <param name="maxValue">the max value to return exclusive</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// if 0 is provided, 0 is returned
+    /// </remarks>
+    internal static ulong GetRandomNumberLessThan(ulong maxValue)
+    {
+        // A crypto number cannot be achieved via *, /, or % since these 
+        // operations have rounding and uneven redistribution properties. 
+
+        // Method: In order to get a crypto number <= maxValue
+        // A random number must be generated. If the random number is in range, it 
+        // may be kept, otherwise a new number must be generated.
+        // To increase the likelihood that the number is in range,
+        // bit masking can be used on the higher order bits to
+        // create a 75% likelihood (on average) that the number will be in range.
+
+        // Exception cases where algorithm doesn't work
+        if (maxValue is 0 or 1)
+            return 0;
+
+        // Determine the number of random bits needed
+        int leadingZeroes = BitMath.CountLeadingZeros(maxValue);
+
+        ulong value = UInt64;
+
+        // By shifting the value by the number of leading zeros, I'll have
+        // a number with the highest likelihood of being in range
+        while (value >> leadingZeroes >= maxValue)
+        {
+            // If the number is outside of range, all bits must
+            // be discarded and new ones generated. Not doing this
+            // technically alters the crypto-random nature of the value being generated.
+            value = UInt64;
+        }
+
+        return value >> leadingZeroes;
+    }
+
+    /// <summary>
+    /// Returns a cryptographically strong number that is less than the supplied value.
+    /// </summary>
+    /// <param name="maxValue">the max value to return exclusive</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// A number less than a negative number rolls down to long.MinValue, then to long.MaxValue
+    /// if 0 is provided, 0 is returned
+    /// </remarks>
+    internal static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
+
+    /// <summary>
+    /// Returns a cryptographically strong number that is less the supplied value.
+    /// </summary>
+    /// <param name="maxValue">the max value to return exclusive</param>
+    /// <returns></returns>
+    /// <remarks>
+    /// A number less than a negative number rolls down to int.MinValue, then to int.MaxValue
+    /// if 0 is provided, 0 is returned
+    /// </remarks>
+    internal static int GetRandomNumberLessThan(int maxValue) => (int)GetRandomNumberLessThan((uint)maxValue);
 }

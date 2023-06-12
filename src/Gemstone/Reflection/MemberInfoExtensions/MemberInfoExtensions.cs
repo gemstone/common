@@ -29,167 +29,166 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace Gemstone.Reflection.MemberInfoExtensions
+namespace Gemstone.Reflection.MemberInfoExtensions;
+
+/// <summary>
+/// Defines extensions methods related to <see cref="MemberInfo"/> objects and derived types (e.g., <see cref="FieldInfo"/>,
+/// <see cref="PropertyInfo"/>, <see cref="MethodInfo"/>, etc.).
+/// </summary>
+public static class MemberInfoExtensions
 {
     /// <summary>
-    /// Defines extensions methods related to <see cref="MemberInfo"/> objects and derived types (e.g., <see cref="FieldInfo"/>,
-    /// <see cref="PropertyInfo"/>, <see cref="MethodInfo"/>, etc.).
+    /// Gets the friendly class name of the provided <see cref="MemberInfo"/> object, trimming generic parameters.
     /// </summary>
-    public static class MemberInfoExtensions
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to get friendly class name.</param>
+    /// <typeparam name="TMemberInfo"><see cref="Type"/> of <see cref="MemberInfo"/> instance to retrieve.</typeparam>
+    /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
+    public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo => 
+        // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
+        TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
+
+    /// <summary>
+    /// Returns a boolean flag that determines if the specified <typeparamref name="TAttribute"/> exists.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
+    /// <returns><c>true</c> if attribute exists; otherwise, <c>false</c>.</returns>
+    public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute => 
+        member.TryGetAttribute(out TAttribute _);
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
+    /// <remarks>
+    /// If more than of the same type of attribute exists on the member, only the first one is returned.
+    /// </remarks>
+    public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute? attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
     {
-        /// <summary>
-        /// Gets the friendly class name of the provided <see cref="MemberInfo"/> object, trimming generic parameters.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to get friendly class name.</param>
-        /// <typeparam name="TMemberInfo"><see cref="Type"/> of <see cref="MemberInfo"/> instance to retrieve.</typeparam>
-        /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
-        public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo => 
-            // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-            TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
+        object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
 
-        /// <summary>
-        /// Returns a boolean flag that determines if the specified <typeparamref name="TAttribute"/> exists.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
-        /// <returns><c>true</c> if attribute exists; otherwise, <c>false</c>.</returns>
-        public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute => 
-            member.TryGetAttribute(out TAttribute _);
-
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
-        /// <remarks>
-        /// If more than of the same type of attribute exists on the member, only the first one is returned.
-        /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute? attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
+        if (customAttributes.Length > 0)
         {
-            object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
-
-            if (customAttributes.Length > 0)
-            {
-                attribute = customAttributes[0] as TAttribute;
-                return attribute is not null;
-            }
-
-            attribute = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute[]? attributes) where TMemberInfo : MemberInfo where TAttribute : Attribute
-        {
-            object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
-
-            if (customAttributes.Length > 0)
-            {
-                attributes = customAttributes.Cast<TAttribute>().ToArray();
-                return true;
-            }
-
-            attributes = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attributeType">The actual type of the <see cref="Attribute"/> to look for.</param>
-        /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        /// <remarks>
-        /// If more than of the same type of attribute exists on the member, only the first one is returned.
-        /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute? attribute) where TMemberInfo : MemberInfo
-        {
-            object[] customAttributes = member.GetCustomAttributes(attributeType, true);
-
-            if (customAttributes.Length > 0)
-            {
-                attribute = customAttributes[0] as Attribute;
-                return attribute is not null;
-            }
-
-            attribute = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attributeType">The actual type of the <see cref="Attribute"/> objects to look for.</param>
-        /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute[]? attributes) where TMemberInfo : MemberInfo
-        {
-            object[] customAttributes = member.GetCustomAttributes(attributeType, true);
-
-            if (customAttributes.Length > 0)
-            {
-                attributes = customAttributes.Cast<Attribute>().ToArray();
-                return true;
-            }
-
-            attributes = null;
-            return false;
-        }
-
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attributeName">The name of the type of the <see cref="Attribute"/> to look for.</param>
-        /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        /// <remarks>
-        /// If more than of the same type of attribute exists on the member, only the first one is returned.
-        /// </remarks>
-        public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute? attribute) where TMemberInfo : MemberInfo
-        {
-            object[] customAttributes = member.GetCustomAttributes(true);
-
-            attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute;
-
+            attribute = customAttributes[0] as TAttribute;
             return attribute is not null;
         }
 
-        /// <summary>
-        /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
-        /// </summary>
-        /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
-        /// <param name="attributeName">The name of the type of the <see cref="Attribute"/> objects to look for.</param>
-        /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
-        /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
-        /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
-        public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute[]? attributes) where TMemberInfo : MemberInfo
+        attribute = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
+    public static bool TryGetAttributes<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute[]? attributes) where TMemberInfo : MemberInfo where TAttribute : Attribute
+    {
+        object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
+
+        if (customAttributes.Length > 0)
         {
-            object[] customAttributes = member.GetCustomAttributes(true);
-
-            attributes = customAttributes.Where(attr => attr.GetType().FullName == attributeName).Cast<Attribute>().ToArray();
-
-            if (attributes.Length != 0)
-                return true;
-
-            attributes = null;
-            return false;
+            attributes = customAttributes.Cast<TAttribute>().ToArray();
+            return true;
         }
+
+        attributes = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attributeType">The actual type of the <see cref="Attribute"/> to look for.</param>
+    /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    /// <remarks>
+    /// If more than of the same type of attribute exists on the member, only the first one is returned.
+    /// </remarks>
+    public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute? attribute) where TMemberInfo : MemberInfo
+    {
+        object[] customAttributes = member.GetCustomAttributes(attributeType, true);
+
+        if (customAttributes.Length > 0)
+        {
+            attribute = customAttributes[0] as Attribute;
+            return attribute is not null;
+        }
+
+        attribute = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attributeType">The actual type of the <see cref="Attribute"/> objects to look for.</param>
+    /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, Type attributeType, out Attribute[]? attributes) where TMemberInfo : MemberInfo
+    {
+        object[] customAttributes = member.GetCustomAttributes(attributeType, true);
+
+        if (customAttributes.Length > 0)
+        {
+            attributes = customAttributes.Cast<Attribute>().ToArray();
+            return true;
+        }
+
+        attributes = null;
+        return false;
+    }
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attributeName">The name of the type of the <see cref="Attribute"/> to look for.</param>
+    /// <param name="attribute">The <see cref="Attribute"/> that was found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attribute"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    /// <remarks>
+    /// If more than of the same type of attribute exists on the member, only the first one is returned.
+    /// </remarks>
+    public static bool TryGetAttribute<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute? attribute) where TMemberInfo : MemberInfo
+    {
+        object[] customAttributes = member.GetCustomAttributes(true);
+
+        attribute = customAttributes.FirstOrDefault(attr => attr.GetType().FullName == attributeName) as Attribute;
+
+        return attribute is not null;
+    }
+
+    /// <summary>
+    /// Attempts to get the specified <paramref name="attributes"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
+    /// </summary>
+    /// <param name="member">The <see cref="MemberInfo"/> object over which to search attributes.</param>
+    /// <param name="attributeName">The name of the type of the <see cref="Attribute"/> objects to look for.</param>
+    /// <param name="attributes">The array of <see cref="Attribute"/> objects that were found, if any.</param>
+    /// <returns><c>true</c> if <paramref name="attributes"/> was found; otherwise <c>false</c>.</returns>
+    /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
+    public static bool TryGetAttributes<TMemberInfo>(this TMemberInfo member, string attributeName, out Attribute[]? attributes) where TMemberInfo : MemberInfo
+    {
+        object[] customAttributes = member.GetCustomAttributes(true);
+
+        attributes = customAttributes.Where(attr => attr.GetType().FullName == attributeName).Cast<Attribute>().ToArray();
+
+        if (attributes.Length != 0)
+            return true;
+
+        attributes = null;
+        return false;
     }
 }

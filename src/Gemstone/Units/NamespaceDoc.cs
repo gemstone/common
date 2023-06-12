@@ -23,15 +23,14 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Units
+namespace Gemstone.Units;
+
+/// <summary>
+/// The <see cref="Gemstone.Units"/> namespace organizes all Gemstone library functionality
+/// related to units useful for common unit and SI conversions. The root units namespace includes
+/// common units classes, e.g., <see cref="SI"/>, , <see cref="SI2"/> and , <see cref="Angle"/>.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// The <see cref="Gemstone.Units"/> namespace organizes all Gemstone library functionality
-    /// related to units useful for common unit and SI conversions. The root units namespace includes
-    /// common units classes, e.g., <see cref="SI"/>, , <see cref="SI2"/> and , <see cref="Angle"/>.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

@@ -22,40 +22,39 @@
 //******************************************************************************************************
 
 
-namespace Gemstone.Console
+namespace Gemstone.Console;
+
+/// <summary>
+/// Represents a response that is returned from <see cref="Command.Execute(string, string, int)"/> with standard output and exit code.
+/// </summary>
+public class CommandResponse
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents a response that is returned from <see cref="Command.Execute(string, string, int)"/> with standard output and exit code.
+    /// Creates a new <see cref="CommandResponse"/>.
     /// </summary>
-    public class CommandResponse
+    /// <param name="standardOutput">Standard output of command process.</param>
+    /// <param name="exitCode">Exit code of command process.</param>
+    public CommandResponse(string standardOutput, int exitCode)
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new <see cref="CommandResponse"/>.
-        /// </summary>
-        /// <param name="standardOutput">Standard output of command process.</param>
-        /// <param name="exitCode">Exit code of command process.</param>
-        public CommandResponse(string standardOutput, int exitCode)
-        {
-            StandardOutput = standardOutput;
-            ExitCode = exitCode;
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets standard output reported by command process.
-        /// </summary>
-        public string StandardOutput { get; }
-
-        /// <summary>
-        /// Gets exit code from command process.
-        /// </summary>
-        public int ExitCode { get; }
-
-        #endregion
+        StandardOutput = standardOutput;
+        ExitCode = exitCode;
     }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Gets standard output reported by command process.
+    /// </summary>
+    public string StandardOutput { get; }
+
+    /// <summary>
+    /// Gets exit code from command process.
+    /// </summary>
+    public int ExitCode { get; }
+
+    #endregion
 }

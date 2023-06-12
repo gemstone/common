@@ -28,108 +28,107 @@ using System.Linq;
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Gemstone.Net.Security
-{
-    /// <summary>
-    /// Simple implementation of <see cref="ICertificateChecker"/>.
-    /// </summary>
-    public class SimpleCertificateChecker : ICertificateChecker
-    {
-        #region [ Constructors ]
+namespace Gemstone.Net.Security;
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="SimpleCertificateChecker"/> class.
-        /// </summary>
-        public SimpleCertificateChecker()
+/// <summary>
+/// Simple implementation of <see cref="ICertificateChecker"/>.
+/// </summary>
+public class SimpleCertificateChecker : ICertificateChecker
+{
+    #region [ Constructors ]
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="SimpleCertificateChecker"/> class.
+    /// </summary>
+    public SimpleCertificateChecker()
+    {
+        TrustedCertificates = new List<X509Certificate>();
+        ValidPolicyErrors = SslPolicyErrors.None;
+        ValidChainFlags = X509ChainStatusFlags.NoError;
+    }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Gets the list of certificates on the system which are
+    /// considered trusted when validating remote certificates.
+    /// </summary>
+    public List<X509Certificate> TrustedCertificates { get; }
+
+    /// <summary>
+    /// Gets or sets the set of invalid policy errors.
+    /// </summary>
+    public SslPolicyErrors ValidPolicyErrors { get; set; }
+
+    /// <summary>
+    /// Gets or sets the set of invalid chain flags.
+    /// </summary>
+    public X509ChainStatusFlags ValidChainFlags { get; set; }
+
+    /// <summary>
+    /// Gets the reason why the remote certificate validation
+    /// failed, or null if certificate validation did not fail.
+    /// </summary>
+    public string? ReasonForFailure { get; private set; }
+
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Validates the given remote certificate to determine if the host is trusted.
+    /// </summary>
+    /// <param name="remoteCertificate">Certificate of the remote host.</param>
+    /// <returns>True if the remote certificate is trusted; false otherwise.</returns>
+    public bool ValidateRemoteCertificate(X509Certificate remoteCertificate)
+    {
+        byte[] hash = remoteCertificate.GetCertHash();
+        byte[] key = remoteCertificate.GetPublicKey();
+
+        foreach (X509Certificate certificate in TrustedCertificates)
         {
-            TrustedCertificates = new List<X509Certificate>();
-            ValidPolicyErrors = SslPolicyErrors.None;
-            ValidChainFlags = X509ChainStatusFlags.NoError;
+            bool hashMatch = hash.SequenceEqual(certificate.GetCertHash());
+            bool keyMatch = hashMatch && key.SequenceEqual(certificate.GetPublicKey());
+
+            if (keyMatch)
+                return true;
         }
 
-        #endregion
+        ReasonForFailure = "No matching certificate found in the list of trusted certificates.";
 
-        #region [ Properties ]
+        return false;
+    }
 
-        /// <summary>
-        /// Gets the list of certificates on the system which are
-        /// considered trusted when validating remote certificates.
-        /// </summary>
-        public List<X509Certificate> TrustedCertificates { get; }
+    /// <summary>
+    /// Verifies the remote certificate used for authentication.
+    /// </summary>
+    /// <param name="sender">An object that contains state information for this validation.</param>
+    /// <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+    /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+    /// <param name="errors">One or more errors associated with the remote certificate.</param>
+    /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    public bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
+    {
+        ReasonForFailure = null;
 
-        /// <summary>
-        /// Gets or sets the set of invalid policy errors.
-        /// </summary>
-        public SslPolicyErrors ValidPolicyErrors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the set of invalid chain flags.
-        /// </summary>
-        public X509ChainStatusFlags ValidChainFlags { get; set; }
-
-        /// <summary>
-        /// Gets the reason why the remote certificate validation
-        /// failed, or null if certificate validation did not fail.
-        /// </summary>
-        public string? ReasonForFailure { get; private set; }
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Validates the given remote certificate to determine if the host is trusted.
-        /// </summary>
-        /// <param name="remoteCertificate">Certificate of the remote host.</param>
-        /// <returns>True if the remote certificate is trusted; false otherwise.</returns>
-        public bool ValidateRemoteCertificate(X509Certificate remoteCertificate)
+        if ((errors & ~ValidPolicyErrors) != SslPolicyErrors.None)
         {
-            byte[] hash = remoteCertificate.GetCertHash();
-            byte[] key = remoteCertificate.GetPublicKey();
-
-            foreach (X509Certificate certificate in TrustedCertificates)
-            {
-                bool hashMatch = hash.SequenceEqual(certificate.GetCertHash());
-                bool keyMatch = hashMatch && key.SequenceEqual(certificate.GetPublicKey());
-
-                if (keyMatch)
-                    return true;
-            }
-
-            ReasonForFailure = "No matching certificate found in the list of trusted certificates.";
-
+            ReasonForFailure = $"Policy errors encountered during validation: {errors & ~ValidPolicyErrors}";
             return false;
         }
 
-        /// <summary>
-        /// Verifies the remote certificate used for authentication.
-        /// </summary>
-        /// <param name="sender">An object that contains state information for this validation.</param>
-        /// <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
-        /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
-        /// <param name="errors">One or more errors associated with the remote certificate.</param>
-        /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
-        public bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors)
+        X509ChainStatusFlags chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~ValidChainFlags));
+
+        if (chainFlags != X509ChainStatusFlags.NoError)
         {
-            ReasonForFailure = null;
-
-            if ((errors & ~ValidPolicyErrors) != SslPolicyErrors.None)
-            {
-                ReasonForFailure = $"Policy errors encountered during validation: {errors & ~ValidPolicyErrors}";
-                return false;
-            }
-
-            X509ChainStatusFlags chainFlags = chain.ChainStatus.Aggregate(X509ChainStatusFlags.NoError, (flags, status) => flags | (status.Status & ~ValidChainFlags));
-
-            if (chainFlags != X509ChainStatusFlags.NoError)
-            {
-                ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
-                return false;
-            }
-
-            return ValidateRemoteCertificate(remoteCertificate);
+            ReasonForFailure = $"Invalid chain flags found during validation: {chainFlags}";
+            return false;
         }
 
-        #endregion
+        return ValidateRemoteCertificate(remoteCertificate);
     }
+
+    #endregion
 }

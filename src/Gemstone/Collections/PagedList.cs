@@ -25,81 +25,80 @@ using System.Collections.Generic;
 using System.Linq;
 
 // ReSharper disable PossibleMultipleEnumeration
-namespace Gemstone.Collections
+namespace Gemstone.Collections;
+
+/// <summary>
+/// Defines a paged list for an enumeration.
+/// </summary>
+/// <typeparam name="T">Type of <see cref="IEnumerable{T}"/> to paginate.</typeparam>
+/// <remarks>
+/// This class returns the elements for the specified page number for a given page size and
+/// also provides the calculated page count based on input parameters.
+/// </remarks>
+public class PagedList<T> : List<T>, IPagedList
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Defines a paged list for an enumeration.
+    /// Creates a new <see cref="PagedList{T}"/>.
     /// </summary>
-    /// <typeparam name="T">Type of <see cref="IEnumerable{T}"/> to paginate.</typeparam>
+    /// <param name="source">Source enumeration to paginate.</param>
+    /// <param name="page">Page number (1-based).</param>
+    /// <param name="pageSize">Page size.</param>
+    /// <param name="count">Total records in source if known.</param>
     /// <remarks>
-    /// This class returns the elements for the specified page number for a given page size and
-    /// also provides the calculated page count based on input parameters.
+    /// If count is known or can be calculated early, specify the value in the
+    /// <paramref name="count"/> parameter as an optimization to prevent a full
+    /// enumeration on <paramref name="source"/> to get a count.
     /// </remarks>
-    public class PagedList<T> : List<T>, IPagedList
+    public PagedList(IEnumerable<T> source, int page, int pageSize, int count = -1)
     {
-        #region [ Constructors ]
+        // For many enumeration sources, Count() will map to Length or Count
+        TotalCount = count > -1 ? count : source.Count(); 
+        PageCount = CalculatePageCount(pageSize, TotalCount);
+        Page = page < 1 ? 0 : page - 1;
+        PageSize = pageSize;
 
-        /// <summary>
-        /// Creates a new <see cref="PagedList{T}"/>.
-        /// </summary>
-        /// <param name="source">Source enumeration to paginate.</param>
-        /// <param name="page">Page number (1-based).</param>
-        /// <param name="pageSize">Page size.</param>
-        /// <param name="count">Total records in source if known.</param>
-        /// <remarks>
-        /// If count is known or can be calculated early, specify the value in the
-        /// <paramref name="count"/> parameter as an optimization to prevent a full
-        /// enumeration on <paramref name="source"/> to get a count.
-        /// </remarks>
-        public PagedList(IEnumerable<T> source, int page, int pageSize, int count = -1)
-        {
-            // For many enumeration sources, Count() will map to Length or Count
-            TotalCount = count > -1 ? count : source.Count(); 
-            PageCount = CalculatePageCount(pageSize, TotalCount);
-            Page = page < 1 ? 0 : page - 1;
-            PageSize = pageSize;
-
-            AddRange(source.Skip(Page * PageSize).Take(PageSize));
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets total count of elements in enumeration.
-        /// </summary>
-        public int TotalCount { get; }
-
-        /// <summary>
-        /// Gets calculated page count based on page size and total items count.
-        /// </summary>
-        public int PageCount { get; }
-
-        /// <summary>
-        /// Gets current page number.
-        /// </summary>
-        public int Page { get; }
-
-        /// <summary>
-        /// Gets current page size.
-        /// </summary>
-        public int PageSize { get; }
-
-        #endregion
-
-        #region [ Static ]
-
-        // Calculate page count based on page size and total item count
-        private static int CalculatePageCount(int pageSize, int totalCount)
-        {
-            if (pageSize == 0)
-                return 0;
-
-            int remainder = totalCount % pageSize;
-            return totalCount / pageSize + (remainder == 0 ? 0 : 1);
-        }
-
-        #endregion
+        AddRange(source.Skip(Page * PageSize).Take(PageSize));
     }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Gets total count of elements in enumeration.
+    /// </summary>
+    public int TotalCount { get; }
+
+    /// <summary>
+    /// Gets calculated page count based on page size and total items count.
+    /// </summary>
+    public int PageCount { get; }
+
+    /// <summary>
+    /// Gets current page number.
+    /// </summary>
+    public int Page { get; }
+
+    /// <summary>
+    /// Gets current page size.
+    /// </summary>
+    public int PageSize { get; }
+
+    #endregion
+
+    #region [ Static ]
+
+    // Calculate page count based on page size and total item count
+    private static int CalculatePageCount(int pageSize, int totalCount)
+    {
+        if (pageSize == 0)
+            return 0;
+
+        int remainder = totalCount % pageSize;
+        return totalCount / pageSize + (remainder == 0 ? 0 : 1);
+    }
+
+    #endregion
 }

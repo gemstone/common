@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Collections.CollectionExtensions
+namespace Gemstone.Collections.CollectionExtensions;
+
+/// <summary>
+/// Contains extension methods for collections.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for collections.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

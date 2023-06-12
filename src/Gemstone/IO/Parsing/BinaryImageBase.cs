@@ -30,178 +30,177 @@
 using System;
 using Gemstone.ArrayExtensions;
 
-namespace Gemstone.IO.Parsing
+namespace Gemstone.IO.Parsing;
+
+/// <summary>
+/// Defines a base class that represents binary images for parsing or generation in terms of a header, body and footer.
+/// </summary>
+[Serializable]
+public abstract class BinaryImageBase : ISupportBinaryImage
 {
+    #region [ Properties ]
+
     /// <summary>
-    /// Defines a base class that represents binary images for parsing or generation in terms of a header, body and footer.
+    /// Gets the length of the <see cref="BinaryImageBase"/> object.
     /// </summary>
-    [Serializable]
-    public abstract class BinaryImageBase : ISupportBinaryImage
+    /// <remarks>
+    /// This property is not typically overridden since it is the sum of the header, body and footer lengths.
+    /// </remarks>
+    public virtual int BinaryLength => HeaderLength + BodyLength + FooterLength;
+
+    /// <summary>
+    /// Gets the length of the header portion of the <see cref="BinaryImageBase"/> object.
+    /// </summary>
+    /// <remarks>
+    /// This property is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int HeaderLength => 0;
+
+    /// <summary>
+    /// Gets the length of the body portion of the <see cref="BinaryImageBase"/> object.
+    /// </summary>
+    /// <remarks>
+    /// This property is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int BodyLength => 0;
+
+    /// <summary>
+    /// Gets the length of the footer portion of the <see cref="BinaryImageBase"/> object.
+    /// </summary>
+    /// <remarks>
+    /// This property is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int FooterLength => 0;
+
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Initializes object by parsing the specified <paramref name="buffer"/> containing a binary image.
+    /// </summary>
+    /// <param name="buffer">Buffer containing binary image to parse.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
+    /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
+    /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="startIndex"/> or <paramref name="length"/> is less than 0 -or- 
+    /// <paramref name="startIndex"/> and <paramref name="length"/> will exceed <paramref name="buffer"/> length.
+    /// </exception>
+    /// <remarks>
+    /// This method is not typically overridden since it is parses the header, body and footer images in sequence.
+    /// </remarks>
+    public virtual int ParseBinaryImage(byte[] buffer, int startIndex, int length)
     {
-        #region [ Properties ]
+        buffer.ValidateParameters(startIndex, length);
 
-        /// <summary>
-        /// Gets the length of the <see cref="BinaryImageBase"/> object.
-        /// </summary>
-        /// <remarks>
-        /// This property is not typically overridden since it is the sum of the header, body and footer lengths.
-        /// </remarks>
-        public virtual int BinaryLength => HeaderLength + BodyLength + FooterLength;
+        int index = startIndex;
 
-        /// <summary>
-        /// Gets the length of the header portion of the <see cref="BinaryImageBase"/> object.
-        /// </summary>
-        /// <remarks>
-        /// This property is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int HeaderLength => 0;
+        // Parse out header, body and footer images
+        index += ParseHeaderImage(buffer, index, length);
+        index += ParseBodyImage(buffer, index, length - (index - startIndex));
+        index += ParseFooterImage(buffer, index, length - (index - startIndex));
 
-        /// <summary>
-        /// Gets the length of the body portion of the <see cref="BinaryImageBase"/> object.
-        /// </summary>
-        /// <remarks>
-        /// This property is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int BodyLength => 0;
-
-        /// <summary>
-        /// Gets the length of the footer portion of the <see cref="BinaryImageBase"/> object.
-        /// </summary>
-        /// <remarks>
-        /// This property is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int FooterLength => 0;
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Initializes object by parsing the specified <paramref name="buffer"/> containing a binary image.
-        /// </summary>
-        /// <param name="buffer">Buffer containing binary image to parse.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
-        /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
-        /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="startIndex"/> or <paramref name="length"/> is less than 0 -or- 
-        /// <paramref name="startIndex"/> and <paramref name="length"/> will exceed <paramref name="buffer"/> length.
-        /// </exception>
-        /// <remarks>
-        /// This method is not typically overridden since it is parses the header, body and footer images in sequence.
-        /// </remarks>
-        public virtual int ParseBinaryImage(byte[] buffer, int startIndex, int length)
-        {
-            buffer.ValidateParameters(startIndex, length);
-
-            int index = startIndex;
-
-            // Parse out header, body and footer images
-            index += ParseHeaderImage(buffer, index, length);
-            index += ParseBodyImage(buffer, index, length - (index - startIndex));
-            index += ParseFooterImage(buffer, index, length - (index - startIndex));
-
-            return index - startIndex;
-        }
-
-        /// <summary>
-        /// Parses the binary header image.
-        /// </summary>
-        /// <param name="buffer">Buffer containing binary image to parse.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
-        /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
-        /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int ParseHeaderImage(byte[] buffer, int startIndex, int length) => 0;
-
-        /// <summary>
-        /// Parses the binary body image.
-        /// </summary>
-        /// <param name="buffer">Buffer containing binary image to parse.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
-        /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
-        /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int ParseBodyImage(byte[] buffer, int startIndex, int length) => 0;
-
-        /// <summary>
-        /// Parses the binary footer image.
-        /// </summary>
-        /// <param name="buffer">Buffer containing binary image to parse.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
-        /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
-        /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int ParseFooterImage(byte[] buffer, int startIndex, int length) => 0;
-
-        /// <summary>
-        /// Generates binary image of the object and copies it into the given buffer, for <see cref="ISupportBinaryImage.BinaryLength"/> bytes.
-        /// </summary>
-        /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
-        /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is null.</exception>
-        /// <exception cref="ArgumentOutOfRangeException">
-        /// <paramref name="startIndex"/> or <see cref="ISupportBinaryImage.BinaryLength"/> is less than 0 -or- 
-        /// <paramref name="startIndex"/> and <see cref="ISupportBinaryImage.BinaryLength"/> will exceed <paramref name="buffer"/> length.
-        /// </exception>
-        /// <remarks>
-        /// This property is not typically overridden since it is the generates the combination of the header, body and footer images.
-        /// </remarks>
-        public virtual int GenerateBinaryImage(byte[] buffer, int startIndex)
-        {
-            buffer.ValidateParameters(startIndex, BinaryLength);
-
-            int index = startIndex;
-
-            // Generate header, body and footer images
-            index += GenerateHeaderImage(buffer, index);
-            index += GenerateBodyImage(buffer, index);
-            index += GenerateFooterImage(buffer, index);
-
-            return index - startIndex;
-        }
-
-        /// <summary>
-        /// Generates the binary header image and copies it into the given buffer, for <see cref="HeaderLength"/> bytes.
-        /// </summary>
-        /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
-        /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int GenerateHeaderImage(byte[] buffer, int startIndex) => 0;
-
-        /// <summary>
-        /// Generates the binary body image and copies it into the given buffer, for <see cref="BodyLength"/> bytes.
-        /// </summary>
-        /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
-        /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int GenerateBodyImage(byte[] buffer, int startIndex) => 0;
-
-        /// <summary>
-        /// Generates the binary footer image and copies it into the given buffer, for <see cref="FooterLength"/> bytes.
-        /// </summary>
-        /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
-        /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
-        /// <remarks>
-        /// This method is typically overridden by a specific protocol implementation.
-        /// </remarks>
-        protected virtual int GenerateFooterImage(byte[] buffer, int startIndex) => 0;
-
-        #endregion
+        return index - startIndex;
     }
+
+    /// <summary>
+    /// Parses the binary header image.
+    /// </summary>
+    /// <param name="buffer">Buffer containing binary image to parse.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
+    /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
+    /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int ParseHeaderImage(byte[] buffer, int startIndex, int length) => 0;
+
+    /// <summary>
+    /// Parses the binary body image.
+    /// </summary>
+    /// <param name="buffer">Buffer containing binary image to parse.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
+    /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
+    /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int ParseBodyImage(byte[] buffer, int startIndex, int length) => 0;
+
+    /// <summary>
+    /// Parses the binary footer image.
+    /// </summary>
+    /// <param name="buffer">Buffer containing binary image to parse.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
+    /// <param name="length">Valid number of bytes within <paramref name="buffer"/> from <paramref name="startIndex"/>.</param>
+    /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int ParseFooterImage(byte[] buffer, int startIndex, int length) => 0;
+
+    /// <summary>
+    /// Generates binary image of the object and copies it into the given buffer, for <see cref="ISupportBinaryImage.BinaryLength"/> bytes.
+    /// </summary>
+    /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
+    /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="buffer"/> is null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// <paramref name="startIndex"/> or <see cref="ISupportBinaryImage.BinaryLength"/> is less than 0 -or- 
+    /// <paramref name="startIndex"/> and <see cref="ISupportBinaryImage.BinaryLength"/> will exceed <paramref name="buffer"/> length.
+    /// </exception>
+    /// <remarks>
+    /// This property is not typically overridden since it is the generates the combination of the header, body and footer images.
+    /// </remarks>
+    public virtual int GenerateBinaryImage(byte[] buffer, int startIndex)
+    {
+        buffer.ValidateParameters(startIndex, BinaryLength);
+
+        int index = startIndex;
+
+        // Generate header, body and footer images
+        index += GenerateHeaderImage(buffer, index);
+        index += GenerateBodyImage(buffer, index);
+        index += GenerateFooterImage(buffer, index);
+
+        return index - startIndex;
+    }
+
+    /// <summary>
+    /// Generates the binary header image and copies it into the given buffer, for <see cref="HeaderLength"/> bytes.
+    /// </summary>
+    /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
+    /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int GenerateHeaderImage(byte[] buffer, int startIndex) => 0;
+
+    /// <summary>
+    /// Generates the binary body image and copies it into the given buffer, for <see cref="BodyLength"/> bytes.
+    /// </summary>
+    /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
+    /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int GenerateBodyImage(byte[] buffer, int startIndex) => 0;
+
+    /// <summary>
+    /// Generates the binary footer image and copies it into the given buffer, for <see cref="FooterLength"/> bytes.
+    /// </summary>
+    /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
+    /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
+    /// <remarks>
+    /// This method is typically overridden by a specific protocol implementation.
+    /// </remarks>
+    protected virtual int GenerateFooterImage(byte[] buffer, int startIndex) => 0;
+
+    #endregion
 }

@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.CharExtensions
+namespace Gemstone.CharExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="char"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="char"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

@@ -25,20 +25,19 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions
+namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
+
+/// <summary>
+/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
+/// </summary>
+public static class HashAlgorithmExtensions
 {
     /// <summary>
-    /// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
+    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
     /// </summary>
-    public static class HashAlgorithmExtensions
-    {
-        /// <summary>
-        /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
-        /// </summary>
-        /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-        /// <param name="value">String value to hash.</param>
-        /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-        public static string GetStringHash(this HashAlgorithm algorithm, string? value) => 
-            string.IsNullOrEmpty(value) ? string.Empty : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
-    }
+    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
+    /// <param name="value">String value to hash.</param>
+    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
+    public static string GetStringHash(this HashAlgorithm algorithm, string? value) => 
+        string.IsNullOrEmpty(value) ? string.Empty : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
 }

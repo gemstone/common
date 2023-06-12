@@ -23,23 +23,22 @@
 
 using System;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Defines an attribute that will define a UI label to used for a modeled table field.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class LabelAttribute : Attribute
 {
     /// <summary>
-    /// Defines an attribute that will define a UI label to used for a modeled table field.
+    /// Gets UI label for modeled table field.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class LabelAttribute : Attribute
-    {
-        /// <summary>
-        /// Gets UI label for modeled table field.
-        /// </summary>
-        public string Label { get; }
+    public string Label { get; }
 
-        /// <summary>
-        /// Creates a new <see cref="LabelAttribute"/>.
-        /// </summary>
-        /// <param name="label">UI label for modeled table field.</param>
-        public LabelAttribute(string label) => Label = label;
-    }
+    /// <summary>
+    /// Creates a new <see cref="LabelAttribute"/>.
+    /// </summary>
+    /// <param name="label">UI label for modeled table field.</param>
+    public LabelAttribute(string label) => Label = label;
 }

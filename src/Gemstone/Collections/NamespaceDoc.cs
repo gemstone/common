@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Collections
+namespace Gemstone.Collections;
+
+/// <summary>
+/// Contains classes related to collection operations.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes related to collection operations.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

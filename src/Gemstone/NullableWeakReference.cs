@@ -23,59 +23,58 @@
 
 using System;
 
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// A <see cref="WeakReference"/> implementation that can have the <see cref="Target"/> object set to null.
+/// Natively, setting <see cref="WeakReference.Target"/> to null will throw an <see cref="InvalidOperationException"/>,
+/// </summary>
+public class NullableWeakReference : WeakReference
 {
+    private bool m_cleared;
+
     /// <summary>
-    /// A <see cref="WeakReference"/> implementation that can have the <see cref="Target"/> object set to null.
-    /// Natively, setting <see cref="WeakReference.Target"/> to null will throw an <see cref="InvalidOperationException"/>,
+    /// Creates a <see cref="NullableWeakReference"/>
     /// </summary>
-    public class NullableWeakReference : WeakReference
+    /// <param name="target">the object to maintain the weak reference to. Cannot be null.</param>
+    public NullableWeakReference(object target) : base(target)
     {
-        private bool m_cleared;
-
-        /// <summary>
-        /// Creates a <see cref="NullableWeakReference"/>
-        /// </summary>
-        /// <param name="target">the object to maintain the weak reference to. Cannot be null.</param>
-        public NullableWeakReference(object target) : base(target)
-        {
-            if (target is null)
-                throw new ArgumentNullException(nameof(target));
-        }
-
-        /// <summary>
-        /// Gets an indication whether the object referenced by the current <see cref="NullableWeakReference" /> object has been cleared or garbage collected.
-        /// </summary>
-        /// <returns>
-        /// true if the object referenced by the current <see cref="NullableWeakReference" /> object has not been garbage collected or cleared 
-        /// and is still accessible; otherwise, false.
-        /// </returns>
-        public override bool IsAlive => !m_cleared && base.IsAlive;
-
-        /// <summary>
-        /// Gets the object (the target) referenced by the current <see cref="NullableWeakReference" /> object.
-        /// Set will only accept null.
-        /// </summary>
-        /// <returns>
-        /// null if the object referenced by the current <see cref="NullableWeakReference" /> object has been garbage collected or cleared;
-        /// otherwise, a reference to the object referenced by the current <see cref="NullableWeakReference" /> object.
-        /// </returns>
-        /// <exception cref="System.InvalidOperationException">If setting this property to anything other than null</exception>
-        public override object? Target
-        {
-            get => m_cleared ? null : base.Target;
-            set
-            {
-                if (value is null)
-                    Clear();
-                else
-                    throw new InvalidOperationException("This target must be set in the constructor.");
-            }
-        }
-
-        /// <summary>
-        /// Sets <see cref="Target"/> to null so subsequent calls to <see cref="Target"/> returns null.
-        /// </summary>
-        public virtual void Clear() => m_cleared = true;
+        if (target is null)
+            throw new ArgumentNullException(nameof(target));
     }
+
+    /// <summary>
+    /// Gets an indication whether the object referenced by the current <see cref="NullableWeakReference" /> object has been cleared or garbage collected.
+    /// </summary>
+    /// <returns>
+    /// true if the object referenced by the current <see cref="NullableWeakReference" /> object has not been garbage collected or cleared 
+    /// and is still accessible; otherwise, false.
+    /// </returns>
+    public override bool IsAlive => !m_cleared && base.IsAlive;
+
+    /// <summary>
+    /// Gets the object (the target) referenced by the current <see cref="NullableWeakReference" /> object.
+    /// Set will only accept null.
+    /// </summary>
+    /// <returns>
+    /// null if the object referenced by the current <see cref="NullableWeakReference" /> object has been garbage collected or cleared;
+    /// otherwise, a reference to the object referenced by the current <see cref="NullableWeakReference" /> object.
+    /// </returns>
+    /// <exception cref="System.InvalidOperationException">If setting this property to anything other than null</exception>
+    public override object? Target
+    {
+        get => m_cleared ? null : base.Target;
+        set
+        {
+            if (value is null)
+                Clear();
+            else
+                throw new InvalidOperationException("This target must be set in the constructor.");
+        }
+    }
+
+    /// <summary>
+    /// Sets <see cref="Target"/> to null so subsequent calls to <see cref="Target"/> returns null.
+    /// </summary>
+    public virtual void Clear() => m_cleared = true;
 }

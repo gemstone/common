@@ -21,24 +21,23 @@
 //
 //******************************************************************************************************
 
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// Enumeration that represents a state of either "automatic", "on" or "off".
+/// </summary>
+public enum EnabledState
 {
     /// <summary>
-    /// Enumeration that represents a state of either "automatic", "on" or "off".
+    /// Represents the automatic, i.e., default, state.
     /// </summary>
-    public enum EnabledState
-    {
-        /// <summary>
-        /// Represents the automatic, i.e., default, state.
-        /// </summary>
-        Auto = -1,
-        /// <summary>
-        /// Represents the on, i.e., enabled, state.
-        /// </summary>
-        On = 1,
-        /// <summary>
-        /// Represents the off, i.e., disabled, state.
-        /// </summary>
-        Off = 0
-    }
+    Auto = -1,
+    /// <summary>
+    /// Represents the on, i.e., enabled, state.
+    /// </summary>
+    On = 1,
+    /// <summary>
+    /// Represents the off, i.e., disabled, state.
+    /// </summary>
+    Off = 0
 }

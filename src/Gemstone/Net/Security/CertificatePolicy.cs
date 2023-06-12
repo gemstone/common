@@ -26,40 +26,39 @@
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Gemstone.Net.Security
+namespace Gemstone.Net.Security;
+
+/// <summary>
+/// Represents a set of flags to be checked when validating remote certificates.
+/// </summary>
+public class CertificatePolicy
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents a set of flags to be checked when validating remote certificates.
+    /// Creates a new instance of the <see cref="CertificatePolicy"/> class.
     /// </summary>
-    public class CertificatePolicy
+    public CertificatePolicy()
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CertificatePolicy"/> class.
-        /// </summary>
-        public CertificatePolicy()
-        {
-            ValidPolicyErrors = SslPolicyErrors.None;
-            ValidChainFlags = X509ChainStatusFlags.NoError;
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets or sets the set of valid policy errors used when
-        /// validating remote certificates using this policy.
-        /// </summary>
-        public SslPolicyErrors ValidPolicyErrors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the set of valid chain flags used when
-        /// validating remote certificates using this policy.
-        /// </summary>
-        public X509ChainStatusFlags ValidChainFlags { get; set; }
-
-        #endregion
+        ValidPolicyErrors = SslPolicyErrors.None;
+        ValidChainFlags = X509ChainStatusFlags.NoError;
     }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Gets or sets the set of valid policy errors used when
+    /// validating remote certificates using this policy.
+    /// </summary>
+    public SslPolicyErrors ValidPolicyErrors { get; set; }
+
+    /// <summary>
+    /// Gets or sets the set of valid chain flags used when
+    /// validating remote certificates using this policy.
+    /// </summary>
+    public X509ChainStatusFlags ValidChainFlags { get; set; }
+
+    #endregion
 }

@@ -23,32 +23,31 @@
 
 using System.Collections;
 
-namespace Gemstone.Collections
+namespace Gemstone.Collections;
+
+/// <summary>
+/// Defines an interface for <see cref="PagedList{T}"/> instances that is usable
+/// regardless of any specified type.
+/// </summary>
+public interface IPagedList : IList
 {
     /// <summary>
-    /// Defines an interface for <see cref="PagedList{T}"/> instances that is usable
-    /// regardless of any specified type.
+    /// Gets total count of elements in enumeration.
     /// </summary>
-    public interface IPagedList : IList
-    {
-        /// <summary>
-        /// Gets total count of elements in enumeration.
-        /// </summary>
-        int TotalCount { get; }
+    int TotalCount { get; }
 
-        /// <summary>
-        /// Gets calculated page count based on page size and total items count.
-        /// </summary>
-        int PageCount { get; }
+    /// <summary>
+    /// Gets calculated page count based on page size and total items count.
+    /// </summary>
+    int PageCount { get; }
 
-        /// <summary>
-        /// Gets current page number.
-        /// </summary>
-        int Page { get; }
+    /// <summary>
+    /// Gets current page number.
+    /// </summary>
+    int Page { get; }
 
-        /// <summary>
-        /// Gets current page size.
-        /// </summary>
-        int PageSize { get; }
-    }
+    /// <summary>
+    /// Gets current page size.
+    /// </summary>
+    int PageSize { get; }
 }

@@ -24,28 +24,27 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Represents a <see cref="RegularExpressionAttribute"/> for validating Acronyms, i.e., expressions
+/// that consist only of upper case letters, numbers, '!', '-', '@', '#', '_' , '.' or '$'.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
+public sealed class AcronymValidationAttribute : RegularExpressionAttribute
 {
     /// <summary>
-    /// Represents a <see cref="RegularExpressionAttribute"/> for validating Acronyms, i.e., expressions
-    /// that consist only of upper case letters, numbers, '!', '-', '@', '#', '_' , '.' or '$'.
+    /// Defines the regular expression pattern used to validate value. 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
-    public sealed class AcronymValidationAttribute : RegularExpressionAttribute
-    {
-        /// <summary>
-        /// Defines the regular expression pattern used to validate value. 
-        /// </summary>
-        public const string ValidationPattern = @"^[A-Z0-9\-!_\.@#\$]+$";
+    public const string ValidationPattern = @"^[A-Z0-9\-!_\.@#\$]+$";
 
-        /// <summary>
-        /// Defines the default error message used when pattern fails validation.
-        /// </summary>
-        public const string DefaultErrorMessage = "Only upper case letters, numbers, '!', '-', '@', '#', '_' , '.' and '$' are allowed.";
+    /// <summary>
+    /// Defines the default error message used when pattern fails validation.
+    /// </summary>
+    public const string DefaultErrorMessage = "Only upper case letters, numbers, '!', '-', '@', '#', '_' , '.' and '$' are allowed.";
 
-        /// <summary>
-        /// Creates a new <see cref="AcronymValidationAttribute"/>.
-        /// </summary>
-        public AcronymValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
-    }
+    /// <summary>
+    /// Creates a new <see cref="AcronymValidationAttribute"/>.
+    /// </summary>
+    public AcronymValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
 }

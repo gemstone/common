@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.BitExtensions
+namespace Gemstone.BitExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="Bits"/>.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="Bits"/>.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

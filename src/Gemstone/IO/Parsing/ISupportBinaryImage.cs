@@ -27,41 +27,40 @@
 //
 //******************************************************************************************************
 
-namespace Gemstone.IO.Parsing
+namespace Gemstone.IO.Parsing;
+
+/// <summary>
+/// Specifies that an object can support production or consumption of a binary image that represents the object.
+/// </summary>
+public interface ISupportBinaryImage
 {
     /// <summary>
-    /// Specifies that an object can support production or consumption of a binary image that represents the object.
+    /// Gets the length of the binary image.
     /// </summary>
-    public interface ISupportBinaryImage
-    {
-        /// <summary>
-        /// Gets the length of the binary image.
-        /// </summary>
-        int BinaryLength { get; }
+    int BinaryLength { get; }
 
-        /// <summary>
-        /// Generates binary image of the object and copies it into the given buffer, for <see cref="BinaryLength"/> bytes.
-        /// </summary>
-        /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
-        /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
-        /// <remarks>
-        /// Implementers should validate <paramref name="startIndex"/> and <see cref="BinaryLength"/> against <paramref name="buffer"/> length.
-        /// The <see cref="ArrayExtensions.ArrayExtensions.ValidateParameters{T}"/> method can be used to perform this validation.
-        /// </remarks>
-        int GenerateBinaryImage(byte[] buffer, int startIndex);
+    /// <summary>
+    /// Generates binary image of the object and copies it into the given buffer, for <see cref="BinaryLength"/> bytes.
+    /// </summary>
+    /// <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start writing.</param>
+    /// <returns>The number of bytes written to the <paramref name="buffer"/>.</returns>
+    /// <remarks>
+    /// Implementers should validate <paramref name="startIndex"/> and <see cref="BinaryLength"/> against <paramref name="buffer"/> length.
+    /// The <see cref="ArrayExtensions.ArrayExtensions.ValidateParameters{T}"/> method can be used to perform this validation.
+    /// </remarks>
+    int GenerateBinaryImage(byte[] buffer, int startIndex);
 
-        /// <summary>
-        /// Initializes object by parsing the specified <paramref name="buffer"/> containing a binary image.
-        /// </summary>
-        /// <param name="buffer">Buffer containing binary image to parse.</param>
-        /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
-        /// <param name="length">Valid number of bytes within <paramref name="buffer"/> to read from <paramref name="startIndex"/>.</param>
-        /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
-        /// <remarks>
-        /// Implementers should validate <paramref name="startIndex"/> and <paramref name="length"/> against <paramref name="buffer"/> length.
-        /// The <see cref="ArrayExtensions.ArrayExtensions.ValidateParameters{T}"/> method can be used to perform this validation.
-        /// </remarks>
-        int ParseBinaryImage(byte[] buffer, int startIndex, int length);
-    }
+    /// <summary>
+    /// Initializes object by parsing the specified <paramref name="buffer"/> containing a binary image.
+    /// </summary>
+    /// <param name="buffer">Buffer containing binary image to parse.</param>
+    /// <param name="startIndex">0-based starting index in the <paramref name="buffer"/> to start parsing.</param>
+    /// <param name="length">Valid number of bytes within <paramref name="buffer"/> to read from <paramref name="startIndex"/>.</param>
+    /// <returns>The number of bytes used for initialization in the <paramref name="buffer"/> (i.e., the number of bytes parsed).</returns>
+    /// <remarks>
+    /// Implementers should validate <paramref name="startIndex"/> and <paramref name="length"/> against <paramref name="buffer"/> length.
+    /// The <see cref="ArrayExtensions.ArrayExtensions.ValidateParameters{T}"/> method can be used to perform this validation.
+    /// </remarks>
+    int ParseBinaryImage(byte[] buffer, int startIndex, int length);
 }

@@ -24,13 +24,12 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.IO.StreamExtensions
+namespace Gemstone.IO.StreamExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="Stream"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="Stream"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

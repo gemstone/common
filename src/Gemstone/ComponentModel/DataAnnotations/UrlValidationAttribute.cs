@@ -24,27 +24,26 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Represents a <see cref="RegularExpressionAttribute"/> for validating URL's.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
+public sealed class UrlValidationAttribute : RegularExpressionAttribute
 {
     /// <summary>
-    /// Represents a <see cref="RegularExpressionAttribute"/> for validating URL's.
+    /// Defines the regular expression pattern used to validate value. 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
-    public sealed class UrlValidationAttribute : RegularExpressionAttribute
-    {
-        /// <summary>
-        /// Defines the regular expression pattern used to validate value. 
-        /// </summary>
-        public const string ValidationPattern = @"^(?:(?:[a-zA-Z][a-zA-Z0-9.+-]*:\/\/)?[a-zA-Z0-9][a-zA-Z0-9.-]*(?::[0-9]+)?(?:\/[^ ""]*)?|mailto:[a-zA-Z0-9!#$%&'*+-\/=?^_`{|}~][a-zA-Z0-9!#$%&'*+-\/=?^_`{|}~.]*@[a-zA-Z0-9][a-zA-Z0-9.-]*)$";
+    public const string ValidationPattern = @"^(?:(?:[a-zA-Z][a-zA-Z0-9.+-]*:\/\/)?[a-zA-Z0-9][a-zA-Z0-9.-]*(?::[0-9]+)?(?:\/[^ ""]*)?|mailto:[a-zA-Z0-9!#$%&'*+-\/=?^_`{|}~][a-zA-Z0-9!#$%&'*+-\/=?^_`{|}~.]*@[a-zA-Z0-9][a-zA-Z0-9.-]*)$";
 
-        /// <summary>
-        /// Defines the default error message used when pattern fails validation.
-        /// </summary>
-        public const string DefaultErrorMessage = "Invalid URL.";
+    /// <summary>
+    /// Defines the default error message used when pattern fails validation.
+    /// </summary>
+    public const string DefaultErrorMessage = "Invalid URL.";
 
-        /// <summary>
-        /// Creates a new <see cref="UrlValidationAttribute"/>.
-        /// </summary>
-        public UrlValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
-    }
+    /// <summary>
+    /// Creates a new <see cref="UrlValidationAttribute"/>.
+    /// </summary>
+    public UrlValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
 }

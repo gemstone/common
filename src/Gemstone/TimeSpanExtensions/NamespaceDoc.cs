@@ -24,13 +24,12 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.TimeSpanExtensions
+namespace Gemstone.TimeSpanExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="TimeSpan"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="TimeSpan"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

@@ -25,138 +25,137 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-namespace Gemstone.Reflection
+namespace Gemstone.Reflection;
+
+/// <summary>
+/// Defines a lookup class that searches all assemblies in the current <see cref="AppDomain"/> for all <see cref="Type"/>.
+/// </summary>
+public class AppDomainTypeLookup
 {
+    #region [ Members ]
+
+    // Fields
+    private readonly object m_syncRoot;
+    private readonly HashSet<Assembly> m_loadedAssemblies;
+    private int m_assemblyVersionNumber;
+
+    #endregion
+
+    #region [ Constructors ]
+
     /// <summary>
-    /// Defines a lookup class that searches all assemblies in the current <see cref="AppDomain"/> for all <see cref="Type"/>.
+    /// Creates a AppDomainTypeLookup
     /// </summary>
-    public class AppDomainTypeLookup
+    public AppDomainTypeLookup()
     {
-        #region [ Members ]
+        m_assemblyVersionNumber = -1;
+        m_syncRoot = new object();
+        m_loadedAssemblies = new HashSet<Assembly>();
+    }
 
-        // Fields
-        private readonly object m_syncRoot;
-        private readonly HashSet<Assembly> m_loadedAssemblies;
-        private int m_assemblyVersionNumber;
+    #endregion
 
-        #endregion
+    #region [ Properties ]
 
-        #region [ Constructors ]
+    /// <summary>
+    /// Gets flag that determines if there is a possibility that a new assembly has been loaded and new types are available.
+    /// </summary>
+    public bool HasChanged => m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
 
-        /// <summary>
-        /// Creates a AppDomainTypeLookup
-        /// </summary>
-        public AppDomainTypeLookup()
+    #endregion
+
+    #region [ Methods ]
+
+    /// <summary>
+    /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
+    /// </summary>
+    /// <returns>List of found types.</returns>
+    public List<Type> FindTypes()
+    {
+        if (!HasChanged)
+            return new List<Type>();
+
+        lock (m_syncRoot)
         {
-            m_assemblyVersionNumber = -1;
-            m_syncRoot = new object();
-            m_loadedAssemblies = new HashSet<Assembly>();
+            m_assemblyVersionNumber = AssemblyLoadedVersionNumber.VersionNumber;
+
+            return LoadNewAssemblies();
         }
+    }
 
-        #endregion
+    private List<Type> LoadNewAssemblies()
+    {
+        List<Type> types = new();
 
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets flag that determines if there is a possibility that a new assembly has been loaded and new types are available.
-        /// </summary>
-        public bool HasChanged => m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
-
-        #endregion
-
-        #region [ Methods ]
-
-        /// <summary>
-        /// Searches all assemblies of this <see cref="AppDomain"/> for all <see cref="Type"/>s.
-        /// </summary>
-        /// <returns>List of found types.</returns>
-        public List<Type> FindTypes()
+        try
         {
-            if (!HasChanged)
-                return new List<Type>();
+            Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
-            lock (m_syncRoot)
+            foreach (Assembly assembly in assemblies)
             {
-                m_assemblyVersionNumber = AssemblyLoadedVersionNumber.VersionNumber;
+                if (m_loadedAssemblies.Contains(assembly))
+                    continue;
 
-                return LoadNewAssemblies();
+                m_loadedAssemblies.Add(assembly);
+
+                if (!assembly.IsDynamic)
+                    FindAllModules(types, assembly);
             }
         }
-
-        private List<Type> LoadNewAssemblies()
+        catch (Exception ex)
         {
-            List<Type> types = new();
+            LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
+        }
 
+        return types;
+    }
+
+    private void FindAllModules(List<Type> types, Assembly assembly)
+    {
+        Module[] modules = assembly.GetModules(false);
+
+        foreach (Module module in modules)
+        {
             try
             {
-                Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
-
-                foreach (Assembly assembly in assemblies)
-                {
-                    if (m_loadedAssemblies.Contains(assembly))
-                        continue;
-
-                    m_loadedAssemblies.Add(assembly);
-
-                    if (!assembly.IsDynamic)
-                        FindAllModules(types, assembly);
-                }
+                FindAllTypes(types, module);
             }
             catch (Exception ex)
             {
                 LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
             }
+        }
+    }
 
-            return types;
+    private void FindAllTypes(List<Type> newlyFoundObjects, Module module)
+    {
+        Type?[] types;
+
+        try
+        {
+            types = module.GetTypes();
+        }
+        catch (ReflectionTypeLoadException ex)
+        {
+            // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
+            // to enumerate the types that did not error.
+            LibraryEvents.OnSuppressedException(this, new Exception($"Reflection load exception: {ex.Message}", ex));
+            types = ex.Types;
         }
 
-        private void FindAllModules(List<Type> types, Assembly assembly)
+        foreach (Type? assemblyType in types)
         {
-            Module[] modules = assembly.GetModules(false);
-
-            foreach (Module module in modules)
-            {
-                try
-                {
-                    FindAllTypes(types, module);
-                }
-                catch (Exception ex)
-                {
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
-                }
-            }
-        }
-
-        private void FindAllTypes(List<Type> newlyFoundObjects, Module module)
-        {
-            Type?[] types;
-
             try
             {
-                types = module.GetTypes();
+                if (assemblyType is not null)
+                    newlyFoundObjects.Add(assemblyType);
             }
-            catch (ReflectionTypeLoadException ex)
+            catch (Exception ex)
             {
-                // Since its possible that during enumeration, the GetTypes method can error, this will allow us 
-                // to enumerate the types that did not error.
-                LibraryEvents.OnSuppressedException(this, new Exception($"Reflection load exception: {ex.Message}", ex));
-                types = ex.Types;
-            }
-
-            foreach (Type? assemblyType in types)
-            {
-                try
-                {
-                    if (assemblyType is not null)
-                        newlyFoundObjects.Add(assemblyType);
-                }
-                catch (Exception ex)
-                {
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
-                }
+                LibraryEvents.OnSuppressedException(this, new Exception($"Static constructor exception: {ex.Message}", ex));
             }
         }
-
-        #endregion
     }
+
+    #endregion
 }

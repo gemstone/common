@@ -70,279 +70,278 @@
 using System;
 using System.Text;
 
-namespace Gemstone.Units
+namespace Gemstone.Units;
+
+/// <summary>
+/// Defines constant factors based on 1024 for related binary SI units of measure used in computational measurements.
+/// </summary>
+/// <remarks>
+/// See <a href="http://physics.nist.gov/cuu/Units/binary.html">NIST Reference</a> for information on IEC standard names.
+/// </remarks>
+// ReSharper disable RedundantNameQualifier
+public static class SI2
 {
+    // Common unit factor SI names
+
+    // Common unit factor SI symbols
+
+    // IEC unit factor SI names
+
+    // IEC unit factor SI symbols
+
+    // Unit factor SI factors
+
     /// <summary>
-    /// Defines constant factors based on 1024 for related binary SI units of measure used in computational measurements.
+    /// 1 exa, binary (E) = 1,152,921,504,606,846,976
     /// </summary>
     /// <remarks>
-    /// See <a href="http://physics.nist.gov/cuu/Units/binary.html">NIST Reference</a> for information on IEC standard names.
+    /// This is the common name.
     /// </remarks>
-    // ReSharper disable RedundantNameQualifier
-    public static class SI2
+    public const long Exa = Kilo * Peta;
+
+    /// <summary>
+    /// 1 exbi (Ei) = 1,152,921,504,606,846,976
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Exbi = Exa;
+
+    /// <summary>
+    /// 1 peta, binary (P) = 1,125,899,906,842,624
+    /// </summary>
+    /// <remarks>
+    /// This is the common name.
+    /// </remarks>
+    public const long Peta = Kilo * Tera;
+
+    /// <summary>
+    /// 1 pebi (Pi) = 1,125,899,906,842,624
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Pebi = Peta;
+
+    /// <summary>
+    /// 1 tera, binary (T) = 1,099,511,627,776
+    /// </summary>
+    /// <remarks>
+    /// This is the common name.
+    /// </remarks>
+    public const long Tera = Kilo * Giga;
+
+    /// <summary>
+    /// 1 tebi (Ti) = 1,099,511,627,776
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Tebi = Tera;
+
+    /// <summary>
+    /// 1 giga, binary (G) = 1,073,741,824
+    /// </summary>
+    /// <remarks>
+    /// This is the common name.
+    /// </remarks>
+    public const long Giga = Kilo * Mega;
+
+    /// <summary>
+    /// 1 gibi (Gi) = 1,073,741,824
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Gibi = Giga;
+
+    /// <summary>
+    /// 1 mega, binary (M) = 1,048,576
+    /// </summary>
+    /// <remarks>
+    /// This is the common name.
+    /// </remarks>
+    public const long Mega = Kilo * Kilo;
+
+    /// <summary>
+    /// 1 mebi (Mi) = 1,048,576
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Mebi = Mega;
+
+    /// <summary>
+    /// 1 kilo, binary (K) = 1,024
+    /// </summary>
+    /// <remarks>
+    /// This is the common name.
+    /// </remarks>
+    public const long Kilo = 1024L;
+
+    /// <summary>
+    /// 1 kibi (Ki) = 1,024
+    /// </summary>
+    /// <remarks>
+    /// This is the IEC standard name.
+    /// </remarks>
+    public const long Kibi = Kilo;
+
+    /// <summary>
+    /// Gets an array of all the defined common binary unit factor SI names ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
+    /// </summary>
+    public static string[] Names { get; } = { "kilo", "mega", "giga", "tera", "peta", "exa" };
+
+    /// <summary>
+    /// Gets an array of all the defined common binary unit factor SI prefix symbols ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
+    /// </summary>
+    public static string[] Symbols { get; } = { "K", "M", "G", "T", "P", "E" };
+
+    /// <summary>
+    /// Gets an array of all the defined IEC binary unit factor SI names ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
+    /// </summary>
+    public static string[] IECNames { get; } = { "kibi", "mebi", "gibi", "tebi", "pebi", "exbi" };
+
+    /// <summary>
+    /// Gets an array of all the defined IEC binary unit factor SI prefix symbols ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
+    /// </summary>
+    public static string[] IECSymbols { get; } = { "Ki", "Mi", "Gi", "Ti", "Pi", "Ei" };
+
+    /// <summary>
+    /// Gets an array of all the defined binary SI unit factors ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
+    /// </summary>
+    public static long[] Factors { get; } = { Kilo, Mega, Giga, Tera, Peta, Exa };
+
+    /// <summary>
+    /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
+    /// and common named representation (e.g., KB, MB, GB, TB, etc.).
+    /// </summary>
+    /// <param name="totalUnits">Total units to represent textually.</param>
+    /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
+    /// <param name="symbolNames">Optional SI factor symbol or name array to use during textual conversion, defaults to <see cref="Symbols"/>.</param>
+    /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
+    /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
+    /// <remarks>
+    /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
+    /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
+    /// arrays for examples.
+    /// </remarks>
+    /// <returns>A <see cref="string"/> representation of the number of units.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
+    public static string ToScaledString(long totalUnits, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+
+    /// <summary>
+    /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
+    /// and common named representation (e.g., KB, MB, GB, TB, etc.).
+    /// </summary>
+    /// <param name="totalUnits">Total units to represent textually.</param>
+    /// <param name="format">A numeric string format for scaled <paramref name="totalUnits"/>.</param>
+    /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
+    /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
+    /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
+    /// <remarks>
+    /// <see cref="Symbols"/> array is used for displaying SI symbol prefix for <paramref name="unitName"/>.
+    /// </remarks>
+    /// <returns>A <see cref="string"/> representation of the number of units.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
+    public static string ToScaledString(long totalUnits, string format, string unitName, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
+
+    /// <summary>
+    /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
+    /// and common named representation (e.g., KB, MB, GB, TB, etc.).
+    /// </summary>
+    /// <param name="totalUnits">Total units to represent textually.</param>
+    /// <param name="decimalPlaces">Number of decimal places to display.</param>
+    /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
+    /// <param name="symbolNames">Optional SI factor symbol or name array to use during textual conversion, defaults to <see cref="Symbols"/>.</param>
+    /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
+    /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
+    /// <remarks>
+    /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
+    /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
+    /// arrays for examples.
+    /// </remarks>
+    /// <returns>A <see cref="string"/> representation of the number of units.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="decimalPlaces"/> cannot be negative.</exception>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
+    public static string ToScaledString(long totalUnits, int decimalPlaces, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa)
     {
-        // Common unit factor SI names
+        if (decimalPlaces < 0)
+            throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "decimalPlaces cannot be negative");
 
-        // Common unit factor SI symbols
+        return ToScaledString(totalUnits, "R", unitName, symbolNames ?? Symbols, decimalPlaces, minimumFactor, maximumFactor);
+    }
 
-        // IEC unit factor SI names
+    /// <summary>
+    /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
+    /// given string array of factor names or symbols.
+    /// </summary>
+    /// <param name="totalUnits">Total units to represent textually.</param>
+    /// <param name="format">A numeric string format for scaled <paramref name="totalUnits"/>.</param>
+    /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
+    /// <param name="symbolNames">SI factor symbol or name array to use during textual conversion.</param>
+    /// <param name="decimalPlaces">Optional number of decimal places to display.</param>
+    /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
+    /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
+    /// <remarks>
+    /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
+    /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
+    /// arrays for examples.
+    /// </remarks>
+    /// <returns>A <see cref="string"/> representation of the number of units.</returns>
+    /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
+    public static string ToScaledString(long totalUnits, string format, string unitName, string[] symbolNames, int decimalPlaces = -1, long minimumFactor = Kilo, long maximumFactor = Exa)
+    {
+        StringBuilder image = new();
 
-        // IEC unit factor SI symbols
+        int minimumIndex = GetFactorIndex(minimumFactor);
 
-        // Unit factor SI factors
+        if (minimumIndex < 0)
+            throw new ArgumentOutOfRangeException(nameof(minimumFactor), $"Unknown SI2 factor {minimumFactor}");
 
-        /// <summary>
-        /// 1 exa, binary (E) = 1,152,921,504,606,846,976
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Exa = Kilo * Peta;
+        int maximumIndex = GetFactorIndex(maximumFactor);
 
-        /// <summary>
-        /// 1 exbi (Ei) = 1,152,921,504,606,846,976
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Exbi = Exa;
+        if (maximumIndex < 0)
+            throw new ArgumentOutOfRangeException(nameof(maximumFactor), $"Unknown SI2 factor {maximumFactor}");
 
-        /// <summary>
-        /// 1 peta, binary (P) = 1,125,899,906,842,624
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Peta = Kilo * Tera;
-
-        /// <summary>
-        /// 1 pebi (Pi) = 1,125,899,906,842,624
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Pebi = Peta;
-
-        /// <summary>
-        /// 1 tera, binary (T) = 1,099,511,627,776
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Tera = Kilo * Giga;
-
-        /// <summary>
-        /// 1 tebi (Ti) = 1,099,511,627,776
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Tebi = Tera;
-
-        /// <summary>
-        /// 1 giga, binary (G) = 1,073,741,824
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Giga = Kilo * Mega;
-
-        /// <summary>
-        /// 1 gibi (Gi) = 1,073,741,824
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Gibi = Giga;
-
-        /// <summary>
-        /// 1 mega, binary (M) = 1,048,576
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Mega = Kilo * Kilo;
-
-        /// <summary>
-        /// 1 mebi (Mi) = 1,048,576
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Mebi = Mega;
-
-        /// <summary>
-        /// 1 kilo, binary (K) = 1,024
-        /// </summary>
-        /// <remarks>
-        /// This is the common name.
-        /// </remarks>
-        public const long Kilo = 1024L;
-
-        /// <summary>
-        /// 1 kibi (Ki) = 1,024
-        /// </summary>
-        /// <remarks>
-        /// This is the IEC standard name.
-        /// </remarks>
-        public const long Kibi = Kilo;
-
-        /// <summary>
-        /// Gets an array of all the defined common binary unit factor SI names ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
-        /// </summary>
-        public static string[] Names { get; } = { "kilo", "mega", "giga", "tera", "peta", "exa" };
-
-        /// <summary>
-        /// Gets an array of all the defined common binary unit factor SI prefix symbols ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
-        /// </summary>
-        public static string[] Symbols { get; } = { "K", "M", "G", "T", "P", "E" };
-
-        /// <summary>
-        /// Gets an array of all the defined IEC binary unit factor SI names ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
-        /// </summary>
-        public static string[] IECNames { get; } = { "kibi", "mebi", "gibi", "tebi", "pebi", "exbi" };
-
-        /// <summary>
-        /// Gets an array of all the defined IEC binary unit factor SI prefix symbols ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
-        /// </summary>
-        public static string[] IECSymbols { get; } = { "Ki", "Mi", "Gi", "Ti", "Pi", "Ei" };
-
-        /// <summary>
-        /// Gets an array of all the defined binary SI unit factors ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
-        /// </summary>
-        public static long[] Factors { get; } = { Kilo, Mega, Giga, Tera, Peta, Exa };
-
-        /// <summary>
-        /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
-        /// and common named representation (e.g., KB, MB, GB, TB, etc.).
-        /// </summary>
-        /// <param name="totalUnits">Total units to represent textually.</param>
-        /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
-        /// <param name="symbolNames">Optional SI factor symbol or name array to use during textual conversion, defaults to <see cref="Symbols"/>.</param>
-        /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
-        /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
-        /// <remarks>
-        /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
-        /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
-        /// arrays for examples.
-        /// </remarks>
-        /// <returns>A <see cref="string"/> representation of the number of units.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(long totalUnits, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
-
-        /// <summary>
-        /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
-        /// and common named representation (e.g., KB, MB, GB, TB, etc.).
-        /// </summary>
-        /// <param name="totalUnits">Total units to represent textually.</param>
-        /// <param name="format">A numeric string format for scaled <paramref name="totalUnits"/>.</param>
-        /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
-        /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
-        /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
-        /// <remarks>
-        /// <see cref="Symbols"/> array is used for displaying SI symbol prefix for <paramref name="unitName"/>.
-        /// </remarks>
-        /// <returns>A <see cref="string"/> representation of the number of units.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(long totalUnits, string format, string unitName, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
-
-        /// <summary>
-        /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
-        /// and common named representation (e.g., KB, MB, GB, TB, etc.).
-        /// </summary>
-        /// <param name="totalUnits">Total units to represent textually.</param>
-        /// <param name="decimalPlaces">Number of decimal places to display.</param>
-        /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
-        /// <param name="symbolNames">Optional SI factor symbol or name array to use during textual conversion, defaults to <see cref="Symbols"/>.</param>
-        /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
-        /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
-        /// <remarks>
-        /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
-        /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
-        /// arrays for examples.
-        /// </remarks>
-        /// <returns>A <see cref="string"/> representation of the number of units.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="decimalPlaces"/> cannot be negative.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(long totalUnits, int decimalPlaces, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa)
+        for (int i = maximumIndex; i >= minimumIndex; i--)
         {
-            if (decimalPlaces < 0)
-                throw new ArgumentOutOfRangeException(nameof(decimalPlaces), "decimalPlaces cannot be negative");
+            // See if total number of units ranges in the specified factor range
+            double factor = totalUnits / (double)Factors[i];
 
-            return ToScaledString(totalUnits, "R", unitName, symbolNames ?? Symbols, decimalPlaces, minimumFactor, maximumFactor);
-        }
-
-        /// <summary>
-        /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
-        /// given string array of factor names or symbols.
-        /// </summary>
-        /// <param name="totalUnits">Total units to represent textually.</param>
-        /// <param name="format">A numeric string format for scaled <paramref name="totalUnits"/>.</param>
-        /// <param name="unitName">Name of unit display (e.g., you could use "B" for bytes).</param>
-        /// <param name="symbolNames">SI factor symbol or name array to use during textual conversion.</param>
-        /// <param name="decimalPlaces">Optional number of decimal places to display.</param>
-        /// <param name="minimumFactor">Optional minimum SI factor. Defaults to <see cref="SI2.Kilo"/>.</param>
-        /// <param name="maximumFactor">Optional maximum SI factor. Defaults to <see cref="SI2.Exa"/>.</param>
-        /// <remarks>
-        /// The <paramref name="symbolNames"/> array needs one string entry for each defined SI item ordered from
-        /// least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>), see <see cref="Names"/> or <see cref="Symbols"/>
-        /// arrays for examples.
-        /// </remarks>
-        /// <returns>A <see cref="string"/> representation of the number of units.</returns>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-        public static string ToScaledString(long totalUnits, string format, string unitName, string[] symbolNames, int decimalPlaces = -1, long minimumFactor = Kilo, long maximumFactor = Exa)
-        {
-            StringBuilder image = new();
-
-            int minimumIndex = GetFactorIndex(minimumFactor);
-
-            if (minimumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(minimumFactor), $"Unknown SI2 factor {minimumFactor}");
-
-            int maximumIndex = GetFactorIndex(maximumFactor);
-
-            if (maximumIndex < 0)
-                throw new ArgumentOutOfRangeException(nameof(maximumFactor), $"Unknown SI2 factor {maximumFactor}");
-
-            for (int i = maximumIndex; i >= minimumIndex; i--)
+            if (factor >= 1.0D)
             {
-                // See if total number of units ranges in the specified factor range
-                double factor = totalUnits / (double)Factors[i];
+                if (decimalPlaces > -1)
+                    factor = Math.Round(factor, decimalPlaces);
 
-                if (factor >= 1.0D)
-                {
-                    if (decimalPlaces > -1)
-                        factor = Math.Round(factor, decimalPlaces);
-
-                    image.Append(factor.ToString(format));
-                    image.Append(' ');
-                    image.Append(symbolNames[i]);
-                    image.Append(unitName);
-
-                    break;
-                }
-            }
-
-            if (image.Length == 0)
-            {
-                // Display total number of units
-                image.Append(totalUnits);
+                image.Append(factor.ToString(format));
                 image.Append(' ');
+                image.Append(symbolNames[i]);
                 image.Append(unitName);
-            }
 
-            return image.ToString();
+                break;
+            }
         }
 
-        private static int GetFactorIndex(long factor)
+        if (image.Length == 0)
         {
-            for (int i = 0; i < Factors.Length; i++)
-            {
-                if (Factors[i] == factor)
-                    return i;
-            }
-
-            return -1;
+            // Display total number of units
+            image.Append(totalUnits);
+            image.Append(' ');
+            image.Append(unitName);
         }
+
+        return image.ToString();
+    }
+
+    private static int GetFactorIndex(long factor)
+    {
+        for (int i = 0; i < Factors.Length; i++)
+        {
+            if (Factors[i] == factor)
+                return i;
+        }
+
+        return -1;
     }
 }

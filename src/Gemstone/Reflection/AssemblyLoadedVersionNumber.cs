@@ -24,23 +24,22 @@
 using System;
 using System.Threading;
 
-namespace Gemstone.Reflection
+namespace Gemstone.Reflection;
+
+/// <summary>
+/// Maintains a version number that increments every time an <see cref="AppDomain.AssemblyLoad"/> event is raised.
+/// </summary>
+public static class AssemblyLoadedVersionNumber
 {
+    private static int s_versionNumber = 1;
+
     /// <summary>
-    /// Maintains a version number that increments every time an <see cref="AppDomain.AssemblyLoad"/> event is raised.
+    /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
     /// </summary>
-    public static class AssemblyLoadedVersionNumber
+    public static int VersionNumber => s_versionNumber;
+
+    static AssemblyLoadedVersionNumber()
     {
-        private static int s_versionNumber = 1;
-
-        /// <summary>
-        /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
-        /// </summary>
-        public static int VersionNumber => s_versionNumber;
-
-        static AssemblyLoadedVersionNumber()
-        {
-            AppDomain.CurrentDomain.AssemblyLoad += (_, _) => Interlocked.Increment(ref s_versionNumber);
-        }
+        AppDomain.CurrentDomain.AssemblyLoad += (_, _) => Interlocked.Increment(ref s_versionNumber);
     }
 }

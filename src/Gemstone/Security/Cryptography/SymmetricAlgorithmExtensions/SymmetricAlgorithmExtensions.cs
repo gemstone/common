@@ -29,101 +29,100 @@ using System.IO;
 using System.Security.Cryptography;
 using Gemstone.IO;
 
-namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
+namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions;
+
+/// <summary>
+/// Defines extension functions related to cryptographic <see cref="SymmetricAlgorithm"/> objects.
+/// </summary>
+public static class SymmetricAlgorithmExtensions
 {
     /// <summary>
-    /// Defines extension functions related to cryptographic <see cref="SymmetricAlgorithm"/> objects.
+    /// Returns a binary array of encrypted data for the given parameters.
     /// </summary>
-    public static class SymmetricAlgorithmExtensions
+    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
+    /// <param name="data">Source buffer containing data to encrypt.</param>
+    /// <param name="startIndex">Offset into <paramref name="data"/> buffer.</param>
+    /// <param name="length">Number of bytes in <paramref name="data"/> buffer to encrypt starting from <paramref name="startIndex"/> offset.</param>
+    /// <param name="key">The secret key to use for the symmetric algorithm.</param>
+    /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
+    /// <returns>Encrypted version of <paramref name="data"/> buffer.</returns>
+    public static byte[] Encrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
     {
-        /// <summary>
-        /// Returns a binary array of encrypted data for the given parameters.
-        /// </summary>
-        /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-        /// <param name="data">Source buffer containing data to encrypt.</param>
-        /// <param name="startIndex">Offset into <paramref name="data"/> buffer.</param>
-        /// <param name="length">Number of bytes in <paramref name="data"/> buffer to encrypt starting from <paramref name="startIndex"/> offset.</param>
-        /// <param name="key">The secret key to use for the symmetric algorithm.</param>
-        /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
-        /// <returns>Encrypted version of <paramref name="data"/> buffer.</returns>
-        public static byte[] Encrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
-        {
-            // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
-            using MemoryStream source = new(data, startIndex, length);
-            using BlockAllocatedMemoryStream destination = new();
+        // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
+        using MemoryStream source = new(data, startIndex, length);
+        using BlockAllocatedMemoryStream destination = new();
 
-            algorithm.Encrypt(source, destination, key, iv);
-            return destination.ToArray();
+        algorithm.Encrypt(source, destination, key, iv);
+        return destination.ToArray();
+    }
+
+    /// <summary>
+    /// Encrypts input stream onto output stream for the given parameters.
+    /// </summary>
+    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
+    /// <param name="source">Source stream that contains data to encrypt.</param>
+    /// <param name="destination">Destination stream used to hold encrypted data.</param>
+    /// <param name="key">The secret key to use for the symmetric algorithm.</param>
+    /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
+    public static void Encrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
+    {
+        byte[] buffer = new byte[Standard.BufferSize];
+        CryptoStream encodeStream = new(destination, algorithm.CreateEncryptor(key, iv), CryptoStreamMode.Write);
+
+        // Encrypts data onto output stream.
+        int read = source.Read(buffer, 0, Standard.BufferSize);
+
+        while (read > 0)
+        {
+            encodeStream.Write(buffer, 0, read);
+            read = source.Read(buffer, 0, Standard.BufferSize);
         }
 
-        /// <summary>
-        /// Encrypts input stream onto output stream for the given parameters.
-        /// </summary>
-        /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-        /// <param name="source">Source stream that contains data to encrypt.</param>
-        /// <param name="destination">Destination stream used to hold encrypted data.</param>
-        /// <param name="key">The secret key to use for the symmetric algorithm.</param>
-        /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
-        public static void Encrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
+        encodeStream.FlushFinalBlock();
+    }
+
+    /// <summary>
+    /// Returns a binary array of decrypted data for the given parameters.
+    /// </summary>
+    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for decryption.</param>
+    /// <param name="data">Source buffer containing data to decrypt.</param>
+    /// <param name="startIndex">Offset into <paramref name="data"/> buffer.</param>
+    /// <param name="length">Number of bytes in <paramref name="data"/> buffer to decrypt starting from <paramref name="startIndex"/> offset.</param>
+    /// <param name="key">The secret key to use for the symmetric algorithm.</param>
+    /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
+    /// <returns>Decrypted version of <paramref name="data"/> buffer.</returns>
+    public static byte[] Decrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
+    {
+        // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
+        using MemoryStream source = new(data, startIndex, length);
+        using BlockAllocatedMemoryStream destination = new();
+
+        algorithm.Decrypt(source, destination, key, iv);
+        return destination.ToArray();
+    }
+
+    /// <summary>
+    /// Decrypts input stream onto output stream for the given parameters.
+    /// </summary>
+    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for decryption.</param>
+    /// <param name="source">Source stream that contains data to decrypt.</param>
+    /// <param name="destination">Destination stream used to hold decrypted data.</param>
+    /// <param name="key">The secret key to use for the symmetric algorithm.</param>
+    /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
+    public static void Decrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
+    {
+        byte[] buffer = new byte[Standard.BufferSize];
+        CryptoStream decodeStream = new(destination, algorithm.CreateDecryptor(key, iv), CryptoStreamMode.Write);
+
+        // Decrypts data onto output stream.
+        int read = source.Read(buffer, 0, Standard.BufferSize);
+
+        while (read > 0)
         {
-            byte[] buffer = new byte[Standard.BufferSize];
-            CryptoStream encodeStream = new(destination, algorithm.CreateEncryptor(key, iv), CryptoStreamMode.Write);
-
-            // Encrypts data onto output stream.
-            int read = source.Read(buffer, 0, Standard.BufferSize);
-
-            while (read > 0)
-            {
-                encodeStream.Write(buffer, 0, read);
-                read = source.Read(buffer, 0, Standard.BufferSize);
-            }
-
-            encodeStream.FlushFinalBlock();
+            decodeStream.Write(buffer, 0, read);
+            read = source.Read(buffer, 0, Standard.BufferSize);
         }
 
-        /// <summary>
-        /// Returns a binary array of decrypted data for the given parameters.
-        /// </summary>
-        /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for decryption.</param>
-        /// <param name="data">Source buffer containing data to decrypt.</param>
-        /// <param name="startIndex">Offset into <paramref name="data"/> buffer.</param>
-        /// <param name="length">Number of bytes in <paramref name="data"/> buffer to decrypt starting from <paramref name="startIndex"/> offset.</param>
-        /// <param name="key">The secret key to use for the symmetric algorithm.</param>
-        /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
-        /// <returns>Decrypted version of <paramref name="data"/> buffer.</returns>
-        public static byte[] Decrypt(this SymmetricAlgorithm algorithm, byte[] data, int startIndex, int length, byte[] key, byte[] iv)
-        {
-            // Fastest to use existing buffer in non-expandable memory stream for source and large block allocated memory stream for destination
-            using MemoryStream source = new(data, startIndex, length);
-            using BlockAllocatedMemoryStream destination = new();
-
-            algorithm.Decrypt(source, destination, key, iv);
-            return destination.ToArray();
-        }
-
-        /// <summary>
-        /// Decrypts input stream onto output stream for the given parameters.
-        /// </summary>
-        /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for decryption.</param>
-        /// <param name="source">Source stream that contains data to decrypt.</param>
-        /// <param name="destination">Destination stream used to hold decrypted data.</param>
-        /// <param name="key">The secret key to use for the symmetric algorithm.</param>
-        /// <param name="iv">The initialization vector to use for the symmetric algorithm.</param>
-        public static void Decrypt(this SymmetricAlgorithm algorithm, Stream source, Stream destination, byte[] key, byte[] iv)
-        {
-            byte[] buffer = new byte[Standard.BufferSize];
-            CryptoStream decodeStream = new(destination, algorithm.CreateDecryptor(key, iv), CryptoStreamMode.Write);
-
-            // Decrypts data onto output stream.
-            int read = source.Read(buffer, 0, Standard.BufferSize);
-
-            while (read > 0)
-            {
-                decodeStream.Write(buffer, 0, read);
-                read = source.Read(buffer, 0, Standard.BufferSize);
-            }
-
-            decodeStream.FlushFinalBlock();
-        }
+        decodeStream.FlushFinalBlock();
     }
 }

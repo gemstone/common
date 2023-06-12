@@ -24,13 +24,12 @@
 using System;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.DateTimeExtensions
+namespace Gemstone.DateTimeExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="DateTime"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="DateTime"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

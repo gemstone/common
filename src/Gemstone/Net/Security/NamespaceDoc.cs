@@ -23,14 +23,13 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Net.Security
+namespace Gemstone.Net.Security;
+
+/// <summary>
+/// Contains classes used to simplify and standardize operations for network streams used for secure
+/// communications between hosts.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used to simplify and standardize operations for network streams used for secure
-    /// communications between hosts.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

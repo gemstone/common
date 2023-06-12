@@ -27,38 +27,37 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
+/// </summary>
+public static class Word
 {
     /// <summary>
-    /// Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
+    /// Makes an unsigned word (UInt16) from two bytes.
     /// </summary>
-    public static class Word
-    {
-        /// <summary>
-        /// Makes an unsigned word (UInt16) from two bytes.
-        /// </summary>
-        /// <param name="high">High byte.</param>
-        /// <param name="low">Low byte.</param>
-        /// <returns>An unsigned 16-bit word made from the two specified bytes.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ushort MakeWord(byte high, byte low) => (ushort)(low + (high << 8));
+    /// <param name="high">High byte.</param>
+    /// <param name="low">Low byte.</param>
+    /// <returns>An unsigned 16-bit word made from the two specified bytes.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ushort MakeWord(byte high, byte low) => (ushort)(low + (high << 8));
 
-        /// <summary>
-        /// Makes an unsigned double-word (UInt32) from two unsigned words (UInt16).
-        /// </summary>
-        /// <param name="high">High word.</param>
-        /// <param name="low">Low word.</param>
-        /// <returns>An unsigned 32-bit double-word made from the two specified unsigned 16-bit words.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static uint MakeDoubleWord(ushort high, ushort low) => low + ((uint)high << 16);
+    /// <summary>
+    /// Makes an unsigned double-word (UInt32) from two unsigned words (UInt16).
+    /// </summary>
+    /// <param name="high">High word.</param>
+    /// <param name="low">Low word.</param>
+    /// <returns>An unsigned 32-bit double-word made from the two specified unsigned 16-bit words.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static uint MakeDoubleWord(ushort high, ushort low) => low + ((uint)high << 16);
 
-        /// <summary>
-        /// Makes an unsigned quad-word (UInt64) from two unsigned double-words (UInt32).
-        /// </summary>
-        /// <param name="high">High double-word.</param>
-        /// <param name="low">Low double-word.</param>
-        /// <returns>An unsigned 64-bit quad-word made from the two specified unsigned 32-bit double-words.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ulong MakeQuadWord(uint high, uint low) => low + ((ulong)high << 32);
-    }
+    /// <summary>
+    /// Makes an unsigned quad-word (UInt64) from two unsigned double-words (UInt32).
+    /// </summary>
+    /// <param name="high">High double-word.</param>
+    /// <param name="low">Low double-word.</param>
+    /// <returns>An unsigned 64-bit quad-word made from the two specified unsigned 32-bit double-words.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static ulong MakeQuadWord(uint high, uint low) => low + ((ulong)high << 32);
 }

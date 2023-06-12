@@ -26,27 +26,26 @@
 using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 
-namespace Gemstone.Net.Security
+namespace Gemstone.Net.Security;
+
+/// <summary>
+/// Defines the interface for a generic X.509 certificate checker.
+/// </summary>
+public interface ICertificateChecker
 {
     /// <summary>
-    /// Defines the interface for a generic X.509 certificate checker.
+    /// Gets the reason why the remote certificate validation
+    /// failed, or null if certificate validation did not fail.
     /// </summary>
-    public interface ICertificateChecker
-    {
-        /// <summary>
-        /// Gets the reason why the remote certificate validation
-        /// failed, or null if certificate validation did not fail.
-        /// </summary>
-        string? ReasonForFailure { get; }
+    string? ReasonForFailure { get; }
 
-        /// <summary>
-        /// Verifies the remote certificate used for authentication.
-        /// </summary>
-        /// <param name="sender">An object that contains state information for this validation.</param>
-        /// <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
-        /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
-        /// <param name="errors">One or more errors associated with the remote certificate.</param>
-        /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
-        bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors);
-    }
+    /// <summary>
+    /// Verifies the remote certificate used for authentication.
+    /// </summary>
+    /// <param name="sender">An object that contains state information for this validation.</param>
+    /// <param name="remoteCertificate">The certificate used to authenticate the remote party.</param>
+    /// <param name="chain">The chain of certificate authorities associated with the remote certificate.</param>
+    /// <param name="errors">One or more errors associated with the remote certificate.</param>
+    /// <returns>A flag that determines whether the specified certificate is accepted for authentication.</returns>
+    bool ValidateRemoteCertificate(object? sender, X509Certificate remoteCertificate, X509Chain chain, SslPolicyErrors errors);
 }

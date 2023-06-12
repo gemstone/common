@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Reflection
+namespace Gemstone.Reflection;
+
+/// <summary>
+/// Contains classes and extension functions used to simplify and standardize access to assembly information and attributes in applications.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes and extension functions used to simplify and standardize access to assembly information and attributes in applications.
-    /// </summary>
-    [CompilerGenerated]
-    internal class NamespaceDoc
-    {
-    }
 }

@@ -23,13 +23,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.IO
+namespace Gemstone.IO;
+
+/// <summary>
+/// Contains classes used for input/output functionality.
+/// </summary>
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used for input/output functionality.
-    /// </summary>
-    [CompilerGenerated]
-    internal class NamespaceDoc
-    {
-    }
 }

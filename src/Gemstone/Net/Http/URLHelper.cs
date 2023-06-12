@@ -27,55 +27,54 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace Gemstone.Net.Http
+namespace Gemstone.Net.Http;
+
+/// <summary>
+/// Defines helper functions for handling URLs.
+/// </summary>
+public static class URLHelper
 {
+    private static string[] ValidSchemes { get; } = { "http", "https" };
+
     /// <summary>
-    /// Defines helper functions for handling URLs.
+    /// Determines if the string contains a valid URL.
     /// </summary>
-    public static class URLHelper
+    /// <param name="url">The string to check for a valid URL.</param>
+    /// <returns>True if the URL is valid; otherwise false.</returns>
+    public static bool IsValid(string url) =>
+        Uri.TryCreate(url, UriKind.Absolute, out Uri? uri) &&
+        ValidSchemes.Contains(uri.Scheme);
+
+    /// <summary>
+    /// Opens the user's default browser to the given URL.
+    /// </summary>
+    /// <param name="url">The URL to navigate to in the user's browser.</param>
+    /// <exception cref="SecurityException">The input string is not a valid URL.</exception>
+    /// <exception cref="NotSupportedException">Navigation attempted on a platform other than Windows, Linux, or OSX.</exception>
+    public static void NavigateInDefaultBrowser(string url)
     {
-        private static string[] ValidSchemes { get; } = { "http", "https" };
+        if (!IsValid(url))
+            throw new SecurityException($"URL invalid - unable to navigate: {url}");
 
-        /// <summary>
-        /// Determines if the string contains a valid URL.
-        /// </summary>
-        /// <param name="url">The string to check for a valid URL.</param>
-        /// <returns>True if the URL is valid; otherwise false.</returns>
-        public static bool IsValid(string url) =>
-            Uri.TryCreate(url, UriKind.Absolute, out Uri? uri) &&
-            ValidSchemes.Contains(uri.Scheme);
-
-        /// <summary>
-        /// Opens the user's default browser to the given URL.
-        /// </summary>
-        /// <param name="url">The URL to navigate to in the user's browser.</param>
-        /// <exception cref="SecurityException">The input string is not a valid URL.</exception>
-        /// <exception cref="NotSupportedException">Navigation attempted on a platform other than Windows, Linux, or OSX.</exception>
-        public static void NavigateInDefaultBrowser(string url)
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
         {
-            if (!IsValid(url))
-                throw new SecurityException($"URL invalid - unable to navigate: {url}");
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                ProcessStartInfo startInfo = new(url) { UseShellExecute = true };
-                using (Process.Start(startInfo)) { }
-                return;
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                using (Process.Start("xdg-open", url)) { }
-                return;
-            }
-
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                using (Process.Start("open", url)) { }
-                return;
-            }
-
-            throw new NotSupportedException("Default browser navigation not supported on this platform");
+            ProcessStartInfo startInfo = new(url) { UseShellExecute = true };
+            using (Process.Start(startInfo)) { }
+            return;
         }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            using (Process.Start("xdg-open", url)) { }
+            return;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            using (Process.Start("open", url)) { }
+            return;
+        }
+
+        throw new NotSupportedException("Default browser navigation not supported on this platform");
     }
 }

@@ -23,23 +23,22 @@
 
 using System;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Defines an attribute that will define the field name that represents a record marked for deletion.
+/// </summary>
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class IsDeletedFlagAttribute : Attribute
 {
     /// <summary>
-    /// Defines an attribute that will define the field name that represents a record marked for deletion.
+    /// Field name used as is-deleted record marker.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Class)]
-    public sealed class IsDeletedFlagAttribute : Attribute
-    {
-        /// <summary>
-        /// Field name used as is-deleted record marker.
-        /// </summary>
-        public string FieldName { get; }
+    public string FieldName { get; }
 
-        /// <summary>
-        /// Creates a new <see cref="IsDeletedFlagAttribute"/>.
-        /// </summary>
-        /// <param name="fieldName">Field name used as is-deleted record marker.</param>
-        public IsDeletedFlagAttribute(string fieldName) => FieldName = fieldName;
-    }
+    /// <summary>
+    /// Creates a new <see cref="IsDeletedFlagAttribute"/>.
+    /// </summary>
+    /// <param name="fieldName">Field name used as is-deleted record marker.</param>
+    public IsDeletedFlagAttribute(string fieldName) => FieldName = fieldName;
 }

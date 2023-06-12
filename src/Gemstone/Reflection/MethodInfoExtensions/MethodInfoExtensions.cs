@@ -26,36 +26,196 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace Gemstone.Reflection.MethodInfoExtensions
+namespace Gemstone.Reflection.MethodInfoExtensions;
+
+/// <summary>
+/// Defines extensions methods related to <see cref="MethodInfo"/>.
+/// </summary>
+/// <remarks>
+/// Many of these functions help generate compiled IL code that can execute a method of a class.
+/// </remarks>
+public static class MethodInfoExtensions
 {
+    private static readonly Dictionary<MethodInfo, object> s_compiledCallbacks = new();
+
     /// <summary>
-    /// Defines extensions methods related to <see cref="MethodInfo"/>.
+    /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
     /// </summary>
-    /// <remarks>
-    /// Many of these functions help generate compiled IL code that can execute a method of a class.
-    /// </remarks>
-    public static class MethodInfoExtensions
+    /// <param name="method">the method that should be compiled.</param>
+    /// <returns>The compiled method.</returns>
+    public static Action<object> CreateAction(this MethodInfo method)
     {
-        private static readonly Dictionary<MethodInfo, object> s_compiledCallbacks = new();
+        object? callback;
 
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <returns>The compiled method.</returns>
-        public static Action<object> CreateAction(this MethodInfo method)
+        lock (s_compiledCallbacks)
         {
-            object? callback;
+            if (s_compiledCallbacks.TryGetValue(method, out callback))
+                return (Action<object>)callback;
 
-            lock (s_compiledCallbacks)
+            // Creates method
+            // void Fun(object obj)
+            // {
+            //    ((NativeType)obj.Method();
+            // }
+
+            // Parameters
+            ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+            Expression? targetType = null;
+
+            if (method is { IsStatic: false, DeclaringType: not null })
+                targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+
+            // Call items
+            Expression methodCall = Expression.Call(targetType, method);
+            callback = Expression.Lambda<Action<object>>(methodCall, paramTargetObj).Compile();
+
+            s_compiledCallbacks.Add(method, callback);
+        }
+
+        return (Action<object>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Action<object, T1> CreateAction<T1>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
+        {
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
             {
-                if (s_compiledCallbacks.TryGetValue(method, out callback))
-                    return (Action<object>)callback;
-
                 // Creates method
-                // void Fun(object obj)
+                // void Fun(object obj ,T1 param1)
                 // {
-                //    ((NativeType)obj.Method();
+                //    ((NativeType)obj.Method(param1);
+                // }
+
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                Expression? targetType = null;
+
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1);
+                callback = Expression.Lambda<Action<object, T1>>(methodCall, paramTargetObj, paramT1).Compile();
+
+                s_compiledCallbacks.Add(method, callback);
+            }
+        }
+
+        return (Action<object, T1>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Action<object, T1, T2> CreateAction<T1, T2>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
+        {
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
+            {
+                // Creates method
+                // void Fun(object obj,T1 param1, T2 param2)
+                // {
+                //    ((NativeType)obj.Method(param1, param2);
+                // }
+
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
+                Expression? targetType = null;
+
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2);
+                callback = Expression.Lambda<Action<object, T1, T2>>(methodCall, paramTargetObj, paramT1, paramT2).Compile();
+
+                s_compiledCallbacks.Add(method, callback);
+            }
+        }
+
+        return (Action<object, T1, T2>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T3">The type of the forth parameter of the method that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Action<object, T1, T2, T3> CreateAction<T1, T2, T3>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
+        {
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
+            {
+                // Creates method
+                // void Fun(object obj,T1 param1, T2 param2, T3 param3)
+                // {
+                //    ((NativeType)obj.Method(param1, param2, T3 param3);
+                // }
+
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
+                ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
+                Expression? targetType = null;
+
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2, paramT3);
+                callback = Expression.Lambda<Action<object, T1, T2, T3>>(methodCall, paramTargetObj, paramT1, paramT2, paramT3).Compile();
+
+                s_compiledCallbacks.Add(method, callback);
+            }
+        }
+
+        return (Action<object, T1, T2, T3>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Func<object, TResult> CreateFunc<TResult>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
+        {
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
+            {
+                // Creates method
+                // TResult Fun(object obj, T1 param1)
+                // {
+                //   return ((NativeType)obj.Method(param1);
                 // }
 
                 // Parameters
@@ -67,299 +227,138 @@ namespace Gemstone.Reflection.MethodInfoExtensions
 
                 // Call items
                 Expression methodCall = Expression.Call(targetType, method);
-                callback = Expression.Lambda<Action<object>>(methodCall, paramTargetObj).Compile();
+                callback = Expression.Lambda<Func<object, TResult>>(methodCall, paramTargetObj).Compile();
 
                 s_compiledCallbacks.Add(method, callback);
             }
-
-            return (Action<object>)callback;
         }
 
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Action<object, T1> CreateAction<T1>(this MethodInfo method)
+        return (Func<object, TResult>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Func<object, T1, TResult> CreateFunc<T1, TResult>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
         {
-            object? callback;
-
-            lock (s_compiledCallbacks)
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
             {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // void Fun(object obj ,T1 param1)
-                    // {
-                    //    ((NativeType)obj.Method(param1);
-                    // }
+                // Creates method
+                // TResult Fun(object obj)
+                // {
+                //   return ((NativeType)obj.Method();
+                // }
 
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    Expression? targetType = null;
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                Expression? targetType = null;
 
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1);
-                    callback = Expression.Lambda<Action<object, T1>>(methodCall, paramTargetObj, paramT1).Compile();
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1);
+                callback = Expression.Lambda<Func<object, T1, TResult>>(methodCall, paramTargetObj, paramT1).Compile();
 
-                    s_compiledCallbacks.Add(method, callback);
-                }
+                s_compiledCallbacks.Add(method, callback);
             }
-
-            return (Action<object, T1>)callback;
         }
 
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Action<object, T1, T2> CreateAction<T1, T2>(this MethodInfo method)
+        return (Func<object, T1, TResult>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Func<object, T1, T2, TResult> CreateFunc<T1, T2, TResult>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
         {
-            object? callback;
-
-            lock (s_compiledCallbacks)
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
             {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // void Fun(object obj,T1 param1, T2 param2)
-                    // {
-                    //    ((NativeType)obj.Method(param1, param2);
-                    // }
+                // Creates method
+                // TResult Fun(object obj, T1 param1, T2 param2)
+                // {
+                //   return ((NativeType)obj.Method(param1, param2);
+                // }
 
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    Expression? targetType = null;
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
+                Expression? targetType = null;
 
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2);
-                    callback = Expression.Lambda<Action<object, T1, T2>>(methodCall, paramTargetObj, paramT1, paramT2).Compile();
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2);
+                callback = Expression.Lambda<Func<object, T1, T2, TResult>>(methodCall, paramTargetObj, paramT1, paramT2).Compile();
 
-                    s_compiledCallbacks.Add(method, callback);
-                }
+                s_compiledCallbacks.Add(method, callback);
             }
-
-            return (Action<object, T1, T2>)callback;
         }
 
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into an <see cref="Action"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the method that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T2">The type of the third parameter of the method that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T3">The type of the forth parameter of the method that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Action<object, T1, T2, T3> CreateAction<T1, T2, T3>(this MethodInfo method)
+        return (Func<object, T1, T2, TResult>)callback;
+    }
+
+    /// <summary>
+    /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
+    /// </summary>
+    /// <param name="method">the method that should be compiled.</param>
+    /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="T3">The type of the forth parameter of the function that this delegate encapsulates.</typeparam>
+    /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
+    /// <returns>The compiled method.</returns>
+    public static Func<object, T1, T2, T3, TResult> CreateFunc<T1, T2, T3, TResult>(this MethodInfo method)
+    {
+        object? callback;
+
+        lock (s_compiledCallbacks)
         {
-            object? callback;
-
-            lock (s_compiledCallbacks)
+            if (!s_compiledCallbacks.TryGetValue(method, out callback))
             {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // void Fun(object obj,T1 param1, T2 param2, T3 param3)
-                    // {
-                    //    ((NativeType)obj.Method(param1, param2, T3 param3);
-                    // }
+                // Creates method
+                // TResult Fun(object obj, T1 param1, T2 param2, T3 param3)
+                // {
+                //   return ((NativeType)obj.Method(param1, param2, param3);
+                // }
 
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
-                    Expression? targetType = null;
+                // Parameters
+                ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
+                ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
+                ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
+                ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
+                Expression? targetType = null;
 
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
+                if (method is { IsStatic: false, DeclaringType: not null })
+                    targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
 
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2, paramT3);
-                    callback = Expression.Lambda<Action<object, T1, T2, T3>>(methodCall, paramTargetObj, paramT1, paramT2, paramT3).Compile();
+                // Call items
+                Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2, paramT3);
+                callback = Expression.Lambda<Func<object, T1, T2, T3, TResult>>(methodCall, paramTargetObj, paramT1, paramT2, paramT3).Compile();
 
-                    s_compiledCallbacks.Add(method, callback);
-                }
+                s_compiledCallbacks.Add(method, callback);
             }
-
-            return (Action<object, T1, T2, T3>)callback;
         }
 
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Func<object, TResult> CreateFunc<TResult>(this MethodInfo method)
-        {
-            object? callback;
-
-            lock (s_compiledCallbacks)
-            {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // TResult Fun(object obj, T1 param1)
-                    // {
-                    //   return ((NativeType)obj.Method(param1);
-                    // }
-
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    Expression? targetType = null;
-
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
-
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method);
-                    callback = Expression.Lambda<Func<object, TResult>>(methodCall, paramTargetObj).Compile();
-
-                    s_compiledCallbacks.Add(method, callback);
-                }
-            }
-
-            return (Func<object, TResult>)callback;
-        }
-
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Func<object, T1, TResult> CreateFunc<T1, TResult>(this MethodInfo method)
-        {
-            object? callback;
-
-            lock (s_compiledCallbacks)
-            {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // TResult Fun(object obj)
-                    // {
-                    //   return ((NativeType)obj.Method();
-                    // }
-
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    Expression? targetType = null;
-
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
-
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1);
-                    callback = Expression.Lambda<Func<object, T1, TResult>>(methodCall, paramTargetObj, paramT1).Compile();
-
-                    s_compiledCallbacks.Add(method, callback);
-                }
-            }
-
-            return (Func<object, T1, TResult>)callback;
-        }
-
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Func<object, T1, T2, TResult> CreateFunc<T1, T2, TResult>(this MethodInfo method)
-        {
-            object? callback;
-
-            lock (s_compiledCallbacks)
-            {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // TResult Fun(object obj, T1 param1, T2 param2)
-                    // {
-                    //   return ((NativeType)obj.Method(param1, param2);
-                    // }
-
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    Expression? targetType = null;
-
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
-
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2);
-                    callback = Expression.Lambda<Func<object, T1, T2, TResult>>(methodCall, paramTargetObj, paramT1, paramT2).Compile();
-
-                    s_compiledCallbacks.Add(method, callback);
-                }
-            }
-
-            return (Func<object, T1, T2, TResult>)callback;
-        }
-
-        /// <summary>
-        /// Turns a <see cref="MethodInfo"/> into a <see cref="Func{T}"/> that can be called with objects of the specified type. 
-        /// </summary>
-        /// <param name="method">the method that should be compiled.</param>
-        /// <typeparam name="T1">The type of the second parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T2">The type of the third parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="T3">The type of the forth parameter of the function that this delegate encapsulates.</typeparam>
-        /// <typeparam name="TResult">The type of the result of the function that this delegate encapsulates.</typeparam>
-        /// <returns>The compiled method.</returns>
-        public static Func<object, T1, T2, T3, TResult> CreateFunc<T1, T2, T3, TResult>(this MethodInfo method)
-        {
-            object? callback;
-
-            lock (s_compiledCallbacks)
-            {
-                if (!s_compiledCallbacks.TryGetValue(method, out callback))
-                {
-                    // Creates method
-                    // TResult Fun(object obj, T1 param1, T2 param2, T3 param3)
-                    // {
-                    //   return ((NativeType)obj.Method(param1, param2, param3);
-                    // }
-
-                    // Parameters
-                    ParameterExpression paramTargetObj = Expression.Parameter(typeof(object));
-                    ParameterExpression paramT1 = Expression.Parameter(typeof(T1));
-                    ParameterExpression paramT2 = Expression.Parameter(typeof(T2));
-                    ParameterExpression paramT3 = Expression.Parameter(typeof(T3));
-                    Expression? targetType = null;
-
-                    if (method is { IsStatic: false, DeclaringType: not null })
-                        targetType = Expression.TypeAs(paramTargetObj, method.DeclaringType);
-
-                    // Call items
-                    Expression methodCall = Expression.Call(targetType, method, paramT1, paramT2, paramT3);
-                    callback = Expression.Lambda<Func<object, T1, T2, T3, TResult>>(methodCall, paramTargetObj, paramT1, paramT2, paramT3).Compile();
-
-                    s_compiledCallbacks.Add(method, callback);
-                }
-            }
-
-            return (Func<object, T1, T2, T3, TResult>)callback;
-        }
+        return (Func<object, T1, T2, T3, TResult>)callback;
     }
 }

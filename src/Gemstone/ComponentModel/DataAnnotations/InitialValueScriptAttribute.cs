@@ -24,41 +24,40 @@
 using System;
 using System.ComponentModel;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Defines an attribute that will define an initial value script for a modeled table field
+/// that will get evaluated and assigned in the target use environment, e.g., Javascript.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Example to set initial value to 30 days from now using a Javascript expression:
+/// <c>[InitialValueScript("(new Date()).addDays(30)")]</c>
+/// </para>
+/// <para>
+/// Note that the <see cref="DefaultValueAttribute"/> should be used to set any constant values
+/// for new modeled record instances and the <c>gemstone.expressions.model.DefaultValueExpressionAttribute</c> should
+/// be used for applying any needed server-side run-time expression defaults, either of these will
+/// get assigned when using the <c>gemstone.data.model.TableOperations&lt;T&gt;.NewRecord</c> function.
+/// The <see cref="InitialValueScriptAttribute"/> is used to initialize the property value using
+/// an expression that gets evaluated in the target environment.
+/// </para>
+/// </remarks>
+[AttributeUsage(AttributeTargets.Property)]
+public sealed class InitialValueScriptAttribute : Attribute
 {
     /// <summary>
-    /// Defines an attribute that will define an initial value script for a modeled table field
-    /// that will get evaluated and assigned in the target use environment, e.g., Javascript.
+    /// Gets the initial value expression for a modeled table field.
     /// </summary>
     /// <remarks>
-    /// <para>
-    /// Example to set initial value to 30 days from now using a Javascript expression:
-    /// <c>[InitialValueScript("(new Date()).addDays(30)")]</c>
-    /// </para>
-    /// <para>
-    /// Note that the <see cref="DefaultValueAttribute"/> should be used to set any constant values
-    /// for new modeled record instances and the <c>gemstone.expressions.model.DefaultValueExpressionAttribute</c> should
-    /// be used for applying any needed server-side run-time expression defaults, either of these will
-    /// get assigned when using the <c>gemstone.data.model.TableOperations&lt;T&gt;.NewRecord</c> function.
-    /// The <see cref="InitialValueScriptAttribute"/> is used to initialize the property value using
-    /// an expression that gets evaluated in the target environment.
-    /// </para>
+    /// Expression should be in target language, e.g., Javascript.
     /// </remarks>
-    [AttributeUsage(AttributeTargets.Property)]
-    public sealed class InitialValueScriptAttribute : Attribute
-    {
-        /// <summary>
-        /// Gets the initial value expression for a modeled table field.
-        /// </summary>
-        /// <remarks>
-        /// Expression should be in target language, e.g., Javascript.
-        /// </remarks>
-        public string InitialValueScript { get; }
+    public string InitialValueScript { get; }
 
-        /// <summary>
-        /// Creates a new <see cref="InitialValueScriptAttribute"/>/
-        /// </summary>
-        /// <param name="initialValueScript">Initial value expression for a modeled table field.</param>
-        public InitialValueScriptAttribute(string initialValueScript) => InitialValueScript = initialValueScript;
-    }
+    /// <summary>
+    /// Creates a new <see cref="InitialValueScriptAttribute"/>/
+    /// </summary>
+    /// <param name="initialValueScript">Initial value expression for a modeled table field.</param>
+    public InitialValueScriptAttribute(string initialValueScript) => InitialValueScript = initialValueScript;
 }

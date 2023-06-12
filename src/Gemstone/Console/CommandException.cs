@@ -23,49 +23,48 @@
 
 using System;
 
-namespace Gemstone.Console
+namespace Gemstone.Console;
+
+/// <summary>
+/// Represents an exception that is thrown when <see cref="Command.Execute(string, string, int)"/> reports standard error output.
+/// </summary>
+public class CommandException : Exception
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents an exception that is thrown when <see cref="Command.Execute(string, string, int)"/> reports standard error output.
+    /// Creates a new <see cref="CommandException"/>.
     /// </summary>
-    public class CommandException : Exception
+    public CommandException()
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new <see cref="CommandException"/>.
-        /// </summary>
-        public CommandException()
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="CommandException"/> with the specified parameters.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        /// <param name="processCompleted">Flag that determines if the source of command exception completed processing.</param>
-        /// <param name="exitCode">Exit code of command process, assuming process successfully completed.</param>
-        /// <param name="innerException">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
-        public CommandException(string message, bool processCompleted, int exitCode, Exception? innerException = null) : base(message, innerException)
-        {
-            ProcessCompleted = processCompleted;
-            ExitCode = exitCode;
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// Gets flag that determines if the source of this command exception completed processing.
-        /// </summary>
-        public bool ProcessCompleted { get; }
-
-        /// <summary>
-        /// Gets exit code from command process, assuming successful process completion.
-        /// </summary>
-        public int ExitCode { get; }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Creates a new <see cref="CommandException"/> with the specified parameters.
+    /// </summary>
+    /// <param name="message">The error message that explains the reason for the exception.</param>
+    /// <param name="processCompleted">Flag that determines if the source of command exception completed processing.</param>
+    /// <param name="exitCode">Exit code of command process, assuming process successfully completed.</param>
+    /// <param name="innerException">The exception that is the cause of the current exception, or a null reference if no inner exception is specified.</param>
+    public CommandException(string message, bool processCompleted, int exitCode, Exception? innerException = null) : base(message, innerException)
+    {
+        ProcessCompleted = processCompleted;
+        ExitCode = exitCode;
+    }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// Gets flag that determines if the source of this command exception completed processing.
+    /// </summary>
+    public bool ProcessCompleted { get; }
+
+    /// <summary>
+    /// Gets exit code from command process, assuming successful process completion.
+    /// </summary>
+    public int ExitCode { get; }
+
+    #endregion
 }

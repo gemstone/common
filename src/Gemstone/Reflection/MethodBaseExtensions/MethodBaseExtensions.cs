@@ -26,80 +26,79 @@ using System.Reflection;
 using System.Text;
 using Gemstone.Reflection.MemberInfoExtensions;
 
-namespace Gemstone.Reflection.MethodBaseExtensions
+namespace Gemstone.Reflection.MethodBaseExtensions;
+
+/// <summary>
+/// Defines extensions methods related to extension functions for <see cref="MethodBase"/> instances.
+/// </summary>
+public static class MethodBaseExtensions
 {
     /// <summary>
-    /// Defines extensions methods related to extension functions for <see cref="MethodBase"/> instances.
+    /// Gets the friendly method name of the provided type, trimming generic parameters.
     /// </summary>
-    public static class MethodBaseExtensions
+    /// <param name="method">Type to get friendly method name for.</param>
+    /// <returns>Friendly method name of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
+    public static string GetFriendlyMethodName(this MethodBase? method)
     {
-        /// <summary>
-        /// Gets the friendly method name of the provided type, trimming generic parameters.
-        /// </summary>
-        /// <param name="method">Type to get friendly method name for.</param>
-        /// <returns>Friendly method name of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
-        public static string GetFriendlyMethodName(this MethodBase? method)
+        if (method is null)
+            return string.Empty;
+
+        bool appendComma;
+        StringBuilder name = new();
+
+        name.Append(method.Name);
+
+        if (method is MethodInfo && method.IsGenericMethod)
         {
-            if (method is null)
-                return string.Empty;
-
-            bool appendComma;
-            StringBuilder name = new();
-
-            name.Append(method.Name);
-
-            if (method is MethodInfo && method.IsGenericMethod)
-            {
-                appendComma = false;
-                name.Append("<");
-
-                foreach (Type arg in method.GetGenericArguments())
-                {
-                    if (appendComma)
-                        name.Append(",");
-                    else
-                        appendComma = true;
-
-                    name.Append(arg.Name);
-                }
-
-                name.Append(">");
-            }
-
             appendComma = false;
-            name.Append("(");
+            name.Append("<");
 
-            foreach (ParameterInfo param in method.GetParameters())
+            foreach (Type arg in method.GetGenericArguments())
             {
                 if (appendComma)
-                    name.Append(", ");
+                    name.Append(",");
                 else
                     appendComma = true;
 
-                name.Append(param.ParameterType.Name);
-                name.Append(" ");
-                name.Append(param.Name);
+                name.Append(arg.Name);
             }
 
-            name.Append(")");
-
-            return name.ToString();
+            name.Append(">");
         }
 
-        /// <summary>
-        /// Gets the friendly method name with class of the provided type, trimming generic parameters.
-        /// </summary>
-        /// <param name="method">Type to get friendly method name with class for.</param>
-        /// <returns>Friendly method name with class of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
-        public static string GetFriendlyMethodNameWithClass(this MethodBase method)
+        appendComma = false;
+        name.Append("(");
+
+        foreach (ParameterInfo param in method.GetParameters())
         {
-            string className = method.GetFriendlyClassName();
-            string methodName = method.GetFriendlyMethodName();
+            if (appendComma)
+                name.Append(", ");
+            else
+                appendComma = true;
 
-            if (className.Length == 0)
-                return methodName;
-
-            return $"{className}.{methodName}";
+            name.Append(param.ParameterType.Name);
+            name.Append(" ");
+            name.Append(param.Name);
         }
+
+        name.Append(")");
+
+        return name.ToString();
+    }
+
+    /// <summary>
+    /// Gets the friendly method name with class of the provided type, trimming generic parameters.
+    /// </summary>
+    /// <param name="method">Type to get friendly method name with class for.</param>
+    /// <returns>Friendly method name with class of the provided type, or <see cref="string.Empty"/> if <paramref name="method"/> is <c>null</c>.</returns>
+    public static string GetFriendlyMethodNameWithClass(this MethodBase method)
+    {
+        string className = method.GetFriendlyClassName();
+        string methodName = method.GetFriendlyMethodName();
+
+        if (className.Length == 0)
+            return methodName;
+
+        return $"{className}.{methodName}";
     }
 }

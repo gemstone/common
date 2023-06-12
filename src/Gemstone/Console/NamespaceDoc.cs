@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Console
+namespace Gemstone.Console;
+
+/// <summary>
+/// Contains classes used for parsing command line parameters and managing console applications.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used for parsing command line parameters and managing console applications.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

@@ -24,13 +24,12 @@
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 
-namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions
+namespace Gemstone.Security.Cryptography.SymmetricAlgorithmExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="SymmetricAlgorithm"/> implementations.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="SymmetricAlgorithm"/> implementations.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

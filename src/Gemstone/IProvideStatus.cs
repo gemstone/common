@@ -25,22 +25,21 @@
 //
 //******************************************************************************************************
 
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// Defines an interface for any object to allow it to provide a name and status
+/// that can be displayed for informational purposes.
+/// </summary>
+public interface IProvideStatus
 {
     /// <summary>
-    /// Defines an interface for any object to allow it to provide a name and status
-    /// that can be displayed for informational purposes.
+    /// Gets the name of the object providing status information.
     /// </summary>
-    public interface IProvideStatus
-    {
-        /// <summary>
-        /// Gets the name of the object providing status information.
-        /// </summary>
-        string Name { get; }
+    string Name { get; }
 
-        /// <summary>
-        /// Gets the current status details about object providing status information.
-        /// </summary>
-        string Status { get; }
-    }
- }
+    /// <summary>
+    /// Gets the current status details about object providing status information.
+    /// </summary>
+    string Status { get; }
+}

@@ -28,73 +28,72 @@
 using System;
 
 // ReSharper disable InconsistentNaming
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// Defines a few common United States time zones.
+/// </summary>
+public static class USTimeZones
 {
+    // We define a few common timezones for convenience.
+    private static TimeZoneInfo? s_atlanticTimeZone;
+    private static TimeZoneInfo? s_easternTimeZone;
+    private static TimeZoneInfo? s_centralTimeZone;
+    private static TimeZoneInfo? s_mountainTimeZone;
+    private static TimeZoneInfo? s_pacificTimeZone;
+    private static TimeZoneInfo? s_alaskanTimeZone;
+    private static TimeZoneInfo? s_hawaiianTimeZone;
+    private static TimeZoneInfo? s_westPacificTimeZone;
+    private static TimeZoneInfo? s_samoaTimeZone;
+
     /// <summary>
-    /// Defines a few common United States time zones.
+    /// Gets the Atlantic time zone.
     /// </summary>
-    public static class USTimeZones
-    {
-        // We define a few common timezones for convenience.
-        private static TimeZoneInfo? s_atlanticTimeZone;
-        private static TimeZoneInfo? s_easternTimeZone;
-        private static TimeZoneInfo? s_centralTimeZone;
-        private static TimeZoneInfo? s_mountainTimeZone;
-        private static TimeZoneInfo? s_pacificTimeZone;
-        private static TimeZoneInfo? s_alaskanTimeZone;
-        private static TimeZoneInfo? s_hawaiianTimeZone;
-        private static TimeZoneInfo? s_westPacificTimeZone;
-        private static TimeZoneInfo? s_samoaTimeZone;
+    /// <remarks>This time zone is used by the Commonwealth of Puerto Rico and the United States Virgin Islands.</remarks>
+    public static TimeZoneInfo Atlantic => s_atlanticTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
 
-        /// <summary>
-        /// Gets the Atlantic time zone.
-        /// </summary>
-        /// <remarks>This time zone is used by the Commonwealth of Puerto Rico and the United States Virgin Islands.</remarks>
-        public static TimeZoneInfo Atlantic => s_atlanticTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+    /// <summary>
+    /// Gets the Eastern time zone.
+    /// </summary>
+    public static TimeZoneInfo Eastern => s_easternTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 
-        /// <summary>
-        /// Gets the Eastern time zone.
-        /// </summary>
-        public static TimeZoneInfo Eastern => s_easternTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+    /// <summary>
+    /// Gets the Central time zone.
+    /// </summary>
+    public static TimeZoneInfo Central => s_centralTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
 
-        /// <summary>
-        /// Gets the Central time zone.
-        /// </summary>
-        public static TimeZoneInfo Central => s_centralTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+    /// <summary>
+    /// Gets the Mountain time zone.
+    /// </summary>
+    public static TimeZoneInfo Mountain => s_mountainTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time");
 
-        /// <summary>
-        /// Gets the Mountain time zone.
-        /// </summary>
-        public static TimeZoneInfo Mountain => s_mountainTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time");
+    /// <summary>
+    /// Gets the Pacific time zone.
+    /// </summary>
+    public static TimeZoneInfo Pacific => s_pacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
 
-        /// <summary>
-        /// Gets the Pacific time zone.
-        /// </summary>
-        public static TimeZoneInfo Pacific => s_pacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+    /// <summary>
+    /// Gets the Alaskan time zone.
+    /// </summary>
+    public static TimeZoneInfo Alaskan => s_alaskanTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Alaskan Standard Time");
 
-        /// <summary>
-        /// Gets the Alaskan time zone.
-        /// </summary>
-        public static TimeZoneInfo Alaskan => s_alaskanTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Alaskan Standard Time");
+    /// <summary>
+    /// Gets the Hawaiian time zone.
+    /// </summary>
+    public static TimeZoneInfo Hawaiian => s_hawaiianTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Hawaiian Standard Time");
 
-        /// <summary>
-        /// Gets the Hawaiian time zone.
-        /// </summary>
-        public static TimeZoneInfo Hawaiian => s_hawaiianTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Hawaiian Standard Time");
+    /// <summary>
+    /// Gets the West Pacific time zone.
+    /// </summary>
+    /// <remarks>
+    /// <para>This time zone is used by Guam and the Commonwealth of the Northern Mariana Islands.</para>
+    /// <para>This is also known as the Chamorro time zone.</para>
+    /// </remarks>
+    public static TimeZoneInfo WestPacific => s_westPacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("West Pacific Standard Time");
 
-        /// <summary>
-        /// Gets the West Pacific time zone.
-        /// </summary>
-        /// <remarks>
-        /// <para>This time zone is used by Guam and the Commonwealth of the Northern Mariana Islands.</para>
-        /// <para>This is also known as the Chamorro time zone.</para>
-        /// </remarks>
-        public static TimeZoneInfo WestPacific => s_westPacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("West Pacific Standard Time");
-
-        /// <summary>
-        /// Gets the Samoa time zone.
-        /// </summary>
-        /// <remarks>This time zone is used by the American Samoa.</remarks>
-        public static TimeZoneInfo Samoa => s_samoaTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time");
-    }
+    /// <summary>
+    /// Gets the Samoa time zone.
+    /// </summary>
+    /// <remarks>This time zone is used by the American Samoa.</remarks>
+    public static TimeZoneInfo Samoa => s_samoaTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time");
 }

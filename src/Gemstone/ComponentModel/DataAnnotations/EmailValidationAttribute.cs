@@ -24,27 +24,26 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Represents a <see cref="RegularExpressionAttribute"/> for validating e-mail addresses.
+/// </summary>
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
+public sealed class EmailValidationAttribute : RegularExpressionAttribute
 {
     /// <summary>
-    /// Represents a <see cref="RegularExpressionAttribute"/> for validating e-mail addresses.
+    /// Defines the regular expression pattern used to validate value. 
     /// </summary>
-    [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field | AttributeTargets.Parameter)]
-    public sealed class EmailValidationAttribute : RegularExpressionAttribute
-    {
-        /// <summary>
-        /// Defines the regular expression pattern used to validate value. 
-        /// </summary>
-        public const string ValidationPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
+    public const string ValidationPattern = @"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$";
 
-        /// <summary>
-        /// Defines the default error message used when pattern fails validation.
-        /// </summary>
-        public const string DefaultErrorMessage = "Invalid e-mail address.";
+    /// <summary>
+    /// Defines the default error message used when pattern fails validation.
+    /// </summary>
+    public const string DefaultErrorMessage = "Invalid e-mail address.";
 
-        /// <summary>
-        /// Creates a new <see cref="EmailValidationAttribute"/>.
-        /// </summary>
-        public EmailValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
-    }
+    /// <summary>
+    /// Creates a new <see cref="EmailValidationAttribute"/>.
+    /// </summary>
+    public EmailValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
 }

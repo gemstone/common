@@ -62,66 +62,65 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace Gemstone
+namespace Gemstone;
+
+/// <summary>
+/// Represents a standard Unix time-tag.
+/// </summary>
+[Serializable]
+public class UnixTimeTag : TimeTagBase
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents a standard Unix time-tag.
+    /// Creates a new <see cref="UnixTimeTag"/>, given number of seconds since 1/1/1970.
     /// </summary>
-    [Serializable]
-    public class UnixTimeTag : TimeTagBase
+    /// <param name="seconds">Number of seconds since 1/1/1970.</param>
+    public UnixTimeTag(decimal seconds) : base(BaseTicks, seconds)
     {
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new <see cref="UnixTimeTag"/>, given number of seconds since 1/1/1970.
-        /// </summary>
-        /// <param name="seconds">Number of seconds since 1/1/1970.</param>
-        public UnixTimeTag(decimal seconds) : base(BaseTicks, seconds)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="UnixTimeTag"/>, given number of seconds since 1/1/1970.
-        /// </summary>
-        /// <param name="seconds">Number of seconds since 1/1/1970.</param>
-        public UnixTimeTag(uint seconds) : base(BaseTicks, (decimal)seconds)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="UnixTimeTag"/>, given specified <see cref="Ticks"/>.
-        /// </summary>
-        /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create Unix time-tag from (minimum valid date is 1/1/1970).</param>
-        /// <remarks>
-        /// This constructor will accept a <see cref="DateTime"/> parameter since <see cref="Ticks"/> is implicitly castable to a <see cref="DateTime"/>.
-        /// </remarks>
-        public UnixTimeTag(Ticks timestamp) : base(BaseTicks, timestamp)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="UnixTimeTag"/> from serialization parameters.
-        /// </summary>
-        /// <param name="info">The <see cref="SerializationInfo"/> with populated with data.</param>
-        /// <param name="context">The source <see cref="StreamingContext"/> for this deserialization.</param>
-        protected UnixTimeTag(SerializationInfo info, StreamingContext context) : base(info, context)
-        {
-        }
-
-        #endregion
-
-        #region [ Static ]
-
-        // Static Fields
-
-        /// <summary>
-        /// Number of ticks since 1/1/1970.
-        /// </summary>
-        /// <remarks>
-        /// Unix dates are measured as the number of seconds since 1/1/1970.
-        /// </remarks>
-        public static readonly Ticks BaseTicks = new DateTime(1970, 1, 1, 0, 0, 0).Ticks;
-
-        #endregion
     }
+
+    /// <summary>
+    /// Creates a new <see cref="UnixTimeTag"/>, given number of seconds since 1/1/1970.
+    /// </summary>
+    /// <param name="seconds">Number of seconds since 1/1/1970.</param>
+    public UnixTimeTag(uint seconds) : base(BaseTicks, (decimal)seconds)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="UnixTimeTag"/>, given specified <see cref="Ticks"/>.
+    /// </summary>
+    /// <param name="timestamp">Timestamp in <see cref="Ticks"/> to create Unix time-tag from (minimum valid date is 1/1/1970).</param>
+    /// <remarks>
+    /// This constructor will accept a <see cref="DateTime"/> parameter since <see cref="Ticks"/> is implicitly castable to a <see cref="DateTime"/>.
+    /// </remarks>
+    public UnixTimeTag(Ticks timestamp) : base(BaseTicks, timestamp)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="UnixTimeTag"/> from serialization parameters.
+    /// </summary>
+    /// <param name="info">The <see cref="SerializationInfo"/> with populated with data.</param>
+    /// <param name="context">The source <see cref="StreamingContext"/> for this deserialization.</param>
+    protected UnixTimeTag(SerializationInfo info, StreamingContext context) : base(info, context)
+    {
+    }
+
+    #endregion
+
+    #region [ Static ]
+
+    // Static Fields
+
+    /// <summary>
+    /// Number of ticks since 1/1/1970.
+    /// </summary>
+    /// <remarks>
+    /// Unix dates are measured as the number of seconds since 1/1/1970.
+    /// </remarks>
+    public static readonly Ticks BaseTicks = new DateTime(1970, 1, 1, 0, 0, 0).Ticks;
+
+    #endregion
 }

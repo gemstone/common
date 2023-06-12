@@ -27,191 +27,190 @@ using System;
 using System.Security;
 using System.Security.Principal;
 
-namespace Gemstone.Identity
+namespace Gemstone.Identity;
+
+/// <summary>
+/// Represents information about a local user or a domain user (e.g., from Active Directory).
+/// </summary>
+public sealed class UserInfo
 {
+    #region [ Constructors ]
+
     /// <summary>
-    /// Represents information about a local user or a domain user (e.g., from Active Directory).
+    /// Initializes a new instance of the <see cref="UserInfo"/> class.
     /// </summary>
-    public sealed class UserInfo
+    /// <param name="loginID">
+    /// Login ID in 'domain\accountName' format of the user's account whose information is to be retrieved. Login ID 
+    /// can also be specified in 'accountName' format without the domain name, in which case the domain name will be
+    /// approximated based on the privileged user domain if specified, default login domain of the host machine 
+    /// if available, or the domain of the identity that owns the host process.
+    /// </param>
+    /// <exception cref="ArgumentNullException"><paramref name="loginID"/> is a null or empty string.</exception>
+    public UserInfo(string loginID)        
     {
-        #region [ Constructors ]
+        if (string.IsNullOrEmpty(loginID))
+            throw new ArgumentNullException(nameof(loginID));
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UserInfo"/> class.
-        /// </summary>
-        /// <param name="loginID">
-        /// Login ID in 'domain\accountName' format of the user's account whose information is to be retrieved. Login ID 
-        /// can also be specified in 'accountName' format without the domain name, in which case the domain name will be
-        /// approximated based on the privileged user domain if specified, default login domain of the host machine 
-        /// if available, or the domain of the identity that owns the host process.
-        /// </param>
-        /// <exception cref="ArgumentNullException"><paramref name="loginID"/> is a null or empty string.</exception>
-        public UserInfo(string loginID)        
+        string[] accountParts = loginID.Split('\\');
+
+        if (accountParts.Length != 2)
         {
-            if (string.IsNullOrEmpty(loginID))
-                throw new ArgumentNullException(nameof(loginID));
-
-            string[] accountParts = loginID.Split('\\');
+            accountParts = loginID.Split('@');
 
             if (accountParts.Length != 2)
             {
-                accountParts = loginID.Split('@');
-
-                if (accountParts.Length != 2)
-                {
-                    // Login ID is specified in 'accountName' format.
-                    accountName = loginID;
-                }
-                else
-                {
-                    // Login ID is specified in 'accountName@domain' format.
-                    accountName = accountParts[0];
-                    Domain = accountParts[1];
-                }
+                // Login ID is specified in 'accountName' format.
+                accountName = loginID;
             }
             else
             {
-                // Login ID is specified in 'domain\accountName' format.
-                Domain = accountParts[0];
-                accountName = accountParts[1];
+                // Login ID is specified in 'accountName@domain' format.
+                accountName = accountParts[0];
+                Domain = accountParts[1];
             }
-
-            if (string.IsNullOrEmpty(Domain))
-                Domain = Environment.MachineName;
+        }
+        else
+        {
+            // Login ID is specified in 'domain\accountName' format.
+            Domain = accountParts[0];
+            accountName = accountParts[1];
         }
 
-        #endregion
+        if (string.IsNullOrEmpty(Domain))
+            Domain = Environment.MachineName;
+    }
 
-        #region [ Properties ]
+    #endregion
 
-        /// <summary>
-        /// Gets the domain for the user.
-        /// </summary>
-        public string Domain { get; } = default!;
+    #region [ Properties ]
 
-        /// <summary>
-        /// Gets the user name of the user.
-        /// </summary>
-        public string accountName { get; }
+    /// <summary>
+    /// Gets the domain for the user.
+    /// </summary>
+    public string Domain { get; } = default!;
 
-        /// <summary>
-        /// Gets the Login ID of the user.
-        /// </summary>
-        public string LoginID => $"{Domain}\\{accountName}";
+    /// <summary>
+    /// Gets the user name of the user.
+    /// </summary>
+    public string accountName { get; }
 
-        /// <summary>
-        /// Gets the ID of the user in LDAP format.
-        /// </summary>
-        public string LdapID => $"{accountName}@{Domain}";
+    /// <summary>
+    /// Gets the Login ID of the user.
+    /// </summary>
+    public string LoginID => $"{Domain}\\{accountName}";
 
-        #endregion
+    /// <summary>
+    /// Gets the ID of the user in LDAP format.
+    /// </summary>
+    public string LdapID => $"{accountName}@{Domain}";
 
-        #region [ Static ]
+    #endregion
 
-        // Static Fields
-        private static string? s_lastUserID ;
-        private static UserInfo? s_currentUserInfo;
+    #region [ Static ]
+
+    // Static Fields
+    private static string? s_lastUserID ;
+    private static UserInfo? s_currentUserInfo;
 
 
-        // Static Properties
+    // Static Properties
 
-        /// <summary>
-        /// Gets the ID name of the current user.
-        /// </summary>
-        /// <remarks>
-        /// The ID name returned is that of the user account under which the code is executing.
-        /// </remarks>
-        public static string CurrentUserID
+    /// <summary>
+    /// Gets the ID name of the current user.
+    /// </summary>
+    /// <remarks>
+    /// The ID name returned is that of the user account under which the code is executing.
+    /// </remarks>
+    public static string CurrentUserID
+    {
+        get
         {
-            get
+            if (Common.IsPosixEnvironment)
+                return Environment.UserName;
+
+            try
             {
-                if (Common.IsPosixEnvironment)
-                    return Environment.UserName;
-
-                try
-                {
-                    #pragma warning disable CA1416
-                    return WindowsIdentity.GetCurrent().Name;
-                    #pragma warning restore CA1416
-                }
-                catch (SecurityException)
-                {
-                    return Environment.UserName;
-                }
+#pragma warning disable CA1416
+                return WindowsIdentity.GetCurrent().Name;
+#pragma warning restore CA1416
             }
-        }
-
-        /// <summary>
-        /// Gets the <see cref="UserInfo"/> object for the <see cref="CurrentUserID"/>.
-        /// </summary>
-        public static UserInfo? CurrentUserInfo
-        {
-            get
+            catch (SecurityException)
             {
-                string currentUserID = CurrentUserID;
-
-                if (!string.IsNullOrEmpty(currentUserID))
-                {
-                    if (string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
-                        s_currentUserInfo = new UserInfo(currentUserID);
-                }
-
-                s_lastUserID = currentUserID;
-
-                return s_currentUserInfo;
+                return Environment.UserName;
             }
         }
+    }
 
-        // TODO: Implement these methods
-
-        /// <summary>
-        /// Converts the given user name to the SID corresponding to that name.
-        /// </summary>
-        /// <param name="accountName">The user name for which to look up the SID.</param>
-        /// <returns>The SID for the given user name, or the user name if no SID can be found.</returns>
-        /// <remarks>
-        /// If the <paramref name="accountName"/> cannot be converted to a SID, <paramref name="accountName"/>
-        /// will be the return value.
-        /// </remarks>
-        public static string UserNameToSID(string accountName)
+    /// <summary>
+    /// Gets the <see cref="UserInfo"/> object for the <see cref="CurrentUserID"/>.
+    /// </summary>
+    public static UserInfo? CurrentUserInfo
+    {
+        get
         {
-            throw new NotImplementedException();
-        }
+            string currentUserID = CurrentUserID;
 
-        /// <summary>
-        /// Determines whether the given security identifier identifies a user account.
-        /// </summary>
-        /// <param name="sid">The security identifier.</param>
-        /// <returns><c>true</c> if the security identifier identifies a user account; <c>false</c> otherwise.</returns>
-        public static bool IsUserSID(string sid)
-        {
-            throw new NotImplementedException();
-        }
+            if (!string.IsNullOrEmpty(currentUserID))
+            {
+                if (string.IsNullOrEmpty(s_lastUserID) || !currentUserID.Equals(s_lastUserID, StringComparison.OrdinalIgnoreCase))
+                    s_currentUserInfo = new UserInfo(currentUserID);
+            }
 
-        #endregion
+            s_lastUserID = currentUserID;
 
-        /// <summary>
-        /// Converts the given group name to the SID corresponding to that name.
-        /// </summary>
-        /// <param name="groupName">The group name for which to look up the SID.</param>
-        /// <returns>The SID for the given group name, or the group name if no SID can be found.</returns>
-        /// <remarks>
-        /// If the <paramref name="groupName"/> cannot be converted to a SID, <paramref name="groupName"/>
-        /// will be the return value.
-        /// </remarks>
-        public static string GroupNameToSID(string groupName)
-        {
-            throw new NotImplementedException();
+            return s_currentUserInfo;
         }
+    }
 
-        /// <summary>
-        /// Determines whether the given security identifier identifies a group.
-        /// </summary>
-        /// <param name="sid">The security identifier.</param>
-        /// <returns><c>true</c> if the security identifier identifies a group; <c>false</c> otherwise.</returns>
-        public static bool IsGroupSID(string sid)
-        {
-            throw new NotImplementedException();
-        }
+    // TODO: Implement these methods
+
+    /// <summary>
+    /// Converts the given user name to the SID corresponding to that name.
+    /// </summary>
+    /// <param name="accountName">The user name for which to look up the SID.</param>
+    /// <returns>The SID for the given user name, or the user name if no SID can be found.</returns>
+    /// <remarks>
+    /// If the <paramref name="accountName"/> cannot be converted to a SID, <paramref name="accountName"/>
+    /// will be the return value.
+    /// </remarks>
+    public static string UserNameToSID(string accountName)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Determines whether the given security identifier identifies a user account.
+    /// </summary>
+    /// <param name="sid">The security identifier.</param>
+    /// <returns><c>true</c> if the security identifier identifies a user account; <c>false</c> otherwise.</returns>
+    public static bool IsUserSID(string sid)
+    {
+        throw new NotImplementedException();
+    }
+
+    #endregion
+
+    /// <summary>
+    /// Converts the given group name to the SID corresponding to that name.
+    /// </summary>
+    /// <param name="groupName">The group name for which to look up the SID.</param>
+    /// <returns>The SID for the given group name, or the group name if no SID can be found.</returns>
+    /// <remarks>
+    /// If the <paramref name="groupName"/> cannot be converted to a SID, <paramref name="groupName"/>
+    /// will be the return value.
+    /// </remarks>
+    public static string GroupNameToSID(string groupName)
+    {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Determines whether the given security identifier identifies a group.
+    /// </summary>
+    /// <param name="sid">The security identifier.</param>
+    /// <returns><c>true</c> if the security identifier identifies a group; <c>false</c> otherwise.</returns>
+    public static bool IsGroupSID(string sid)
+    {
+        throw new NotImplementedException();
     }
 }

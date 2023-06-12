@@ -23,97 +23,96 @@
 
 using System;
 
-namespace Gemstone.Security.Cryptography
+namespace Gemstone.Security.Cryptography;
+
+/// <summary>
+/// Defines a group of characters that can
+/// appear in an automatically generated password.
+/// </summary>
+public class CharacterGroup
 {
+    #region [ Members ]
+
+    // Fields
+    private string m_characters;
+    private int m_minOccurrence;
+
+    #endregion
+
+    #region [ Constructors ]
+
     /// <summary>
-    /// Defines a group of characters that can
-    /// appear in an automatically generated password.
+    /// Creates a new instance of the <see cref="CharacterGroup"/> class.
     /// </summary>
-    public class CharacterGroup
+    public CharacterGroup() : this(" ")
     {
-        #region [ Members ]
-
-        // Fields
-        private string m_characters;
-        private int m_minOccurrence;
-
-        #endregion
-
-        #region [ Constructors ]
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CharacterGroup"/> class.
-        /// </summary>
-        public CharacterGroup() : this(" ")
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CharacterGroup"/> class.
-        /// </summary>
-        /// <param name="characters">String representing the characters in the character group.</param>
-        public CharacterGroup(string characters) : this(characters, 0)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new instance of the <see cref="CharacterGroup"/> class.
-        /// </summary>
-        /// <param name="characters">String representing the characters in the character group.</param>
-        /// <param name="minOccurrence">The minimum number of occurrences of this character group in the password.</param>
-        public CharacterGroup(string characters, int minOccurrence)
-        {
-            if (string.IsNullOrEmpty(characters))
-                throw new ArgumentException("Character group must have at least one character.", nameof(characters));
-
-            if (minOccurrence < 0)
-                throw new ArgumentOutOfRangeException(nameof(minOccurrence));
-
-            m_characters = characters;
-            m_minOccurrence = minOccurrence;
-        }
-
-        #endregion
-
-        #region [ Properties ]
-
-        /// <summary>
-        /// The collection of characters in the character group.
-        /// </summary>
-        public string Characters
-        {
-            get
-            {
-                return m_characters;
-            }
-            set
-            {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Character group must have at least one character.", nameof(value));
-
-                m_characters = value;
-            }
-        }
-
-        /// <summary>
-        /// The minimum number of occurrences of any of the
-        /// characters in this character group in the password.
-        /// </summary>
-        public int MinOccurrence
-        {
-            get
-            {
-                return m_minOccurrence;
-            }
-            set
-            {
-                if (value < 0)
-                    throw new ArgumentOutOfRangeException(nameof(value));
-
-                m_minOccurrence = value;
-            }
-        }
-
-        #endregion
     }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CharacterGroup"/> class.
+    /// </summary>
+    /// <param name="characters">String representing the characters in the character group.</param>
+    public CharacterGroup(string characters) : this(characters, 0)
+    {
+    }
+
+    /// <summary>
+    /// Creates a new instance of the <see cref="CharacterGroup"/> class.
+    /// </summary>
+    /// <param name="characters">String representing the characters in the character group.</param>
+    /// <param name="minOccurrence">The minimum number of occurrences of this character group in the password.</param>
+    public CharacterGroup(string characters, int minOccurrence)
+    {
+        if (string.IsNullOrEmpty(characters))
+            throw new ArgumentException("Character group must have at least one character.", nameof(characters));
+
+        if (minOccurrence < 0)
+            throw new ArgumentOutOfRangeException(nameof(minOccurrence));
+
+        m_characters = characters;
+        m_minOccurrence = minOccurrence;
+    }
+
+    #endregion
+
+    #region [ Properties ]
+
+    /// <summary>
+    /// The collection of characters in the character group.
+    /// </summary>
+    public string Characters
+    {
+        get
+        {
+            return m_characters;
+        }
+        set
+        {
+            if (string.IsNullOrEmpty(value))
+                throw new ArgumentException("Character group must have at least one character.", nameof(value));
+
+            m_characters = value;
+        }
+    }
+
+    /// <summary>
+    /// The minimum number of occurrences of any of the
+    /// characters in this character group in the password.
+    /// </summary>
+    public int MinOccurrence
+    {
+        get
+        {
+            return m_minOccurrence;
+        }
+        set
+        {
+            if (value < 0)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            m_minOccurrence = value;
+        }
+    }
+
+    #endregion
 }

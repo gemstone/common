@@ -27,55 +27,54 @@
 
 using System;
 
-namespace Gemstone.IO.Parsing
+namespace Gemstone.IO.Parsing;
+
+/// <summary>
+/// This interface represents the protocol independent representation of a streaming data parser.
+/// </summary>
+public interface IBinaryImageParser : IProvideStatus
 {
     /// <summary>
-    /// This interface represents the protocol independent representation of a streaming data parser.
+    /// Occurs when data image fails deserialization due to an exception.
     /// </summary>
-    public interface IBinaryImageParser : IProvideStatus
-    {
-        /// <summary>
-        /// Occurs when data image fails deserialization due to an exception.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="EventArgs{T}.Argument"/> is the remaining portion of the binary image that failed to parse.
-        /// </remarks>
-        event EventHandler<EventArgs<byte[]>> DataDiscarded;
+    /// <remarks>
+    /// <see cref="EventArgs{T}.Argument"/> is the remaining portion of the binary image that failed to parse.
+    /// </remarks>
+    event EventHandler<EventArgs<byte[]>> DataDiscarded;
 
-        /// <summary>
-        /// Occurs when an <see cref="Exception"/> is encountered while attempting to parse data.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="EventArgs{T}.Argument"/> is the <see cref="Exception"/> encountered while parsing data.
-        /// </remarks>
-        event EventHandler<EventArgs<Exception>> ParsingException;
+    /// <summary>
+    /// Occurs when an <see cref="Exception"/> is encountered while attempting to parse data.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="EventArgs{T}.Argument"/> is the <see cref="Exception"/> encountered while parsing data.
+    /// </remarks>
+    event EventHandler<EventArgs<Exception>> ParsingException;
 
-        /// <summary>
-        /// Start the streaming data parser.
-        /// </summary>
-        void Start();
+    /// <summary>
+    /// Start the streaming data parser.
+    /// </summary>
+    void Start();
 
-        /// <summary>
-        /// Stops the streaming data parser.
-        /// </summary>
-        void Stop();
+    /// <summary>
+    /// Stops the streaming data parser.
+    /// </summary>
+    void Stop();
 
-        /// <summary>
-        /// Gets or sets a boolean value that indicates whether the data parser is currently enabled.
-        /// </summary>
-        bool Enabled { get; set; }
+    /// <summary>
+    /// Gets or sets a boolean value that indicates whether the data parser is currently enabled.
+    /// </summary>
+    bool Enabled { get; set; }
 
-        /// <summary>
-        /// Gets the total number of buffer images processed so far.
-        /// </summary>
-        long TotalProcessedBuffers { get; }
+    /// <summary>
+    /// Gets the total number of buffer images processed so far.
+    /// </summary>
+    long TotalProcessedBuffers { get; }
 
-        /// <summary>
-        /// Writes a sequence of bytes onto the <see cref="IBinaryImageParser"/> stream for parsing.
-        /// </summary>
-        /// <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current stream.</param>
-        /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
-        /// <param name="count">The number of bytes to be written to the current stream.</param>
-        void Write(byte[] buffer, int offset, int count);
-    }
+    /// <summary>
+    /// Writes a sequence of bytes onto the <see cref="IBinaryImageParser"/> stream for parsing.
+    /// </summary>
+    /// <param name="buffer">An array of bytes. This method copies count bytes from buffer to the current stream.</param>
+    /// <param name="offset">The zero-based byte offset in buffer at which to begin copying bytes to the current stream.</param>
+    /// <param name="count">The number of bytes to be written to the current stream.</param>
+    void Write(byte[] buffer, int offset, int count);
 }

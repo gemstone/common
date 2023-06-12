@@ -24,13 +24,12 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Reflection.MethodBaseExtensions
+namespace Gemstone.Reflection.MethodBaseExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="MethodBase"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="MethodBase"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

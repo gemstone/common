@@ -25,13 +25,12 @@
 //
 //******************************************************************************************************
 
-namespace Gemstone.Security.Cryptography
+namespace Gemstone.Security.Cryptography;
+
+/// <summary>
+/// This class is used internally do define a standard buffer size.
+/// </summary>
+internal static class Standard
 {
-    /// <summary>
-    /// This class is used internally do define a standard buffer size.
-    /// </summary>
-    internal static class Standard
-    {
-        public const int BufferSize = 262144; // 256K
-    }
+    public const int BufferSize = 262144; // 256K
 }

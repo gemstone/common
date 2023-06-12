@@ -24,13 +24,12 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Reflection.MemberInfoExtensions
+namespace Gemstone.Reflection.MemberInfoExtensions;
+
+/// <summary>
+/// Contains extension methods for <see cref="MemberInfo"/> values.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains extension methods for <see cref="MemberInfo"/> values.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

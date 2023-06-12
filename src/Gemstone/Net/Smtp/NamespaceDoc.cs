@@ -25,13 +25,12 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Net.Smtp
+namespace Gemstone.Net.Smtp;
+
+/// <summary>
+/// Contains classes used to simplify and standardize operations related to sending e-mail messages.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// Contains classes used to simplify and standardize operations related to sending e-mail messages.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

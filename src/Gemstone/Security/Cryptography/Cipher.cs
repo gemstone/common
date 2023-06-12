@@ -26,80 +26,79 @@ using System.Security.Cryptography;
 using Microsoft.Win32;
 
 // ReSharper disable InconsistentNaming
-namespace Gemstone.Security.Cryptography
+namespace Gemstone.Security.Cryptography;
+
+/// <summary>
+/// Provides general use cryptographic functions.
+/// </summary>
+/// <remarks>
+/// This class exists to simplify usage of basic cryptography functionality.
+/// </remarks>
+public class Cipher
 {
     /// <summary>
-    /// Provides general use cryptographic functions.
+    /// Gets a flag that determines if system will allow use of managed, i.e., non-FIPS compliant, security algorithms.
     /// </summary>
-    /// <remarks>
-    /// This class exists to simplify usage of basic cryptography functionality.
-    /// </remarks>
-    public class Cipher
-    {
-        /// <summary>
-        /// Gets a flag that determines if system will allow use of managed, i.e., non-FIPS compliant, security algorithms.
-        /// </summary>
-        public bool SystemAllowsManagedEncryption { get; }
+    public bool SystemAllowsManagedEncryption { get; }
 
-        /// <summary>
-        /// Creates a new <see cref="Cipher"/> class.
-        /// </summary>
-        public Cipher()
+    /// <summary>
+    /// Creates a new <see cref="Cipher"/> class.
+    /// </summary>
+    public Cipher()
+    {
+        if (Common.IsPosixEnvironment)
         {
-            if (Common.IsPosixEnvironment)
+            SystemAllowsManagedEncryption = true;
+        }
+        else
+        {
+            const string FipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
+            const string FipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
+
+            // Determine if the user needs to use FIPS-compliant algorithms
+            try
+            {
+#pragma warning disable CA1416
+                SystemAllowsManagedEncryption =
+                    (Registry.GetValue(FipsKeyNew, "Enabled", 0) ??
+                     Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0))?.ToString() == "0";
+#pragma warning restore CA1416
+            }
+            catch (Exception ex)
             {
                 SystemAllowsManagedEncryption = true;
-            }
-            else
-            {
-                const string FipsKeyOld = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa";
-                const string FipsKeyNew = "HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Lsa\\FipsAlgorithmPolicy";
-
-                // Determine if the user needs to use FIPS-compliant algorithms
-                try
-                {
-                    #pragma warning disable CA1416
-                    SystemAllowsManagedEncryption =
-                        (Registry.GetValue(FipsKeyNew, "Enabled", 0) ??
-                         Registry.GetValue(FipsKeyOld, "FIPSAlgorithmPolicy", 0))?.ToString() == "0";
-                    #pragma warning restore CA1416
-                }
-                catch (Exception ex)
-                {
-                    SystemAllowsManagedEncryption = true;
-                    LibraryEvents.OnSuppressedException(this, new Exception($"Cipher FIPS compliance lookup exception: {ex.Message}", ex));
-                }
+                LibraryEvents.OnSuppressedException(this, new Exception($"Cipher FIPS compliance lookup exception: {ex.Message}", ex));
             }
         }
-
-        /// <summary>
-        /// Creates a <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.
-        /// </summary>
-        /// <returns>New <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA1 CreateSHA1() => SHA1.Create(); // SystemAllowsManagedEncryption ? new SHA1Managed() : new SHA1CryptoServiceProvider() as SHA1;
-
-        /// <summary>
-        /// Creates a <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.
-        /// </summary>
-        /// <returns>New <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA256 CreateSHA256() => SHA256.Create(); // SystemAllowsManagedEncryption ? new SHA256Managed() : new SHA256CryptoServiceProvider() as SHA256;
-
-        /// <summary>
-        /// Creates a <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.
-        /// </summary>
-        /// <returns>New <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA384 CreateSHA384() => SHA384.Create(); // SystemAllowsManagedEncryption ? new SHA384Managed() : new SHA384CryptoServiceProvider() as SHA384;
-
-        /// <summary>
-        /// Creates a <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.
-        /// </summary>
-        /// <returns>New <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.</returns>
-        public SHA512 CreateSHA512() => SHA512.Create(); // SystemAllowsManagedEncryption ? new SHA512Managed() : new SHA512CryptoServiceProvider() as SHA512;
-
-        /// <summary>
-        /// Creates an <see cref="Aes"/> encryption algorithm that respects current FIPS setting.
-        /// </summary>
-        /// <returns>New <see cref="Aes"/> encryption algorithm that respects current FIPS setting.</returns>
-        public Aes CreateAes() => Aes.Create(); // SystemAllowsManagedEncryption ? new AesManaged() : new AesCryptoServiceProvider() as Aes;
     }
+
+    /// <summary>
+    /// Creates a <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.
+    /// </summary>
+    /// <returns>New <see cref="SHA1"/> hashing algorithm that respects current FIPS setting.</returns>
+    public SHA1 CreateSHA1() => SHA1.Create(); // SystemAllowsManagedEncryption ? new SHA1Managed() : new SHA1CryptoServiceProvider() as SHA1;
+
+    /// <summary>
+    /// Creates a <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.
+    /// </summary>
+    /// <returns>New <see cref="SHA256"/> hashing algorithm that respects current FIPS setting.</returns>
+    public SHA256 CreateSHA256() => SHA256.Create(); // SystemAllowsManagedEncryption ? new SHA256Managed() : new SHA256CryptoServiceProvider() as SHA256;
+
+    /// <summary>
+    /// Creates a <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.
+    /// </summary>
+    /// <returns>New <see cref="SHA384"/> hashing algorithm that respects current FIPS setting.</returns>
+    public SHA384 CreateSHA384() => SHA384.Create(); // SystemAllowsManagedEncryption ? new SHA384Managed() : new SHA384CryptoServiceProvider() as SHA384;
+
+    /// <summary>
+    /// Creates a <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.
+    /// </summary>
+    /// <returns>New <see cref="SHA512"/> hashing algorithm that respects current FIPS setting.</returns>
+    public SHA512 CreateSHA512() => SHA512.Create(); // SystemAllowsManagedEncryption ? new SHA512Managed() : new SHA512CryptoServiceProvider() as SHA512;
+
+    /// <summary>
+    /// Creates an <see cref="Aes"/> encryption algorithm that respects current FIPS setting.
+    /// </summary>
+    /// <returns>New <see cref="Aes"/> encryption algorithm that respects current FIPS setting.</returns>
+    public Aes CreateAes() => Aes.Create(); // SystemAllowsManagedEncryption ? new AesManaged() : new AesCryptoServiceProvider() as Aes;
 }

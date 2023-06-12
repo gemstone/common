@@ -23,27 +23,26 @@
 
 using System;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Defines an attribute that will define the field name that best represents the row identification to a user.
+/// </summary>
+/// <remarks>
+/// An example of when this would be used is during a record deletion confirmation, e.g:
+/// Are you sure you want to delete "PrimaryLabel.FieldName.Value"?
+/// </remarks>
+[AttributeUsage(AttributeTargets.Class)]
+public sealed class PrimaryLabelAttribute : Attribute
 {
     /// <summary>
-    /// Defines an attribute that will define the field name that best represents the row identification to a user.
+    /// Field name used as primary label.
     /// </summary>
-    /// <remarks>
-    /// An example of when this would be used is during a record deletion confirmation, e.g:
-    /// Are you sure you want to delete "PrimaryLabel.FieldName.Value"?
-    /// </remarks>
-    [AttributeUsage(AttributeTargets.Class)]
-    public sealed class PrimaryLabelAttribute : Attribute
-    {
-        /// <summary>
-        /// Field name used as primary label.
-        /// </summary>
-        public string FieldName { get; }
+    public string FieldName { get; }
 
-        /// <summary>
-        /// Creates a new <see cref="PrimaryLabelAttribute"/>.
-        /// </summary>
-        /// <param name="fieldName">Field name used as primary label.</param>
-        public PrimaryLabelAttribute(string fieldName) => FieldName = fieldName;
-    }
+    /// <summary>
+    /// Creates a new <see cref="PrimaryLabelAttribute"/>.
+    /// </summary>
+    /// <param name="fieldName">Field name used as primary label.</param>
+    public PrimaryLabelAttribute(string fieldName) => FieldName = fieldName;
 }
