@@ -363,7 +363,7 @@ public class AssemblyInfo
     /// <summary>
     /// Gets the simple, unencrypted name of the <see cref="Assembly"/>.
     /// </summary>
-    public string? Name => Assembly.GetName()?.Name;
+    public string? Name => Assembly.GetName().Name;
 
     /// <summary>
     /// Gets the major, minor, revision, and build numbers of the <see cref="Assembly"/>.

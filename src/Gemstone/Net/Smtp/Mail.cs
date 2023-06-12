@@ -55,7 +55,7 @@ namespace Gemstone.Net.Smtp;
 /// This example shows how to send an email message with attachment:
 /// <code>
 /// using System;
-/// using GSF.Net.Smtp;
+/// using Gemstone.Net.Smtp;
 ///
 /// class Program
 /// {

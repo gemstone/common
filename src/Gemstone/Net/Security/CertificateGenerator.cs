@@ -259,7 +259,7 @@ public class CertificateGenerator
             m_debugLog.Add($"Failed while attempting to use PowerShell to generate a new certificate: {ex.Message}");
         }
 
-        // Fallback on attempting to use makecert to create a new self-signed certificate, makecert.exe is normally deployed with GSF applications
+        // Fallback on attempting to use makecert to create a new self-signed certificate, makecert.exe is normally deployed with Gemstone applications
         string makeCertPath = FilePath.GetAbsolutePath("makecert.exe");
         bool useShellExecute = File.Exists(makeCertPath);
 

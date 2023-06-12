@@ -108,7 +108,8 @@ public static class Common
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     // ReSharper disable once InconsistentNaming
-    public static T IIf<T>(bool expression, T truePart, T falsePart) => expression ? truePart : falsePart;
+    public static T IIf<T>(bool expression, T truePart, T falsePart) => 
+        expression ? truePart : falsePart;
 
     /// <summary>Creates a strongly-typed Array.</summary>
     /// <returns>New array of specified type.</returns>
@@ -130,7 +131,8 @@ public static class Common
     /// </code>
     /// </example>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T[] CreateArray<T>(int length) => new T[length];
+    public static T[] CreateArray<T>(int length) => 
+        new T[length];
 
     /// <summary>Creates a strongly-typed Array with an initial value parameter.</summary>
     /// <returns>New array of specified type.</returns>
@@ -174,7 +176,8 @@ public static class Common
     /// original <see cref="Type"/>.
     /// </para>
     /// </remarks>
-    public static string TypeConvertToString(object value) => TypeConvertToString(value, null);
+    public static string TypeConvertToString(object value) => 
+        TypeConvertToString(value, null);
 
     /// <summary>
     /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
@@ -246,7 +249,8 @@ public static class Common
     /// is empty or <c>null</c>.
     /// </para>
     /// </remarks>
-    public static object? TypeConvertFromString(string value, Type type) => TypeConvertFromString(value, type, null);
+    public static object? TypeConvertFromString(string value, Type type) => 
+        TypeConvertFromString(value, type, null);
 
     /// <summary>
     /// Converts this string into the specified type.
@@ -350,13 +354,15 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsReference(object item) => item is not ValueType;
+    public static bool IsReference(object item) => 
+        item is not ValueType;
 
     /// <summary>Determines if given item is a reference type but not a string.</summary>
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNonStringReference(object item) => IsReference(item) && item is not string;
+    public static bool IsNonStringReference(object item) => 
+        IsReference(item) && item is not string;
 
     /// <summary>
     /// Determines if <paramref name="typeCode"/> is a numeric type, i.e., one of:
@@ -368,9 +374,8 @@ public static class Common
     /// <param name="typeCode"><see cref="TypeCode"/> value to check.</param>
     /// <returns><c>true</c> if <paramref name="typeCode"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType(TypeCode typeCode)
-    {
-        return typeCode switch
+    public static bool IsNumericType(TypeCode typeCode) =>
+        typeCode switch
         {
             TypeCode.Boolean => true,
             TypeCode.SByte => true,
@@ -386,7 +391,6 @@ public static class Common
             TypeCode.Decimal => true,
             _ => false
         };
-    }
 
     /// <summary>
     /// Determines if <paramref name="type"/> is a numeric type, i.e., has a <see cref="TypeCode"/> that is one of:
@@ -397,7 +401,8 @@ public static class Common
     /// </summary>
     /// <param name="type"><see cref="Type"/> to check.</param>
     /// <returns><c>true</c> if <paramref name="type"/> is a numeric type; otherwise, <c>false</c>.</returns>
-    public static bool IsNumericType(Type type) => IsNumericType(Type.GetTypeCode(type));
+    public static bool IsNumericType(Type type) => 
+        IsNumericType(Type.GetTypeCode(type));
 
     /// <summary>
     /// Determines if <typeparamref name="T"/> is a numeric type, i.e., has a <see cref="TypeCode"/> that is one of:
@@ -409,7 +414,8 @@ public static class Common
     /// <typeparam name="T"><see cref="Type"/> to check.</typeparam>
     /// <returns><c>true</c> if <typeparamref name="T"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType<T>() => IsNumericType(Type.GetTypeCode(typeof(T)));
+    public static bool IsNumericType<T>() => 
+        IsNumericType(Type.GetTypeCode(typeof(T)));
 
     /// <summary>
     /// Determines if <see cref="Type"/> of <paramref name="item"/> is a numeric type, i.e., <paramref name="item"/>
@@ -422,7 +428,8 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns><c>true</c> if <paramref name="item"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType(object item) => item is IConvertible convertible && IsNumericType(convertible.GetTypeCode());
+    public static bool IsNumericType(object item) => 
+        item is IConvertible convertible && IsNumericType(convertible.GetTypeCode());
 
     /// <summary>
     /// Determines if given <paramref name="item"/> is or can be interpreted as numeric.
@@ -434,21 +441,24 @@ public static class Common
     /// value, result will be <c>true</c>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumeric(object item) => IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
+    public static bool IsNumeric(object item) => 
+        IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
 
     /// <summary>Returns the smallest item from a list of parameters.</summary>
     /// <typeparam name="T">Return type <see cref="Type"/> that is the minimum value in the <paramref name="itemList"/>.</typeparam>
     /// <param name="itemList">A variable number of parameters of the specified type.</param>
     /// <returns>Result is the minimum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Min<T>(params T[] itemList) => itemList.Min();
+    public static T? Min<T>(params T[] itemList) => 
+        itemList.Min();
 
     /// <summary>Returns the largest item from a list of parameters.</summary>
     /// <typeparam name="T">Return type <see cref="Type"/> that is the maximum value in the <paramref name="itemList"/>.</typeparam>
     /// <param name="itemList">A variable number of parameters of the specified type .</param>
     /// <returns>Result is the maximum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Max<T>(params T[] itemList) => itemList.Max();
+    public static T? Max<T>(params T[] itemList) => 
+        itemList.Max();
 
     /// <summary>Returns the value that is neither the largest nor the smallest.</summary>
     /// <typeparam name="T"><see cref="Type"/> of the objects passed to and returned from this method.</typeparam>
@@ -585,7 +595,6 @@ public static class Common
                             Dictionary<string, string> kvps = output.ParseKeyValuePairs('\n', ':');
                             if (kvps.TryGetValue("Description", out s_osPlatformName) && !string.IsNullOrEmpty(s_osPlatformName))
                                 s_osPlatformName = s_osPlatformName.Trim();
-
                         }
                         catch
                         {
@@ -598,9 +607,9 @@ public static class Common
                 // Get Windows product name
                 try
                 {
-#pragma warning disable CA1416
+                #pragma warning disable CA1416
                     s_osPlatformName = Registry.GetValue("HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion", "ProductName", null)?.ToString();
-#pragma warning restore CA1416
+                #pragma warning restore CA1416
                 }
                 catch
                 {
@@ -615,6 +624,6 @@ public static class Common
         if (IsMono)
             s_osPlatformName += " using Mono";
 
-        return s_osPlatformName ?? "Undetermined";
+        return s_osPlatformName;
     }
 }
