@@ -73,24 +73,30 @@ public static class Serialization
             // Perform namespace transformations that occurred when migrating to the Grid Solutions Framework
             // from various older versions of code with different namespaces
             string newTypeName = typeName
-                .Replace("TVA.", "GSF.")
-                .Replace("TimeSeriesFramework.", "GSF.TimeSeries.")
-                .Replace("ConnectionTester.", "GSF.PhasorProtocols.")   // PMU Connection Tester namespace
-                .Replace("TVA.Phasors.", "GSF.PhasorProtocols.")        // 2007 TVA Code Library namespace
-                .Replace("Tva.Phasors.", "GSF.PhasorProtocols.")        // 2008 TVA Code Library namespace
-                .Replace("BpaPdcStream", "BPAPDCstream")                // 2013 GSF uppercase phasor protocol namespace
-                .Replace("FNet", "FNET")                                // 2013 GSF uppercase phasor protocol namespace
-                .Replace("Iec61850_90_5", "IEC61850_90_5")              // 2013 GSF uppercase phasor protocol namespace
-                .Replace("Ieee1344", "IEEE1344")                        // 2013 GSF uppercase phasor protocol namespace
-                .Replace("IeeeC37_118", "IEEEC37_118");                 // 2013 GSF uppercase phasor protocol namespace
+                .Replace("TVA.", "Gemstone.")
+                .Replace("GSF.TimeSeries.", "Gemstone.Timeseries.")
+                .Replace("GSF.", "Gemstone.")
+                .Replace("TimeSeriesFramework.", "Gemstone.Timeseries.")
+                .Replace("ConnectionTester.", "Gemstone.PhasorProtocols.")  // PMU Connection Tester namespace
+                .Replace("TVA.Phasors.", "Gemstone.PhasorProtocols.")       // 2007 TVA Code Library namespace
+                .Replace("Tva.Phasors.", "Gemstone.PhasorProtocols.")       // 2008 TVA Code Library namespace
+                .Replace("BpaPdcStream", "BPAPDCstream")                    // 2013 GSF uppercase phasor protocol namespace
+                .Replace("FNet", "FNET")                                    // 2013 GSF uppercase phasor protocol namespace
+                .Replace("Iec61850_90_5", "IEC61850_90_5")                  // 2013 GSF uppercase phasor protocol namespace
+                .Replace("Ieee1344", "IEEE1344")                            // 2013 GSF uppercase phasor protocol namespace
+                .Replace("IeeeC37_118", "IEEEC37_118");                     // 2013 GSF uppercase phasor protocol namespace
 
             // Check for 2009 TVA Code Library namespace
             if (newTypeName.StartsWith("PhasorProtocols", StringComparison.Ordinal))
-                newTypeName = "GSF." + newTypeName;
+                newTypeName = "Gemstone." + newTypeName;
 
-            // Check for 2014 LineFrequency type in the GSF phasor protocol namespace
+            // Check for 2014 LineFrequency type
             if (newTypeName.Equals("GSF.PhasorProtocols.LineFrequency", StringComparison.Ordinal))
-                newTypeName = "GSF.Units.EE.LineFrequency";
+                newTypeName = "Gemstone.Numeric.EE.LineFrequency";
+
+            // Check for GSF LineFrequency type
+            if (newTypeName.Equals("GSF.Units.EE.LineFrequency", StringComparison.Ordinal))
+                newTypeName = "Gemstone.Numeric.EE.LineFrequency";
 
             try
             {
@@ -109,11 +115,12 @@ public static class Serialization
                         if (newType is not null)
                             return newType;
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         // Ignore errors that occur when attempting to load
                         // types from assemblies as we may still be able to
                         // load the type from a different assembly
+                        LibraryEvents.OnSuppressedException(typeof(LegacySerializationBinder), ex);
                     }
                 }
             }
