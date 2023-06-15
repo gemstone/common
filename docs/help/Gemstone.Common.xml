@@ -9333,6 +9333,244 @@
             will be the return value.
             </remarks>
     </member>
+    <member name="T:Gemstone.Interop.IIniFile">
+      <summary>
+            Represents an interface for common INI functions.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Interop.IIniFile.FileName">
+      <summary>
+            File name of the INI file.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.IIniFile.GetSectionKeys(System.String)">
+      <summary>
+            Gets an array of keys from the specified section in the INI file.
+            </summary>
+      <param name="section">Section to retrieve keys from.</param>
+      <returns>Array of <see cref="T:System.String" /> keys from the specified section of the INI file.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.IIniFile.GetSectionNames">
+      <summary>
+            Gets an array of that section names that exist in the INI file.
+            </summary>
+      <returns>Array of <see cref="T:System.String" /> section names from the INI file.</returns>
+    </member>
+    <member name="P:Gemstone.Interop.IIniFile.Item(System.String,System.String)">
+      <summary>
+            Gets or sets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <returns>Value of key.</returns>
+      <value>The new key value to store in the INI file.</value>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
+    <member name="P:Gemstone.Interop.IIniFile.Item(System.String,System.String,System.String)">
+      <summary>
+            Gets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <param name="defaultValue">Default value of key.</param>
+      <returns>Value of key.</returns>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
+    <member name="T:Gemstone.Interop.IniFile">
+      <summary>
+            Represents a Windows INI style configuration file.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.#ctor">
+      <summary>
+            Creates a new <see cref="T:Gemstone.Interop.IniFile" />.
+            </summary>
+      <remarks>INI file name defaults to "Win.ini" - change using FileName property.</remarks>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.#ctor(System.String)">
+      <summary>
+            Creates a new <see cref="T:Gemstone.Interop.IniFile" /> using the specified INI file name.
+            </summary>
+      <param name="fileName">Specified INI file name to use.</param>
+    </member>
+    <member name="P:Gemstone.Interop.IniFile.FileName">
+      <summary>
+            File name of the INI file.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.GetKeyValue(System.String,System.String)">
+      <summary>
+            Gets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <returns>Value of key.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.GetKeyValue(System.String,System.String,System.String)">
+      <summary>
+            Gets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <param name="defaultValue">Default value of key.</param>
+      <returns>Value of key.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.GetSectionKeys(System.String)">
+      <summary>
+            Gets an array of keys from the specified section in the INI file.
+            </summary>
+      <param name="section">Section to retrieve keys from.</param>
+      <returns>Array of <see cref="T:System.String" /> keys from the specified section of the INI file.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.GetSectionNames">
+      <summary>
+            Gets an array of that section names that exist in the INI file.
+            </summary>
+      <returns>Array of <see cref="T:System.String" /> section names from the INI file.</returns>
+    </member>
+    <member name="P:Gemstone.Interop.IniFile.Item(System.String,System.String)">
+      <summary>
+            Gets or sets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <returns>Value of key.</returns>
+      <value>The new key value to store in the INI file.</value>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
+    <member name="P:Gemstone.Interop.IniFile.Item(System.String,System.String,System.String)">
+      <summary>
+            Gets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <param name="defaultValue">Default value of key.</param>
+      <returns>Value of key.</returns>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
+    <member name="M:Gemstone.Interop.IniFile.SetKeyValue(System.String,System.String,System.String)">
+      <summary>
+            Sets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <param name="newValue">The new key value to store in the INI file.</param>
+    </member>
+    <member name="T:Gemstone.Interop.VBArrayDescriptor">
+      <summary>
+            Represents an old style Visual Basic array descriptor.
+            </summary>
+      <remarks>
+            This class is used to mimic the binary array descriptor used when an array is serialized
+            into a file using older Visual Basic applications (VB 6 and prior), this way old VB apps
+            can still deserialize an array stored in a file written by a .NET application and vice versa.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.#ctor(System.Int32[],System.Int32[])">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> class.
+            </summary>
+      <param name="arrayLengths">Length of array per dimension.</param>
+      <param name="arrayLowerBounds">Lower bound of array per dimension.</param>
+    </member>
+    <member name="P:Gemstone.Interop.VBArrayDescriptor.BinaryLength">
+      <summary>
+            Gets the length of serialized <see cref="T:Gemstone.Interop.VBArrayDescriptor" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.GenerateBinaryImage(System.Byte[],System.Int32)">
+      <summary>
+            Generates binary image of the object and copies it into the given buffer, for <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> bytes.
+            </summary>
+      <param name="buffer">Buffer used to hold generated binary image of the source object.</param>
+      <param name="startIndex">0-based starting index in the <paramref name="buffer" /> to start writing.</param>
+      <returns>The number of bytes written to the <paramref name="buffer" />.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="buffer" /> is null.</exception>
+      <exception cref="T:System.ArgumentOutOfRangeException">
+        <paramref name="startIndex" /> or <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> is less than 0 -or- 
+            <paramref name="startIndex" /> and <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" /> will exceed <paramref name="buffer" /> length.
+            </exception>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.OneBasedOneDimensionalArray(System.Int32)">
+      <summary>
+            Returns a <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object for a one dimensional array with one-based index.
+            </summary>
+      <param name="arrayLength">Length of the array.</param>
+      <returns>A <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.OneBasedTwoDimensionalArray(System.Int32,System.Int32)">
+      <summary>
+            Returns a <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object for a two dimensional array with one-based index.
+            </summary>
+      <param name="dimensionOneLength">Length of array in dimension one.</param>
+      <param name="dimensionTwoLength">Length of array in dimension two.</param>
+      <returns>A <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.ZeroBasedOneDimensionalArray(System.Int32)">
+      <summary>
+            Returns a <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object for a one dimensional array with zero-based index.
+            </summary>
+      <param name="arrayLength">Length of the array.</param>
+      <returns>A <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.VBArrayDescriptor.ZeroBasedTwoDimensionalArray(System.Int32,System.Int32)">
+      <summary>
+            Returns a <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object for a two dimensional array with zero-based index.
+            </summary>
+      <param name="dimensionOneLength">Length of array in dimension one.</param>
+      <param name="dimensionTwoLength">Length of array in dimension two.</param>
+      <returns>A <see cref="T:Gemstone.Interop.VBArrayDescriptor" /> object.</returns>
+    </member>
+    <member name="T:Gemstone.Interop.WindowsIniFile">
+      <summary>
+            Represents a Windows INI style configuration file.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.WindowsIniFile.#ctor(System.String)">
+      <summary>
+            Creates a new <see cref="T:Gemstone.Interop.WindowsIniFile" /> using the specified INI file name.
+            </summary>
+      <param name="fileName">Specified INI file name to use.</param>
+    </member>
+    <member name="P:Gemstone.Interop.WindowsIniFile.FileName">
+      <summary>
+            File name of the INI file.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Interop.WindowsIniFile.GetSectionKeys(System.String)">
+      <summary>
+            Gets an array of keys from the specified section in the INI file.
+            </summary>
+      <param name="section">Section to retrieve keys from.</param>
+      <returns>Array of <see cref="T:System.String" /> keys from the specified section of the INI file.</returns>
+    </member>
+    <member name="M:Gemstone.Interop.WindowsIniFile.GetSectionNames">
+      <summary>
+            Gets an array of that section names that exist in the INI file.
+            </summary>
+      <returns>Array of <see cref="T:System.String" /> section names from the INI file.</returns>
+    </member>
+    <member name="P:Gemstone.Interop.WindowsIniFile.Item(System.String,System.String)">
+      <summary>
+            Gets or sets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <returns>Value of key.</returns>
+      <value>The new key value to store in the INI file.</value>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
+    <member name="P:Gemstone.Interop.WindowsIniFile.Item(System.String,System.String,System.String)">
+      <summary>
+            Gets the value of the specified key.
+            </summary>
+      <param name="section">Section key exists in.</param>
+      <param name="entry">Name of key.</param>
+      <param name="defaultValue">Default value of key.</param>
+      <returns>Value of key.</returns>
+      <remarks>This is the default member of this class.</remarks>
+    </member>
     <member name="T:Gemstone.IO.BlockAllocatedMemoryStream">
       <summary>
             Defines a stream whose backing store is memory. Externally this class operates similar to a <see cref="T:System.IO.MemoryStream" />,
@@ -9732,7 +9970,7 @@
              Usage of this class is fairly simple using the static methods
              built into the <see cref="T:System.IO.File" /> class.
              </para>
-        <code>
+        <code language="cs">
              using (StreamReader reader = GetFileLock(File.OpenText))
              {
                  // Read lines from the file
@@ -13529,7 +13767,7 @@
             to make those available to the interpolated format string by name. This can be used with user-defined
             types, but is mainly intended to be used with anonymous types.
             </para>
-        <code language="cs">
+        <code>
             string format = "{hello} {world}!";
             var parameters = new { hello = "Hello", world = "World" };
             Console.WriteLine(format.Interpolate(parameters));
