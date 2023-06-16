@@ -9970,7 +9970,7 @@
              Usage of this class is fairly simple using the static methods
              built into the <see cref="T:System.IO.File" /> class.
              </para>
-        <code language="cs">
+        <code>
              using (StreamReader reader = GetFileLock(File.OpenText))
              {
                  // Read lines from the file
@@ -19006,7 +19006,7 @@
             Celsius, Fahrenheit, Newton, Rankine, Delisle, Réaumur and Rømer.
             <example>
             This example converts Celsius to Fahrenheit:
-            <code>
+            <code language="cs">
             public double GetFahrenheit(double celsius)
             {
                 return Temperature.FromCelsius(celsius).ToFahrenheit();
