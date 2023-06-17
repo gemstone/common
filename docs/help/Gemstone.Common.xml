@@ -13767,7 +13767,7 @@
             to make those available to the interpolated format string by name. This can be used with user-defined
             types, but is mainly intended to be used with anonymous types.
             </para>
-        <code language="cs">
+        <code>
             string format = "{hello} {world}!";
             var parameters = new { hello = "Hello", world = "World" };
             Console.WriteLine(format.Interpolate(parameters));
@@ -15001,7 +15001,7 @@
             and faraday. Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert charge, in coulombs, to kilocoulombs:
-            <code language="cs">
+            <code>
             public double GetKilocoulombs(Charge coulombs)
             {
                 return coulombs / SI.Kilo;
@@ -20303,12 +20303,7 @@
             conversion factor, for example:
             <example>
             Convert volts to megavolts:
-            <code>
-            public double GetMegavolts(Voltage volts)
-            {
-                return volts / SI.Mega;
-            }
-            </code></example></remarks>
+            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">@@_SHFB_1</code></codeSnippetGroup></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Voltage.#ctor(System.Double)">
       <summary>
