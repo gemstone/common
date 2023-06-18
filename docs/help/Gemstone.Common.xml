@@ -20303,7 +20303,12 @@
             conversion factor, for example:
             <example>
             Convert volts to megavolts:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">@@_SHFB_1</code></codeSnippetGroup></example></remarks>
+            <code>
+            public double GetMegavolts(Voltage volts)
+            {
+                return volts / SI.Mega;
+            }
+            </code></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Voltage.#ctor(System.Double)">
       <summary>
