@@ -85,8 +85,8 @@
 //
 //******************************************************************************************************
 
-// Ignore Spelling: Lfs Unsecure
 // ReSharper disable InconsistentNaming
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 
 using System;
 using System.Collections.Generic;
@@ -122,24 +122,24 @@ public static class StringExtensions
 
 #if NET6_0_OR_GREATER
         
-        /// <summary>
-        /// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is null -or-
-        /// an <see cref="ArgumentException"/> if <paramref name="argument"/> is Empty.
-        /// </summary>
-        /// <param name="argument">The reference type argument to validate as non-null and non-empty.</param>
-        /// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
-        public static void ThrowIfNullOrEmpty([NotNull] this string? argument, [CallerArgumentExpression("argument")] string? paramName = null)
-        {
-            ArgumentNullException.ThrowIfNull(argument, paramName);
+    /// <summary>
+    /// Throws an <see cref="ArgumentNullException"/> if <paramref name="argument"/> is null -or-
+    /// an <see cref="ArgumentException"/> if <paramref name="argument"/> is Empty.
+    /// </summary>
+    /// <param name="argument">The reference type argument to validate as non-null and non-empty.</param>
+    /// <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
+    public static void ThrowIfNullOrEmpty([NotNull] this string? argument, [CallerArgumentExpression("argument")] string? paramName = null)
+    {
+        ArgumentNullException.ThrowIfNull(argument, paramName);
 
-            if (argument == string.Empty)
-                ThrowArgumentEmptyException(paramName);
+        if (argument == string.Empty)
+            ThrowArgumentEmptyException(paramName);
 
-        }
-        
-        [DoesNotReturn] // This allows ThrowIfNullOrEmpty to be inlined
-        private static void ThrowArgumentEmptyException(string? paramName) =>
-            throw new ArgumentException("Argument cannot be empty", paramName);
+    }
+    
+    [DoesNotReturn] // This allows ThrowIfNullOrEmpty to be inlined
+    private static void ThrowArgumentEmptyException(string? paramName) =>
+        throw new ArgumentException("Argument cannot be empty", paramName);
 
 #endif
 
@@ -447,6 +447,9 @@ public static class StringExtensions
         {
             string value = pairs[key];
 
+            if (value is null)
+                continue;
+
             if (value.IndexOfAny(delimiters) >= 0)
                 value = startValueDelimiter + value + endValueDelimiter;
 
@@ -524,7 +527,6 @@ public static class StringExtensions
                 if (!valueEscaped)
                 {
                     valueEscaped = true;
-
                     continue; // Don't add tag start delimiter to final value
                 }
 
@@ -653,10 +655,8 @@ public static class StringExtensions
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
     public static string ReplaceCharacters(this string? value, char replacementCharacter, Func<char, bool> characterTestFunction)
     {
-        // <pex>
         if (characterTestFunction is null)
             throw new ArgumentNullException(nameof(characterTestFunction));
-        // </pex>
 
         if (string.IsNullOrEmpty(value))
             return string.Empty;
@@ -677,10 +677,8 @@ public static class StringExtensions
     /// <returns>Returns <paramref name="value" /> with all characters passing delegate test removed.</returns>
     public static string RemoveCharacters(this string? value, Func<char, bool> characterTestFunction)
     {
-        // <pex>
         if (characterTestFunction is null)
             throw new ArgumentNullException(nameof(characterTestFunction));
-        // </pex>
 
         if (string.IsNullOrEmpty(value))
             return string.Empty;
@@ -717,7 +715,8 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all white space removed.</returns>
-    public static string RemoveWhiteSpace(this string? value) => value.RemoveCharacters(char.IsWhiteSpace);
+    public static string RemoveWhiteSpace(this string? value) => 
+        value.RemoveCharacters(char.IsWhiteSpace);
 
     /// <summary>
     /// Replaces all white space characters (as defined by IsWhiteSpace) with specified replacement character.
@@ -726,21 +725,24 @@ public static class StringExtensions
     /// <param name="replacementCharacter">Character used to "replace" white space characters.</param>
     /// <returns>Returns <paramref name="value" /> with all white space characters replaced.</returns>
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-    public static string ReplaceWhiteSpace(this string? value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
+    public static string ReplaceWhiteSpace(this string? value, char replacementCharacter) => 
+        value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
 
     /// <summary>
     /// Removes all control characters from a string.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters removed.</returns>
-    public static string RemoveControlCharacters(this string? value) => value.RemoveCharacters(char.IsControl);
+    public static string RemoveControlCharacters(this string? value) => 
+        value.RemoveCharacters(char.IsControl);
 
     /// <summary>
     /// Replaces all control characters in a string with a single space.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters replaced as a single space.</returns>
-    public static string ReplaceControlCharacters(this string? value) => value.ReplaceControlCharacters(' ');
+    public static string ReplaceControlCharacters(this string? value) => 
+        value.ReplaceControlCharacters(' ');
 
     /// <summary>
     /// Replaces all control characters in a string with specified replacement character.
@@ -749,14 +751,16 @@ public static class StringExtensions
     /// <param name="replacementCharacter">Character used to "replace" control characters.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters replaced.</returns>
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-    public static string ReplaceControlCharacters(this string? value, char replacementCharacter) => value.ReplaceCharacters(replacementCharacter, char.IsControl);
+    public static string ReplaceControlCharacters(this string? value, char replacementCharacter) => 
+        value.ReplaceCharacters(replacementCharacter, char.IsControl);
 
     /// <summary>
     /// Removes all carriage returns and line feeds from a string.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all CR and LF characters removed.</returns>
-    public static string RemoveCrLfs(this string? value) => value.RemoveCharacters(c => c is '\r' or '\n');
+    public static string RemoveCrLfs(this string? value) => 
+        value.RemoveCharacters(c => c is '\r' or '\n');
 
     /// <summary>
     /// Replaces all carriage return and line feed characters (as well as CR/LF sequences) in a string with specified replacement character.
@@ -767,10 +771,8 @@ public static class StringExtensions
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
     public static string ReplaceCrLfs(this string? value, char replacementCharacter)
     {
-        // <pex>
         if (value is null)
             throw new ArgumentNullException(nameof(value));
-        // </pex>
 
         return value.Replace(Environment.NewLine, replacementCharacter.ToString()).ReplaceCharacters(replacementCharacter, c => c is '\r' or '\n');
     }
@@ -817,7 +819,8 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all duplicate white space removed.</returns>
-    public static string RemoveDuplicateWhiteSpace(this string? value) => value.RemoveDuplicateWhiteSpace(' ');
+    public static string RemoveDuplicateWhiteSpace(this string? value) => 
+        value.RemoveDuplicateWhiteSpace(' ');
 
     /// <summary>
     /// Replaces all repeating white space with specified spacing character.
@@ -974,7 +977,8 @@ public static class StringExtensions
     /// <returns>True, if all string's characters are letters; otherwise, false.</returns>
     /// <remarks>Any non-letter character (e.g., punctuation marks) causes this function to return false (See overload to ignore punctuation
     /// marks.).</remarks>
-    public static bool IsAllLetters(this string? value) => value.IsAllLetters(false);
+    public static bool IsAllLetters(this string? value) => 
+        value.IsAllLetters(false);
 
     /// <summary>
     /// Tests to see if a string contains only letters.
