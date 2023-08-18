@@ -15001,10 +15001,12 @@
             and faraday. Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert charge, in coulombs, to kilocoulombs:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetKilocoulombs(Charge coulombs)
-{
-    return coulombs / SI.Kilo;
-}</code></codeSnippetGroup></example></remarks>
+            <code>
+            public double GetKilocoulombs(Charge coulombs)
+            {
+                return coulombs / SI.Kilo;
+            }
+            </code></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Charge.#ctor(System.Double)">
       <summary>
@@ -15492,10 +15494,12 @@
             simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert current, in amperes, to kiloamperes:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetKiloamperes(Current amperes)
-{
-    return amperes / SI.Kilo;
-}</code></codeSnippetGroup></example></remarks>
+            <code>
+            public double GetKiloamperes(Current amperes)
+            {
+                return amperes / SI.Kilo;
+            }
+            </code></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Current.#ctor(System.Double)">
       <summary>
