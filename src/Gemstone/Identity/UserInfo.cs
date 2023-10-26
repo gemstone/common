@@ -26,13 +26,14 @@
 using System;
 using System.Security;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 
 namespace Gemstone.Identity;
 
 /// <summary>
 /// Represents information about a local user or a domain user (e.g., from Active Directory).
 /// </summary>
-public sealed class UserInfo
+public sealed class UserInfo // TODO: Implement full interface : IUserInfo 
 {
     #region [ Constructors ]
 
@@ -112,6 +113,29 @@ public sealed class UserInfo
     private static string? s_lastUserID ;
     private static UserInfo? s_currentUserInfo;
 
+    /// <summary>
+    /// Localized version of Windows "BUILTIN" local permissions group name.
+    /// </summary>
+    /// <remarks>
+    /// For non-English based OS languages, this name may be different. For example, on a German OS this is "VORDEFINIERT".
+    /// </remarks>
+    public static readonly string BuiltInGroupName = WindowsUserInfo.BuiltInGroupName;
+
+    /// <summary>
+    /// Localized version of Windows "NT AUTHORITY" local permissions group name.
+    /// </summary>
+    /// <remarks>
+    /// For non-English based OS languages, this name may be different. For example, on a French OS this is "NT-AUTORITÄT".
+    /// </remarks>
+    public static readonly string NTAuthorityGroupName = WindowsUserInfo.NTAuthorityGroupName;
+
+    /// <summary>
+    /// Localized version of Windows "NT SERVICE" local Windows services group name.
+    /// </summary>
+    /// <remarks>
+    /// For non-English based OS languages, this name may be different.
+    /// </remarks>
+    public static readonly string NTServiceGroupName = WindowsUserInfo.NTServiceGroupName;
 
     // Static Properties
 
@@ -175,7 +199,9 @@ public sealed class UserInfo
     /// </remarks>
     public static string UserNameToSID(string accountName)
     {
-        throw new NotImplementedException();
+        return Common.IsPosixEnvironment ?
+            UnixUserInfo.UserNameToSID(accountName) :
+            WindowsUserInfo.AccountNameToSID(accountName);
     }
 
     /// <summary>
@@ -185,10 +211,10 @@ public sealed class UserInfo
     /// <returns><c>true</c> if the security identifier identifies a user account; <c>false</c> otherwise.</returns>
     public static bool IsUserSID(string sid)
     {
-        throw new NotImplementedException();
+        return Common.IsPosixEnvironment ?
+            UnixUserInfo.IsUserSID(sid) :
+            WindowsUserInfo.IsUserSID(sid);
     }
-
-    #endregion
 
     /// <summary>
     /// Converts the given group name to the SID corresponding to that name.
@@ -201,7 +227,9 @@ public sealed class UserInfo
     /// </remarks>
     public static string GroupNameToSID(string groupName)
     {
-        throw new NotImplementedException();
+        return Common.IsPosixEnvironment ?
+            UnixUserInfo.GroupNameToSID(groupName) :
+            WindowsUserInfo.AccountNameToSID(groupName);
     }
 
     /// <summary>
@@ -211,6 +239,41 @@ public sealed class UserInfo
     /// <returns><c>true</c> if the security identifier identifies a group; <c>false</c> otherwise.</returns>
     public static bool IsGroupSID(string sid)
     {
-        throw new NotImplementedException();
+        return Common.IsPosixEnvironment ?
+            UnixUserInfo.IsGroupSID(sid) :
+            WindowsUserInfo.IsGroupSID(sid);
     }
+
+    /// <summary>
+    /// Determines if specified <paramref name="domain"/> is the local domain (i.e., local machine).
+    /// </summary>
+    /// <param name="domain">Domain name to check.</param>
+    /// <returns><c>true</c>if specified <paramref name="domain"/> is the local domain (i.e., local machine); otherwise, <c>false</c>.</returns>
+    public static bool IsLocalDomain(string domain)
+    {
+        if (Common.IsPosixEnvironment)
+            return
+                string.IsNullOrEmpty(domain) ||
+                domain.Equals(".", StringComparison.Ordinal) ||
+                domain.Equals(Environment.MachineName, StringComparison.OrdinalIgnoreCase);
+
+        return
+            string.IsNullOrEmpty(domain) ||
+            domain.Equals(".", StringComparison.Ordinal) ||
+            domain.Equals(Environment.MachineName, StringComparison.OrdinalIgnoreCase) ||
+            domain.Equals(NTServiceGroupName, StringComparison.OrdinalIgnoreCase) ||
+            domain.Equals(NTAuthorityGroupName, StringComparison.OrdinalIgnoreCase) ||
+            domain.Equals("IIS APPPOOL", StringComparison.OrdinalIgnoreCase);
+    }
+
+    // DirectoryEntry will only resolve "BUILTIN\" groups with a dot ".\"
+    internal static string ValidateGroupName(string groupName)
+    {
+        if (!Common.IsPosixEnvironment && groupName.StartsWith($@"{BuiltInGroupName}\", StringComparison.OrdinalIgnoreCase))
+            return Regex.Replace(groupName, $@"^{BuiltInGroupName}\\", @".\", RegexOptions.IgnoreCase);
+
+        return groupName;
+    }
+
+    #endregion
 }
