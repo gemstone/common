@@ -46,17 +46,12 @@
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using Gemstone.Collections.CollectionExtensions;
-using Gemstone.Console;
-using Gemstone.IO;
+using System.Runtime.InteropServices;
 using Gemstone.StringExtensions;
-using Microsoft.Win32;
 
 namespace Gemstone;
 
@@ -65,8 +60,8 @@ namespace Gemstone;
 /// </summary>
 public static class Common
 {
-    private static string? s_osPlatformName;
-    private static PlatformID s_osPlatformID = PlatformID.Win32S;
+    //private static string? s_osPlatformName;
+    //private static PlatformID s_osPlatformID = PlatformID.Win32S;
 
     /// <summary>
     /// Determines if the current system is a POSIX style environment.
@@ -79,86 +74,10 @@ public static class Common
     /// <para>
     /// This property will return <c>true</c> for both MacOSX and Unix environments. Use the Platform property
     /// of the <see cref="System.Environment.OSVersion"/> to determine more specific platform type, e.g., 
-    /// MacOSX or Unix. Note that all flavors of Linux will show up as <see cref="PlatformID.Unix"/>.
+    /// MacOSX or Unix.
     /// </para>
     /// </remarks>        
-    public static readonly bool IsPosixEnvironment = Path.DirectorySeparatorChar == '/';   // This is how Mono source often checks this
-
-    /// <summary>
-    /// Determines if the code base is currently running under Mono.
-    /// </summary>
-    /// <remarks>
-    /// This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
-    /// recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
-    /// </remarks>
-    public static bool IsMono = Type.GetType("Mono.Runtime") is not null;
-
-    /// <summary>Returns one of two strongly-typed objects.</summary>
-    /// <returns>One of two objects, depending on the evaluation of given expression.</returns>
-    /// <param name="expression">The expression you want to evaluate.</param>
-    /// <param name="truePart">Returned if expression evaluates to True.</param>
-    /// <param name="falsePart">Returned if expression evaluates to False.</param>
-    /// <typeparam name="T">Return type used for immediate expression</typeparam>
-    /// <remarks>
-    /// <para>This function acts as a strongly-typed immediate if (a.k.a. inline if).</para>
-    /// <para>
-    /// It is expected that this function will only be used in languages that do not support ?: conditional operations, e.g., Visual Basic.NET.
-    /// In Visual Basic this function can be used as a strongly-typed IIf replacement by specifying "Imports gemstone.common".
-    /// </para>
-    /// </remarks>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    // ReSharper disable once InconsistentNaming
-    public static T IIf<T>(bool expression, T truePart, T falsePart) => 
-        expression ? truePart : falsePart;
-
-    /// <summary>Creates a strongly-typed Array.</summary>
-    /// <returns>New array of specified type.</returns>
-    /// <param name="length">Desired length of new array.</param>
-    /// <typeparam name="T">Return type for new array.</typeparam>
-    /// <remarks>
-    /// <para>It is expected that this function will only be used in Visual Basic.NET.</para>
-    /// <para>
-    /// The Array.CreateInstance provides better performance and more direct CLR access for array creation (not to
-    /// mention less confusion on the matter of array lengths) in VB.NET, however the returned System.Array is not
-    /// typed properly. This function properly casts the return array based on the type specification helping
-    /// when Option Strict is enabled.
-    /// </para>
-    /// </remarks>
-    /// <example>
-    /// <code language="VB">
-    ///     Dim buffer As Byte() = CreateArray(Of Byte)(12)
-    ///     Dim matrix As Integer()() = CreateArray(Of Integer())(10)
-    /// </code>
-    /// </example>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T[] CreateArray<T>(int length) => 
-        new T[length];
-
-    /// <summary>Creates a strongly-typed Array with an initial value parameter.</summary>
-    /// <returns>New array of specified type.</returns>
-    /// <param name="length">Desired length of new array.</param>
-    /// <param name="initialValue">Value used to initialize all array elements.</param>
-    /// <typeparam name="T">Return type for new array.</typeparam>
-    /// <remarks>
-    /// It is expected that this function will only be used in Visual Basic.NET.
-    /// </remarks>
-    /// <example>
-    /// <code language="VB">
-    ///     Dim elements As Integer() = CreateArray(12, -1)
-    ///     Dim names As String() = CreateArray(100, "undefined")
-    /// </code>
-    /// </example>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T[] CreateArray<T>(int length, T initialValue)
-    {
-        T[] typedArray = CreateArray<T>(length);
-
-        // Initializes all elements with the default value.
-        for (int x = 0; x < typedArray.Length; x++)
-            typedArray[x] = initialValue;
-
-        return typedArray;
-    }
+    public static readonly bool IsPosixEnvironment = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
     /// <summary>
     /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
@@ -501,9 +420,13 @@ public static class Common
     /// <remarks>
     /// This function will properly detect the platform ID, even if running on Mac.
     /// </remarks>
-    // ReSharper disable once InconsistentNaming
+    /// ReSharper disable once InconsistentNaming
     public static PlatformID GetOSPlatformID()
     {
+        return Environment.OSVersion.Platform;
+
+        #region [ Old Code ]
+        /*
         if (s_osPlatformID != PlatformID.Win32S)
             return s_osPlatformID;
 
@@ -525,6 +448,8 @@ public static class Common
         }
 
         return s_osPlatformID;
+        */
+        #endregion
     }
 
 
@@ -535,6 +460,10 @@ public static class Common
     // ReSharper disable once InconsistentNaming
     public static string GetOSProductName()
     {
+        return RuntimeInformation.OSDescription;
+
+        #region [ Old Code ]
+        /*
         if (s_osPlatformName is not null)
             return s_osPlatformName;
 
@@ -621,9 +550,8 @@ public static class Common
         if (string.IsNullOrWhiteSpace(s_osPlatformName))
             s_osPlatformName = GetOSPlatformID().ToString();
 
-        if (IsMono)
-            s_osPlatformName += " using Mono";
-
         return s_osPlatformName;
+        */
+        #endregion
     }
 }
