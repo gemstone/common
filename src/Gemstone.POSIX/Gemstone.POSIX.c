@@ -524,9 +524,38 @@ void FreeLocalGroupMembers(char** groupMembers)
     }
 }
 
-int CreateSemaphore(const char* name, int initialValue, /*out*/ void** semaphore)
+int CreateSemaphore(const char* name, int initialCount, /*out*/ int* createdNew, /*out*/ void** semaphore)
 {
-    sem_t* sem = sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, initialValue);
+    *createdNew = 0;
+
+    // Attempt to open existing semaphore
+    int retval = OpenExistingSemaphore(name, semaphore);
+
+    if (retval == 0)
+        return 0;
+
+    // If result is any error other than "does not exist" then return error
+    if (retval != ENOENT)
+        return retval;
+
+    // Create new semaphore - technically this will create a new or open an
+    // existing semaphore, but we wanted to detect if it was new or not
+    sem_t* sem = sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, initialCount);
+
+    if (sem == SEM_FAILED)
+    {
+        *semaphore = NULL;
+        return errno;
+    }
+
+    *semaphore = sem;
+    *createdNew = 1;
+    return 0;
+}
+
+int OpenExistingSemaphore(const char* name, /*out*/ void** semaphore)
+{
+    sem_t* sem = sem_open(name, 0);
 
     if (sem == SEM_FAILED)
     {

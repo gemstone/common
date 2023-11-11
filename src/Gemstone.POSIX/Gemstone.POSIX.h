@@ -84,7 +84,9 @@ int GetLocalGroupMembers(const char* groupName, /*out*/ char*** groupMembers);
 
 void FreeLocalGroupMembers(char** groupMembers);
 
-int CreateSemaphore(const char* name, int initialValue, /*out*/ void** semaphore);
+int CreateSemaphore(const char* name, int initialCount, /*out*/ int* createdNew, /*out*/ void** semaphore);
+
+int OpenExistingSemaphore(const char* name, /*out*/ void** semaphore);
 
 int GetSemaphoreCount(void* semaphore, /*out*/ int* count);
 
