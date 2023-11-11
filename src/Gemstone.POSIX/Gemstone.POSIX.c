@@ -572,14 +572,9 @@ int GetSemaphoreCount(void* semaphore, /*out*/ int* count)
     return sem_getvalue((sem_t*)semaphore, count) == 0 ? 0 : errno;
 }
 
-int ReleaseSemaphore(void* semaphore, /*out*/ int* count)
+int ReleaseSemaphore(void* semaphore)
 {
-    int retval = GetSemaphoreCount(semaphore, count);
-
-    if (retval == 0)
-        return sem_post((sem_t*)semaphore) == 0 ? 0 : errno;
-
-    return retval;
+    return sem_post((sem_t*)semaphore) == 0 ? 0 : errno;
 }
 
 int WaitSemaphore(void* semaphore, int timeout)

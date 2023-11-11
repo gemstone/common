@@ -90,7 +90,7 @@ int OpenExistingSemaphore(const char* name, /*out*/ void** semaphore);
 
 int GetSemaphoreCount(void* semaphore, /*out*/ int* count);
 
-int ReleaseSemaphore(void* semaphore, /*out*/ int* count);
+int ReleaseSemaphore(void* semaphore);
 
 int WaitSemaphore(void* semaphore, int timeout);
 
