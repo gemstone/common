@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Define absolute path for script log
-log=${PWD}/Gemstone.POSIX-build-log.txt
+destDir=../../build/Gemstone.POSIX
 
-# destDir=..
+# Define absolute path for script log
+log=${destDir}/Gemstone.POSIX-build-log.txt
 
 if [ "$(id -u)" != "0" ]; then
     echo "ERROR: Operation must execute as root." 1>&2
@@ -17,8 +17,13 @@ echo "    > sudo apt install libpam0g-dev"
 echo
 read -p "Are you ready to continue (y/N)? " -r -n 1
 echo
+
 if [[ ! $REPLY =~ ^[Yy]$ ]]; then
     exit 1
+fi
+
+if [ ! -d "$destDir" ]; then
+    mkdir -p "$destDir"
 fi
 
 # Create log file
@@ -32,8 +37,6 @@ else
     echo "Linux operating system assumed..." >> ${log}
     isMac=0
 fi
-
-# cd Gemstone.POSIX/ >> ${log}
 
 # Build Gemstone POSIX library
 if [ $isMac -ne 0 ]; then
@@ -66,4 +69,7 @@ else
     fi
 fi
 
-# cp -v Gemstone.POSIX.so ${destDir} >> ${log}
+echo "Successfully built Gemstone POSIX shared library"
+echo "Successfully built Gemstone POSIX shared library" >> ${log}
+
+cp -v Gemstone.POSIX.so ${destDir} >> ${log}

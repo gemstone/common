@@ -40,11 +40,15 @@
 #include <stdlib.h>
 #include <security/pam_appl.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
 #include <paths.h>
 #include <pwd.h>
 #include <grp.h>
+#include <fcntl.h> 
+#include <semaphore.h>
+#include <errno.h>
 
 #ifdef __APPLE__
     #include <security/openpam.h>
@@ -518,4 +522,60 @@ void FreeLocalGroupMembers(char** groupMembers)
 
         free(groupMembers);  
     }
+}
+
+int CreateSemaphore(const char* name, int initialValue, /*out*/ void** semaphore)
+{
+    sem_t* sem = sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, initialValue);
+
+    if (sem == SEM_FAILED)
+    {
+        *semaphore = NULL;
+        return errno;
+    }
+
+    *semaphore = sem;
+    return 0;
+}
+
+int GetSemaphoreCount(void* semaphore, /*out*/ int* count)
+{
+    return sem_getvalue((sem_t*)semaphore, count) == 0 ? 0 : errno;
+}
+
+int ReleaseSemaphore(void* semaphore, /*out*/ int* count)
+{
+    int retval = GetSemaphoreCount(semaphore, count);
+
+    if (retval == 0)
+        return sem_post((sem_t*)semaphore) == 0 ? 0 : errno;
+
+    return retval;
+}
+
+int WaitSemaphore(void* semaphore, int timeout)
+{
+    if (timeout == 0)
+        return sem_trywait((sem_t*)semaphore) == 0 ? 0 : errno;
+
+    if (timeout < 0)
+        return sem_wait((sem_t*)semaphore) == 0 ? 0 : errno;
+
+    struct timespec ts;
+    clock_gettime(CLOCK_REALTIME, &ts);
+
+    ts.tv_sec += timeout / 1000;
+    ts.tv_nsec += (timeout % 1000) * 1000000;
+
+    return sem_timedwait((sem_t*)semaphore, &ts) == 0 ? 0 : errno;
+}
+
+int CloseSemaphore(void* semaphore)
+{
+    return sem_close((sem_t*)semaphore) == 0 ? 0 : errno;
+}
+
+int UnlinkSemaphore(const char* name)
+{
+    return sem_unlink(name) == 0 ? 0 : errno;
 }

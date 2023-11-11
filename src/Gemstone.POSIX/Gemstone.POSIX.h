@@ -83,3 +83,15 @@ int GetLocalGroupName(unsigned int gid, /*out*/ char* groupName);
 int GetLocalGroupMembers(const char* groupName, /*out*/ char*** groupMembers);
 
 void FreeLocalGroupMembers(char** groupMembers);
+
+int CreateSemaphore(const char* name, int initialValue, /*out*/ void** semaphore);
+
+int GetSemaphoreCount(void* semaphore, /*out*/ int* count);
+
+int ReleaseSemaphore(void* semaphore, /*out*/ int* count);
+
+int WaitSemaphore(void* semaphore, int timeout);
+
+int CloseSemaphore(void* semaphore);
+
+int UnlinkSemaphore(const char* name);
