@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  UnixUserInfo.cs - Gbtc
+//  UserInfoUnix.cs - Gbtc
 //
 //  Copyright © 2014, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -21,12 +21,6 @@
 //
 //******************************************************************************************************
 
-// Define USE_SHARED_OBJECT to use GSF.POSIX.so shared object library for unmanaged functions
-// Undefine USE_SHARED_OBJECT to use internally linked unmanaged functions (e.g., Mono hosted gsf service)
-
-#define USE_SHARED_OBJECT
-// #undef USE_SHARED_OBJECT
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -47,7 +41,7 @@ using Gemstone.Console;
 namespace Gemstone.Identity;
 
 // Unix implementation of key UserInfo class elements
-internal sealed class UnixUserInfo // : IUserInfo
+internal sealed class UserInfoUnix // : IUserInfo
 {
     /*
         #region [ Members ]
@@ -213,12 +207,8 @@ internal sealed class UnixUserInfo // : IUserInfo
     // Constants
     private const int MaxAccountNameLength = 256;
 
-    // DllImport code is in GSF.POSIX.c
-#if USE_SHARED_OBJECT
-    private const string ImportFileName = "./GSF.POSIX.so";
-#else
-        private const string ImportFileName = "__Internal";
-#endif
+    // DllImport code is in Gemstone.POSIX.c
+    private const string ImportFileName = "./Gemstone.POSIX.so";
 
 /*
     // Fields
@@ -236,12 +226,12 @@ internal sealed class UnixUserInfo // : IUserInfo
 
     #region [ Constructors ]
 
-    public UnixUserInfo(UserInfo parent)
+    public UserInfoUnix(UserInfo parent)
     {
         m_parent = parent;
     }
 
-    ~UnixUserInfo()
+    ~UserInfoUnix()
     {
         Dispose(false);
     }
@@ -901,7 +891,7 @@ internal sealed class UnixUserInfo // : IUserInfo
     private static readonly string[] s_builtInLocalGroups;
 
     // Static Constructor
-    static UnixUserInfo()
+    static UserInfoUnix()
     {
         List<string> builtInGroups = new();
 
@@ -1199,7 +1189,7 @@ internal sealed class UnixUserInfo // : IUserInfo
     //        }
     //    }
 
-    //    // If LDAP host has not been derived yet, attempt to derive an LDAP host from the configuration for known GSF security providers
+    //    // If LDAP host has not been derived yet, attempt to derive an LDAP host from the configuration for known Gemstone security providers
     //    if (string.IsNullOrEmpty(ldapHost))
     //    {
     //        // TODO: If defined, should these values take precedence over derived LDAP host?

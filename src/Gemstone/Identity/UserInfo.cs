@@ -119,7 +119,7 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     /// <remarks>
     /// For non-English based OS languages, this name may be different. For example, on a German OS this is "VORDEFINIERT".
     /// </remarks>
-    public static readonly string BuiltInGroupName = WindowsUserInfo.BuiltInGroupName;
+    public static readonly string BuiltInGroupName = UserInfoWindows.BuiltInGroupName;
 
     /// <summary>
     /// Localized version of Windows "NT AUTHORITY" local permissions group name.
@@ -127,7 +127,7 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     /// <remarks>
     /// For non-English based OS languages, this name may be different. For example, on a French OS this is "NT-AUTORITÄT".
     /// </remarks>
-    public static readonly string NTAuthorityGroupName = WindowsUserInfo.NTAuthorityGroupName;
+    public static readonly string NTAuthorityGroupName = UserInfoWindows.NTAuthorityGroupName;
 
     /// <summary>
     /// Localized version of Windows "NT SERVICE" local Windows services group name.
@@ -135,7 +135,7 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     /// <remarks>
     /// For non-English based OS languages, this name may be different.
     /// </remarks>
-    public static readonly string NTServiceGroupName = WindowsUserInfo.NTServiceGroupName;
+    public static readonly string NTServiceGroupName = UserInfoWindows.NTServiceGroupName;
 
     // Static Properties
 
@@ -200,8 +200,8 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     public static string UserNameToSID(string accountName)
     {
         return Common.IsPosixEnvironment ?
-            UnixUserInfo.UserNameToSID(accountName) :
-            WindowsUserInfo.AccountNameToSID(accountName);
+            UserInfoUnix.UserNameToSID(accountName) :
+            UserInfoWindows.AccountNameToSID(accountName);
     }
 
     /// <summary>
@@ -212,8 +212,8 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     public static bool IsUserSID(string sid)
     {
         return Common.IsPosixEnvironment ?
-            UnixUserInfo.IsUserSID(sid) :
-            WindowsUserInfo.IsUserSID(sid);
+            UserInfoUnix.IsUserSID(sid) :
+            UserInfoWindows.IsUserSID(sid);
     }
 
     /// <summary>
@@ -228,8 +228,8 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     public static string GroupNameToSID(string groupName)
     {
         return Common.IsPosixEnvironment ?
-            UnixUserInfo.GroupNameToSID(groupName) :
-            WindowsUserInfo.AccountNameToSID(groupName);
+            UserInfoUnix.GroupNameToSID(groupName) :
+            UserInfoWindows.AccountNameToSID(groupName);
     }
 
     /// <summary>
@@ -240,8 +240,8 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     public static bool IsGroupSID(string sid)
     {
         return Common.IsPosixEnvironment ?
-            UnixUserInfo.IsGroupSID(sid) :
-            WindowsUserInfo.IsGroupSID(sid);
+            UserInfoUnix.IsGroupSID(sid) :
+            UserInfoWindows.IsGroupSID(sid);
     }
 
     /// <summary>

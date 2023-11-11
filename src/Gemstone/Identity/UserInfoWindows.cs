@@ -1,5 +1,5 @@
 ﻿//******************************************************************************************************
-//  WindowsUserInfo.cs - Gbtc
+//  UserInfoWindows.cs - Gbtc
 //
 //  Copyright © 2014, Grid Protection Alliance.  All Rights Reserved.
 //
@@ -36,7 +36,7 @@ using System.Text.RegularExpressions;
 namespace Gemstone.Identity;
 
 // Windows implementation of key UserInfo class elements
-internal sealed class WindowsUserInfo // : IUserInfo
+internal sealed class UserInfoWindows // : IUserInfo
 {
     #region [ Members ]
 
@@ -764,7 +764,7 @@ internal sealed class WindowsUserInfo // : IUserInfo
     internal static readonly string NTServiceGroupName;
 
     // Static constructor
-    static WindowsUserInfo()
+    static UserInfoWindows()
     {
         // Determine built-in group list - this is not expected to change so it is statically cached
         List<string> builtInGroups = new();
@@ -1486,7 +1486,7 @@ internal sealed class WindowsUserInfo // : IUserInfo
     private static string CleanSid(string sid)
     {
         // When the same security database is being used in both Windows and Unix environments, SIDs could
-        // have "user:" or "group:" prefix as needed by UnixUserInfo, under Windows we will ignore this
+        // have "user:" or "group:" prefix as needed by UserInfoUnix, under Windows we will ignore this
         if (sid.StartsWith("user:", StringComparison.OrdinalIgnoreCase) || sid.StartsWith("group:", StringComparison.OrdinalIgnoreCase))
             return sid.Substring(sid.IndexOf(':') + 1);
 
