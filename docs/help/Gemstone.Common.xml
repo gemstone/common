@@ -1189,31 +1189,6 @@
             Defines common global functions.
             </summary>
     </member>
-    <member name="M:Gemstone.Common.CreateArray``1(System.Int32)">
-      <summary>Creates a strongly-typed Array.</summary>
-      <param name="length">Desired length of new array.</param>
-      <typeparam name="T">Return type for new array.</typeparam>
-      <returns>New array of specified type.</returns>
-      <remarks>
-        <para>It is expected that this function will only be used in Visual Basic.NET.</para>
-        <para>
-            The Array.CreateInstance provides better performance and more direct CLR access for array creation (not to
-            mention less confusion on the matter of array lengths) in VB.NET, however the returned System.Array is not
-            typed properly. This function properly casts the return array based on the type specification helping
-            when Option Strict is enabled.
-            </para>
-      </remarks>
-    </member>
-    <member name="M:Gemstone.Common.CreateArray``1(System.Int32,``0)">
-      <summary>Creates a strongly-typed Array with an initial value parameter.</summary>
-      <param name="length">Desired length of new array.</param>
-      <param name="initialValue">Value used to initialize all array elements.</param>
-      <typeparam name="T">Return type for new array.</typeparam>
-      <returns>New array of specified type.</returns>
-      <remarks>
-            It is expected that this function will only be used in Visual Basic.NET.
-            </remarks>
-    </member>
     <member name="M:Gemstone.Common.GetOSPlatformID">
       <summary>
             Gets the operating system <see cref="T:System.PlatformID" /></summary>
@@ -1228,36 +1203,12 @@
             </summary>
       <returns>Operating system product name.</returns>
     </member>
-    <member name="M:Gemstone.Common.IIf``1(System.Boolean,``0,``0)">
-      <summary>Returns one of two strongly-typed objects.</summary>
-      <param name="expression">The expression you want to evaluate.</param>
-      <param name="truePart">Returned if expression evaluates to True.</param>
-      <param name="falsePart">Returned if expression evaluates to False.</param>
-      <typeparam name="T">Return type used for immediate expression</typeparam>
-      <returns>One of two objects, depending on the evaluation of given expression.</returns>
-      <remarks>
-        <para>This function acts as a strongly-typed immediate if (a.k.a. inline if).</para>
-        <para>
-            It is expected that this function will only be used in languages that do not support ?: conditional operations, e.g., Visual Basic.NET.
-            In Visual Basic this function can be used as a strongly-typed IIf replacement by specifying "Imports gemstone.common".
-            </para>
-      </remarks>
-    </member>
     <member name="M:Gemstone.Common.IsDefaultValue(System.Object)">
       <summary>Determines if given item is equal to its default value (e.g., null or 0.0).</summary>
       <param name="item">Object to evaluate.</param>
       <returns>Result of evaluation as a <see cref="T:System.Boolean" />.</returns>
       <remarks>
             Native types default to zero, not null, therefore this can be used to evaluate if an item is its default (i.e., uninitialized) value.
-            </remarks>
-    </member>
-    <member name="F:Gemstone.Common.IsMono">
-      <summary>
-            Determines if the code base is currently running under Mono.
-            </summary>
-      <remarks>
-            This property can be used to make a run-time determination if Mono based .NET is being used. However, it is
-            recommended to use a MONO compiler directive wherever possible instead of determining this at run-time.
             </remarks>
     </member>
     <member name="M:Gemstone.Common.IsNonStringReference(System.Object)">
@@ -1337,7 +1288,7 @@
         <para>
             This property will return <c>true</c> for both MacOSX and Unix environments. Use the Platform property
             of the <see cref="P:System.Environment.OSVersion" /> to determine more specific platform type, e.g., 
-            MacOSX or Unix. Note that all flavors of Linux will show up as <see cref="F:System.PlatformID.Unix" />.
+            MacOSX or Unix.
             </para>
       </remarks>
     </member>
@@ -9267,6 +9218,14 @@
             Gets the user name of the user.
             </summary>
     </member>
+    <member name="F:Gemstone.Identity.UserInfo.BuiltInGroupName">
+      <summary>
+            Localized version of Windows "BUILTIN" local permissions group name.
+            </summary>
+      <remarks>
+            For non-English based OS languages, this name may be different. For example, on a German OS this is "VORDEFINIERT".
+            </remarks>
+    </member>
     <member name="P:Gemstone.Identity.UserInfo.CurrentUserID">
       <summary>
             Gets the ID name of the current user.
@@ -9304,6 +9263,14 @@
       <returns>
         <c>true</c> if the security identifier identifies a group; <c>false</c> otherwise.</returns>
     </member>
+    <member name="M:Gemstone.Identity.UserInfo.IsLocalDomain(System.String)">
+      <summary>
+            Determines if specified <paramref name="domain" /> is the local domain (i.e., local machine).
+            </summary>
+      <param name="domain">Domain name to check.</param>
+      <returns>
+        <c>true</c>if specified <paramref name="domain" /> is the local domain (i.e., local machine); otherwise, <c>false</c>.</returns>
+    </member>
     <member name="M:Gemstone.Identity.UserInfo.IsUserSID(System.String)">
       <summary>
             Determines whether the given security identifier identifies a user account.
@@ -9321,6 +9288,22 @@
       <summary>
             Gets the Login ID of the user.
             </summary>
+    </member>
+    <member name="F:Gemstone.Identity.UserInfo.NTAuthorityGroupName">
+      <summary>
+            Localized version of Windows "NT AUTHORITY" local permissions group name.
+            </summary>
+      <remarks>
+            For non-English based OS languages, this name may be different. For example, on a French OS this is "NT-AUTORITÄT".
+            </remarks>
+    </member>
+    <member name="F:Gemstone.Identity.UserInfo.NTServiceGroupName">
+      <summary>
+            Localized version of Windows "NT SERVICE" local Windows services group name.
+            </summary>
+      <remarks>
+            For non-English based OS languages, this name may be different.
+            </remarks>
     </member>
     <member name="M:Gemstone.Identity.UserInfo.UserNameToSID(System.String)">
       <summary>
