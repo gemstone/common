@@ -42,8 +42,8 @@
 //       Modified Header.
 //
 //******************************************************************************************************
-
 // ReSharper disable CompareOfFloatsByEqualityOperator
+// Ignore Spelling: Posix
 
 using System;
 using System.ComponentModel;
