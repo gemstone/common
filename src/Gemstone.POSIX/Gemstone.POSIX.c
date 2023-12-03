@@ -524,7 +524,7 @@ void FreeLocalGroupMembers(char** groupMembers)
     }
 }
 
-int CreateSemaphore(const char* name, int initialCount, /*out*/ int* createdNew, /*out*/ void** semaphore)
+int CreateSemaphore(const char* name, int useGlobalScope, int initialCount, /*out*/ int* createdNew, /*out*/ void** semaphore)
 {
     *createdNew = 0;
 
@@ -538,9 +538,17 @@ int CreateSemaphore(const char* name, int initialCount, /*out*/ int* createdNew,
     if (retval != ENOENT)
         return retval;
 
+    // By default, only owner can access semaphore (local scope) - this will include child processes
+    int flags = S_IRUSR | S_IWUSR;
+
+    // If global scope is requested, allow group and other access
+    if (useGlobalScope)
+        flags |= S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH;
+
     // Create new semaphore - technically this will create a new or open an
-    // existing semaphore, but we wanted to detect if it was new or not
-    sem_t* sem = sem_open(name, O_CREAT, S_IRUSR | S_IWUSR, initialCount);
+    // existing semaphore, but we called OpenExistingSemaphore above because
+    // we wanted to detect if it was new or not
+    sem_t* sem = sem_open(name, O_CREAT, flags, initialCount);
 
     if (sem == SEM_FAILED)
     {
