@@ -26,6 +26,7 @@
 //******************************************************************************************************
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Reflection;
 
@@ -55,7 +56,7 @@ public static class MemberInfoExtensions
     /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
     /// <returns><c>true</c> if attribute exists; otherwise, <c>false</c>.</returns>
     public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute => 
-        member.TryGetAttribute(out TAttribute _);
+        member.TryGetAttribute(out TAttribute? _);
 
     /// <summary>
     /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.
@@ -68,7 +69,7 @@ public static class MemberInfoExtensions
     /// <remarks>
     /// If more than of the same type of attribute exists on the member, only the first one is returned.
     /// </remarks>
-    public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, out TAttribute? attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
+    public static bool TryGetAttribute<TMemberInfo, TAttribute>(this TMemberInfo member, [NotNullWhen(true)] out TAttribute? attribute) where TMemberInfo : MemberInfo where TAttribute : Attribute
     {
         object[] customAttributes = member.GetCustomAttributes(typeof(TAttribute), true);
 
