@@ -1042,7 +1042,7 @@ public static class FilePath
     {
         if (string.IsNullOrEmpty(filePath))
         {
-            filePath = Path.DirectorySeparatorChar.ToString();
+            filePath = "." + Path.DirectorySeparatorChar;
         }
         else
         {
