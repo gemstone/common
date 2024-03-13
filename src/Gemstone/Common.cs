@@ -43,7 +43,7 @@
 //
 //******************************************************************************************************
 // ReSharper disable CompareOfFloatsByEqualityOperator
-// Ignore Spelling: Posix
+#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
 
 using System;
 using System.ComponentModel;
@@ -51,9 +51,35 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Gemstone.Console;
 using Gemstone.StringExtensions;
+using Gemstone.Units;
+using JetBrains.Annotations;
 
 namespace Gemstone;
+
+#region [ Enumerations ]
+
+/// <summary>
+/// Indicates the type of update.
+/// </summary>
+public enum UpdateType
+{
+    /// <summary>
+    /// Update is informational.
+    /// </summary>
+    Information,
+    /// <summary>
+    /// Update is a warning.
+    /// </summary>
+    Warning,
+    /// <summary>
+    /// Update is an alarm.
+    /// </summary>
+    Alarm
+}
+
+#endregion
 
 /// <summary>
 /// Defines common global functions.
@@ -95,7 +121,7 @@ public static class Common
     /// original <see cref="Type"/>.
     /// </para>
     /// </remarks>
-    public static string TypeConvertToString(object value) => 
+    public static string TypeConvertToString(object value) =>
         TypeConvertToString(value, null);
 
     /// <summary>
@@ -168,7 +194,7 @@ public static class Common
     /// is empty or <c>null</c>.
     /// </para>
     /// </remarks>
-    public static object? TypeConvertFromString(string value, Type type) => 
+    public static object? TypeConvertFromString(string value, Type type) =>
         TypeConvertFromString(value, type, null);
 
     /// <summary>
@@ -273,14 +299,14 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsReference(object item) => 
+    public static bool IsReference(object item) =>
         item is not ValueType;
 
     /// <summary>Determines if given item is a reference type but not a string.</summary>
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNonStringReference(object item) => 
+    public static bool IsNonStringReference(object item) =>
         IsReference(item) && item is not string;
 
     /// <summary>
@@ -320,7 +346,7 @@ public static class Common
     /// </summary>
     /// <param name="type"><see cref="Type"/> to check.</param>
     /// <returns><c>true</c> if <paramref name="type"/> is a numeric type; otherwise, <c>false</c>.</returns>
-    public static bool IsNumericType(Type type) => 
+    public static bool IsNumericType(Type type) =>
         IsNumericType(Type.GetTypeCode(type));
 
     /// <summary>
@@ -333,7 +359,7 @@ public static class Common
     /// <typeparam name="T"><see cref="Type"/> to check.</typeparam>
     /// <returns><c>true</c> if <typeparamref name="T"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType<T>() => 
+    public static bool IsNumericType<T>() =>
         IsNumericType(Type.GetTypeCode(typeof(T)));
 
     /// <summary>
@@ -347,7 +373,7 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns><c>true</c> if <paramref name="item"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType(object item) => 
+    public static bool IsNumericType(object item) =>
         item is IConvertible convertible && IsNumericType(convertible.GetTypeCode());
 
     /// <summary>
@@ -360,7 +386,7 @@ public static class Common
     /// value, result will be <c>true</c>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumeric(object item) => 
+    public static bool IsNumeric(object item) =>
         IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
 
     /// <summary>Returns the smallest item from a list of parameters.</summary>
@@ -368,7 +394,7 @@ public static class Common
     /// <param name="itemList">A variable number of parameters of the specified type.</param>
     /// <returns>Result is the minimum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Min<T>(params T[] itemList) => 
+    public static T? Min<T>(params T[] itemList) =>
         itemList.Min();
 
     /// <summary>Returns the largest item from a list of parameters.</summary>
@@ -376,7 +402,7 @@ public static class Common
     /// <param name="itemList">A variable number of parameters of the specified type .</param>
     /// <returns>Result is the maximum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Max<T>(params T[] itemList) => 
+    public static T? Max<T>(params T[] itemList) =>
         itemList.Max();
 
     /// <summary>Returns the value that is neither the largest nor the smallest.</summary>
@@ -426,6 +452,7 @@ public static class Common
         return Environment.OSVersion.Platform;
 
         #region [ Old Code ]
+
         /*
         if (s_osPlatformID != PlatformID.Win32S)
             return s_osPlatformID;
@@ -449,6 +476,7 @@ public static class Common
 
         return s_osPlatformID;
         */
+
         #endregion
     }
 
@@ -463,6 +491,7 @@ public static class Common
         return RuntimeInformation.OSDescription;
 
         #region [ Old Code ]
+
         /*
         if (s_osPlatformName is not null)
             return s_osPlatformName;
@@ -552,6 +581,78 @@ public static class Common
 
         return s_osPlatformName;
         */
+
         #endregion
     }
+
+    /// <summary>
+    /// Gets the total physical system memory.
+    /// </summary>
+    /// <returns>Total physical system memory in bytes.</returns>
+    public static ulong GetTotalPhysicalMemory()
+    {
+        if (IsPosixEnvironment)
+        {
+            string output = Command.Execute("awk", "'/MemTotal/ {print $2}' /proc/meminfo").StandardOutput;
+            return ulong.Parse(output) * SI2.Kilo;
+        }
+
+        MEMORYSTATUSEX memStatus = new();
+        return GlobalMemoryStatusEx(memStatus) ? memStatus.ullTotalPhys : 0;
+    }
+
+    /// <summary>
+    /// Gets the available physical system memory.
+    /// </summary>
+    /// <returns>Available physical system memory in bytes.</returns>
+    public static ulong GetAvailablePhysicalMemory()
+    {
+        if (IsPosixEnvironment)
+        {
+            string output = Command.Execute("awk", "'/MemAvailable/ {print $2}' /proc/meminfo").StandardOutput;
+            return ulong.Parse(output) * SI2.Kilo;
+        }
+
+        MEMORYSTATUSEX memStatus = new();
+        return GlobalMemoryStatusEx(memStatus) ? memStatus.ullAvailPhys : 0;
+    }
+
+    [return: MarshalAs(UnmanagedType.Bool)]
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
+    private static extern bool GlobalMemoryStatusEx([In] [Out] MEMORYSTATUSEX lpBuffer);
+
+    // ReSharper disable IdentifierTypo
+    // ReSharper disable InconsistentNaming
+    // ReSharper disable NotAccessedField.Local
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+    [NoReorder]
+    private class MEMORYSTATUSEX
+    {
+        #region [ Members ]
+
+        public uint dwLength;
+        public uint dwMemoryLoad;
+        public ulong ullTotalPhys;
+        public ulong ullAvailPhys;
+        public ulong ullTotalPageFile;
+        public ulong ullAvailPageFile;
+        public ulong ullTotalVirtual;
+        public ulong ullAvailVirtual;
+        public ulong ullAvailExtendedVirtual;
+
+        #endregion
+
+        #region [ Constructors ]
+
+        // ReSharper disable once ConvertConstructorToMemberInitializers
+        public MEMORYSTATUSEX()
+        {
+            dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
+        }
+
+        #endregion
+    }
+    // ReSharper restore NotAccessedField.Local
+    // ReSharper restore InconsistentNaming
+    // ReSharper restore IdentifierTypo}
 }
