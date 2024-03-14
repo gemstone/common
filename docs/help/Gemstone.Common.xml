@@ -1189,6 +1189,12 @@
             Defines common global functions.
             </summary>
     </member>
+    <member name="M:Gemstone.Common.GetAvailablePhysicalMemory">
+      <summary>
+            Gets the available physical system memory.
+            </summary>
+      <returns>Available physical system memory in bytes.</returns>
+    </member>
     <member name="M:Gemstone.Common.GetOSPlatformID">
       <summary>
             Gets the operating system <see cref="T:System.PlatformID" /></summary>
@@ -1202,6 +1208,12 @@
             Gets the operating system product name.
             </summary>
       <returns>Operating system product name.</returns>
+    </member>
+    <member name="M:Gemstone.Common.GetTotalPhysicalMemory">
+      <summary>
+            Gets the total physical system memory.
+            </summary>
+      <returns>Total physical system memory in bytes.</returns>
     </member>
     <member name="M:Gemstone.Common.IsDefaultValue(System.Object)">
       <summary>Determines if given item is equal to its default value (e.g., null or 0.0).</summary>
@@ -3024,6 +3036,49 @@
             otherwise, a reference to the object referenced by the current <see cref="T:Gemstone.NullableWeakReference" /> object.
             </returns>
       <exception cref="T:System.InvalidOperationException">If setting this property to anything other than null</exception>
+    </member>
+    <member name="T:Gemstone.ObjectState`1">
+      <summary>
+            A serializable class that can be used to track the current and previous state of an object.
+            </summary>
+      <typeparam name="TState">Type of the state to track.</typeparam>
+    </member>
+    <member name="M:Gemstone.ObjectState`1.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.ObjectState`1" /> class.
+            </summary>
+      <param name="objectName">The text label for the object whose state is being tracked.</param>
+    </member>
+    <member name="M:Gemstone.ObjectState`1.#ctor(System.String,`0)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.ObjectState`1" /> class.
+            </summary>
+      <param name="objectName">The text label for the object whose state is being tracked.</param>
+      <param name="currentState">The current state of the object.</param>
+    </member>
+    <member name="M:Gemstone.ObjectState`1.#ctor(System.String,`0,`0)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.ObjectState`1" /> class.
+            </summary>
+      <param name="objectName">The text label for the object whose state is being tracked.</param>
+      <param name="currentState">The current state of the object.</param>
+      <param name="previousState">The previous state of the object.</param>
+    </member>
+    <member name="P:Gemstone.ObjectState`1.CurrentState">
+      <summary>
+            Gets or sets the current state of the object.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ObjectState`1.ObjectName">
+      <summary>
+            Gets or sets a text label for the object whose state is being tracked.
+            </summary>
+      <exception cref="T:System.ArgumentNullException">The value being assigned is a null or empty string.</exception>
+    </member>
+    <member name="P:Gemstone.ObjectState`1.PreviousState">
+      <summary>
+            Gets or sets the previous state of the object.
+            </summary>
     </member>
     <member name="T:Gemstone.PrecisionTimer">
       <summary>
@@ -5597,6 +5652,26 @@
       <remarks>
             Unix dates are measured as the number of seconds since 1/1/1970.
             </remarks>
+    </member>
+    <member name="T:Gemstone.UpdateType">
+      <summary>
+            Indicates the type of update.
+            </summary>
+    </member>
+    <member name="F:Gemstone.UpdateType.Information">
+      <summary>
+            Update is informational.
+            </summary>
+    </member>
+    <member name="F:Gemstone.UpdateType.Warning">
+      <summary>
+            Update is a warning.
+            </summary>
+    </member>
+    <member name="F:Gemstone.UpdateType.Alarm">
+      <summary>
+            Update is an alarm.
+            </summary>
     </member>
     <member name="T:Gemstone.USTimeZones">
       <summary>
@@ -8895,6 +8970,179 @@
             Defines the regular expression pattern used to validate value. 
             </summary>
     </member>
+    <member name="T:Gemstone.Console.Arguments">
+      <summary>
+             Represents an ordered set of arguments along with optional arguments parsed from a command-line.
+             </summary>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Creates a new <see cref="T:Gemstone.Console.Arguments" /> from serialization parameters.
+            </summary>
+      <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with populated with data.</param>
+      <param name="context">The source <see cref="T:System.Runtime.Serialization.StreamingContext" /> for this deserialization.</param>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.#ctor(System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Console.Arguments" /> class.
+            </summary>
+      <param name="commandLine">The command-line command to be parsed.</param>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.#ctor(System.String,System.Boolean)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Console.Arguments" /> class.
+            </summary>
+      <param name="commandLine">The command-line command to be parsed.</param>
+      <param name="skipFirstArgument">true if the first argument in the command-line command is to be skipped from being processed; otherwise false.</param>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.#ctor(System.String,System.String)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Console.Arguments" /> class.
+            </summary>
+      <param name="commandLine">The command-line command to be parsed.</param>
+      <param name="orderedArgID">The prefix to be used in the identifier of ordered arguments.</param>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.#ctor(System.String,System.String,System.Boolean)">
+      <summary>
+            Initializes a new instance of the <see cref="T:Gemstone.Console.Arguments" /> class.
+            </summary>
+      <param name="commandLine">The command-line command to be parsed.</param>
+      <param name="orderedArgID">The prefix to be used in the identifier of ordered arguments.</param>
+      <param name="skipFirstArgument">true if the first argument in the command-line command is to be skipped from being processed; otherwise false.</param>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.ContainsHelpRequest">
+      <summary>
+            Gets a boolean value that indicates whether the command-line command contains request for displaying help.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.Count">
+      <summary>
+            Gets the total number of arguments (ordered and optional) present in the command-line command.
+            </summary>
+    </member>
+    <member name="F:Gemstone.Console.Arguments.DefaultOrderedArgID">
+      <summary>
+            Default value for <see cref="P:Gemstone.Console.Arguments.OrderedArgID" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.Escape(System.String)">
+      <summary>
+            Escapes a string so that it will be parsed as a
+            single argument by the <see cref="M:Gemstone.Console.Arguments.ToArgs(System.String)" /> method.
+            </summary>
+      <param name="arg">The argument to be escaped.</param>
+      <returns>The escaped argument.</returns>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.Exists(System.String)">
+      <summary>
+            Gets a boolean value that indicates whether the specified argument is present in the command-line command.
+            </summary>
+      <param name="argument">The argument to be checked.</param>
+      <returns>true if the argument exists in the command-line command; otherwise false.</returns>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.GetEnumerator">
+      <summary>
+            Returns an <see cref="T:System.Collections.IEnumerator" /> for iterating through all the command-line command arguments.
+            </summary>
+      <returns>An <see cref="T:System.Collections.IEnumerator" /> for the command-line command arguments.</returns>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+      <summary>
+            Populates a <see cref="T:System.Runtime.Serialization.SerializationInfo" /> with the data needed to serialize the target object.
+            </summary>
+      <param name="info">The <see cref="T:System.Runtime.Serialization.SerializationInfo" /> to populate with data.</param>
+      <param name="context">The destination (see <see cref="T:System.Runtime.Serialization.StreamingContext" />) for this serialization.</param>
+      <exception cref="T:System.Security.SecurityException">The caller does not have the required permission.</exception>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.InternalDictionary">
+      <summary>
+            Gets the dictionary containing all of the arguments present in the command-line command.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.Item(System.String)">
+      <summary>
+            Gets the value for the specified argument from the command-line command.
+            </summary>
+      <param name="argument">The argument whose value is to retrieved.</param>
+      <returns>Value for the specified argument if found; otherwise null.</returns>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.OrderedArgCount">
+      <summary>
+            Gets the total number of ordered arguments in the command-line command.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.OrderedArgID">
+      <summary>
+            Gets the prefix text in the identifier of ordered arguments present in the command-line command.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Console.Arguments.OrderedArgs">
+      <summary>
+            Gets the ordered arguments as an array of strings.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.ParseCommand(System.String)">
+      <summary>
+            This function can be used to parse a single parameterized string and turn it into an array of parameters.
+            </summary>
+      <param name="command">String of parameters.</param>
+      <returns>Array of parameters.</returns>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.ToArgs(System.String)">
+      <summary>
+            Provides an array of arguments parsed from the given command
+            using parsing rules similar to those used in POSIX environments.
+            </summary>
+      <param name="command">The command to be parsed.</param>
+      <returns>An array of arguments.</returns>
+      <remarks>
+        <para>
+            This function processes a set of command line arguments using a simple set of rules based on
+            those used in popular POSIX command shells. It is important to note that these rules do not apply
+            to instances of the <see cref="T:Gemstone.Console.Arguments" /> class or the <see cref="M:Gemstone.Console.Arguments.ParseCommand(System.String)" /> function.
+            </para>
+        <para>
+            The motivation for this function was to provide a more user-friendly set of rules by which to
+            specify command-line arguments. This is of course helpful for the user who has to type the
+            command-line arguments by hand, but it also ends up being useful for systems that have to
+            programmatically escape arguments to be consumed by other command-line applications (see
+            the <see cref="M:Gemstone.Console.Arguments.Escape(System.String)" /> function).
+            </para>
+        <para>
+            Also note that Windows has historically not provided a standard method for handling
+            command-line arguments and that some of the command-line tools in Windows have rolled their
+            own (potentially faulty) methods for doing so. More recently, Microsoft has provided the
+            <see cref="M:System.Environment.GetCommandLineArgs" /> function for .NET applications to retrieve their
+            own command line arguments using a standard format, but this function lacks the appropriate
+            supporting functions for programmatically handling arbitrary command strings within an
+            application. Furthermore, the rules for escaping spaces, quotes, and backslashes are very
+            inconsistent, making it difficult to write a robust method for escaping individual arguments,
+            let alone fully reproducing the same command parsing rules. For this reason, some programmers
+            may be interested in using this method in conjunction with <see cref="P:System.Environment.CommandLine" />
+            for parsing their own command line arguments.
+            </para>
+      </remarks>
+    </member>
+    <member name="F:Gemstone.Console.Arguments.TokenRegex">
+      <summary>
+            Regular expression pattern for tokenizing a list of arguments.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.ToString">
+      <summary>
+            Gets a string representation of the <see cref="T:Gemstone.Console.Arguments" /> object.
+            </summary>
+      <returns>A string representation of the <see cref="T:Gemstone.Console.Arguments" /> object.</returns>
+    </member>
+    <member name="M:Gemstone.Console.Arguments.TryGetValue(System.String,System.String@)">
+      <summary>
+            Gets the value associated with the specified argument in the command-line command.
+            </summary>
+      <param name="argument">The argument whose value is to be retrieved.</param>
+      <param name="value">Value associated with the specified argument if it exists in the command-line command, otherwise null.</param>
+      <returns>
+        <c>true</c> if argument existed and was returned; otherwise <c>false</c>.</returns>
+    </member>
     <member name="T:Gemstone.Console.Command">
       <summary>
             Defines methods related to command line operations
@@ -10686,6 +10934,143 @@
             </summary>
       <param name="fileName">The name of the file to wait for until it is created.</param>
       <param name="secondsToWait">The time to wait for in seconds for the file to be created. Set to zero to wait infinitely.</param>
+    </member>
+    <member name="T:Gemstone.IO.RunTimeLog">
+      <summary>
+            Represents a persisted run-time log that tracks last start, stop and running times.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.#ctor">
+      <summary>
+            Creates a new run-time log.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.RunTimeLog.DateTimeFormat">
+      <summary>
+            Date-time format used by <see cref="T:Gemstone.IO.RunTimeLog" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.IO.RunTimeLog" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.IO.RunTimeLog" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="E:Gemstone.IO.RunTimeLog.Disposed">
+      <summary>
+            Raised after the run-time log has been properly disposed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.Enabled">
+      <summary>        
+            Gets or sets a boolean value that indicates whether the run-time log is enabled.
+            </summary>
+      <remarks>
+            This property controls the automatic write log timer.
+            </remarks>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.FileName">
+      <summary>
+            Gets or sets the file name for the run-time log; file name can be set with a relative path.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.IO.RunTimeLog" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.Initialize">
+      <summary>
+            Initialize the run-time log.
+            </summary>
+      <remarks>
+        <para>
+            Initialization performs initial run-time log read, establishes new start time and enables automatic write log timer.
+            </para>
+        <para>
+            Last logged stop time will be validated against last logged running time. If the last logged running time is later
+            than the last logged stop time, the stop time will be set to the running time with the assumption that the log file
+            was not properly shut down (e.g., due to abnormal host termination).
+            </para>
+        <para>
+            It is important to separate initialization from construction such that consumer can attach to events before class
+            is initialized in case initialization causes events to be raised.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.IsDisposed">
+      <summary>
+            Gets a flag that indicates whether the object has been disposed.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.RunTimeLog.LastRunningTimeKey">
+      <summary>
+            Log file key name for last running time used by <see cref="T:Gemstone.IO.RunTimeLog" />.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.RunTimeLog.LastStartTimeKey">
+      <summary>
+            Log file key name for last start time used by <see cref="T:Gemstone.IO.RunTimeLog" />.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.RunTimeLog.LastStopTimeKey">
+      <summary>
+            Log file key name for last stop time used by <see cref="T:Gemstone.IO.RunTimeLog" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.OnProcessException(System.Exception)">
+      <summary>
+            Raises <see cref="E:Gemstone.IO.RunTimeLog.ProcessException" /> event.
+            </summary>
+      <param name="ex">Processing <see cref="T:System.Exception" />.</param>
+    </member>
+    <member name="E:Gemstone.IO.RunTimeLog.ProcessException">
+      <summary>
+            Event is raised when there is an exception encountered while processing run-time log.
+            </summary>
+      <remarks>
+        <see cref="F:Gemstone.EventArgs`1.Argument" /> is the exception that was thrown.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.ReadLog">
+      <summary>
+            Reads the run-time log.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.RunningTime">
+      <summary>
+            Gets last known running-time (10-second resolution).
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.StartTime">
+      <summary>
+            Gets last known start-time.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.Status">
+      <summary>
+            Gets the current status details about <see cref="T:Gemstone.IO.RunTimeLog" />.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.StopTime">
+      <summary>
+            Gets last known stop-time.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.RunTimeLog.UpTime">
+      <summary>
+            Gets the up-time calculation for run-time log, i.e., <see cref="P:Gemstone.IO.RunTimeLog.RunningTime" /> - <see cref="P:Gemstone.IO.RunTimeLog.StartTime" /> (10-second resolution).
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.RunTimeLog.WriteLog">
+      <summary>
+            Writes the run-time log - times are in a human readable format.
+            </summary>
     </member>
     <member name="T:Gemstone.IO.Parsing.BinaryImageBase">
       <summary>
@@ -14783,6 +15168,163 @@
             </summary>
       <param name="value">The string to escape.</param>
       <returns>URL encoded string.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.Cancellation.CancellationToken">
+      <summary>
+            Represents a token that can be used to cancel an asynchronous operation.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CancellationToken.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Threading.Cancellation.CancellationToken</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CancellationToken.Cancel">
+      <summary>
+            Cancels the operation.
+            </summary>
+      <returns>
+        <c>true</c> if the operation was cancelled; otherwise <c>false</c>.</returns>
+    </member>
+    <member name="E:Gemstone.Threading.Cancellation.CancellationToken.Cancelled">
+      <summary>
+            Event that will be raised when this <see cref="T:Gemstone.Threading.Cancellation.CancellationToken" /> is cancelled.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Threading.Cancellation.CancellationToken.IsCancelled">
+      <summary>
+            Gets a value that indicates whether the operation has been cancelled.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CancellationToken.op_Implicit(Gemstone.Threading.Cancellation.CancellationToken)~System.Threading.CancellationToken">
+      <summary>
+            Implicitly converts a GSF cancellation token to an associated <see cref="T:System.Threading.CancellationToken" />.
+            </summary>
+      <param name="token">Existing GSF cancellation token that is converted to an associated <see cref="T:System.Threading.CancellationToken" />.</param>
+      <returns>A <see cref="T:System.Threading.CancellationToken" /> based on an existing GSF cancellation token.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CancellationToken.op_Implicit(Gemstone.Threading.Cancellation.CancellationToken)~System.Threading.CancellationTokenSource">
+      <summary>
+            Implicitly converts a GSF cancellation token to an associated <see cref="T:System.Threading.CancellationTokenSource" />.
+            </summary>
+      <param name="token">Existing GSF cancellation token that is converted to an associated <see cref="T:System.Threading.CancellationTokenSource" />.</param>
+      <returns>A <see cref="T:Gemstone.Threading.Cancellation.CancellationToken" /> based on an existing GSF cancellation token.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken">
+      <summary>
+            Represents a compatible implementation of the <see cref="T:Gemstone.Threading.Cancellation.ICancellationToken" /> interface
+            that inter-operates with the <see cref="T:System.Threading.CancellationToken" /> and can be
+            used to cancel an asynchronous operation.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.#ctor(Gemstone.Threading.Cancellation.CancellationToken)">
+      <summary>
+            Creates a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> based on an existing GSF cancellation token.
+            </summary>
+      <param name="token">Existing GSF token.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.#ctor(System.Threading.CancellationToken)">
+      <summary>
+            Creates a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> based on an existing system cancellation token.
+            </summary>
+      <param name="token">Existing system token.</param>
+      <remarks>
+            A <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> created from an existing system cancellation token
+            cannot be cancelled since the source for the provided token will not be available.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.#ctor(System.Threading.CancellationTokenSource)">
+      <summary>
+            Creates a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> based on an existing system cancellation token source.
+            </summary>
+      <param name="source">Existing system cancellation token source.</param>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.Cancel">
+      <summary>
+            Cancels the operation.
+            </summary>
+      <returns>
+        <c>true</c> if the operation was cancelled; otherwise <c>false</c>.</returns>
+      <remarks>
+            The token can only be cancelled if a <see cref="T:System.Threading.CancellationTokenSource" /> was provided.
+            </remarks>
+      <exception cref="T:System.InvalidOperationException">
+        <see cref="T:System.Threading.CancellationTokenSource" /> not available, token cannot be cancelled.</exception>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.Finalize">
+      <summary>
+            Handle disposing of locally allocated resources, if any.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.GetToken">
+      <summary>
+            Gets a <see cref="T:System.Threading.CancellationToken" /> associated with this <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.
+            </summary>
+      <returns>A <see cref="T:System.Threading.CancellationToken" /> associated with this <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.GetTokenSource">
+      <summary>
+            Gets a <see cref="T:System.Threading.CancellationTokenSource" /> associated with this <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.
+            </summary>
+      <returns>A <see cref="T:System.Threading.CancellationTokenSource" /> associated with this <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.</returns>
+      <remarks>
+            This function will return <c>null</c> when the <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> was created
+            from an existing system cancellation token and not its source or a GSF cancellation token.
+            </remarks>
+    </member>
+    <member name="P:Gemstone.Threading.Cancellation.CompatibleCancellationToken.IsCancelled">
+      <summary>
+            Gets a value that indicates whether the operation has been cancelled.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.op_Implicit(Gemstone.Threading.Cancellation.CompatibleCancellationToken)~System.Threading.CancellationToken">
+      <summary>
+            Implicitly converts a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> to an associated <see cref="T:System.Threading.CancellationToken" />.
+            </summary>
+      <param name="token">Existing GSF cancellation token that is converted to an associated <see cref="T:System.Threading.CancellationToken" />.</param>
+      <returns>A <see cref="T:System.Threading.CancellationToken" /> based on an existing GSF cancellation token.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.op_Implicit(Gemstone.Threading.Cancellation.CompatibleCancellationToken)~System.Threading.CancellationTokenSource">
+      <summary>
+            Implicitly converts a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> to an associated <see cref="T:System.Threading.CancellationTokenSource" />.
+            </summary>
+      <param name="token">Existing GSF cancellation token that is converted to an associated <see cref="T:System.Threading.CancellationTokenSource" />.</param>
+      <returns>A <see cref="T:Gemstone.Threading.Cancellation.CancellationToken" /> based on an existing GSF cancellation token.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.op_Implicit(System.Threading.CancellationToken)~Gemstone.Threading.Cancellation.CompatibleCancellationToken">
+      <summary>
+            Implicitly converts existing system cancellation token to a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.
+            </summary>
+      <param name="token">Existing system cancellation token that is converted to a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.</param>
+      <returns>A <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> based on an existing system cancellation token.</returns>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.CompatibleCancellationToken.op_Implicit(System.Threading.CancellationTokenSource)~Gemstone.Threading.Cancellation.CompatibleCancellationToken">
+      <summary>
+            Implicitly converts existing system cancellation token source to a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.
+            </summary>
+      <param name="source">Existing system cancellation token source that is converted to a <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" />.</param>
+      <returns>A <see cref="T:Gemstone.Threading.Cancellation.CompatibleCancellationToken" /> based on an existing system cancellation token source.</returns>
+    </member>
+    <member name="T:Gemstone.Threading.Cancellation.ICancellationToken">
+      <summary>
+            Represents a token that can be used to cancel an asynchronous operation.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Threading.Cancellation.ICancellationToken.Cancel">
+      <summary>
+            Cancels the operation.
+            </summary>
+      <returns>
+        <c>true</c> if the operation was cancelled; otherwise <c>false</c>.</returns>
+    </member>
+    <member name="P:Gemstone.Threading.Cancellation.ICancellationToken.IsCancelled">
+      <summary>
+            Gets a value that indicates whether the operation has been cancelled.
+            </summary>
     </member>
     <member name="T:Gemstone.TimeSpanExtensions.TimeSpanExtensions">
       <summary>
