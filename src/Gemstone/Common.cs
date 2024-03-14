@@ -42,6 +42,9 @@
 //       Modified Header.
 //
 //******************************************************************************************************
+// ReSharper disable InconsistentNaming
+// ReSharper disable IdentifierTypo
+// ReSharper disable NotAccessedField.Local
 // ReSharper disable CompareOfFloatsByEqualityOperator
 #pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
 
@@ -86,9 +89,6 @@ public enum UpdateType
 /// </summary>
 public static class Common
 {
-    //private static string? s_osPlatformName;
-    //private static PlatformID s_osPlatformID = PlatformID.Win32S;
-
     /// <summary>
     /// Determines if the current system is a POSIX style environment.
     /// </summary>
@@ -129,6 +129,7 @@ public static class Common
     /// </summary>
     /// <param name="value">Value to convert to a <see cref="string"/>.</param>
     /// <param name="culture"><see cref="CultureInfo"/> to use for the conversion.</param>
+    /// <param name="throwOnFail">Set to <c>true</c> to throw exception if conversion fails; otherwise, <c>false</c> to fall back on <c>.ToString()</c>.</param>
     /// <returns><paramref name="value"/> converted to a <see cref="string"/>.</returns>
     /// <remarks>
     /// <para>
@@ -141,7 +142,7 @@ public static class Common
     /// the string back to its original <see cref="Type"/>.
     /// </para>
     /// </remarks>
-    public static string TypeConvertToString(object? value, CultureInfo? culture)
+    public static string TypeConvertToString(object? value, CultureInfo? culture, bool throwOnFail = false)
     {
         switch (value)
         {
@@ -165,6 +166,9 @@ public static class Common
                 }
                 catch
                 {
+                    if (throwOnFail)
+                        throw;
+
                     // Otherwise just call object's ToString method
                     return value.ToNonNullString();
                 }
@@ -447,6 +451,7 @@ public static class Common
     /// This function will properly detect the platform ID, even if running on Mac.
     /// </remarks>
     /// ReSharper disable once InconsistentNaming
+    [Obsolete("Use Environment.OSVersion.Platform instead")]
     public static PlatformID GetOSPlatformID()
     {
         return Environment.OSVersion.Platform;
@@ -486,6 +491,7 @@ public static class Common
     /// </summary>
     /// <returns>Operating system product name.</returns>
     // ReSharper disable once InconsistentNaming
+    [Obsolete("Use RuntimeInformation.OSDescription instead")]
     public static string GetOSProductName()
     {
         return RuntimeInformation.OSDescription;
@@ -621,9 +627,6 @@ public static class Common
     [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
     private static extern bool GlobalMemoryStatusEx([In] [Out] MEMORYSTATUSEX lpBuffer);
 
-    // ReSharper disable IdentifierTypo
-    // ReSharper disable InconsistentNaming
-    // ReSharper disable NotAccessedField.Local
     [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
     [NoReorder]
     private class MEMORYSTATUSEX
@@ -652,7 +655,4 @@ public static class Common
 
         #endregion
     }
-    // ReSharper restore NotAccessedField.Local
-    // ReSharper restore InconsistentNaming
-    // ReSharper restore IdentifierTypo}
 }

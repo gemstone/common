@@ -1576,7 +1576,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     {
         userPasswordInfo = new UserPasswordInformation();
 
-        if (Common.GetOSPlatformID() == PlatformID.MacOSX)
+        if (Environment.OSVersion.Platform == PlatformID.MacOSX)
         {
             accountStatus = AccountStatus.Normal;
 
