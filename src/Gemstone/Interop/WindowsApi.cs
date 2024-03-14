@@ -1033,7 +1033,7 @@ public static partial class WindowsApi
     /// <summary>
     /// Formats and returns a .NET string containing the Windows API level error message corresponding to the specified error code.
     /// </summary>
-    /// <param name="errorCode">An <see cref="Int32"/> value corresponding to the specified error code.</param>
+    /// <param name="errorCode">An <see cref="int"/> value corresponding to the specified error code.</param>
     /// <returns>A formatted error message corresponding to the specified error code.</returns>
     public static string GetErrorMessage(int errorCode)
     {
@@ -1050,7 +1050,7 @@ public static partial class WindowsApi
         if (FormatMessage(dwFlags, ref ptrlpSource, errorCode, 0, ref lpMsgBuf, messageSize, ref prtArguments) == 0)
             throw new InvalidOperationException("Failed to format message for error code " + errorCode);
 
-        return lpMsgBuf.ToString();
+        return lpMsgBuf;
     }
 
     //
