@@ -42,11 +42,7 @@
 //       Modified Header.
 //
 //******************************************************************************************************
-// ReSharper disable InconsistentNaming
-// ReSharper disable IdentifierTypo
-// ReSharper disable NotAccessedField.Local
 // ReSharper disable CompareOfFloatsByEqualityOperator
-#pragma warning disable CS0649 // Field is never assigned to, and will always have its default value
 
 using System;
 using System.ComponentModel;
@@ -57,7 +53,7 @@ using System.Runtime.InteropServices;
 using Gemstone.Console;
 using Gemstone.StringExtensions;
 using Gemstone.Units;
-using JetBrains.Annotations;
+using static Gemstone.Interop.WindowsApi;
 
 namespace Gemstone;
 
@@ -621,38 +617,5 @@ public static class Common
 
         MEMORYSTATUSEX memStatus = new();
         return GlobalMemoryStatusEx(memStatus) ? memStatus.ullAvailPhys : 0;
-    }
-
-    [return: MarshalAs(UnmanagedType.Bool)]
-    [DllImport("kernel32.dll", CharSet = CharSet.Auto, SetLastError = true)]
-    private static extern bool GlobalMemoryStatusEx([In] [Out] MEMORYSTATUSEX lpBuffer);
-
-    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    [NoReorder]
-    private class MEMORYSTATUSEX
-    {
-        #region [ Members ]
-
-        public uint dwLength;
-        public uint dwMemoryLoad;
-        public ulong ullTotalPhys;
-        public ulong ullAvailPhys;
-        public ulong ullTotalPageFile;
-        public ulong ullAvailPageFile;
-        public ulong ullTotalVirtual;
-        public ulong ullAvailVirtual;
-        public ulong ullAvailExtendedVirtual;
-
-        #endregion
-
-        #region [ Constructors ]
-
-        // ReSharper disable once ConvertConstructorToMemberInitializers
-        public MEMORYSTATUSEX()
-        {
-            dwLength = (uint)Marshal.SizeOf(typeof(MEMORYSTATUSEX));
-        }
-
-        #endregion
     }
 }
