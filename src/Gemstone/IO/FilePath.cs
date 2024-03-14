@@ -56,16 +56,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using Gemstone.CharExtensions;
 using Gemstone.Console;
+using Gemstone.Interop;
 using Gemstone.Reflection;
 using Gemstone.StringExtensions;
 using Gemstone.Units;
 using static Gemstone.Common;
+using static Gemstone.Interop.WindowsApi;
 
 namespace Gemstone.IO;
 
@@ -117,6 +118,60 @@ public static class FilePath
     #region [ Properties ]
 
     /// <summary>
+    /// Connects to a network share with the specified user's credentials.
+    /// </summary>
+    /// <param name="sharename">UNC share name to connect to.</param>
+    /// <param name="userName">User name to use for connection.</param>
+    /// <param name="password">Password to use for connection.</param>
+    /// <param name="domain">Domain name to use for connection. Specify the computer name for local system accounts.</param>
+    public static void ConnectToNetworkShare(string sharename, string userName, string password, string domain)
+    {
+        // TODO: Add #include <sys/mount.h> implementation for POSIX environment, see Gemstone.POSIX library
+        if (IsPosixEnvironment)
+            throw new NotImplementedException("Failed to connect to network share \"" + sharename + "\" as user " + userName + " - not implemented in POSIX environment");
+
+        NETRESOURCE resource = new()
+        {
+            dwType = RESOURCETYPE_DISK, 
+            lpRemoteName = sharename
+        };
+
+        if (domain.Length > 0)
+            userName = domain + "\\" + userName;
+
+        int result = WNetAddConnection2(ref resource, password, userName, 0);
+
+        if (result != 0)
+            throw new InvalidOperationException("Failed to connect to network share \"" + sharename + "\" as user " + userName + " - " + WindowsApi.GetErrorMessage(result));
+    }
+
+    /// <summary>
+    /// Disconnects the specified network share.
+    /// </summary>
+    /// <param name="sharename">UNC share name to disconnect from.</param>
+    public static void DisconnectFromNetworkShare(string sharename)
+    {
+        DisconnectFromNetworkShare(sharename, true);
+    }
+
+    /// <summary>
+    /// Disconnects the specified network share.
+    /// </summary>
+    /// <param name="sharename">UNC share name to disconnect from.</param>
+    /// <param name="force"><c>true</c> to force a disconnect; otherwise <c>false</c>.</param>
+    public static void DisconnectFromNetworkShare(string sharename, bool force)
+    {
+        // TODO: Add #include <sys/mount.h> implementation for POSIX environment, see Gemstone.POSIX library
+        if (IsPosixEnvironment)
+            throw new NotImplementedException("Failed to disconnect from network share \"" + sharename + "\" - not implemented in POSIX environment");
+
+        int result = WNetCancelConnection2(sharename, 0, force);
+
+        if (result != 0)
+            throw new InvalidOperationException("Failed to disconnect from network share \"" + sharename + "\" - " + WindowsApi.GetErrorMessage(result));
+    }
+
+    /// <summary>
     /// Gets the <see cref="AssemblyInfo"/> instance of the host application.
     /// </summary>
     /// <exception cref="NullReferenceException">Failed to derive host assembly info.</exception>
@@ -124,23 +179,23 @@ public static class FilePath
     {
         get
         {
-            if (s_hostAssemblyInfo is null)
+            if (s_hostAssemblyInfo is not null)
+                return s_hostAssemblyInfo;
+
+            AssemblyInfo? hostAssemblyInfo = null;
+
+            try
             {
-                AssemblyInfo? hostAssemblyInfo = null;
-
-                try
-                {
-                    hostAssemblyInfo = AssemblyInfo.EntryAssembly;
-                }
-                catch (Exception ex)
-                {
-                    LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get entry assembly info: {ex.Message}", ex));
-                }
-
-                hostAssemblyInfo ??= AssemblyInfo.ExecutingAssembly;
-
-                s_hostAssemblyInfo = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
+                hostAssemblyInfo = AssemblyInfo.EntryAssembly;
             }
+            catch (Exception ex)
+            {
+                LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get entry assembly info: {ex.Message}", ex));
+            }
+
+            hostAssemblyInfo ??= AssemblyInfo.ExecutingAssembly;
+
+            s_hostAssemblyInfo = hostAssemblyInfo ?? throw new NullReferenceException("Failed to derive host application assembly info");
 
             return s_hostAssemblyInfo;
         }
@@ -154,27 +209,27 @@ public static class FilePath
     {
         get
         {
-            if (s_hostApplicationPath is null)
-            {
-                string? hostFileName = null;
+            if (s_hostApplicationPath is not null)
+                return s_hostApplicationPath;
+
+            string? hostFileName = null;
                     
-                try
-                {
-                    hostFileName = Process.GetCurrentProcess().MainModule?.FileName;
-                }
-                catch (Exception ex)
-                {
-                    LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get main module filename of current process: {ex.Message}", ex));
-                }
-
-                if (string.IsNullOrEmpty(hostFileName))
-                    hostFileName = HostAssemblyInfo.Location;
-
-                if (string.IsNullOrEmpty(hostFileName))
-                    throw new NullReferenceException("Failed to derive host application path");
-
-                s_hostApplicationPath = GetDirectoryName(hostFileName);
+            try
+            {
+                hostFileName = Process.GetCurrentProcess().MainModule?.FileName;
             }
+            catch (Exception ex)
+            {
+                LibraryEvents.OnSuppressedException(typeof(FilePath), new InvalidOperationException($"Failed to get main module filename of current process: {ex.Message}", ex));
+            }
+
+            if (string.IsNullOrEmpty(hostFileName))
+                hostFileName = HostAssemblyInfo.Location;
+
+            if (string.IsNullOrEmpty(hostFileName))
+                throw new NullReferenceException("Failed to derive host application path");
+
+            s_hostApplicationPath = GetDirectoryName(hostFileName);
 
             return s_hostApplicationPath;
         }
@@ -242,7 +297,10 @@ public static class FilePath
     /// </summary>
     /// <param name="filePath">File name or relative file path.</param>
     /// <returns><c>true</c> if the specified <paramref name="filePath"/> is contained with the current executable path; otherwise <c>false</c>.</returns>
-    public static bool InApplicationPath(string filePath) => GetAbsolutePath(filePath).StartsWith(GetAbsolutePath(""), StringComparison.OrdinalIgnoreCase);
+    public static bool InApplicationPath(string filePath)
+    {
+        return GetAbsolutePath(filePath).StartsWith(GetAbsolutePath(""), StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Gets the path to the folder where data related to the current
@@ -388,8 +446,10 @@ public static class FilePath
     /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
     /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
     /// <returns>An array of the full names (including paths) of the subdirectories that match the specified criteria, or an empty array if no directories are found.</returns>
-    public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) => 
-        EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
+    public static string[] GetDirectories(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
+    {
+        return EnumerateDirectories(path, searchPattern, searchOption, exceptionHandler).ToArray();
+    }
 
     /// <summary>
     /// Returns an enumerable collection of subdirectories that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -474,8 +534,10 @@ public static class FilePath
     /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
     /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
     /// <returns>An array of the full names (including paths) for the files in the specified directory that match the specified search pattern and option, or an empty array if no files are found.</returns>
-    public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) => 
-        EnumerateFiles(path, searchPattern, searchOption, exceptionHandler).ToArray();
+    public static string[] GetFiles(string path, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
+    {
+        return EnumerateFiles(path, searchPattern, searchOption, exceptionHandler).ToArray();
+    }
 
     /// <summary>
     /// Returns an enumerable collection of file names that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -560,8 +622,10 @@ public static class FilePath
     /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
     /// <param name="exceptionHandler">Handles exceptions thrown during directory enumeration.</param>
     /// <returns>An array of the <see cref="DirectoryInfo"/> objects representing the subdirectories that match the specified search criteria.</returns>
-    public static DirectoryInfo[] GetDirectories(DirectoryInfo directory, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) =>
-        EnumerateDirectories(directory, searchPattern, searchOption, exceptionHandler).ToArray();
+    public static DirectoryInfo[] GetDirectories(DirectoryInfo directory, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
+    {
+        return EnumerateDirectories(directory, searchPattern, searchOption, exceptionHandler).ToArray();
+    }
 
     /// <summary>
     /// Returns an enumerable collection of subdirectories that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -638,8 +702,10 @@ public static class FilePath
     /// <param name="searchOption">One of the enumeration values that specifies whether the search operation should include all subdirectories or only the current directory.</param>
     /// <param name="exceptionHandler">Handles exceptions thrown during file enumeration.</param>
     /// <returns>An array of the <see cref="FileInfo"/> objects representing the files in the specified directory that match the specified search pattern, or an empty array if no files are found.</returns>
-    public static FileInfo[] GetFiles(DirectoryInfo directory, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null) =>
-        EnumerateFiles(directory, searchPattern, searchOption, exceptionHandler).ToArray();
+    public static FileInfo[] GetFiles(DirectoryInfo directory, string searchPattern = "*", SearchOption searchOption = SearchOption.AllDirectories, Action<Exception>? exceptionHandler = null)
+    {
+        return EnumerateFiles(directory, searchPattern, searchOption, exceptionHandler).ToArray();
+    }
 
     /// <summary>
     /// Returns an enumerable collection of files that match a search pattern in a specified path, and optionally searches subdirectories.
@@ -744,7 +810,10 @@ public static class FilePath
     /// <li>Any other character matches itself.</li>
     /// </ul>
     /// </remarks>
-    public static bool IsFilePatternMatch(string[] fileSpecs, string filePath, bool ignoreCase) => fileSpecs.Any(fileSpec => IsFilePatternMatch(fileSpec, filePath, ignoreCase));
+    public static bool IsFilePatternMatch(string[] fileSpecs, string filePath, bool ignoreCase)
+    {
+        return fileSpecs.Any(fileSpec => IsFilePatternMatch(fileSpec, filePath, ignoreCase));
+    }
 
     /// <summary>
     /// Determines whether the specified file name matches the given file spec (wild-cards are defined as '*' or '?' characters).
@@ -1015,22 +1084,20 @@ public static class FilePath
         //   FilePath.GetLastDirectoryName(@"C:\Test\sub") == "Test" <-- sub assumed to be filename
         //   FilePath.GetLastDirectoryName(@"C:\Test\sub\") == "sub" <-- sub assumed to be directory
 
-        if (!string.IsNullOrEmpty(filePath))
-        {
-            int index;
-            char[] dirVolChars = { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar };
+        if (string.IsNullOrEmpty(filePath))
+            throw new ArgumentNullException(nameof(filePath));
 
-            // Remove file name and trailing directory separator character from the file path.
-            filePath = RemovePathSuffix(GetDirectoryName(filePath));
+        int index;
+        char[] dirVolChars = { Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar, Path.VolumeSeparatorChar };
 
-            // Keep going through the file path until all directory separator characters are removed.
-            while ((index = filePath.IndexOfAny(dirVolChars)) > -1)
-                filePath = filePath[(index + 1)..];
+        // Remove file name and trailing directory separator character from the file path.
+        filePath = RemovePathSuffix(GetDirectoryName(filePath));
 
-            return filePath;
-        }
+        // Keep going through the file path until all directory separator characters are removed.
+        while ((index = filePath.IndexOfAny(dirVolChars)) > -1)
+            filePath = filePath[(index + 1)..];
 
-        throw new ArgumentNullException(nameof(filePath));
+        return filePath;
     }
 
     /// <summary>
@@ -1087,7 +1154,10 @@ public static class FilePath
     /// </summary>
     /// <param name="filePath">The file path whose root is to be removed.</param>
     /// <returns>The path with the root removed if it was present.</returns>
-    public static string DropPathRoot(string filePath) => string.IsNullOrEmpty(filePath) ? "" : filePath.Remove(0, Path.GetPathRoot(filePath)!.Length);
+    public static string DropPathRoot(string filePath)
+    {
+        return string.IsNullOrEmpty(filePath) ? "" : filePath.Remove(0, Path.GetPathRoot(filePath)!.Length);
+    }
 
     /// <summary>
     /// Returns a file name, for display purposes, of the specified length using "..." to indicate a longer name.
@@ -1383,10 +1453,6 @@ public static class FilePath
     }
 
     private static double SystemTimer => DateTime.UtcNow.Ticks / (double)TimeSpan.TicksPerSecond;
-
-    [DllImport("kernel32.dll", SetLastError = true, CharSet = CharSet.Unicode)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static extern bool GetDiskFreeSpaceEx(string lpDirectoryName, out ulong lpFreeBytesAvailable, out ulong lpTotalNumberOfBytes, out ulong lpTotalNumberOfFreeBytes);
 
     #endregion
 }
