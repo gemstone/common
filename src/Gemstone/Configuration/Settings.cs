@@ -63,6 +63,35 @@ public enum ConfigurationOperation
 /// <summary>
 /// Defines system settings for an application.
 /// </summary>
+/// <remarks>
+/// Configuration settings are loaded from common sources for a Gemstone project. The properties
+/// <see cref="INIFile"/>, <see cref="SQLite"/>, and <see cref="EnvironmentalVariables"/>
+/// control the configuration sources that are available and how they are managed. Handling of
+/// available settings are defined in a hierarchy where the settings are loaded are in the
+/// following priority order, from lowest to hightest:
+/// <list type="bullet">
+///   <item>INI file (defaults.ini) - Machine Level</item>
+///   <item>INI file (settings.ini) - Machine Level</item>
+///   <item>SQLite database (settings.db) - User Level</item>
+///   <item>Environment variables - Machine Level</item>
+///   <item>Environment variables - User Level</item>
+/// </list>
+/// Command line arguments can also be added to the hierarchy to override settings.
+/// For example:
+/// <code>
+///     Settings settings = new()
+///     {
+///         INIFile = ConfigurationOperation.ReadWrite,
+///         SQLite = ConfigurationOperation.Disabled         
+///     };
+/// 
+///     // Bind settings to configuration sources
+///     settings.Bind(new ConfigurationBuilder()
+///         .ConfigureGemstoneDefaults(settings)
+///         .AddCommandLine(args, settings.SwitchMappings));
+/// </code>
+/// See the <see cref="SwitchMappings"/> property for defining command line switches.
+/// </remarks>
 public class Settings : DynamicObject
 {
     /// <summary>
@@ -74,6 +103,7 @@ public class Settings : DynamicObject
     private readonly List<(string key, object? defaultValue, string description, string[]? switchMappings)> m_definedSettings = [];
     private readonly List<IConfigurationProvider> m_configurationProviders = [];
     private readonly ShortSynchronizedOperation m_saveOperation;
+    private readonly ConfigurationOperation m_environmentalVariables;
 
     /// <summary>
     /// Creates a new <see cref="Settings"/> instance.
@@ -85,24 +115,41 @@ public class Settings : DynamicObject
     }
 
     /// <summary>
-    /// Gets or sets the source <see cref="IConfiguration"/> for settings.
+    /// Gets the source <see cref="IConfiguration"/> for settings.
     /// </summary>
-    public IConfiguration? Configuration { get; set; }
+    public IConfiguration? Configuration { get; private set; }
 
     /// <summary>
-    /// Gets or sets flag that determines if INI file should be used for settings.
+    /// Gets or sets configuration operation mode for INI file settings.
     /// </summary>
-    public ConfigurationOperation INIFile { get; set; } = ConfigurationOperation.ReadOnly;
+    public ConfigurationOperation INIFile { get; init; } = ConfigurationOperation.ReadOnly;
 
     /// <summary>
-    /// Gets or sets flag that determines if SQLite should be used for settings.
+    /// Gets or sets configuration operation mode for SQLite settings.
     /// </summary>
-    public ConfigurationOperation SQLite { get; set; } = ConfigurationOperation.ReadWrite;
+    public ConfigurationOperation SQLite { get; init; } = ConfigurationOperation.ReadWrite;
 
     /// <summary>
-    /// Gets or sets flag that determines if INI description lines should be split into multiple lines.
+    /// Gets or sets configuration operation mode for environmental variables.
     /// </summary>
-    public bool SplitINIDescriptionLines { get; set; }
+    /// <exception cref="InvalidOperationException">Environmental variables cannot be used for read-write configuration operations.</exception>
+    public ConfigurationOperation EnvironmentalVariables
+    {
+        get => m_environmentalVariables;
+        init
+        {
+            if (value == ConfigurationOperation.ReadWrite)
+                throw new InvalidOperationException("Environmental variables cannot be used for read-write configuration operations.");
+
+            m_environmentalVariables = value;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets flag that determines if description lines, e.g., those encoded into an INI file,
+    /// should be split into multiple lines.
+    /// </summary>
+    public bool SplitDescriptionLines { get; init; }
 
     /// <summary>
     /// Gets the names for the settings sections.
@@ -278,7 +325,7 @@ public class Settings : DynamicObject
                         continue;
 
                     // Handle INI file as a special case, writing entire file contents on save
-                    string contents = Configuration!.GenerateINIFileContents(true, SplitINIDescriptionLines);
+                    string contents = Configuration!.GenerateINIFileContents(true, SplitDescriptionLines);
                     string iniFilePath = GetINIFilePath("settings.ini");
                     using TextWriter writer = GetINIFileWriter(iniFilePath);
                     writer.Write(contents);
