@@ -40,6 +40,27 @@ using static Gemstone.Configuration.INIConfigurationHelpers;
 namespace Gemstone.Configuration;
 
 /// <summary>
+/// Defines the operation mode for configuration settings.
+/// </summary>
+public enum ConfigurationOperation
+{
+    /// <summary>
+    /// Configuration settings are disabled.
+    /// </summary>
+    Disabled,
+
+    /// <summary>
+    /// Configuration settings are read-only.
+    /// </summary>
+    ReadOnly,
+    
+    /// <summary>
+    /// Configuration settings are read-write.
+    /// </summary>
+    ReadWrite
+}
+
+/// <summary>
 /// Defines system settings for an application.
 /// </summary>
 public class Settings : DynamicObject
@@ -71,12 +92,12 @@ public class Settings : DynamicObject
     /// <summary>
     /// Gets or sets flag that determines if INI file should be used for settings.
     /// </summary>
-    public bool UseINIFile { get; set; }
+    public ConfigurationOperation INIFile { get; set; } = ConfigurationOperation.ReadOnly;
 
     /// <summary>
     /// Gets or sets flag that determines if SQLite should be used for settings.
     /// </summary>
-    public bool UseSQLite { get; set; }
+    public ConfigurationOperation SQLite { get; set; } = ConfigurationOperation.ReadWrite;
 
     /// <summary>
     /// Gets or sets flag that determines if INI description lines should be split into multiple lines.
@@ -253,7 +274,7 @@ public class Settings : DynamicObject
             {
                 if (provider is ReadOnlyConfigurationProvider readOnlyProvider)
                 {
-                    if (readOnlyProvider.Provider is not IniConfigurationProvider)
+                    if (readOnlyProvider.Provider is not IniConfigurationProvider || INIFile != ConfigurationOperation.ReadWrite)
                         continue;
 
                     // Handle INI file as a special case, writing entire file contents on save
@@ -264,6 +285,9 @@ public class Settings : DynamicObject
                 }
                 else
                 {
+                    if (provider.GetType().Name.Equals("SQLiteConfigurationProvider") && SQLite != ConfigurationOperation.ReadWrite)
+                        continue;
+
                     foreach (SettingsSection section in m_sections.Values)
                     {
                         if (!section.IsDirty)
