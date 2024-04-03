@@ -1,7 +1,7 @@
 ﻿//******************************************************************************************************
-//  HashAlgorithmExtensions.cs - Gbtc
+//  IAppSettingsBuilder.cs - Gbtc
 //
-//  Copyright © 2022, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2023, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,32 +16,34 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  01/03/2020 - J. Ritchie Carroll
+//  06/13/2020 - Stephen C. Wills
 //       Generated original version of source code.
 //
 //******************************************************************************************************
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Collections.Generic;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
-
-/// <summary>
-/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
-/// </summary>
-public static class HashAlgorithmExtensions
+namespace Gemstone.Configuration.AppSettings
 {
     /// <summary>
-    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
+    /// Builder for app settings with descriptions.
     /// </summary>
-    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-    /// <param name="value">String value to hash.</param>
-    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-    public static string GetStringHash(this HashAlgorithm algorithm, string? value)
+    public interface IAppSettingsBuilder
     {
-        return string.IsNullOrEmpty(value)
-            ? string.Empty
-            : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
+        /// <summary>
+        /// Adds an app setting to the builder.
+        /// </summary>
+        /// <param name="name">The name of the setting.</param>
+        /// <param name="value">The value of the setting.</param>
+        /// <param name="description">A description of the setting.</param>
+        /// <returns>The app settings builder.</returns>
+        /// <exception cref="System.ArgumentException"><paramref name="name"/> is a duplicate of a previously added app setting</exception>
+        public IAppSettingsBuilder Add(string name, string value, string description);
+
+        /// <summary>
+        /// Converts the app settings into a collection of key/value pairs.
+        /// </summary>
+        /// <returns>The collection of key/value pairs.</returns>
+        public IEnumerable<KeyValuePair<string, string>> Build();
     }
 }

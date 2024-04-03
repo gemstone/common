@@ -46,8 +46,10 @@
 
 using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Gemstone.Console;
@@ -85,6 +87,8 @@ public enum UpdateType
 /// </summary>
 public static class Common
 {
+    private static string? s_applicationName;
+
     /// <summary>
     /// Determines if the current system is a POSIX style environment.
     /// </summary>
@@ -95,11 +99,18 @@ public static class Common
     /// </para>
     /// <para>
     /// This property will return <c>true</c> for both MacOSX and Unix environments. Use the Platform property
-    /// of the <see cref="System.Environment.OSVersion"/> to determine more specific platform type, e.g., 
+    /// of the <see cref="Environment.OSVersion"/> to determine more specific platform type, e.g., 
     /// MacOSX or Unix.
     /// </para>
     /// </remarks>        
     public static readonly bool IsPosixEnvironment = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+
+    /// <summary>
+    /// Gets the name of the current application.
+    /// </summary>
+    public static string ApplicationName =>
+        s_applicationName ??= Assembly.GetEntryAssembly()?.GetName().Name ?? Process.GetCurrentProcess().ProcessName;
 
     /// <summary>
     /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.

@@ -1,7 +1,7 @@
 ﻿//******************************************************************************************************
-//  HashAlgorithmExtensions.cs - Gbtc
+//  NamespaceDoc.cs - Gbtc
 //
-//  Copyright © 2022, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2019, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,32 +16,21 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  01/03/2020 - J. Ritchie Carroll
+//  10/14/2019 - J. Ritchie Carroll
 //       Generated original version of source code.
 //
 //******************************************************************************************************
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Runtime.CompilerServices;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
+namespace Gemstone.Threading.SynchronizedOperations;
 
 /// <summary>
-/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
+/// The <see cref="Gemstone.Threading.SynchronizedOperations"/> namespace provides classes and interfaces for
+/// synchronized operations, which are operations that cannot run while another is already in progress, e.g.,
+/// <see cref="ShortSynchronizedOperation"/> and <see cref="LongSynchronizedOperation"/>.
 /// </summary>
-public static class HashAlgorithmExtensions
+[CompilerGenerated]
+internal class NamespaceDoc
 {
-    /// <summary>
-    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
-    /// </summary>
-    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-    /// <param name="value">String value to hash.</param>
-    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-    public static string GetStringHash(this HashAlgorithm algorithm, string? value)
-    {
-        return string.IsNullOrEmpty(value)
-            ? string.Empty
-            : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
-    }
 }

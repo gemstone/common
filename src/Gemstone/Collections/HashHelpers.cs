@@ -85,14 +85,14 @@ internal static class HashHelpers
             
             for (int divisor = 3; divisor <= limit; divisor += 2)
             {
-                if ((candidate % divisor) == 0)
+                if (candidate % divisor == 0)
                     return false;
             }
             
             return true;
         }
         
-        return (candidate == 2);
+        return candidate == 2;
     }
 
     public static int GetPrime(int min)
@@ -110,9 +110,9 @@ internal static class HashHelpers
 
         // outside of our predefined table. 
         // compute the hard way. 
-        for (int i = (min | 1); i < int.MaxValue; i += 2)
+        for (int i = min | 1; i < int.MaxValue; i += 2)
         {
-            if (IsPrime(i) && ((i - 1) % HashPrime != 0))
+            if (IsPrime(i) && (i - 1) % HashPrime != 0)
                 return i;
         }
         

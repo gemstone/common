@@ -60,6 +60,21 @@ namespace Gemstone.ArrayExtensions;
 public static class ArrayExtensions
 {
     /// <summary>
+    /// Zero the given buffer in a way that will not be optimized away.
+    /// </summary>
+    /// <param name="buffer">Buffer to zero.</param>
+    /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
+    public static void Zero<T>(this T[] buffer)
+    {
+        if (buffer == null)
+            throw new ArgumentNullException(nameof(buffer));
+
+        // Zero buffer
+        for (int i = 0; i < buffer.Length; i++)
+            buffer[i] = default!;
+    }
+
+    /// <summary>
     /// Validates that the specified <paramref name="startIndex"/> and <paramref name="length"/> are valid within the given <paramref name="array"/>.
     /// </summary>
     /// <param name="array">Array to validate.</param>
@@ -101,7 +116,7 @@ public static class ArrayExtensions
     /// <param name="array">Source array.</param>
     /// <param name="startIndex">Offset into <paramref name="array"/> array.</param>
     /// <param name="length">Length of <paramref name="array"/> array to copy at <paramref name="startIndex"/> offset.</param>
-    /// <returns>A array of data copied from the specified portion of the source array.</returns>
+    /// <returns>An array of data copied from the specified portion of the source array.</returns>
     /// <remarks>
     /// <para>
     /// Returned array will be extended as needed to make it the specified <paramref name="length"/>, but
@@ -272,7 +287,10 @@ public static class ArrayExtensions
     /// </para>
     /// </remarks>
     /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
-    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2) => new[] { source, other1, other2 }.Combine();
+    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2)
+    {
+        return new[] { source, other1, other2 }.Combine();
+    }
 
     /// <summary>
     /// Combines arrays together into a single array.
@@ -294,7 +312,10 @@ public static class ArrayExtensions
     /// </para>
     /// </remarks>
     /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
-    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3) => new[] { source, other1, other2, other3 }.Combine();
+    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3)
+    {
+        return new[] { source, other1, other2, other3 }.Combine();
+    }
 
     /// <summary>
     /// Combines arrays together into a single array.
@@ -317,7 +338,10 @@ public static class ArrayExtensions
     /// </para>
     /// </remarks>
     /// <typeparam name="T"><see cref="Type"/> of array.</typeparam>
-    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3, T[] other4) => new[] { source, other1, other2, other3, other4 }.Combine();
+    public static T[] Combine<T>(this T[] source, T[] other1, T[] other2, T[] other3, T[] other4)
+    {
+        return new[] { source, other1, other2, other3, other4 }.Combine();
+    }
 
     /// <summary>
     /// Combines array of arrays together into a single array.
@@ -447,33 +471,33 @@ public static class ArrayExtensions
         // Search for first item in the sequence, if this doesn't exist then sequence doesn't exist
         int index = Array.IndexOf(array, sequenceToFind[0], startIndex, length);
 
-        if (sequenceToFind.Length > 1)
+        if (sequenceToFind.Length <= 1)
+            return index;
+
+        bool foundSequence = false;
+
+        while (index > -1 && !foundSequence)
         {
-            bool foundSequence = false;
-
-            while (index > -1 && !foundSequence)
+            // See if next bytes in sequence match
+            for (int x = 1; x < sequenceToFind.Length; x++)
             {
-                // See if next bytes in sequence match
-                for (int x = 1; x < sequenceToFind.Length; x++)
+                // Make sure there's enough array remaining to accommodate this item
+                if (index + x < startIndex + length)
                 {
-                    // Make sure there's enough array remaining to accommodate this item
-                    if (index + x < startIndex + length)
+                    // If sequence doesn't match, search for next first-item
+                    if (array[index + x].CompareTo(sequenceToFind[x]) != 0)
                     {
-                        // If sequence doesn't match, search for next first-item
-                        if (array[index + x].CompareTo(sequenceToFind[x]) != 0)
-                        {
-                            index = Array.IndexOf(array, sequenceToFind[0], index + 1, startIndex + length - (index + 1));
-                            break;
-                        }
+                        index = Array.IndexOf(array, sequenceToFind[0], index + 1, startIndex + length - (index + 1));
+                        break;
+                    }
 
-                        // If each item to find matched, we found the sequence
-                        foundSequence = x == sequenceToFind.Length - 1;
-                    }
-                    else
-                    {
-                        // Ran out of array, return -1
-                        index = -1;
-                    }
+                    // If each item to find matched, we found the sequence
+                    foundSequence = x == sequenceToFind.Length - 1;
+                }
+                else
+                {
+                    // Ran out of array, return -1
+                    index = -1;
                 }
             }
         }
@@ -566,11 +590,11 @@ public static class ArrayExtensions
         if (index < 0)
             return 0;
 
-        // Occurances counter
+        // Occurrences counter
         int foundCount = 0;
 
         // Search when the first array element is found, and the sequence can fit in the search range
-        bool searching = (index > -1) && (sequenceToCount.Length <= startIndex + searchLength - index);
+        bool searching = sequenceToCount.Length <= startIndex + searchLength - index;
 
         while (searching)
         {
@@ -595,7 +619,7 @@ public static class ArrayExtensions
             }
 
             // Continue searching if the array remaining can accommodate the sequence to find
-            searching = (index > -1) && (sequenceToCount.Length <= startIndex + searchLength - index);
+            searching = index > -1 && sequenceToCount.Length <= startIndex + searchLength - index;
         }
 
         return foundCount;
@@ -653,7 +677,7 @@ public static class ArrayExtensions
         int length1 = source.Length;
         int length2 = other.Length;
 
-        // If array lengths are unequal, array with largest number of elements is assumed to be largest
+        // If array lengths are unequal, array with the largest number of elements is assumed to be largest
         if (length1 != length2)
             return length1.CompareTo(length2);
 
@@ -787,7 +811,10 @@ public static class ArrayExtensions
     /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
     /// iterate over the combined buffers.
     /// </remarks>
-    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2) => new[] { source, other1, other2 }.Combine();
+    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2)
+    {
+        return new[] { source, other1, other2 }.Combine();
+    }
 
     /// <summary>
     /// Combines buffers together as a single image.
@@ -803,7 +830,10 @@ public static class ArrayExtensions
     /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
     /// iterate over the combined buffers.
     /// </remarks>
-    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3) => new[] { source, other1, other2, other3 }.Combine();
+    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3)
+    {
+        return new[] { source, other1, other2, other3 }.Combine();
+    }
 
     /// <summary>
     /// Combines buffers together as a single image.
@@ -820,7 +850,10 @@ public static class ArrayExtensions
     /// to use the Linq function <see cref="Enumerable.Concat{T}"/> if you simply need to
     /// iterate over the combined buffers.
     /// </remarks>
-    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3, byte[] other4) => new[] { source, other1, other2, other3, other4 }.Combine();
+    public static byte[] Combine(this byte[] source, byte[] other1, byte[] other2, byte[] other3, byte[] other4)
+    {
+        return new[] { source, other1, other2, other3, other4 }.Combine();
+    }
 
     /// <summary>
     /// Combines an array of buffers together as a single image.

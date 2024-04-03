@@ -652,10 +652,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     {
         return obj switch
         {
-            long lng => (Value == lng),
-            Ticks ticks => (Value == ticks.Value),
-            DateTime dateTime => (Value == dateTime.Ticks),
-            TimeSpan timeSpan => (Value == timeSpan.Ticks),
+            long lng => Value == lng,
+            Ticks ticks => Value == ticks.Value,
+            DateTime dateTime => Value == dateTime.Ticks,
+            TimeSpan timeSpan => Value == timeSpan.Ticks,
             _ => false
         };
     }

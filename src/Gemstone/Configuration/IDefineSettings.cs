@@ -1,7 +1,7 @@
 ﻿//******************************************************************************************************
-//  HashAlgorithmExtensions.cs - Gbtc
+//  IDefineSettings.cs - Gbtc
 //
-//  Copyright © 2022, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2024, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,32 +16,26 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  01/03/2020 - J. Ritchie Carroll
+//  03/28/2024 - Ritchie Carroll
 //       Generated original version of source code.
 //
 //******************************************************************************************************
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
+namespace Gemstone.Configuration;
 
 /// <summary>
-/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
+/// Defines as interface that specifies that this object can define settings for a config file.
 /// </summary>
-public static class HashAlgorithmExtensions
+public interface IDefineSettings
 {
     /// <summary>
-    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
+    /// Establishes default settings for the config file.
     /// </summary>
-    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-    /// <param name="value">String value to hash.</param>
-    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-    public static string GetStringHash(this HashAlgorithm algorithm, string? value)
-    {
-        return string.IsNullOrEmpty(value)
-            ? string.Empty
-            : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
-    }
+    /// <param name="settings">Settings instance used to hold configuration.</param>
+    /// <param name="settingsCategory">The config file settings category under which the settings are defined.</param>
+#if NET
+    static abstract void DefineSettings(Settings settings, string settingsCategory);
+#else
+    static void DefineSettings(Settings settings, string settingsCategory) { }
+#endif    
 }

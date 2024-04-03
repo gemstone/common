@@ -120,20 +120,20 @@ public static class FilePath
     /// <summary>
     /// Connects to a network share with the specified user's credentials.
     /// </summary>
-    /// <param name="sharename">UNC share name to connect to.</param>
-    /// <param name="userName">User name to use for connection.</param>
+    /// <param name="shareName">UNC share name to connect to.</param>
+    /// <param name="userName">Username to use for connection.</param>
     /// <param name="password">Password to use for connection.</param>
     /// <param name="domain">Domain name to use for connection. Specify the computer name for local system accounts.</param>
-    public static void ConnectToNetworkShare(string sharename, string userName, string password, string domain)
+    public static void ConnectToNetworkShare(string shareName, string userName, string password, string domain)
     {
         // TODO: Add #include <sys/mount.h> implementation for POSIX environment, see Gemstone.POSIX library
         if (IsPosixEnvironment)
-            throw new NotImplementedException("Failed to connect to network share \"" + sharename + "\" as user " + userName + " - not implemented in POSIX environment");
+            throw new NotImplementedException("Failed to connect to network share \"" + shareName + "\" as user " + userName + " - not implemented in POSIX environment");
 
         NETRESOURCE resource = new()
         {
             dwType = RESOURCETYPE_DISK, 
-            lpRemoteName = sharename
+            lpRemoteName = shareName
         };
 
         if (domain.Length > 0)
@@ -142,33 +142,33 @@ public static class FilePath
         int result = WNetAddConnection2(ref resource, password, userName, 0);
 
         if (result != 0)
-            throw new InvalidOperationException("Failed to connect to network share \"" + sharename + "\" as user " + userName + " - " + WindowsApi.GetErrorMessage(result));
+            throw new InvalidOperationException("Failed to connect to network share \"" + shareName + "\" as user " + userName + " - " + WindowsApi.GetErrorMessage(result));
     }
 
     /// <summary>
     /// Disconnects the specified network share.
     /// </summary>
-    /// <param name="sharename">UNC share name to disconnect from.</param>
-    public static void DisconnectFromNetworkShare(string sharename)
+    /// <param name="shareName">UNC share name to disconnect from.</param>
+    public static void DisconnectFromNetworkShare(string shareName)
     {
-        DisconnectFromNetworkShare(sharename, true);
+        DisconnectFromNetworkShare(shareName, true);
     }
 
     /// <summary>
     /// Disconnects the specified network share.
     /// </summary>
-    /// <param name="sharename">UNC share name to disconnect from.</param>
+    /// <param name="shareName">UNC share name to disconnect from.</param>
     /// <param name="force"><c>true</c> to force a disconnect; otherwise <c>false</c>.</param>
-    public static void DisconnectFromNetworkShare(string sharename, bool force)
+    public static void DisconnectFromNetworkShare(string shareName, bool force)
     {
         // TODO: Add #include <sys/mount.h> implementation for POSIX environment, see Gemstone.POSIX library
         if (IsPosixEnvironment)
-            throw new NotImplementedException("Failed to disconnect from network share \"" + sharename + "\" - not implemented in POSIX environment");
+            throw new NotImplementedException("Failed to disconnect from network share \"" + shareName + "\" - not implemented in POSIX environment");
 
-        int result = WNetCancelConnection2(sharename, 0, force);
+        int result = WNetCancelConnection2(shareName, 0, force);
 
         if (result != 0)
-            throw new InvalidOperationException("Failed to disconnect from network share \"" + sharename + "\" - " + WindowsApi.GetErrorMessage(result));
+            throw new InvalidOperationException("Failed to disconnect from network share \"" + shareName + "\" - " + WindowsApi.GetErrorMessage(result));
     }
 
     /// <summary>

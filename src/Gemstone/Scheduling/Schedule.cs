@@ -109,7 +109,7 @@ public class Schedule : IProvideStatus
     /// Initializes a new instance of the <see cref="Schedule"/> class.
     /// </summary>
     public Schedule()
-        : this($"Schedule{(++s_instances)}")
+        : this($"Schedule{++s_instances}")
     {
     }
 
@@ -486,7 +486,7 @@ public class Schedule : IProvideStatus
             ? DateTimeKind.Local
             : DateTimeKind.Utc;
 
-        DateTime specifiedDateTime = (dateTime.Kind == DateTimeKind.Unspecified)
+        DateTime specifiedDateTime = dateTime.Kind == DateTimeKind.Unspecified
             ? DateTime.SpecifyKind(dateTime, targetKind)
             : dateTime;
 

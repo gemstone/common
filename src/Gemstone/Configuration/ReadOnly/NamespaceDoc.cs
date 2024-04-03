@@ -1,7 +1,7 @@
 ﻿//******************************************************************************************************
-//  HashAlgorithmExtensions.cs - Gbtc
+//  NamespaceDoc.cs - Gbtc
 //
-//  Copyright © 2022, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2023, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,32 +16,24 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  01/03/2020 - J. Ritchie Carroll
+//  06/14/2020 - Stephen C. Wills
 //       Generated original version of source code.
 //
 //******************************************************************************************************
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Configuration;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
-
-/// <summary>
-/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
-/// </summary>
-public static class HashAlgorithmExtensions
+namespace Gemstone.Configuration.ReadOnly
 {
     /// <summary>
-    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
+    /// The <see cref="ReadOnly"/> namespace contains a wrapper for
+    /// <see cref="IConfigurationSource"/> to prevent calls to
+    /// <see cref="IConfigurationProvider.Set(string, string)"/> from
+    /// reaching the underlying <see cref="IConfigurationProvider"/>.
     /// </summary>
-    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-    /// <param name="value">String value to hash.</param>
-    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-    public static string GetStringHash(this HashAlgorithm algorithm, string? value)
+    [CompilerGenerated]
+    class NamespaceDoc
     {
-        return string.IsNullOrEmpty(value)
-            ? string.Empty
-            : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
     }
 }

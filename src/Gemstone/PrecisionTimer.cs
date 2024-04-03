@@ -319,16 +319,16 @@ public class PrecisionTimer : IDisposable
         get
         {
             if (m_disposed)
-                throw (new ObjectDisposedException("PrecisionTimer"));
+                throw new ObjectDisposedException("PrecisionTimer");
 
-            return (m_mode == TimerMode.Periodic);
+            return m_mode == TimerMode.Periodic;
         }
         set
         {
             if (m_disposed)
-                throw (new ObjectDisposedException("PrecisionTimer"));
+                throw new ObjectDisposedException("PrecisionTimer");
 
-            m_mode = (value ? TimerMode.Periodic : TimerMode.OneShot);
+            m_mode = value ? TimerMode.Periodic : TimerMode.OneShot;
 
             if (IsRunning && m_mode == TimerMode.Periodic)
             {
@@ -427,7 +427,7 @@ public class PrecisionTimer : IDisposable
             try
             {
                 m_timer.Interval = m_period;
-                m_timer.AutoReset = (m_mode == TimerMode.Periodic);
+                m_timer.AutoReset = m_mode == TimerMode.Periodic;
                 m_timer.Start();
 
                 m_running = true;

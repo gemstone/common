@@ -46,6 +46,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using Gemstone.IO;
 using Gemstone.Reflection.AssemblyExtensions;
 
@@ -57,7 +59,22 @@ namespace Gemstone.TypeExtensions;
 public static class TypeExtensions
 {
     // Native data types that represent numbers
-    private static readonly Type[] s_numericTypes = { typeof(sbyte), typeof(byte), typeof(short), typeof(ushort), typeof(int), typeof(uint), typeof(long), typeof(ulong), typeof(float), typeof(double), typeof(decimal) };
+    private static readonly Type[] s_numericTypes =
+    {
+        typeof(sbyte), 
+        typeof(byte), 
+        typeof(short), 
+        typeof(ushort), 
+        typeof(int), 
+        typeof(uint), 
+        typeof(long), 
+        typeof(ulong), 
+        typeof(float), 
+        typeof(double), 
+        typeof(decimal)
+    };
+
+    private static readonly Regex s_validCSharpIdentifierRegex = new(@"[\p{Lu}\p{Ll}\p{Lt}\p{Lm}\p{Lo}\p{Nl}\p{Nd}\p{Pc}\p{Mn}\p{Mc}\p{Cf}]", RegexOptions.Compiled);
 
     /// <summary>
     /// Determines if the specified type is a native structure that represents a numeric value.
@@ -117,6 +134,91 @@ public static class TypeExtensions
 
             type = type.BaseType;
         }
+    }
+
+    /// <summary>
+    /// Gets a C#-compatible proper type name, resolving generic type names using reflection with no backticks (`), for the specified <paramref name="type"/>.
+    /// </summary>
+    /// <param name="type">The <see cref="Type"/> whose name is to be resolved.</param>
+    /// <param name="includeNamespaces">Flag that indicates if namespaces should be included in the type name.</param>
+    /// <returns>
+    /// A C#-compatible proper type name, resolving generic type names using reflection with no backticks (`), for the specified <paramref name="type"/>.
+    /// </returns>
+    /// <remarks>
+    /// This method will return a C#-compatible proper type name, resolving generic type names using reflection, which creates a valid,
+    /// usable type name versus what <see cref="Type.FullName"/> returns. For example, <see cref="Type.FullName"/> will return something like:
+    /// <c>System.Collections.Generic.List`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]</c>
+    /// with a backtick (`) to indicate a generic type and noisy assembly info. Even <c>Type.Name</c> returns <c>List`1</c> with a backtick (`). For the
+    /// same type, this method would instead return: <c>System.Collections.Generic.List&lt;System.String&gt;</c> which is a valid, usable C# type name.
+    /// You can also set the <paramref name="includeNamespaces"/> parameter to <c>false</c> to remove namespaces from the type name, which yields:
+    /// <c>List&lt;String&gt;</c> for the same example.
+    /// </remarks>
+    public static string GetReflectedTypeName(this Type type, bool includeNamespaces = true)
+    {
+        return type.GetReflectedTypeName(includeNamespaces, null, null);
+    }
+
+    private static string GetReflectedTypeName(this Type type, bool includeNamespaces, Stack<Type>? genericArgs, StringBuilder? arrayBrackets)
+    {
+        StringBuilder code = new();
+        Type? declaringType = type.DeclaringType;
+        bool arrayBracketsWasNull = arrayBrackets == null;
+
+        genericArgs ??= new Stack<Type>(type.GetGenericArguments());
+
+        int currentTypeGenericArgsCount = genericArgs.Count;
+
+        if (declaringType != null)
+            currentTypeGenericArgsCount -= declaringType.GetGenericArguments().Length;
+
+        Type[] currentTypeGenericArgs = new Type[currentTypeGenericArgsCount];
+
+        for (int i = currentTypeGenericArgsCount - 1; i >= 0; i--)
+            currentTypeGenericArgs[i] = genericArgs.Pop();
+
+        if (declaringType != null)
+            code.Append(declaringType.GetReflectedTypeName(includeNamespaces, genericArgs, null)).Append('.');
+
+        if (type.IsArray)
+        {
+            arrayBrackets ??= new StringBuilder();
+            arrayBrackets.Append('[');
+            arrayBrackets.Append(',', type.GetArrayRank() - 1);
+            arrayBrackets.Append(']');
+
+            Type elementType = type.GetElementType()!;
+            code.Insert(0, elementType.GetReflectedTypeName(includeNamespaces, null, arrayBrackets));
+        }
+        else
+        {
+            static bool isValidCSharpIdentifier(char identifier) =>
+                s_validCSharpIdentifierRegex.IsMatch(identifier.ToString());
+
+            code.Append(new string(type.Name.TakeWhile(isValidCSharpIdentifier).ToArray()));
+
+            if (currentTypeGenericArgsCount > 0)
+            {
+                code.Append('<');
+
+                for (int i = 0; i < currentTypeGenericArgsCount; i++)
+                {
+                    code.Append(currentTypeGenericArgs[i].GetReflectedTypeName(includeNamespaces, null, null));
+
+                    if (i < currentTypeGenericArgsCount - 1)
+                        code.Append(',');
+                }
+
+                code.Append('>');
+            }
+
+            if (declaringType == null && !string.IsNullOrEmpty(type.Namespace) && includeNamespaces)
+                code.Insert(0, '.').Insert(0, type.Namespace);
+        }
+
+        if (arrayBracketsWasNull && arrayBrackets != null)
+            code.Append(arrayBrackets);
+
+        return code.ToString();
     }
 
     /// <summary>

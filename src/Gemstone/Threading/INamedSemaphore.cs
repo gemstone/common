@@ -1,7 +1,7 @@
 ﻿//******************************************************************************************************
-//  HashAlgorithmExtensions.cs - Gbtc
+//  INamedSemaphore.cs - Gbtc
 //
-//  Copyright © 2022, Grid Protection Alliance.  All Rights Reserved.
+//  Copyright © 2023, Grid Protection Alliance.  All Rights Reserved.
 //
 //  Licensed to the Grid Protection Alliance (GPA) under one or more contributor license agreements. See
 //  the NOTICE file distributed with this work for additional information regarding copyright ownership.
@@ -16,32 +16,44 @@
 //
 //  Code Modification History:
 //  ----------------------------------------------------------------------------------------------------
-//  01/03/2020 - J. Ritchie Carroll
+//  11/09/2023 - Ritchie Carroll
 //       Generated original version of source code.
 //
 //******************************************************************************************************
+// ReSharper disable UnusedMember.Global
 
 using System;
-using System.Security.Cryptography;
-using System.Text;
+using Microsoft.Win32.SafeHandles;
 
-namespace Gemstone.Security.Cryptography.HashAlgorithmExtensions;
-
-/// <summary>
-/// Defines extension functions related to cryptographic <see cref="HashAlgorithm"/> objects.
-/// </summary>
-public static class HashAlgorithmExtensions
+namespace Gemstone.Threading
 {
-    /// <summary>
-    /// Gets the Base64 encoded hash of the provided string <paramref name="value"/>.
-    /// </summary>
-    /// <param name="algorithm"><see cref="SymmetricAlgorithm"/> to use for encryption.</param>
-    /// <param name="value">String value to hash.</param>
-    /// <returns>Base64 encoded hash of provided string <paramref name="value"/>.</returns>
-    public static string GetStringHash(this HashAlgorithm algorithm, string? value)
+    internal enum OpenExistingResult
     {
-        return string.IsNullOrEmpty(value)
-            ? string.Empty
-            : Convert.ToBase64String(algorithm.ComputeHash(Encoding.UTF8.GetBytes(value)));
+        Success,
+        NameNotFound,
+        NameInvalid,
+        PathTooLong,
+        AccessDenied
+    }
+
+    internal interface INamedSemaphore : IDisposable
+    {
+        SafeWaitHandle? SafeWaitHandle { get; set; }
+
+        void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew);
+
+        int ReleaseCore(int releaseCount);
+
+        void Close();
+
+        bool WaitOne();
+
+        bool WaitOne(TimeSpan timeout);
+
+        bool WaitOne(int millisecondsTimeout);
+
+        bool WaitOne(TimeSpan timeout, bool exitContext);
+
+        bool WaitOne(int millisecondsTimeout, bool exitContext);
     }
 }

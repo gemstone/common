@@ -323,7 +323,7 @@ public class Arguments : IEnumerable<KeyValuePair<string, string>>, ISerializabl
     /// <summary>
     /// Gets a boolean value that indicates whether the command-line command contains request for displaying help.
     /// </summary>
-    public virtual bool ContainsHelpRequest => (m_arguments.ContainsKey("?") || m_arguments.ContainsKey("Help"));
+    public virtual bool ContainsHelpRequest => m_arguments.ContainsKey("?") || m_arguments.ContainsKey("Help");
 
     /// <summary>
     /// Gets the dictionary containing all of the arguments present in the command-line command.

@@ -123,10 +123,7 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </summary>
     public string FileName
     {
-        get
-        {
-            return m_fileName;
-        }
+        get => m_fileName;
         set
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -227,7 +224,9 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
     protected virtual void Dispose(bool disposing)
     {
-        if (IsDisposed) return;
+        if (IsDisposed)
+            return;
+
         try
         {
             if (disposing)
@@ -334,7 +333,7 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     }
 
     /// <summary>
-    /// Writes the run-time log - times are in a human readable format.
+    /// Writes the run-time log - times are in a human-readable format.
     /// </summary>
     protected void WriteLog()
     {
