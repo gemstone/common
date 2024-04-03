@@ -120,7 +120,7 @@ public class SettingsSection : DynamicObject
                 updatedValue = value;
             }
 
-            if (!m_keyValues.TryGetValue(key, out object? currentValue) || currentValue != updatedValue)
+            if (!m_keyValues.TryGetValue(key, out object? currentValue) || !currentValue.Equals(updatedValue))
             {
                 m_keyValues[key] = updatedValue;
                 IsDirty = true;
