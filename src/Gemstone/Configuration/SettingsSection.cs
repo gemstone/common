@@ -25,6 +25,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Dynamic;
 using System.Linq;
+using Gemstone.StringExtensions;
 using Gemstone.TypeExtensions;
 using Microsoft.Extensions.Configuration;
 
@@ -187,8 +188,8 @@ public class SettingsSection : DynamicObject
 
         // This allows dynamic access to section values with ability to add default values, descriptions and switch mappings
         // For example:
-        //     string hostURLs = settings.Web["HostURLs", "http://localhost:8180", "Defines the URLs the hosted service will listen on.", "-u"]
-        //     string hostCertificate = settings.Web["HostCertificate", "", "Defines the certificate used to host the service.", "-s"]
+        //     string hostURLs = settings.Web["HostURLs", "http://localhost:8180", "Defines the URLs the hosted service will listen on.", "-u", "--HostURLs"]
+        //     string hostCertificate = settings.Web["HostCertificate", "", "Defines the certificate used to host the service.", "-s", "--HostCertificate"]
         switch (indexes.Length)
         {
             case 1:
@@ -265,8 +266,9 @@ public class SettingsSection : DynamicObject
     /// type will always be <see cref="string"/>.
     /// </para>
     /// <para>
-    /// Common C# names like <c>long</c> and <c>DateTime</c> can be used as type names, these will not be
-    /// case-sensitive. Custom type names will be case-sensitive and require a full type name.
+    /// Common C# names like <c>long</c> and <c>DateTime</c> can be used as type names as well as custom type names.
+    /// Custom type names require the full type name with a namespace, e.g.: <c>[MyNamespace.MyType]:TypeValue</c>.
+    /// Type name lookups are not case-sensitive.
     /// </para>
     /// </remarks>
     public static (Type type, object value, bool typePrefixed) FromTypedValue(string? setting)
@@ -318,7 +320,11 @@ public class SettingsSection : DynamicObject
         // Parse custom type names - custom names will be case-sensitive and require full type name
         (Type, object, bool) getParsedTypeAndValue()
         {
-            Type parsedType = Type.GetType(typeName, true) ?? throw new InvalidOperationException($"Failed to load type \"{typeName}\".");
+            // Add assumed assembly name to type name if only a type name is provided
+            if (!typeName.Contains(',') && typeName.CharCount('.') > 1) 
+                typeName = $"{typeName}, {typeName[..typeName.IndexOf('.', typeName.IndexOf('.') + 1)]}";
+
+            Type parsedType = Type.GetType(typeName, true, true) ?? throw new InvalidOperationException($"Failed to load type \"{typeName}\".");
             object parsedValue = Common.TypeConvertFromString(value, parsedType) ?? Activator.CreateInstance(parsedType) ?? string.Empty;
 
             return (parsedType, parsedValue, true);
