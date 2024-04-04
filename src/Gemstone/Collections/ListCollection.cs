@@ -135,21 +135,27 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// </summary>
     /// <param name="item">The object to add to the <see cref="ICollection{T}"/>.</param>
     /// <exception cref="NotSupportedException">The <see cref="ICollection{T}"/> is read-only.</exception>
-    public new void Add(T item) => 
+    public new void Add(T item)
+    {
         InsertItem(m_list.Count, item);
+    }
 
     /// <summary>
     /// Removes all items from the <see cref="ICollection{T}"/>.
     /// </summary>
     /// <exception cref="NotSupportedException">The <see cref="ICollection{T}"/> is read-only. </exception>
-    public new void Clear() => 
+    public new void Clear()
+    {
         ClearItems();
+    }
 
     /// <summary>
     /// Removes all elements from the <see cref="Collection{T}"/>.
     /// </summary>
-    protected override void ClearItems() => 
+    protected override void ClearItems()
+    {
         m_list.Clear();
+    }
 
     /// <summary>
     /// Determines whether the <see cref="ICollection{T}"/> contains a specific value.
@@ -158,8 +164,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// true if <paramref name="item"/> is found in the <see cref="ICollection{T}"/>; otherwise, false.
     /// </returns>
     /// <param name="item">The object to locate in the <see cref="ICollection{T}"/>.</param>
-    public new bool Contains(T item) => 
-        m_list.Contains(item);
+    public new bool Contains(T item)
+    {
+        return m_list.Contains(item);
+    }
 
     /// <summary>
     /// Copies the elements of the <see cref="ICollection{T}"/> to an <see cref="Array"/>, starting at a particular <see cref="Array"/> index.
@@ -171,8 +179,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <exception cref="ArgumentNullException"><paramref name="array"/> is null.</exception>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than 0.</exception>
     /// <exception cref="ArgumentException">The number of elements in the source <see cref="ICollection{T}"/> is greater than the available space from <paramref name="index"/> to the end of the destination <paramref name="array"/>.</exception>
-    public new void CopyTo(T[] array, int index) => 
+    public new void CopyTo(T[] array, int index)
+    {
         m_list.CopyTo(array, index);
+    }
 
     /// <summary>
     /// Returns an enumerator that iterates through the <see cref="Collection{T}"/>.
@@ -180,8 +190,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <returns>
     /// An <see cref="IEnumerator{T}"/> for the <see cref="Collection{T}"/>.
     /// </returns>
-    public new List<T>.Enumerator GetEnumerator() => 
-        m_list.GetEnumerator();
+    public new List<T>.Enumerator GetEnumerator()
+    {
+        return m_list.GetEnumerator();
+    }
 
     /// <summary>
     /// Determines the index of a specific item in the <see cref="IList{T}"/>.
@@ -190,8 +202,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// The index of <paramref name="item"/> if found in the list; otherwise, -1.
     /// </returns>
     /// <param name="item">The object to locate in the <see cref="IList{T}"/>.</param>
-    public new int IndexOf(T item) => 
-        m_list.IndexOf(item);
+    public new int IndexOf(T item)
+    {
+        return m_list.IndexOf(item);
+    }
 
     /// <summary>
     /// Inserts an item to the <see cref="IList{T}"/> at the specified index.
@@ -214,8 +228,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <param name="index">The zero-based index at which <paramref name="item"/> should be inserted.</param>
     /// <param name="item">The object to insert. The value can be null for reference types.</param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than zero.-or-<paramref name="index"/> is greater than <see cref="Collection{T}.Count"/>.</exception>
-    protected override void InsertItem(int index, T item) => 
+    protected override void InsertItem(int index, T item)
+    {
         m_list.Insert(index, item);
+    }
 
     /// <summary>
     /// Removes the first occurrence of a specific object from the <see cref="ICollection{T}"/>.
@@ -255,8 +271,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// </summary>
     /// <param name="index">The zero-based index of the element to remove.</param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than zero.-or-<paramref name="index"/> is equal to or greater than <see cref="Collection{T}.Count"/>.</exception>
-    protected override void RemoveItem(int index) => 
+    protected override void RemoveItem(int index)
+    {
         m_list.RemoveAt(index);
+    }
 
     /// <summary>
     /// Replaces the element at the specified index.
@@ -264,12 +282,17 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <param name="index">The zero-based index of the element to replace.</param>
     /// <param name="item">The new value for the element at the specified index. The value can be null for reference types.</param>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="index"/> is less than zero.-or-<paramref name="index"/> is greater than <see cref="Collection{T}.Count"/>.</exception>
-    protected override void SetItem(int index, T item) => 
+    protected override void SetItem(int index, T item)
+    {
         m_list[index] = item;
+    }
 
-    private static void ThrowOutOfRangeException() =>
+    // Throwing in a function call allows the JIT to optimize functions that call this function
+    private static void ThrowOutOfRangeException()
+    {
         // ReSharper disable once NotResolvedInText
         throw new ArgumentOutOfRangeException("index");
+    }
 
     #endregion
 }

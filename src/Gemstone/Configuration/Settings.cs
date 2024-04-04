@@ -332,6 +332,7 @@ public class Settings : DynamicObject
                 }
                 else
                 {
+                    // SQLite configuration provider is in a subordinate assembly, so we check it for by name
                     if (provider.GetType().Name.Equals("SQLiteConfigurationProvider") && SQLite != ConfigurationOperation.ReadWrite)
                         continue;
 
