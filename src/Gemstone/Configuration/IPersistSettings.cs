@@ -39,12 +39,12 @@ public interface IPersistSettings : IDefineSettings
     /// <summary>
     /// Determines whether the object settings are to be persisted to the config file.
     /// </summary>
-    bool PersistSettings { get; set; }
+    bool PersistSettings { get; init; }
 
     /// <summary>
     /// Gets or sets the category name under which the object settings are persisted in the config file.
     /// </summary>
-    string SettingsCategory { get; set; }
+    string SettingsCategory { get; init; }
 
     /// <summary>
     /// Saves settings to the config file.
