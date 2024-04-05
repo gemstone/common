@@ -45,6 +45,8 @@
 // ReSharper disable CompareOfFloatsByEqualityOperator
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -159,6 +161,8 @@ public static class Common
             // If value is already a string, no need to attempt conversion
             case string stringVal:
                 return stringVal;
+            case IList list:
+                return string.Join(";", list.Cast<object>().Select(item => TypeConvertToString(item, culture, throwOnFail)));
             default:
                 // Initialize culture info if not specified.
                 culture ??= CultureInfo.InvariantCulture;

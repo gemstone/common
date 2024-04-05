@@ -25,6 +25,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Dynamic;
 using System.Linq;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using Gemstone.StringExtensions;
 using Gemstone.TypeExtensions;
 using Microsoft.Extensions.Configuration;
@@ -100,8 +102,8 @@ public class SettingsSection : DynamicObject
                 }
                 else
                 {
-                    if (m_keyValues.TryGetValue(key, out object? initialValue))
-                        valueType = initialValue.GetType();
+                    if (m_keyValues.TryGetValue(key, out object? cachedValue))
+                        valueType = cachedValue.GetType();
 
                     if (valueType == typeof(string))
                     {
@@ -271,6 +273,7 @@ public class SettingsSection : DynamicObject
     /// Type name lookups are not case-sensitive.
     /// </para>
     /// </remarks>
+    /// <exception cref="TypeLoadException">Failed to load type.</exception>
     public static (Type type, object value, bool typePrefixed) FromTypedValue(string? setting)
     {
         if (setting is null)
@@ -313,18 +316,18 @@ public class SettingsSection : DynamicObject
             "guid" => (typeof(Guid), Guid.Parse(value), true),
             "uri" => (typeof(Uri), new Uri(value), true),
             "version" => (typeof(Version), new Version(value), true),
-            "type" => (typeof(Type), Type.GetType(value, true) ?? throw new InvalidOperationException($"Failed to load type \"{value}\"."), true),
+            "type" => (typeof(Type), Type.GetType(value, true, true) ?? throw new TypeLoadException($"Failed to load type \"{value}\"."), true),
             _ => getParsedTypeAndValue()
         };
 
-        // Parse custom type names - custom names will be case-sensitive and require full type name
+        // Parse custom type names
         (Type, object, bool) getParsedTypeAndValue()
         {
             // Add assumed assembly name to type name if only a type name is provided
-            if (!typeName.Contains(',') && typeName.CharCount('.') > 1) 
+            if (!typeName.Contains(',') && typeName.CharCount('.') > 1 && !typeName.StartsWith("System.")) 
                 typeName = $"{typeName}, {typeName[..typeName.IndexOf('.', typeName.IndexOf('.') + 1)]}";
 
-            Type parsedType = Type.GetType(typeName, true, true) ?? throw new InvalidOperationException($"Failed to load type \"{typeName}\".");
+            Type parsedType = Type.GetType(typeName, true, true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
             object parsedValue = Common.TypeConvertFromString(value, parsedType) ?? Activator.CreateInstance(parsedType) ?? string.Empty;
 
             return (parsedType, parsedValue, true);
@@ -405,6 +408,37 @@ public class SettingsSection : DynamicObject
             return $"[Type]:{value}";
 
         // Handle custom type names
-        return $"[{valueType.GetReflectedTypeName()}]:{value}";
+        string typeNamespace = valueType.Namespace ?? string.Empty;
+        AssemblyName assemblyName = valueType.Assembly.GetName();
+        string assemblyShortName = assemblyName.Name ?? assemblyName.FullName;
+
+        // Only include assembly name if it's not the core library or the type is in a different namespace
+        if (assemblyShortName.Equals(s_coreLibAssembly, StringComparison.OrdinalIgnoreCase) || typeNamespace.Length > 0 && assemblyShortName.StartsWith(typeNamespace, StringComparison.OrdinalIgnoreCase))
+            assemblyShortName = string.Empty;
+        else
+            assemblyShortName = $",{assemblyShortName}";
+
+        // Remove version, culture and public key token from assembly name for cleaner generic strings:
+        assemblyShortName = s_typeNameCleaner.Replace(assemblyShortName, string.Empty);
+
+        // At least for built-in types, this will produce a cleaner generic string like:
+        //      System.Collections.Generic.List`1[[System.String]]
+        // instead of:
+        //      System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]]
+        assemblyShortName = assemblyShortName.Replace(s_prefixedCoreLibAssembly, string.Empty);
+
+        return $"[{valueType.FullName}{assemblyShortName}]:{Common.TypeConvertToString(value)}";
+    }
+
+    private static readonly string s_coreLibAssembly;
+    private static readonly string s_prefixedCoreLibAssembly;
+    private static readonly Regex s_typeNameCleaner = new(@"(, Version=[^,]*|, Culture=[^,]*|, PublicKeyToken=[^\]\]]*)", RegexOptions.Compiled);
+
+    static SettingsSection()
+    {
+        // Derive core library assembly name, e.g., "System.Private.CoreLib"
+        string assemblyQualifiedName = typeof(string).AssemblyQualifiedName!;
+        s_coreLibAssembly = s_typeNameCleaner.Replace(assemblyQualifiedName[(assemblyQualifiedName.IndexOf(',') + 1)..].Trim(), string.Empty);
+        s_prefixedCoreLibAssembly = $", {s_coreLibAssembly}";
     }
 }

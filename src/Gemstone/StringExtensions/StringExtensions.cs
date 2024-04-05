@@ -89,6 +89,7 @@
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -248,6 +249,32 @@ public static class StringExtensions
         // Initialize culture info if not specified.
         culture ??= CultureInfo.InvariantCulture;
 
+        // Handle array types as a special case
+        if (type.IsArray)
+        {
+            Type elementType = type.GetElementType()!;
+            string[] items = value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            Array array = Array.CreateInstance(elementType, items.Length);
+
+            for (int i = 0; i < items.Length; i++)
+                array.SetValue(ConvertToType(items[i], elementType, culture)!, i);
+
+            return array;
+        }
+
+        // Handle list types as a special case
+        if (IsGenericIList(type))
+        {
+            Type listType = typeof(List<>).MakeGenericType(type.GetGenericArguments()[0]);
+            IList list = (IList)Activator.CreateInstance(listType)!;
+
+            // Parse list values
+            foreach (string item in value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+                list.Add(ConvertToType(item, type.GetGenericArguments()[0], culture)!);
+
+            return list;
+        }
+
         try
         {
             // Handle booleans as a special case to allow numeric entries as well as true/false
@@ -264,6 +291,16 @@ public static class StringExtensions
         {
             LibraryEvents.OnSuppressedException(typeof(Common), new Exception($"ConvertToType exception: {ex.Message}", ex));
             return null;
+        }
+
+        static bool TypeIsGenericIList(Type type)
+        {
+            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+        }
+
+        static bool IsGenericIList(Type type)
+        {
+            return TypeIsGenericIList(type) || type.GetInterfaces().Any(TypeIsGenericIList);
         }
     }
 
