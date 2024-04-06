@@ -58,4 +58,14 @@ internal static class INIConfigurationHelpers
 
         return File.CreateText(path);
     }
+
+    /// <summary>
+    /// Gets an INI file reader for the specified path.
+    /// </summary>
+    /// <param name="path">Path for INI file.</param>
+    /// <returns>INI file reader at specified path.</returns>
+    public static TextReader GetINIFileReader(string path)
+    {
+        return File.Exists(path) ? File.OpenText(path) : TextReader.Null;
+    }
 }

@@ -1181,6 +1181,62 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// Converts the provided string, assumed to be title, pascal or camel case formatted, to a label with spaces before each capital letter, other than the first.
+    /// </summary>
+    /// <param name="value">Input string.</param>
+    /// <returns>Formatted enumeration name of the specified value for visual display.</returns>
+    public static string ToSpacedLabel(this string? value)
+    {
+        if (string.IsNullOrEmpty(value))
+            return string.Empty;
+
+        StringBuilder image = new();
+        char[] chars = value.ToCharArray();
+
+        for (int i = 0; i < chars.Length; i++)
+        {
+            char letter = chars[i];
+
+            // Create word spaces at every capital letter
+            if (char.IsUpper(letter) && image.Length > 0)
+            {
+                // Check for all caps sequence (e.g., ID)
+                if (char.IsUpper(chars[i - 1]))
+                {
+                    // Look ahead for proper breaking point
+                    if (i + 1 < chars.Length)
+                    {
+                        if (char.IsLower(chars[i + 1]))
+                        {
+                            image.Append(' ');
+                            image.Append(letter);
+                        }
+                        else
+                        {
+                            image.Append(letter);
+                        }
+                    }
+                    else
+                    {
+                        image.Append(letter);
+                    }
+                }
+                else
+                {
+                    image.Append(' ');
+                    image.Append(letter);
+                }
+            }
+            else
+            {
+                image.Append(letter);
+            }
+        }
+
+        return image.ToString();
+    }
+
+    /// <summary>
     /// Converts the provided string into title case (upper case first letter of each word).
     /// </summary>
     /// <param name="value">Input string.</param>

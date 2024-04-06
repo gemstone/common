@@ -67,8 +67,7 @@ namespace Gemstone.Configuration.AppSettings
         /// <returns>The initial value of the app setting.</returns>
         public static string? GetAppSettingInitialValue(this IConfiguration configuration, string name)
         {
-            string key = ToInitialValueKey(name);
-            return configuration[key];
+            return configuration[name.ToInitialValueKey()];
         }
 
         /// <summary>
@@ -79,8 +78,7 @@ namespace Gemstone.Configuration.AppSettings
         /// <returns>The initial value of the app setting.</returns>
         public static string? GetAppSettingDescription(this IConfiguration configuration, string name)
         {
-            string key = ToDescriptionKey(name);
-            return configuration[key];
+            return configuration[name.ToDescriptionKey()];
         }
 
         /// <summary>
@@ -99,10 +97,10 @@ namespace Gemstone.Configuration.AppSettings
         public static string? GetAppSettingDescription(this IConfigurationSection setting) =>
             setting[DescriptionKey];
 
-        private static string ToInitialValueKey(string appSettingName) =>
+        internal static string ToInitialValueKey(this string appSettingName) =>
             $"{appSettingName}:{InitialValueKey}";
 
-        private static string ToDescriptionKey(string appSettingName) =>
+        internal static string ToDescriptionKey(this string appSettingName) =>
             $"{appSettingName}:{DescriptionKey}";
 
         // Implementation of IAppSettingsBuilder that works
@@ -126,21 +124,18 @@ namespace Gemstone.Configuration.AppSettings
 
                 public KeyValuePair<string, string> ToInitialValuePair()
                 {
-                    string key = ToInitialValueKey(Name);
+                    string key = Name.ToInitialValueKey();
                     return new KeyValuePair<string, string>(key, Value);
                 }
 
                 public KeyValuePair<string, string> ToDescriptionPair()
                 {
-                    string key = ToDescriptionKey(Name);
+                    string key = Name.ToDescriptionKey();
                     return new KeyValuePair<string, string>(key, Description);
                 }
             }
 
-            private Dictionary<string, AppSetting> AppSettingLookup { get; }
-
-            public AppSettingsBuilder() =>
-                AppSettingLookup = new Dictionary<string, AppSetting>(StringComparer.OrdinalIgnoreCase);
+            private Dictionary<string, AppSetting> AppSettingLookup { get; } = new(StringComparer.OrdinalIgnoreCase);
 
             public IAppSettingsBuilder Add(string name, string value, string description)
             {

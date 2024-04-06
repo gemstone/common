@@ -30,6 +30,25 @@ using Microsoft.Extensions.Configuration;
 namespace Gemstone.Configuration.INIConfigurationExtensions;
 
 /// <summary>
+/// Defines the options for generating INI files.
+/// </summary>
+public enum INIGenerationOption
+{
+    /// <summary>
+    /// Generate all settings with their values commented.
+    /// </summary>
+    CommentedValue,
+    /// <summary>
+    /// Generate all settings with their values uncommented.
+    /// </summary>
+    UncommentedValue,
+    /// <summary>
+    /// Generate all settings with their values uncommented, but only if the value is different from the default.
+    /// </summary>
+    UncommentedValueIfDifferent
+}
+
+/// <summary>
 /// Defines extensions for setting up configuration defaults for Gemstone projects.
 /// </summary>
 public static class INIConfigurationExtensions
@@ -38,10 +57,10 @@ public static class INIConfigurationExtensions
     /// Generates the contents of an INI file based on the configuration settings.
     /// </summary>
     /// <param name="configuration">Source configuration.</param>
-    /// <param name="writeValue">Flag that determines whether the actual value (instead of default only) of each setting should be written to the INI file.</param>
+    /// <param name="generationOption">Setting for how to generate values in the INI file.</param>
     /// <param name="splitDescriptionLines">Flag that determines whether long description lines should be split into multiple lines.</param>
     /// <returns>Generated INI file contents.</returns>
-    public static string GenerateINIFileContents(this IConfiguration configuration, bool writeValue, bool splitDescriptionLines)
+    public static string GenerateINIFileContents(this IConfiguration configuration, INIGenerationOption generationOption = INIGenerationOption.UncommentedValueIfDifferent, bool splitDescriptionLines = false)
     {
         static IEnumerable<string> Split(string str, int maxLineLength)
         {
@@ -89,7 +108,7 @@ public static class INIConfigurationExtensions
         static bool HasAppSettingDescription(IConfigurationSection setting) =>
             setting.GetAppSettingDescription() is not null;
 
-        static string ConvertSettingToINI(IConfigurationSection setting, bool writeValue, bool splitDescriptionLines)
+        static string ConvertSettingToINI(IConfigurationSection setting, INIGenerationOption generationOption, bool splitDescriptionLines)
         {
             string key = setting.Key;
             string value = setting.Value ?? "";
@@ -104,34 +123,23 @@ public static class INIConfigurationExtensions
 
             string multilineDescription = string.Join(Environment.NewLine, descriptionLines);
 
-            string[] lines;
-
-            if (writeValue && value != initialValue)
+            string[] lines = generationOption switch
             {
-                lines =
-                [
-                    $"{multilineDescription}",
-                    $"{key}={value}"
-                ];
-            }
-            else
-            {
-                lines =
-                [
-                    $"{multilineDescription}",
-                    $";{key}={initialValue}"
-                ];
-            }
+                INIGenerationOption.CommentedValue => [$"{multilineDescription}", $";{key}={value}"],
+                INIGenerationOption.UncommentedValue => [$"{multilineDescription}", $"{key}={value}"],
+                INIGenerationOption.UncommentedValueIfDifferent => [$"{multilineDescription}", $"{(value == initialValue ? ";" : "")}{key}={value}"],
+                _ => throw new ArgumentOutOfRangeException(nameof(generationOption))
+            };
 
             return string.Join(Environment.NewLine, lines);
         }
 
-        static string ConvertConfigToINI(IConfiguration config, bool writeValue, bool splitDescriptionLines)
+        static string ConvertConfigToINI(IConfiguration config, INIGenerationOption generationOption, bool splitDescriptionLines)
         {
             IEnumerable<string> settings = config.GetChildren()
                 .Where(HasAppSettingDescription)
                 .OrderBy(setting => setting.Key)
-                .Select(setting => ConvertSettingToINI(setting, writeValue, splitDescriptionLines));
+                .Select(setting => ConvertSettingToINI(setting, generationOption, splitDescriptionLines));
 
             string settingSeparator = string.Format("{0}{0}", Environment.NewLine);
             string settingsText = string.Join(settingSeparator, settings);
@@ -152,7 +160,7 @@ public static class INIConfigurationExtensions
             .OrderBy(section => section.Key)
             .Prepend(configuration)
             .Where(HasAppSetting)
-            .Select(config => ConvertConfigToINI(config, writeValue, splitDescriptionLines));
+            .Select(config => ConvertConfigToINI(config, generationOption, splitDescriptionLines));
 
         string sectionSeparator = string.Format("{0}{0}", Environment.NewLine);
         return string.Join(sectionSeparator, appSettingsSections);

@@ -28,7 +28,6 @@ using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using Gemstone.StringExtensions;
-using Gemstone.TypeExtensions;
 using Microsoft.Extensions.Configuration;
 
 namespace Gemstone.Configuration;
@@ -36,7 +35,7 @@ namespace Gemstone.Configuration;
 /// <summary>
 /// Defines a dynamic <see cref="Settings"/> section with typed values.
 /// </summary>
-public class SettingsSection : DynamicObject
+public partial class SettingsSection : DynamicObject
 {
     private readonly Settings m_parent;
     private readonly ConcurrentDictionary<string, object> m_keyValues = new(StringComparer.OrdinalIgnoreCase);
@@ -80,25 +79,27 @@ public class SettingsSection : DynamicObject
             if (m_keyValues.TryGetValue(key, out object? cachedValue))
                 return cachedValue;
 
-            if (m_configurationSection is not null)
-                return m_keyValues[key] = FromTypedValue(ConfigurationSection[key]).value;
+            if (m_configurationSection is null)
+                return null;
 
-            throw new InvalidOperationException($"Configuration section \"{Name}\" has not been defined.");
+            object? value = FromTypedValue(ConfigurationSection[key]).value;
+
+            return value is null ? null : m_keyValues[key] = value;
         }
         set
         {
             if (value is null)
                 throw new ArgumentNullException(nameof(value));
 
-            object? updatedValue;
+            object updatedValue;
 
             if (value is string stringValue)
             {
-                (Type valueType, object parsedValue, bool typePrefixed) = FromTypedValue(stringValue);
+                (Type valueType, object? parsedValue, bool typePrefixed) = FromTypedValue(stringValue);
 
                 if (typePrefixed)
                 {
-                    updatedValue = parsedValue;
+                    updatedValue = parsedValue!;
                 }
                 else
                 {
@@ -274,10 +275,10 @@ public class SettingsSection : DynamicObject
     /// </para>
     /// </remarks>
     /// <exception cref="TypeLoadException">Failed to load type.</exception>
-    public static (Type type, object value, bool typePrefixed) FromTypedValue(string? setting)
+    public static (Type type, object? value, bool typePrefixed) FromTypedValue(string? setting)
     {
         if (setting is null)
-            return (typeof(string), string.Empty, false);
+            return (typeof(object), null, false);
 
         string[] parts = setting.Split(':');
 
@@ -317,12 +318,39 @@ public class SettingsSection : DynamicObject
             "uri" => (typeof(Uri), new Uri(value), true),
             "version" => (typeof(Version), new Version(value), true),
             "type" => (typeof(Type), Type.GetType(value, true, true) ?? throw new TypeLoadException($"Failed to load type \"{value}\"."), true),
-            _ => getParsedTypeAndValue()
+            _ => parseCustomTypeAndValueExpr()
         };
 
         // Parse custom type names
-        (Type, object, bool) getParsedTypeAndValue()
+        (Type, object, bool) parseCustomTypeAndValueExpr()
         {
+            // Handle common C# native array types as a special case,
+            // this allows for a more concise config representation:
+            typeName = typeName.ToLowerInvariant() switch
+            {
+                "string[]" => "System.String[]",
+                "bool[]" => "System.Boolean[]",
+                "byte[]" => "System.Byte[]",
+                "sbyte[]" => "System.SByte[]",
+                "short[]" => "System.Int16[]",
+                "ushort[]" => "System.UInt16[]",
+                "int[]" => "System.Int32[]",
+                "uint[]" => "System.UInt32[]",
+                "long[]" => "System.Int64[]",
+                "ulong[]" => "System.UInt64[]",
+                "float[]" => "System.Single[]",
+                "double[]" => "System.Double[]",
+                "decimal[]" => "System.Decimal[]",
+                "char[]" => "System.Char[]",
+                "datetime[]" => "System.DateTime[]",
+                "timespan[]" => "System.TimeSpan[]",
+                "guid[]" => "System.Guid[]",
+                "uri[]" => "System.Uri[]",
+                "version[]" => "System.Version[]",
+                "type[]" => "System.Type[]",
+                _ => typeName
+            };
+
             // Add assumed assembly name to type name if only a type name is provided
             if (!typeName.Contains(',') && typeName.CharCount('.') > 1 && !typeName.StartsWith("System.")) 
                 typeName = $"{typeName}, {typeName[..typeName.IndexOf('.', typeName.IndexOf('.') + 1)]}";
@@ -346,99 +374,106 @@ public class SettingsSection : DynamicObject
 
         Type valueType = value.GetType();
 
-        // Handle common C# type names
-        if (valueType == typeof(string))
-            return value.ToString()!;
+        return 0 switch
+        {
+            // Handle common C# type names
+            0 when valueType == typeof(string) => value.ToString()!,
+            0 when valueType == typeof(bool) => $"[bool]:{value}",
+            0 when valueType == typeof(byte) => $"[byte]:{value}",
+            0 when valueType == typeof(sbyte) => $"[sbyte]:{value}",
+            0 when valueType == typeof(short) => $"[short]:{value}",
+            0 when valueType == typeof(ushort) => $"[ushort]:{value}",
+            0 when valueType == typeof(int) => $"[int]:{value}",
+            0 when valueType == typeof(uint) => $"[uint]:{value}",
+            0 when valueType == typeof(long) => $"[long]:{value}",
+            0 when valueType == typeof(ulong) => $"[ulong]:{value}",
+            0 when valueType == typeof(float) => $"[float]:{value}",
+            0 when valueType == typeof(double) => $"[double]:{value}",
+            0 when valueType == typeof(decimal) => $"[decimal]:{value}",
+            0 when valueType == typeof(char) => $"[char]:{value}",
+            0 when valueType == typeof(DateTime) => $"[DateTime]:{value}",
+            0 when valueType == typeof(TimeSpan) => $"[TimeSpan]:{value}",
+            0 when valueType == typeof(Guid) => $"[Guid]:{value}",
+            0 when valueType == typeof(Uri) => $"[Uri]:{value}",
+            0 when valueType == typeof(Version) => $"[Version]:{value}",
+            0 when valueType == typeof(Type) => $"[Type]:{value}",
 
-        if (valueType == typeof(bool))
-            return $"[bool]:{value}";
+            // Handle common C# native array types as a special case,
+            // this allows for a more concise config representation:
+            0 when valueType == typeof(string[]) => $"[string[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(bool[]) => $"[bool[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(byte[]) => $"[byte[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(sbyte[]) => $"[sbyte[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(short[]) => $"[short[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(ushort[]) => $"[ushort[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(int[]) => $"[int[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(uint[]) => $"[uint[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(long[]) => $"[long[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(ulong[]) => $"[ulong[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(float[]) => $"[float[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(double[]) => $"[double[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(decimal[]) => $"[decimal[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(char[]) => $"[char[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(DateTime[]) => $"[DateTime[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(TimeSpan[]) => $"[TimeSpan[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(Guid[]) => $"[Guid[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(Uri[]) => $"[Uri[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(Version[]) => $"[Version[]]:{Common.TypeConvertToString(value)}",
+            0 when valueType == typeof(Type[]) => $"[Type[]]:{Common.TypeConvertToString(value)}",
 
-        if (valueType == typeof(byte))
-            return $"[byte]:{value}";
+            // Handle custom type names
+            _ => generateCustomTypeAndValueExpr()
+        };
+        
+        string generateCustomTypeAndValueExpr()
+        {
+            string typeNamespace = valueType.Namespace ?? string.Empty;
+            AssemblyName assemblyName = valueType.Assembly.GetName();
+            string assemblyShortName = assemblyName.Name ?? assemblyName.FullName;
+            string typeFullName = valueType.FullName ?? string.Empty;
 
-        if (valueType == typeof(sbyte))
-            return $"[sbyte]:{value}";
+            // Only include assembly name if it's not the core library or the type is in a different namespace
+            if (assemblyShortName.Equals(s_coreLibAssembly, StringComparison.OrdinalIgnoreCase) || typeNamespace.Length > 0 && assemblyShortName.StartsWith(typeNamespace, StringComparison.OrdinalIgnoreCase))
+                assemblyShortName = string.Empty;
+            else
+                assemblyShortName = $",{assemblyShortName}";
 
-        if (valueType == typeof(short))
-            return $"[short]:{value}";
+            // Remove version, culture and public key token from assembly name for cleaner generic strings:
+            assemblyShortName = s_typeNameCleaner.Replace(assemblyShortName, string.Empty);
+            typeFullName = s_typeNameCleaner.Replace(typeFullName, string.Empty);
 
-        if (valueType == typeof(ushort))
-            return $"[ushort]:{value}";
+            // At least for built-in types, this will produce a cleaner generic string like:
+            //      System.Collections.Generic.List`1[[System.String]]
+            // instead of:
+            //      System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]]
+            assemblyShortName = assemblyShortName.Replace(s_prefixedCoreLibAssembly, string.Empty);
+            typeFullName = typeFullName.Replace(s_prefixedCoreLibAssembly, string.Empty);
 
-        if (valueType == typeof(int))
-            return $"[int]:{value}";
-
-        if (valueType == typeof(uint))
-            return $"[uint]:{value}";
-
-        if (valueType == typeof(long))
-            return $"[long]:{value}";
-
-        if (valueType == typeof(ulong))
-            return $"[ulong]:{value}";
-
-        if (valueType == typeof(float))
-            return $"[float]:{value}";
-
-        if (valueType == typeof(double))
-            return $"[double]:{value}";
-
-        if (valueType == typeof(decimal))
-            return $"[decimal]:{value}";
-
-        if (valueType == typeof(char))
-            return $"[char]:{value}";
-
-        if (valueType == typeof(DateTime))
-            return $"[DateTime]:{value}";
-
-        if (valueType == typeof(TimeSpan))
-            return $"[TimeSpan]:{value}";
-
-        if (valueType == typeof(Guid))
-            return $"[Guid]:{value}";
-
-        if (valueType == typeof(Uri))
-            return $"[Uri]:{value}";
-
-        if (valueType == typeof(Version))
-            return $"[Version]:{value}";
-
-        if (valueType == typeof(Type))
-            return $"[Type]:{value}";
-
-        // Handle custom type names
-        string typeNamespace = valueType.Namespace ?? string.Empty;
-        AssemblyName assemblyName = valueType.Assembly.GetName();
-        string assemblyShortName = assemblyName.Name ?? assemblyName.FullName;
-
-        // Only include assembly name if it's not the core library or the type is in a different namespace
-        if (assemblyShortName.Equals(s_coreLibAssembly, StringComparison.OrdinalIgnoreCase) || typeNamespace.Length > 0 && assemblyShortName.StartsWith(typeNamespace, StringComparison.OrdinalIgnoreCase))
-            assemblyShortName = string.Empty;
-        else
-            assemblyShortName = $",{assemblyShortName}";
-
-        // Remove version, culture and public key token from assembly name for cleaner generic strings:
-        assemblyShortName = s_typeNameCleaner.Replace(assemblyShortName, string.Empty);
-
-        // At least for built-in types, this will produce a cleaner generic string like:
-        //      System.Collections.Generic.List`1[[System.String]]
-        // instead of:
-        //      System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]]
-        assemblyShortName = assemblyShortName.Replace(s_prefixedCoreLibAssembly, string.Empty);
-
-        return $"[{valueType.FullName}{assemblyShortName}]:{Common.TypeConvertToString(value)}";
+            return $"[{typeFullName}{assemblyShortName}]:{Common.TypeConvertToString(value)}";
+        }
     }
 
+    private const string TypeNameCleanerPattern = @",\s*Version\s*=\s*[^,]+,\s*Culture\s*=\s*[^,]+,\s*PublicKeyToken\s*=\s*[^,\]]+";
+    private static readonly Regex s_typeNameCleaner;
     private static readonly string s_coreLibAssembly;
     private static readonly string s_prefixedCoreLibAssembly;
-    private static readonly Regex s_typeNameCleaner = new(@"(, Version=[^,]*|, Culture=[^,]*|, PublicKeyToken=[^\]\]]*)", RegexOptions.Compiled);
 
     static SettingsSection()
     {
+#if NET
+        s_typeNameCleaner = GenerateTypeNameCleanerRegex();
+#else
+        s_typeNameCleaner = new Regex(TypeNameCleanerPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled);
+#endif
+
         // Derive core library assembly name, e.g., "System.Private.CoreLib"
         string assemblyQualifiedName = typeof(string).AssemblyQualifiedName!;
         s_coreLibAssembly = s_typeNameCleaner.Replace(assemblyQualifiedName[(assemblyQualifiedName.IndexOf(',') + 1)..].Trim(), string.Empty);
         s_prefixedCoreLibAssembly = $", {s_coreLibAssembly}";
     }
+
+#if NET
+    [GeneratedRegex(TypeNameCleanerPattern, RegexOptions.IgnoreCase | RegexOptions.Compiled)]
+    private static partial Regex GenerateTypeNameCleanerRegex();
+#endif
 }

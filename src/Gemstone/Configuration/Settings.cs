@@ -29,12 +29,16 @@ using System.ComponentModel;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
 using Gemstone.Configuration.AppSettings;
 using Gemstone.Configuration.INIConfigurationExtensions;
 using Gemstone.Configuration.ReadOnly;
+using Gemstone.StringExtensions;
 using Gemstone.Threading.SynchronizedOperations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Configuration.Ini;
+using Microsoft.Extensions.Configuration.Memory;
 using static Gemstone.Configuration.INIConfigurationHelpers;
 
 namespace Gemstone.Configuration;
@@ -92,7 +96,7 @@ public enum ConfigurationOperation
 /// </code>
 /// See the <see cref="SwitchMappings"/> property for defining command line switches.
 /// </remarks>
-public class Settings : DynamicObject
+public partial class Settings : DynamicObject
 {
     /// <summary>
     /// Defines the configuration section name for system settings.
@@ -104,7 +108,7 @@ public class Settings : DynamicObject
     private readonly List<IConfigurationProvider> m_configurationProviders = [];
     private readonly ShortSynchronizedOperation m_saveOperation;
     private readonly ConfigurationOperation m_environmentalVariables;
-
+    
     /// <summary>
     /// Creates a new <see cref="Settings"/> instance.
     /// </summary>
@@ -195,17 +199,80 @@ public class Settings : DynamicObject
     /// <param name="builder">Configuration builder used to bind settings.</param>
     public void Bind(IConfigurationBuilder builder)
     {
+        MemoryConfigurationProvider? memoryProvider = null;
+        bool iniProviderExists = false;
+
         // Build a new configuration with keys and values from the set of providers
         // registered in builder sources - we call this instead of directly using
         // the 'Build()' method on the config builder so providers can be cached
         foreach (IConfigurationSource source in builder.Sources)
         {
             IConfigurationProvider provider = source.Build(builder);
+
+            if (memoryProvider is null && provider is ReadOnlyConfigurationProvider { Provider: MemoryConfigurationProvider configProvider })
+                memoryProvider = configProvider;
+
+            if (!iniProviderExists && provider is ReadOnlyConfigurationProvider { Provider: IniConfigurationProvider })
+                iniProviderExists = true;
+
             m_configurationProviders.Add(provider);
         }
 
         // Cache configuration root
         Configuration = new ConfigurationRoot(m_configurationProviders);
+
+        // Attempt to load current descriptions from settings.ini file
+        Dictionary<string, Dictionary<string, string>> settingDescriptions = new(StringComparer.OrdinalIgnoreCase);
+
+        if (iniProviderExists)
+        {
+            string iniPath = GetINIFilePath("settings.ini");
+            using TextReader reader = GetINIFileReader(iniPath);
+            string[] iniFileContents = reader.ReadToEnd().Split(["\n", "\r", "\r\n"], StringSplitOptions.RemoveEmptyEntries);
+            string currentSection = "";
+            StringBuilder currentDescription = new();
+
+            foreach (string line in iniFileContents)
+            {
+                string trimmedLine = line.Trim();
+
+                if (trimmedLine.Length == 0)
+                    continue;
+
+                // Check if this is a section header
+                if (trimmedLine.StartsWith('[') && trimmedLine.EndsWith(']'))
+                {
+                    currentSection = trimmedLine[1..^1];
+                    settingDescriptions[currentSection] = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    currentDescription.Clear();
+                    continue;
+                }
+
+                // Check if this is a key/value pair, commented or not
+                Match match = s_iniKeyValuePair.Match(trimmedLine);
+
+                if (match.Success)
+                {
+                    string key = match.Groups["key"].Value;
+                    string description = currentDescription.ToString().Trim();
+
+                    if (!string.IsNullOrEmpty(description))
+                        settingDescriptions[currentSection][key] = currentDescription.ToString();
+
+                    currentDescription.Clear();
+                    continue;
+                }
+
+                if (!trimmedLine.StartsWith(";"))
+                    continue;
+
+                // Track description lines
+                if (currentDescription.Length > 0)
+                    currentDescription.Append(' ');
+
+                currentDescription.Append(trimmedLine[1..].Trim());
+            }
+        }
 
         // Load settings from configuration sources hierarchy
         foreach (IConfigurationSection configSection in Configuration.GetChildren())
@@ -213,7 +280,26 @@ public class Settings : DynamicObject
             SettingsSection section = this[configSection.Key];
 
             foreach (IConfigurationSection entry in configSection.GetChildren())
+            {
                 section[entry.Key] = entry.Value;
+
+                if (string.IsNullOrEmpty(entry.Value) || memoryProvider is null)
+                    continue;
+
+                // For entries that may exist in INI file but were never officially defined, set initial value as empty string,
+                // this will ensure that the value persists through save operations, ignoring default value
+                if (string.IsNullOrEmpty(entry.GetAppSettingInitialValue()))
+                    memoryProvider.Add($"{configSection.Key}:{entry.Key.ToInitialValueKey()}", "");
+
+                if (!string.IsNullOrEmpty(entry.GetAppSettingDescription()))
+                    continue;
+
+                // Maintain descriptions from INI file, if one is defined (could have been added manually)
+                if (settingDescriptions.TryGetValue(configSection.Key, out Dictionary<string, string>? descriptions) && descriptions.TryGetValue(entry.Key, out string? description) && !string.IsNullOrWhiteSpace(description))
+                    memoryProvider.Add($"{configSection.Key}:{entry.Key.ToDescriptionKey()}", description);
+                else
+                    memoryProvider.Add($"{configSection.Key}:{entry.Key.ToDescriptionKey()}", entry.Key.ToSpacedLabel());
+            }
 
             section.ConfigurationSection = configSection;
             section.IsDirty = false;
@@ -325,7 +411,7 @@ public class Settings : DynamicObject
                         continue;
 
                     // Handle INI file as a special case, writing entire file contents on save
-                    string contents = Configuration!.GenerateINIFileContents(true, SplitDescriptionLines);
+                    string contents = Configuration!.GenerateINIFileContents(splitDescriptionLines: SplitDescriptionLines);
                     string iniFilePath = GetINIFilePath("settings.ini");
                     using TextWriter writer = GetINIFileWriter(iniFilePath);
                     writer.Write(contents);
@@ -392,4 +478,21 @@ public class Settings : DynamicObject
     {
         Instance = settings;
     }
+    
+    private const string INIKeyValuePairPattern = @";?\s*(?<key>\w+)\s*=.*";
+    private static readonly Regex s_iniKeyValuePair;
+
+    static Settings()
+    {
+#if NET
+        s_iniKeyValuePair = GenerateINIKeyValuePairRegex();
+#else
+        s_iniKeyValuePair = new Regex(INIKeyValuePairPattern, RegexOptions.Compiled);
+#endif
+    }
+
+#if NET
+    [GeneratedRegex(INIKeyValuePairPattern, RegexOptions.Compiled)]
+    private static partial Regex GenerateINIKeyValuePairRegex();
+#endif
 }

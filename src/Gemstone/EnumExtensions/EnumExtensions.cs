@@ -30,8 +30,8 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
-using System.Text;
 using Gemstone.Reflection.MemberInfoExtensions;
+using Gemstone.StringExtensions;
 
 namespace Gemstone.EnumExtensions;
 
@@ -148,55 +148,13 @@ public static class EnumExtensions
 
     /// <summary>
     /// Retrieves a formatted name of the value that this <see cref="Enum"/> represents for visual display.
+    /// Enum string name is converted to a label with spaces before each capital letter, other than the first.
     /// </summary>
     /// <param name="enumeration"><see cref="Enum"/> to operate on.</param>
     /// <returns>Formatted enumeration name of the specified value for visual display.</returns>
     public static string GetFormattedName(this Enum enumeration)
     {
-        StringBuilder image = new();
-        char[] chars = enumeration.ToString().ToCharArray();
-
-        for (int i = 0; i < chars.Length; i++)
-        {
-            char letter = chars[i];
-
-            // Create word spaces at every capital letter
-            if (char.IsUpper(letter) && image.Length > 0)
-            {
-                // Check for all caps sequence (e.g., ID)
-                if (char.IsUpper(chars[i - 1]))
-                {
-                    // Look ahead for proper breaking point
-                    if (i + 1 < chars.Length)
-                    {
-                        if (char.IsLower(chars[i + 1]))
-                        {
-                            image.Append(' ');
-                            image.Append(letter);
-                        }
-                        else
-                        {
-                            image.Append(letter);
-                        }
-                    }
-                    else
-                    {
-                        image.Append(letter);
-                    }
-                }
-                else
-                {
-                    image.Append(' ');
-                    image.Append(letter);
-                }
-            }
-            else
-            {
-                image.Append(letter);
-            }
-        }
-
-        return image.ToString();
+        return enumeration.ToString().ToSpacedLabel();
     }
 
     // Internal extension to lookup description from DescriptionAttribute
@@ -205,9 +163,6 @@ public static class EnumExtensions
         if (value is null)
             return string.Empty;
 
-        if (value.TryGetAttribute(out DescriptionAttribute? descriptionAttribute))
-            return descriptionAttribute?.Description ?? string.Empty;
-
-        return string.Empty;
+        return value.TryGetAttribute(out DescriptionAttribute? descriptionAttribute) ? descriptionAttribute.Description : string.Empty;
     }
 }
