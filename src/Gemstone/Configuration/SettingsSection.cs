@@ -23,6 +23,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
 using System.Reflection;
@@ -169,6 +170,12 @@ public partial class SettingsSection : DynamicObject
     {
         Define(key, defaultValue, description, switchMappings);
         return this[key];
+    }
+
+    /// <inheritdoc/>
+    public override IEnumerable<string> GetDynamicMemberNames()
+    {
+        return m_keyValues.Keys;
     }
 
     /// <inheritdoc/>

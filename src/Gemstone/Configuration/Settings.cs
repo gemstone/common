@@ -170,9 +170,6 @@ public partial class Settings : DynamicObject
     /// </summary>
     public Dictionary<string, string> SwitchMappings { get; } = new(StringComparer.OrdinalIgnoreCase);
 
-    /// <inheritdoc/>
-    public override IEnumerable<string> GetDynamicMemberNames() => m_sections.Keys;
-
     /// <summary>
     /// Gets the <see cref="SettingsSection"/> for the specified key.
     /// </summary>
@@ -307,6 +304,12 @@ public partial class Settings : DynamicObject
     }
 
     /// <inheritdoc/>
+    public override IEnumerable<string> GetDynamicMemberNames()
+    {
+        return m_sections.Keys;
+    }
+
+    /// <inheritdoc/>
     public override bool TryGetMember(GetMemberBinder binder, out object result)
     {
         string key = binder.Name;
@@ -386,9 +389,10 @@ public partial class Settings : DynamicObject
     /// Saves any changed settings.
     /// </summary>
     /// <param name="waitForSave">Determines if save operation should wait for completion.</param>
-    public void Save(bool waitForSave)
+    /// <param name="forceSave">Determines if save operation should be forced, i.e., whether settings are dirty or not.</param>
+    public void Save(bool waitForSave, bool forceSave = false)
     {
-        if (!IsDirty)
+        if (!IsDirty && !forceSave)
             return;
 
         if (waitForSave)
@@ -445,12 +449,13 @@ public partial class Settings : DynamicObject
     /// Saves any changed settings.
     /// </summary>
     /// <param name="settings">Settings instance.</param>
+    /// <param name="forceSave">Determines if save operation should be forced, i.e., whether settings are dirty or not.</param>
     /// <remarks>
     /// This method will not return until the save operation has completed.
     /// </remarks>
-    public static void Save(Settings? settings = null)
+    public static void Save(Settings? settings = null, bool forceSave = false)
     {
-        (settings ?? Instance).Save(true);
+        (settings ?? Instance).Save(true, forceSave);
     }
 
     /// <summary>
