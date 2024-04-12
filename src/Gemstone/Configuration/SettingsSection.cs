@@ -38,7 +38,8 @@ namespace Gemstone.Configuration;
 /// </summary>
 public partial class SettingsSection : DynamicObject
 {
-    private const string EvalTypeName = $"{nameof(Gemstone)}.{nameof(Configuration)}.Eval";
+    private const string ConfigurationAssemblyName = $"{nameof(Gemstone)}.{nameof(Configuration)}";
+    private const string EvalTypeName = $"{ConfigurationAssemblyName}.Eval";
 
     private readonly Settings m_parent;
     private readonly ConcurrentDictionary<string, (object? value, bool isEvalExpr)> m_keyValues = new(StringComparer.OrdinalIgnoreCase);
@@ -254,13 +255,13 @@ public partial class SettingsSection : DynamicObject
                 result = GetOrAdd(key, indexes[1], indexes[2].ToString()!);
                 return true;
             case 4:
-                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString()]);
+                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString()!]);
                 return true;
             case 5:
-                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString(), indexes[4].ToString()]);
+                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString()!, indexes[4].ToString()!]);
                 return true;
             case 6:
-                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString(), indexes[4].ToString(), indexes[5].ToString()]);
+                result = GetOrAdd(key, indexes[1], indexes[2].ToString()!, [indexes[3].ToString()!, indexes[4].ToString()!, indexes[5].ToString()!]);
                 return true;
         }
 
@@ -379,8 +380,8 @@ public partial class SettingsSection : DynamicObject
 
         (Type, object, bool, bool) parseEvalExpr()
         {
-            // Eval type is defined in the subordinate Gemstone.Configuration assembly, so we can't reference it directly.
-            Type parsedType = Type.GetType($"{EvalTypeName},{nameof(Gemstone)}.{nameof(Configuration)}", true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
+            // Eval type is defined in the subordinate Gemstone.Configuration assembly, so we can't reference it directly
+            Type parsedType = Type.GetType($"{EvalTypeName},{ConfigurationAssemblyName}", true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
             object evalInstance;
 
             try
