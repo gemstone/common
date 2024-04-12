@@ -140,6 +140,7 @@ public static class TypeExtensions
     /// Gets a C#-compatible proper type name, resolving generic type names using reflection with no backticks (`), for the specified <paramref name="type"/>.
     /// </summary>
     /// <param name="type">The <see cref="Type"/> whose name is to be resolved.</param>
+    /// <param name="useNativeTypeNames">Flag that indicates if native C# type names should be used, when possible.</param>
     /// <param name="includeNamespaces">Flag that indicates if namespaces should be included in the type name.</param>
     /// <returns>
     /// A C#-compatible proper type name, resolving generic type names using reflection with no backticks (`), for the specified <paramref name="type"/>.
@@ -153,9 +154,44 @@ public static class TypeExtensions
     /// You can also set the <paramref name="includeNamespaces"/> parameter to <c>false</c> to remove namespaces from the type name, which yields:
     /// <c>List&lt;String&gt;</c> for the same example.
     /// </remarks>
-    public static string GetReflectedTypeName(this Type type, bool includeNamespaces = true)
+    public static string GetReflectedTypeName(this Type type, bool useNativeTypeNames = true, bool includeNamespaces = true)
     {
-        return type.GetReflectedTypeName(includeNamespaces, null, null);
+        return 0 switch
+        {
+            // Handle native C# type names
+            0 when useNativeTypeNames && type == typeof(string) => "string",
+            0 when useNativeTypeNames && type == typeof(bool) => "bool",
+            0 when useNativeTypeNames && type == typeof(byte) => "byte",
+            0 when useNativeTypeNames && type == typeof(sbyte) => "sbyte",
+            0 when useNativeTypeNames && type == typeof(short) => "short",
+            0 when useNativeTypeNames && type == typeof(ushort) => "ushort",
+            0 when useNativeTypeNames && type == typeof(int) => "int",
+            0 when useNativeTypeNames && type == typeof(uint) => "uint",
+            0 when useNativeTypeNames && type == typeof(long) => "long",
+            0 when useNativeTypeNames && type == typeof(ulong) => "ulong",
+            0 when useNativeTypeNames && type == typeof(float) => "float",
+            0 when useNativeTypeNames && type == typeof(double) => "double",
+            0 when useNativeTypeNames && type == typeof(decimal) => "decimal",
+            0 when useNativeTypeNames && type == typeof(char) => "char",
+
+            0 when useNativeTypeNames && type == typeof(string[]) => "string[]",
+            0 when useNativeTypeNames && type == typeof(bool[]) => "bool[]",
+            0 when useNativeTypeNames && type == typeof(byte[]) => "byte[]",
+            0 when useNativeTypeNames && type == typeof(sbyte[]) => "sbyte[]",
+            0 when useNativeTypeNames && type == typeof(short[]) => "short[]",
+            0 when useNativeTypeNames && type == typeof(ushort[]) => "ushort[]",
+            0 when useNativeTypeNames && type == typeof(int[]) => "int[]",
+            0 when useNativeTypeNames && type == typeof(uint[]) => "uint[]",
+            0 when useNativeTypeNames && type == typeof(long[]) => "long[]",
+            0 when useNativeTypeNames && type == typeof(ulong[]) => "ulong[]",
+            0 when useNativeTypeNames && type == typeof(float[]) => "float[]",
+            0 when useNativeTypeNames && type == typeof(double[]) => "double[]",
+            0 when useNativeTypeNames && type == typeof(decimal[]) => "decimal[]",
+            0 when useNativeTypeNames && type == typeof(char[]) => "char[]",
+
+            // Handle normal type names
+            _ => type.GetReflectedTypeName(includeNamespaces, null, null)
+        };
     }
 
     private static string GetReflectedTypeName(this Type type, bool includeNamespaces, Stack<Type>? genericArgs, StringBuilder? arrayBrackets)

@@ -229,6 +229,7 @@ public static class StringExtensions
     /// <param name="value">Source string to convert to type.</param>
     /// <param name="type"><see cref="Type"/> to convert string to.</param>
     /// <param name="culture"><see cref="CultureInfo"/> to use for the conversion.</param>
+    /// <param name="suppressException">Set to <c>true</c> to suppress conversion exceptions and return <c>null</c>; otherwise, <c>false</c></param>
     /// <returns><see cref="string"/> converted to specified <see cref="Type"/>; default value of specified type if conversion fails.</returns>
     /// <remarks>
     /// This function makes use of a <see cref="TypeConverter"/> to convert this <see cref="string"/> to the specified <paramref name="type"/>,
@@ -236,7 +237,7 @@ public static class StringExtensions
     /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
     /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
     /// </remarks>
-    public static object? ConvertToType(this string? value, Type type, CultureInfo? culture)
+    public static object? ConvertToType(this string? value, Type type, CultureInfo? culture, bool suppressException = true)
     {
         // Don't proceed further if string is empty.
         if (string.IsNullOrEmpty(value))
@@ -287,7 +288,7 @@ public static class StringExtensions
             // ReSharper disable once AssignNullToNotNullAttribute
             return converter.ConvertFromString(null, culture, value);
         }
-        catch (Exception ex)
+        catch (Exception ex) when (suppressException)
         {
             LibraryEvents.OnSuppressedException(typeof(Common), new Exception($"ConvertToType exception: {ex.Message}", ex));
             return null;

@@ -218,6 +218,7 @@ public static class Common
     /// <param name="value">Source string to convert to type.</param>
     /// <param name="type"><see cref="Type"/> to convert string to.</param>
     /// <param name="culture"><see cref="CultureInfo"/> to use for the conversion.</param>
+    /// <param name="suppressException">Set to <c>true</c> to suppress conversion exceptions and return <c>null</c>; otherwise, <c>false</c></param>
     /// <returns>
     /// <see cref="string"/> converted to specified <see cref="Type"/>; default value of
     /// specified type if conversion fails.
@@ -236,12 +237,12 @@ public static class Common
     /// <paramref name="value"/> is empty or <c>null</c>.
     /// </para>
     /// </remarks>
-    public static object? TypeConvertFromString(string value, Type type, CultureInfo? culture)
+    public static object? TypeConvertFromString(string value, Type type, CultureInfo? culture, bool suppressException = true)
     {
         if (string.IsNullOrWhiteSpace(value))
             value = Activator.CreateInstance(type)?.ToString() ?? string.Empty;
 
-        return value.ConvertToType(type, culture);
+        return value.ConvertToType(type, culture, suppressException);
     }
 
     /// <summary>Determines if given item is equal to its default value (e.g., null or 0.0).</summary>

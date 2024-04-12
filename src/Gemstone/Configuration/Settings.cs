@@ -72,11 +72,11 @@ public enum ConfigurationOperation
 /// <see cref="INIFile"/>, <see cref="SQLite"/>, and <see cref="EnvironmentalVariables"/>
 /// control the configuration sources that are available and how they are managed. Handling of
 /// available settings are defined in a hierarchy where the settings are loaded are in the
-/// following priority order, from lowest to hightest:
+/// following priority order, from lowest to highest:
 /// <list type="bullet">
-///   <item>INI file (defaults.ini) - Machine Level</item>
-///   <item>INI file (settings.ini) - Machine Level</item>
-///   <item>SQLite database (settings.db) - User Level</item>
+///   <item>INI file (defaults.ini) - Machine Level, %programdata% folder</item>
+///   <item>INI file (settings.ini) - Machine Level, %programdata% folder</item>
+///   <item>SQLite database (settings.db) - User Level, %appdata% folder</item>
 ///   <item>Environment variables - Machine Level</item>
 ///   <item>Environment variables - User Level</item>
 /// </list>
@@ -115,7 +115,7 @@ public partial class Settings : DynamicObject
     public Settings()
     {
         Instance ??= this;
-        m_saveOperation = new ShortSynchronizedOperation(SaveSections, ex => LibraryEvents.OnSuppressedException(this, ex));
+        m_saveOperation = new ShortSynchronizedOperation(SaveSections);
     }
 
     /// <summary>
@@ -422,7 +422,7 @@ public partial class Settings : DynamicObject
                 }
                 else
                 {
-                    // SQLite configuration provider is in a subordinate assembly, so we check it for by name
+                    // SQLite configuration provider is in a subordinate assembly, so we check for it by name
                     if (provider.GetType().Name.Equals("SQLiteConfigurationProvider") && SQLite != ConfigurationOperation.ReadWrite)
                         continue;
 

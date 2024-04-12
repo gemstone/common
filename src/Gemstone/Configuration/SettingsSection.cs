@@ -38,8 +38,10 @@ namespace Gemstone.Configuration;
 /// </summary>
 public partial class SettingsSection : DynamicObject
 {
+    private const string EvalTypeName = $"{nameof(Gemstone)}.{nameof(Configuration)}.Eval";
+
     private readonly Settings m_parent;
-    private readonly ConcurrentDictionary<string, object> m_keyValues = new(StringComparer.OrdinalIgnoreCase);
+    private readonly ConcurrentDictionary<string, (object? value, bool isEvalExpr)> m_keyValues = new(StringComparer.OrdinalIgnoreCase);
     private IConfigurationSection? m_configurationSection;
 
     internal SettingsSection(Settings parent, string sectionName)
@@ -77,15 +79,32 @@ public partial class SettingsSection : DynamicObject
     {
         get
         {
-            if (m_keyValues.TryGetValue(key, out object? cachedValue))
-                return cachedValue;
+            if (m_keyValues.TryGetValue(key, out (object? cachedValue, bool isEvalExpr) result))
+            {
+                if (result.cachedValue is null || !result.isEvalExpr)
+                    return result.cachedValue;
+
+                // Compilable typed access to 'Gemstone.Configuration.Eval' is not available since
+                // type is defined in a subordinate assembly, so we access type dynamically so
+                // properties can be accessed at runtime:
+                dynamic eval = result.cachedValue;
+
+                // Accessing 'Value' property will automatically evaluate expression as necessary.
+                // Initial evaluation result will be cached. To force re-evaluate of expression,
+                // set the setting value to 'Eval.Null' before getting property value.
+                return eval.Value;
+            }
 
             if (m_configurationSection is null)
                 return null;
 
-            object? value = FromTypedValue(ConfigurationSection[key]).value;
+            (Type _, object? value, bool _, bool isEvalExpr) = FromTypedValue(ConfigurationSection[key]);
 
-            return value is null ? null : m_keyValues[key] = value;
+            if (value is null)
+                return null;
+                    
+            m_keyValues[key] = (value, isEvalExpr);
+            return value;
         }
         set
         {
@@ -93,10 +112,11 @@ public partial class SettingsSection : DynamicObject
                 throw new ArgumentNullException(nameof(value));
 
             object updatedValue;
+            bool isEvalExpr;
 
             if (value is string stringValue)
             {
-                (Type valueType, object? parsedValue, bool typePrefixed) = FromTypedValue(stringValue);
+                (Type valueType, object? parsedValue, bool typePrefixed, isEvalExpr) = FromTypedValue(stringValue);
 
                 if (typePrefixed)
                 {
@@ -104,8 +124,8 @@ public partial class SettingsSection : DynamicObject
                 }
                 else
                 {
-                    if (m_keyValues.TryGetValue(key, out object? cachedValue))
-                        valueType = cachedValue.GetType();
+                    if (m_keyValues.TryGetValue(key, out (object? cachedValue, bool _) result))
+                        valueType = result.cachedValue?.GetType() ?? typeof(string);
 
                     if (valueType == typeof(string))
                     {
@@ -123,15 +143,35 @@ public partial class SettingsSection : DynamicObject
             else
             {
                 updatedValue = value;
+                isEvalExpr = value.GetType().FullName?.Equals(EvalTypeName) ?? false;
+
+                // Check if current assigned value is an 'Eval' type and cached value is 'Eval' type
+                if (isEvalExpr && m_keyValues.TryGetValue(key, out (object? cachedValue, bool isEvalExpr) result) && result is { cachedValue: not null, isEvalExpr: true })
+                {
+                    // Compilable typed access to 'Gemstone.Configuration.Eval' is not available since
+                    // type is defined in a subordinate assembly, so we access type dynamically so
+                    // properties can be accessed at runtime:
+                    dynamic eval = value;
+                    string expression = eval.Expression;
+
+                    // Check if request was made to reset cached 'Eval' value so expression can be re-evaluated,
+                    // i.e., current setting value was assigned a value of 'Eval.Null':
+                    if (expression.Equals("null", StringComparison.OrdinalIgnoreCase))
+                    {
+                        eval = result.cachedValue;
+                        eval.Value = null!;
+                        updatedValue = result.cachedValue;
+                    }
+                }
             }
 
-            if (!m_keyValues.TryGetValue(key, out object? currentValue) || !currentValue.Equals(updatedValue))
+            if (!m_keyValues.TryGetValue(key, out (object? value, bool _) current) || !(current.value?.Equals(updatedValue) ?? false))
             {
-                m_keyValues[key] = updatedValue;
+                m_keyValues[key] = (updatedValue, isEvalExpr);
                 IsDirty = true;
             }
 
-            ConfigurationSection[key] = ToTypedValue(updatedValue);
+            ConfigurationSection[key] = ToTypedValue(updatedValue, isEvalExpr);
         }
     }
 
@@ -144,9 +184,11 @@ public partial class SettingsSection : DynamicObject
     /// <param name="switchMappings">Optional array of switch mappings for the setting.</param>
     public void Define(string key, object? defaultValue, string description, string[]? switchMappings = null)
     {
-        m_keyValues.TryAdd(key, defaultValue ?? string.Empty);
+        bool isEvalExpr = defaultValue?.GetType().FullName?.Equals(EvalTypeName) ?? false;
 
-        string typedValue = ToTypedValue(defaultValue);
+        m_keyValues.TryAdd(key, (defaultValue ?? string.Empty, isEvalExpr));
+
+        string typedValue = ToTypedValue(defaultValue, isEvalExpr);
         
         if (m_configurationSection is not null)
             ConfigurationSection[key] ??= typedValue;
@@ -267,7 +309,7 @@ public partial class SettingsSection : DynamicObject
     /// Gets the parsed type and value of a configuration setting value.
     /// </summary>
     /// <param name="setting">Configuration setting value that can be prefixed with a type.</param>
-    /// <returns>Tuple containing the parsed type, value and flag determining if setting was type prefixed.</returns>
+    /// <returns>Tuple containing the parsed type and, value.</returns>
     /// <exception cref="InvalidOperationException">Failed to load specified type.</exception>
     /// <remarks>
     /// <para>
@@ -282,15 +324,21 @@ public partial class SettingsSection : DynamicObject
     /// </para>
     /// </remarks>
     /// <exception cref="TypeLoadException">Failed to load type.</exception>
-    public static (Type type, object? value, bool typePrefixed) FromTypedValue(string? setting)
+    public static (Type type, object? value) ParseTypedPrefixedValue(string? setting)
+    {
+        (Type type, object? value, bool _, bool _) = FromTypedValue(setting);
+        return (type, value);
+    }
+
+    private static (Type type, object? value, bool typePrefixed, bool isEvalExpr) FromTypedValue(string? setting)
     {
         if (setting is null)
-            return (typeof(object), null, false);
+            return (typeof(object), null, false, false);
 
         string[] parts = setting.Split(':');
 
         if (parts.Length < 2)
-            return (typeof(string), setting, false);
+            return (typeof(string), setting, false, false);
 
         string typeName = parts[0].Trim();
 
@@ -298,38 +346,59 @@ public partial class SettingsSection : DynamicObject
         if (typeName.StartsWith('[') && typeName.EndsWith(']'))
             typeName = typeName[1..^1].Trim();
         else
-            return (typeof(string), setting, false);
+            return (typeof(string), setting, false, false);
 
         string value = setting[(parts[0].Length + 1)..].Trim();
 
         // Parse common C# type names
         return typeName.ToLowerInvariant() switch
         {
-            "string" => (typeof(string), value, true),
-            "bool" => (typeof(bool), Convert.ToBoolean(value), true),
-            "byte" => (typeof(byte), Convert.ToByte(value), true),
-            "sbyte" => (typeof(sbyte), Convert.ToSByte(value), true),
-            "short" => (typeof(short), Convert.ToInt16(value), true),
-            "ushort" => (typeof(ushort), Convert.ToUInt16(value), true),
-            "int" => (typeof(int), Convert.ToInt32(value), true),
-            "uint" => (typeof(uint), Convert.ToUInt32(value), true),
-            "long" => (typeof(long), Convert.ToInt64(value), true),
-            "ulong" => (typeof(ulong), Convert.ToUInt64(value), true),
-            "float" => (typeof(float), Convert.ToSingle(value), true),
-            "double" => (typeof(double), Convert.ToDouble(value), true),
-            "decimal" => (typeof(decimal), Convert.ToDecimal(value), true),
-            "char" => (typeof(char), Convert.ToChar(value), true),
-            "datetime" => (typeof(DateTime), Convert.ToDateTime(value), true),
-            "timespan" => (typeof(TimeSpan), TimeSpan.Parse(value), true),
-            "guid" => (typeof(Guid), Guid.Parse(value), true),
-            "uri" => (typeof(Uri), new Uri(value), true),
-            "version" => (typeof(Version), new Version(value), true),
-            "type" => (typeof(Type), Type.GetType(value, true, true) ?? throw new TypeLoadException($"Failed to load type \"{value}\"."), true),
+            "string" => (typeof(string), value, true, false),
+            "bool" => (typeof(bool), Convert.ToBoolean(value), true, false),
+            "byte" => (typeof(byte), Convert.ToByte(value), true, false),
+            "sbyte" => (typeof(sbyte), Convert.ToSByte(value), true, false),
+            "short" => (typeof(short), Convert.ToInt16(value), true, false),
+            "ushort" => (typeof(ushort), Convert.ToUInt16(value), true, false),
+            "int" => (typeof(int), Convert.ToInt32(value), true, false),
+            "uint" => (typeof(uint), Convert.ToUInt32(value), true, false),
+            "long" => (typeof(long), Convert.ToInt64(value), true, false),
+            "ulong" => (typeof(ulong), Convert.ToUInt64(value), true, false),
+            "float" => (typeof(float), Convert.ToSingle(value), true, false),
+            "double" => (typeof(double), Convert.ToDouble(value), true, false),
+            "decimal" => (typeof(decimal), Convert.ToDecimal(value), true, false),
+            "char" => (typeof(char), Convert.ToChar(value), true, false),
+            "datetime" => (typeof(DateTime), Convert.ToDateTime(value), true, false),
+            "timespan" => (typeof(TimeSpan), TimeSpan.Parse(value), true, false),
+            "guid" => (typeof(Guid), Guid.Parse(value), true, false),
+            "uri" => (typeof(Uri), new Uri(value), true, false),
+            "version" => (typeof(Version), new Version(value), true, false),
+            "type" => (typeof(Type), Type.GetType(value, true, true) ?? throw new TypeLoadException($"Failed to load type \"{value}\"."), true, false),
+            "eval" => parseEvalExpr(), // Evaluate expression, e.g., "[eval]:1 + 2 * 3 or [eval]:{Section.Key}"
             _ => parseCustomTypeAndValueExpr()
         };
 
+        (Type, object, bool, bool) parseEvalExpr()
+        {
+            // Eval type is defined in the subordinate Gemstone.Configuration assembly, so we can't reference it directly.
+            Type parsedType = Type.GetType($"{EvalTypeName},{nameof(Gemstone)}.{nameof(Configuration)}", true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
+            object evalInstance;
+
+            try
+            {
+                // Returns instance of Gemstone.Configuration.Eval class
+                evalInstance = Common.TypeConvertFromString(value, parsedType, null, false) ?? throw new NullReferenceException("Result of evaluation was null");
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Failed to parse expression \"{value}\": {ex.Message}", ex);
+            }
+
+            // Since checking for 'Eval' type is handled by name, type determination is cached by 'isEvalExpr'
+            return (parsedType, evalInstance, true, true);
+        }
+
         // Parse custom type names
-        (Type, object, bool) parseCustomTypeAndValueExpr()
+        (Type, object, bool, bool) parseCustomTypeAndValueExpr()
         {
             // Handle common C# native array types as a special case,
             // this allows for a more concise config representation:
@@ -365,7 +434,7 @@ public partial class SettingsSection : DynamicObject
             Type parsedType = Type.GetType(typeName, true, true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
             object parsedValue = Common.TypeConvertFromString(value, parsedType) ?? Activator.CreateInstance(parsedType) ?? string.Empty;
 
-            return (parsedType, parsedValue, true);
+            return (parsedType, parsedValue, true, false);
         }
     }
 
@@ -374,12 +443,24 @@ public partial class SettingsSection : DynamicObject
     /// </summary>
     /// <param name="value">Value to convert to a typed representation.</param>
     /// <returns>String formatted as a type-prefixed value, e.g.: <c>[int]:123</c>.</returns>
-    public static string ToTypedValue(object? value)
+    public static string GenerateTypedPrefixedValue(object? value)
+    {
+        return ToTypedValue(value, null);
+    }
+
+    private static string ToTypedValue(object? value, bool? isEvalExpr)
     {
         if (value is null)
             return string.Empty;
 
         Type valueType = value.GetType();
+
+        if (isEvalExpr ?? valueType.FullName?.Equals(EvalTypeName) ?? false)
+        {
+            // Always store unevaluated / un-transpiled expression for Eval types
+            dynamic evalInstance = value;
+            return $"[eval]:{evalInstance.Expression}";
+        }
 
         return 0 switch
         {
