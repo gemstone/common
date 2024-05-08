@@ -24,7 +24,7 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
     <Nullable>enable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <Version>1.0.111</Version>
+    <Version>1.0.113</Version>
     <InformationalVersion Condition="'$(Configuration)'=='Release'">1.0.113 -- Release Build</InformationalVersion>
     <InformationalVersion Condition="'$(Configuration)'!='Release'">1.0.113 -- Debug Build</InformationalVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
