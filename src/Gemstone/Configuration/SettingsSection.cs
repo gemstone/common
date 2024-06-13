@@ -429,8 +429,19 @@ public partial class SettingsSection : DynamicObject
             };
 
             // Add assumed assembly name to type name if only a type name is provided
-            if (!typeName.Contains(',') && typeName.CharCount('.') > 1 && !typeName.StartsWith("System.")) 
-                typeName = $"{typeName}, {typeName[..typeName.IndexOf('.', typeName.IndexOf('.') + 1)]}";
+            if (!typeName.Contains(',') && !typeName.StartsWith("System."))
+            {
+                int dotCount = typeName.CharCount('.');
+
+                if (dotCount > 0)
+                {
+                    typeName = dotCount > 1 ?
+                        // Match the following: NS1.NS2.TypeName -> NS1.NS2.TypeName, NS1.NS2
+                        $"{typeName}, {typeName[..typeName.IndexOf('.', typeName.IndexOf('.') + 1)]}" :
+                        // Else, match: NS1.TypeName -> NS1.TypeName, NS1
+                        $"{typeName}, {typeName[..typeName.IndexOf('.')]}";
+                }
+            }
 
             Type parsedType = Type.GetType(typeName, true, true) ?? throw new TypeLoadException($"Failed to load type \"{typeName}\".");
             object parsedValue = Common.TypeConvertFromString(value, parsedType) ?? Activator.CreateInstance(parsedType) ?? string.Empty;
