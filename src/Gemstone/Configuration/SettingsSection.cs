@@ -533,10 +533,7 @@ public partial class SettingsSection : DynamicObject
             string typeFullName = valueType.FullName ?? string.Empty;
 
             // Only include assembly name if it's not the core library or the type is in a different namespace
-            if (assemblyShortName.Equals(s_coreLibAssembly, StringComparison.OrdinalIgnoreCase) || typeNamespace.Length > 0 && assemblyShortName.StartsWith(typeNamespace, StringComparison.OrdinalIgnoreCase))
-                assemblyShortName = string.Empty;
-            else
-                assemblyShortName = $",{assemblyShortName}";
+            assemblyShortName = assemblyShortName.Equals(s_coreLibAssembly, StringComparison.OrdinalIgnoreCase) ? string.Empty : $",{assemblyShortName}";
 
             // Remove version, culture and public key token from assembly name for cleaner generic strings:
             assemblyShortName = s_typeNameCleaner.Replace(assemblyShortName, string.Empty);
