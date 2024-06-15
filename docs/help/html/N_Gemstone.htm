@@ -47,11 +47,17 @@
             </td></tr><tr><td><a href="T_Gemstone_NullableWeakReference.htm">NullableWeakReference</a></td><td>
             A <a href="https://docs.microsoft.com/dotnet/api/system.weakreference" target="_blank" rel="noopener noreferrer">WeakReference</a> implementation that can have the <a href="P_Gemstone_NullableWeakReference_Target.htm">Target</a> object set to null.
             Natively, setting <a href="https://docs.microsoft.com/dotnet/api/system.weakreference.target#System_WeakReference_Target" target="_blank" rel="noopener noreferrer">Target</a> to null will throw an <a href="https://docs.microsoft.com/dotnet/api/system.invalidoperationexception" target="_blank" rel="noopener noreferrer">InvalidOperationException</a>,
+            </td></tr><tr><td><a href="T_Gemstone_ObjectState_1.htm">ObjectState<span id="LST5C8E8F9B_15" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TState<span id="LST5C8E8F9B_16" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            A serializable class that can be used to track the current and previous state of an object.
             </td></tr><tr><td><a href="T_Gemstone_PrecisionTimer.htm">PrecisionTimer</a></td><td>
             Represents a high-resolution timer and timestamp class.
-            </td></tr><tr><td><a href="T_Gemstone_Range_1.htm">Range<span id="LST5C8E8F9B_15" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST5C8E8F9B_16" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            </td></tr><tr><td><a href="T_Gemstone_ProcessProgress_1.htm">ProcessProgress<span id="LST5C8E8F9B_17" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TUnit<span id="LST5C8E8F9B_18" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Represents current process progress for an operation.
+            </td></tr><tr><td><a href="T_Gemstone_ProcessProgressHandler_1.htm">ProcessProgressHandler<span id="LST5C8E8F9B_19" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TUnit<span id="LST5C8E8F9B_20" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            Defines a delegate handler for a <a href="T_Gemstone_ProcessProgress_1.htm">ProcessProgress<span id="LST5C8E8F9B_21" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TUnit<span id="LST5C8E8F9B_22" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a> instance.
+            </td></tr><tr><td><a href="T_Gemstone_Range_1.htm">Range<span id="LST5C8E8F9B_23" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST5C8E8F9B_24" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
             Represents a range of values defined by start and end value.
-            </td></tr><tr><td><a href="T_Gemstone_Range_2.htm">Range<span id="LST5C8E8F9B_17" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TRange, TState<span id="LST5C8E8F9B_18" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            </td></tr><tr><td><a href="T_Gemstone_Range_2.htm">Range<span id="LST5C8E8F9B_25" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>TRange, TState<span id="LST5C8E8F9B_26" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
             Represents a range of values defined by a start and end value with encapsulated state.
             </td></tr><tr><td><a href="T_Gemstone_Serialization.htm">Serialization</a></td><td>
             Common serialization related functions.
@@ -65,7 +71,7 @@
             Defines a few common United States time zones.
             </td></tr><tr><td><a href="T_Gemstone_Word.htm">Word</a></td><td>
             Defines functions related to 16-bit words, 32-bit double-words and 64-bit quad-words.
-            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Structures</h2><div id="ID2CASection"><table id="structureList" class="table is-hoverable"><tr><td><a href="T_Gemstone_ShortTime.htm">ShortTime</a></td><td>
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Structures</h2><div id="ID4CASection"><table id="structureList" class="table is-hoverable"><tr><td><a href="T_Gemstone_ShortTime.htm">ShortTime</a></td><td>
             Represents a high resolution time that is very granular but may drift 
             if trying to accurately measure long time durations (Such as hours). 
             This time is not adjusted with changes to the system clock.
@@ -76,7 +82,7 @@
             of 100-nanosecond intervals that have elapsed since 12:00:00 midnight, January 1, 0001.
             </td></tr><tr><td><a href="T_Gemstone_TimerCapabilities.htm">TimerCapabilities</a></td><td>
             Represents information about the system's multimedia timer capabilities.
-            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Interfaces</h2><div id="IDVCASection"><table id="interfaceList" class="table is-hoverable"><tr><td><a href="T_Gemstone_IMergeable_1.htm">IMergeable<span id="LST5C8E8F9B_19" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST5C8E8F9B_20" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
+            </td></tr></table></div><h2 class="quickLinkHeader"><span class="icon toggleSection" tabindex="0"><i class="fa fa-angle-down"></i></span>Interfaces</h2><div id="IDWCASection"><table id="interfaceList" class="table is-hoverable"><tr><td><a href="T_Gemstone_IMergeable_1.htm">IMergeable<span id="LST5C8E8F9B_27" data-languageSpecificText="cs=&lt;|vb=(Of |cpp=&lt;|nu=(|fs=&lt;'"></span>T<span id="LST5C8E8F9B_28" data-languageSpecificText="cs=&gt;|vb=)|cpp=&gt;|nu=)|fs=&gt;"></span></a></td><td>
             Represents a type of object that is mergeable with another type of object.
             </td></tr><tr><td><a href="T_Gemstone_IProvideStatus.htm">IProvideStatus</a></td><td>
             Defines an interface for any object to allow it to provide a name and status
@@ -91,6 +97,8 @@
             Enumeration that represents a state of either "automatic", "on" or "off".
             </td></tr><tr><td><a href="T_Gemstone_Endianness.htm">Endianness</a></td><td>
             Endian Byte Order Enumeration.
+            </td></tr><tr><td><a href="T_Gemstone_UpdateType.htm">UpdateType</a></td><td>
+            Indicates the type of update.
             </td></tr></table></div></div><div id="InThisArticleColumn" class="column is-hidden-mobile"><nav class="menu sticky is-hidden"><p class="menu-label"><strong>In This Article</strong></p><ul id="InThisArticleMenu" class="menu-list"><li><a class="quickLink">Classes</a></li><li><a class="quickLink">Structures</a></li><li><a class="quickLink">Interfaces</a></li><li><a class="quickLink">Enumerations</a></li></ul></nav></div></div></div><footer id="PageFooter" class="footer border-top py-3 fixedFooter"><div class="columns"><div class="column"><span class="site-footer-credits">
 <a href="https://gemstone.github.io/common/" target="_self">Documentation Home</a>  •  <a href="https://www.nuget.org/packages/Gemstone.Common/" target="_blank">Gemstone Common Library on NuGet</a><br /><br />
 Generated by <a href="https://github.com/EWSoftware/SHFB" target="_blank">Sandcastle Help File Builder</a>
