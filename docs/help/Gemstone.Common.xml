@@ -18032,19 +18032,19 @@
             implement a notifier that receives notification requests ad-hoc but sends notifications
             no more than once every 15 seconds.
             </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">public ExampleClass() =&gt;
-    SynchronizedOperation = new TaskSynchronizedOperation(NotifyAsync);
-
-public void SendNotification() =&gt;
-    SynchronizedOperation.RunOnceAsync();
-
-private async Task NotifyAsync()
-{
-    Notify();
-    await Task.Delay(15000);
-}</code>
-        </codeSnippetGroup>
+        <code>
+            public ExampleClass() =&gt;
+                SynchronizedOperation = new TaskSynchronizedOperation(NotifyAsync);
+                
+            public void SendNotification() =&gt;
+                SynchronizedOperation.RunOnceAsync();
+                
+            private async Task NotifyAsync()
+            {
+                Notify();
+                await Task.Delay(15000);
+            }
+            </code>
       </remarks>
     </member>
     <member name="M:Gemstone.Threading.SynchronizedOperations.TaskSynchronizedOperation.#ctor(System.Func{System.Threading.Tasks.Task})">
@@ -18158,7 +18158,7 @@ private async Task NotifyAsync()
             " year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than ".
             </para>
         <example>
-          <code>
+          <code language="cs">
               DateTime g_start = DateTime.UtcNow;
               DateTime EndTime = DateTime.UtcNow;
               TimeSpan duration = EndTime.Subtract(g_start);
