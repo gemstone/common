@@ -18158,7 +18158,7 @@
             " year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than ".
             </para>
         <example>
-          <code language="cs">
+          <code>
               DateTime g_start = DateTime.UtcNow;
               DateTime EndTime = DateTime.UtcNow;
               TimeSpan duration = EndTime.Subtract(g_start);
