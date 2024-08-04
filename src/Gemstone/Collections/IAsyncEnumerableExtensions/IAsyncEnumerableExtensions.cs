@@ -44,7 +44,7 @@ public static class IAsyncEnumerableExtensions
     /// <param name="continueOnCapturedContext">Whether to capture and marshal back to the current context.</param>
     /// <returns>The configured enumerable.</returns>
     /// <remarks>
-    /// The <see cref="TaskAsyncEnumerableExtensions.WithCancellation{T}"/> extension method sets <param name="continueOnCapturedContext"/> to
+    /// The <see cref="TaskAsyncEnumerableExtensions.WithCancellation{T}"/> extension method sets <paramref name="continueOnCapturedContext"/> to
     /// <c>true</c>, this extension method allows the <param name="continueOnCapturedContext"/> to be set <c>false</c>, the default value for
     /// this extension method.
     /// </remarks>
