@@ -48,6 +48,7 @@ public static class IAsyncEnumerableExtensions
     /// <c>true</c>, this extension method allows the <param name="continueOnCapturedContext"/> to be set <c>false</c>, the default value for
     /// this extension method.
     /// </remarks>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ConfiguredCancelableAsyncEnumerable<T> WithAwaitConfiguredCancellation<T>(this IAsyncEnumerable<T> source, CancellationToken cancellationToken, bool continueOnCapturedContext = false)
     {
         return source.WithCancellation(cancellationToken).ConfigureAwait(continueOnCapturedContext);
