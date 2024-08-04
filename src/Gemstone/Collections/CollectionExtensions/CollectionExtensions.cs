@@ -128,8 +128,10 @@ public static class CollectionExtensions
     /// <paramref name="count"/> parameter as an optimization to prevent a full
     /// enumeration on <paramref name="source"/> to get a count.
     /// </remarks>
-    public static PagedList<T> ToPagedList<T>(this IEnumerable<T> source, int page, int pageSize, int count = -1) =>
-        new(source, page, pageSize, count);
+    public static PagedList<T> ToPagedList<T>(this IEnumerable<T> source, int page, int pageSize, int count = -1)
+    {
+        return new PagedList<T>(source, page, pageSize, count);
+    }
 
     /// <summary>
     /// Merges elements of multiple dictionaries into a single dictionary with no duplicate key values overwritten.
@@ -143,8 +145,10 @@ public static class CollectionExtensions
     /// A merged collection of all unique dictionary elements, all <paramref name="others"/> merged left to the source with no duplicate
     /// key values overwritten (i.e., first encountered key value pair is the one that remains in the returned merged dictionary).
     /// </returns>
-    public static T Merge<T, TKey, TValue>(this T source, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new() =>
-        source.Merge(false, others);
+    public static T Merge<T, TKey, TValue>(this T source, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new()
+    {
+        return source.Merge(false, others);
+    }
 
     /// <summary>
     /// Merges elements of multiple dictionaries into a single dictionary.
@@ -159,7 +163,7 @@ public static class CollectionExtensions
     public static T Merge<T, TKey, TValue>(this T source, bool overwriteExisting, params IDictionary<TKey, TValue>[] others) where T : IDictionary<TKey, TValue>, new()
     {
         T mergedDictionary = new();
-        List<IDictionary<TKey, TValue>> allDictionaries = new() { source };
+        List<IDictionary<TKey, TValue>> allDictionaries = [source];
 
         allDictionaries.AddRange(others);
 
@@ -187,8 +191,10 @@ public static class CollectionExtensions
     /// <param name="dictionary">The dictionary to check for the given key.</param>
     /// <param name="key">The key to be checked for the existence of a value.</param>
     /// <returns>The value of the key in the dictionary or the default value if no such value exists.</returns>
-    public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key) =>
-        dictionary.GetOrDefault(key, _ => default!);
+    public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+    {
+        return dictionary.GetOrDefault(key, _ => default!);
+    }
 
     /// <summary>
     /// Attempts to get the value for the given key and returns the default value instead if the key does not exist in the <see cref="IDictionary{TKey, TValue}"/>.
@@ -201,10 +207,7 @@ public static class CollectionExtensions
     /// <returns>The value of the key in the dictionary or the default value if no such value exists.</returns>
     public static TValue GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> defaultValueFactory)
     {
-        if (!dictionary.TryGetValue(key, out TValue? value))
-            value = defaultValueFactory(key);
-
-        return value;
+        return dictionary.TryGetValue(key, out TValue? value) ? value : defaultValueFactory(key);
     }
 
     /// <summary>
@@ -218,11 +221,11 @@ public static class CollectionExtensions
     /// <returns>The value of the key in the dictionary.</returns>
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> valueFactory)
     {
-        if (!dictionary.TryGetValue(key, out TValue? value))
-        {
-            value = valueFactory(key);
-            dictionary.Add(key, value);
-        }
+        if (dictionary.TryGetValue(key, out TValue? value))
+            return value;
+
+        value = valueFactory(key);
+        dictionary.Add(key, value);
 
         return value;
     }
@@ -238,13 +241,12 @@ public static class CollectionExtensions
     /// <returns>The value of the key in the dictionary.</returns>
     public static TValue GetOrAdd<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, TValue value)
     {
-        if (!dictionary.TryGetValue(key, out TValue? tryGetValue))
-        {
-            tryGetValue = value;
-            dictionary.Add(key, tryGetValue);
-        }
+        if (dictionary.TryGetValue(key, out TValue? mapValue))
+            return mapValue;
 
-        return tryGetValue;
+        dictionary.Add(key, value);
+
+        return value;
     }
 
     /// <summary>
@@ -306,6 +308,7 @@ public static class CollectionExtensions
     public static TValue AddOrUpdate<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, Func<TKey, TValue> valueFactory)
     {
         TValue value = valueFactory(key);
+
         dictionary[key] = value;
 
         return value;
@@ -332,8 +335,10 @@ public static class CollectionExtensions
     /// </summary>
     /// <param name="collection">Name/value collection.</param>
     /// <returns>Dictionary converted from a name/value collection.</returns>
-    public static Dictionary<string, string> ToDictionary(this NameValueCollection collection) =>
-        collection.AllKeys.ToDictionary(key => key!, key => collection[key]!);
+    public static Dictionary<string, string> ToDictionary(this NameValueCollection collection)
+    {
+        return collection.AllKeys.ToDictionary(key => key!, key => collection[key]!);
+    }
 
     /// <summary>
     /// Returns <c>true</c> if any item in <see cref="BitArray"/> is equal to <paramref name="value"/>.
@@ -341,8 +346,10 @@ public static class CollectionExtensions
     /// <param name="source">Source <see cref="BitArray"/>.</param>
     /// <param name="value"><see cref="bool"/> value to test for.</param>
     /// <returns><c>true</c> if any item in <see cref="BitArray"/> is equal to <paramref name="value"/>.</returns>
-    public static bool Any(this BitArray source, bool value) =>
-        source.Cast<bool>().Any(item => item == value);
+    public static bool Any(this BitArray source, bool value)
+    {
+        return source.Cast<bool>().Any(item => item == value);
+    }
 
     /// <summary>
     /// Returns <c>true</c> if all items in <see cref="BitArray"/> are equal to <paramref name="value"/>.
@@ -350,8 +357,10 @@ public static class CollectionExtensions
     /// <param name="source">Source <see cref="BitArray"/>.</param>
     /// <param name="value"><see cref="bool"/> value to test for.</param>
     /// <returns><c>true</c> if all items in <see cref="BitArray"/> are equal to <paramref name="value"/>.</returns>
-    public static bool All(this BitArray source, bool value) =>
-        source.Cast<bool>().All(item => item == value);
+    public static bool All(this BitArray source, bool value)
+    {
+        return source.Cast<bool>().All(item => item == value);
+    }
 
     /// <summary>
     /// Determines whether all elements of a sequence satisfy a condition with each item being tested in parallel.
@@ -406,7 +415,7 @@ public static class CollectionExtensions
         if (values.Length < 3)
             return values;
 
-        List<T> results = new();
+        List<T> results = [];
 
         bool isEven = values.Length % 2 == 0;
         int midIndex = values.Length / 2;
@@ -429,8 +438,10 @@ public static class CollectionExtensions
     /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
     /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
     /// <returns>The majority value in the collection.</returns>
-    public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource>? source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) where TKey : notnull => 
-        source.MajorityBy(default!, keySelector, forwardSearch, comparer);
+    public static TSource MajorityBy<TSource, TKey>(this IEnumerable<TSource>? source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
+    {
+        return source.MajorityBy(default!, keySelector, forwardSearch, comparer);
+    }
 
     /// <summary>
     /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -457,33 +468,33 @@ public static class CollectionExtensions
         else
             values = source.Reverse().ToArray();
 
-        if (values.Length > 1)
+        if (values.Length <= 1)
+            return majority;
+
+        Dictionary<TKey, Tuple<int, TSource>> itemCounts = new(comparer);
+
+        // Count each number of items in the list
+        foreach (TSource value in values)
         {
-            Dictionary<TKey, Tuple<int, TSource>> itemCounts = new(comparer);
+            TKey key = keySelector(value);
 
-            // Count each number of items in the list
-            foreach (TSource value in values)
+            if (itemCounts.TryGetValue(key, out Tuple<int, TSource>? valueCount))
             {
-                TKey key = keySelector(value);
-
-                if (itemCounts.TryGetValue(key, out Tuple<int, TSource>? valueCount))
-                {
-                    int count = valueCount.Item1 + 1;
-                    itemCounts[key] = new Tuple<int, TSource>(count, valueCount.Item2);
-                }
-                else
-                {
-                    itemCounts.Add(key, new Tuple<int, TSource>(1, value));
-                }
+                int count = valueCount.Item1 + 1;
+                itemCounts[key] = new Tuple<int, TSource>(count, valueCount.Item2);
             }
-
-            // Find the largest number of items in the list
-            KeyValuePair<TKey, Tuple<int, TSource>> maxItem = itemCounts.Max((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
-
-            // If item with largest count has a plural majority, then it is the majority item
-            if (maxItem.Value.Item1 > 1)
-                majority = maxItem.Value.Item2;
+            else
+            {
+                itemCounts.Add(key, new Tuple<int, TSource>(1, value));
+            }
         }
+
+        // Find the largest number of items in the list
+        KeyValuePair<TKey, Tuple<int, TSource>> maxItem = itemCounts.Max((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
+
+        // If item with the largest count has a plural majority, then it is the majority item
+        if (maxItem.Value.Item1 > 1)
+            majority = maxItem.Value.Item2;
 
         return majority;
     }
@@ -496,8 +507,10 @@ public static class CollectionExtensions
     /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
     /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
     /// <returns>The majority value in the collection.</returns>
-    public static T Majority<T>(this IEnumerable<T>? source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) where T : notnull => 
-        source.Majority(default!, forwardSearch, comparer);
+    public static T Majority<T>(this IEnumerable<T>? source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) where T : notnull
+    {
+        return source.Majority(default!, forwardSearch, comparer);
+    }
 
     /// <summary>
     /// Returns the majority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -522,31 +535,31 @@ public static class CollectionExtensions
         else
             values = source.Reverse().ToArray();
 
-        if (values.Length > 1)
+        if (values.Length <= 1)
+            return majority;
+
+        Dictionary<T, int> itemCounts = new(comparer);
+
+        // Count each number of items in the list
+        foreach (T item in values)
         {
-            Dictionary<T, int> itemCounts = new(comparer);
-
-            // Count each number of items in the list
-            foreach (T item in values)
+            if (itemCounts.TryGetValue(item, out int count))
             {
-                if (itemCounts.TryGetValue(item, out int count))
-                {
-                    count++;
-                    itemCounts[item] = count;
-                }
-                else
-                {
-                    itemCounts.Add(item, 1);
-                }
+                count++;
+                itemCounts[item] = count;
             }
-
-            // Find the largest number of items in the list
-            KeyValuePair<T, int> maxItem = itemCounts.Max((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
-
-            // If item with largest count has a plural majority, then it is the majority item
-            if (maxItem.Value > 1)
-                majority = maxItem.Key;
+            else
+            {
+                itemCounts.Add(item, 1);
+            }
         }
+
+        // Find the largest number of items in the list
+        KeyValuePair<T, int> maxItem = itemCounts.Max((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
+
+        // If item with the largest count has a plural majority, then it is the majority item
+        if (maxItem.Value > 1)
+            majority = maxItem.Key;
 
         return majority;
     }
@@ -561,8 +574,10 @@ public static class CollectionExtensions
     /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
     /// <param name="comparer">The <see cref="IEqualityComparer{TKey}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
     /// <returns>The minority value in the collection.</returns>
-    public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource>? source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) where TKey : notnull => 
-        source.MinorityBy(default!, keySelector, forwardSearch, comparer);
+    public static TSource MinorityBy<TSource, TKey>(this IEnumerable<TSource>? source, Func<TSource, TKey> keySelector, bool forwardSearch = true, IEqualityComparer<TKey>? comparer = null) where TKey : notnull
+    {
+        return source.MinorityBy(default!, keySelector, forwardSearch, comparer);
+    }
 
     /// <summary>
     /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the majority.
@@ -589,30 +604,30 @@ public static class CollectionExtensions
         else
             values = source.Reverse().ToArray();
 
-        if (values.Length > 1)
+        if (values.Length <= 1)
+            return minority;
+
+        Dictionary<TKey, Tuple<int, TSource>> itemCounts = new(comparer);
+
+        // Count each number of items in the list
+        foreach (TSource value in values)
         {
-            Dictionary<TKey, Tuple<int, TSource>> itemCounts = new(comparer);
+            TKey key = keySelector(value);
 
-            // Count each number of items in the list
-            foreach (TSource value in values)
+            if (itemCounts.TryGetValue(key, out Tuple<int, TSource>? valueCount))
             {
-                TKey key = keySelector(value);
-
-                if (itemCounts.TryGetValue(key, out Tuple<int, TSource>? valueCount))
-                {
-                    int count = valueCount.Item1 + 1;
-                    itemCounts[key] = new Tuple<int, TSource>(count, valueCount.Item2);
-                }
-                else
-                {
-                    itemCounts.Add(key, new Tuple<int, TSource>(1, value));
-                }
+                int count = valueCount.Item1 + 1;
+                itemCounts[key] = new Tuple<int, TSource>(count, valueCount.Item2);
             }
-
-            // Find the smallest number of items in the list
-            KeyValuePair<TKey, Tuple<int, TSource>> minItem = itemCounts.Min((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
-            minority = minItem.Value.Item2;
+            else
+            {
+                itemCounts.Add(key, new Tuple<int, TSource>(1, value));
+            }
         }
+
+        // Find the smallest number of items in the list
+        KeyValuePair<TKey, Tuple<int, TSource>> minItem = itemCounts.Min((a, b) => a.Value.Item1 < b.Value.Item1 ? -1 : a.Value.Item1 > b.Value.Item1 ? 1 : 0);
+        minority = minItem.Value.Item2;
 
         return minority;
     }
@@ -625,8 +640,10 @@ public static class CollectionExtensions
     /// <param name="forwardSearch"><c>true</c> to search forward in <paramref name="source"/>; otherwise <c>false</c> to search backwards.</param>
     /// <param name="comparer">The <see cref="IEqualityComparer{T}" /> implementation to use when comparing keys, or <c>null</c> to use the default comparer for the type of the key.</param>
     /// <returns>The minority value in the collection.</returns>
-    public static T Minority<T>(this IEnumerable<T>? source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) where T : notnull => 
-        source.Minority(default!, forwardSearch, comparer);
+    public static T Minority<T>(this IEnumerable<T>? source, bool forwardSearch = true, IEqualityComparer<T>? comparer = null) where T : notnull
+    {
+        return source.Minority(default!, forwardSearch, comparer);
+    }
 
     /// <summary>
     /// Returns the minority value in the collection, or <paramref name="defaultValue"/> if no item represents the minority.
@@ -651,28 +668,28 @@ public static class CollectionExtensions
         else
             values = source.Reverse().ToArray();
 
-        if (values.Length > 1)
+        if (values.Length <= 1)
+            return minority;
+
+        Dictionary<T, int> itemCounts = new(comparer);
+
+        // Count each number of items in the list
+        foreach (T item in values)
         {
-            Dictionary<T, int> itemCounts = new(comparer);
-
-            // Count each number of items in the list
-            foreach (T item in values)
+            if (itemCounts.TryGetValue(item, out int count))
             {
-                if (itemCounts.TryGetValue(item, out int count))
-                {
-                    count++;
-                    itemCounts[item] = count;
-                }
-                else
-                {
-                    itemCounts.Add(item, 1);
-                }
+                count++;
+                itemCounts[item] = count;
             }
-
-            // Find the smallest number of items in the list
-            KeyValuePair<T, int> minItem = itemCounts.Min((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
-            minority = minItem.Key;
+            else
+            {
+                itemCounts.Add(item, 1);
+            }
         }
+
+        // Find the smallest number of items in the list
+        KeyValuePair<T, int> minItem = itemCounts.Min((a, b) => a.Value < b.Value ? -1 : a.Value > b.Value ? 1 : 0);
+        minority = minItem.Key;
 
         return minority;
     }
@@ -713,7 +730,7 @@ public static class CollectionExtensions
     /// <returns>An <see cref="IList{T}"/> object.</returns>
     public static IList<T> GetRange<T>(this IList<T> collection, int index, int count)
     {
-        List<T> result = new();
+        List<T> result = [];
 
         for (int i = index; i < index + count; i++)
             result.Add(collection[i]);
@@ -795,11 +812,11 @@ public static class CollectionExtensions
         {
             TKey nextKey = keySelector(enumerator.Current);
 
-            if (nextKey.CompareTo(minKey) < 0)
-            {
-                minItem = enumerator.Current;
-                minKey = nextKey;
-            }
+            if (nextKey.CompareTo(minKey) >= 0)
+                continue;
+
+            minItem = enumerator.Current;
+            minKey = nextKey;
         }
 
         return minItem;
@@ -835,8 +852,10 @@ public static class CollectionExtensions
     /// <param name="source">An enumeration that is compared against.</param>
     /// <param name="comparer">A comparer object.</param>
     /// <returns>Returns a generic type.</returns>
-    public static TSource Min<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer) => 
-        source.Min(comparer.Compare);
+    public static TSource Min<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer)
+    {
+        return source.Min(comparer.Compare);
+    }
 
     /// <summary>Selects the largest item from the enumeration.</summary>
     /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
@@ -860,11 +879,11 @@ public static class CollectionExtensions
         {
             TKey nextKey = keySelector(enumerator.Current);
 
-            if (nextKey.CompareTo(maxKey) > 0)
-            {
-                maxItem = enumerator.Current;
-                maxKey = nextKey;
-            }
+            if (nextKey.CompareTo(maxKey) <= 0)
+                continue;
+
+            maxItem = enumerator.Current;
+            maxKey = nextKey;
         }
 
         return maxItem;
@@ -900,7 +919,10 @@ public static class CollectionExtensions
     /// <param name="source">An enumeration that is compared against.</param>
     /// <param name="comparer">A comparer object.</param>
     /// <returns>Returns a generic type.</returns>
-    public static TSource Max<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer) => source.Max(comparer.Compare);
+    public static TSource Max<TSource>(this IEnumerable<TSource> source, IComparer<TSource> comparer)
+    {
+        return source.Max(comparer.Compare);
+    }
 
     /// <summary>
     /// Returns only the elements whose keys are distinct.
@@ -930,8 +952,10 @@ public static class CollectionExtensions
     /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
     /// <param name="source">The source object to be converted into a delimited string.</param>
     /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by the '|' character.</returns>
-    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source) => 
-        source.ToDelimitedString('|');
+    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source)
+    {
+        return source.ToDelimitedString('|');
+    }
 
     /// <summary>Converts an enumeration to a string that can later be converted back to a list using
     /// LoadDelimitedString.</summary>
@@ -939,8 +963,10 @@ public static class CollectionExtensions
     /// <param name="source">The source object to be converted into a delimited string.</param>
     /// <param name="delimiter">The delimiting character used.</param>
     /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter) => 
-        ToDelimitedString<TSource, char>(source, delimiter);
+    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, char delimiter)
+    {
+        return ToDelimitedString<TSource, char>(source, delimiter);
+    }
 
     /// <summary>Converts an enumeration to a string that can later be converted back to a list using
     /// LoadDelimitedString.</summary>
@@ -948,8 +974,10 @@ public static class CollectionExtensions
     /// <param name="source">The source object to be converted into a delimited string.</param>
     /// <param name="delimiter">The delimiting <see cref="string"/> used.</param>
     /// <returns>Returns a <see cref="string"/> that is result of combining all elements in the list delimited by <paramref name="delimiter"/>.</returns>
-    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter) => 
-        ToDelimitedString<TSource, string>(source, delimiter);
+    public static string ToDelimitedString<TSource>(this IEnumerable<TSource> source, string delimiter)
+    {
+        return ToDelimitedString<TSource, string>(source, delimiter);
+    }
 
     /// <summary>Converts an enumeration to a string that can later be converted back to a list using
     /// LoadDelimitedString.</summary>
@@ -983,8 +1011,10 @@ public static class CollectionExtensions
     /// <param name="destination">The list we are adding items to.</param>
     /// <param name="delimitedString">The delimited string to parse for items.</param>
     /// <param name="convertFromString">Delegate that takes one parameter and converts from string to type TSource.</param>
-    public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, Func<string, TSource> convertFromString) => 
+    public static void LoadDelimitedString<TSource>(this IList<TSource> destination, string delimitedString, Func<string, TSource> convertFromString)
+    {
         destination.LoadDelimitedString(delimitedString, '|', convertFromString);
+    }
 
     /// <summary>Appends items parsed from delimited string, created with ToDelimitedString, into the given list.</summary>
     /// <remarks>Items that are converted are added to list. The list is not cleared in advance.</remarks>
@@ -1039,7 +1069,7 @@ public static class CollectionExtensions
     /// </returns>
     /// <remarks>
     /// In order to minimize the overhead of a removal. Any item removed with be replaced with
-    /// the last item in the list. Therefore Sequence will not be preserved using this method.
+    /// the last item in the list. Sequence will not be preserved using this method.
     /// </remarks>
     public static int RemoveWhere<T>(this List<T> list, Func<T, bool> shouldRemove)
     {
@@ -1129,14 +1159,14 @@ public static class CollectionExtensions
     /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IList{T}"/>.</typeparam>
     /// <param name="source">The input list of generic types to unscramble.</param>
     /// <param name="seed">The same number used in <see cref="Scramble{TSource}(IList{TSource},int)"/> call to scramble original list.</param>
-    /// <remarks>This function uses the <see cref="System.Random"/> generator to perform the unscramble using a sequence that is repeatable.</remarks>
+    /// <remarks>This function uses the <see cref="System.Random"/> generator to perform unscramble using a sequence that is repeatable.</remarks>
     public static void Unscramble<TSource>(this IList<TSource> source, int seed)
     {
         if (source.IsReadOnly && source is not TSource[])
             throw new ArgumentException("Cannot modify items in a read only list");
 
         System.Random random = new(seed);
-        List<int> sequence = new();
+        List<int> sequence = [];
         int count = source.Count;
 
         // Generate original scramble sequence.
@@ -1163,8 +1193,10 @@ public static class CollectionExtensions
     /// <returns>An <see cref="int"/> which returns 0 if they are equal, 1 if <paramref name="array1"/> is larger, or -1 if <paramref name="array2"/> is larger.</returns>
     /// <typeparam name="TSource"><see cref="Type"/> of the array.</typeparam>
     /// <exception cref="ArgumentException">Cannot compare multidimensional arrays.</exception>
-    public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true) => 
-        CompareTo(array1, array2, Comparer<TSource>.Default, orderIsImportant);
+    public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true)
+    {
+        return CompareTo(array1, array2, Comparer<TSource>.Default, orderIsImportant);
+    }
 
     /// <summary>Compares two arrays.</summary>
     /// <param name="array1">The first <see cref="Array"/> to compare to.</param>
@@ -1241,11 +1273,20 @@ public static class CollectionExtensions
         #region [ Methods ]
 
         // ReSharper disable once PossibleNullReferenceException
-        public bool Equals(DistinctByWrapper<TKey, TValue>? other) => Equals(Key, other!.Key);
+        public bool Equals(DistinctByWrapper<TKey, TValue>? other)
+        {
+            return Equals(Key, other!.Key);
+        }
 
-        public override bool Equals(object? obj) => obj is DistinctByWrapper<TKey, TValue> wrapper && Equals(wrapper);
+        public override bool Equals(object? obj)
+        {
+            return obj is DistinctByWrapper<TKey, TValue> wrapper && Equals(wrapper);
+        }
 
-        public override int GetHashCode() => Key?.GetHashCode() ?? 0;
+        public override int GetHashCode()
+        {
+            return Key?.GetHashCode() ?? 0;
+        }
 
         #endregion
     }
