@@ -116,6 +116,42 @@ public enum BaselineTimeInterval
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Ticks"/>> objects to and from various other representations.
+/// </summary>
+public class TicksConverter : Int64Converter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(long) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(long) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(long) && value is Ticks ticks)
+            return ticks.Value;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is long ticks)
+            return new Ticks(ticks);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents an instant in time, or time period, as a 64-bit signed integer with a value that is expressed as the number
 /// of 100-nanosecond intervals that have elapsed since 12:00:00 midnight, January 1, 0001.
 /// </summary>
@@ -139,6 +175,7 @@ public enum BaselineTimeInterval
 /// </remarks>
 // ReSharper disable RedundantNameQualifier
 [Serializable]
+[TypeConverter(typeof(TicksConverter))]
 public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks>, IComparable<long>, IComparable<DateTime>, IComparable<TimeSpan>, IEquatable<Ticks>, IEquatable<long>, IEquatable<DateTime>, IEquatable<TimeSpan>
 {
     #region [ Members ]
@@ -742,7 +779,7 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
 
     DateTime IConvertible.ToDateTime(IFormatProvider? provider) => Convert.ToDateTime(Value, provider);
 
-    object IConvertible.ToType(Type type, IFormatProvider? provider) => Convert.ChangeType(Value, type, provider);
+    object IConvertible.ToType(Type type, IFormatProvider? provider) => type == typeof(Ticks) ? Value : Convert.ChangeType(Value, type, provider);
 
     #endregion
 
