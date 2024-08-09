@@ -5398,6 +5398,55 @@
             Time value stored in ticks.
             </summary>
     </member>
+    <member name="T:Gemstone.TicksConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Ticks" />&gt; objects to and from various other representations.
+            </summary>
+    </member>
+    <member name="M:Gemstone.TicksConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.TicksConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.TicksConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.TicksConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.TicksConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.TicksConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.TimerCapabilities">
       <summary>
             Represents information about the system's multimedia timer capabilities.
@@ -8880,7 +8929,7 @@
             </returns>
       <remarks>
             In order to minimize the overhead of a removal. Any item removed with be replaced with
-            the last item in the list. Therefore Sequence will not be preserved using this method.
+            the last item in the list. Sequence will not be preserved using this method.
             </remarks>
     </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Scramble``1(System.Collections.Generic.IList{``0})">
@@ -8960,7 +9009,7 @@
       <param name="seed">The same number used in <see cref="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Scramble``1(System.Collections.Generic.IList{``0},System.Int32)" /> call to scramble original list.</param>
       <typeparam name="TSource">
         <see cref="T:System.Type" /> of <see cref="T:System.Collections.Generic.IList`1" />.</typeparam>
-      <remarks>This function uses the <see cref="T:System.Random" /> generator to perform the unscramble using a sequence that is repeatable.</remarks>
+      <remarks>This function uses the <see cref="T:System.Random" /> generator to perform unscramble using a sequence that is repeatable.</remarks>
     </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.UpdateRange``1(System.Collections.Generic.IList{``0},System.Int32,System.Collections.Generic.IEnumerable{``0})">
       <summary>
@@ -8972,6 +9021,27 @@
       <typeparam name="T">
         <see cref="T:System.Type" /> of elements in the <paramref name="collection" />.</typeparam>
       <exception cref="T:System.ArgumentOutOfRangeException">The specified <paramref name="index" /> is present in the <paramref name="collection" />.</exception>
+    </member>
+    <member name="T:Gemstone.Collections.IAsyncEnumerableExtensions.IAsyncEnumerableExtensions">
+      <summary>
+            Defines extension functions related to manipulation of <see cref="T:System.Collections.Generic.IAsyncEnumerable`1" /> implementations.
+            </summary>
+    </member>
+    <member name="M:Gemstone.Collections.IAsyncEnumerableExtensions.IAsyncEnumerableExtensions.WithAwaitConfiguredCancellation``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Threading.CancellationToken,System.Boolean)">
+      <summary>
+            Sets the <see cref="T:System.Threading.CancellationToken" /> to be passed to <see cref="M:System.Collections.Generic.IAsyncEnumerable`1.GetAsyncEnumerator(System.Threading.CancellationToken)" /> when
+            iterating and configures how awaits on the tasks returned from an async iteration will be performed, defaults to not capturing.
+            </summary>
+      <param name="source">The source enumerable being iterated.</param>
+      <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> to use.</param>
+      <param name="continueOnCapturedContext">Whether to capture and marshal back to the current context.</param>
+      <typeparam name="T">The type of the objects being iterated.</typeparam>
+      <returns>The configured enumerable.</returns>
+      <remarks>
+            The <see cref="M:System.Threading.Tasks.TaskAsyncEnumerableExtensions.WithCancellation``1(System.Collections.Generic.IAsyncEnumerable{``0},System.Threading.CancellationToken)" /> extension method sets <paramref name="continueOnCapturedContext" /> to
+            <c>true</c>, this extension method allows the <param name="continueOnCapturedContext" /> to be set <c>false</c>, the default value for
+            this extension method.
+            </remarks>
     </member>
     <member name="T:Gemstone.ComponentModel.DataAnnotations.AcronymValidationAttribute">
       <summary>
