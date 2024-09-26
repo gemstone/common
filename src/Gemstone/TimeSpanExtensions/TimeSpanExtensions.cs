@@ -35,39 +35,6 @@ public static class TimeSpanExtensions
 {
     /// <summary>
     /// Converts the <see cref="TimeSpan"/> value into a textual representation of years, days, hours,
-    /// minutes and seconds with the specified number of fractional digits.
-    /// </summary>
-    /// <param name="value">The <see cref="TimeSpan"/> to process.</param>
-    /// <param name="secondPrecision">Number of fractional digits to display for seconds. Defaults to 2.</param>
-    /// <param name="minimumSubSecondResolution">Minimum sub-second resolution to display. Defaults to <see cref="SI.Milli"/>.</param>
-    /// <remarks>Set second precision to -1 to suppress seconds display.</remarks>
-    /// <returns>
-    /// The string representation of the value of this <see cref="TimeSpan"/>, consisting of the number of
-    /// years, days, hours, minutes and seconds represented by this value.
-    /// </returns>
-    /// <remarks>
-    /// <para>
-    /// Set <paramref name="secondPrecision"/> to -1 to suppress seconds display, this will
-    /// force minimum resolution of time display to minutes.
-    /// </para>
-    /// <example>
-    /// <code>
-    ///   DateTime g_start = DateTime.UtcNow;
-    ///   DateTime EndTime = DateTime.UtcNow;
-    ///   TimeSpan duration = EndTime.Subtract(g_start);
-    ///   Console.WriteLine("Elapsed Time = " + duration.ToElapsedTimeString());
-    /// </code>
-    /// </example>
-    /// </remarks>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// <paramref name="minimumSubSecondResolution"/> is not less than or equal to <see cref="SI.Milli"/> or
-    /// <paramref name="minimumSubSecondResolution"/> is not defined in <see cref="SI.Factors"/> array.
-    /// </exception>
-    public static string ToElapsedTimeString(this TimeSpan value, int secondPrecision = 2, double minimumSubSecondResolution = SI.Milli) => 
-        Time.ToElapsedTimeString(value.TotalSeconds, secondPrecision, null, minimumSubSecondResolution);
-
-    /// <summary>
-    /// Converts the <see cref="TimeSpan"/> value into a textual representation of years, days, hours,
     /// minutes and seconds with the specified number of fractional digits given string array of
     /// time names.
     /// </summary>
@@ -75,7 +42,7 @@ public static class TimeSpanExtensions
     /// <param name="secondPrecision">Number of fractional digits to display for seconds.</param>
     /// <param name="timeNames">Time names array to use during textual conversion.</param>
     /// <param name="minimumSubSecondResolution">
-    /// Minimum sub-second resolution to display. Defaults to <see cref="SI.Milli"/>.
+    ///     Minimum sub-second resolution to display. Defaults to <see cref="SI.Milli"/>.
     /// </param>
     /// <remarks>
     /// <para>
@@ -103,6 +70,8 @@ public static class TimeSpanExtensions
     /// <paramref name="minimumSubSecondResolution"/> is not less than or equal to <see cref="SI.Milli"/> or
     /// <paramref name="minimumSubSecondResolution"/> is not defined in <see cref="SI.Factors"/> array.
     /// </exception>
-    public static string ToElapsedTimeString(this TimeSpan value, int secondPrecision = 2, string[]? timeNames = null, double minimumSubSecondResolution = SI.Milli) => 
-        Time.ToElapsedTimeString(value.TotalSeconds, secondPrecision, timeNames, minimumSubSecondResolution);
+    public static string ToElapsedTimeString(this TimeSpan value, int secondPrecision = 2, string[]? timeNames = null, double minimumSubSecondResolution = SI.Milli)
+    {
+        return Time.ToElapsedTimeString(value.TotalSeconds, secondPrecision, timeNames, minimumSubSecondResolution);
+    }
 }

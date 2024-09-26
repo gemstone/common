@@ -199,7 +199,7 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
             status.AppendLine($"           Last start time: {m_startTime.ToString(DateTimeFormat, CultureInfo.InvariantCulture)}");
             status.AppendLine($"            Last stop time: {m_stopTime.ToString(DateTimeFormat, CultureInfo.InvariantCulture)}");
             status.AppendLine($"         Last running time: {m_runningTime.ToString(DateTimeFormat, CultureInfo.InvariantCulture)}");
-            status.AppendLine($"             Total up time: {UpTime.ToElapsedTimeString(3, null)}");
+            status.AppendLine($"             Total up time: {UpTime.ToElapsedTimeString(3)}");
 
             return status.ToString();
         }
