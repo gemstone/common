@@ -115,6 +115,46 @@ public enum PowerUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Power"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Power"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class PowerConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Power power)
+            return (double)power;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double angle)
+            return new Power(angle);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a power measurement, in watts, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -142,6 +182,7 @@ public enum PowerUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(PowerConverter))]
 public struct Power : IComparable, IFormattable, IConvertible, IComparable<Power>, IComparable<double>, IEquatable<Power>, IEquatable<double>
 {
     #region [ Members ]

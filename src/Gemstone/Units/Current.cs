@@ -100,6 +100,46 @@ public enum CurrentUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Current"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Current"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class CurrentConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Current current)
+            return (double)current;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double current)
+            return new Current(current);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents an electric current measurement, in amperes, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -119,6 +159,7 @@ public enum CurrentUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(CurrentConverter))]
 public struct Current : IComparable, IFormattable, IConvertible, IComparable<Current>, IComparable<double>, IEquatable<Current>, IEquatable<double>
 {
     #region [ Members ]

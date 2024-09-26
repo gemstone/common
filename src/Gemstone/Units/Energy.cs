@@ -131,6 +131,46 @@ public enum EnergyUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Energy"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Energy"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class EnergyConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Energy energy)
+            return (double)energy;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double energy)
+            return new Energy(energy);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents an energy measurement, in joules (i.e., watt-seconds), as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -164,6 +204,7 @@ public enum EnergyUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(EnergyConverter))]
 public struct Energy : IComparable, IFormattable, IConvertible, IComparable<Energy>, IComparable<double>, IEquatable<Energy>, IEquatable<double>
 {
     #region [ Members ]

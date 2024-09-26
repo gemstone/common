@@ -120,6 +120,46 @@ public enum MassUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Mass"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Mass"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class MassConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Mass mass)
+            return (double)mass;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double mass)
+            return new Mass(mass);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a mass measurement, in kilograms, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -146,6 +186,7 @@ public enum MassUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(MassConverter))]
 public struct Mass : IComparable, IFormattable, IConvertible, IComparable<Mass>, IComparable<double>, IEquatable<Mass>, IEquatable<double>
 {
     #region [ Members ]

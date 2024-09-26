@@ -132,6 +132,46 @@ public enum TimeUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Time"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Time"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class TimeConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Time time)
+            return (double)time;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double time)
+            return new Time(time);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a time measurement, in seconds, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -171,6 +211,7 @@ public enum TimeUnit
 /// </remarks>
 // ReSharper disable RedundantNameQualifier
 [Serializable]
+[TypeConverter(typeof(TimeConverter))]
 public struct Time : IComparable, IFormattable, IConvertible, IComparable<Time>, IComparable<TimeSpan>, IComparable<double>, IEquatable<Time>, IEquatable<TimeSpan>, IEquatable<double>
 {
     #region [ Members ]

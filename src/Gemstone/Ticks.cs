@@ -116,8 +116,12 @@ public enum BaselineTimeInterval
 #endregion
 
 /// <summary>
-/// Provides a type converter to convert <see cref="Ticks"/>> objects to and from various other representations.
+/// Provides a type converter to convert <see cref="Ticks"/> values to and from various other representations.
 /// </summary>
+/// <remarks>
+/// Since <see cref="Ticks"/> reports a type code of <see cref="TypeCode.Int64"/>, the converter will convert
+/// to and from <c>long</c> values as well as other types supported by <see cref="Int64Converter"/>.
+/// </remarks>
 public class TicksConverter : Int64Converter
 {
     /// <inheritdoc/>

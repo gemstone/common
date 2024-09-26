@@ -123,6 +123,46 @@ public enum SpeedUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Speed"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Speed"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class SpeedConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Speed speed)
+            return (double)speed;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double speed)
+            return new Speed(speed);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a speed measurement, in meters per second, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -141,6 +181,7 @@ public enum SpeedUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(SpeedConverter))]
 public struct Speed : IComparable, IFormattable, IConvertible, IComparable<Speed>, IComparable<double>, IEquatable<Speed>, IEquatable<double>
 {
     #region [ Members ]

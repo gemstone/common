@@ -125,6 +125,46 @@ public enum TemperatureUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Temperature"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Temperature"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class TemperatureConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Temperature temperature)
+            return (double)temperature;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double temperature)
+            return new Temperature(temperature);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a temperature, in Kelvin, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -143,6 +183,7 @@ public enum TemperatureUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(TemperatureConverter))]
 public struct Temperature : IComparable, IFormattable, IConvertible, IComparable<Temperature>, IComparable<double>, IEquatable<Temperature>, IEquatable<double>
 {
     #region [ Members ]

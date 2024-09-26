@@ -155,6 +155,46 @@ public enum VolumeUnit
 #endregion
 
 /// <summary>
+/// Provides a type converter to convert <see cref="Volume"/> values to and from various other representations.
+/// </summary>
+/// <remarks>
+/// Since <see cref="Volume"/> reports a type code of <see cref="TypeCode.Double"/>, the converter will convert
+/// to and from <c>double</c> values as well as other types supported by <see cref="DoubleConverter"/>.
+/// </remarks>
+public class VolumeConverter : DoubleConverter
+{
+    /// <inheritdoc/>
+    public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
+    {
+        return destinationType == typeof(double) || base.CanConvertTo(context, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
+    {
+        return sourceType == typeof(double) || base.CanConvertFrom(context, sourceType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
+    {
+        if (destinationType == typeof(double) && value is Volume volume)
+            return (double)volume;
+
+        return base.ConvertTo(context, culture, value, destinationType);
+    }
+
+    /// <inheritdoc/>
+    public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
+    {
+        if (value is double volume)
+            return new Volume(volume);
+
+        return base.ConvertFrom(context, culture, value);
+    }
+}
+
+/// <summary>
 /// Represents a volume measurement, in cubic meters, as a double-precision floating-point number.
 /// </summary>
 /// <remarks>
@@ -188,6 +228,7 @@ public enum VolumeUnit
 /// </example>
 /// </remarks>
 [Serializable]
+[TypeConverter(typeof(VolumeConverter))]
 public struct Volume : IComparable, IFormattable, IConvertible, IComparable<Volume>, IComparable<double>, IEquatable<Volume>, IEquatable<double>
 {
     #region [ Members ]
