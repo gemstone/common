@@ -35,6 +35,33 @@ namespace Gemstone.ActionExtensions;
 public static class ActionExtensions
 {
     /// <summary>
+    /// Attempts to execute an action and processes exceptions using the given exception handler.
+    /// </summary>
+    /// <param name="action">The action to be executed.</param>
+    /// <param name="exceptionHandler">The handler to be called in the event of an error.</param>
+    /// <returns><c>true</c> if the action was executed without errors; otherwise, <c>false</c>.</returns>
+    /// <exception cref="ArgumentNullException"><paramref name="action"/> or <paramref name="exceptionHandler"/> is null</exception>
+    public static bool TryExecute(this Action action, Action<Exception> exceptionHandler)
+    {
+        if (action is null)
+            throw new ArgumentNullException(nameof(action));
+
+        if (exceptionHandler is null)
+            throw new ArgumentNullException(nameof(exceptionHandler));
+
+        try
+        {
+            action();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            exceptionHandler(ex);
+            return false;
+        }
+    }
+
+    /// <summary>
     /// Execute an action on the thread pool after a specified number of milliseconds.
     /// </summary>
     /// <param name="action">The action to be executed.</param>
@@ -45,8 +72,10 @@ public static class ActionExtensions
     /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
     /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
     /// </remarks>
-    public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
+    public static void DelayAndExecute(this Action action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null)
+    {
         new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, cancellationToken, exceptionAction);
+    }
 
     /// <summary>
     /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
@@ -59,7 +88,8 @@ public static class ActionExtensions
     /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
     /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
     /// </remarks>
-    public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null) =>
+    public static void DelayAndExecute(this Action<CancellationToken> action, int delay, CancellationToken cancellationToken, Action<Exception>? exceptionAction = null)
+    {
         Task.Delay(delay, cancellationToken)
             .ContinueWith(_ => action(cancellationToken), cancellationToken)
             .ContinueWith(task =>
@@ -73,6 +103,7 @@ public static class ActionExtensions
                 cancellationToken,
                 TaskContinuationOptions.OnlyOnFaulted,
                 TaskScheduler.Default);
+    }
 
     /// <summary>
     /// Execute an action on the thread pool after a specified number of milliseconds.
@@ -88,8 +119,10 @@ public static class ActionExtensions
     /// End users should attach to the <see cref="LibraryEvents.SuppressedException"/> or <see cref="TaskScheduler.UnobservedTaskException"/>
     /// events to log exceptions if the <paramref name="exceptionAction"/> is not defined.
     /// </remarks>
-    public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception>? exceptionAction = null) =>
-        new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, exceptionAction);
+    public static Func<bool> DelayAndExecute(this Action action, int delay, Action<Exception>? exceptionAction = null)
+    {
+        return new Action<CancellationToken>(_ => action()).DelayAndExecute(delay, exceptionAction);
+    }
 
     /// <summary>
     /// Execute a cancellable action on the thread pool after a specified number of milliseconds.
