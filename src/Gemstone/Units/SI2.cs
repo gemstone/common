@@ -228,7 +228,10 @@ public static class SI2
     /// </remarks>
     /// <returns>A <see cref="string"/> representation of the number of units.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-    public static string ToScaledString(long totalUnits, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+    public static string ToScaledString(long totalUnits, string unitName, string[]? symbolNames = null, long minimumFactor = Kilo, long maximumFactor = Exa)
+    {
+        return ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+    }
 
     /// <summary>
     /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling
@@ -244,7 +247,10 @@ public static class SI2
     /// </remarks>
     /// <returns>A <see cref="string"/> representation of the number of units.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-    public static string ToScaledString(long totalUnits, string format, string unitName, long minimumFactor = Kilo, long maximumFactor = Exa) => ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
+    public static string ToScaledString(long totalUnits, string format, string unitName, long minimumFactor = Kilo, long maximumFactor = Exa)
+    {
+        return ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
+    }
 
     /// <summary>
     /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling

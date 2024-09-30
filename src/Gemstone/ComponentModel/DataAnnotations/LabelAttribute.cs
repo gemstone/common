@@ -40,5 +40,8 @@ public sealed class LabelAttribute : Attribute
     /// Creates a new <see cref="LabelAttribute"/>.
     /// </summary>
     /// <param name="label">UI label for modeled table field.</param>
-    public LabelAttribute(string label) => Label = label;
+    public LabelAttribute(string label)
+    {
+        Label = label;
+    }
 }

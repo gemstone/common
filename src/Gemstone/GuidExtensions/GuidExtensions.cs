@@ -141,7 +141,10 @@ public static unsafe class GuidExtensions
     /// </summary>
     /// <param name="buffer">Buffer containing a serialized big-endian encoded <see cref="Guid"/>.</param>
     /// <returns><see cref="Guid"/> deserialized from <paramref name="buffer"/>.</returns>
-    public static Guid ToRfcGuid(this byte[] buffer) => buffer.ToRfcGuid(0);
+    public static Guid ToRfcGuid(this byte[] buffer)
+    {
+        return buffer.ToRfcGuid(0);
+    }
 
     /// <summary>
     /// Decodes a <see cref="Guid"/> following RFC 4122

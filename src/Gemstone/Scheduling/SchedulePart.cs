@@ -192,7 +192,13 @@ public class SchedulePart
     /// <summary>
     /// Gets the list of values for the <see cref="SchedulePart"/> object specified using <see cref="ValueText"/>.
     /// </summary>
-    public ReadOnlyCollection<int> Values => m_values.AsReadOnly();
+    public ReadOnlyCollection<int> Values
+    {
+        get
+        {
+            return m_values.AsReadOnly();
+        }
+    }
 
     #endregion
 

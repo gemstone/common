@@ -86,22 +86,30 @@ namespace Gemstone.Configuration.AppSettings
         /// </summary>
         /// <param name="setting">The app setting.</param>
         /// <returns>The initial value of the app setting.</returns>
-        public static string? GetAppSettingInitialValue(this IConfigurationSection setting) =>
-            setting[InitialValueKey];
+        public static string? GetAppSettingInitialValue(this IConfigurationSection setting)
+        {
+            return setting[InitialValueKey];
+        }
 
         /// <summary>
         /// Gets the description of the given app setting.
         /// </summary>
         /// <param name="setting">The app setting.</param>
         /// <returns>The description of the app setting.</returns>
-        public static string? GetAppSettingDescription(this IConfigurationSection setting) =>
-            setting[DescriptionKey];
+        public static string? GetAppSettingDescription(this IConfigurationSection setting)
+        {
+            return setting[DescriptionKey];
+        }
 
-        internal static string ToInitialValueKey(this string appSettingName) =>
-            $"{appSettingName}:{InitialValueKey}";
+        internal static string ToInitialValueKey(this string appSettingName)
+        {
+            return $"{appSettingName}:{InitialValueKey}";
+        }
 
-        internal static string ToDescriptionKey(this string appSettingName) =>
-            $"{appSettingName}:{DescriptionKey}";
+        internal static string ToDescriptionKey(this string appSettingName)
+        {
+            return $"{appSettingName}:{DescriptionKey}";
+        }
 
         // Implementation of IAppSettingsBuilder that works
         // with the extension methods defined in this class.
@@ -120,7 +128,10 @@ namespace Gemstone.Configuration.AppSettings
                     Description = description;
                 }
 
-                public KeyValuePair<string, string> ToKeyValuePair() => new(Name, Value);
+                public KeyValuePair<string, string> ToKeyValuePair()
+                {
+                    return new KeyValuePair<string, string>(Name, Value);
+                }
 
                 public KeyValuePair<string, string> ToInitialValuePair()
                 {

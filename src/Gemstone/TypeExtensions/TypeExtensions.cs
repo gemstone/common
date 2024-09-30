@@ -86,7 +86,10 @@ public static class TypeExtensions
     /// This expression returns <c>true</c> if the type is one of the following:<br/><br/>
     ///     SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, UInt64, Single, Double, Decimal
     /// </remarks>
-    public static bool IsNumeric(this Type type) => s_numericTypes.Contains(type);
+    public static bool IsNumeric(this Type type)
+    {
+        return s_numericTypes.Contains(type);
+    }
 
     /// <summary>
     /// Gets the friendly class name of the provided type, trimming generic parameters.
@@ -227,8 +230,10 @@ public static class TypeExtensions
         }
         else
         {
-            static bool isValidCSharpIdentifier(char identifier) =>
-                s_validCSharpIdentifierRegex.IsMatch(identifier.ToString());
+            static bool isValidCSharpIdentifier(char identifier)
+            {
+                return s_validCSharpIdentifierRegex.IsMatch(identifier.ToString());
+            }
 
             code.Append(new string(type.Name.TakeWhile(isValidCSharpIdentifier).ToArray()));
 
@@ -263,7 +268,10 @@ public static class TypeExtensions
     /// </summary>
     /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
     /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-    public static List<Type> LoadImplementations(this Type type) => LoadImplementations(type, true);
+    public static List<Type> LoadImplementations(this Type type)
+    {
+        return LoadImplementations(type, true);
+    }
 
     /// <summary>
     /// Loads public types from assemblies in the application binaries directory that implement the specified 
@@ -272,7 +280,10 @@ public static class TypeExtensions
     /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
     /// <param name="excludeAbstractTypes">true to exclude public types that are abstract; otherwise false.</param>
     /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-    public static List<Type> LoadImplementations(this Type type, bool excludeAbstractTypes) => LoadImplementations(type, string.Empty, excludeAbstractTypes);
+    public static List<Type> LoadImplementations(this Type type, bool excludeAbstractTypes)
+    {
+        return LoadImplementations(type, string.Empty, excludeAbstractTypes);
+    }
 
     /// <summary>
     /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 
@@ -281,7 +292,10 @@ public static class TypeExtensions
     /// <param name="type">The <see cref="Type"/> that must be implemented by the public types.</param>
     /// <param name="binariesDirectory">The directory containing the assemblies to be processed.</param>
     /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
-    public static List<Type> LoadImplementations(this Type type, string binariesDirectory) => LoadImplementations(type, binariesDirectory, true);
+    public static List<Type> LoadImplementations(this Type type, string binariesDirectory)
+    {
+        return LoadImplementations(type, binariesDirectory, true);
+    }
 
     /// <summary>
     /// Loads public types from assemblies in the specified <paramref name="binariesDirectory"/> that implement 

@@ -59,5 +59,8 @@ public sealed class InitialValueScriptAttribute : Attribute
     /// Creates a new <see cref="InitialValueScriptAttribute"/>/
     /// </summary>
     /// <param name="initialValueScript">Initial value expression for a modeled table field.</param>
-    public InitialValueScriptAttribute(string initialValueScript) => InitialValueScript = initialValueScript;
+    public InitialValueScriptAttribute(string initialValueScript)
+    {
+        InitialValueScript = initialValueScript;
+    }
 }

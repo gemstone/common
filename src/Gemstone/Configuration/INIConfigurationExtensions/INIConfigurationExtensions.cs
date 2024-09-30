@@ -102,11 +102,15 @@ public static class INIConfigurationExtensions
             }
         }
 
-        static bool HasAppSetting(IConfiguration section) =>
-            section.GetChildren().Any(HasAppSettingDescription);
+        static bool HasAppSetting(IConfiguration section)
+        {
+            return section.GetChildren().Any(HasAppSettingDescription);
+        }
 
-        static bool HasAppSettingDescription(IConfigurationSection setting) =>
-            setting.GetAppSettingDescription() is not null;
+        static bool HasAppSettingDescription(IConfigurationSection setting)
+        {
+            return setting.GetAppSettingDescription() is not null;
+        }
 
         static string ConvertSettingToINI(IConfigurationSection setting, INIGenerationOption generationOption, bool splitDescriptionLines)
         {

@@ -172,7 +172,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="sbyte"/> value with specified <paramref name="bits"/> set.</returns>
-    public static sbyte SetBits(this sbyte source, sbyte bits) => (sbyte)(source | bits);
+    public static sbyte SetBits(this sbyte source, sbyte bits)
+    {
+        return (sbyte)(source | bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -194,7 +197,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="byte"/> value with specified <paramref name="bits"/> set.</returns>
-    public static byte SetBits(this byte source, byte bits) => (byte)(source | bits);
+    public static byte SetBits(this byte source, byte bits)
+    {
+        return (byte)(source | bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -216,7 +222,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="short"/> value with specified <paramref name="bits"/> set.</returns>
-    public static short SetBits(this short source, short bits) => (short)(source | bits);
+    public static short SetBits(this short source, short bits)
+    {
+        return (short)(source | bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -238,7 +247,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="ushort"/> value with specified <paramref name="bits"/> set.</returns>
-    public static ushort SetBits(this ushort source, ushort bits) => (ushort)(source | bits);
+    public static ushort SetBits(this ushort source, ushort bits)
+    {
+        return (ushort)(source | bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -260,7 +272,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="int"/> value with specified <paramref name="bits"/> set.</returns>
-    public static int SetBits(this int source, int bits) => source | bits;
+    public static int SetBits(this int source, int bits)
+    {
+        return source | bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -282,7 +297,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="uint"/> value with specified <paramref name="bits"/> set.</returns>
-    public static uint SetBits(this uint source, uint bits) => source | bits;
+    public static uint SetBits(this uint source, uint bits)
+    {
+        return source | bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -304,7 +322,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="long"/> value with specified <paramref name="bits"/> set.</returns>
-    public static long SetBits(this long source, long bits) => source | bits;
+    public static long SetBits(this long source, long bits)
+    {
+        return source | bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -312,7 +333,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits"><see cref="Bits"/> to set.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> set.</returns>
-    public static ulong SetBits(this ulong source, Bits bits) => SetBits(source, (ulong)bits);
+    public static ulong SetBits(this ulong source, Bits bits)
+    {
+        return SetBits(source, (ulong)bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> set.
@@ -320,7 +344,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to set.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> set.</returns>
-    public static ulong SetBits(this ulong source, ulong bits) => source | bits;
+    public static ulong SetBits(this ulong source, ulong bits)
+    {
+        return source | bits;
+    }
 
     #endregion
 
@@ -346,7 +373,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="sbyte"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static sbyte ClearBits(this sbyte source, sbyte bits) => (sbyte)(source & ~bits);
+    public static sbyte ClearBits(this sbyte source, sbyte bits)
+    {
+        return (sbyte)(source & ~bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -368,7 +398,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="byte"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static byte ClearBits(this byte source, byte bits) => (byte)(source & ~bits);
+    public static byte ClearBits(this byte source, byte bits)
+    {
+        return (byte)(source & ~bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -390,7 +423,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="short"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static short ClearBits(this short source, short bits) => (short)(source & ~bits);
+    public static short ClearBits(this short source, short bits)
+    {
+        return (short)(source & ~bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -412,7 +448,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="ushort"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static ushort ClearBits(this ushort source, ushort bits) => (ushort)(source & ~bits);
+    public static ushort ClearBits(this ushort source, ushort bits)
+    {
+        return (ushort)(source & ~bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -434,7 +473,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="int"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static int ClearBits(this int source, int bits) => source & ~bits;
+    public static int ClearBits(this int source, int bits)
+    {
+        return source & ~bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -456,7 +498,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="uint"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static uint ClearBits(this uint source, uint bits) => source & ~bits;
+    public static uint ClearBits(this uint source, uint bits)
+    {
+        return source & ~bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -478,7 +523,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="long"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static long ClearBits(this long source, long bits) => source & ~bits;
+    public static long ClearBits(this long source, long bits)
+    {
+        return source & ~bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -486,7 +534,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits"><see cref="Bits"/> to clear.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static ulong ClearBits(this ulong source, Bits bits) => ClearBits(source, (ulong)bits);
+    public static ulong ClearBits(this ulong source, Bits bits)
+    {
+        return ClearBits(source, (ulong)bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> cleared.
@@ -494,7 +545,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to clear.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> cleared.</returns>
-    public static ulong ClearBits(this ulong source, ulong bits) => source & ~bits;
+    public static ulong ClearBits(this ulong source, ulong bits)
+    {
+        return source & ~bits;
+    }
 
     #endregion
 
@@ -520,7 +574,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this sbyte source, sbyte bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this sbyte source, sbyte bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -544,7 +601,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this sbyte source, sbyte bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this sbyte source, sbyte bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -566,7 +626,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this byte source, byte bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this byte source, byte bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -590,7 +653,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this byte source, byte bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this byte source, byte bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -612,7 +678,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this short source, short bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this short source, short bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -636,7 +705,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this short source, short bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this short source, short bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -658,7 +730,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ushort source, ushort bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this ushort source, ushort bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -682,7 +757,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ushort source, ushort bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this ushort source, ushort bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -704,7 +782,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this int source, int bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this int source, int bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -728,7 +809,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this int source, int bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this int source, int bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -750,7 +834,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this uint source, uint bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this uint source, uint bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -774,7 +861,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this uint source, uint bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this uint source, uint bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -796,7 +886,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this long source, long bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this long source, long bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -820,7 +913,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this long source, long bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this long source, long bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -828,7 +924,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits"><see cref="Bits"/> to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ulong source, Bits bits) => CheckBits(source, (ulong)bits);
+    public static bool CheckBits(this ulong source, Bits bits)
+    {
+        return CheckBits(source, (ulong)bits);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -836,7 +935,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ulong source, ulong bits) => CheckBits(source, bits, true);
+    public static bool CheckBits(this ulong source, ulong bits)
+    {
+        return CheckBits(source, bits, true);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -845,7 +947,10 @@ public static class BitExtensions
     /// <param name="bits"><see cref="Bits"/> to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ulong source, Bits bits, bool allBits) => CheckBits(source, (ulong)bits, allBits);
+    public static bool CheckBits(this ulong source, Bits bits, bool allBits)
+    {
+        return CheckBits(source, (ulong)bits, allBits);
+    }
 
     /// <summary>
     /// Determines if specified <paramref name="bits"/> are set.
@@ -854,7 +959,10 @@ public static class BitExtensions
     /// <param name="bits">Bit-mask of the bits to check.</param>
     /// <param name="allBits">true to check if all <paramref name="bits"/> are set; otherwise false.</param>
     /// <returns>true if specified <paramref name="bits"/> are set in <paramref name="source"/> value; otherwise false.</returns>
-    public static bool CheckBits(this ulong source, ulong bits, bool allBits) => allBits ? (source & bits) == bits : (source & bits) != 0;
+    public static bool CheckBits(this ulong source, ulong bits, bool allBits)
+    {
+        return allBits ? (source & bits) == bits : (source & bits) != 0;
+    }
 
     #endregion
 
@@ -880,7 +988,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="sbyte"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static sbyte ToggleBits(this sbyte source, sbyte bits) => (sbyte)(source ^ bits);
+    public static sbyte ToggleBits(this sbyte source, sbyte bits)
+    {
+        return (sbyte)(source ^ bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -902,7 +1013,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="byte"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static byte ToggleBits(this byte source, byte bits) => (byte)(source ^ bits);
+    public static byte ToggleBits(this byte source, byte bits)
+    {
+        return (byte)(source ^ bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -924,7 +1038,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="short"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static short ToggleBits(this short source, short bits) => (short)(source ^ bits);
+    public static short ToggleBits(this short source, short bits)
+    {
+        return (short)(source ^ bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -946,7 +1063,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="ushort"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static ushort ToggleBits(this ushort source, ushort bits) => (ushort)(source ^ bits);
+    public static ushort ToggleBits(this ushort source, ushort bits)
+    {
+        return (ushort)(source ^ bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -968,7 +1088,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="int"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static int ToggleBits(this int source, int bits) => source ^ bits;
+    public static int ToggleBits(this int source, int bits)
+    {
+        return source ^ bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -990,7 +1113,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="uint"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static uint ToggleBits(this uint source, uint bits) => source ^ bits;
+    public static uint ToggleBits(this uint source, uint bits)
+    {
+        return source ^ bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -1012,7 +1138,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="long"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static long ToggleBits(this long source, long bits) => source ^ bits;
+    public static long ToggleBits(this long source, long bits)
+    {
+        return source ^ bits;
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -1020,7 +1149,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits"><see cref="Bits"/> to toggle.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static ulong ToggleBits(this ulong source, Bits bits) => ToggleBits(source, (ulong)bits);
+    public static ulong ToggleBits(this ulong source, Bits bits)
+    {
+        return ToggleBits(source, (ulong)bits);
+    }
 
     /// <summary>
     /// Returns value with specified <paramref name="bits"/> toggled.
@@ -1028,7 +1160,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bits">Bit-mask of the bits to toggle.</param>
     /// <returns><see cref="ulong"/> value with specified <paramref name="bits"/> toggled.</returns>
-    public static ulong ToggleBits(this ulong source, ulong bits) => source ^ bits;
+    public static ulong ToggleBits(this ulong source, ulong bits)
+    {
+        return source ^ bits;
+    }
 
     #endregion
 
@@ -1054,7 +1189,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="sbyte"/> value.</returns>
-    public static sbyte GetMaskedValue(this sbyte source, sbyte bitmask) => (sbyte)(source & bitmask);
+    public static sbyte GetMaskedValue(this sbyte source, sbyte bitmask)
+    {
+        return (sbyte)(source & bitmask);
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1076,7 +1214,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="byte"/> value.</returns>
-    public static byte GetMaskedValue(this byte source, byte bitmask) => (byte)(source & bitmask);
+    public static byte GetMaskedValue(this byte source, byte bitmask)
+    {
+        return (byte)(source & bitmask);
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1098,7 +1239,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="short"/> value.</returns>
-    public static short GetMaskedValue(this short source, short bitmask) => (short)(source & bitmask);
+    public static short GetMaskedValue(this short source, short bitmask)
+    {
+        return (short)(source & bitmask);
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1120,7 +1264,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="ushort"/> value.</returns>
-    public static ushort GetMaskedValue(this ushort source, ushort bitmask) => (ushort)(source & bitmask);
+    public static ushort GetMaskedValue(this ushort source, ushort bitmask)
+    {
+        return (ushort)(source & bitmask);
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1142,7 +1289,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="int"/> value.</returns>
-    public static int GetMaskedValue(this int source, int bitmask) => source & bitmask;
+    public static int GetMaskedValue(this int source, int bitmask)
+    {
+        return source & bitmask;
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1164,7 +1314,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="uint"/> value.</returns>
-    public static uint GetMaskedValue(this uint source, uint bitmask) => source & bitmask;
+    public static uint GetMaskedValue(this uint source, uint bitmask)
+    {
+        return source & bitmask;
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1186,7 +1339,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="long"/> value.</returns>
-    public static long GetMaskedValue(this long source, long bitmask) => source & bitmask;
+    public static long GetMaskedValue(this long source, long bitmask)
+    {
+        return source & bitmask;
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1194,7 +1350,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask"><see cref="Bits"/> that make-up the bit-mask.</param>
     /// <returns><see cref="ulong"/> value.</returns>
-    public static ulong GetMaskedValue(this ulong source, Bits bitmask) => GetMaskedValue(source, (ulong)bitmask);
+    public static ulong GetMaskedValue(this ulong source, Bits bitmask)
+    {
+        return GetMaskedValue(source, (ulong)bitmask);
+    }
 
     /// <summary>
     /// Returns value stored in the bits represented by the specified <paramref name="bitmask"/>.
@@ -1202,7 +1361,10 @@ public static class BitExtensions
     /// <param name="source">Value source.</param>
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <returns><see cref="ulong"/> value.</returns>
-    public static ulong GetMaskedValue(this ulong source, ulong bitmask) => source & bitmask;
+    public static ulong GetMaskedValue(this ulong source, ulong bitmask)
+    {
+        return source & bitmask;
+    }
 
     #endregion
 
@@ -1230,7 +1392,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="sbyte"/> value.</returns>
-    public static sbyte SetMaskedValue(this sbyte source, sbyte bitmask, sbyte value) => (sbyte)((sbyte)(source & ~bitmask) | value);
+    public static sbyte SetMaskedValue(this sbyte source, sbyte bitmask, sbyte value)
+    {
+        return (sbyte)((sbyte)(source & ~bitmask) | value);
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1254,7 +1419,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="byte"/> value.</returns>
-    public static byte SetMaskedValue(this byte source, byte bitmask, byte value) => (byte)((source & ~bitmask) | value);
+    public static byte SetMaskedValue(this byte source, byte bitmask, byte value)
+    {
+        return (byte)((source & ~bitmask) | value);
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1278,7 +1446,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="short"/> value.</returns>
-    public static short SetMaskedValue(this short source, short bitmask, short value) => (short)((short)(source & ~bitmask) | value);
+    public static short SetMaskedValue(this short source, short bitmask, short value)
+    {
+        return (short)((short)(source & ~bitmask) | value);
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1302,7 +1473,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="ushort"/> value.</returns>
-    public static ushort SetMaskedValue(this ushort source, ushort bitmask, ushort value) => (ushort)((source & ~bitmask) | value);
+    public static ushort SetMaskedValue(this ushort source, ushort bitmask, ushort value)
+    {
+        return (ushort)((source & ~bitmask) | value);
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1326,7 +1500,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="int"/> value.</returns>
-    public static int SetMaskedValue(this int source, int bitmask, int value) => (source & ~bitmask) | value;
+    public static int SetMaskedValue(this int source, int bitmask, int value)
+    {
+        return (source & ~bitmask) | value;
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1350,7 +1527,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="uint"/> value.</returns>
-    public static uint SetMaskedValue(this uint source, uint bitmask, uint value) => (source & ~bitmask) | value;
+    public static uint SetMaskedValue(this uint source, uint bitmask, uint value)
+    {
+        return (source & ~bitmask) | value;
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1374,7 +1554,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="long"/> value.</returns>
-    public static long SetMaskedValue(this long source, long bitmask, long value) => (source & ~bitmask) | value;
+    public static long SetMaskedValue(this long source, long bitmask, long value)
+    {
+        return (source & ~bitmask) | value;
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1383,7 +1566,10 @@ public static class BitExtensions
     /// <param name="bitmask"><see cref="Bits"/> that make-up the bit-mask.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="ulong"/> value.</returns>
-    public static ulong SetMaskedValue(this ulong source, Bits bitmask, ulong value) => SetMaskedValue(source, (ulong)bitmask, value);
+    public static ulong SetMaskedValue(this ulong source, Bits bitmask, ulong value)
+    {
+        return SetMaskedValue(source, (ulong)bitmask, value);
+    }
 
     /// <summary>
     /// Returns value after setting a new <paramref name="value"/> for the bits specified by the <paramref name="bitmask"/>.
@@ -1392,7 +1578,10 @@ public static class BitExtensions
     /// <param name="bitmask">Bit-mask of the bits involved.</param>
     /// <param name="value">New value.</param>
     /// <returns><see cref="ulong"/> value.</returns>
-    public static ulong SetMaskedValue(this ulong source, ulong bitmask, ulong value) => (source & ~bitmask) | value;
+    public static ulong SetMaskedValue(this ulong source, ulong bitmask, ulong value)
+    {
+        return (source & ~bitmask) | value;
+    }
 
     #endregion
 

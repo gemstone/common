@@ -111,13 +111,25 @@ public abstract class SynchronizedOperationBase : ISynchronizedOperation
     /// <summary>
     /// Gets flag indicating if the synchronized operation is currently executing its action.
     /// </summary>
-    public bool IsRunning => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
+    public bool IsRunning
+    {
+        get
+        {
+            return Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) != NotRunning;
+        }
+    }
 
     /// <summary>
     /// Gets flag indicating if the synchronized operation has an additional operation that is pending
     /// execution after the currently running action has completed.
     /// </summary>
-    public bool IsPending => Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
+    public bool IsPending
+    {
+        get
+        {
+            return Interlocked.CompareExchange(ref m_state, NotRunning, NotRunning) == Pending;
+        }
+    }
 
     /// <summary>
     /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for cancelling actions.

@@ -55,8 +55,10 @@ public static class EventHandlerExtensions
     /// Any exceptions will be suppressed, see <see cref="LibraryEvents.SuppressedException"/> and other overloads for custom exception handling.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
         eventHandler.SafeInvoke(null, (Action<Exception, Delegate>?)null, sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
@@ -72,8 +74,10 @@ public static class EventHandlerExtensions
     /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
         eventHandler.SafeInvoke(null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
@@ -89,8 +93,10 @@ public static class EventHandlerExtensions
     /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
         eventHandler.SafeInvoke(null, exceptionHandler, sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation with custom exception handler, continuing even if an attached user handler throws an exception.
@@ -104,8 +110,10 @@ public static class EventHandlerExtensions
     /// <param name="args">Event arguments.</param>
     /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
+    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
         eventHandler.SafeInvoke(eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
@@ -119,8 +127,11 @@ public static class EventHandlerExtensions
     /// <param name="args">Event arguments.</param>
     /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs => 
-        InvokeEventHandlers(eventHandler, eventLock, exceptionHandler, sender, args, parallel ? InvokeMode.InvokeParallel : InvokeMode.Invoke);
+    public static void SafeInvoke<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
+        InvokeEventHandlers(eventHandler, eventLock, exceptionHandler, sender, args,
+            parallel ? InvokeMode.InvokeParallel : InvokeMode.Invoke);
+    }
 
     /// <summary>
     /// Safely invokes event propagation asynchronously, continuing even if an attached user handler throws an exception.
@@ -136,8 +147,10 @@ public static class EventHandlerExtensions
     /// Any exceptions will be suppressed, see <see cref="LibraryEvents.SuppressedException"/> and other overloads for custom exception handling.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
-        eventHandler.SafeInvokeAsync(null, (Action<Exception, Delegate>?)null, sender, args, parallel);
+    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
+        return eventHandler.SafeInvokeAsync(null, (Action<Exception, Delegate>?)null, sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation asynchronously with custom exception handler, continuing even if an attached user handler throws an exception.
@@ -153,8 +166,10 @@ public static class EventHandlerExtensions
     /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
-        eventHandler.SafeInvokeAsync(null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
+        return eventHandler.SafeInvokeAsync(null, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation asynchronously with custom exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.
@@ -170,8 +185,10 @@ public static class EventHandlerExtensions
     /// Event handler invocation list access will be locked on <paramref name="eventHandler"/>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
-        eventHandler.SafeInvokeAsync(null, exceptionHandler, sender, args, parallel);
+    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, Action<Exception, Delegate>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
+        return eventHandler.SafeInvokeAsync(null, exceptionHandler, sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation asynchronously with custom exception handler, continuing even if an attached user handler throws an exception.
@@ -185,8 +202,10 @@ public static class EventHandlerExtensions
     /// <param name="args">Event arguments.</param>
     /// <param name="parallel">Call event handlers in parallel, when attached handlers are greater than one.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs =>
-        eventHandler.SafeInvokeAsync(eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    public static Task SafeInvokeAsync<TEventHandler, TEventArgs>(this TEventHandler? eventHandler, object? eventLock, Action<Exception>? exceptionHandler, object? sender, TEventArgs args, bool parallel = false) where TEventHandler : MulticastDelegate where TEventArgs : EventArgs
+    {
+        return eventHandler.SafeInvokeAsync(eventLock, (ex, _) => exceptionHandler?.Invoke(ex), sender, args, parallel);
+    }
 
     /// <summary>
     /// Safely invokes event propagation asynchronously with custom event lock and exception handler that accepts user handler delegate, continuing even if an attached user handler throws an exception.

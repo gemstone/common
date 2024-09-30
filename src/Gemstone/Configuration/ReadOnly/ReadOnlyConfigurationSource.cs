@@ -45,8 +45,10 @@ namespace Gemstone.Configuration.ReadOnly
         /// Creates a new instance of the <see cref="ReadOnlyConfigurationSource"/> class.
         /// </summary>
         /// <param name="source">The source to be made read-only.</param>
-        public ReadOnlyConfigurationSource(IConfigurationSource source) =>
+        public ReadOnlyConfigurationSource(IConfigurationSource source)
+        {
             Source = source;
+        }
 
         /// <summary>
         /// Builds the <see cref="IConfigurationProvider"/> for this source.

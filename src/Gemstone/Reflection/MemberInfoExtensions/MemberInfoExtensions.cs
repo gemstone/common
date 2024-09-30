@@ -44,9 +44,11 @@ public static class MemberInfoExtensions
     /// <param name="member">The <see cref="MemberInfo"/> object over which to get friendly class name.</param>
     /// <typeparam name="TMemberInfo"><see cref="Type"/> of <see cref="MemberInfo"/> instance to retrieve.</typeparam>
     /// <returns>Friendly class name of the provided member, or <see cref="string.Empty"/> if <paramref name="member"/> is <c>null</c>.</returns>
-    public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo => 
+    public static string GetFriendlyClassName<TMemberInfo>(this TMemberInfo member) where TMemberInfo : MemberInfo
+    {
         // Compiler may get confused about which extension function to use, so we specify explicitly to avoid potential recursive call
-        TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
+        return TypeExtensions.TypeExtensions.GetFriendlyClassName(member.DeclaringType);
+    }
 
     /// <summary>
     /// Returns a boolean flag that determines if the specified <typeparamref name="TAttribute"/> exists.
@@ -55,8 +57,10 @@ public static class MemberInfoExtensions
     /// <typeparam name="TMemberInfo"><see cref="MemberInfo"/> or derived type to get <see cref="Attribute"/> from.</typeparam>
     /// <typeparam name="TAttribute"><see cref="Type"/> of <see cref="Attribute"/> to attempt to retrieve.</typeparam>
     /// <returns><c>true</c> if attribute exists; otherwise, <c>false</c>.</returns>
-    public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute => 
-        member.TryGetAttribute(out TAttribute? _);
+    public static bool AttributeExists<TMemberInfo, TAttribute>(this TMemberInfo member) where TMemberInfo : MemberInfo where TAttribute : Attribute
+    {
+        return member.TryGetAttribute(out TAttribute? _);
+    }
 
     /// <summary>
     /// Attempts to get the specified <paramref name="attribute"/> from a <see cref="MemberInfo"/> object, returning <c>true</c> if it does.

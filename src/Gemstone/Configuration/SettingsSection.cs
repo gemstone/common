@@ -53,8 +53,15 @@ public partial class SettingsSection : DynamicObject
 
     internal IConfigurationSection ConfigurationSection
     {
-        get => m_configurationSection ??= m_parent.Configuration?.GetSection(Name) ?? throw new InvalidOperationException("Configuration has not been set.");
-        set => m_configurationSection = value;
+        get
+        {
+            return m_configurationSection ??= m_parent.Configuration?.GetSection(Name) ??
+                                              throw new InvalidOperationException("Configuration has not been set.");
+        }
+        set
+        {
+            m_configurationSection = value;
+        }
     }
 
     /// <summary>
@@ -65,7 +72,13 @@ public partial class SettingsSection : DynamicObject
     /// <summary>
     /// Gets the keys for the settings section.
     /// </summary>
-    public string[] Keys => m_keyValues.Keys.ToArray();
+    public string[] Keys
+    {
+        get
+        {
+            return m_keyValues.Keys.ToArray();
+        }
+    }
 
     /// <summary>
     /// Gets flag that determines if the settings section has been modified.

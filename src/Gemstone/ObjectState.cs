@@ -93,7 +93,10 @@ public class ObjectState<TState>
     /// <exception cref="ArgumentNullException">The value being assigned is a null or empty string.</exception>
     public string ObjectName
     {
-        get => m_objectName;
+        get
+        {
+            return m_objectName;
+        }
         set
         {
             if (string.IsNullOrEmpty(value))
@@ -108,8 +111,14 @@ public class ObjectState<TState>
     /// </summary>
     public TState CurrentState
     {
-        get => m_currentState;
-        set => m_currentState = value;
+        get
+        {
+            return m_currentState;
+        }
+        set
+        {
+            m_currentState = value;
+        }
     }
 
     /// <summary>
@@ -117,8 +126,14 @@ public class ObjectState<TState>
     /// </summary>
     public TState PreviousState
     {
-        get => m_previousState;
-        set => m_previousState = value;
+        get
+        {
+            return m_previousState;
+        }
+        set
+        {
+            m_previousState = value;
+        }
     }
 
     #endregion

@@ -214,7 +214,10 @@ public static class SI
     /// </remarks>
     /// <returns>A <see cref="string"/> representation of the number of units.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-    public static string ToScaledString(double totalUnits, string unitName, string[]? symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta) => ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+    public static string ToScaledString(double totalUnits, string unitName, string[]? symbolNames = null, double minimumFactor = Yocto, double maximumFactor = Yotta)
+    {
+        return ToScaledString(totalUnits, 2, unitName, symbolNames, minimumFactor, maximumFactor);
+    }
 
     /// <summary>
     /// Turns the given number of units into a textual representation with an appropriate unit scaling.
@@ -229,7 +232,10 @@ public static class SI
     /// </remarks>
     /// <returns>A <see cref="string"/> representation of the number of units.</returns>
     /// <exception cref="ArgumentOutOfRangeException"><paramref name="minimumFactor"/> or <paramref name="maximumFactor"/> is not defined in <see cref="Factors"/> array.</exception>
-    public static string ToScaledString(double totalUnits, string format, string unitName, double minimumFactor = Yocto, double maximumFactor = Yotta) => ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
+    public static string ToScaledString(double totalUnits, string format, string unitName, double minimumFactor = Yocto, double maximumFactor = Yotta)
+    {
+        return ToScaledString(totalUnits, format, unitName, Symbols, -1, minimumFactor, maximumFactor);
+    }
 
     /// <summary>
     /// Turns the given number of units into a textual representation with an appropriate unit scaling.

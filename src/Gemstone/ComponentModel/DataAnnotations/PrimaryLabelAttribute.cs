@@ -44,5 +44,8 @@ public sealed class PrimaryLabelAttribute : Attribute
     /// Creates a new <see cref="PrimaryLabelAttribute"/>.
     /// </summary>
     /// <param name="fieldName">Field name used as primary label.</param>
-    public PrimaryLabelAttribute(string fieldName) => FieldName = fieldName;
+    public PrimaryLabelAttribute(string fieldName)
+    {
+        FieldName = fieldName;
+    }
 }

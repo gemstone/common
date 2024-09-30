@@ -111,7 +111,13 @@ public class CompatibleCancellationToken : ICancellationToken
     /// <summary>
     /// Gets a value that indicates whether the operation has been cancelled.
     /// </summary>
-    public virtual bool IsCancelled => m_token.IsCancellationRequested;
+    public virtual bool IsCancelled
+    {
+        get
+        {
+            return m_token.IsCancellationRequested;
+        }
+    }
 
     #endregion
 

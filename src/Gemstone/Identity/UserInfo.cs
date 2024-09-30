@@ -98,12 +98,24 @@ public sealed class UserInfo // TODO: Implement full interface : IUserInfo
     /// <summary>
     /// Gets the Login ID of the user.
     /// </summary>
-    public string LoginID => $"{Domain}\\{accountName}";
+    public string LoginID
+    {
+        get
+        {
+            return $"{Domain}\\{accountName}";
+        }
+    }
 
     /// <summary>
     /// Gets the ID of the user in LDAP format.
     /// </summary>
-    public string LdapID => $"{accountName}@{Domain}";
+    public string LdapID
+    {
+        get
+        {
+            return $"{accountName}@{Domain}";
+        }
+    }
 
     #endregion
 

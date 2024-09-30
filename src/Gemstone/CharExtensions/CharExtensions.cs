@@ -52,8 +52,10 @@ public static class CharExtensions
     /// </summary>
     /// <param name="item">Unicode character to encode in Regular Expression format.</param>
     /// <returns>Specified Unicode character in proper Regular Expression format.</returns>
-    public static string RegexEncode(this char item) => 
-        $"\\u{Convert.ToUInt16(item).ToString("x").PadLeft(4, '0')}";
+    public static string RegexEncode(this char item)
+    {
+        return $"\\u{Convert.ToUInt16(item).ToString("x").PadLeft(4, '0')}";
+    }
 
     /// <summary>
     /// Tests a character to determine if it marks the end of a typical English word.
@@ -73,20 +75,24 @@ public static class CharExtensions
     /// <li>IsWhiteSpace (6) == control char's 9 thru 13, plus 32 -- TAB, LF, VT, FF, CR, SP</li>
     /// </ul>
     /// </remarks>
-    public static bool IsWordTerminator(this char value) => 
-        char.IsPunctuation(value) || 
-        char.IsWhiteSpace(value) || 
-        char.IsSymbol(value) || 
-        char.IsControl(value) || 
-        value.IsAnyOf(s_wordSeperators);
+    public static bool IsWordTerminator(this char value)
+    {
+        return char.IsPunctuation(value) ||
+               char.IsWhiteSpace(value) ||
+               char.IsSymbol(value) ||
+               char.IsControl(value) ||
+               value.IsAnyOf(s_wordSeperators);
+    }
 
     /// <summary>
     /// Tests a character to determine if is a common part of a numeric string (digits or one of "+ - , .")
     /// </summary>
     /// <param name="value">The character to check.</param>
     /// <returns><c>true</c> if numeric character.</returns>
-    public static bool IsNumeric(this char value) => 
-        char.IsDigit(value) || value.IsAnyOf(s_numericValues);
+    public static bool IsNumeric(this char value)
+    {
+        return char.IsDigit(value) || value.IsAnyOf(s_numericValues);
+    }
 
     /// <summary>
     /// Determines if a character matches any character in a sent array.
@@ -109,8 +115,10 @@ public static class CharExtensions
     /// <param name="startOfRange">Beginning of range character.</param>
     /// <param name="endOfRange">End of range character.</param>
     /// <returns><c>true</c> is the character is within the range.</returns>
-    public static bool IsInRange(this char value, char startOfRange, char endOfRange) => 
-        value >= startOfRange && value <= endOfRange;
+    public static bool IsInRange(this char value, char startOfRange, char endOfRange)
+    {
+        return value >= startOfRange && value <= endOfRange;
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/> to lower case.
@@ -119,8 +127,10 @@ public static class CharExtensions
     /// <returns>
     /// <paramref name="value"/> converted to lower case.
     /// </returns>
-    public static char ToLower(this char value) => 
-        char.ToLowerInvariant(value);
+    public static char ToLower(this char value)
+    {
+        return char.ToLowerInvariant(value);
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/> to upper case.
@@ -129,16 +139,20 @@ public static class CharExtensions
     /// <returns>
     /// <paramref name="value"/> converted to upper case.
     /// </returns>
-    public static char ToUpper(this char value) => 
-        char.ToUpperInvariant(value);
+    public static char ToUpper(this char value)
+    {
+        return char.ToUpperInvariant(value);
+    }
 
     /// <summary>
     /// Returns true if char is hexadecimal digit.
     /// </summary>
     /// <param name="value">The character to be tested.</param>
     /// <returns>true if char is hexadecimal digit; false otherwise</returns>
-    public static bool IsHex(this char value) => 
-        value is >= '0' and <= '9' or >= 'A' and <= 'F' or >= 'a' and <= 'f';
+    public static bool IsHex(this char value)
+    {
+        return value is >= '0' and <= '9' or >= 'A' and <= 'F' or >= 'a' and <= 'f';
+    }
 
     // These functions need further testing for high-end Unicode characters
 

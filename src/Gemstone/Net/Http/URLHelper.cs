@@ -41,9 +41,11 @@ public static class URLHelper
     /// </summary>
     /// <param name="url">The string to check for a valid URL.</param>
     /// <returns>True if the URL is valid; otherwise false.</returns>
-    public static bool IsValid(string url) =>
-        Uri.TryCreate(url, UriKind.Absolute, out Uri? uri) &&
-        ValidSchemes.Contains(uri.Scheme);
+    public static bool IsValid(string url)
+    {
+        return Uri.TryCreate(url, UriKind.Absolute, out Uri? uri) &&
+               ValidSchemes.Contains(uri.Scheme);
+    }
 
     /// <summary>
     /// Opens the user's default browser to the given URL.

@@ -304,7 +304,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, byte value) => stream.WriteByte(value);
+    public static void Write(this Stream stream, byte value)
+    {
+        stream.WriteByte(value);
+    }
 
     /// <summary>
     /// Read a byte from the stream. 
@@ -328,7 +331,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static bool ReadBoolean(this Stream stream) => stream.ReadNextByte() != 0;
+    public static bool ReadBoolean(this Stream stream)
+    {
+        return stream.ReadNextByte() != 0;
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -350,14 +356,20 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, sbyte value) => stream.Write((byte)value);
+    public static void Write(this Stream stream, sbyte value)
+    {
+        stream.Write((byte)value);
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static sbyte ReadSByte(this Stream stream) => (sbyte)stream.ReadNextByte();
+    public static sbyte ReadSByte(this Stream stream)
+    {
+        return (sbyte)stream.ReadNextByte();
+    }
 
     #endregion
 
@@ -369,7 +381,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, short value) => Write(stream, LittleEndian.GetBytes(value));
+    public static void Write(this Stream stream, short value)
+    {
+        Write(stream, LittleEndian.GetBytes(value));
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -377,7 +392,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, ushort value) => Write(stream, (short)value);
+    public static void Write(this Stream stream, ushort value)
+    {
+        Write(stream, (short)value);
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -385,7 +403,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, char value) => Write(stream, (short)value);
+    public static void Write(this Stream stream, char value)
+    {
+        Write(stream, (short)value);
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
@@ -404,14 +425,20 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static ushort ReadUInt16(this Stream stream) => (ushort)stream.ReadInt16();
+    public static ushort ReadUInt16(this Stream stream)
+    {
+        return (ushort)stream.ReadInt16();
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static char ReadChar(this Stream stream) => (char)stream.ReadInt16();
+    public static char ReadChar(this Stream stream)
+    {
+        return (char)stream.ReadInt16();
+    }
 
     #endregion
 
@@ -423,7 +450,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, int value) => Write(stream, LittleEndian.GetBytes(value));
+    public static void Write(this Stream stream, int value)
+    {
+        Write(stream, LittleEndian.GetBytes(value));
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -431,7 +461,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, uint value) => stream.Write((int)value);
+    public static void Write(this Stream stream, uint value)
+    {
+        stream.Write((int)value);
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -439,7 +472,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, float value) => Write(stream, *(int*)&value);
+    public static void Write(this Stream stream, float value)
+    {
+        Write(stream, *(int*)&value);
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
@@ -458,7 +494,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static uint ReadUInt32(this Stream stream) => (uint)stream.ReadInt32();
+    public static uint ReadUInt32(this Stream stream)
+    {
+        return (uint)stream.ReadInt32();
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
@@ -482,7 +521,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, long value) => Write(stream, LittleEndian.GetBytes(value));
+    public static void Write(this Stream stream, long value)
+    {
+        Write(stream, LittleEndian.GetBytes(value));
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -490,7 +532,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, ulong value) => stream.Write((long)value);
+    public static void Write(this Stream stream, ulong value)
+    {
+        stream.Write((long)value);
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -498,7 +543,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, double value) => stream.Write(*(long*)&value);
+    public static void Write(this Stream stream, double value)
+    {
+        stream.Write(*(long*)&value);
+    }
 
     /// <summary>
     /// Writes the supplied <paramref name="value"/> to 
@@ -506,7 +554,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to write to</param>
     /// <param name="value">the value to write</param>
-    public static void Write(this Stream stream, DateTime value) => stream.Write(value.Ticks);
+    public static void Write(this Stream stream, DateTime value)
+    {
+        stream.Write(value.Ticks);
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
@@ -537,14 +588,20 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static ulong ReadUInt64(this Stream stream) => (ulong)stream.ReadInt64();
+    public static ulong ReadUInt64(this Stream stream)
+    {
+        return (ulong)stream.ReadInt64();
+    }
 
     /// <summary>
     /// Reads the value from the stream in little endian format.
     /// </summary>
     /// <param name="stream">the stream to read from.</param>
     /// <returns>Value read.</returns>
-    public static DateTime ReadDateTime(this Stream stream) => new(stream.ReadInt64());
+    public static DateTime ReadDateTime(this Stream stream)
+    {
+        return new DateTime(stream.ReadInt64());
+    }
 
     #endregion
 
@@ -555,28 +612,40 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">Source stream.</param>
     /// <param name="value">Value to write.</param>
-    public static void Write(this Stream stream, decimal value) => stream.Write(LittleEndian.GetBytes(value));
+    public static void Write(this Stream stream, decimal value)
+    {
+        stream.Write(LittleEndian.GetBytes(value));
+    }
 
     /// <summary>
     /// Writes a guid in little endian bytes to the stream
     /// </summary>
     /// <param name="stream">Source stream.</param>
     /// <param name="value">Value to write.</param>
-    public static void Write(this Stream stream, Guid value) => Write(stream, value.ToLittleEndianBytes());
+    public static void Write(this Stream stream, Guid value)
+    {
+        Write(stream, value.ToLittleEndianBytes());
+    }
 
     /// <summary>
     /// Reads a decimal from the stream in Little Endian bytes.
     /// </summary>
     /// <param name="stream">the stream to read the decimal from.</param>
     /// <returns>the decimal value</returns>
-    public static decimal ReadDecimal(this Stream stream) => LittleEndian.ToDecimal(stream.ReadBytes(16), 0);
+    public static decimal ReadDecimal(this Stream stream)
+    {
+        return LittleEndian.ToDecimal(stream.ReadBytes(16), 0);
+    }
 
     /// <summary>
     /// Reads a Guid from the stream in Little Endian bytes.
     /// </summary>
     /// <param name="stream">the stream to read the guid from.</param>
     /// <returns>the guid value</returns>
-    public static Guid ReadGuid(this Stream stream) => stream.ReadBytes(16).ToLittleEndianGuid();
+    public static Guid ReadGuid(this Stream stream)
+    {
+        return stream.ReadBytes(16).ToLittleEndianGuid();
+    }
 
     #endregion
 
@@ -764,7 +833,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">Source stream.</param>
     /// <returns>Value read.</returns>
-    public static uint Read7BitUInt32(this Stream stream) => Encoding7Bit.ReadUInt32(stream);
+    public static uint Read7BitUInt32(this Stream stream)
+    {
+        return Encoding7Bit.ReadUInt32(stream);
+    }
 
     /// <summary>
     /// Reads a string from a <see cref="Stream"/> that was encoded in UTF8.
@@ -784,7 +856,10 @@ public static unsafe class StreamExtensions
     /// </summary>
     /// <param name="stream">Source stream.</param>
     /// <returns>Value read.</returns>
-    public static string? ReadNullableString(this Stream stream) => stream.ReadBoolean() ? stream.ReadString() : null;
+    public static string? ReadNullableString(this Stream stream)
+    {
+        return stream.ReadBoolean() ? stream.ReadString() : null;
+    }
 
     /// <summary>
     /// Writes the supplied string to a <see cref="Stream"/> in UTF8 encoding.
@@ -827,5 +902,8 @@ public static unsafe class StreamExtensions
     #endregion
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private static void ThrowEOS() => throw new EndOfStreamException("End of stream");
+    private static void ThrowEOS()
+    {
+        throw new EndOfStreamException("End of stream");
+    }
 }

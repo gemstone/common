@@ -71,8 +71,14 @@ public class CertificateGenerator
     /// </summary>
     public string Issuer
     {
-        get => m_issuer ??= GetDefaultIssuer();
-        set => m_issuer = value;
+        get
+        {
+            return m_issuer ??= GetDefaultIssuer();
+        }
+        set
+        {
+            m_issuer = value;
+        }
     }
 
     /// <summary>
@@ -81,8 +87,14 @@ public class CertificateGenerator
     /// </summary>
     public string[] SubjectNames
     {
-        get => m_subjectNames ??= GetDefaultSubjectNames();
-        set => m_subjectNames = value;
+        get
+        {
+            return m_subjectNames ??= GetDefaultSubjectNames();
+        }
+        set
+        {
+            m_subjectNames = value;
+        }
     }
 
     /// <summary>
@@ -91,8 +103,14 @@ public class CertificateGenerator
     /// </summary>
     public string CertificatePath
     {
-        get => m_certificatePath ??= GetDefaultCertificatePath();
-        set => m_certificatePath = value;
+        get
+        {
+            return m_certificatePath ??= GetDefaultCertificatePath();
+        }
+        set
+        {
+            m_certificatePath = value;
+        }
     }
 
     /// <summary>
@@ -107,7 +125,13 @@ public class CertificateGenerator
     /// <summary>
     /// Gets a list of detailed log messages
     /// </summary>
-    public List<string> DebugLog => new(m_debugLog);
+    public List<string> DebugLog
+    {
+        get
+        {
+            return new(m_debugLog);
+        }
+    }
 
     #endregion
 
@@ -343,12 +367,16 @@ public class CertificateGenerator
 
     // Gets the list of common names to be passed to
     // makecert when generating self-signed certificates.
-    private string GetCommonNameList() => 
-        string.Join(",", new[] { Issuer }.Concat(SubjectNames).Distinct().Select(name => $"CN={name}"));
+    private string GetCommonNameList()
+    {
+        return string.Join(",", new[] { Issuer }.Concat(SubjectNames).Distinct().Select(name => $"CN={name}"));
+    }
 
     // Gets the default value for the issuer.
-    private static string GetDefaultIssuer() => 
-        Dns.GetHostEntry(Dns.GetHostName()).HostName;
+    private static string GetDefaultIssuer()
+    {
+        return Dns.GetHostEntry(Dns.GetHostName()).HostName;
+    }
 
     // Gets the default value for the subject names.
     // This uses a DNS lookup to determine the host name of the system and
@@ -368,8 +396,10 @@ public class CertificateGenerator
     }
 
     // Gets the default path to which the certificate file will be generated.
-    private string GetDefaultCertificatePath() => 
-        $"{Issuer}.cer";
+    private string GetDefaultCertificatePath()
+    {
+        return $"{Issuer}.cer";
+    }
 
     // Attempts to open all the stores in the given list of stores.
     // After returning, the list of stores contains only the stores which could be opened.

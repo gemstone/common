@@ -89,7 +89,10 @@ public class BlockAllocatedMemoryStream : Stream
     /// <summary>
     /// Initializes a new instance of <see cref="BlockAllocatedMemoryStream"/>.
     /// </summary>
-    public BlockAllocatedMemoryStream() => m_blocks = new List<byte[]>();
+    public BlockAllocatedMemoryStream()
+    {
+        m_blocks = new List<byte[]>();
+    }
 
     /// <summary>
     /// Initializes a new instance of <see cref="BlockAllocatedMemoryStream"/> from specified <paramref name="buffer"/>.
@@ -131,7 +134,10 @@ public class BlockAllocatedMemoryStream : Stream
     /// Initializes a new instance of <see cref="BlockAllocatedMemoryStream"/> for specified <paramref name="capacity"/>.
     /// </summary>
     /// <param name="capacity">Initial length of the stream.</param>
-    public BlockAllocatedMemoryStream(int capacity) : this() => SetLength(capacity);
+    public BlockAllocatedMemoryStream(int capacity) : this()
+    {
+        SetLength(capacity);
+    }
 
     #endregion
 
@@ -143,7 +149,13 @@ public class BlockAllocatedMemoryStream : Stream
     /// <remarks>
     /// This is always <c>true</c>.
     /// </remarks>
-    public override bool CanRead => true;
+    public override bool CanRead
+    {
+        get
+        {
+            return true;
+        }
+    }
 
     /// <summary>
     /// Gets a value that indicates whether the <see cref="BlockAllocatedMemoryStream"/> object supports seeking.
@@ -151,7 +163,13 @@ public class BlockAllocatedMemoryStream : Stream
     /// <remarks>
     /// This is always <c>true</c>.
     /// </remarks>
-    public override bool CanSeek => true;
+    public override bool CanSeek
+    {
+        get
+        {
+            return true;
+        }
+    }
 
     /// <summary>
     /// Gets a value that indicates whether the <see cref="BlockAllocatedMemoryStream"/> object supports writing.
@@ -159,7 +177,13 @@ public class BlockAllocatedMemoryStream : Stream
     /// <remarks>
     /// This is always <c>true</c>.
     /// </remarks>
-    public override bool CanWrite => true;
+    public override bool CanWrite
+    {
+        get
+        {
+            return true;
+        }
+    }
 
     /// <summary>
     /// Gets current stream length for this <see cref="BlockAllocatedMemoryStream"/> instance.

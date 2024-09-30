@@ -147,7 +147,10 @@ public class Schedule : IProvideStatus
     /// <exception cref="ArgumentNullException">The value being assigned is null or empty string.</exception>
     public string Name
     {
-        get => m_name;
+        get
+        {
+            return m_name;
+        }
         set
         {
             if (string.IsNullOrEmpty(value))
@@ -164,7 +167,11 @@ public class Schedule : IProvideStatus
     /// <exception cref="ArgumentException">The number of <see cref="SchedulePart"/> in the rule is not exactly 5.</exception>
     public string Rule
     {
-        get => $"{MinutePart.ValueText} {HourPart.ValueText} {DayPart.ValueText} {MonthPart.ValueText} {DaysOfWeekPart.ValueText}";
+        get
+        {
+            return
+                $"{MinutePart.ValueText} {HourPart.ValueText} {DayPart.ValueText} {MonthPart.ValueText} {DaysOfWeekPart.ValueText}";
+        }
         set
         {
             if (string.IsNullOrEmpty(value))
@@ -464,21 +471,29 @@ public class Schedule : IProvideStatus
     /// Gets a hash code for the <see cref="Schedule"/>.
     /// </summary>
     /// <returns>An <see cref="int"/> based hash-code.</returns>
-    public override int GetHashCode() => Rule.GetHashCode();
+    public override int GetHashCode()
+    {
+        return Rule.GetHashCode();
+    }
 
     /// <summary>
     /// Determines whether the specified <see cref="Schedule"/> is equal to the current <see cref="Schedule"/>.
     /// </summary>
     /// <param name="obj">The <see cref="Schedule"/> to compare with the current <see cref="Schedule"/>.</param>
     /// <returns><c>true</c> if the specified <see cref="Schedule"/> is equal to the current <see cref="Schedule"/>; otherwise, <c>false</c>.</returns>
-    public override bool Equals(object? obj) =>
-        ReferenceEquals(this, obj) || obj is Schedule other && Name == other.Name && Rule == other.Rule;
+    public override bool Equals(object? obj)
+    {
+        return ReferenceEquals(this, obj) || obj is Schedule other && Name == other.Name && Rule == other.Rule;
+    }
 
     /// <summary>
     /// Gets the string representation of <see cref="Schedule"/>.
     /// </summary>
     /// <returns>String representation of <see cref="Schedule"/>.</returns>
-    public override string ToString() => $"{Name}: {Description}";
+    public override string ToString()
+    {
+        return $"{Name}: {Description}";
+    }
 
     private DateTime ToScheduleTimeZone(DateTime dateTime)
     {
@@ -522,14 +537,20 @@ public class Schedule : IProvideStatus
         return PreviousMinute(startOfMonth);
     }
 
-    private static DateTime PreviousDay(DateTime dt) =>
-        PreviousInterval(dt, TimeSpan.FromDays(1.0D));
+    private static DateTime PreviousDay(DateTime dt)
+    {
+        return PreviousInterval(dt, TimeSpan.FromDays(1.0D));
+    }
 
-    private static DateTime PreviousHour(DateTime dt) =>
-        PreviousInterval(dt, TimeSpan.FromHours(1.0D));
+    private static DateTime PreviousHour(DateTime dt)
+    {
+        return PreviousInterval(dt, TimeSpan.FromHours(1.0D));
+    }
 
-    private static DateTime PreviousMinute(DateTime dt) =>
-        PreviousInterval(dt, TimeSpan.FromMinutes(1.0D));
+    private static DateTime PreviousMinute(DateTime dt)
+    {
+        return PreviousInterval(dt, TimeSpan.FromMinutes(1.0D));
+    }
 
     private static DateTime NextInterval(DateTime dt, TimeSpan interval)
     {
@@ -553,14 +574,20 @@ public class Schedule : IProvideStatus
         return startOfMonth.AddMonths(1);
     }
 
-    private static DateTime NextDay(DateTime dt) =>
-        NextInterval(dt, TimeSpan.FromDays(1.0D));
+    private static DateTime NextDay(DateTime dt)
+    {
+        return NextInterval(dt, TimeSpan.FromDays(1.0D));
+    }
 
-    private static DateTime NextHour(DateTime dt) =>
-        NextInterval(dt, TimeSpan.FromHours(1.0D));
+    private static DateTime NextHour(DateTime dt)
+    {
+        return NextInterval(dt, TimeSpan.FromHours(1.0D));
+    }
 
-    private static DateTime NextMinute(DateTime dt) =>
-        NextInterval(dt, TimeSpan.FromMinutes(1.0D));
+    private static DateTime NextMinute(DateTime dt)
+    {
+        return NextInterval(dt, TimeSpan.FromMinutes(1.0D));
+    }
 
     #endregion
 }

@@ -90,7 +90,10 @@ public class ShortSynchronizedOperation : SynchronizedOperationBase
     /// </summary>
     /// <param name="action">The action to be performed by the <see cref="ShortSynchronizedOperation"/>.</param>
     /// <returns>A new instance of <see cref="ShortSynchronizedOperation"/>.</returns>
-    public static ISynchronizedOperation Factory(Action action) => new ShortSynchronizedOperation(action);
+    public static ISynchronizedOperation Factory(Action action)
+    {
+        return new ShortSynchronizedOperation(action);
+    }
 
     #endregion
 }

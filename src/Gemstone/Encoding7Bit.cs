@@ -50,7 +50,10 @@ public static class Encoding7Bit
     /// </summary>
     /// <param name="stream">Source byte stream.</param>
     /// <returns>Number of bytes for the supplied value in the stream.</returns>
-    public static unsafe int MeasureInt15(byte* stream) => stream[0] < 128 ? 1 : 2;
+    public static unsafe int MeasureInt15(byte* stream)
+    {
+        return stream[0] < 128 ? 1 : 2;
+    }
 
     /// <summary>
     /// Gets the number of bytes for the supplied value in the stream.
@@ -58,7 +61,10 @@ public static class Encoding7Bit
     /// <param name="stream">Source byte stream.</param>
     /// <param name="position">Start position in stream.</param>
     /// <returns>Number of bytes for the supplied value in the stream.</returns>
-    public static unsafe int Measure15(byte* stream, int position) => MeasureInt15(stream + position);
+    public static unsafe int Measure15(byte* stream, int position)
+    {
+        return MeasureInt15(stream + position);
+    }
 
     /// <summary>
     /// Gets the number of bytes for the supplied value in the stream.
@@ -66,7 +72,10 @@ public static class Encoding7Bit
     /// <param name="stream">Source byte stream.</param>
     /// <param name="position">Start position in stream.</param>
     /// <returns>Number of bytes for the supplied value in the stream.</returns>
-    public static int Measure15(byte[] stream, int position) => stream[position] < 128 ? 1 : 2;
+    public static int Measure15(byte[] stream, int position)
+    {
+        return stream[position] < 128 ? 1 : 2;
+    }
 
     #region [ Write ]
 
@@ -309,7 +318,10 @@ public static class Encoding7Bit
     /// <param name="stream">Source stream.</param>
     /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
     /// <returns>Number of bytes for the supplied value in the stream.</returns>
-    public static unsafe int MeasureUInt32(byte* stream, int position) => MeasureUInt32(stream + position);
+    public static unsafe int MeasureUInt32(byte* stream, int position)
+    {
+        return MeasureUInt32(stream + position);
+    }
 
     /// <summary>
     /// Gets the number of bytes for the supplied value in the stream.
@@ -788,7 +800,10 @@ public static class Encoding7Bit
     /// <param name="stream">Source stream.</param>
     /// <param name="position">Reference position in stream.  Position will be updated after reading.</param>
     /// <returns>Number of bytes for the supplied value in the stream.</returns>
-    public static unsafe int MeasureUInt64(byte* stream, int position) => MeasureUInt64(stream + position);
+    public static unsafe int MeasureUInt64(byte* stream, int position)
+    {
+        return MeasureUInt64(stream + position);
+    }
 
     /// <summary>
     /// Gets the number of bytes for the supplied value in the stream.

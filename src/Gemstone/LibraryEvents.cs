@@ -62,7 +62,10 @@ public static class LibraryEvents
     private static EventHandler<UnhandledExceptionEventArgs>? s_suppressedExceptionHandler;
     private static readonly object s_suppressedExceptionLock = new();
 
-    static LibraryEvents() => EnableUnobservedTaskExceptionHandling();
+    static LibraryEvents()
+    {
+        EnableUnobservedTaskExceptionHandling();
+    }
 
     /// <summary>
     /// Enables automatic handling of <see cref="TaskScheduler.UnobservedTaskException"/> events. When enabled, any unobserved
@@ -72,15 +75,19 @@ public static class LibraryEvents
     /// This functionality is enabled by default. This method would only ever need to be called to re-enable unobserved
     /// task exception handling after being disabled by a call to <see cref="DisableUnobservedTaskExceptionHandling"/>.
     /// </remarks>
-    public static void EnableUnobservedTaskExceptionHandling() =>
+    public static void EnableUnobservedTaskExceptionHandling()
+    {
         TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+    }
 
     /// <summary>
     /// Disables automatic handling of <see cref="TaskScheduler.UnobservedTaskException"/> events. When disabled, any unobserved
     /// task exceptions encountered will not be marked as observed nor exposed via the <see cref="SuppressedException"/> event.
     /// </summary>
-    public static void DisableUnobservedTaskExceptionHandling() =>
+    public static void DisableUnobservedTaskExceptionHandling()
+    {
         TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+    }
 
     private static void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
@@ -128,8 +135,12 @@ public static class LibraryEvents
             return;
 
         // Have to use custom exception handler here, default SafeInvoke handler already calls LibraryEvents.OnSuppressedException
-        static void exceptionHandler(Exception ex, Delegate handler) =>
-            throw new Exception($"Failed in {nameof(Gemstone)}.{nameof(LibraryEvents)}.{nameof(SuppressedException)} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex);
+        static void exceptionHandler(Exception ex, Delegate handler)
+        {
+            throw new Exception(
+                $"Failed in {nameof(Gemstone)}.{nameof(LibraryEvents)}.{nameof(SuppressedException)} event handler \"{handler.GetHandlerName()}\": {ex.Message}",
+                ex);
+        }
 
         s_suppressedExceptionHandler.SafeInvoke(s_suppressedExceptionLock, exceptionHandler, sender, new UnhandledExceptionEventArgs(ex, false));
     }

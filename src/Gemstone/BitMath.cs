@@ -66,14 +66,20 @@ public static class BitMath
     /// </summary>
     /// <param name="value">The value to check power of two properties.</param>
     /// <returns><c>true</c> if <paramref name="value"/> is a power of 2; otherwise, <c>false</c>.</returns>
-    public static bool IsPowerOfTwo(uint value) => value != 0 && (value & (value - 1)) == 0;
+    public static bool IsPowerOfTwo(uint value)
+    {
+        return value != 0 && (value & (value - 1)) == 0;
+    }
 
     /// <summary>
     /// Determines if the number is a power of 2.
     /// </summary>
     /// <param name="value">The value to check power of two properties.</param>
     /// <returns><c>true</c> if <paramref name="value"/> is a power of 2; otherwise, <c>false</c>.</returns>
-    public static bool IsPowerOfTwo(ulong value) => value != 0 && (value & (value - 1)) == 0;
+    public static bool IsPowerOfTwo(ulong value)
+    {
+        return value != 0 && (value & (value - 1)) == 0;
+    }
 
     #endregion
 
@@ -114,14 +120,20 @@ public static class BitMath
     /// </summary>
     /// <param name="value">Value with bits to count.</param>
     /// <returns>Count of the number of bits set in <paramref name="value"/>.</returns>
-    public static int CountBitsCleared(uint value) => CountBitsSet(~value);
+    public static int CountBitsCleared(uint value)
+    {
+        return CountBitsSet(~value);
+    }
 
     /// <summary>
     /// Counts the number of bits that are not set
     /// </summary>
     /// <param name="value"></param>
     /// <returns>Count of the number of bits set in <paramref name="value"/>.</returns>
-    public static int CountBitsCleared(ulong value) => CountBitsSet(~value);
+    public static int CountBitsCleared(ulong value)
+    {
+        return CountBitsSet(~value);
+    }
 
     #endregion
 
@@ -440,28 +452,40 @@ public static class BitMath
     /// </summary>
     /// <param name="value">Target value for bit counting.</param>
     /// <returns>Number of consecutive 1's starting from the lowest bit working up.</returns>
-    public static int CountTrailingOnes(uint value) => CountTrailingZeros(~value);
+    public static int CountTrailingOnes(uint value)
+    {
+        return CountTrailingZeros(~value);
+    }
 
     /// <summary>
     /// Counts the number of consecutive 1's starting from the lowest bit working up.
     /// </summary>
     /// <param name="value">Target value for bit counting.</param>
     /// <returns>Number of consecutive 1's starting from the lowest bit working up.</returns>
-    public static int CountTrailingOnes(ulong value) => CountTrailingZeros(~value);
+    public static int CountTrailingOnes(ulong value)
+    {
+        return CountTrailingZeros(~value);
+    }
 
     /// <summary>
     /// Counts the number of consecutive 1's starting from the highest bit working down.
     /// </summary>
     /// <param name="value">Target value for bit counting.</param>
     /// <returns>Number of consecutive 1's starting from the highest bit working down.</returns>
-    public static int CountLeadingOnes(uint value) => CountLeadingZeros(~value);
+    public static int CountLeadingOnes(uint value)
+    {
+        return CountLeadingZeros(~value);
+    }
 
     /// <summary>
     /// Counts the number of consecutive 1's starting from the highest bit working down.
     /// </summary>
     /// <param name="value">Target value for bit counting.</param>
     /// <returns>Number of consecutive 1's starting from the highest bit working down.</returns>
-    public static int CountLeadingOnes(ulong value) => CountLeadingZeros(~value);
+    public static int CountLeadingOnes(ulong value)
+    {
+        return CountLeadingZeros(~value);
+    }
 
     #endregion
 
@@ -503,7 +527,10 @@ public static class BitMath
     /// </summary>
     /// <param name="value">Target value for bit check enumeration.</param>
     /// <returns>Enumeration of all cleared bit positions.</returns>
-    public static IEnumerable<int> GetClearedBitPositions(uint value) => GetSetBitPositions(~value);
+    public static IEnumerable<int> GetClearedBitPositions(uint value)
+    {
+        return GetSetBitPositions(~value);
+    }
 
     /// <summary>
     /// Returns the bit position for every bit that is cleared in the provided value.
@@ -511,5 +538,8 @@ public static class BitMath
     /// </summary>
     /// <param name="value">Target value for bit check enumeration.</param>
     /// <returns>Enumeration of all cleared bit positions.</returns>
-    public static IEnumerable<int> GetClearedBitPositions(ulong value) => GetSetBitPositions(~value);
+    public static IEnumerable<int> GetClearedBitPositions(ulong value)
+    {
+        return GetSetBitPositions(~value);
+    }
 }

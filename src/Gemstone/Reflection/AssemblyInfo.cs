@@ -68,7 +68,10 @@ public class AssemblyInfo
 
     /// <summary>Initializes a new instance of the <see cref="AssemblyInfo"/> class.</summary>
     /// <param name="assemblyInstance">An <see cref="Assembly"/> object.</param>
-    public AssemblyInfo(Assembly assemblyInstance) => Assembly = assemblyInstance;
+    public AssemblyInfo(Assembly assemblyInstance)
+    {
+        Assembly = assemblyInstance;
+    }
 
     #endregion
 
@@ -353,33 +356,69 @@ public class AssemblyInfo
     /// <summary>
     /// Gets the path or UNC location of the loaded file that contains the manifest.
     /// </summary>
-    public string Location => Assembly.Location;
+    public string Location
+    {
+        get
+        {
+            return Assembly.Location;
+        }
+    }
 
     /// <summary>
     /// Gets the display name of the <see cref="Assembly"/>.
     /// </summary>
-    public string? FullName => Assembly.FullName;
+    public string? FullName
+    {
+        get
+        {
+            return Assembly.FullName;
+        }
+    }
 
     /// <summary>
     /// Gets the simple, unencrypted name of the <see cref="Assembly"/>.
     /// </summary>
-    public string? Name => Assembly.GetName().Name;
+    public string? Name
+    {
+        get
+        {
+            return Assembly.GetName().Name;
+        }
+    }
 
     /// <summary>
     /// Gets the major, minor, revision, and build numbers of the <see cref="Assembly"/>.
     /// </summary>
-    public Version? Version => Assembly.GetName().Version;
+    public Version? Version
+    {
+        get
+        {
+            return Assembly.GetName().Version;
+        }
+    }
 
     /// <summary>
     /// Gets the string representing the version of the common language runtime (CLR) saved in the file
     /// containing the manifest.
     /// </summary>
-    public string ImageRuntimeVersion => Assembly.ImageRuntimeVersion;
+    public string ImageRuntimeVersion
+    {
+        get
+        {
+            return Assembly.ImageRuntimeVersion;
+        }
+    }
 
     /// <summary>
     /// Gets the date and time when the <see cref="Assembly"/> was built.
     /// </summary>
-    public DateTime BuildDate => File.GetLastWriteTime(Assembly.Location);
+    public DateTime BuildDate
+    {
+        get
+        {
+            return File.GetLastWriteTime(Assembly.Location);
+        }
+    }
 
     private string? m_rootNamespace;
 
@@ -449,16 +488,22 @@ public class AssemblyInfo
     /// <remarks>
     /// This method always returns <c>null</c> under Mono deployments.
     /// </remarks>
-    public CustomAttributeData? GetCustomAttribute(Type attributeType) => // Returns the requested assembly attribute
-        Assembly.GetCustomAttributesData().FirstOrDefault(assemblyAttribute => assemblyAttribute.Constructor.DeclaringType == attributeType);
+    public CustomAttributeData? GetCustomAttribute(Type attributeType)
+    {
+        // Returns the requested assembly attribute
+        return Assembly.GetCustomAttributesData().FirstOrDefault(assemblyAttribute =>
+            assemblyAttribute.Constructor.DeclaringType == attributeType);
+    }
 
     /// <summary>
     /// Gets the specified embedded resource from the assembly.
     /// </summary>
     /// <param name="resourceName">The full name (including the namespace) of the embedded resource to get.</param>
     /// <returns>The embedded resource.</returns>
-    public Stream? GetEmbeddedResource(string resourceName) =>
-        Assembly.GetEmbeddedResource(resourceName);
+    public Stream? GetEmbeddedResource(string resourceName)
+    {
+        return Assembly.GetEmbeddedResource(resourceName);
+    }
 
     #endregion
 
@@ -569,7 +614,13 @@ public class AssemblyInfo
     /// <summary>
     /// Gets the <see cref="AssemblyInfo"/> object of the assembly that contains the code that is currently executing.
     /// </summary>
-    public static AssemblyInfo ExecutingAssembly => s_executingAssembly ??= new AssemblyInfo(Assembly.GetCallingAssembly());
+    public static AssemblyInfo ExecutingAssembly
+    {
+        get
+        {
+            return s_executingAssembly ??= new AssemblyInfo(Assembly.GetCallingAssembly());
+        }
+    }
 
     // Static Methods
 

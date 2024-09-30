@@ -40,5 +40,8 @@ public sealed class IsDeletedFlagAttribute : Attribute
     /// Creates a new <see cref="IsDeletedFlagAttribute"/>.
     /// </summary>
     /// <param name="fieldName">Field name used as is-deleted record marker.</param>
-    public IsDeletedFlagAttribute(string fieldName) => FieldName = fieldName;
+    public IsDeletedFlagAttribute(string fieldName)
+    {
+        FieldName = fieldName;
+    }
 }

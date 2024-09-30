@@ -130,7 +130,10 @@ public class Mail : IDisposable
     /// <summary>
     /// Releases the unmanaged resources before the <see cref="Mail"/> object is reclaimed by <see cref="GC"/>.
     /// </summary>
-    ~Mail() => Dispose(false);
+    ~Mail()
+    {
+        Dispose(false);
+    }
 
     #endregion
 
@@ -436,8 +439,10 @@ public class Mail : IDisposable
     /// <param name="body">The body of the <see cref="Mail"/> message.</param>
     /// <param name="isBodyHtml">true if the <see cref="Mail"/> message body is to be formated as HTML; otherwise false.</param>
     /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer) => 
+    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer)
+    {
         Send(from, toRecipients, null, null, subject, body, isBodyHtml, smtpServer);
+    }
 
     /// <summary>
     /// Sends a <see cref="Mail"/> message.
@@ -450,8 +455,10 @@ public class Mail : IDisposable
     /// <param name="body">The body of the <see cref="Mail"/> message.</param>
     /// <param name="isBodyHtml">true if the <see cref="Mail"/> message body is to be formated as HTML; otherwise false.</param>
     /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
-    public static void Send(string from, string toRecipients, string? ccRecipients, string? bccRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer) =>
+    public static void Send(string from, string toRecipients, string? ccRecipients, string? bccRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer)
+    {
         Send(from, toRecipients, ccRecipients, bccRecipients, subject, body, isBodyHtml, null, smtpServer);
+    }
 
     /// <summary>
     /// Sends a <see cref="Mail"/> message.
@@ -463,8 +470,10 @@ public class Mail : IDisposable
     /// <param name="isBodyHtml">true if the <see cref="Mail"/> message body is to be formated as HTML; otherwise false.</param>
     /// <param name="attachments">A comma-separated or semicolon-separated list of file names to be attached to the <see cref="Mail"/> message.</param>
     /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string? attachments, string smtpServer) =>
+    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string? attachments, string smtpServer)
+    {
         Send(from, toRecipients, null, null, subject, body, isBodyHtml, attachments, smtpServer);
+    }
 
     /// <summary>
     /// Sends a <see cref="Mail"/> message.
@@ -504,8 +513,10 @@ public class Mail : IDisposable
     /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
     /// <param name="username">The username of the account used to authenticate to the SMTP server.</param>
     /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password) => 
+    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password)
+    {
         Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password, true);
+    }
 
     /// <summary>
     /// Sends a secure <see cref="Mail"/> message.
@@ -518,8 +529,10 @@ public class Mail : IDisposable
     /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
     /// <param name="username">The username of the account used to authenticate to the SMTP server.</param>
     /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, SecureString? password) => 
+    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, SecureString? password)
+    {
         Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password, true);
+    }
 
     /// <summary>
     /// Sends a secure <see cref="Mail"/> message.
@@ -533,8 +546,11 @@ public class Mail : IDisposable
     /// <param name="username">The username of the account used to authenticate to the SMTP server.</param>
     /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
     /// <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password, bool enableSSL) => 
-        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password?.ToSecureString(), enableSSL);
+    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password, bool enableSSL)
+    {
+        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password?.ToSecureString(),
+            enableSSL);
+    }
 
     /// <summary>
     /// Sends a secure <see cref="Mail"/> message.

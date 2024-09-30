@@ -60,7 +60,13 @@ public class AppDomainTypeLookup
     /// <summary>
     /// Gets flag that determines if there is a possibility that a new assembly has been loaded and new types are available.
     /// </summary>
-    public bool HasChanged => m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
+    public bool HasChanged
+    {
+        get
+        {
+            return m_assemblyVersionNumber != AssemblyLoadedVersionNumber.VersionNumber;
+        }
+    }
 
     #endregion
 

@@ -36,7 +36,13 @@ public static class AssemblyLoadedVersionNumber
     /// <summary>
     /// The number of times that the AppDomains's assembly could have changed; initial value starts at 1.
     /// </summary>
-    public static int VersionNumber => s_versionNumber;
+    public static int VersionNumber
+    {
+        get
+        {
+            return s_versionNumber;
+        }
+    }
 
     static AssemblyLoadedVersionNumber()
     {

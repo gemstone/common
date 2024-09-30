@@ -100,7 +100,13 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <summary>
     /// Gets the length of serialized <see cref="VBArrayDescriptor"/>.
     /// </summary>
-    public int BinaryLength => 2 + 8 * m_arrayDimensionDescriptors.Count;
+    public int BinaryLength
+    {
+        get
+        {
+            return 2 + 8 * m_arrayDimensionDescriptors.Count;
+        }
+    }
 
     #endregion
 
@@ -134,8 +140,10 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     }
 
     // Currently not supporting initialization from binary image
-    int ISupportBinaryImage.ParseBinaryImage(byte[] buffer, int startIndex, int length) => 
+    int ISupportBinaryImage.ParseBinaryImage(byte[] buffer, int startIndex, int length)
+    {
         throw new NotImplementedException();
+    }
 
     #endregion
 
@@ -146,16 +154,20 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// </summary>
     /// <param name="arrayLength">Length of the array.</param>
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
-    public static VBArrayDescriptor ZeroBasedOneDimensionalArray(int arrayLength) => 
-        new(new[] { arrayLength }, new[] { 0 });
+    public static VBArrayDescriptor ZeroBasedOneDimensionalArray(int arrayLength)
+    {
+        return new VBArrayDescriptor(new[] { arrayLength }, new[] { 0 });
+    }
 
     /// <summary>
     /// Returns a <see cref="VBArrayDescriptor"/> object for a one dimensional array with one-based index.
     /// </summary>
     /// <param name="arrayLength">Length of the array.</param>
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
-    public static VBArrayDescriptor OneBasedOneDimensionalArray(int arrayLength) => 
-        new(new[] { arrayLength }, new[] { 1 });
+    public static VBArrayDescriptor OneBasedOneDimensionalArray(int arrayLength)
+    {
+        return new VBArrayDescriptor(new[] { arrayLength }, new[] { 1 });
+    }
 
     /// <summary>
     /// Returns a <see cref="VBArrayDescriptor"/> object for a two dimensional array with zero-based index.
@@ -163,8 +175,10 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <param name="dimensionOneLength">Length of array in dimension one.</param>
     /// <param name="dimensionTwoLength">Length of array in dimension two.</param>
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
-    public static VBArrayDescriptor ZeroBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength) => 
-        new(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 0, 0 });
+    public static VBArrayDescriptor ZeroBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength)
+    {
+        return new VBArrayDescriptor(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 0, 0 });
+    }
 
     /// <summary>
     /// Returns a <see cref="VBArrayDescriptor"/> object for a two dimensional array with one-based index.
@@ -172,8 +186,10 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <param name="dimensionOneLength">Length of array in dimension one.</param>
     /// <param name="dimensionTwoLength">Length of array in dimension two.</param>
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
-    public static VBArrayDescriptor OneBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength) => 
-        new(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 1, 1 });
+    public static VBArrayDescriptor OneBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength)
+    {
+        return new VBArrayDescriptor(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 1, 1 });
+    }
 
     #endregion
 }

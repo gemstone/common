@@ -119,7 +119,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="comparison"><see cref="StringComparison"/> type.</param>
     /// <returns><see cref="StringComparer"/> for the specified <see cref="StringComparison"/>.</returns>
-    public static StringComparer GetComparer(this StringComparison comparison) => s_comparisonComparers[comparison];
+    public static StringComparer GetComparer(this StringComparison comparison)
+    {
+        return s_comparisonComparers[comparison];
+    }
 
 #if NET
     /// <summary>
@@ -138,8 +141,10 @@ public static class StringExtensions
     }
     
     [DoesNotReturn] // This allows ThrowIfNullOrEmpty to be inlined
-    private static void ThrowArgumentEmptyException(string? paramName) =>
+    private static void ThrowArgumentEmptyException(string? paramName)
+    {
         throw new ArgumentException("Argument cannot be empty", paramName);
+    }
 #endif
 
     /// <summary>
@@ -187,7 +192,10 @@ public static class StringExtensions
     /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
     /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
     /// </remarks>
-    public static T ConvertToType<T>(this string? value) => ConvertToType<T>(value, null);
+    public static T ConvertToType<T>(this string? value)
+    {
+        return ConvertToType<T>(value, null);
+    }
 
     /// <summary>
     /// Converts this string into the specified type.
@@ -221,7 +229,10 @@ public static class StringExtensions
     /// <see cref="TypeConverter"/> to convert the original object to a <see cref="string"/>; see the
     /// <see cref="Common.TypeConvertToString(object)"/> method for an easy way to do this.
     /// </remarks>
-    public static object? ConvertToType(this string? value, Type type) => ConvertToType(value, type, null);
+    public static object? ConvertToType(this string? value, Type type)
+    {
+        return ConvertToType(value, type, null);
+    }
 
     /// <summary>
     /// Converts this string into the specified type.
@@ -317,8 +328,10 @@ public static class StringExtensions
     /// <param name="value">Value to convert to string.</param>
     /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, empty string ("") will be returned. </returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string ToNonNullString<T>(this T value) where T : class? => 
-        value is null or DBNull ? "" : value.ToString()!;
+    public static string ToNonNullString<T>(this T value) where T : class?
+    {
+        return value is null or DBNull ? "" : value.ToString()!;
+    }
 
     /// <summary>
     /// Converts value to string; null objects (or DBNull objects) will return specified <paramref name="nonNullValue"/>.
@@ -328,8 +341,11 @@ public static class StringExtensions
     /// <param name="nonNullValue"><see cref="string"/> to return if <paramref name="value"/> is null.</param>
     /// <returns><paramref name="value"/> as a string; if <paramref name="value"/> is null, <paramref name="nonNullValue"/> will be returned.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="nonNullValue"/> cannot be null.</exception>
-    public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class? => 
-        nonNullValue is null ? throw new ArgumentNullException(nameof(nonNullValue)) : value is null or DBNull ? nonNullValue : value.ToString()!;
+    public static string ToNonNullString<T>(this T value, string nonNullValue) where T : class?
+    {
+        return nonNullValue is null ? throw new ArgumentNullException(nameof(nonNullValue)) :
+            value is null or DBNull ? nonNullValue : value.ToString()!;
+    }
 
     // We handle strings as a special version of the ToNullNullString extension to handle documentation a little differently
 
@@ -339,7 +355,10 @@ public static class StringExtensions
     /// <param name="value"><see cref="string"/> to verify is not null.</param>
     /// <returns><see cref="string"/> value; if <paramref name="value"/> is null, empty string ("") will be returned.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string ToNonNullString(this string? value) => value ?? "";
+    public static string ToNonNullString(this string? value)
+    {
+        return value ?? "";
+    }
 
     /// <summary>
     /// Converts value to string; null objects, DBNull objects or empty strings will return specified <paramref name="nonNullNorEmptyValue"/>.
@@ -665,7 +684,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="testValue">Value to test for null or empty.</param>
     /// <returns>A non-empty string.</returns>
-    public static string NotEmpty(this string testValue) => testValue.NotEmpty(" ");
+    public static string NotEmpty(this string testValue)
+    {
+        return testValue.NotEmpty(" ");
+    }
 
     /// <summary>
     /// Ensures parameter is not an empty or null string.
@@ -751,8 +773,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all white space removed.</returns>
-    public static string RemoveWhiteSpace(this string? value) => 
-        value.RemoveCharacters(char.IsWhiteSpace);
+    public static string RemoveWhiteSpace(this string? value)
+    {
+        return value.RemoveCharacters(char.IsWhiteSpace);
+    }
 
     /// <summary>
     /// Replaces all white space characters (as defined by IsWhiteSpace) with specified replacement character.
@@ -761,24 +785,30 @@ public static class StringExtensions
     /// <param name="replacementCharacter">Character used to "replace" white space characters.</param>
     /// <returns>Returns <paramref name="value" /> with all white space characters replaced.</returns>
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-    public static string ReplaceWhiteSpace(this string? value, char replacementCharacter) => 
-        value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
+    public static string ReplaceWhiteSpace(this string? value, char replacementCharacter)
+    {
+        return value.ReplaceCharacters(replacementCharacter, char.IsWhiteSpace);
+    }
 
     /// <summary>
     /// Removes all control characters from a string.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters removed.</returns>
-    public static string RemoveControlCharacters(this string? value) => 
-        value.RemoveCharacters(char.IsControl);
+    public static string RemoveControlCharacters(this string? value)
+    {
+        return value.RemoveCharacters(char.IsControl);
+    }
 
     /// <summary>
     /// Replaces all control characters in a string with a single space.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters replaced as a single space.</returns>
-    public static string ReplaceControlCharacters(this string? value) => 
-        value.ReplaceControlCharacters(' ');
+    public static string ReplaceControlCharacters(this string? value)
+    {
+        return value.ReplaceControlCharacters(' ');
+    }
 
     /// <summary>
     /// Replaces all control characters in a string with specified replacement character.
@@ -787,16 +817,20 @@ public static class StringExtensions
     /// <param name="replacementCharacter">Character used to "replace" control characters.</param>
     /// <returns>Returns <paramref name="value" /> with all control characters replaced.</returns>
     /// <remarks>Allows you to specify a replacement character (e.g., you may want to use a non-breaking space: Convert.ToChar(160)).</remarks>
-    public static string ReplaceControlCharacters(this string? value, char replacementCharacter) => 
-        value.ReplaceCharacters(replacementCharacter, char.IsControl);
+    public static string ReplaceControlCharacters(this string? value, char replacementCharacter)
+    {
+        return value.ReplaceCharacters(replacementCharacter, char.IsControl);
+    }
 
     /// <summary>
     /// Removes all carriage returns and line feeds from a string.
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all CR and LF characters removed.</returns>
-    public static string RemoveCrLfs(this string? value) => 
-        value.RemoveCharacters(c => c is '\r' or '\n');
+    public static string RemoveCrLfs(this string? value)
+    {
+        return value.RemoveCharacters(c => c is '\r' or '\n');
+    }
 
     /// <summary>
     /// Replaces all carriage return and line feed characters (as well as CR/LF sequences) in a string with specified replacement character.
@@ -855,8 +889,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all duplicate white space removed.</returns>
-    public static string RemoveDuplicateWhiteSpace(this string? value) => 
-        value.RemoveDuplicateWhiteSpace(' ');
+    public static string RemoveDuplicateWhiteSpace(this string? value)
+    {
+        return value.RemoveDuplicateWhiteSpace(' ');
+    }
 
     /// <summary>
     /// Replaces all repeating white space with specified spacing character.
@@ -897,8 +933,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">Input string.</param>
     /// <returns>Returns <paramref name="value" /> with all invalid file name characters removed.</returns>
-    public static string RemoveInvalidFileNameCharacters(this string? value) => 
-        value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+    public static string RemoveInvalidFileNameCharacters(this string? value)
+    {
+        return value.RemoveCharacters(c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+    }
 
     /// <summary>
     /// Replaces all invalid file name characters (\ / : * ? " &lt; &gt; |) in a string with the specified <paramref name="replacementCharacter"/>.
@@ -906,8 +944,11 @@ public static class StringExtensions
     /// <param name="value">Input string.</param>
     /// <param name="replacementCharacter">Character used to replace the invalid characters.</param>
     /// <returns>>Returns <paramref name="value" /> with all invalid file name characters replaced.</returns>
-    public static string ReplaceInvalidFileNameCharacters(this string? value, char replacementCharacter) => 
-        value.ReplaceCharacters(replacementCharacter, c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+    public static string ReplaceInvalidFileNameCharacters(this string? value, char replacementCharacter)
+    {
+        return value.ReplaceCharacters(replacementCharacter,
+            c => Array.IndexOf(Path.GetInvalidFileNameChars(), c) >= 0);
+    }
 
     /// <summary>
     /// Wraps <paramref name="value"/> in the <paramref name="quoteChar"/>.
@@ -941,8 +982,10 @@ public static class StringExtensions
     /// <param name="value">Input string.</param>
     /// <param name="characterToCount">Character to be counted.</param>
     /// <returns>Total number of the occurrences of <paramref name="characterToCount" /> in the given string.</returns>
-    public static int CharCount(this string? value, char characterToCount) => 
-        string.IsNullOrEmpty(value) ? 0 : value.Count(t => t == characterToCount);
+    public static int CharCount(this string? value, char characterToCount)
+    {
+        return string.IsNullOrEmpty(value) ? 0 : value.Count(t => t == characterToCount);
+    }
 
     /// <summary>
     /// Tests to see if a string is contains only digits based on Char.IsDigit function.
@@ -1013,8 +1056,10 @@ public static class StringExtensions
     /// <returns>True, if all string's characters are letters; otherwise, false.</returns>
     /// <remarks>Any non-letter character (e.g., punctuation marks) causes this function to return false (See overload to ignore punctuation
     /// marks.).</remarks>
-    public static bool IsAllLetters(this string? value) => 
-        value.IsAllLetters(false);
+    public static bool IsAllLetters(this string? value)
+    {
+        return value.IsAllLetters(false);
+    }
 
     /// <summary>
     /// Tests to see if a string contains only letters.
@@ -1056,8 +1101,10 @@ public static class StringExtensions
     /// <returns>True, if all string's characters are either letters or digits; otherwise, false.</returns>
     /// <remarks>Any non-letter, non-digit character (e.g., punctuation marks) causes this function to return false (See overload to ignore
     /// punctuation marks.).</remarks>
-    public static bool IsAllLettersOrDigits(this string? value) => 
-        value.IsAllLettersOrDigits(false);
+    public static bool IsAllLettersOrDigits(this string? value)
+    {
+        return value.IsAllLettersOrDigits(false);
+    }
 
     /// <summary>
     /// Tests to see if a string contains only letters or digits.
@@ -1116,8 +1163,10 @@ public static class StringExtensions
     /// <para>Note: This function encodes a "String". Use the Convert.ToBase64String function to encode a binary data buffer.</para>
     /// </remarks>
     /// <returns>A <see cref="string"></see> value representing the encoded input of <paramref name="value"/>.</returns>
-    public static string Base64Encode(this string? value) => 
-        value is null ? string.Empty : Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
+    public static string Base64Encode(this string? value)
+    {
+        return value is null ? string.Empty : Convert.ToBase64String(Encoding.Unicode.GetBytes(value));
+    }
 
     /// <summary>
     /// Decodes a given base-64 encoded string encoded with <see cref="Base64Encode" />.
@@ -1126,8 +1175,10 @@ public static class StringExtensions
     /// <remarks>Note: This function decodes value back into a "String". Use the Convert.FromBase64String function to decode a base-64 encoded
     /// string back into a binary data buffer.</remarks>
     /// <returns>A <see cref="string"></see> value representing the decoded input of <paramref name="value"/>.</returns>
-    public static string Base64Decode(this string? value) => 
-        value is null ? string.Empty : Encoding.Unicode.GetString(Convert.FromBase64String(value));
+    public static string Base64Decode(this string? value)
+    {
+        return value is null ? string.Empty : Encoding.Unicode.GetString(Convert.FromBase64String(value));
+    }
 
     /// <summary>
     /// Converts the given string into a <see cref="SecureString"/>.
@@ -1331,8 +1382,10 @@ public static class StringExtensions
     /// <param name="value">A <see cref="string"/> to be centered.</param>
     /// <param name="maxLength">An <see cref="int"/> that is the maximum length of padding.</param>
     /// <returns>The centered string value.</returns>
-    public static string CenterText(this string? value, int maxLength) => 
-        value.CenterText(maxLength, ' ');
+    public static string CenterText(this string? value, int maxLength)
+    {
+        return value.CenterText(maxLength, ' ');
+    }
 
     /// <summary>
     /// Centers text within the specified maximum length, biased to the left.
@@ -1401,8 +1454,13 @@ public static class StringExtensions
     /// <param name="fromText">The value to replace.</param>
     /// <param name="toText">The new value to be inserted</param>
     /// <returns>A string with replacements.</returns>
-    public static string ReplaceCaseInsensitive(this string? value, string fromText, string toText) => 
-        value is null ? string.Empty : new Regex(Regex.Escape(fromText), RegexOptions.IgnoreCase | RegexOptions.Multiline).Replace(value, toText);
+    public static string ReplaceCaseInsensitive(this string? value, string fromText, string toText)
+    {
+        return value is null
+            ? string.Empty
+            : new Regex(Regex.Escape(fromText), RegexOptions.IgnoreCase | RegexOptions.Multiline)
+                .Replace(value, toText);
+    }
 
     /// <summary>
     /// Ensures a string starts with a specific character.
@@ -1410,8 +1468,10 @@ public static class StringExtensions
     /// <param name="value">Input string to process.</param>
     /// <param name="startChar">The character desired at string start.</param>
     /// <returns>The sent string with character at the start.</returns>
-    public static string EnsureStart(this string? value, char startChar) => 
-        EnsureStart(value, startChar, false);
+    public static string EnsureStart(this string? value, char startChar)
+    {
+        return EnsureStart(value, startChar, false);
+    }
 
     /// <summary>
     /// Ensures a string starts with a specific character.
@@ -1457,8 +1517,10 @@ public static class StringExtensions
     /// <param name="value">Input string to process.</param>
     /// <param name="endChar">The character desired at string's end.</param>
     /// <returns>The sent string with character at the end.</returns>
-    public static string EnsureEnd(this string? value, char endChar) => 
-        EnsureEnd(value, endChar, false);
+    public static string EnsureEnd(this string? value, char endChar)
+    {
+        return EnsureEnd(value, endChar, false);
+    }
 
     /// <summary>
     /// Ensures a string ends with a specific character.
@@ -1575,16 +1637,20 @@ public static class StringExtensions
     /// <param name="value">The string to process.</param>
     /// <param name="characterToFind">The character of interest.</param>
     /// <returns>The index of the first instance of the character that is repeated or (-1) if no repeated chars found.</returns>
-    public static int IndexOfRepeatedChar(this string? value, char characterToFind) => 
-        IndexOfRepeatedChar(value, characterToFind, 0);
+    public static int IndexOfRepeatedChar(this string? value, char characterToFind)
+    {
+        return IndexOfRepeatedChar(value, characterToFind, 0);
+    }
 
     /// <summary>
     /// Searches a string for an instance of a repeated character.
     /// </summary>
     /// <param name="value">The string to process.</param>
     /// <returns>The index of the first instance of any character that is repeated or (-1) if no repeated chars found.</returns>
-    public static int IndexOfRepeatedChar(this string? value) => 
-        IndexOfRepeatedChar(value, 0);
+    public static int IndexOfRepeatedChar(this string? value)
+    {
+        return IndexOfRepeatedChar(value, 0);
+    }
 
     /// <summary>
     /// Searches a string for an instance of a repeated character from specified <paramref name="startIndex"/>.
@@ -1697,8 +1763,10 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">The string to escape.</param>
     /// <returns>URL encoded string.</returns>
-    public static string UriEncode(this string? value) => 
-        value is null ? string.Empty : Uri.EscapeDataString(value);
+    public static string UriEncode(this string? value)
+    {
+        return value is null ? string.Empty : Uri.EscapeDataString(value);
+    }
 
     /// <summary>
     /// Removes one or more instances of a specified string from the beginning of a string.

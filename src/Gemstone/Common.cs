@@ -111,8 +111,14 @@ public static class Common
     /// <summary>
     /// Gets the name of the current application.
     /// </summary>
-    public static string ApplicationName =>
-        s_applicationName ??= Assembly.GetEntryAssembly()?.GetName().Name ?? Process.GetCurrentProcess().ProcessName;
+    public static string ApplicationName
+    {
+        get
+        {
+            return s_applicationName ??=
+                Assembly.GetEntryAssembly()?.GetName().Name ?? Process.GetCurrentProcess().ProcessName;
+        }
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
@@ -130,8 +136,10 @@ public static class Common
     /// original <see cref="Type"/>.
     /// </para>
     /// </remarks>
-    public static string TypeConvertToString(object value) =>
-        TypeConvertToString(value, null);
+    public static string TypeConvertToString(object value)
+    {
+        return TypeConvertToString(value, null);
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/> to a <see cref="string"/> using an appropriate <see cref="TypeConverter"/>.
@@ -209,8 +217,10 @@ public static class Common
     /// is empty or <c>null</c>.
     /// </para>
     /// </remarks>
-    public static object? TypeConvertFromString(string value, Type type) =>
-        TypeConvertFromString(value, type, null);
+    public static object? TypeConvertFromString(string value, Type type)
+    {
+        return TypeConvertFromString(value, type, null);
+    }
 
     /// <summary>
     /// Converts this string into the specified type.
@@ -315,15 +325,19 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsReference(object item) =>
-        item is not ValueType;
+    public static bool IsReference(object item)
+    {
+        return item is not ValueType;
+    }
 
     /// <summary>Determines if given item is a reference type but not a string.</summary>
     /// <param name="item">Object to evaluate.</param>
     /// <returns>Result of evaluation as a <see cref="bool"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNonStringReference(object item) =>
-        IsReference(item) && item is not string;
+    public static bool IsNonStringReference(object item)
+    {
+        return IsReference(item) && item is not string;
+    }
 
     /// <summary>
     /// Determines if <paramref name="typeCode"/> is a numeric type, i.e., one of:
@@ -335,8 +349,9 @@ public static class Common
     /// <param name="typeCode"><see cref="TypeCode"/> value to check.</param>
     /// <returns><c>true</c> if <paramref name="typeCode"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType(TypeCode typeCode) =>
-        typeCode switch
+    public static bool IsNumericType(TypeCode typeCode)
+    {
+        return typeCode switch
         {
             TypeCode.Boolean => true,
             TypeCode.SByte => true,
@@ -352,6 +367,7 @@ public static class Common
             TypeCode.Decimal => true,
             _ => false
         };
+    }
 
     /// <summary>
     /// Determines if <paramref name="type"/> is a numeric type, i.e., has a <see cref="TypeCode"/> that is one of:
@@ -362,8 +378,10 @@ public static class Common
     /// </summary>
     /// <param name="type"><see cref="Type"/> to check.</param>
     /// <returns><c>true</c> if <paramref name="type"/> is a numeric type; otherwise, <c>false</c>.</returns>
-    public static bool IsNumericType(Type type) =>
-        IsNumericType(Type.GetTypeCode(type));
+    public static bool IsNumericType(Type type)
+    {
+        return IsNumericType(Type.GetTypeCode(type));
+    }
 
     /// <summary>
     /// Determines if <typeparamref name="T"/> is a numeric type, i.e., has a <see cref="TypeCode"/> that is one of:
@@ -375,8 +393,10 @@ public static class Common
     /// <typeparam name="T"><see cref="Type"/> to check.</typeparam>
     /// <returns><c>true</c> if <typeparamref name="T"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType<T>() =>
-        IsNumericType(Type.GetTypeCode(typeof(T)));
+    public static bool IsNumericType<T>()
+    {
+        return IsNumericType(Type.GetTypeCode(typeof(T)));
+    }
 
     /// <summary>
     /// Determines if <see cref="Type"/> of <paramref name="item"/> is a numeric type, i.e., <paramref name="item"/>
@@ -389,8 +409,10 @@ public static class Common
     /// <param name="item">Object to evaluate.</param>
     /// <returns><c>true</c> if <paramref name="item"/> is a numeric type; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumericType(object item) =>
-        item is IConvertible convertible && IsNumericType(convertible.GetTypeCode());
+    public static bool IsNumericType(object item)
+    {
+        return item is IConvertible convertible && IsNumericType(convertible.GetTypeCode());
+    }
 
     /// <summary>
     /// Determines if given <paramref name="item"/> is or can be interpreted as numeric.
@@ -402,24 +424,30 @@ public static class Common
     /// value, result will be <c>true</c>.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNumeric(object item) =>
-        IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
+    public static bool IsNumeric(object item)
+    {
+        return IsNumericType(item) || item is char or string && decimal.TryParse(item.ToString(), out _);
+    }
 
     /// <summary>Returns the smallest item from a list of parameters.</summary>
     /// <typeparam name="T">Return type <see cref="Type"/> that is the minimum value in the <paramref name="itemList"/>.</typeparam>
     /// <param name="itemList">A variable number of parameters of the specified type.</param>
     /// <returns>Result is the minimum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Min<T>(params T[] itemList) =>
-        itemList.Min();
+    public static T? Min<T>(params T[] itemList)
+    {
+        return itemList.Min();
+    }
 
     /// <summary>Returns the largest item from a list of parameters.</summary>
     /// <typeparam name="T">Return type <see cref="Type"/> that is the maximum value in the <paramref name="itemList"/>.</typeparam>
     /// <param name="itemList">A variable number of parameters of the specified type .</param>
     /// <returns>Result is the maximum value of type <see cref="Type"/> in the <paramref name="itemList"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? Max<T>(params T[] itemList) =>
-        itemList.Max();
+    public static T? Max<T>(params T[] itemList)
+    {
+        return itemList.Max();
+    }
 
     /// <summary>Returns the value that is neither the largest nor the smallest.</summary>
     /// <typeparam name="T"><see cref="Type"/> of the objects passed to and returned from this method.</typeparam>

@@ -50,7 +50,13 @@ public class NullableWeakReference : WeakReference
     /// true if the object referenced by the current <see cref="NullableWeakReference" /> object has not been garbage collected or cleared 
     /// and is still accessible; otherwise, false.
     /// </returns>
-    public override bool IsAlive => !m_cleared && base.IsAlive;
+    public override bool IsAlive
+    {
+        get
+        {
+            return !m_cleared && base.IsAlive;
+        }
+    }
 
     /// <summary>
     /// Gets the object (the target) referenced by the current <see cref="NullableWeakReference" /> object.
@@ -63,7 +69,10 @@ public class NullableWeakReference : WeakReference
     /// <exception cref="System.InvalidOperationException">If setting this property to anything other than null</exception>
     public override object? Target
     {
-        get => m_cleared ? null : base.Target;
+        get
+        {
+            return m_cleared ? null : base.Target;
+        }
         set
         {
             if (value is null)
@@ -76,5 +85,8 @@ public class NullableWeakReference : WeakReference
     /// <summary>
     /// Sets <see cref="Target"/> to null so subsequent calls to <see cref="Target"/> returns null.
     /// </summary>
-    public virtual void Clear() => m_cleared = true;
+    public virtual void Clear()
+    {
+        m_cleared = true;
+    }
 }

@@ -174,7 +174,10 @@ public class ScheduleManager : IDisposable, IProvideStatus
     /// <exception cref="ArgumentNullException">The value being assigned is null or empty string.</exception>
     public string Name
     {
-        get => m_name;
+        get
+        {
+            return m_name;
+        }
         set
         {
             if (string.IsNullOrEmpty(value))
@@ -199,7 +202,13 @@ public class ScheduleManager : IDisposable, IProvideStatus
     /// <summary>
     /// Gets a boolean value that indicates whether the <see cref="ScheduleManager"/> is running.
     /// </summary>
-    public bool IsRunning => m_timer?.Enabled ?? false;
+    public bool IsRunning
+    {
+        get
+        {
+            return m_timer?.Enabled ?? false;
+        }
+    }
 
     /// <summary>
     /// Gets or sets a boolean value that indicates whether the <see cref="ScheduleManager"/> object is currently enabled.
@@ -209,7 +218,10 @@ public class ScheduleManager : IDisposable, IProvideStatus
     /// </remarks>
     public bool Enabled
     {
-        get => IsRunning;
+        get
+        {
+            return IsRunning;
+        }
         set
         {
             if (value && !Enabled)
@@ -397,28 +409,36 @@ public class ScheduleManager : IDisposable, IProvideStatus
     /// <summary>
     /// Raises the <see cref="Starting"/> event.
     /// </summary>
-    protected virtual void OnStarting() =>
+    protected virtual void OnStarting()
+    {
         Starting?.SafeInvoke(this, EventArgs.Empty);
+    }
 
     /// <summary>
     /// Raises the <see cref="Started"/> event.
     /// </summary>
-    protected virtual void OnStarted() =>
+    protected virtual void OnStarted()
+    {
         Started?.SafeInvoke(this, EventArgs.Empty);
+    }
 
     /// <summary>
     /// Raises the <see cref="ScheduleDue"/> event.
     /// </summary>
     /// <param name="schedule"><see cref="Schedule"/> to send to <see cref="ScheduleDue"/> event.</param>
-    protected virtual void OnScheduleDue(Schedule schedule) => 
+    protected virtual void OnScheduleDue(Schedule schedule)
+    {
         ScheduleDue?.SafeInvoke(this, new EventArgs<Schedule>(schedule));
+    }
 
     /// <summary>
     /// Raises the <see cref="ScheduleDueCheck"/> event.
     /// </summary>
     /// <param name="e">Event data.</param>
-    protected virtual void OnScheduleDueCheck(EventArgs<Schedule> e) =>
+    protected virtual void OnScheduleDueCheck(EventArgs<Schedule> e)
+    {
         ScheduleDueCheck?.SafeInvoke(this, e);
+    }
 
     private void StartTimer()
     {
@@ -442,8 +462,10 @@ public class ScheduleManager : IDisposable, IProvideStatus
         m_startTimerThread = null;
     }
 
-    private void m_timer_Elapsed(object? sender, ElapsedEventArgs e) =>
+    private void m_timer_Elapsed(object? sender, ElapsedEventArgs e)
+    {
         CheckAllSchedules();
+    }
 
     #endregion
 }

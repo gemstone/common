@@ -50,7 +50,13 @@ public static class LogSuppression
         /// Note: No exchange compare is needed since <see cref="s_localValue"/>
         /// is local only to the current thread.
         /// </summary>
-        public static ThreadStack Value => s_localValue ??= new ThreadStack();
+        public static ThreadStack Value
+        {
+            get
+            {
+                return s_localValue ??= new ThreadStack();
+            }
+        }
     }
 
     /// <summary>
@@ -61,9 +67,23 @@ public static class LogSuppression
     {
         private readonly List<SuppressionMode> m_logMessageSuppressionStack = new();
 
-        public bool ShouldSuppressLogMessages => m_logMessageSuppressionStack.Count > 0 && m_logMessageSuppressionStack[^1] >= SuppressionMode.AllMessages;
+        public bool ShouldSuppressLogMessages
+        {
+            get
+            {
+                return m_logMessageSuppressionStack.Count > 0 &&
+                       m_logMessageSuppressionStack[^1] >= SuppressionMode.AllMessages;
+            }
+        }
 
-        public bool ShouldSuppressFirstChanceLogMessages => m_logMessageSuppressionStack.Count > 0 && m_logMessageSuppressionStack[^1] >= SuppressionMode.FirstChanceExceptionOnly;
+        public bool ShouldSuppressFirstChanceLogMessages
+        {
+            get
+            {
+                return m_logMessageSuppressionStack.Count > 0 &&
+                       m_logMessageSuppressionStack[^1] >= SuppressionMode.FirstChanceExceptionOnly;
+            }
+        }
 
 
         public StackDisposal SuppressLogMessages(SuppressionMode suppressionMode)
@@ -95,12 +115,24 @@ public static class LogSuppression
     /// <summary>
     /// Gets if Log Messages should be suppressed.
     /// </summary>
-    public static bool ShouldSuppressLogMessages => ThreadLocalThreadStack.Value.ShouldSuppressLogMessages;
+    public static bool ShouldSuppressLogMessages
+    {
+        get
+        {
+            return ThreadLocalThreadStack.Value.ShouldSuppressLogMessages;
+        }
+    }
 
     /// <summary>
     /// Gets if First Chance Exception Log Messages should be suppressed.
     /// </summary>
-    public static bool ShouldSuppressFirstChanceLogMessages => ThreadLocalThreadStack.Value.ShouldSuppressFirstChanceLogMessages;
+    public static bool ShouldSuppressFirstChanceLogMessages
+    {
+        get
+        {
+            return ThreadLocalThreadStack.Value.ShouldSuppressFirstChanceLogMessages;
+        }
+    }
 
     /// <summary>
     /// Sets a flag that will prevent log messages from being raised on this thread.

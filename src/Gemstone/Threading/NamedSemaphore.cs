@@ -132,8 +132,14 @@ public class NamedSemaphore : WaitHandle
     /// </summary>
     public new SafeWaitHandle SafeWaitHandle
     {
-        get => m_semaphore.SafeWaitHandle ?? new SafeWaitHandle(InvalidHandle, false);
-        set => base.SafeWaitHandle = m_semaphore.SafeWaitHandle = value;
+        get
+        {
+            return m_semaphore.SafeWaitHandle ?? new SafeWaitHandle(InvalidHandle, false);
+        }
+        set
+        {
+            base.SafeWaitHandle = m_semaphore.SafeWaitHandle = value;
+        }
     }
 
     /// <summary>

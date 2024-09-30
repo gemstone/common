@@ -85,25 +85,49 @@ public partial class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     /// Gets the number of key/value pairs contained in the <see cref="OrderedDictionary{TKey, TValue}" />.
     /// </summary>
     /// <returns>The number of key/value pairs contained in the <see cref="OrderedDictionary{TKey, TValue}" />.</returns>
-    public int Count => m_count;
+    public int Count
+    {
+        get
+        {
+            return m_count;
+        }
+    }
 
     /// <summary>
     /// Gets the <see cref="IEqualityComparer{TKey}" /> that is used to determine equality of keys for the dictionary.
     /// </summary>
     /// <returns>The <see cref="IEqualityComparer{TKey}" /> generic interface implementation that is used to determine equality of keys for the current <see cref="OrderedDictionary{TKey, TValue}" /> and to provide hash values for the keys.</returns>
-    public IEqualityComparer<TKey> Comparer => m_comparer ?? EqualityComparer<TKey>.Default;
+    public IEqualityComparer<TKey> Comparer
+    {
+        get
+        {
+            return m_comparer ?? EqualityComparer<TKey>.Default;
+        }
+    }
 
     /// <summary>
     /// Gets a collection containing the keys in the <see cref="OrderedDictionary{TKey, TValue}" />.
     /// </summary>
     /// <returns>An <see cref="OrderedDictionary{TKey,TValue}.KeyCollection" /> containing the keys in the <see cref="OrderedDictionary{TKey, TValue}" />.</returns>
-    public KeyCollection Keys => m_keys ??= new KeyCollection(this);
+    public KeyCollection Keys
+    {
+        get
+        {
+            return m_keys ??= new KeyCollection(this);
+        }
+    }
 
     /// <summary>
     /// Gets a collection containing the values in the <see cref="OrderedDictionary{TKey, TValue}" />.
     /// </summary>
     /// <returns>An <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" /> containing the values in the <see cref="OrderedDictionary{TKey, TValue}" />.</returns>
-    public ValueCollection Values => m_values ??= new ValueCollection(this);
+    public ValueCollection Values
+    {
+        get
+        {
+            return m_values ??= new ValueCollection(this);
+        }
+    }
 
     /// <summary>
     /// Gets or sets the value associated with the specified key as an O(1) operation.
@@ -123,7 +147,10 @@ public partial class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
             
             return m_entries[index].Value;
         }
-        set => TryInsert(null, key, value, InsertionBehavior.OverwriteExisting);
+        set
+        {
+            TryInsert(null, key, value, InsertionBehavior.OverwriteExisting);
+        }
     }
 
     /// <summary>
@@ -661,17 +688,53 @@ public partial class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         }
     }
 
-    KeyValuePair<TKey, TValue> IReadOnlyList<KeyValuePair<TKey, TValue>>.this[int index] => ((IList<KeyValuePair<TKey, TValue>>)this)[index];
+    KeyValuePair<TKey, TValue> IReadOnlyList<KeyValuePair<TKey, TValue>>.this[int index]
+    {
+        get
+        {
+            return ((IList<KeyValuePair<TKey, TValue>>)this)[index];
+        }
+    }
 
-    ICollection<TKey> IDictionary<TKey, TValue>.Keys => Keys;
+    ICollection<TKey> IDictionary<TKey, TValue>.Keys
+    {
+        get
+        {
+            return Keys;
+        }
+    }
 
-    ICollection<TValue> IDictionary<TKey, TValue>.Values => Values;
+    ICollection<TValue> IDictionary<TKey, TValue>.Values
+    {
+        get
+        {
+            return Values;
+        }
+    }
 
-    IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys => Keys;
+    IEnumerable<TKey> IReadOnlyDictionary<TKey, TValue>.Keys
+    {
+        get
+        {
+            return Keys;
+        }
+    }
 
-    IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values => Values;
+    IEnumerable<TValue> IReadOnlyDictionary<TKey, TValue>.Values
+    {
+        get
+        {
+            return Values;
+        }
+    }
 
-    bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => false;
+    bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
+    {
+        get
+        {
+            return false;
+        }
+    }
 
     IEnumerator<KeyValuePair<TKey, TValue>> IEnumerable<KeyValuePair<TKey, TValue>>.GetEnumerator()
     {
@@ -962,9 +1025,21 @@ public partial class OrderedDictionary<TKey, TValue> : IDictionary<TKey, TValue>
         /// Gets the element at the current position of the enumerator.
         /// </summary>
         /// <returns>The element in the <see cref="OrderedDictionary{TKey, TValue}" /> at the current position of the enumerator.</returns>
-        public KeyValuePair<TKey, TValue> Current => m_current;
+        public KeyValuePair<TKey, TValue> Current
+        {
+            get
+            {
+                return m_current;
+            }
+        }
 
-        object IEnumerator.Current => m_current;
+        object IEnumerator.Current
+        {
+            get
+            {
+                return m_current;
+            }
+        }
 
         internal Enumerator(OrderedDictionary<TKey, TValue> orderedDictionary)
         {

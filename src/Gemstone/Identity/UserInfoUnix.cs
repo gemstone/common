@@ -1272,8 +1272,10 @@ internal sealed class UserInfoUnix // : IUserInfo
     //    return context;
     //}
 
-    public static bool LocalUserExists(string userName) =>
-        GetLocalUserID(ValidateAccountName(userName), out uint _) == 0;
+    public static bool LocalUserExists(string userName)
+    {
+        return GetLocalUserID(ValidateAccountName(userName), out uint _) == 0;
+    }
 
     public static bool CreateLocalUser(string userName, string password, string userDescription)
     {
@@ -1338,8 +1340,10 @@ internal sealed class UserInfoUnix // : IUserInfo
         }
     }
 
-    public static bool LocalGroupExists(string groupName) =>
-        GetLocalGroupID(ValidateAccountName(groupName), out uint _) == 0;
+    public static bool LocalGroupExists(string groupName)
+    {
+        return GetLocalGroupID(ValidateAccountName(groupName), out uint _) == 0;
+    }
 
     public static bool CreateLocalGroup(string groupName)
     {
@@ -1519,14 +1523,20 @@ internal sealed class UserInfoUnix // : IUserInfo
         return sid;
     }
 
-    public static bool IsUserSID(string sid) =>
-        sid.StartsWith("user:", StringComparison.OrdinalIgnoreCase);
+    public static bool IsUserSID(string sid)
+    {
+        return sid.StartsWith("user:", StringComparison.OrdinalIgnoreCase);
+    }
 
-    public static bool IsGroupSID(string sid) =>
-        sid.StartsWith("group:", StringComparison.OrdinalIgnoreCase);
+    public static bool IsGroupSID(string sid)
+    {
+        return sid.StartsWith("group:", StringComparison.OrdinalIgnoreCase);
+    }
 
-    private static bool TryExtractAccountID(string sid, out uint accountID) =>
-        uint.TryParse(sid.Substring(sid.IndexOf(':') + 1), out accountID);
+    private static bool TryExtractAccountID(string sid, out uint accountID)
+    {
+        return uint.TryParse(sid.Substring(sid.IndexOf(':') + 1), out accountID);
+    }
 
     // User name expected to be pre-validated
     private static string[] GetLocalUserGroups(string userName)
@@ -1656,8 +1666,10 @@ internal sealed class UserInfoUnix // : IUserInfo
     }
 
     // Return an encoded account name valid for shell commands
-    private static string EncodeAccountName(string accountName) =>
-        accountName.ShellEncode().Replace(' ', '^');
+    private static string EncodeAccountName(string accountName)
+    {
+        return accountName.ShellEncode().Replace(' ', '^');
+    }
 
     // Return valid account name for machine name prefixed local accounts
     private static string ValidateAccountName(string accountName)

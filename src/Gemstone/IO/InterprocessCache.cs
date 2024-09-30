@@ -124,7 +124,10 @@ public class InterprocessCache : IDisposable
     /// <summary>
     /// Releases the unmanaged resources before the <see cref="InterprocessCache"/> object is reclaimed by <see cref="GC"/>.
     /// </summary>
-    ~InterprocessCache() => Dispose(false);
+    ~InterprocessCache()
+    {
+        Dispose(false);
+    }
 
     #endregion
 
@@ -257,8 +260,14 @@ public class InterprocessCache : IDisposable
     /// </summary>
     public double RetryDelayInterval
     {
-        get => m_retryTimer.Interval;
-        set => m_retryTimer.Interval = value;
+        get
+        {
+            return m_retryTimer.Interval;
+        }
+        set
+        {
+            m_retryTimer.Interval = value;
+        }
     }
 
     #endregion
@@ -370,7 +379,10 @@ public class InterprocessCache : IDisposable
     /// <summary>
     /// Blocks current thread and waits for any pending load to complete; wait time is <c><see cref="RetryDelayInterval"/> * <see cref="MaximumRetryAttempts"/></c>.
     /// </summary>
-    public virtual void WaitForLoad() => WaitForLoad((int)(RetryDelayInterval * MaximumRetryAttempts));
+    public virtual void WaitForLoad()
+    {
+        WaitForLoad((int)(RetryDelayInterval * MaximumRetryAttempts));
+    }
 
     /// <summary>
     /// Blocks current thread and waits for specified <paramref name="millisecondsTimeout"/> for any pending load to complete.
@@ -389,7 +401,10 @@ public class InterprocessCache : IDisposable
     /// <summary>
     /// Blocks current thread and waits for any pending save to complete; wait time is <c><see cref="RetryDelayInterval"/> * <see cref="MaximumRetryAttempts"/></c>.
     /// </summary>
-    public virtual void WaitForSave() => WaitForSave((int)(RetryDelayInterval * MaximumRetryAttempts));
+    public virtual void WaitForSave()
+    {
+        WaitForSave((int)(RetryDelayInterval * MaximumRetryAttempts));
+    }
 
     /// <summary>
     /// Blocks current thread and waits for specified <paramref name="millisecondsTimeout"/> for any pending save to complete.
@@ -413,8 +428,10 @@ public class InterprocessCache : IDisposable
     /// <remarks>
     /// Consumers overriding this method should not directly call <see cref="FileData"/> property to avoid potential dead-locks.
     /// </remarks>
-    protected virtual void SaveFileData(FileStream fileStream, byte[] fileData) => 
+    protected virtual void SaveFileData(FileStream fileStream, byte[] fileData)
+    {
         fileStream.Write(fileData, 0, fileData.Length);
+    }
 
     /// <summary>
     /// Handles deserialization of file from disk; virtual method allows customization (e.g., pre-load decryption and/or data merge).
@@ -424,8 +441,10 @@ public class InterprocessCache : IDisposable
     /// <remarks>
     /// Consumers overriding this method should not directly call <see cref="FileData"/> property to avoid potential dead-locks.
     /// </remarks>
-    protected virtual byte[] LoadFileData(FileStream fileStream) => 
-        fileStream.ReadStream();
+    protected virtual byte[] LoadFileData(FileStream fileStream)
+    {
+        return fileStream.ReadStream();
+    }
 
     /// <summary>
     /// Synchronously writes file data when no reads are active.

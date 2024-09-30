@@ -141,8 +141,10 @@ public class TaskSynchronizedOperation : ISynchronizedOperation
     /// </summary>
     /// <param name="asyncAction">The action to be performed during this operation.</param>
     /// <param name="exceptionAction">The action to be performed if an exception is thrown from the action.</param>
-    public TaskSynchronizedOperation(Func<CancellationToken, Task> asyncAction, Action<Exception>? exceptionAction) =>
+    public TaskSynchronizedOperation(Func<CancellationToken, Task> asyncAction, Action<Exception>? exceptionAction)
+    {
         InternalSynchronizedOperation = new SynchronizedOperation(asyncAction, exceptionAction);
+    }
 
     #endregion
 
@@ -152,22 +154,40 @@ public class TaskSynchronizedOperation : ISynchronizedOperation
     /// Gets a value to indicate whether the synchronized
     /// operation is currently executing its action.
     /// </summary>
-    public bool IsRunning => InternalSynchronizedOperation.IsRunning;
+    public bool IsRunning
+    {
+        get
+        {
+            return InternalSynchronizedOperation.IsRunning;
+        }
+    }
 
     /// <summary>
     /// Gets a value to indicate whether the synchronized operation
     /// has an additional operation that is pending execution after
     /// the currently running action has completed.
     /// </summary>
-    public bool IsPending => InternalSynchronizedOperation.IsPending;
+    public bool IsPending
+    {
+        get
+        {
+            return InternalSynchronizedOperation.IsPending;
+        }
+    }
 
     /// <summary>
     /// Gets or sets <see cref="System.Threading.CancellationToken"/> to use for canceling actions.
     /// </summary>
     public CancellationToken CancellationToken
     {
-        get => InternalSynchronizedOperation.CancellationToken;
-        set => InternalSynchronizedOperation.CancellationToken = value;
+        get
+        {
+            return InternalSynchronizedOperation.CancellationToken;
+        }
+        set
+        {
+            InternalSynchronizedOperation.CancellationToken = value;
+        }
     }
 
     private SynchronizedOperation InternalSynchronizedOperation { get; }
@@ -186,18 +206,29 @@ public class TaskSynchronizedOperation : ISynchronizedOperation
     /// an update has invalidated the operation that is currently running and
     /// will therefore need to be run again.
     /// </remarks>
-    public void RunAsync() =>
+    public void RunAsync()
+    {
         InternalSynchronizedOperation.RunAsync();
+    }
 
     /// <summary>
     /// Attempts to execute the action on another thread.
     /// Does nothing if the operation is already running.
     /// </summary>
-    public void TryRunAsync() =>
+    public void TryRunAsync()
+    {
         InternalSynchronizedOperation.TryRunAsync();
+    }
 
-    void ISynchronizedOperation.Run(bool runPendingSynchronously) => RunAsync();
-    void ISynchronizedOperation.TryRun(bool runPendingSynchronously) => TryRunAsync();
+    void ISynchronizedOperation.Run(bool runPendingSynchronously)
+    {
+        RunAsync();
+    }
+
+    void ISynchronizedOperation.TryRun(bool runPendingSynchronously)
+    {
+        TryRunAsync();
+    }
 
     #endregion
 }

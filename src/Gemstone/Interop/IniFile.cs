@@ -69,10 +69,10 @@ public class IniFile
     /// Creates a new <see cref="IniFile"/> using the specified INI file name.
     /// </summary>
     /// <param name="fileName">Specified INI file name to use.</param>
-    public IniFile(string fileName) =>
-        m_iniFile = Common.IsPosixEnvironment ? 
-            new UnixIniFile(fileName) : 
-            new WindowsIniFile(fileName);
+    public IniFile(string fileName)
+    {
+        m_iniFile = Common.IsPosixEnvironment ? new UnixIniFile(fileName) : new WindowsIniFile(fileName);
+    }
 
     #endregion
 
@@ -83,8 +83,14 @@ public class IniFile
     /// </summary>
     public string FileName
     {
-        get => m_iniFile.FileName;
-        set => m_iniFile.FileName = value;
+        get
+        {
+            return m_iniFile.FileName;
+        }
+        set
+        {
+            m_iniFile.FileName = value;
+        }
     }
 
     /// <summary>
@@ -95,8 +101,13 @@ public class IniFile
     /// <param name="defaultValue">Default value of key.</param>
     /// <returns>Value of key.</returns>
     /// <remarks>This is the default member of this class.</remarks>
-    public string this[string section, string entry, string? defaultValue] =>
-        m_iniFile[section, entry, defaultValue];
+    public string this[string section, string entry, string? defaultValue]
+    {
+        get
+        {
+            return m_iniFile[section, entry, defaultValue];
+        }
+    }
 
     /// <summary>
     /// Gets or sets the value of the specified key.
@@ -108,8 +119,14 @@ public class IniFile
     /// <remarks>This is the default member of this class.</remarks>
     public string this[string section, string entry]
     {
-        get => this[section, entry, null];
-        set => m_iniFile[section, entry] = value;
+        get
+        {
+            return this[section, entry, null];
+        }
+        set
+        {
+            m_iniFile[section, entry] = value;
+        }
     }
 
     #endregion
@@ -122,8 +139,10 @@ public class IniFile
     /// <param name="section">Section key exists in.</param>
     /// <param name="entry">Name of key.</param>
     /// <returns>Value of key.</returns>
-    public string GetKeyValue(string section, string entry) => 
-        this[section, entry, null];
+    public string GetKeyValue(string section, string entry)
+    {
+        return this[section, entry, null];
+    }
 
     /// <summary>
     /// Gets the value of the specified key.
@@ -132,8 +151,10 @@ public class IniFile
     /// <param name="entry">Name of key.</param>
     /// <param name="defaultValue">Default value of key.</param>
     /// <returns>Value of key.</returns>
-    public string GetKeyValue(string section, string entry, string defaultValue) => 
-        this[section, entry, defaultValue];
+    public string GetKeyValue(string section, string entry, string defaultValue)
+    {
+        return this[section, entry, defaultValue];
+    }
 
     /// <summary>
     /// Sets the value of the specified key.
@@ -141,23 +162,29 @@ public class IniFile
     /// <param name="section">Section key exists in.</param>
     /// <param name="entry">Name of key.</param>
     /// <param name="newValue">The new key value to store in the INI file.</param>
-    public void SetKeyValue(string section, string entry, string newValue) => 
+    public void SetKeyValue(string section, string entry, string newValue)
+    {
         this[section, entry] = newValue;
+    }
 
     /// <summary>
     /// Gets an array of keys from the specified section in the INI file.
     /// </summary>
     /// <param name="section">Section to retrieve keys from.</param>
     /// <returns>Array of <see cref="string"/> keys from the specified section of the INI file.</returns>
-    public string[] GetSectionKeys(string section) => 
-        m_iniFile.GetSectionKeys(section);
+    public string[] GetSectionKeys(string section)
+    {
+        return m_iniFile.GetSectionKeys(section);
+    }
 
     /// <summary>
     /// Gets an array of that section names that exist in the INI file.
     /// </summary>
     /// <returns>Array of <see cref="string"/> section names from the INI file.</returns>
-    public string[] GetSectionNames() => 
-        m_iniFile.GetSectionNames();
+    public string[] GetSectionNames()
+    {
+        return m_iniFile.GetSectionNames();
+    }
 
     #endregion
 

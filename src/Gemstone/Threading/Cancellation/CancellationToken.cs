@@ -52,7 +52,13 @@ public class CancellationToken : ICancellationToken
     /// <summary>
     /// Gets a value that indicates whether the operation has been cancelled.
     /// </summary>
-    public bool IsCancelled => Interlocked.CompareExchange(ref m_cancelled, 0, 0) != 0;
+    public bool IsCancelled
+    {
+        get
+        {
+            return Interlocked.CompareExchange(ref m_cancelled, 0, 0) != 0;
+        }
+    }
 
     #endregion
 

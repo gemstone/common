@@ -139,7 +139,10 @@ public partial class Settings : DynamicObject
     /// <exception cref="InvalidOperationException">Environmental variables cannot be used for read-write configuration operations.</exception>
     public ConfigurationOperation EnvironmentalVariables
     {
-        get => m_environmentalVariables;
+        get
+        {
+            return m_environmentalVariables;
+        }
         init
         {
             if (value == ConfigurationOperation.ReadWrite)
@@ -158,12 +161,24 @@ public partial class Settings : DynamicObject
     /// <summary>
     /// Gets the names for the settings sections.
     /// </summary>
-    public string[] SectionNames => m_sections.Keys.ToArray();
+    public string[] SectionNames
+    {
+        get
+        {
+            return m_sections.Keys.ToArray();
+        }
+    }
 
     /// <summary>
     /// Gets the sections count for the settings.
     /// </summary>
-    public int Count => m_sections.Count;
+    public int Count
+    {
+        get
+        {
+            return m_sections.Count;
+        }
+    }
 
     /// <summary>
     /// Gets the command line switch mappings for <see cref="Settings"/>.
@@ -174,14 +189,23 @@ public partial class Settings : DynamicObject
     /// Gets the <see cref="SettingsSection"/> for the specified key.
     /// </summary>
     /// <param name="key">Section key.</param>
-    public SettingsSection this[string key] => m_sections.GetOrAdd(key, _ => new SettingsSection(this, key));
+    public SettingsSection this[string key]
+    {
+        get
+        {
+            return m_sections.GetOrAdd(key, _ => new SettingsSection(this, key));
+        }
+    }
 
     /// <summary>
     /// Gets flag that determines if any settings have been changed.
     /// </summary>
     public bool IsDirty
     {
-        get => m_sections.Values.Any(section => section.IsDirty);
+        get
+        {
+            return m_sections.Values.Any(section => section.IsDirty);
+        }
         private set
         {
             foreach (SettingsSection section in m_sections.Values)
@@ -468,7 +492,13 @@ public partial class Settings : DynamicObject
     /// </summary>
     /// <returns>Default instance of <see cref="Settings"/> as a dynamic object.</returns>
     /// <exception cref="InvalidOperationException">Settings have not been initialized.</exception>
-    public static dynamic Default => Instance ?? throw new InvalidOperationException("Settings have not been initialized.");
+    public static dynamic Default
+    {
+        get
+        {
+            return Instance ?? throw new InvalidOperationException("Settings have not been initialized.");
+        }
+    }
 
     /// <summary>
     /// Updates the default instance of <see cref="Settings"/>.

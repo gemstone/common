@@ -130,7 +130,13 @@ public class NtpTimeTag : TimeTagBase
     /// <summary>
     /// Gets 64-bit NTP timestamp.
     /// </summary>
-    public ulong Timestamp => FromTicks(ToDateTime());
+    public ulong Timestamp
+    {
+        get
+        {
+            return FromTicks(ToDateTime());
+        }
+    }
 
     #endregion
 
@@ -162,21 +168,30 @@ public class NtpTimeTag : TimeTagBase
     /// </summary>
     /// <param name="seconds">Seconds value.</param>
     /// <returns>Proper NTP offset.</returns>
-    public static long GetBaseDateOffsetTicks(decimal seconds) => GetBaseDateOffsetTicks((Ticks)(seconds * Ticks.PerSecond));
+    public static long GetBaseDateOffsetTicks(decimal seconds)
+    {
+        return GetBaseDateOffsetTicks((Ticks)(seconds * Ticks.PerSecond));
+    }
 
     /// <summary>
     /// Gets proper NTP offset based on <paramref name="timestamp"/> value, see RFC-2030.
     /// </summary>
     /// <param name="timestamp"><see cref="Ticks"/> timestamp value.</param>
     /// <returns>Proper NTP offset.</returns>
-    public static long GetBaseDateOffsetTicks(Ticks timestamp) => timestamp < AlternateBaseTicks ? BaseTicks : AlternateBaseTicks;
+    public static long GetBaseDateOffsetTicks(Ticks timestamp)
+    {
+        return timestamp < AlternateBaseTicks ? BaseTicks : AlternateBaseTicks;
+    }
 
     /// <summary>
     /// Gets proper NTP offset based on most significant byte on <paramref name="seconds"/> value, see RFC-2030.
     /// </summary>
     /// <param name="seconds">NTP seconds timestamp value.</param>
     /// <returns>Proper NTP offset.</returns>
-    public static long GetBaseDateOffsetTicks(uint seconds) => (seconds & 0x80000000) > 0 ? BaseTicks : AlternateBaseTicks;
+    public static long GetBaseDateOffsetTicks(uint seconds)
+    {
+        return (seconds & 0x80000000) > 0 ? BaseTicks : AlternateBaseTicks;
+    }
 
     /// <summary>
     /// Gets 64-bit NTP timestamp given <paramref name="timestamp"/> in <see cref="Ticks"/>.

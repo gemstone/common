@@ -46,5 +46,8 @@ public sealed class AcronymValidationAttribute : RegularExpressionAttribute
     /// <summary>
     /// Creates a new <see cref="AcronymValidationAttribute"/>.
     /// </summary>
-    public AcronymValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
+    public AcronymValidationAttribute() : base(ValidationPattern)
+    {
+        ErrorMessage = DefaultErrorMessage;
+    }
 }

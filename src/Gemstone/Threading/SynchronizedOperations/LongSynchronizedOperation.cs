@@ -150,7 +150,10 @@ public class LongSynchronizedOperation : SynchronizedOperationBase
     /// </summary>
     /// <param name="action">The action to be performed by the <see cref="LongSynchronizedOperation"/>.</param>
     /// <returns>A new instance of <see cref="LongSynchronizedOperation"/>.</returns>
-    public static ISynchronizedOperation Factory(Action action) => new LongSynchronizedOperation(action);
+    public static ISynchronizedOperation Factory(Action action)
+    {
+        return new LongSynchronizedOperation(action);
+    }
 
     #endregion
 }

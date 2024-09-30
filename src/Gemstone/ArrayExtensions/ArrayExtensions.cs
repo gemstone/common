@@ -910,6 +910,8 @@ public static class ArrayExtensions
     /// <param name="reader"><see cref="BinaryReader"/> positioned at desired structure.</param>
     /// <returns>A structure read from <see cref="BinaryReader"/>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T? ReadStructure<T>(this BinaryReader reader) where T : struct => 
-        reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
+    public static T? ReadStructure<T>(this BinaryReader reader) where T : struct
+    {
+        return reader.ReadBytes(Marshal.SizeOf(typeof(T))).ReadStructure<T>();
+    }
 }

@@ -47,13 +47,25 @@ public static class Random
     /// Generates a semi cryptographically strong double-precision floating-point random number between zero and one.
     /// </summary>
     /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-    public static double Number => UInt32 / (uint.MaxValue + 1.0D);
+    public static double Number
+    {
+        get
+        {
+            return UInt32 / (uint.MaxValue + 1.0D);
+        }
+    }
 
     /// <summary>
     /// Generates a semi cryptographically strong random decimal between zero and one.
     /// </summary>
     /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
-    public static decimal Decimal => UInt64 / (ulong.MaxValue + 1.0M);
+    public static decimal Decimal
+    {
+        get
+        {
+            return UInt64 / (ulong.MaxValue + 1.0M);
+        }
+    }
 
     /// <summary>
     /// Generates a semi cryptographically strong random integer between specified values.
@@ -80,7 +92,10 @@ public static class Random
     /// </remarks>
     /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
     /// <exception cref="ArgumentNullException">buffer is null.</exception>
-    public static void GetBytes(byte[] buffer) => s_randomNumberGenerator.GetBytes(buffer);
+    public static void GetBytes(byte[] buffer)
+    {
+        s_randomNumberGenerator.GetBytes(buffer);
+    }
 
     /// <summary>
     /// Generates a cryptographically strong random boolean (i.e., a coin toss).
@@ -408,7 +423,10 @@ public static class Random
     /// A number less than a negative number rolls down to long.MinValue, then to long.MaxValue
     /// if 0 is provided, 0 is returned
     /// </remarks>
-    internal static long GetRandomNumberLessThan(long maxValue) => (long)GetRandomNumberLessThan((ulong)maxValue);
+    internal static long GetRandomNumberLessThan(long maxValue)
+    {
+        return (long)GetRandomNumberLessThan((ulong)maxValue);
+    }
 
     /// <summary>
     /// Returns a cryptographically strong number that is less the supplied value.
@@ -419,5 +437,8 @@ public static class Random
     /// A number less than a negative number rolls down to int.MinValue, then to int.MaxValue
     /// if 0 is provided, 0 is returned
     /// </remarks>
-    internal static int GetRandomNumberLessThan(int maxValue) => (int)GetRandomNumberLessThan((uint)maxValue);
+    internal static int GetRandomNumberLessThan(int maxValue)
+    {
+        return (int)GetRandomNumberLessThan((uint)maxValue);
+    }
 }

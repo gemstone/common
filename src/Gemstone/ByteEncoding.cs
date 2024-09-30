@@ -134,8 +134,10 @@ public abstract class ByteEncoding
         /// <param name="length">Length of buffer to encode.</param>
         /// <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
         /// <returns>String of encoded bytes.</returns>
-        public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter) =>
-            BytesToString(bytes, offset, length, spacingCharacter, "X2");
+        public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter)
+        {
+            return BytesToString(bytes, offset, length, spacingCharacter, "X2");
+        }
     }
 
     #endregion
@@ -197,8 +199,10 @@ public abstract class ByteEncoding
         /// <param name="length">Length of buffer to encode.</param>
         /// <param name="spacingCharacter">Spacing character to place between encoded bytes.</param>
         /// <returns>String of encoded bytes.</returns>
-        public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter) =>
-            BytesToString(bytes, offset, length, spacingCharacter, "D3");
+        public override string GetString(byte[] bytes, int offset, int length, char spacingCharacter)
+        {
+            return BytesToString(bytes, offset, length, spacingCharacter, "D3");
+        }
     }
 
     #endregion
@@ -578,7 +582,10 @@ public abstract class ByteEncoding
     /// <summary>Encodes given buffer into a user presentable representation.</summary>
     /// <param name="bytes">Bytes to encode.</param>
     /// <returns>String representation of byte array.</returns>
-    public virtual string GetString(byte[] bytes) => GetString(bytes, NoSpacing);
+    public virtual string GetString(byte[] bytes)
+    {
+        return GetString(bytes, NoSpacing);
+    }
 
     /// <summary>Encodes given buffer into a user presentable representation.</summary>
     /// <param name="bytes">Bytes to encode.</param>
@@ -643,10 +650,22 @@ public abstract class ByteEncoding
     private static ByteEncoding? s_asciiEncoding;
 
     /// <summary>Handles encoding and decoding of a byte buffer into a hexadecimal-based presentation format.</summary>
-    public static ByteEncoding Hexadecimal => s_hexadecimalEncoding ??= new HexadecimalEncoding();
+    public static ByteEncoding Hexadecimal
+    {
+        get
+        {
+            return s_hexadecimalEncoding ??= new HexadecimalEncoding();
+        }
+    }
 
     /// <summary>Handles encoding and decoding of a byte buffer into an integer-based presentation format.</summary>
-    public static ByteEncoding Decimal => s_decimalEncoding ??= new DecimalEncoding();
+    public static ByteEncoding Decimal
+    {
+        get
+        {
+            return s_decimalEncoding ??= new DecimalEncoding();
+        }
+    }
 
     /// <summary>
     /// Handles encoding and decoding of a byte buffer into a big-endian binary (i.e., 0 and 1's) based
@@ -657,7 +676,13 @@ public abstract class ByteEncoding
     /// order swapping), this property allows you visualize "bits" in big-endian order,
     /// right-to-left. Note that bits are normally stored in the same order as their bytes.
     /// </remarks>
-    public static ByteEncoding BigEndianBinary => s_bigEndianBinaryEncoding ??= new BinaryEncoding(Endianness.BigEndian);
+    public static ByteEncoding BigEndianBinary
+    {
+        get
+        {
+            return s_bigEndianBinaryEncoding ??= new BinaryEncoding(Endianness.BigEndian);
+        }
+    }
 
     /// <summary>
     /// Handles encoding and decoding of a byte buffer into a little-endian binary (i.e., 0 and 1's) based
@@ -668,13 +693,31 @@ public abstract class ByteEncoding
     /// order swapping), this property allows you visualize "bits" in little-endian order,
     /// left-to-right. Note that bits are normally stored in the same order as their bytes.
     /// </remarks>
-    public static ByteEncoding LittleEndianBinary => s_littleEndianBinaryEncoding ??= new BinaryEncoding(Endianness.LittleEndian);
+    public static ByteEncoding LittleEndianBinary
+    {
+        get
+        {
+            return s_littleEndianBinaryEncoding ??= new BinaryEncoding(Endianness.LittleEndian);
+        }
+    }
 
     /// <summary>Handles encoding and decoding of a byte buffer into a base64 presentation format.</summary>
-    public static ByteEncoding Base64 => s_base64Encoding ??= new Base64Encoding();
+    public static ByteEncoding Base64
+    {
+        get
+        {
+            return s_base64Encoding ??= new Base64Encoding();
+        }
+    }
 
     /// <summary>Handles encoding and decoding of a byte buffer into an ASCII character presentation format.</summary>
-    public static ByteEncoding ASCII => s_asciiEncoding ??= new ASCIIEncoding();
+    public static ByteEncoding ASCII
+    {
+        get
+        {
+            return s_asciiEncoding ??= new ASCIIEncoding();
+        }
+    }
 
     /// <summary>
     /// Handles byte to string conversions for implementations that are available from Byte.ToString.

@@ -47,8 +47,10 @@ public class WindowsIniFile : IIniFile
     /// Creates a new <see cref="WindowsIniFile"/> using the specified INI file name.
     /// </summary>
     /// <param name="fileName">Specified INI file name to use.</param>
-    public WindowsIniFile(string fileName) => 
+    public WindowsIniFile(string fileName)
+    {
         FileName = fileName;
+    }
 
     #endregion
 
@@ -87,8 +89,14 @@ public class WindowsIniFile : IIniFile
     /// <remarks>This is the default member of this class.</remarks>
     public string this[string section, string entry]
     {
-        get => this[section, entry, null];
-        set => WritePrivateProfileString(section, entry, value, FileName);
+        get
+        {
+            return this[section, entry, null];
+        }
+        set
+        {
+            WritePrivateProfileString(section, entry, value, FileName);
+        }
     }
 
     #endregion

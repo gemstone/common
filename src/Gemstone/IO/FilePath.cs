@@ -127,6 +127,7 @@ public static class FilePath
     public static void ConnectToNetworkShare(string shareName, string userName, string password, string domain)
     {
         // TODO: Add #include <sys/mount.h> implementation for POSIX environment, see Gemstone.POSIX library
+        // Equivalent to: mount -t smbfs //server/share /mountdirectory -o username=share_user_name,password=share_password
         if (IsPosixEnvironment)
             throw new NotImplementedException("Failed to connect to network share \"" + shareName + "\" as user " + userName + " - not implemented in POSIX environment");
 
@@ -905,7 +906,12 @@ public static class FilePath
     /// names and the file name are validated, use the <see cref="GetValidFilePath"/>. Calling the <see cref="GetValidFileName"/>
     /// function will a full path will yield all directory separators replaced with the <paramref name="replaceWithCharacter"/>.
     /// </remarks>
-    public static string GetValidFileName(string fileName, char replaceWithCharacter = '_') => replaceWithCharacter == '\0' ? fileName.RemoveInvalidFileNameCharacters() : fileName.ReplaceInvalidFileNameCharacters(replaceWithCharacter);
+    public static string GetValidFileName(string fileName, char replaceWithCharacter = '_')
+    {
+        return replaceWithCharacter == '\0'
+            ? fileName.RemoveInvalidFileNameCharacters()
+            : fileName.ReplaceInvalidFileNameCharacters(replaceWithCharacter);
+    }
 
     /// <summary>
     /// Gets a valid file path by replacing invalid file or directory name characters with <paramref name="replaceWithCharacter"/>.
@@ -939,21 +945,30 @@ public static class FilePath
     /// </summary>
     /// <param name="filePath">The file path from which the file name and extension is to be obtained.</param>
     /// <returns>File name and extension if the file path has it; otherwise empty string.</returns>
-    public static string GetFileName(string filePath) => Path.GetFileName(filePath);
+    public static string GetFileName(string filePath)
+    {
+        return Path.GetFileName(filePath);
+    }
 
     /// <summary>
     /// Gets the extension from the specified file path.
     /// </summary>
     /// <param name="filePath">The file path from which the extension is to be obtained.</param>
     /// <returns>File extension.</returns>
-    public static string GetExtension(string filePath) => Path.GetExtension(RemovePathSuffix(filePath));
+    public static string GetExtension(string filePath)
+    {
+        return Path.GetExtension(RemovePathSuffix(filePath));
+    }
 
     /// <summary>
     /// Gets the file name without extension from the specified file path.
     /// </summary>
     /// <param name="filePath">The file path from which the file name is to be obtained.</param>
     /// <returns>File name without the extension if the file path has it; otherwise empty string.</returns>
-    public static string GetFileNameWithoutExtension(string filePath) => Path.GetFileNameWithoutExtension(RemovePathSuffix(filePath));
+    public static string GetFileNameWithoutExtension(string filePath)
+    {
+        return Path.GetFileNameWithoutExtension(RemovePathSuffix(filePath));
+    }
 
     /// <summary>
     /// Gets the size of the specified file.
@@ -1331,7 +1346,10 @@ public static class FilePath
     /// Waits for the default duration (5 seconds) for read access on a file.
     /// </summary>
     /// <param name="fileName">The name of the file to wait for to obtain read access.</param>
-    public static void WaitForReadLock(string fileName) => WaitForReadLock(fileName, 5);
+    public static void WaitForReadLock(string fileName)
+    {
+        WaitForReadLock(fileName, 5);
+    }
 
     /// <summary>
     /// Waits for read access on a file for the specified number of seconds.
@@ -1363,7 +1381,10 @@ public static class FilePath
     /// Waits for the default duration (5 seconds) for read access on a file.
     /// </summary>
     /// <param name="fileName">The name of the file to wait for to obtain read access.</param>
-    public static void WaitForReadLockExclusive(string fileName) => WaitForReadLockExclusive(fileName, 5);
+    public static void WaitForReadLockExclusive(string fileName)
+    {
+        WaitForReadLockExclusive(fileName, 5);
+    }
 
     /// <summary>
     /// Waits for read access on a file for the specified number of seconds.
@@ -1395,7 +1416,10 @@ public static class FilePath
     /// Waits for the default duration (5 seconds) for write access on a file.
     /// </summary>
     /// <param name="fileName">The name of the file to wait for to obtain write access.</param>
-    public static void WaitForWriteLock(string fileName) => WaitForWriteLock(fileName, 5);
+    public static void WaitForWriteLock(string fileName)
+    {
+        WaitForWriteLock(fileName, 5);
+    }
 
     /// <summary>
     /// Waits for write access on a file for the specified number of seconds.
@@ -1427,7 +1451,10 @@ public static class FilePath
     /// Waits for the default duration (5 seconds) for a file to exist.
     /// </summary>
     /// <param name="fileName">The name of the file to wait for until it is created.</param>
-    public static void WaitTillExists(string fileName) => WaitTillExists(fileName, 5);
+    public static void WaitTillExists(string fileName)
+    {
+        WaitTillExists(fileName, 5);
+    }
 
     /// <summary>
     /// Waits for a file to exist for the specified number of seconds.
@@ -1452,7 +1479,13 @@ public static class FilePath
         }
     }
 
-    private static double SystemTimer => DateTime.UtcNow.Ticks / (double)TimeSpan.TicksPerSecond;
+    private static double SystemTimer
+    {
+        get
+        {
+            return DateTime.UtcNow.Ticks / (double)TimeSpan.TicksPerSecond;
+        }
+    }
 
     #endregion
 }

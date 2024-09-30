@@ -108,5 +108,8 @@ internal class BufferPool
     /// Adds a buffer back to the queue.
     /// </summary>
     /// <param name="buffer">The buffer to queue.</param>
-    public void Enqueue(byte[] buffer) => m_buffers.Enqueue(buffer);
+    public void Enqueue(byte[] buffer)
+    {
+        m_buffers.Enqueue(buffer);
+    }
 }

@@ -61,7 +61,10 @@ public class BooleanExpression
         /// Creates a new instance of the <see cref="Variable"/> class.
         /// </summary>
         /// <param name="identifier">The identifier used to refer to the variable.</param>
-        public Variable(string identifier) => Identifier = identifier;
+        public Variable(string identifier)
+        {
+            Identifier = identifier;
+        }
     }
 
     // Fields
@@ -107,14 +110,26 @@ public class BooleanExpression
     /// <summary>
     /// Gets the list of variables found while parsing the boolean expression.
     /// </summary>
-    public List<Variable> Variables => m_variables.Values.ToList();
+    public List<Variable> Variables
+    {
+        get
+        {
+            return m_variables.Values.ToList();
+        }
+    }
 
     /// <summary>
     /// Gets the variable identified by the given identifier.
     /// </summary>
     /// <param name="identifier">The identifier used to refer to the variable.</param>
     /// <returns>The variable identified by the given identifier.</returns>
-    public Variable this[string identifier] => m_variables[identifier];
+    public Variable this[string identifier]
+    {
+        get
+        {
+            return m_variables[identifier];
+        }
+    }
 
     #endregion
 
@@ -125,7 +140,10 @@ public class BooleanExpression
     /// current values of the variables.
     /// </summary>
     /// <returns>The result of the evaluation.</returns>
-    public bool Evaluate() => m_evaluate();
+    public bool Evaluate()
+    {
+        return m_evaluate();
+    }
 
     /// <summary>
     /// Attempts to get the variable identified by the given identifier.
@@ -133,8 +151,10 @@ public class BooleanExpression
     /// <param name="identifier">The identifier used to refer to the variable.</param>
     /// <param name="variable">The variable identified by the given identifier.</param>
     /// <returns>True if the variable is present in the expression; false otherwise.</returns>
-    public bool TryGetVariable(string identifier, out Variable? variable) =>
-        m_variables.TryGetValue(identifier, out variable);
+    public bool TryGetVariable(string identifier, out Variable? variable)
+    {
+        return m_variables.TryGetValue(identifier, out variable);
+    }
 
     private Expression ParseExpression(StringBuilder builder)
     {

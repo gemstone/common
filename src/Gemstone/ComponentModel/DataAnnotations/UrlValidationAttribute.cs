@@ -45,5 +45,8 @@ public sealed class UrlValidationAttribute : RegularExpressionAttribute
     /// <summary>
     /// Creates a new <see cref="UrlValidationAttribute"/>.
     /// </summary>
-    public UrlValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
+    public UrlValidationAttribute() : base(ValidationPattern)
+    {
+        ErrorMessage = DefaultErrorMessage;
+    }
 }

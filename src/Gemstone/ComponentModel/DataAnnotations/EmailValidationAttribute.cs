@@ -45,5 +45,8 @@ public sealed class EmailValidationAttribute : RegularExpressionAttribute
     /// <summary>
     /// Creates a new <see cref="EmailValidationAttribute"/>.
     /// </summary>
-    public EmailValidationAttribute() : base(ValidationPattern) => ErrorMessage = DefaultErrorMessage;
+    public EmailValidationAttribute() : base(ValidationPattern)
+    {
+        ErrorMessage = DefaultErrorMessage;
+    }
 }

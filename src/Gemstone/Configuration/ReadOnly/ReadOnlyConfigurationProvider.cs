@@ -40,8 +40,10 @@ namespace Gemstone.Configuration.ReadOnly
         /// Creates a new instance of the <see cref="ReadOnlyConfigurationProvider"/> class.
         /// </summary>
         /// <param name="provider"></param>
-        public ReadOnlyConfigurationProvider(IConfigurationProvider provider) =>
+        public ReadOnlyConfigurationProvider(IConfigurationProvider provider)
+        {
             Provider = provider;
+        }
 
         /// <summary>
         /// Returns the immediate descendant configuration keys for a given parent path based
@@ -51,21 +53,27 @@ namespace Gemstone.Configuration.ReadOnly
         /// <param name="earlierKeys">The child keys returned by the preceding providers for the same parent path.</param>
         /// <param name="parentPath">The parent path.</param>
         /// <returns>The child keys.</returns>
-        public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string? parentPath) =>
-            Provider.GetChildKeys(earlierKeys, parentPath);
+        public IEnumerable<string> GetChildKeys(IEnumerable<string> earlierKeys, string? parentPath)
+        {
+            return Provider.GetChildKeys(earlierKeys, parentPath);
+        }
 
         /// <summary>
         /// Returns a change token if this provider supports change tracking, null otherwise.
         /// </summary>
         /// <returns>The change token.</returns>
-        public IChangeToken GetReloadToken() =>
-            Provider.GetReloadToken();
+        public IChangeToken GetReloadToken()
+        {
+            return Provider.GetReloadToken();
+        }
 
         /// <summary>
         /// Loads configuration values from the source represented by this <see cref="IConfigurationProvider"/>.
         /// </summary>
-        public void Load() =>
+        public void Load()
+        {
             Provider.Load();
+        }
 
         /// <summary>
         /// Sets a configuration value for the specified key.
@@ -80,7 +88,9 @@ namespace Gemstone.Configuration.ReadOnly
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>
         /// <returns>True if a value for the specified key was found, otherwise false.</returns>
-        public bool TryGet(string key, out string value) =>
-            Provider.TryGet(key, out value);
+        public bool TryGet(string key, out string value)
+        {
+            return Provider.TryGet(key, out value);
+        }
     }
 }

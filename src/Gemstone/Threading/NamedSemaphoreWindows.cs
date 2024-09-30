@@ -36,7 +36,10 @@ namespace Gemstone.Threading
 
         public SafeWaitHandle? SafeWaitHandle
         {
-            get => m_semaphore?.SafeWaitHandle;
+            get
+            {
+                return m_semaphore?.SafeWaitHandle;
+            }
             set
             {
                 if (m_semaphore is null)

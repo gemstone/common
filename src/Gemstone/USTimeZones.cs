@@ -50,37 +50,79 @@ public static class USTimeZones
     /// Gets the Atlantic time zone.
     /// </summary>
     /// <remarks>This time zone is used by the Commonwealth of Puerto Rico and the United States Virgin Islands.</remarks>
-    public static TimeZoneInfo Atlantic => s_atlanticTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+    public static TimeZoneInfo Atlantic
+    {
+        get
+        {
+            return s_atlanticTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Atlantic Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Eastern time zone.
     /// </summary>
-    public static TimeZoneInfo Eastern => s_easternTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+    public static TimeZoneInfo Eastern
+    {
+        get
+        {
+            return s_easternTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Central time zone.
     /// </summary>
-    public static TimeZoneInfo Central => s_centralTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+    public static TimeZoneInfo Central
+    {
+        get
+        {
+            return s_centralTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Central Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Mountain time zone.
     /// </summary>
-    public static TimeZoneInfo Mountain => s_mountainTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time");
+    public static TimeZoneInfo Mountain
+    {
+        get
+        {
+            return s_mountainTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Mountain Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Pacific time zone.
     /// </summary>
-    public static TimeZoneInfo Pacific => s_pacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+    public static TimeZoneInfo Pacific
+    {
+        get
+        {
+            return s_pacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Alaskan time zone.
     /// </summary>
-    public static TimeZoneInfo Alaskan => s_alaskanTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Alaskan Standard Time");
+    public static TimeZoneInfo Alaskan
+    {
+        get
+        {
+            return s_alaskanTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Alaskan Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Hawaiian time zone.
     /// </summary>
-    public static TimeZoneInfo Hawaiian => s_hawaiianTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Hawaiian Standard Time");
+    public static TimeZoneInfo Hawaiian
+    {
+        get
+        {
+            return s_hawaiianTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Hawaiian Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the West Pacific time zone.
@@ -89,11 +131,23 @@ public static class USTimeZones
     /// <para>This time zone is used by Guam and the Commonwealth of the Northern Mariana Islands.</para>
     /// <para>This is also known as the Chamorro time zone.</para>
     /// </remarks>
-    public static TimeZoneInfo WestPacific => s_westPacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("West Pacific Standard Time");
+    public static TimeZoneInfo WestPacific
+    {
+        get
+        {
+            return s_westPacificTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("West Pacific Standard Time");
+        }
+    }
 
     /// <summary>
     /// Gets the Samoa time zone.
     /// </summary>
     /// <remarks>This time zone is used by the American Samoa.</remarks>
-    public static TimeZoneInfo Samoa => s_samoaTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time");
+    public static TimeZoneInfo Samoa
+    {
+        get
+        {
+            return s_samoaTimeZone ??= TimeZoneInfo.FindSystemTimeZoneById("Samoa Standard Time");
+        }
+    }
 }

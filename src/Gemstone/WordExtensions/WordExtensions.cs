@@ -40,8 +40,10 @@ public static class WordExtensions
     /// <param name="word">Word value to align.</param>
     /// <returns>Word value aligned to next 16-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static short AlignWord(this short word) => 
-        (short)(word + 1 - (word - 1) % 2);
+    public static short AlignWord(this short word)
+    {
+        return (short)(word + 1 - (word - 1) % 2);
+    }
 
     /// <summary>
     /// Aligns word length value to a 16-bit boundary.
@@ -49,8 +51,10 @@ public static class WordExtensions
     /// <param name="word">Word value to align.</param>
     /// <returns>Word value aligned to next 16-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ushort AlignWord(this ushort word) => 
-        (ushort)(word + 1 - (word - 1) % 2);
+    public static ushort AlignWord(this ushort word)
+    {
+        return (ushort)(word + 1 - (word - 1) % 2);
+    }
 
     /// <summary>
     /// Aligns double-word length value to a 32-bit boundary.
@@ -58,8 +62,10 @@ public static class WordExtensions
     /// <param name="doubleWord">Double-word value to align.</param>
     /// <returns>Double-word value aligned to next 32-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int AlignDoubleWord(this int doubleWord) => 
-        doubleWord + 3 - (doubleWord - 1) % 4;
+    public static int AlignDoubleWord(this int doubleWord)
+    {
+        return doubleWord + 3 - (doubleWord - 1) % 4;
+    }
 
     /// <summary>
     /// Aligns double-word length value to a 32-bit boundary.
@@ -67,8 +73,10 @@ public static class WordExtensions
     /// <param name="doubleWord">Double-word value to align.</param>
     /// <returns>Double-word value aligned to next 32-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static uint AlignDoubleWord(this uint doubleWord) => 
-        doubleWord + 3 - (doubleWord - 1) % 4;
+    public static uint AlignDoubleWord(this uint doubleWord)
+    {
+        return doubleWord + 3 - (doubleWord - 1) % 4;
+    }
 
     /// <summary>
     /// Aligns quad-word length value to a 64-bit boundary.
@@ -76,8 +84,10 @@ public static class WordExtensions
     /// <param name="quadWord">Quad-word value to align.</param>
     /// <returns>Quad-word value aligned to next 64-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static long AlignQuadWord(this long quadWord) => 
-        quadWord + 7 - (quadWord - 1) % 8;
+    public static long AlignQuadWord(this long quadWord)
+    {
+        return quadWord + 7 - (quadWord - 1) % 8;
+    }
 
     /// <summary>
     /// Aligns quad-word length value to a 64-bit boundary.
@@ -85,8 +95,10 @@ public static class WordExtensions
     /// <param name="quadWord">Quad-word value to align.</param>
     /// <returns>Quad-word value aligned to next 64-bit boundary.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ulong AlignQuadWord(this ulong quadWord) => 
-        quadWord + 7 - (quadWord - 1) % 8;
+    public static ulong AlignQuadWord(this ulong quadWord)
+    {
+        return quadWord + 7 - (quadWord - 1) % 8;
+    }
 
     /// <summary>
     /// Returns the high-nibble (high 4-bits) from a byte.
@@ -94,8 +106,10 @@ public static class WordExtensions
     /// <param name="value">Byte value.</param>
     /// <returns>The high-nibble of the specified byte value.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static byte HighNibble(this byte value) => 
-        (byte)((value & 0xF0) >> 4);
+    public static byte HighNibble(this byte value)
+    {
+        return (byte)((value & 0xF0) >> 4);
+    }
 
     /// <summary>
     /// Returns the high-byte from an unsigned word (UInt16).
@@ -107,8 +121,10 @@ public static class WordExtensions
     /// is the same as the right-most, most-significant-byte of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static byte HighByte(this ushort word) => 
-        (byte)((word & 0xFF00) >> 8);
+    public static byte HighByte(this ushort word)
+    {
+        return (byte)((word & 0xFF00) >> 8);
+    }
 
     /// <summary>
     /// Returns the unsigned high-word (UInt16) from an unsigned double-word (UInt32).
@@ -121,8 +137,10 @@ public static class WordExtensions
     /// of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ushort HighWord(this uint doubleWord) =>
-        (ushort)((doubleWord & 0xFFFF0000U) >> 16);
+    public static ushort HighWord(this uint doubleWord)
+    {
+        return (ushort)((doubleWord & 0xFFFF0000U) >> 16);
+    }
 
     /// <summary>
     /// Returns the unsigned high-double-word (UInt32) from an unsigned quad-word (UInt64).
@@ -135,8 +153,10 @@ public static class WordExtensions
     /// of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static uint HighDoubleWord(this ulong quadWord) => 
-        (uint)((quadWord & 0xFFFFFFFF00000000UL) >> 32);
+    public static uint HighDoubleWord(this ulong quadWord)
+    {
+        return (uint)((quadWord & 0xFFFFFFFF00000000UL) >> 32);
+    }
 
     /// <summary>
     /// Returns the low-nibble (low 4-bits) from a byte.
@@ -144,8 +164,10 @@ public static class WordExtensions
     /// <param name="value">Byte value.</param>
     /// <returns>The low-nibble of the specified byte value.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static byte LowNibble(this byte value) => 
-        (byte)(value & 0x0F);
+    public static byte LowNibble(this byte value)
+    {
+        return (byte)(value & 0x0F);
+    }
 
     /// <summary>
     /// Returns the low-byte from an unsigned word (UInt16).
@@ -158,8 +180,10 @@ public static class WordExtensions
     /// of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static byte LowByte(this ushort word) => 
-        (byte)(word & 0x00FF);
+    public static byte LowByte(this ushort word)
+    {
+        return (byte)(word & 0x00FF);
+    }
 
     /// <summary>
     /// Returns the unsigned low-word (UInt16) from an unsigned double-word (UInt32).
@@ -172,8 +196,10 @@ public static class WordExtensions
     /// of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ushort LowWord(this uint doubleWord) => 
-        (ushort)(doubleWord & 0x0000FFFFU);
+    public static ushort LowWord(this uint doubleWord)
+    {
+        return (ushort)(doubleWord & 0x0000FFFFU);
+    }
 
     /// <summary>
     /// Returns the unsigned low-double-word (UInt32) from an unsigned quad-word (UInt64).
@@ -186,6 +212,8 @@ public static class WordExtensions
     /// of the integer value.
     /// </remarks>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static uint LowDoubleWord(this ulong quadWord) => 
-        (uint)(quadWord & 0x00000000FFFFFFFFUL);
+    public static uint LowDoubleWord(this ulong quadWord)
+    {
+        return (uint)(quadWord & 0x00000000FFFFFFFFUL);
+    }
 }

@@ -301,34 +301,70 @@ public class Arguments : IEnumerable<KeyValuePair<string, string>>, ISerializabl
     /// <summary>
     /// Gets the total number of arguments (ordered and optional) present in the command-line command.
     /// </summary>
-    public virtual int Count => m_arguments.Count;
+    public virtual int Count
+    {
+        get
+        {
+            return m_arguments.Count;
+        }
+    }
 
     /// <summary>
     /// Gets the prefix text in the identifier of ordered arguments present in the command-line command.
     /// </summary>
-    public virtual string OrderedArgID => m_orderedArgID;
+    public virtual string OrderedArgID
+    {
+        get
+        {
+            return m_orderedArgID;
+        }
+    }
 
     /// <summary>
     /// Gets the total number of ordered arguments in the command-line command.
     /// </summary>
-    public virtual int OrderedArgCount => m_orderedArgCount;
+    public virtual int OrderedArgCount
+    {
+        get
+        {
+            return m_orderedArgCount;
+        }
+    }
 
     /// <summary>
     /// Gets the ordered arguments as an array of strings.
     /// </summary>
-    public virtual string[] OrderedArgs => Enumerable.Range(1, OrderedArgCount)
-        .Select(arg => this[OrderedArgID + arg])
-        .ToArray()!;
+    public virtual string[] OrderedArgs
+    {
+        get
+        {
+            return Enumerable.Range(1, OrderedArgCount)
+                .Select(arg => this[OrderedArgID + arg])
+                .ToArray()!;
+        }
+    }
 
     /// <summary>
     /// Gets a boolean value that indicates whether the command-line command contains request for displaying help.
     /// </summary>
-    public virtual bool ContainsHelpRequest => m_arguments.ContainsKey("?") || m_arguments.ContainsKey("Help");
+    public virtual bool ContainsHelpRequest
+    {
+        get
+        {
+            return m_arguments.ContainsKey("?") || m_arguments.ContainsKey("Help");
+        }
+    }
 
     /// <summary>
     /// Gets the dictionary containing all of the arguments present in the command-line command.
     /// </summary>
-    protected Dictionary<string, string?> InternalDictionary => m_arguments;
+    protected Dictionary<string, string?> InternalDictionary
+    {
+        get
+        {
+            return m_arguments;
+        }
+    }
 
     #endregion
 
@@ -506,7 +542,10 @@ public class Arguments : IEnumerable<KeyValuePair<string, string>>, ISerializabl
         // This function unquotes the given string by
         // simply removing the first and last characters
         string unquote
-            (string str) => str.Substring(1, str.Length - 2);
+            (string str)
+        {
+            return str.Substring(1, str.Length - 2);
+        }
 
         // This function converts a token character into
         // its corresponding output in the args array
@@ -557,8 +596,10 @@ public class Arguments : IEnumerable<KeyValuePair<string, string>>, ISerializabl
         };
 
         // This function converts a token to its corresponding output in the args array
-        string interpretToken(Match token) => 
-            string.Concat(token.Groups[1].Captures.Select(interpretCharacter));
+        string interpretToken(Match token)
+        {
+            return string.Concat(token.Groups[1].Captures.Select(interpretCharacter));
+        }
 
         // Apply the regular expression pattern and
         // convert the result into the array of arguments

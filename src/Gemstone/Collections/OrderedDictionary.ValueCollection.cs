@@ -51,7 +51,13 @@ public partial class OrderedDictionary<TKey, TValue>
         /// Gets the number of elements contained in the <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" />.
         /// </summary>
         /// <returns>The number of elements contained in the <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" />.</returns>
-        public int Count => m_orderedDictionary.Count;
+        public int Count
+        {
+            get
+            {
+                return m_orderedDictionary.Count;
+            }
+        }
 
         /// <summary>
         /// Gets the value at the specified index as an O(1) operation.
@@ -59,15 +65,34 @@ public partial class OrderedDictionary<TKey, TValue>
         /// <param name="index">The zero-based index of the value to get.</param>
         /// <returns>The value at the specified index.</returns>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="index" /> is less than 0.-or-<paramref name="index" /> is equal to or greater than <see cref="OrderedDictionary{TKey,TValue}.ValueCollection.Count" />.</exception>
-        public TValue this[int index] => m_orderedDictionary[index];
+        public TValue this[int index]
+        {
+            get
+            {
+                return m_orderedDictionary[index];
+            }
+        }
 
         TValue IList<TValue>.this[int index]
         {
-            get => this[index];
-            set => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+            get
+            {
+                return this[index];
+            }
+            set
+            {
+                throw new NotSupportedException(
+                    "Mutating a value collection derived from a dictionary is not allowed.");
+            }
         }
 
-        bool ICollection<TValue>.IsReadOnly => true;
+        bool ICollection<TValue>.IsReadOnly
+        {
+            get
+            {
+                return true;
+            }
+        }
 
         internal ValueCollection(OrderedDictionary<TKey, TValue> orderedDictionary)
         {
@@ -78,11 +103,20 @@ public partial class OrderedDictionary<TKey, TValue>
         /// Returns an enumerator that iterates through the <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" />.
         /// </summary>
         /// <returns>A <see cref="OrderedDictionary{TKey,TValue}.ValueCollection.Enumerator" /> for the <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" />.</returns>
-        public Enumerator GetEnumerator() => new(m_orderedDictionary);
+        public Enumerator GetEnumerator()
+        {
+            return new Enumerator(m_orderedDictionary);
+        }
 
-        IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator() => GetEnumerator();
+        IEnumerator<TValue> IEnumerable<TValue>.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
 
         int IList<TValue>.IndexOf(TValue item)
         {
@@ -99,15 +133,30 @@ public partial class OrderedDictionary<TKey, TValue>
             return -1;
         }
 
-        void IList<TValue>.Insert(int index, TValue item) => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        void IList<TValue>.Insert(int index, TValue item)
+        {
+            throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        }
 
-        void IList<TValue>.RemoveAt(int index) => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        void IList<TValue>.RemoveAt(int index)
+        {
+            throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        }
 
-        void ICollection<TValue>.Add(TValue item) => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        void ICollection<TValue>.Add(TValue item)
+        {
+            throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        }
 
-        void ICollection<TValue>.Clear() => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        void ICollection<TValue>.Clear()
+        {
+            throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        }
 
-        bool ICollection<TValue>.Contains(TValue item) => ((IList<TValue>)this).IndexOf(item) >= 0;
+        bool ICollection<TValue>.Contains(TValue item)
+        {
+            return ((IList<TValue>)this).IndexOf(item) >= 0;
+        }
 
         void ICollection<TValue>.CopyTo(TValue[] array, int arrayIndex)
         {
@@ -128,7 +177,10 @@ public partial class OrderedDictionary<TKey, TValue>
                 array[i + arrayIndex] = entries[i].Value;
         }
 
-        bool ICollection<TValue>.Remove(TValue item) => throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        bool ICollection<TValue>.Remove(TValue item)
+        {
+            throw new NotSupportedException("Mutating a value collection derived from a dictionary is not allowed.");
+        }
 
         /// <summary>
         /// Enumerates the elements of a <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" />.
@@ -144,9 +196,21 @@ public partial class OrderedDictionary<TKey, TValue>
             /// Gets the element at the current position of the enumerator.
             /// </summary>
             /// <returns>The element in the <see cref="OrderedDictionary{TKey,TValue}.ValueCollection" /> at the current position of the enumerator.</returns>
-            public TValue Current => m_current;
+            public TValue Current
+            {
+                get
+                {
+                    return m_current;
+                }
+            }
 
-            object IEnumerator.Current => m_current!;
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return m_current!;
+                }
+            }
 
             internal Enumerator(OrderedDictionary<TKey, TValue> orderedDictionary)
             {

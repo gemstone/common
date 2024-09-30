@@ -86,8 +86,14 @@ public class ProcessProgressHandler<TUnit> where TUnit : struct
     /// <value>Number of units completed processing so far.</value>
     public TUnit Complete
     {
-        get => ProcessProgress.Complete;
-        set => UpdateProgress(value);
+        get
+        {
+            return ProcessProgress.Complete;
+        }
+        set
+        {
+            UpdateProgress(value);
+        }
     }
 
     /// <summary>
@@ -95,8 +101,14 @@ public class ProcessProgressHandler<TUnit> where TUnit : struct
     /// </summary>
     public TUnit Total
     {
-        get => ProcessProgress.Total;
-        set => ProcessProgress.Total = value;
+        get
+        {
+            return ProcessProgress.Total;
+        }
+        set
+        {
+            ProcessProgress.Total = value;
+        }
     }
 
     #endregion

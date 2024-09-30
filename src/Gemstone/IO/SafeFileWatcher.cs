@@ -182,8 +182,14 @@ public class SafeFileWatcher : IDisposable
     /// </exception>
     public string Path
     {
-        get => m_fileSystemWatcher.Path;
-        set => m_fileSystemWatcher.Path = value;
+        get
+        {
+            return m_fileSystemWatcher.Path;
+        }
+        set
+        {
+            m_fileSystemWatcher.Path = value;
+        }
     }
 
     /// <summary>
@@ -194,8 +200,14 @@ public class SafeFileWatcher : IDisposable
     /// </returns>
     public string Filter
     {
-        get => m_fileSystemWatcher.Filter;
-        set => m_fileSystemWatcher.Filter = value;
+        get
+        {
+            return m_fileSystemWatcher.Filter;
+        }
+        set
+        {
+            m_fileSystemWatcher.Filter = value;
+        }
     }
 
     /// <summary>
@@ -207,8 +219,14 @@ public class SafeFileWatcher : IDisposable
     /// <exception cref="InvalidEnumArgumentException">The value that is being set is not valid.</exception>
     public NotifyFilters NotifyFilter
     {
-        get => m_fileSystemWatcher.NotifyFilter;
-        set => m_fileSystemWatcher.NotifyFilter = value;
+        get
+        {
+            return m_fileSystemWatcher.NotifyFilter;
+        }
+        set
+        {
+            m_fileSystemWatcher.NotifyFilter = value;
+        }
     }
 
     /// <summary>
@@ -222,8 +240,14 @@ public class SafeFileWatcher : IDisposable
     /// <exception cref="ArgumentException"><see cref="SafeFileWatcher.Path"/> has not been set or is invalid.</exception>
     public bool EnableRaisingEvents
     {
-        get => m_fileSystemWatcher.EnableRaisingEvents;
-        set => m_fileSystemWatcher.EnableRaisingEvents = value;
+        get
+        {
+            return m_fileSystemWatcher.EnableRaisingEvents;
+        }
+        set
+        {
+            m_fileSystemWatcher.EnableRaisingEvents = value;
+        }
     }
 
     /// <summary>
@@ -234,8 +258,14 @@ public class SafeFileWatcher : IDisposable
     /// </returns>
     public bool IncludeSubdirectories
     {
-        get => m_fileSystemWatcher.IncludeSubdirectories;
-        set => m_fileSystemWatcher.IncludeSubdirectories = value;
+        get
+        {
+            return m_fileSystemWatcher.IncludeSubdirectories;
+        }
+        set
+        {
+            m_fileSystemWatcher.IncludeSubdirectories = value;
+        }
     }
 
     /// <summary>
@@ -246,8 +276,14 @@ public class SafeFileWatcher : IDisposable
     /// </returns>
     public int InternalBufferSize
     {
-        get => m_fileSystemWatcher.InternalBufferSize;
-        set => m_fileSystemWatcher.InternalBufferSize = value;
+        get
+        {
+            return m_fileSystemWatcher.InternalBufferSize;
+        }
+        set
+        {
+            m_fileSystemWatcher.InternalBufferSize = value;
+        }
     }
 
     /// <summary>
@@ -258,8 +294,14 @@ public class SafeFileWatcher : IDisposable
     /// </returns>
     public ISynchronizeInvoke? SynchronizingObject
     {
-        get => m_fileSystemWatcher.SynchronizingObject;
-        set => m_fileSystemWatcher.SynchronizingObject = value;
+        get
+        {
+            return m_fileSystemWatcher.SynchronizingObject;
+        }
+        set
+        {
+            m_fileSystemWatcher.SynchronizingObject = value;
+        }
     }
 
     /// <summary>
@@ -270,8 +312,14 @@ public class SafeFileWatcher : IDisposable
     /// </returns>
     public ISite? Site
     {
-        get => m_fileSystemWatcher.Site;
-        set => m_fileSystemWatcher.Site = value;
+        get
+        {
+            return m_fileSystemWatcher.Site;
+        }
+        set
+        {
+            m_fileSystemWatcher.Site = value;
+        }
     }
 
     #endregion

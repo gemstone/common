@@ -158,7 +158,10 @@ public class DelayedSynchronizedOperation : SynchronizedOperationBase, ISynchron
         base.Run();
     }
 
-    void ISynchronizedOperation.Run(bool runPendingSynchronously) => Run(runPendingSynchronously);
+    void ISynchronizedOperation.Run(bool runPendingSynchronously)
+    {
+        Run(runPendingSynchronously);
+    }
 
     /// <summary>
     /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
@@ -185,7 +188,10 @@ public class DelayedSynchronizedOperation : SynchronizedOperationBase, ISynchron
         base.TryRun();
     }
 
-    void ISynchronizedOperation.TryRun(bool runPendingSynchronously) => TryRun(runPendingSynchronously);
+    void ISynchronizedOperation.TryRun(bool runPendingSynchronously)
+    {
+        TryRun(runPendingSynchronously);
+    }
 
     /// <summary>
     /// Executes the action on another thread after the specified <see cref="Delay"/> in milliseconds or marks
@@ -196,18 +202,29 @@ public class DelayedSynchronizedOperation : SynchronizedOperationBase, ISynchron
     /// completed. This is useful if an update has invalidated the operation that is currently running and will
     /// therefore need to be run again.
     /// </remarks>
-    public new void RunAsync() => base.RunAsync(); // Method shadowed to provide updated documentation
+    public new void RunAsync()
+    {
+        base.RunAsync();
+        // Method shadowed to provide updated documentation
+    }
 
     /// <summary>
     /// Attempts to execute the action on another thread after the specified <see cref="Delay"/> in milliseconds.
     /// Does nothing if the operation is already running.
     /// </summary>
-    public new void TryRunAsync() => base.TryRunAsync(); // Method shadowed to provide updated documentation
+    public new void TryRunAsync()
+    {
+        base.TryRunAsync();
+        // Method shadowed to provide updated documentation
+    }
 
     /// <summary>
     /// Executes the action on a separate thread after the specified <see cref="Delay"/>.
     /// </summary>
-    protected override void ExecuteActionAsync() => m_delayedAction.DelayAndExecute(Delay, CancellationToken, ProcessException);
+    protected override void ExecuteActionAsync()
+    {
+        m_delayedAction.DelayAndExecute(Delay, CancellationToken, ProcessException);
+    }
 
     #endregion
 
@@ -220,7 +237,10 @@ public class DelayedSynchronizedOperation : SynchronizedOperationBase, ISynchron
     /// </summary>
     /// <param name="action">The action to be performed by the <see cref="DelayedSynchronizedOperation"/>.</param>
     /// <returns>A new instance of <see cref="DelayedSynchronizedOperation"/> with <see cref="DefaultDelay"/> of 1000 milliseconds.</returns>
-    public static ISynchronizedOperation Factory(Action action) => new DelayedSynchronizedOperation(action);
+    public static ISynchronizedOperation Factory(Action action)
+    {
+        return new DelayedSynchronizedOperation(action);
+    }
 
     #endregion
 }

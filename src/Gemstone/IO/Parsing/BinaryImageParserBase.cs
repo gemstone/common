@@ -123,7 +123,10 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// </remarks>
     public virtual bool Enabled
     {
-        get => m_enabled;
+        get
+        {
+            return m_enabled;
+        }
         set
         {
             if (value && !m_enabled)
@@ -179,7 +182,13 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <remarks>
     /// The <see cref="BinaryImageParserBase"/> is implemented as a WriteOnly stream, so this defaults to false.
     /// </remarks>
-    public override bool CanRead => false;
+    public override bool CanRead
+    {
+        get
+        {
+            return false;
+        }
+    }
 
     /// <summary>
     /// Gets a value indicating whether the current stream supports seeking.
@@ -187,7 +196,13 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <remarks>
     /// The <see cref="BinaryImageParserBase"/> is implemented as a WriteOnly stream, so this defaults to false.
     /// </remarks>
-    public override bool CanSeek => false;
+    public override bool CanSeek
+    {
+        get
+        {
+            return false;
+        }
+    }
 
     /// <summary>
     /// Gets a value indicating whether the current stream supports writing.
@@ -195,7 +210,13 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <remarks>
     /// The <see cref="BinaryImageParserBase"/> is implemented as a WriteOnly stream, so this defaults to true.
     /// </remarks>
-    public override bool CanWrite => true;
+    public override bool CanWrite
+    {
+        get
+        {
+            return true;
+        }
+    }
 
     /// <summary>
     /// Gets current status of <see cref="BinaryImageParserBase"/>.
@@ -338,7 +359,10 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <param name="offset">An <see cref="int"/> value for the count.</param>
     /// <returns>An <see cref="int"/> as the number of bytes read. Well. It would, if implemented.</returns>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public override int Read(byte[] buffer, int offset, int count) => throw new NotImplementedException("Cannot read from WriteOnly stream");
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+        throw new NotImplementedException("Cannot read from WriteOnly stream");
+    }
 
     /// <summary>
     /// The parser is designed as a write only stream, so this method is not implemented.
@@ -348,7 +372,10 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <param name="origin">A <see cref="SeekOrigin"/>.</param>
     /// <returns>Returns a <see cref="long"/> value indicating the point that was sought.</returns>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public override long Seek(long offset, SeekOrigin origin) => throw new NotImplementedException("WriteOnly stream has no position");
+    public override long Seek(long offset, SeekOrigin origin)
+    {
+        throw new NotImplementedException("WriteOnly stream has no position");
+    }
 
     /// <summary>
     /// The parser is designed as a write only stream, so this method is not implemented.
@@ -356,7 +383,10 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <exception cref="NotImplementedException">WriteOnly stream has no length.</exception>
     /// <param name="value">A <see cref="long"/> value.</param>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public override void SetLength(long value) => throw new NotImplementedException("WriteOnly stream has no length");
+    public override void SetLength(long value)
+    {
+        throw new NotImplementedException("WriteOnly stream has no length");
+    }
 
     /// <summary>
     /// The parser is designed as a write only stream, so this method is not implemented.
@@ -365,7 +395,13 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// WriteOnly stream has no length. Returned value will always be -1.
     /// </remarks>
     [EditorBrowsable(EditorBrowsableState.Never)]
-    public override long Length => -1;
+    public override long Length
+    {
+        get
+        {
+            return -1;
+        }
+    }
 
     /// <summary>
     /// The parser is designed as a write only stream, so this method is not implemented.
@@ -376,7 +412,10 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     [EditorBrowsable(EditorBrowsableState.Never)]
     public override long Position
     {
-        get => -1;
+        get
+        {
+            return -1;
+        }
         set { }
     }
 
@@ -507,18 +546,27 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// Raises the <see cref="DataDiscarded"/> event.
     /// </summary>
     /// <param name="buffer">Source buffer that contains output that failed to parse.</param>
-    protected virtual void OnDataDiscarded(byte[] buffer) => DataDiscarded?.SafeInvoke(this, new EventArgs<byte[]>(buffer));
+    protected virtual void OnDataDiscarded(byte[] buffer)
+    {
+        DataDiscarded?.SafeInvoke(this, new EventArgs<byte[]>(buffer));
+    }
 
     /// <summary>
     /// Raises the <see cref="ParsingException"/> event.
     /// </summary>
     /// <param name="ex">The <see cref="Exception"/> that was encountered during parsing.</param>
-    protected virtual void OnParsingException(Exception ex) => ParsingException?.SafeInvoke(this, new EventArgs<Exception>(ex));
+    protected virtual void OnParsingException(Exception ex)
+    {
+        ParsingException?.SafeInvoke(this, new EventArgs<Exception>(ex));
+    }
 
     /// <summary>
     /// Raises the <see cref="BufferParsed"/> event.
     /// </summary>
-    protected virtual void OnBufferParsed() => BufferParsed?.SafeInvoke(this, EventArgs.Empty);
+    protected virtual void OnBufferParsed()
+    {
+        BufferParsed?.SafeInvoke(this, EventArgs.Empty);
+    }
 
     #endregion
 }

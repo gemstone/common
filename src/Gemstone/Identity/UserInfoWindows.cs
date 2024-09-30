@@ -874,8 +874,10 @@ internal sealed class UserInfoWindows // : IUserInfo
         return (long)highPart << 32 | (uint)lowPart;
     }
 
-    public static string[] GetBuiltInLocalGroups() =>
-        s_builtInLocalGroups;
+    public static string[] GetBuiltInLocalGroups()
+    {
+        return s_builtInLocalGroups;
+    }
 
     //public static IPrincipal AuthenticateUser(string domain, string userName, string password, out string errorMessage)
     //{
@@ -1454,11 +1456,15 @@ internal sealed class UserInfoWindows // : IUserInfo
         return sid;
     }
 
-    public static bool IsUserSID(string sid) =>
-        IsSchemaSID(sid, "User");
+    public static bool IsUserSID(string sid)
+    {
+        return IsSchemaSID(sid, "User");
+    }
 
-    public static bool IsGroupSID(string sid) =>
-        IsSchemaSID(sid, "Group");
+    public static bool IsGroupSID(string sid)
+    {
+        return IsSchemaSID(sid, "Group");
+    }
 
     private static bool IsSchemaSID(string sid, string schemaClassName)
     {

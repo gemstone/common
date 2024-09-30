@@ -78,7 +78,10 @@ public static class Command
         /// <summary>
         /// Releases the unmanaged resources before the <see cref="CommandProcess"/> object is reclaimed by <see cref="GC"/>.
         /// </summary>
-        ~CommandProcess() => Dispose(false);
+        ~CommandProcess()
+        {
+            Dispose(false);
+        }
 
         #endregion
 
@@ -87,12 +90,24 @@ public static class Command
         /// <summary>
         /// Gets any standard output from process after execution.
         /// </summary>
-        public string StandardOutput => m_standardOutput.ToString();
+        public string StandardOutput
+        {
+            get
+            {
+                return m_standardOutput.ToString();
+            }
+        }
 
         /// <summary>
         /// Gets any standard error from process after execution.
         /// </summary>
-        public string StandardError => m_standardError.ToString();
+        public string StandardError
+        {
+            get
+            {
+                return m_standardError.ToString();
+            }
+        }
 
         /// <summary>
         /// Gets exit code assuming process
@@ -164,9 +179,15 @@ public static class Command
             return true;
         }
 
-        private void m_process_OutputDataReceived(object? sender, DataReceivedEventArgs e) => m_standardOutput.AppendLine(e.Data);
+        private void m_process_OutputDataReceived(object? sender, DataReceivedEventArgs e)
+        {
+            m_standardOutput.AppendLine(e.Data);
+        }
 
-        private void m_process_ErrorDataReceived(object? sender, DataReceivedEventArgs e) => m_standardError.AppendLine(e.Data);
+        private void m_process_ErrorDataReceived(object? sender, DataReceivedEventArgs e)
+        {
+            m_standardError.AppendLine(e.Data);
+        }
 
         #endregion
     }
@@ -202,8 +223,11 @@ public static class Command
     /// <param name="exitCode">Exit code of the process, assuming process successfully completed.</param>
     /// <returns><c>true</c> if there was no standard error reported; otherwise, <c>false</c>.</returns>
     /// <remarks>This function waits indefinitely for the command line operation to complete.</remarks>
-    public static bool Execute(string fileName, string arguments, out string standardOutput, out string standardError, out int exitCode) => 
-        Execute(fileName, arguments, out standardOutput, out standardError, out _, out exitCode, Timeout.Infinite);
+    public static bool Execute(string fileName, string arguments, out string standardOutput, out string standardError, out int exitCode)
+    {
+        return Execute(fileName, arguments, out standardOutput, out standardError, out _, out exitCode,
+            Timeout.Infinite);
+    }
 
     /// <summary>
     /// Executes a command line operation and returns <c>true</c> if there was no standard error reported.
@@ -233,14 +257,18 @@ public static class Command
     /// </summary>
     /// <param name="parameter">Parameter to shell encode.</param>
     /// <returns>Shell encoded <paramref name="parameter"/>.</returns>
-    public static string ShellEncode(this string parameter) => 
-        parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\", "\\\\");
+    public static string ShellEncode(this string parameter)
+    {
+        return parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\", "\\\\");
+    }
 
     /// <summary>
     /// Decodes a command line parameter previously encoded by <see cref="ShellEncode"/>.
     /// </summary>
     /// <param name="parameter">Parameter to decode.</param>
     /// <returns>Decoded <paramref name="parameter"/>.</returns>
-    public static string ShellDecode(this string parameter) => 
-        parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\\\", "\\");
+    public static string ShellDecode(this string parameter)
+    {
+        return parameter is null ? throw new ArgumentNullException(nameof(parameter)) : parameter.Replace("\\\\", "\\");
+    }
 }

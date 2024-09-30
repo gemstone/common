@@ -88,7 +88,10 @@ public class EventArgs<T> : EventArgs
     /// Initializes a new instance of the <see cref="EventArgs{T}"/> class.
     /// </summary>
     /// <param name="argument">The argument data for the event.</param>
-    public EventArgs(T argument) => Argument = argument;
+    public EventArgs(T argument)
+    {
+        Argument = argument;
+    }
 }
 
 /// <summary>

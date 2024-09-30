@@ -133,12 +133,24 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <summary>
     /// Gets or sets number of seconds (including any fractional seconds) since base time.
     /// </summary>
-    public virtual decimal Value => m_seconds;
+    public virtual decimal Value
+    {
+        get
+        {
+            return m_seconds;
+        }
+    }
 
     /// <summary>
     /// Gets ticks representing the absolute minimum time of this time-tag implementation.
     /// </summary>
-    public virtual long BaseDateOffsetTicks => m_baseDateOffsetTicks;
+    public virtual long BaseDateOffsetTicks
+    {
+        get
+        {
+            return m_baseDateOffsetTicks;
+        }
+    }
 
     #endregion
 
@@ -149,7 +161,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// </summary>
     /// <returns>A <see cref="DateTime"/>.</returns>
     // Converts m_seconds to 100-nanosecond ticks and add the base time offset.
-    public virtual DateTime ToDateTime() => new((long)(m_seconds * Ticks.PerSecond) + m_baseDateOffsetTicks);
+    public virtual DateTime ToDateTime()
+    {
+        return new DateTime((long)(m_seconds * Ticks.PerSecond) + m_baseDateOffsetTicks);
+    }
 
     /// <summary>
     /// Returns basic textual representation for time-tag.
@@ -159,21 +174,30 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// correct chronological order.
     /// </remarks>
     /// <returns>A <see cref="string"/> value representing the time-tag.</returns>
-    public override string ToString() => ToString(DefaultFormat);
+    public override string ToString()
+    {
+        return ToString(DefaultFormat);
+    }
 
     /// <summary>
     /// Returns textual representation for time-tag in the specified <paramref name="format"/>.
     /// </summary>
     /// <param name="format">Format of text output.</param>
     /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
-    public virtual string ToString(string? format) => ToDateTime().ToString(format);
+    public virtual string ToString(string? format)
+    {
+        return ToDateTime().ToString(format);
+    }
 
     /// <summary>
     /// Returns textual representation for time-tag using the specified <paramref name="provider"/>.
     /// </summary>
     /// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information.</param>
     /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
-    public virtual string ToString(IFormatProvider? provider) => ToDateTime().ToString(DefaultFormat, provider);
+    public virtual string ToString(IFormatProvider? provider)
+    {
+        return ToDateTime().ToString(DefaultFormat, provider);
+    }
 
     /// <summary>
     /// Returns textual representation for time-tag in the specified <paramref name="format"/> using 
@@ -182,7 +206,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="format">Format of text output.</param>
     /// <param name="provider">An <see cref="IFormatProvider"/> that supplies culture-specific formatting information.</param>
     /// <returns><see cref="string"/> of textual representation for time-tag.</returns>
-    public virtual string ToString(string? format, IFormatProvider? provider) => ToDateTime().ToString(string.IsNullOrEmpty(format) ? DefaultFormat : format, provider);
+    public virtual string ToString(string? format, IFormatProvider? provider)
+    {
+        return ToDateTime().ToString(string.IsNullOrEmpty(format) ? DefaultFormat : format, provider);
+    }
 
     /// <summary>
     /// Compares the <see cref="TimeTagBase"/> with another <see cref="TimeTagBase"/>.
@@ -190,14 +217,20 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="other">The <see cref="TimeTagBase"/> to compare with the current <see cref="TimeTagBase"/>.</param>
     /// <returns>A 32-bit signed integer that indicates the relative order of the objects being compared.</returns>
     // Since compared time tags may not have the same base time, we compare using .NET date time.
-    public int CompareTo(TimeTagBase? other) => Equals(other, null) ? 1 : CompareTo(other.ToDateTime());
+    public int CompareTo(TimeTagBase? other)
+    {
+        return Equals(other, null) ? 1 : CompareTo(other.ToDateTime());
+    }
 
     /// <summary>
     /// Compares the <see cref="TimeTagBase"/> with a <see cref="DateTime"/>.
     /// </summary>
     /// <param name="other">The <see cref="DateTime"/> to compare with the current <see cref="TimeTagBase"/>.</param>
     /// <returns>A 32-bit signed integer that indicates the relative order of the objects being compared.</returns>
-    public int CompareTo(DateTime other) => ToDateTime().CompareTo(other);
+    public int CompareTo(DateTime other)
+    {
+        return ToDateTime().CompareTo(other);
+    }
 
     /// <summary>
     /// Compares the <see cref="TimeTagBase"/> with the specified <see cref="object"/>.
@@ -225,7 +258,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// otherwise, false.
     /// </returns>
     /// <exception cref="ArgumentException"><see cref="object"/> is not an <see cref="TimeTagBase"/>.</exception>
-    public override bool Equals(object? obj) => CompareTo(obj) == 0;
+    public override bool Equals(object? obj)
+    {
+        return CompareTo(obj) == 0;
+    }
 
     /// <summary>
     /// Determines whether the specified <see cref="TimeTagBase"/> is equal to the current <see cref="TimeTagBase"/>.
@@ -235,7 +271,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// true if the specified <see cref="TimeTagBase"/> is equal to the current <see cref="TimeTagBase"/>;
     /// otherwise, false.
     /// </returns>
-    public bool Equals(TimeTagBase? other) => CompareTo(other) == 0;
+    public bool Equals(TimeTagBase? other)
+    {
+        return CompareTo(other) == 0;
+    }
 
     /// <summary>
     /// Determines whether the specified <see cref="DateTime"/> is equal to the current <see cref="TimeTagBase"/>.
@@ -245,14 +284,20 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// true if the specified <see cref="DateTime"/> is equal to the current <see cref="TimeTagBase"/>;
     /// otherwise, false.
     /// </returns>
-    public bool Equals(DateTime other) => CompareTo(other) == 0;
+    public bool Equals(DateTime other)
+    {
+        return CompareTo(other) == 0;
+    }
 
     /// <summary>
     /// Serves as a hash function for the current <see cref="TimeTagBase"/>.
     /// </summary>
     /// <returns>A hash code for the current <see cref="TimeTagBase"/>.</returns>
     /// <remarks>Hash code based on number of seconds time-tag represents.</remarks>
-    public override int GetHashCode() => m_seconds.GetHashCode();
+    public override int GetHashCode()
+    {
+        return m_seconds.GetHashCode();
+    }
 
     /// <summary>
     /// Populates a <see cref="SerializationInfo"/> with the data needed to serialize the target object.
@@ -278,7 +323,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator ==(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) == 0;
+    public static bool operator ==(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) == 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is equal to <paramref name="value2"/>.
@@ -286,7 +334,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator ==(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) == 0;
+    public static bool operator ==(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) == 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is equal to <paramref name="value2"/>.
@@ -294,7 +345,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator ==(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) == 0;
+    public static bool operator ==(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) == 0;
+    }
 
     #endregion
 
@@ -306,7 +360,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator !=(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) != 0;
+    public static bool operator !=(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) != 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is not equal to <paramref name="value2"/>.
@@ -314,7 +371,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator !=(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) != 0;
+    public static bool operator !=(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) != 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is not equal to <paramref name="value2"/>.
@@ -322,7 +382,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is not equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator !=(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) != 0;
+    public static bool operator !=(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) != 0;
+    }
 
     #endregion
 
@@ -334,7 +397,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) < 0;
+    public static bool operator <(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) < 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is less than <paramref name="value2"/>.
@@ -342,7 +408,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) < 0;
+    public static bool operator <(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) < 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is less than <paramref name="value2"/>.
@@ -350,7 +419,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) < 0;
+    public static bool operator <(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) < 0;
+    }
 
     #endregion
 
@@ -362,7 +434,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <=(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) <= 0;
+    public static bool operator <=(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) <= 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is less than or equal to <paramref name="value2"/>.
@@ -370,7 +445,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <=(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) <= 0;
+    public static bool operator <=(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) <= 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is less than or equal to <paramref name="value2"/>.
@@ -378,7 +456,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is less than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator <=(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) <= 0;
+    public static bool operator <=(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) <= 0;
+    }
 
     #endregion
 
@@ -390,7 +471,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) > 0;
+    public static bool operator >(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) > 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is greater than <paramref name="value2"/>.
@@ -398,7 +482,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) > 0;
+    public static bool operator >(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) > 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is greater than <paramref name="value2"/>.
@@ -406,7 +493,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) > 0;
+    public static bool operator >(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) > 0;
+    }
 
     #endregion
 
@@ -418,7 +508,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >=(TimeTagBase? value1, TimeTagBase? value2) => value1?.CompareTo(value2) >= 0;
+    public static bool operator >=(TimeTagBase? value1, TimeTagBase? value2)
+    {
+        return value1?.CompareTo(value2) >= 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is greater than or equal to <paramref name="value2"/>.
@@ -426,7 +519,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >=(DateTime value1, TimeTagBase? value2) => value1.CompareTo(value2?.ToDateTime()) >= 0;
+    public static bool operator >=(DateTime value1, TimeTagBase? value2)
+    {
+        return value1.CompareTo(value2?.ToDateTime()) >= 0;
+    }
 
     /// <summary>
     /// Returns true if <paramref name="value1"/> is greater than or equal to <paramref name="value2"/>.
@@ -434,7 +530,10 @@ public abstract class TimeTagBase : ISerializable, IComparable, IComparable<Time
     /// <param name="value1">Value 1 in the comparison.</param>
     /// <param name="value2">Value 2 in the comparison.</param>
     /// <returns>true if <paramref name="value1"/> is greater than or equal to <paramref name="value2"/>; otherwise false.</returns>
-    public static bool operator >=(TimeTagBase? value1, DateTime value2) => value1?.CompareTo(value2) >= 0;
+    public static bool operator >=(TimeTagBase? value1, DateTime value2)
+    {
+        return value1?.CompareTo(value2) >= 0;
+    }
 
     #endregion
 

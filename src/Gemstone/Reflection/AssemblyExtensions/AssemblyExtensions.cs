@@ -50,8 +50,10 @@ public static class AssemblyExtensions
     /// </summary>
     /// <param name="instance">An <see cref="Assembly"/> to get the short name of.</param>
     /// <returns>The assembly name and version from the full assembly name.</returns>
-    public static string ShortName(this Assembly instance) => 
-        instance.FullName?.Split(',')[0] ?? instance.GetName().ToString().Split(',')[0];
+    public static string ShortName(this Assembly instance)
+    {
+        return instance.FullName?.Split(',')[0] ?? instance.GetName().ToString().Split(',')[0];
+    }
 
     /// <summary>
     /// Gets the specified embedded resource from the assembly.
@@ -59,96 +61,120 @@ public static class AssemblyExtensions
     /// <param name="instance">Source assembly.</param>
     /// <param name="resourceName">The full name (including the namespace) of the embedded resource to get.</param>
     /// <returns>The embedded resource.</returns>
-    public static Stream? GetEmbeddedResource(this Assembly instance, string resourceName) =>
-        instance.GetManifestResourceStream(resourceName);
+    public static Stream? GetEmbeddedResource(this Assembly instance, string resourceName)
+    {
+        return instance.GetManifestResourceStream(resourceName);
+    }
 
     /// <summary>
     /// Gets the title information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The title information of the assembly.</returns>
-    public static string Title(this Assembly instance) =>
-        new AssemblyInfo(instance).Title;
+    public static string Title(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Title;
+    }
 
     /// <summary>
     /// Gets the description information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The description information of the assembly.</returns>
-    public static string Description(this Assembly instance) => 
-        new AssemblyInfo(instance).Description;
+    public static string Description(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Description;
+    }
 
     /// <summary>
     /// Gets the company name information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The company name information of the assembly.</returns>
-    public static string Company(this Assembly instance) => 
-        new AssemblyInfo(instance).Company;
+    public static string Company(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Company;
+    }
 
     /// <summary>
     /// Gets the product name information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The product name information of the assembly.</returns>
-    public static string Product(this Assembly instance) => 
-        new AssemblyInfo(instance).Product;
+    public static string Product(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Product;
+    }
 
     /// <summary>
     /// Gets the copyright information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The copyright information of the assembly.</returns>
-    public static string Copyright(this Assembly instance) => 
-        new AssemblyInfo(instance).Copyright;
+    public static string Copyright(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Copyright;
+    }
 
     /// <summary>
     /// Gets the trademark information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The trademark information of the assembly.</returns>
-    public static string Trademark(this Assembly instance) => 
-        new AssemblyInfo(instance).Trademark;
+    public static string Trademark(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Trademark;
+    }
 
     /// <summary>
     /// Gets the configuration information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The configuration information of the assembly.</returns>
-    public static string Configuration(this Assembly instance) =>
-        new AssemblyInfo(instance).Configuration;
+    public static string Configuration(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Configuration;
+    }
 
     /// <summary>
     /// Gets a boolean value indicating if the assembly has been built as delay-signed.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns><c>true</c>, if the assembly has been built as delay-signed; otherwise, <c>false</c>.</returns>
-    public static bool DelaySign(this Assembly instance) => 
-        new AssemblyInfo(instance).DelaySign;
+    public static bool DelaySign(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).DelaySign;
+    }
 
     /// <summary>
     /// Gets the version information of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The version information of the assembly</returns>
-    public static string InformationalVersion(this Assembly instance) => 
-        new AssemblyInfo(instance).InformationalVersion;
+    public static string InformationalVersion(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).InformationalVersion;
+    }
 
     /// <summary>
     /// Gets the name of the file containing the key pair used to generate a strong name for the attributed assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>A string containing the name of the file that contains the key pair.</returns>
-    public static string KeyFile(this Assembly instance) => 
-        new AssemblyInfo(instance).KeyFile;
+    public static string KeyFile(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).KeyFile;
+    }
 
     /// <summary>
     /// Gets the culture name of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The culture name of the assembly.</returns>
-    public static string CultureName(this Assembly instance) => 
-        new AssemblyInfo(instance).CultureName;
+    public static string CultureName(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).CultureName;
+    }
 
     /// <summary>
     /// Gets the assembly version used to instruct the <see cref="System.Resources.ResourceManager"/> to ask for
@@ -156,8 +182,10 @@ public static class AssemblyExtensions
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The satellite contract version of the assembly.</returns>
-    public static string SatelliteContractVersion(this Assembly instance) => 
-        new AssemblyInfo(instance).SatelliteContractVersion;
+    public static string SatelliteContractVersion(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).SatelliteContractVersion;
+    }
 
     /// <summary>
     /// Gets the string representing the assembly version used to indicate to a COM client that all classes in the
@@ -165,32 +193,40 @@ public static class AssemblyExtensions
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The string representing the assembly version in MajorVersion.MinorVersion.RevisionNumber.BuildNumber format.</returns>
-    public static string ComCompatibleVersion(this Assembly instance) => 
-        new AssemblyInfo(instance).ComCompatibleVersion;
+    public static string ComCompatibleVersion(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).ComCompatibleVersion;
+    }
 
     /// <summary>
     /// Gets a boolean value indicating if the assembly is exposed to COM.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns><c>true</c>, if the assembly is exposed to COM; otherwise, <c>false</c>.</returns>
-    public static bool ComVisible(this Assembly instance) => 
-        new AssemblyInfo(instance).ComVisible;
+    public static bool ComVisible(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).ComVisible;
+    }
 
     /// <summary>
     /// Gets a boolean value indicating if the <see cref="Assembly"/> was built in debug mode.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns><c>true</c>, if the assembly was built in debug mode; otherwise, <c>false</c>.</returns>
-    public static bool Debuggable(this Assembly instance) => 
-        new AssemblyInfo(instance).ComVisible;
+    public static bool Debuggable(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).ComVisible;
+    }
 
     /// <summary>
     /// Gets the assembly GUID that is used as an ID if the assembly is exposed to COM.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The assembly GUID that is used as an ID if the assembly is exposed to COM.</returns>
-    public static string Guid(this Assembly instance) => 
-        new AssemblyInfo(instance).Guid;
+    public static string Guid(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).Guid;
+    }
 
     /// <summary>
     /// Gets a boolean value indicating whether the indicated program element is CLS-compliant.
@@ -198,32 +234,40 @@ public static class AssemblyExtensions
     /// <param name="instance">Source assembly.</param>
     /// <returns><c>true</c>, if the program element is CLS-compliant; otherwise, <c>false</c>.</returns>
     // ReSharper disable once InconsistentNaming
-    public static bool CLSCompliant(this Assembly instance) => 
-        new AssemblyInfo(instance).CLSCompliant;
+    public static bool CLSCompliant(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).CLSCompliant;
+    }
 
     /// <summary>
     /// Gets the date and time when the assembly was last built.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The date and time when the assembly was last built.</returns>
-    public static DateTime BuildDate(this Assembly instance) => 
-        new AssemblyInfo(instance).BuildDate;
+    public static DateTime BuildDate(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).BuildDate;
+    }
 
     /// <summary>
     /// Gets the root namespace of the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>The root namespace of the assembly.</returns>
-    public static string RootNamespace(this Assembly instance) => 
-        new AssemblyInfo(instance).RootNamespace;
+    public static string RootNamespace(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).RootNamespace;
+    }
 
     /// <summary>
     /// Gets a name/value collection of assembly attributes exposed by the assembly.
     /// </summary>
     /// <param name="instance">Source assembly.</param>
     /// <returns>A NameValueCollection of assembly attributes.</returns>
-    public static NameValueCollection GetAttributes(this Assembly instance) => 
-        new AssemblyInfo(instance).GetAttributes();
+    public static NameValueCollection GetAttributes(this Assembly instance)
+    {
+        return new AssemblyInfo(instance).GetAttributes();
+    }
 
     /// <summary>
     /// Recursively attempts to load all assemblies referenced from the given assembly.

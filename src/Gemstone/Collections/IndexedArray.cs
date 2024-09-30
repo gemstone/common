@@ -74,7 +74,10 @@ public sealed class IndexedArray<T> : IEnumerable<T>
     public T this[int index]
     {
         // ReSharper disable once InconsistentlySynchronizedField
-        get => (uint)index >= (uint)m_items.Length ? m_defaultValue: m_items[index];
+        get
+        {
+            return (uint)index >= (uint)m_items.Length ? m_defaultValue : m_items[index];
+        }
         set
         {
             if ((uint)index >= (uint)m_items.Length)

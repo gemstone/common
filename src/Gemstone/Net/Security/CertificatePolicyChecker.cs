@@ -78,26 +78,38 @@ public class CertificatePolicyChecker : ICertificateChecker
     /// Trusts the given certificate, using the default policy for validation.
     /// </summary>
     /// <param name="certificate">The certificate to be trusted.</param>
-    public void Trust(X509Certificate certificate) => Trust(certificate, null);
+    public void Trust(X509Certificate certificate)
+    {
+        Trust(certificate, null);
+    }
 
     /// <summary>
     /// Trusts the given certificate, using the given policy for validation.
     /// </summary>
     /// <param name="certificate">The certificate to be trusted.</param>
     /// <param name="policy">The policy by which to evaluate the certificate.</param>
-    public void Trust(X509Certificate certificate, CertificatePolicy? policy) => m_trustedCertificates[certificate] = policy;
+    public void Trust(X509Certificate certificate, CertificatePolicy? policy)
+    {
+        m_trustedCertificates[certificate] = policy;
+    }
 
     /// <summary>
     /// Removes the given certificate from the list of trusted certificates.
     /// </summary>
     /// <param name="certificate">The certificate to be distrusted.</param>
     /// <returns><c>true</c> if certificate was removed; otherwise, <c>false</c>.</returns>
-    public bool Distrust(X509Certificate certificate) => m_trustedCertificates.Remove(certificate);
+    public bool Distrust(X509Certificate certificate)
+    {
+        return m_trustedCertificates.Remove(certificate);
+    }
 
     /// <summary>
     /// Removes all certificates from the list of trusted certificates.
     /// </summary>
-    public void DistrustAll() => m_trustedCertificates.Clear();
+    public void DistrustAll()
+    {
+        m_trustedCertificates.Clear();
+    }
 
     /// <summary>
     /// Verifies the remote certificate used for authentication.

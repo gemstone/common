@@ -123,7 +123,10 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </summary>
     public string FileName
     {
-        get => m_fileName;
+        get
+        {
+            return m_fileName;
+        }
         set
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -138,8 +141,14 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </summary>
     public DateTimeOffset StartTime
     {
-        get => m_startTime;
-        set => m_startTime = value;
+        get
+        {
+            return m_startTime;
+        }
+        set
+        {
+            m_startTime = value;
+        }
     }
 
     /// <summary>
@@ -147,8 +156,14 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </summary>
     public DateTimeOffset StopTime
     {
-        get => m_stopTime;
-        set => m_stopTime = value;
+        get
+        {
+            return m_stopTime;
+        }
+        set
+        {
+            m_stopTime = value;
+        }
     }
 
     /// <summary>
@@ -156,14 +171,26 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </summary>
     public DateTimeOffset RunningTime
     {
-        get => m_runningTime;
-        set => m_runningTime = value;
+        get
+        {
+            return m_runningTime;
+        }
+        set
+        {
+            m_runningTime = value;
+        }
     }
 
     /// <summary>
     /// Gets the up-time calculation for run-time log, i.e., <see cref="RunningTime"/> - <see cref="StartTime"/> (10-second resolution).
     /// </summary>
-    public TimeSpan UpTime => m_runningTime - m_startTime;
+    public TimeSpan UpTime
+    {
+        get
+        {
+            return m_runningTime - m_startTime;
+        }
+    }
 
     /// <summary>        
     /// Gets or sets a boolean value that indicates whether the run-time log is enabled.
@@ -173,8 +200,14 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     /// </remarks>
     public virtual bool Enabled
     {
-        get => m_flushTimer.Enabled;
-        set => m_flushTimer.Enabled = value;
+        get
+        {
+            return m_flushTimer.Enabled;
+        }
+        set
+        {
+            m_flushTimer.Enabled = value;
+        }
     }
 
     /// <summary>
@@ -183,7 +216,13 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     public bool IsDisposed { get; private set; }
 
     // Gets the name of the run-time log
-    string IProvideStatus.Name => FilePath.GetFileNameWithoutExtension(m_fileName.ToNonNullString("undefined"));
+    string IProvideStatus.Name
+    {
+        get
+        {
+            return FilePath.GetFileNameWithoutExtension(m_fileName.ToNonNullString("undefined"));
+        }
+    }
 
     /// <summary>
     /// Gets the current status details about <see cref="RunTimeLog"/>.

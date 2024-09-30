@@ -67,8 +67,10 @@ public static class DateTimeExtensions
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
     /// be less than one.</exception>
-    public static bool UtcTimeIsValid(this DateTime utcTime, double lagTime, double leadTime) => 
-        ((Ticks)utcTime).UtcTimeIsValid(lagTime, leadTime);
+    public static bool UtcTimeIsValid(this DateTime utcTime, double lagTime, double leadTime)
+    {
+        return ((Ticks)utcTime).UtcTimeIsValid(lagTime, leadTime);
+    }
 
     /// <summary>Determines if the specified local time is valid, by comparing it to the system clock.</summary>
     /// <param name="localTime">Time to test for validity.</param>
@@ -84,8 +86,10 @@ public static class DateTimeExtensions
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
     /// be less than one.</exception>
-    public static bool LocalTimeIsValid(this DateTime localTime, double lagTime, double leadTime) => 
-        ((Ticks)localTime).LocalTimeIsValid(lagTime, leadTime);
+    public static bool LocalTimeIsValid(this DateTime localTime, double lagTime, double leadTime)
+    {
+        return ((Ticks)localTime).LocalTimeIsValid(lagTime, leadTime);
+    }
 
     /// <summary>Determines if time is valid, by comparing it to the specified current time.</summary>
     /// <param name="testTime">Time to test for validity.</param>
@@ -102,14 +106,18 @@ public static class DateTimeExtensions
     /// </remarks>
     /// <exception cref="ArgumentOutOfRangeException">LagTime and LeadTime must be greater than zero, but can
     /// be less than one.</exception>
-    public static bool TimeIsValid(this DateTime testTime, DateTime currentTime, double lagTime, double leadTime) => 
-        ((Ticks)testTime).TimeIsValid(currentTime, lagTime, leadTime);
+    public static bool TimeIsValid(this DateTime testTime, DateTime currentTime, double lagTime, double leadTime)
+    {
+        return ((Ticks)testTime).TimeIsValid(currentTime, lagTime, leadTime);
+    }
 
     /// <summary>Gets the distance, in <see cref="Ticks"/>, beyond the top of the <paramref name="timestamp"/> second.</summary>
     /// <param name="timestamp">Timestamp to evaluate.</param>
     /// <returns>Timestamp's tick distance from the top of the second.</returns>
-    public static Ticks DistanceBeyondSecond(this DateTime timestamp) => 
-        ((Ticks)timestamp).DistanceBeyondSecond();
+    public static Ticks DistanceBeyondSecond(this DateTime timestamp)
+    {
+        return ((Ticks)timestamp).DistanceBeyondSecond();
+    }
 
     /// <summary>Creates a baselined timestamp which begins at the specified time interval.</summary>
     /// <param name="timestamp">Timestamp to baseline.</param>
@@ -134,40 +142,50 @@ public static class DateTimeExtensions
     /// Baselining to the <see cref="BaselineTimeInterval.Year"/> would return the <see cref="DateTime"/>
     /// value starting at month one, day one, zero hours, minutes, seconds and milliseconds.
     /// </remarks>
-    public static DateTime BaselinedTimestamp(this DateTime timestamp, BaselineTimeInterval interval) => 
-        ((Ticks)timestamp).BaselinedTimestamp(interval);
+    public static DateTime BaselinedTimestamp(this DateTime timestamp, BaselineTimeInterval interval)
+    {
+        return ((Ticks)timestamp).BaselinedTimestamp(interval);
+    }
 
     /// <summary>Converts given local time to Eastern time.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to Eastern time.</param>
     /// <returns>
     /// <para>Timestamp in Eastern time.</para>
     /// </returns>
-    public static DateTime LocalTimeToEasternTime(this DateTime timestamp) => 
-        TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Eastern);
+    public static DateTime LocalTimeToEasternTime(this DateTime timestamp)
+    {
+        return TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Eastern);
+    }
 
     /// <summary>Converts given local time to Central time.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to Central time.</param>
     /// <returns>
     /// <para>Timestamp in Central time.</para>
     /// </returns>
-    public static DateTime LocalTimeToCentralTime(this DateTime timestamp) => 
-        TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Central);
+    public static DateTime LocalTimeToCentralTime(this DateTime timestamp)
+    {
+        return TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Central);
+    }
 
     /// <summary>Converts given local time to Mountain time.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to Mountain time.</param>
     /// <returns>
     /// <para>Timestamp in Mountain time.</para>
     /// </returns>
-    public static DateTime LocalTimeToMountainTime(this DateTime timestamp) => 
-        TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Mountain);
+    public static DateTime LocalTimeToMountainTime(this DateTime timestamp)
+    {
+        return TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Mountain);
+    }
 
     /// <summary>Converts given local time to Pacific time.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to Pacific time.</param>
     /// <returns>
     /// <para>Timestamp in Pacific time.</para>
     /// </returns>
-    public static DateTime LocalTimeToPacificTime(this DateTime timestamp) => 
-        TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Pacific);
+    public static DateTime LocalTimeToPacificTime(this DateTime timestamp)
+    {
+        return TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, USTimeZones.Pacific);
+    }
 
     /// <summary>Converts given local time to Universally Coordinated Time (a.k.a., Greenwich Meridian Time).</summary>
     /// <remarks>This function is only provided for the sake of completeness. All it does is call the
@@ -176,8 +194,10 @@ public static class DateTimeExtensions
     /// <returns>
     /// <para>Timestamp in UniversalTime (a.k.a., GMT).</para>
     /// </returns>
-    public static DateTime LocalTimeToUniversalTime(this DateTime timestamp) => 
-        timestamp.ToUniversalTime();
+    public static DateTime LocalTimeToUniversalTime(this DateTime timestamp)
+    {
+        return timestamp.ToUniversalTime();
+    }
 
     /// <summary>Converts given local time to time in specified time zone.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to time in specified time zone.</param>
@@ -186,9 +206,13 @@ public static class DateTimeExtensions
     /// <returns>
     /// <para>Timestamp in specified time zone.</para>
     /// </returns>
-    public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName) => 
-        destinationTimeZoneStandardName is null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
-            TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+    public static DateTime LocalTimeTo(this DateTime timestamp, string destinationTimeZoneStandardName)
+    {
+        return destinationTimeZoneStandardName is null
+            ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName))
+            : TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local,
+                TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+    }
 
     /// <summary>Converts given local time to time in specified time zone.</summary>
     /// <param name="timestamp">Timestamp in local time to be converted to time in specified time zone.</param>
@@ -196,41 +220,52 @@ public static class DateTimeExtensions
     /// <returns>
     /// <para>Timestamp in specified time zone.</para>
     /// </returns>
-    public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone) => 
-        destinationTimeZone is null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
-            TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
+    public static DateTime LocalTimeTo(this DateTime timestamp, TimeZoneInfo destinationTimeZone)
+    {
+        return destinationTimeZone is null
+            ? throw new ArgumentNullException(nameof(destinationTimeZone))
+            : TimeZoneInfo.ConvertTime(timestamp, TimeZoneInfo.Local, destinationTimeZone);
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to Eastern time timestamp.
     /// </summary>
     /// <param name="universalTimestamp">The Universally Coordinated Time timestamp that is to be converted.</param>
     /// <returns>The timestamp in Eastern time.</returns>
-    public static DateTime UniversalTimeToEasternTime(this DateTime universalTimestamp) => 
-        TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Eastern);
+    public static DateTime UniversalTimeToEasternTime(this DateTime universalTimestamp)
+    {
+        return TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Eastern);
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to Central time timestamp.
     /// </summary>
     /// <param name="universalTimestamp">The Universally Coordinated Time timestamp that is to be converted.</param>
     /// <returns>The timestamp in Central time.</returns>
-    public static DateTime UniversalTimeToCentralTime(this DateTime universalTimestamp) => 
-        TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Central);
+    public static DateTime UniversalTimeToCentralTime(this DateTime universalTimestamp)
+    {
+        return TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Central);
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to Mountain time timestamp.
     /// </summary>
     /// <param name="universalTimestamp">The Universally Coordinated Time timestamp that is to be converted.</param>
     /// <returns>The timestamp in Mountain time.</returns>
-    public static DateTime UniversalTimeToMountainTime(this DateTime universalTimestamp) => 
-        TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Mountain);
+    public static DateTime UniversalTimeToMountainTime(this DateTime universalTimestamp)
+    {
+        return TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Mountain);
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to Pacific time timestamp.
     /// </summary>
     /// <param name="universalTimestamp">The Universally Coordinated Time timestamp that is to be converted.</param>
     /// <returns>The timestamp in Pacific time.</returns>
-    public static DateTime UniversalTimeToPacificTime(this DateTime universalTimestamp) => 
-        TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Pacific);
+    public static DateTime UniversalTimeToPacificTime(this DateTime universalTimestamp)
+    {
+        return TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, USTimeZones.Pacific);
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to timestamp in specified time zone.
@@ -239,9 +274,13 @@ public static class DateTimeExtensions
     /// <param name="destinationTimeZoneStandardName">The time zone standard name to which the Universally
     /// Coordinated Time timestamp is to be converted to.</param>
     /// <returns>The timestamp in the specified time zone.</returns>
-    public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName) => 
-        destinationTimeZoneStandardName is null ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName)) : 
-            TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+    public static DateTime UniversalTimeTo(this DateTime universalTimestamp, string destinationTimeZoneStandardName)
+    {
+        return destinationTimeZoneStandardName is null
+            ? throw new ArgumentNullException(nameof(destinationTimeZoneStandardName))
+            : TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc,
+                TimeZoneInfo.FindSystemTimeZoneById(destinationTimeZoneStandardName));
+    }
 
     /// <summary>
     /// Converts the specified Universally Coordinated Time timestamp to timestamp in specified time zone.
@@ -250,9 +289,12 @@ public static class DateTimeExtensions
     /// <param name="destinationTimeZone">The time zone to which the Universally Coordinated Time timestamp
     /// is to be converted to.</param>
     /// <returns>The timestamp in the specified time zone.</returns>
-    public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone) => 
-        destinationTimeZone is null ? throw new ArgumentNullException(nameof(destinationTimeZone)) : 
-            TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
+    public static DateTime UniversalTimeTo(this DateTime universalTimestamp, TimeZoneInfo destinationTimeZone)
+    {
+        return destinationTimeZone is null
+            ? throw new ArgumentNullException(nameof(destinationTimeZone))
+            : TimeZoneInfo.ConvertTime(universalTimestamp, TimeZoneInfo.Utc, destinationTimeZone);
+    }
 
     /// <summary>Converts given timestamp from one time zone to another using standard names for time zones.</summary>
     /// <param name="timestamp">Timestamp in source time zone to be converted to time in destination time zone.</param>
@@ -295,30 +337,41 @@ public static class DateTimeExtensions
     /// <summary>Gets the abbreviated month name for month of the timestamp.</summary>
     /// <param name="timestamp">Timestamp from which month name is extracted.</param>
     /// <returns>String representation of the month name based on <paramref name="timestamp"/></returns>
-    public static string AbbreviatedMonthName(this DateTime timestamp) => 
-        DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(timestamp.Month) ?? timestamp.Month.ToString();
+    public static string AbbreviatedMonthName(this DateTime timestamp)
+    {
+        return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(timestamp.Month) ?? timestamp.Month.ToString();
+    }
 
     /// <summary>Gets the full month name for month of the timestamp.</summary>
     /// <param name="timestamp">Timestamp from which month name is extracted.</param>
     /// <returns>String representation of the month name based on <paramref name="timestamp"/></returns>
-    public static string MonthName(this DateTime timestamp) => 
-        DateTimeFormatInfo.CurrentInfo.GetMonthName(timestamp.Month) ?? timestamp.Month.ToString();
+    public static string MonthName(this DateTime timestamp)
+    {
+        return DateTimeFormatInfo.CurrentInfo.GetMonthName(timestamp.Month) ?? timestamp.Month.ToString();
+    }
 
     /// <summary>Gets the abbreviated weekday name for weekday of the timestamp.</summary>
     /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
     /// <returns>String representation of the weekday name based on <paramref name="timestamp"/></returns>
-    public static string AbbreviatedWeekdayName(this DateTime timestamp) => 
-        DateTimeFormatInfo.CurrentInfo.GetAbbreviatedDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
+    public static string AbbreviatedWeekdayName(this DateTime timestamp)
+    {
+        return DateTimeFormatInfo.CurrentInfo.GetAbbreviatedDayName(timestamp.DayOfWeek) ??
+               timestamp.DayOfWeek.ToString();
+    }
 
     /// <summary>Gets the shortest weekday name for weekday of the timestamp.</summary>
     /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
     /// <returns>String representation of the short weekday name based on <paramref name="timestamp"/></returns>
-    public static string ShortWeekdayName(this DateTime timestamp) => 
-        DateTimeFormatInfo.CurrentInfo.GetShortestDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
+    public static string ShortWeekdayName(this DateTime timestamp)
+    {
+        return DateTimeFormatInfo.CurrentInfo.GetShortestDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
+    }
 
     /// <summary>Gets the full weekday name for weekday of the timestamp.</summary>
     /// <param name="timestamp">Timestamp from which weekday name is extracted.</param>
     /// <returns>String representation of the weekday name based on <paramref name="timestamp"/></returns>
-    public static string WeekdayName(this DateTime timestamp) => 
-        DateTimeFormatInfo.CurrentInfo.GetDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
+    public static string WeekdayName(this DateTime timestamp)
+    {
+        return DateTimeFormatInfo.CurrentInfo.GetDayName(timestamp.DayOfWeek) ?? timestamp.DayOfWeek.ToString();
+    }
 }

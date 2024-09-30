@@ -64,7 +64,10 @@ internal class UnixIniFile : IIniFile
     /// </summary>
     public string FileName
     {
-        get => m_fileName;
+        get
+        {
+            return m_fileName;
+        }
         set
         {
             m_fileName = value;
@@ -116,17 +119,21 @@ internal class UnixIniFile : IIniFile
     /// </summary>
     /// <param name="section">Section to retrieve keys from.</param>
     /// <returns>Array of <see cref="string"/> keys from the specified section of the INI file.</returns>
-    public string[] GetSectionKeys(string section) =>
-        m_iniData.TryGetValue(section, out ConcurrentDictionary<string, string>? sectionEntries) ?
-            sectionEntries.Keys.ToArray() :
-            Array.Empty<string>();
+    public string[] GetSectionKeys(string section)
+    {
+        return m_iniData.TryGetValue(section, out ConcurrentDictionary<string, string>? sectionEntries)
+            ? sectionEntries.Keys.ToArray()
+            : Array.Empty<string>();
+    }
 
     /// <summary>
     /// Gets an array of that section names that exist in the INI file.
     /// </summary>
     /// <returns>Array of <see cref="string"/> section names from the INI file.</returns>
-    public string[] GetSectionNames() =>
-        m_iniData.Keys.ToArray();
+    public string[] GetSectionNames()
+    {
+        return m_iniData.Keys.ToArray();
+    }
 
     private void Load()
     {
@@ -196,8 +203,10 @@ internal class UnixIniFile : IIniFile
         }
     }
 
-    private ConcurrentDictionary<string, string> CreateNewSection(string sectionName) => 
-        new(StringComparer.OrdinalIgnoreCase);
+    private ConcurrentDictionary<string, string> CreateNewSection(string sectionName)
+    {
+        return new ConcurrentDictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+    }
 
     #endregion
 }

@@ -95,7 +95,13 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <returns>
     /// The number of elements contained in the <see cref="ICollection{T}"/>.
     /// </returns>
-    public new int Count => m_list.Count;
+    public new int Count
+    {
+        get
+        {
+            return m_list.Count;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the element at the specified index.
@@ -108,7 +114,10 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <exception cref="NotSupportedException">The property is set and the <see cref="IList{T}"/> is read-only.</exception>
     public new T this[int index]
     {
-        get => m_list[index];
+        get
+        {
+            return m_list[index];
+        }
         set
         {
             if (index < 0 || index >= m_list.Count)
@@ -124,7 +133,13 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// <returns>
     /// A <see cref="IList{T}"/> wrapper around the <see cref="Collection{T}"/>.
     /// </returns>
-    protected new List<T> Items => m_list;
+    protected new List<T> Items
+    {
+        get
+        {
+            return m_list;
+        }
+    }
 
     #endregion
 

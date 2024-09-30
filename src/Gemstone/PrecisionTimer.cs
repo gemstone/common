@@ -341,12 +341,24 @@ public class PrecisionTimer : IDisposable
     /// <summary>
     /// Gets a value indicating whether the <see cref="PrecisionTimer"/> is running.
     /// </summary>
-    public bool IsRunning => m_running;
+    public bool IsRunning
+    {
+        get
+        {
+            return m_running;
+        }
+    }
 
     /// <summary>
     /// Gets <see cref="System.EventArgs"/> specified in <see cref="Start(System.EventArgs)"/> used to pass into <see cref="Tick"/> event.
     /// </summary>
-    public EventArgs? EventArgs => m_eventArgs;
+    public EventArgs? EventArgs
+    {
+        get
+        {
+            return m_eventArgs;
+        }
+    }
 
     #endregion
 
@@ -488,8 +500,10 @@ public class PrecisionTimer : IDisposable
         Stopped?.SafeInvoke(this, EventArgs.Empty);
     }
 
-    private void m_timer_Elapsed(object? sender, ElapsedEventArgs e) => 
+    private void m_timer_Elapsed(object? sender, ElapsedEventArgs e)
+    {
         Tick?.SafeInvoke(this, m_eventArgs ?? EventArgs.Empty);
+    }
 
     // Callback method called by the Win32 multimedia timer when a timer event occurs.
     private void TimerEventCallback(int id, int msg, int user, int param1, int param2)
@@ -528,7 +542,13 @@ public class PrecisionTimer : IDisposable
     /// <summary>
     /// Gets the system multimedia timer capabilities.
     /// </summary>
-    public static TimerCapabilities Capabilities => s_capabilities;
+    public static TimerCapabilities Capabilities
+    {
+        get
+        {
+            return s_capabilities;
+        }
+    }
 
     // Static Methods
 

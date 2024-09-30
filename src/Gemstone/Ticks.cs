@@ -231,19 +231,28 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// Creates a new <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value">New time value in ticks.</param>
-    public Ticks(long value) => Value = value;
+    public Ticks(long value)
+    {
+        Value = value;
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value">New time value as a <see cref="DateTime"/>.</param>
-    public Ticks(DateTime value) => Value = value.Ticks;
+    public Ticks(DateTime value)
+    {
+        Value = value.Ticks;
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value">New time value as a <see cref="TimeSpan"/>.</param>
-    public Ticks(TimeSpan value) => Value = value.Ticks;
+    public Ticks(TimeSpan value)
+    {
+        Value = value.Ticks;
+    }
 
     #endregion
 
@@ -257,7 +266,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of days
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToDays() => ToSeconds() / Time.SecondsPerDay;
+    public double ToDays()
+    {
+        return ToSeconds() / Time.SecondsPerDay;
+    }
 
     /// <summary>
     /// Gets the <see cref="Ticks"/> value in equivalent number of hours.
@@ -267,7 +279,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of hours
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToHours() => ToSeconds() / Time.SecondsPerHour;
+    public double ToHours()
+    {
+        return ToSeconds() / Time.SecondsPerHour;
+    }
 
     /// <summary>
     /// Gets the <see cref="Ticks"/> value in equivalent number of minutes.
@@ -277,7 +292,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of minutes
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToMinutes() => ToSeconds() / Time.SecondsPerMinute;
+    public double ToMinutes()
+    {
+        return ToSeconds() / Time.SecondsPerMinute;
+    }
 
     /// <summary>
     /// Gets the <see cref="Ticks"/> value in equivalent number of seconds.
@@ -287,7 +305,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of seconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToSeconds() => Value / (double)PerSecond;
+    public double ToSeconds()
+    {
+        return Value / (double)PerSecond;
+    }
 
     /// <summary>
     /// Gets the <see cref="Ticks"/> value in equivalent number of milliseconds.
@@ -297,7 +318,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of milliseconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToMilliseconds() => Value / (double)PerMillisecond;
+    public double ToMilliseconds()
+    {
+        return Value / (double)PerMillisecond;
+    }
 
     /// <summary>
     /// Gets the <see cref="Ticks"/> value in equivalent number of microseconds.
@@ -307,7 +331,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <see cref="Ticks"/> value represents an instant in time, returned value will represent the number of microseconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public double ToMicroseconds() => Value / (double)PerMicrosecond;
+    public double ToMicroseconds()
+    {
+        return Value / (double)PerMicrosecond;
+    }
 
     /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value in UTC time, is valid by comparing it to
@@ -325,7 +352,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="lagTime"/> and <paramref name="leadTime"/> must be greater than zero, but can be less than one.
     /// </exception>
-    public bool UtcTimeIsValid(double lagTime, double leadTime) => TimeIsValid(DateTime.UtcNow.Ticks, lagTime, leadTime);
+    public bool UtcTimeIsValid(double lagTime, double leadTime)
+    {
+        return TimeIsValid(DateTime.UtcNow.Ticks, lagTime, leadTime);
+    }
 
     /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value in UTC time, is valid by comparing it to
@@ -342,7 +372,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="lagTime"/> and <paramref name="leadTime"/> must be greater than zero.
     /// </exception>
-    public bool UtcTimeIsValid(Ticks lagTime, Ticks leadTime) => TimeIsValid(DateTime.UtcNow.Ticks, lagTime, leadTime);
+    public bool UtcTimeIsValid(Ticks lagTime, Ticks leadTime)
+    {
+        return TimeIsValid(DateTime.UtcNow.Ticks, lagTime, leadTime);
+    }
 
     /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value in local time, is valid by comparing it to
@@ -360,7 +393,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="lagTime"/> and <paramref name="leadTime"/> must be greater than zero, but can be less than one.
     /// </exception>
-    public bool LocalTimeIsValid(double lagTime, double leadTime) => TimeIsValid(DateTime.Now.Ticks, lagTime, leadTime);
+    public bool LocalTimeIsValid(double lagTime, double leadTime)
+    {
+        return TimeIsValid(DateTime.Now.Ticks, lagTime, leadTime);
+    }
 
     /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value in local time, is valid by comparing it to
@@ -377,7 +413,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <exception cref="ArgumentOutOfRangeException">
     /// <paramref name="lagTime"/> and <paramref name="leadTime"/> must be greater than zero.
     /// </exception>
-    public bool LocalTimeIsValid(Ticks lagTime, Ticks leadTime) => TimeIsValid(DateTime.Now.Ticks, lagTime, leadTime);
+    public bool LocalTimeIsValid(Ticks lagTime, Ticks leadTime)
+    {
+        return TimeIsValid(DateTime.Now.Ticks, lagTime, leadTime);
+    }
 
     /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value, is valid by comparing it to the specified
@@ -446,7 +485,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// Number of 100-nanoseconds intervals <see cref="Ticks"/> value is from the top of the second.
     /// </returns>
     // Calculate the number of ticks past the top of the second
-    public Ticks DistanceBeyondSecond() => Value - (Value - Value % PerSecond);
+    public Ticks DistanceBeyondSecond()
+    {
+        return Value - (Value - Value % PerSecond);
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/> value that represents a base-lined timestamp, in 100-nanoseconds
@@ -500,7 +542,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// Converts the value of the <see cref="Ticks"/> value to its equivalent <see cref="DateTime"/> string representation.
     /// </summary>
     /// <returns>A <see cref="DateTime"/> string representation of the <see cref="Ticks"/> value.</returns>
-    public override string ToString() => ((DateTime)this).ToString(CultureInfo.InvariantCulture);
+    public override string ToString()
+    {
+        return ((DateTime)this).ToString(CultureInfo.InvariantCulture);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value to its equivalent string representation, using
@@ -510,7 +555,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// The string representation of the value of this instance as specified by format.
     /// </returns>
-    public string ToString(string? format) => ((DateTime)this).ToString(format);
+    public string ToString(string? format)
+    {
+        return ((DateTime)this).ToString(format);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value to its equivalent string representation, using
@@ -522,7 +570,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// The string representation of the value of this instance as specified by provider.
     /// </returns>
-    public string ToString(IFormatProvider? provider) => ((DateTime)this).ToString(provider);
+    public string ToString(IFormatProvider? provider)
+    {
+        return ((DateTime)this).ToString(provider);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value to its equivalent string representation, using
@@ -535,7 +586,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// The string representation of the value of this instance as specified by format and provider.
     /// </returns>
-    public string ToString(string? format, IFormatProvider? provider) => ((DateTime)this).ToString(format, provider);
+    public string ToString(string? format, IFormatProvider? provider)
+    {
+        return ((DateTime)this).ToString(format, provider);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value into a textual representation of years, days, hours,
@@ -550,7 +604,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// The string representation of the value of this instance, consisting of the number of
     /// years, days, hours, minutes and seconds represented by this value.
     /// </returns>
-    public string ToElapsedTimeString() => Time.ToElapsedTimeString(ToSeconds(), 0);
+    public string ToElapsedTimeString()
+    {
+        return Time.ToElapsedTimeString(ToSeconds(), 0);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value into a textual representation of years, days, hours,
@@ -572,7 +629,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <paramref name="minimumSubSecondResolution"/> is not less than or equal to <see cref="SI.Milli"/> or
     /// <paramref name="minimumSubSecondResolution"/> is not defined in <see cref="SI.Factors"/> array.
     /// </exception>
-    public string ToElapsedTimeString(int secondPrecision, double minimumSubSecondResolution = SI.Milli) => Time.ToElapsedTimeString(ToSeconds(), secondPrecision, null, minimumSubSecondResolution);
+    public string ToElapsedTimeString(int secondPrecision, double minimumSubSecondResolution = SI.Milli)
+    {
+        return Time.ToElapsedTimeString(ToSeconds(), secondPrecision, null, minimumSubSecondResolution);
+    }
 
     /// <summary>
     /// Converts the <see cref="Ticks"/> value into a textual representation of years, days, hours,
@@ -602,7 +662,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <paramref name="minimumSubSecondResolution"/> is not less than or equal to <see cref="SI.Milli"/> or
     /// <paramref name="minimumSubSecondResolution"/> is not defined in <see cref="SI.Factors"/> array.
     /// </exception>
-    public string ToElapsedTimeString(int secondPrecision, string[] timeNames, double minimumSubSecondResolution = SI.Milli) => Time.ToElapsedTimeString(ToSeconds(), secondPrecision, timeNames, minimumSubSecondResolution);
+    public string ToElapsedTimeString(int secondPrecision, string[] timeNames, double minimumSubSecondResolution = SI.Milli)
+    {
+        return Time.ToElapsedTimeString(ToSeconds(), secondPrecision, timeNames, minimumSubSecondResolution);
+    }
 
     #region [ Numeric Interface Implementations ]
 
@@ -643,7 +706,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// if this instance is less than value, zero if this instance is equal to value, or greater than zero
     /// if this instance is greater than value.
     /// </returns>
-    public int CompareTo(Ticks value) => CompareTo(value.Value);
+    public int CompareTo(Ticks value)
+    {
+        return CompareTo(value.Value);
+    }
 
     /// <summary>
     /// Compares this instance to a specified <see cref="DateTime"/> and returns an indication of their
@@ -655,7 +721,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// if this instance is less than value, zero if this instance is equal to value, or greater than zero
     /// if this instance is greater than value.
     /// </returns>
-    public int CompareTo(DateTime value) => CompareTo(value.Ticks);
+    public int CompareTo(DateTime value)
+    {
+        return CompareTo(value.Ticks);
+    }
 
     /// <summary>
     /// Compares this instance to a specified <see cref="TimeSpan"/> and returns an indication of their
@@ -667,7 +736,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// if this instance is less than value, zero if this instance is equal to value, or greater than zero
     /// if this instance is greater than value.
     /// </returns>
-    public int CompareTo(TimeSpan value) => CompareTo(value.Ticks);
+    public int CompareTo(TimeSpan value)
+    {
+        return CompareTo(value.Ticks);
+    }
 
     /// <summary>
     /// Compares this instance to a specified <see cref="long"/> and returns an indication of their
@@ -679,7 +751,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// if this instance is less than value, zero if this instance is equal to value, or greater than zero
     /// if this instance is greater than value.
     /// </returns>
-    public int CompareTo(long value) => Value < value ? -1 : Value > value ? 1 : 0;
+    public int CompareTo(long value)
+    {
+        return Value < value ? -1 : Value > value ? 1 : 0;
+    }
 
     /// <summary>
     /// Returns a value indicating whether this instance is equal to a specified object.
@@ -708,7 +783,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// True if obj has the same value as this instance; otherwise, False.
     /// </returns>
-    public bool Equals(Ticks obj) => Value == obj.Value;
+    public bool Equals(Ticks obj)
+    {
+        return Value == obj.Value;
+    }
 
     /// <summary>
     /// Returns a value indicating whether this instance is equal to a specified <see cref="DateTime"/> value.
@@ -717,7 +795,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// True if obj has the same value as this instance; otherwise, False.
     /// </returns>
-    public bool Equals(DateTime obj) => Value == obj.Ticks;
+    public bool Equals(DateTime obj)
+    {
+        return Value == obj.Ticks;
+    }
 
     /// <summary>
     /// Returns a value indicating whether this instance is equal to a specified <see cref="TimeSpan"/> value.
@@ -726,7 +807,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// True if obj has the same value as this instance; otherwise, False.
     /// </returns>
-    public bool Equals(TimeSpan obj) => Value == obj.Ticks;
+    public bool Equals(TimeSpan obj)
+    {
+        return Value == obj.Ticks;
+    }
 
     /// <summary>
     /// Returns a value indicating whether this instance is equal to a specified <see cref="long"/> value.
@@ -735,7 +819,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// True if obj has the same value as this instance; otherwise, False.
     /// </returns>
-    public bool Equals(long obj) => Value == obj;
+    public bool Equals(long obj)
+    {
+        return Value == obj;
+    }
 
     /// <summary>
     /// Returns the hash code for this instance.
@@ -743,47 +830,98 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <returns>
     /// A 32-bit signed integer hash code.
     /// </returns>
-    public override int GetHashCode() => Value.GetHashCode();
+    public override int GetHashCode()
+    {
+        return Value.GetHashCode();
+    }
 
     /// <summary>
     /// Returns the <see cref="TypeCode"/> for value type <see cref="long"/>.
     /// </summary>
     /// <returns>The enumerated constant, <see cref="TypeCode.Int64"/>.</returns>
-    public TypeCode GetTypeCode() => TypeCode.Int64;
+    public TypeCode GetTypeCode()
+    {
+        return TypeCode.Int64;
+    }
 
     #region [ Explicit IConvertible Implementation ]
 
     // These are explicitly implemented on the native System.Int64 implementations, so we do the same...
 
-    bool IConvertible.ToBoolean(IFormatProvider? provider) => Convert.ToBoolean(Value, provider);
+    bool IConvertible.ToBoolean(IFormatProvider? provider)
+    {
+        return Convert.ToBoolean(Value, provider);
+    }
 
-    char IConvertible.ToChar(IFormatProvider? provider) => Convert.ToChar(Value, provider);
+    char IConvertible.ToChar(IFormatProvider? provider)
+    {
+        return Convert.ToChar(Value, provider);
+    }
 
-    sbyte IConvertible.ToSByte(IFormatProvider? provider) => Convert.ToSByte(Value, provider);
+    sbyte IConvertible.ToSByte(IFormatProvider? provider)
+    {
+        return Convert.ToSByte(Value, provider);
+    }
 
-    byte IConvertible.ToByte(IFormatProvider? provider) => Convert.ToByte(Value, provider);
+    byte IConvertible.ToByte(IFormatProvider? provider)
+    {
+        return Convert.ToByte(Value, provider);
+    }
 
-    short IConvertible.ToInt16(IFormatProvider? provider) => Convert.ToInt16(Value, provider);
+    short IConvertible.ToInt16(IFormatProvider? provider)
+    {
+        return Convert.ToInt16(Value, provider);
+    }
 
-    ushort IConvertible.ToUInt16(IFormatProvider? provider) => Convert.ToUInt16(Value, provider);
+    ushort IConvertible.ToUInt16(IFormatProvider? provider)
+    {
+        return Convert.ToUInt16(Value, provider);
+    }
 
-    int IConvertible.ToInt32(IFormatProvider? provider) => Convert.ToInt32(Value, provider);
+    int IConvertible.ToInt32(IFormatProvider? provider)
+    {
+        return Convert.ToInt32(Value, provider);
+    }
 
-    uint IConvertible.ToUInt32(IFormatProvider? provider) => Convert.ToUInt32(Value, provider);
+    uint IConvertible.ToUInt32(IFormatProvider? provider)
+    {
+        return Convert.ToUInt32(Value, provider);
+    }
 
-    long IConvertible.ToInt64(IFormatProvider? provider) => Value;
+    long IConvertible.ToInt64(IFormatProvider? provider)
+    {
+        return Value;
+    }
 
-    ulong IConvertible.ToUInt64(IFormatProvider? provider) => Convert.ToUInt64(Value, provider);
+    ulong IConvertible.ToUInt64(IFormatProvider? provider)
+    {
+        return Convert.ToUInt64(Value, provider);
+    }
 
-    float IConvertible.ToSingle(IFormatProvider? provider) => Convert.ToSingle(Value, provider);
+    float IConvertible.ToSingle(IFormatProvider? provider)
+    {
+        return Convert.ToSingle(Value, provider);
+    }
 
-    double IConvertible.ToDouble(IFormatProvider? provider) => Convert.ToDouble(Value, provider);
+    double IConvertible.ToDouble(IFormatProvider? provider)
+    {
+        return Convert.ToDouble(Value, provider);
+    }
 
-    decimal IConvertible.ToDecimal(IFormatProvider? provider) => Convert.ToDecimal(Value, provider);
+    decimal IConvertible.ToDecimal(IFormatProvider? provider)
+    {
+        return Convert.ToDecimal(Value, provider);
+    }
 
-    DateTime IConvertible.ToDateTime(IFormatProvider? provider) => Convert.ToDateTime(Value, provider);
+    DateTime IConvertible.ToDateTime(IFormatProvider? provider)
+    {
+        return Convert.ToDateTime(Value, provider);
+    }
 
-    object IConvertible.ToType(Type type, IFormatProvider? provider) => type == typeof(Ticks) ? Value : Convert.ChangeType(Value, type, provider);
+    object IConvertible.ToType(Type type, IFormatProvider? provider)
+    {
+        return type == typeof(Ticks) ? Value : Convert.ChangeType(Value, type, provider);
+    }
 
     #endregion
 
@@ -801,7 +939,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator ==(Ticks value1, Ticks value2) => value1.Value == value2.Value;
+    public static bool operator ==(Ticks value1, Ticks value2)
+    {
+        return value1.Value == value2.Value;
+    }
 
     /// <summary>
     /// Compares the two values for inequality.
@@ -809,7 +950,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator !=(Ticks value1, Ticks value2) => value1.Value != value2.Value;
+    public static bool operator !=(Ticks value1, Ticks value2)
+    {
+        return value1.Value != value2.Value;
+    }
 
     /// <summary>
     /// Returns true if left value is less than right value.
@@ -817,7 +961,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator <(Ticks value1, Ticks value2) => value1.Value < value2.Value;
+    public static bool operator <(Ticks value1, Ticks value2)
+    {
+        return value1.Value < value2.Value;
+    }
 
     /// <summary>
     /// Returns true if left value is less or equal to than right value.
@@ -825,7 +972,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator <=(Ticks value1, Ticks value2) => value1.Value <= value2.Value;
+    public static bool operator <=(Ticks value1, Ticks value2)
+    {
+        return value1.Value <= value2.Value;
+    }
 
     /// <summary>
     /// Returns true if left value is greater than right value.
@@ -833,7 +983,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator >(Ticks value1, Ticks value2) => value1.Value > value2.Value;
+    public static bool operator >(Ticks value1, Ticks value2)
+    {
+        return value1.Value > value2.Value;
+    }
 
     /// <summary>
     /// Returns true if left value is greater than or equal to right value.
@@ -841,7 +994,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator >=(Ticks value1, Ticks value2) => value1.Value >= value2.Value;
+    public static bool operator >=(Ticks value1, Ticks value2)
+    {
+        return value1.Value >= value2.Value;
+    }
 
     #endregion
 
@@ -852,63 +1008,90 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// </summary>
     /// <param name="value"><see cref="long"/> value to convert.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static implicit operator Ticks(long value) => new(value);
+    public static implicit operator Ticks(long value)
+    {
+        return new Ticks(value);
+    }
 
     /// <summary>
     /// Implicitly converts value, represented as a <see cref="DateTime"/>, to a <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value"><see cref="DateTime"/> value to convert.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static implicit operator Ticks(DateTime value) => new(value);
+    public static implicit operator Ticks(DateTime value)
+    {
+        return new Ticks(value);
+    }
 
     /// <summary>
     /// Implicitly converts value, represented as a <see cref="TimeSpan"/>, to a <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value"><see cref="TimeSpan"/> value to convert.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static implicit operator Ticks(TimeSpan value) => new(value);
+    public static implicit operator Ticks(TimeSpan value)
+    {
+        return new Ticks(value);
+    }
 
     /// <summary>
     /// Implicitly converts value, represented as a <see cref="TimeTagBase"/>, to a <see cref="Ticks"/>.
     /// </summary>
     /// <param name="value"><see cref="TimeTagBase"/> value to convert.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static implicit operator Ticks(TimeTagBase value) => new(value.ToDateTime());
+    public static implicit operator Ticks(TimeTagBase value)
+    {
+        return new Ticks(value.ToDateTime());
+    }
 
     /// <summary>
     /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to an <see cref="long"/>.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to convert.</param>
     /// <returns><see cref="long"/> value representing the result.</returns>
-    public static implicit operator long(Ticks value) => value.Value;
+    public static implicit operator long(Ticks value)
+    {
+        return value.Value;
+    }
 
     /// <summary>
     /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to a <see cref="DateTime"/>.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to convert.</param>
     /// <returns><see cref="DateTime"/> value representing the result.</returns>
-    public static implicit operator DateTime(Ticks value) => new(value.Value);
+    public static implicit operator DateTime(Ticks value)
+    {
+        return new DateTime(value.Value);
+    }
 
     /// <summary>
     /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to a <see cref="TimeSpan"/>.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to convert.</param>
     /// <returns><see cref="TimeSpan"/> value representing the result.</returns>
-    public static implicit operator TimeSpan(Ticks value) => new(value.Value);
+    public static implicit operator TimeSpan(Ticks value)
+    {
+        return new TimeSpan(value.Value);
+    }
 
     /// <summary>
     /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to an <see cref="NtpTimeTag"/>.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to convert.</param>
     /// <returns><see cref="NtpTimeTag"/> value representing the result.</returns>
-    public static implicit operator NtpTimeTag(Ticks value) => new(new DateTime(value.Value));
+    public static implicit operator NtpTimeTag(Ticks value)
+    {
+        return new NtpTimeTag(new DateTime(value.Value));
+    }
 
     /// <summary>
     /// Implicitly converts <see cref="Ticks"/>, represented in ticks, to a <see cref="UnixTimeTag"/>.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to convert.</param>
     /// <returns><see cref="UnixTimeTag"/> value representing the result.</returns>
-    public static implicit operator UnixTimeTag(Ticks value) => new(new DateTime(value.Value));
+    public static implicit operator UnixTimeTag(Ticks value)
+    {
+        return new UnixTimeTag(new DateTime(value.Value));
+    }
 
     #endregion
 
@@ -919,21 +1102,30 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to evaluate.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator true(Ticks value) => value.Value != 0;
+    public static bool operator true(Ticks value)
+    {
+        return value.Value != 0;
+    }
 
     /// <summary>
     /// Returns true if value is equal to zero.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to evaluate.</param>
     /// <returns><see cref="bool"/> value representing the result.</returns>
-    public static bool operator false(Ticks value) => value.Value == 0;
+    public static bool operator false(Ticks value)
+    {
+        return value.Value == 0;
+    }
 
     /// <summary>
     /// Returns bitwise complement of value.
     /// </summary>
     /// <param name="value"><see cref="Ticks"/> value to evaluate.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator ~(Ticks value) => new(~value.Value);
+    public static Ticks operator ~(Ticks value)
+    {
+        return new Ticks(~value.Value);
+    }
 
     /// <summary>
     /// Returns logical bitwise AND of values.
@@ -941,7 +1133,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator &(Ticks value1, Ticks value2) => new(value1.Value & value2.Value);
+    public static Ticks operator &(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value & value2.Value);
+    }
 
     /// <summary>
     /// Returns logical bitwise OR of values.
@@ -949,7 +1144,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator |(Ticks value1, Ticks value2) => new(value1.Value | value2.Value);
+    public static Ticks operator |(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value | value2.Value);
+    }
 
     /// <summary>
     /// Returns logical bitwise exclusive-OR of values.
@@ -957,7 +1155,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1"><see cref="Ticks"/> left hand operand.</param>
     /// <param name="value2"><see cref="Ticks"/> right hand operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator ^(Ticks value1, Ticks value2) => new(value1.Value ^ value2.Value);
+    public static Ticks operator ^(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value ^ value2.Value);
+    }
 
     /// <summary>
     /// Returns value after right shifts of first value by the number of bits specified by second value.
@@ -965,7 +1166,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value"><see cref="Ticks"/> value to shift.</param>
     /// <param name="shifts"><see cref="int"/> number of bits to shift.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator >>(Ticks value, int shifts) => new(value.Value >> shifts);
+    public static Ticks operator >>(Ticks value, int shifts)
+    {
+        return new Ticks(value.Value >> shifts);
+    }
 
     /// <summary>
     /// Returns value after left shifts of first value by the number of bits specified by second value.
@@ -973,7 +1177,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value"><see cref="Ticks"/> value to shift.</param>
     /// <param name="shifts"><see cref="int"/> number of bits to shift.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator <<(Ticks value, int shifts) => new(value.Value << shifts);
+    public static Ticks operator <<(Ticks value, int shifts)
+    {
+        return new Ticks(value.Value << shifts);
+    }
 
     #endregion
 
@@ -985,7 +1192,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator %(Ticks value1, Ticks value2) => new(value1.Value % value2.Value);
+    public static Ticks operator %(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value % value2.Value);
+    }
 
     /// <summary>
     /// Returns computed sum of values.
@@ -993,7 +1203,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator +(Ticks value1, Ticks value2) => new(value1.Value + value2.Value);
+    public static Ticks operator +(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value + value2.Value);
+    }
 
     /// <summary>
     /// Returns computed difference of values.
@@ -1001,7 +1214,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator -(Ticks value1, Ticks value2) => new(value1.Value - value2.Value);
+    public static Ticks operator -(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value - value2.Value);
+    }
 
     /// <summary>
     /// Returns computed product of values.
@@ -1009,7 +1225,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator *(Ticks value1, Ticks value2) => new(value1.Value * value2.Value);
+    public static Ticks operator *(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value * value2.Value);
+    }
 
     // Integer division operators
 
@@ -1019,7 +1238,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value1">Left hand <see cref="Ticks"/> operand.</param>
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="Ticks"/> value representing the result.</returns>
-    public static Ticks operator /(Ticks value1, Ticks value2) => new(value1.Value / value2.Value);
+    public static Ticks operator /(Ticks value1, Ticks value2)
+    {
+        return new Ticks(value1.Value / value2.Value);
+    }
 
     // C# doesn't expose an exponent operator but some other .NET languages do,
     // so we expose the operator via its native special IL function name
@@ -1031,7 +1253,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="value2">Right hand <see cref="Ticks"/> operand.</param>
     /// <returns><see cref="double"/> value representing the result.</returns>
     [EditorBrowsable(EditorBrowsableState.Advanced), SpecialName]
-    public static double op_Exponent(Ticks value1, Ticks value2) => Math.Pow(value1.Value, value2.Value);
+    public static double op_Exponent(Ticks value1, Ticks value2)
+    {
+        return Math.Pow(value1.Value, value2.Value);
+    }
 
     #endregion
 
@@ -1057,7 +1282,13 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// Gets a high-resolution number of seconds, including fractional seconds, that have
     /// elapsed since 12:00:00 midnight, January 1, 0001.
     /// </summary>
-    public static double SystemTimer => ToSeconds(DateTime.UtcNow.Ticks);
+    public static double SystemTimer
+    {
+        get
+        {
+            return ToSeconds(DateTime.UtcNow.Ticks);
+        }
+    }
 
     // Static Methods
 
@@ -1070,7 +1301,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of seconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public static double ToSeconds(Ticks value) => value / (double)PerSecond;
+    public static double ToSeconds(Ticks value)
+    {
+        return value / (double)PerSecond;
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/>, in 100-nanosecond tick intervals, to milliseconds.
@@ -1081,7 +1315,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of milliseconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public static double ToMilliseconds(Ticks value) => value / (double)PerMillisecond;
+    public static double ToMilliseconds(Ticks value)
+    {
+        return value / (double)PerMillisecond;
+    }
 
     /// <summary>
     /// Converts <paramref name="value"/>, in 100-nanosecond tick intervals, to microseconds.
@@ -1092,28 +1329,40 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// If <paramref name="value"/> represents an instant in time, returned value will represent the number of microseconds
     /// that have elapsed since 12:00:00 midnight, January 1, 0001.
     /// </remarks>
-    public static double ToMicroseconds(Ticks value) => value / (double)PerMicrosecond;
+    public static double ToMicroseconds(Ticks value)
+    {
+        return value / (double)PerMicrosecond;
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in seconds.
     /// </summary>
     /// <param name="value">New <see cref="Ticks"/> value in seconds.</param>
     /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in seconds.</returns>
-    public static Ticks FromSeconds(double value) => new((long)(value * PerSecond));
+    public static Ticks FromSeconds(double value)
+    {
+        return new Ticks((long)(value * PerSecond));
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in milliseconds.
     /// </summary>
     /// <param name="value">New <see cref="Ticks"/> value in milliseconds.</param>
     /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in milliseconds.</returns>
-    public static Ticks FromMilliseconds(double value) => new((long)(value * PerMillisecond));
+    public static Ticks FromMilliseconds(double value)
+    {
+        return new Ticks((long)(value * PerMillisecond));
+    }
 
     /// <summary>
     /// Creates a new <see cref="Ticks"/> from the specified <paramref name="value"/> in microseconds.
     /// </summary>
     /// <param name="value">New <see cref="Ticks"/> value in microseconds.</param>
     /// <returns>New <see cref="Ticks"/> object from the specified <paramref name="value"/> in microseconds.</returns>
-    public static Ticks FromMicroseconds(double value) => new((long)(value * PerMicrosecond));
+    public static Ticks FromMicroseconds(double value)
+    {
+        return new Ticks((long)(value * PerMicrosecond));
+    }
 
     /// <summary>
     /// Converts the string representation of a number to its <see cref="Ticks"/> equivalent.
@@ -1127,7 +1376,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
     /// </exception>
     /// <exception cref="FormatException">s is not in the correct format.</exception>
-    public static Ticks Parse(string s) => long.Parse(s);
+    public static Ticks Parse(string s)
+    {
+        return long.Parse(s);
+    }
 
     /// <summary>
     /// Converts the string representation of a number in a specified style to its <see cref="Ticks"/> equivalent.
@@ -1148,7 +1400,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
     /// </exception>
     /// <exception cref="FormatException">s is not in a format compliant with style.</exception>
-    public static Ticks Parse(string s, NumberStyles style) => long.Parse(s, style);
+    public static Ticks Parse(string s, NumberStyles style)
+    {
+        return long.Parse(s, style);
+    }
 
     /// <summary>
     /// Converts the string representation of a number in a specified culture-specific format to its <see cref="Ticks"/> equivalent.
@@ -1165,7 +1420,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
     /// </exception>
     /// <exception cref="FormatException">s is not in the correct format.</exception>
-    public static Ticks Parse(string s, IFormatProvider? provider) => long.Parse(s, provider);
+    public static Ticks Parse(string s, IFormatProvider? provider)
+    {
+        return long.Parse(s, provider);
+    }
 
     /// <summary>
     /// Converts the string representation of a number in a specified style and culture-specific format to its <see cref="Ticks"/> equivalent.
@@ -1189,7 +1447,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// s represents a number less than <see cref="Ticks.MinValue"/> or greater than <see cref="Ticks.MaxValue"/>.
     /// </exception>
     /// <exception cref="FormatException">s is not in a format compliant with style.</exception>
-    public static Ticks Parse(string s, NumberStyles style, IFormatProvider? provider) => long.Parse(s, style, provider);
+    public static Ticks Parse(string s, NumberStyles style, IFormatProvider? provider)
+    {
+        return long.Parse(s, style, provider);
+    }
 
     /// <summary>
     /// Converts the string representation of a number to its <see cref="Ticks"/> equivalent. A return value
@@ -1262,14 +1523,20 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// </summary>
     /// <param name="samplesPerSecond">Samples per second.</param>
     /// <returns>Array of sub-second time distribution in milliseconds.</returns>
-    public static int[] MillisecondDistribution(int samplesPerSecond) => SubsecondDistribution(samplesPerSecond).Select(ticks => (int)ticks.ToMilliseconds()).ToArray();
+    public static int[] MillisecondDistribution(int samplesPerSecond)
+    {
+        return SubsecondDistribution(samplesPerSecond).Select(ticks => (int)ticks.ToMilliseconds()).ToArray();
+    }
 
     /// <summary>
     /// Gets a sub-second time distribution in microseconds for the specified <paramref name="samplesPerSecond"/>.
     /// </summary>
     /// <param name="samplesPerSecond">Samples per second.</param>
     /// <returns>Array of sub-second time distribution in microseconds.</returns>
-    public static int[] MicrosecondDistribution(int samplesPerSecond) => SubsecondDistribution(samplesPerSecond).Select(ticks => (int)ticks.ToMicroseconds()).ToArray();
+    public static int[] MicrosecondDistribution(int samplesPerSecond)
+    {
+        return SubsecondDistribution(samplesPerSecond).Select(ticks => (int)ticks.ToMicroseconds()).ToArray();
+    }
 
     /// <summary>
     /// Returns a floor-aligned sub-second distribution timestamp for given <paramref name="timestamp"/>.
@@ -1359,7 +1626,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="timestamp">Timestamp to align.</param>
     /// <param name="samplesPerSecond">Samples per second to use for distribution.</param>
     /// <returns>A floor-aligned millisecond distribution timestamp for given <paramref name="timestamp"/>.</returns>
-    public static Ticks AlignToMillisecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMillisecond);
+    public static Ticks AlignToMillisecondDistribution(Ticks timestamp, int samplesPerSecond)
+    {
+        return AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMillisecond);
+    }
 
     /// <summary>
     /// Returns a floor-aligned microsecond distribution timestamp for given <paramref name="timestamp"/>.
@@ -1367,7 +1637,10 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// <param name="timestamp">Timestamp to align.</param>
     /// <param name="samplesPerSecond">Samples per second to use for distribution.</param>
     /// <returns>A floor-aligned microsecond distribution timestamp for given <paramref name="timestamp"/>.</returns>
-    public static Ticks AlignToMicrosecondDistribution(Ticks timestamp, int samplesPerSecond) => AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMicrosecond);
+    public static Ticks AlignToMicrosecondDistribution(Ticks timestamp, int samplesPerSecond)
+    {
+        return AlignToSubsecondDistribution(timestamp, samplesPerSecond, PerMicrosecond);
+    }
 
     /// <summary>
     /// Returns the nearest sub-second distribution timestamp for given <paramref name="timestamp"/>.
