@@ -947,7 +947,9 @@ public static class FilePath
     /// <returns>File name and extension if the file path has it; otherwise empty string.</returns>
     public static string GetFileName(string filePath)
     {
-        return Path.GetFileName(filePath);
+        // Test for case where there is no file name and valid path does not end in directory separator,
+        // Path.GetFileName will return the last path segment as the file name in this case
+        return Directory.Exists(filePath) ? string.Empty : Path.GetFileName(filePath);
     }
 
     /// <summary>
