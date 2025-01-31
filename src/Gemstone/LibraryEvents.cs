@@ -137,9 +137,7 @@ public static class LibraryEvents
         // Have to use custom exception handler here, default SafeInvoke handler already calls LibraryEvents.OnSuppressedException
         static void exceptionHandler(Exception ex, Delegate handler)
         {
-            throw new Exception(
-                $"Failed in {nameof(Gemstone)}.{nameof(LibraryEvents)}.{nameof(SuppressedException)} event handler \"{handler.GetHandlerName()}\": {ex.Message}",
-                ex);
+            throw new Exception($"Failed in {nameof(Gemstone)}.{nameof(LibraryEvents)}.{nameof(SuppressedException)} event handler \"{handler.GetHandlerName()}\": {ex.Message}", ex);
         }
 
         s_suppressedExceptionHandler.SafeInvoke(s_suppressedExceptionLock, exceptionHandler, sender, new UnhandledExceptionEventArgs(ex, false));
