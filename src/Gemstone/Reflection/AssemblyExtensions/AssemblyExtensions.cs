@@ -52,7 +52,7 @@ public static class AssemblyExtensions
     /// <returns>The assembly name and version from the full assembly name.</returns>
     public static string ShortName(this Assembly instance)
     {
-        return instance.FullName?.Split(',')[0] ?? instance.GetName().ToString().Split(',')[0];
+        return instance.FullName.Split(',')[0] ?? instance.GetName().ToString().Split(',')[0];
     }
 
     /// <summary>
@@ -314,7 +314,9 @@ public static class AssemblyExtensions
         }
         catch (Exception ex)
         {
-            LibraryEvents.OnSuppressedException(typeof(AssemblyExtensions), new Exception($"TryLoadAllReferences exception: {ex.Message}", ex));
+            // Ignore file not found exceptions
+            if (ex is not FileNotFoundException)
+                LibraryEvents.OnSuppressedException(typeof(AssemblyExtensions), new Exception($"TryLoadAllReferences exception: {ex.Message}", ex));
 
             // Error loading a referenced assembly
             return false;
