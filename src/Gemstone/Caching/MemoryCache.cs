@@ -29,7 +29,7 @@ using Gemstone.TypeExtensions;
 namespace Gemstone.Caching;
 
 /// <summary>
-/// Represents a generic memory cache for a specific type <typeparamref name="T"/>.
+/// Represents a generic sliding memory cache for a specific type <typeparamref name="T"/>.
 /// </summary>
 /// <typeparam name="T">Type of value to cache.</typeparam>
 /// <remarks>
@@ -48,11 +48,21 @@ public static class MemoryCache<T>
     }
 
     /// <summary>
+    /// Keeps a cache entry alive by resetting its expiration time.
+    /// </summary>
+    /// <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T"/>.</param>
+    /// <returns><c>true</c> if value was found in cache; otherwise, <c>false</c>.</returns>
+    public static bool KeepAlive(string cacheName)
+    {
+        return TryGet(cacheName, out _);
+    }
+
+    /// <summary>
     /// Try to get a value from the memory cache.
     /// </summary>
     /// <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T"/>.</param>
     /// <param name="value">Value from cache if already cached; otherwise, default value for <typeparamref name="T"/>.</param>
-    /// <returns></returns>
+    /// <returns><c>true</c> if value was found in cache; otherwise, <c>false</c>.</returns>
     public static bool TryGet(string cacheName, out T? value)
     {
         if (s_memoryCache.Get(cacheName) is not Lazy<T> cachedValue)
