@@ -23,6 +23,7 @@
 
 using System;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using Gemstone.EventHandlerExtensions;
 
@@ -61,6 +62,7 @@ public static class LibraryEvents
 {
     private static EventHandler<UnhandledExceptionEventArgs>? s_suppressedExceptionHandler;
     private static readonly object s_suppressedExceptionLock = new();
+    private static int s_attached;
 
     static LibraryEvents()
     {
@@ -77,7 +79,8 @@ public static class LibraryEvents
     /// </remarks>
     public static void EnableUnobservedTaskExceptionHandling()
     {
-        TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+        if (Interlocked.CompareExchange(ref s_attached, 1, 0) == 0)
+            TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
     }
 
     /// <summary>
@@ -86,7 +89,8 @@ public static class LibraryEvents
     /// </summary>
     public static void DisableUnobservedTaskExceptionHandling()
     {
-        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+        if (Interlocked.CompareExchange(ref s_attached, 0, 1) == 1)
+            TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
     }
 
     private static void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
