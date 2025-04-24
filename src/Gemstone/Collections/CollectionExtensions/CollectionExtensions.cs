@@ -1236,7 +1236,7 @@ public static class CollectionExtensions
     /// <returns>An <see cref="int"/> which returns 0 if they are equal, 1 if <paramref name="array1"/> is larger, or -1 if <paramref name="array2"/> is larger.</returns>
     /// <typeparam name="TSource"><see cref="Type"/> of the array.</typeparam>
     /// <exception cref="ArgumentException">Cannot compare multidimensional arrays.</exception>
-    public static int CompareTo<TSource>(this TSource[] array1, TSource[] array2, bool orderIsImportant = true)
+    public static int CompareTo<TSource>(this TSource[]? array1, TSource[]? array2, bool orderIsImportant = true)
     {
         return CompareTo(array1, array2, Comparer<TSource>.Default, orderIsImportant);
     }
