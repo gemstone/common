@@ -44,6 +44,7 @@ using Gemstone.EventHandlerExtensions;
 [assembly: InternalsVisibleTo("Gemstone.Threading")]
 [assembly: InternalsVisibleTo("Gemstone.Timeseries")]
 [assembly: InternalsVisibleTo("Gemstone.Web")]
+[assembly: InternalsVisibleTo("SnapDB")]
 
 // ReSharper disable DelegateSubtraction
 
