@@ -161,7 +161,7 @@ public class ScheduleManager : IDisposable, IProvideStatus
     public ScheduleManager()
     {
         m_name = GetType().Name;
-        m_schedules = new List<Schedule>();
+        m_schedules = [];
     }
 
     #endregion

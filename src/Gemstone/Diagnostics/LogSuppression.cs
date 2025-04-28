@@ -66,7 +66,7 @@ public static class LogSuppression
     /// </summary>
     private class ThreadStack
     {
-        private readonly List<SuppressionMode> m_logMessageSuppressionStack = new();
+        private readonly List<SuppressionMode> m_logMessageSuppressionStack = [];
 
         public bool ShouldSuppressLogMessages
         {

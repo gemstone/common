@@ -53,7 +53,7 @@ public abstract class BinaryImageParserBase : Stream, IBinaryImageParser
     /// <summary>
     /// Specifies the default value for the <see cref="ProtocolSyncBytes"/> property.
     /// </summary>
-    public static readonly byte[] DefaultProtocolSyncBytes = { 0xAA };
+    public static readonly byte[] DefaultProtocolSyncBytes = [0xAA];
 
     // Events
 

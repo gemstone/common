@@ -190,27 +190,27 @@ public static class SI2
     /// <summary>
     /// Gets an array of all the defined common binary unit factor SI names ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
     /// </summary>
-    public static string[] Names { get; } = { "kilo", "mega", "giga", "tera", "peta", "exa" };
+    public static string[] Names { get; } = ["kilo", "mega", "giga", "tera", "peta", "exa"];
 
     /// <summary>
     /// Gets an array of all the defined common binary unit factor SI prefix symbols ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
     /// </summary>
-    public static string[] Symbols { get; } = { "K", "M", "G", "T", "P", "E" };
+    public static string[] Symbols { get; } = ["K", "M", "G", "T", "P", "E"];
 
     /// <summary>
     /// Gets an array of all the defined IEC binary unit factor SI names ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
     /// </summary>
-    public static string[] IECNames { get; } = { "kibi", "mebi", "gibi", "tebi", "pebi", "exbi" };
+    public static string[] IECNames { get; } = ["kibi", "mebi", "gibi", "tebi", "pebi", "exbi"];
 
     /// <summary>
     /// Gets an array of all the defined IEC binary unit factor SI prefix symbols ordered from least (<see cref="Kibi"/>) to greatest (<see cref="Exbi"/>).
     /// </summary>
-    public static string[] IECSymbols { get; } = { "Ki", "Mi", "Gi", "Ti", "Pi", "Ei" };
+    public static string[] IECSymbols { get; } = ["Ki", "Mi", "Gi", "Ti", "Pi", "Ei"];
 
     /// <summary>
     /// Gets an array of all the defined binary SI unit factors ordered from least (<see cref="Kilo"/>) to greatest (<see cref="Exa"/>).
     /// </summary>
-    public static long[] Factors { get; } = { Kilo, Mega, Giga, Tera, Peta, Exa };
+    public static long[] Factors { get; } = [Kilo, Mega, Giga, Tera, Peta, Exa];
 
     /// <summary>
     /// Turns the given number of units (e.g., bytes) into a textual representation with an appropriate unit scaling

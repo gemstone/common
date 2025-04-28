@@ -112,7 +112,7 @@ public class InterprocessCache : IDisposable
         MaximumConcurrentLocks = maximumConcurrentLocks;
         MaximumRetryAttempts = DefaultMaximumRetryAttempts;
         m_retryQueue = new BitArray(2);
-        m_fileData = Array.Empty<byte>();
+        m_fileData = [];
 
         // Setup retry timer
         m_retryTimer = new Timer();
@@ -173,7 +173,7 @@ public class InterprocessCache : IDisposable
             // Calls to this property are blocked until data is available
             WaitForLoad();
 
-            byte[] fileData = Interlocked.CompareExchange(ref m_fileData, default, default) ?? Array.Empty<byte>();
+            byte[] fileData = Interlocked.CompareExchange(ref m_fileData, default, default) ?? [];
 
             return fileData.Copy(0, fileData.Length);
         }
@@ -185,7 +185,7 @@ public class InterprocessCache : IDisposable
             bool dataChanged = false;
 
             // If value is null, assume user means zero-length file
-            value ??= Array.Empty<byte>();
+            value ??= [];
 
             byte[]? fileData = Interlocked.Exchange(ref m_fileData, value);
 
@@ -561,7 +561,7 @@ public class InterprocessCache : IDisposable
             else
             {
                 // File doesn't exist, create an empty array representing a zero-length file
-                m_fileData = Array.Empty<byte>();
+                m_fileData = [];
 
                 // Release any threads waiting for file data
                 m_loadIsReady.Set();

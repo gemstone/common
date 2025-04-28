@@ -265,7 +265,7 @@ public static class StringExtensions
         if (type.IsArray)
         {
             Type elementType = type.GetElementType()!;
-            string[] items = value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+            string[] items = value.Split([';'], StringSplitOptions.RemoveEmptyEntries);
             Array array = Array.CreateInstance(elementType, items.Length);
 
             for (int i = 0; i < items.Length; i++)
@@ -281,7 +281,7 @@ public static class StringExtensions
             IList list = (IList)Activator.CreateInstance(listType)!;
 
             // Parse list values
-            foreach (string item in value.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (string item in value.Split([';'], StringSplitOptions.RemoveEmptyEntries))
                 list.Add(ConvertToType(item, type.GetGenericArguments()[0], culture)!);
 
             return list;
@@ -457,7 +457,7 @@ public static class StringExtensions
             throw new ArgumentOutOfRangeException(nameof(segmentSize), "segmentSize must be greater than zero.");
 
         if (string.IsNullOrEmpty(value))
-            return new[] { "" };
+            return [""];
 
         int totalSegments = (int)Math.Ceiling(value.Length / (double)segmentSize);
         string[] segments = new string[totalSegments];
@@ -495,8 +495,8 @@ public static class StringExtensions
         if (pairs is null)
             throw new ArgumentNullException(nameof(pairs));
 
-        char[] delimiters = { parameterDelimiter, keyValueDelimiter, startValueDelimiter, endValueDelimiter };
-        List<string> values = new();
+        char[] delimiters = [parameterDelimiter, keyValueDelimiter, startValueDelimiter, endValueDelimiter];
+        List<string> values = [];
 
         foreach (string key in pairs.Keys)
         {
@@ -1405,7 +1405,7 @@ public static class StringExtensions
 
         // If the text to be centered contains multiple lines, centers all the lines individually.
         StringBuilder result = new();
-        string[] lines = value.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+        string[] lines = value.Split([Environment.NewLine], StringSplitOptions.None);
         int lastLineIndex = lines.Length - 1; //(lines.Length != 0 && lines[lines.Length - 1].Trim() == string.Empty ? lines.Length - 2 : lines.Length - 1);
 
         for (int i = 0; i <= lastLineIndex; i++)

@@ -44,8 +44,8 @@ namespace Gemstone.CharExtensions;
 public static class CharExtensions
 {
     // so that this only happens one time
-    private static readonly char[] s_wordSeperators = { '\"', '/', '\\', '<', '>', '=', '{', '}', '(', ')', '[', ']', '@', '*' };
-    private static readonly char[] s_numericValues = { '-', '+', ',', '.' };
+    private static readonly char[] s_wordSeparators = ['\"', '/', '\\', '<', '>', '=', '{', '}', '(', ')', '[', ']', '@', '*'];
+    private static readonly char[] s_numericValues = ['-', '+', ',', '.'];
 
     /// <summary>
     /// Encodes the specified Unicode character in proper Regular Expression format.
@@ -81,7 +81,7 @@ public static class CharExtensions
                char.IsWhiteSpace(value) ||
                char.IsSymbol(value) ||
                char.IsControl(value) ||
-               value.IsAnyOf(s_wordSeperators);
+               value.IsAnyOf(s_wordSeparators);
     }
 
     /// <summary>

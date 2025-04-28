@@ -80,7 +80,7 @@ public class AppDomainTypeLookup
     public List<Type> FindTypes()
     {
         if (!HasChanged)
-            return new List<Type>();
+            return [];
 
         lock (m_syncRoot)
         {
@@ -92,7 +92,7 @@ public class AppDomainTypeLookup
 
     private List<Type> LoadNewAssemblies()
     {
-        List<Type> types = new();
+        List<Type> types = [];
 
         try
         {

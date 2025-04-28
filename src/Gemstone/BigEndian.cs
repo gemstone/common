@@ -500,7 +500,7 @@ public static class BigEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(bool value)
     {
-        return new[] { value ? (byte)1 : (byte)0 };
+        return [value ? (byte)1 : (byte)0];
     }
 
     /// <summary>
@@ -533,11 +533,11 @@ public static class BigEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(short value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)(value >> 8),
             (byte)value
-        };
+        ];
     }
 
     /// <summary>
@@ -548,13 +548,13 @@ public static class BigEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(int value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)(value >> 24),
             (byte)(value >> 16),
             (byte)(value >> 8),
             (byte)value
-        };
+        ];
     }
 
     /// <summary>
@@ -565,8 +565,8 @@ public static class BigEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(long value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)(value >> 56),
             (byte)(value >> 48),
             (byte)(value >> 40),
@@ -575,7 +575,7 @@ public static class BigEndian
             (byte)(value >> 16),
             (byte)(value >> 8),
             (byte)value
-        };
+        ];
     }
 
     /// <summary>

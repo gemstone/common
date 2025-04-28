@@ -125,7 +125,7 @@ public class SchedulePart
     /// <param name="dateTimePart">The <see cref="DateTimePart"/> that the <see cref="SchedulePart"/> object represents.</param>
     public SchedulePart(string valueText, DateTimePart dateTimePart)
     {
-        m_values = new List<int>();
+        m_values = [];
 
         if (ValidateAndPopulate(valueText, dateTimePart))
         {

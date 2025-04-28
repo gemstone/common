@@ -59,7 +59,7 @@ public class CertificateGenerator
     /// </summary>
     public CertificateGenerator()
     {
-        m_debugLog = new List<string>();
+        m_debugLog = [];
     }
 
     #endregion
@@ -129,7 +129,7 @@ public class CertificateGenerator
     {
         get
         {
-            return new(m_debugLog);
+            return [..m_debugLog];
         }
     }
 
@@ -148,11 +148,11 @@ public class CertificateGenerator
 
         m_debugLog.Clear();
 
-        List<X509Store> stores = new()
-        {
+        List<X509Store> stores =
+        [
             new X509Store(StoreName.My, StoreLocation.LocalMachine),
             new X509Store(StoreName.My, StoreLocation.CurrentUser)
-        };
+        ];
 
         // Attempt to get an existing certificate from the given certificate path
         string certificatePath = FilePath.GetAbsolutePath(CertificatePath);
@@ -391,7 +391,7 @@ public class CertificateGenerator
             .Distinct()
             .Select(address => address.ToString())
             .Concat(hostEntry.Aliases)
-            .Concat(new[] { Environment.MachineName, hostEntry.HostName })
+            .Concat([Environment.MachineName, hostEntry.HostName])
             .ToArray();
     }
 

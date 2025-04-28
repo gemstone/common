@@ -42,7 +42,7 @@ public class SimpleCertificateChecker : ICertificateChecker
     /// </summary>
     public SimpleCertificateChecker()
     {
-        TrustedCertificates = new List<X509Certificate>();
+        TrustedCertificates = [];
         ValidPolicyErrors = SslPolicyErrors.None;
         ValidChainFlags = X509ChainStatusFlags.NoError;
     }

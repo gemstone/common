@@ -187,17 +187,20 @@ public static class SI
     /// <summary>
     /// Gets an array of all the defined unit factor SI names ordered from least (<see cref="Yocto"/>) to greatest (<see cref="Yotta"/>).
     /// </summary>
-    public static string[] Names { get; } = { "yocto", "zepto", "atto", "femto", "pico", "nano", "micro", "milli", "centi", "deci", "deca", "hecto", "kilo", "mega", "giga", "tera", "peta", "exa", "zetta", "yotta" };
+    public static string[] Names { get; } = ["yocto", "zepto", "atto", "femto", "pico", "nano", "micro", "milli", "centi", "deci", "deca", "hecto", "kilo", "mega", "giga", "tera", "peta", "exa", "zetta", "yotta"
+    ];
 
     /// <summary>
     /// Gets an array of all the defined unit factor SI prefix symbols ordered from least (<see cref="Yocto"/>) to greatest (<see cref="Yotta"/>).
     /// </summary>
-    public static string[] Symbols { get; } = { "y", "z", "a", "f", "p", "n", "µ", "m", "c", "d", "da", "h", "k", "M", "G", "T", "P", "E", "Z", "Y" };
+    public static string[] Symbols { get; } = ["y", "z", "a", "f", "p", "n", "µ", "m", "c", "d", "da", "h", "k", "M", "G", "T", "P", "E", "Z", "Y"
+    ];
 
     /// <summary>
     /// Gets an array of all the defined SI unit factors ordered from least (<see cref="Yocto"/>) to greatest (<see cref="Yotta"/>).
     /// </summary>
-    public static double[] Factors { get; } = { Yocto, Zepto, Atto, Femto, Pico, Nano, Micro, Milli, Centi, Deci, Deca, Hecto, Kilo, Mega, Giga, Tera, Peta, Exa, Zetta, Yotta };
+    public static double[] Factors { get; } = [Yocto, Zepto, Atto, Femto, Pico, Nano, Micro, Milli, Centi, Deci, Deca, Hecto, Kilo, Mega, Giga, Tera, Peta, Exa, Zetta, Yotta
+    ];
 
     /// <summary>
     /// Turns the given number of units into a textual representation with an appropriate unit scaling.

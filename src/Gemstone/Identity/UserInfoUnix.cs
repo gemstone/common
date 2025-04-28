@@ -893,7 +893,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     // Static Constructor
     static UserInfoUnix()
     {
-        List<string> builtInGroups = new();
+        List<string> builtInGroups = [];
 
         foreach (string builtInGroup in new[] { "root", "sys", "tty", "lp", "man", "wheel" })
         {
@@ -1473,7 +1473,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     private static HashSet<string> GetLocalGroupUserSet(string groupName)
     {
         if (GetLocalGroupMembers(groupName, out IntPtr groupMembers) != 0)
-            return new HashSet<string>();
+            return [];
 
         try
         {
@@ -1541,7 +1541,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     // User name expected to be pre-validated
     private static string[] GetLocalUserGroups(string userName)
     {
-        List<string> groups = new();
+        List<string> groups = [];
         int groupCount = GetLocalUserGroupCount(userName);
 
         if (groupCount > 0)
@@ -1713,7 +1713,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     // Parse LDAP distinguished name tokens
     private static string ParseDNTokens(string dn, string token, char delimiter = '.')
     {
-        List<string> tokens = new();
+        List<string> tokens = [];
         string[] elements = dn.Split(',');
 
         for (int i = 0; i < elements.Length; i++)
@@ -1745,7 +1745,7 @@ internal sealed class UserInfoUnix // : IUserInfo
     private static string[] PtrToStringArray(IntPtr stringArray)
     {
         if (stringArray == IntPtr.Zero)
-            return new string[] { };
+            return [];
 
         return PtrToStringArray(CountStrings(stringArray), stringArray);
     }

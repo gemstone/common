@@ -653,7 +653,7 @@ public class AssemblyInfo
             return resourceAssembly;
 
         // Loops through all of the resources in the executing assembly
-        foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? Array.Empty<string>())
+        foreach (string name in Assembly.GetEntryAssembly()?.GetManifestResourceNames() ?? [])
         {
             // Sees if the embedded resource name matches the assembly it is trying to load.
             if (string.Compare(FilePath.GetFileNameWithoutExtension(name), $"{EntryAssembly?.RootNamespace ?? nameof(Gemstone)}.{shortName}", StringComparison.OrdinalIgnoreCase) != 0)

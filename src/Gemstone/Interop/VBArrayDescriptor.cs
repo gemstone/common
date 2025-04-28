@@ -82,7 +82,7 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     {
         if (arrayLengths.Length == arrayLowerBounds.Length)
         {
-            m_arrayDimensionDescriptors = new List<DimensionDescriptor>();
+            m_arrayDimensionDescriptors = [];
 
             for (int i = 0; i < arrayLengths.Length; i++)
                 m_arrayDimensionDescriptors.Add(new DimensionDescriptor(arrayLengths[i], arrayLowerBounds[i]));
@@ -156,7 +156,7 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
     public static VBArrayDescriptor ZeroBasedOneDimensionalArray(int arrayLength)
     {
-        return new VBArrayDescriptor(new[] { arrayLength }, new[] { 0 });
+        return new VBArrayDescriptor([arrayLength], [0]);
     }
 
     /// <summary>
@@ -166,7 +166,7 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
     public static VBArrayDescriptor OneBasedOneDimensionalArray(int arrayLength)
     {
-        return new VBArrayDescriptor(new[] { arrayLength }, new[] { 1 });
+        return new VBArrayDescriptor([arrayLength], [1]);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
     public static VBArrayDescriptor ZeroBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength)
     {
-        return new VBArrayDescriptor(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 0, 0 });
+        return new VBArrayDescriptor([dimensionOneLength, dimensionTwoLength], [0, 0]);
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ public sealed class VBArrayDescriptor : ISupportBinaryImage
     /// <returns>A <see cref="VBArrayDescriptor"/> object.</returns>
     public static VBArrayDescriptor OneBasedTwoDimensionalArray(int dimensionOneLength, int dimensionTwoLength)
     {
-        return new VBArrayDescriptor(new[] { dimensionOneLength, dimensionTwoLength }, new[] { 1, 1 });
+        return new VBArrayDescriptor([dimensionOneLength, dimensionTwoLength], [1, 1]);
     }
 
     #endregion

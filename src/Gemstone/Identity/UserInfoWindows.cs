@@ -767,10 +767,10 @@ internal sealed class UserInfoWindows // : IUserInfo
     static UserInfoWindows()
     {
         // Determine built-in group list - this is not expected to change so it is statically cached
-        List<string> builtInGroups = new();
+        List<string> builtInGroups = [];
 
         WellKnownSidType[] builtInSids =
-        {
+        [
             WellKnownSidType.BuiltinAccountOperatorsSid,
             WellKnownSidType.BuiltinAdministratorsSid,
             WellKnownSidType.BuiltinAuthorizationAccessSid,
@@ -788,7 +788,7 @@ internal sealed class UserInfoWindows // : IUserInfo
             WellKnownSidType.BuiltinReplicatorSid,
             WellKnownSidType.BuiltinSystemOperatorsSid,
             WellKnownSidType.BuiltinUsersSid
-        };
+        ];
 
         string getGroupPrefix(string accountName)
         {
@@ -1337,7 +1337,7 @@ internal sealed class UserInfoWindows // : IUserInfo
 
     public static string[] GetLocalGroupUserList(string groupName)
     {
-        List<string> userList = new();
+        List<string> userList = [];
 
         // Create a directory entry for the local machine
         using (DirectoryEntry localMachine = new("WinNT://.,computer", null, null, AuthenticationTypes.Secure))

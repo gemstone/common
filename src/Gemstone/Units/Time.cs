@@ -1148,7 +1148,8 @@ public struct Time : IComparable, IFormattable, IConvertible, IComparable<Time>,
     /// <summary>
     /// Standard time names used by <see cref="ToElapsedTimeString"/> method.
     /// </summary>
-    public static readonly string[] TimeNames = { " year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than " };
+    public static readonly string[] TimeNames = [" year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than "
+    ];
 
     // Static Methods
 

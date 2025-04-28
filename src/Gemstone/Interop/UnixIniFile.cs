@@ -123,7 +123,7 @@ internal class UnixIniFile : IIniFile
     {
         return m_iniData.TryGetValue(section, out ConcurrentDictionary<string, string>? sectionEntries)
             ? sectionEntries.Keys.ToArray()
-            : Array.Empty<string>();
+            : [];
     }
 
     /// <summary>

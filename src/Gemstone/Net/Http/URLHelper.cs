@@ -34,7 +34,7 @@ namespace Gemstone.Net.Http;
 /// </summary>
 public static class URLHelper
 {
-    private static string[] ValidSchemes { get; } = { "http", "https" };
+    private static string[] ValidSchemes { get; } = ["http", "https"];
 
     /// <summary>
     /// Determines if the string contains a valid URL.

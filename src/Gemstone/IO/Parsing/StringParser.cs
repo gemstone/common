@@ -588,7 +588,7 @@ public static class StringParser
         int nextD = IndexOfNextToken(inString, Comma, startIndex);
 
         if (nextQ < 0 && nextD < 0) //no quote, no delimiter
-            return new[] {inString};
+            return [inString];
 
         string[] parsedValues = new string[WorkingArraySize];
         int index = 0;
@@ -710,7 +710,7 @@ public static class StringParser
         int nextD = IndexOfNextTokens(inString, delimiters, startIndex);
 
         if (nextQ < 0 && nextD < 0)
-            return new[] {inString};
+            return [inString];
 
         string[] p = new string[WorkingArraySize];
         int index = 0;

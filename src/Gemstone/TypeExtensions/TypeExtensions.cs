@@ -308,7 +308,7 @@ public static class TypeExtensions
     /// <returns>Public types that implement the specified <paramref name="type"/>.</returns>
     public static List<Type> LoadImplementations(this Type type, string binariesDirectory, bool excludeAbstractTypes, bool validateReferences = true)
     {
-        List<Type> types = new();
+        List<Type> types = [];
 
         // Use application install directory for application.
         if (string.IsNullOrEmpty(binariesDirectory))

@@ -499,7 +499,7 @@ public static class LittleEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(bool value)
     {
-        return new[] { value ? (byte)1 : (byte)0 };
+        return [value ? (byte)1 : (byte)0];
     }
 
     /// <summary>
@@ -532,11 +532,11 @@ public static class LittleEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(short value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)value,
             (byte)(value >> 8)
-        };
+        ];
     }
 
     /// <summary>
@@ -547,13 +547,13 @@ public static class LittleEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(int value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)value,
             (byte)(value >> 8),
             (byte)(value >> 16),
             (byte)(value >> 24)
-        };
+        ];
     }
 
     /// <summary>
@@ -564,8 +564,8 @@ public static class LittleEndian
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte[] GetBytes(long value)
     {
-        return new[]
-        {
+        return
+        [
             (byte)value,
             (byte)(value >> 8),
             (byte)(value >> 16),
@@ -574,7 +574,7 @@ public static class LittleEndian
             (byte)(value >> 40),
             (byte)(value >> 48),
             (byte)(value >> 56)
-        };
+        ];
     }
 
     /// <summary>

@@ -110,7 +110,7 @@ public class WindowsIniFile : IIniFile
     /// <returns>Array of <see cref="string"/> keys from the specified section of the INI file.</returns>
     public string[] GetSectionKeys(string section)
     {
-        List<string> keys = new();
+        List<string> keys = [];
         byte[] buffer = new byte[BufferSize];
         int startIndex = 0;
 
@@ -145,7 +145,7 @@ public class WindowsIniFile : IIniFile
     /// <returns>Array of <see cref="string"/> section names from the INI file.</returns>
     public string[] GetSectionNames()
     {
-        List<string> sections = new();
+        List<string> sections = [];
         byte[] buffer = new byte[BufferSize];
         int startIndex = 0;
 

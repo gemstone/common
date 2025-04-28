@@ -378,7 +378,7 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
     {
         try
         {
-            if (!Monitor.TryEnter(m_readerWriterLock))
+            if (!m_readerWriterLock.TryEnter())
                 return;
 
             try
@@ -396,7 +396,7 @@ public class RunTimeLog : ISupportLifecycle, IProvideStatus
             }
             finally
             {
-                Monitor.Exit(m_readerWriterLock);
+                m_readerWriterLock.Exit();
             }
         }
         catch (Exception ex)

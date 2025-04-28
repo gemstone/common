@@ -91,7 +91,7 @@ public class BlockAllocatedMemoryStream : Stream
     /// </summary>
     public BlockAllocatedMemoryStream()
     {
-        m_blocks = new List<byte[]>();
+        m_blocks = [];
     }
 
     /// <summary>
@@ -264,7 +264,7 @@ public class BlockAllocatedMemoryStream : Stream
         // In the event that an exception occurs, we don't want to have released blocks that are still in this memory stream.
         List<byte[]> blocks = m_blocks;
 
-        m_blocks = new List<byte[]>();
+        m_blocks = [];
 
         foreach (byte[] block in blocks)
             s_memoryBlockPool.Enqueue(block);

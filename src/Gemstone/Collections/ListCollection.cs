@@ -81,7 +81,7 @@ public class ListCollection<T> : Collection<T>, IList<T>, IList, IReadOnlyList<T
     /// Creates a <see cref="ListCollection{T}"/>
     /// </summary>
     public ListCollection()
-        : this(new List<T>())
+        : this([])
     {
     }
 
