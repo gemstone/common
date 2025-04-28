@@ -61,7 +61,7 @@ namespace Gemstone;
 public static class LibraryEvents
 {
     private static EventHandler<UnhandledExceptionEventArgs>? s_suppressedExceptionHandler;
-    private static readonly object s_suppressedExceptionLock = new();
+    private static readonly Lock s_suppressedExceptionLock = new();
     private static int s_attached;
 
     static LibraryEvents()

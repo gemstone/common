@@ -25,6 +25,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Gemstone.Diagnostics;
 
@@ -105,7 +106,7 @@ public static class LogSuppression
     }
 
     private static StackDisposal[]? s_stackDisposalSuppressionFlags;
-    internal static readonly object SyncRoot = new();
+    internal static readonly Lock SyncRoot = new();
 
     static LogSuppression()
     {

@@ -37,7 +37,7 @@ namespace Gemstone.Collections;
 public sealed class IndexedArray<T> : IEnumerable<T>
 {
     private T[] m_items;
-    private readonly object m_syncRoot;
+    private readonly Lock m_syncRoot;
     private readonly T m_defaultValue;
     private readonly bool m_defaultSet;
 
@@ -47,7 +47,7 @@ public sealed class IndexedArray<T> : IEnumerable<T>
     public IndexedArray()
     {
         m_items = new T[32];
-        m_syncRoot = new object();
+        m_syncRoot = new Lock();
         m_defaultSet = false;
         m_defaultValue = default!;
     }
@@ -59,7 +59,7 @@ public sealed class IndexedArray<T> : IEnumerable<T>
     {
         m_defaultValue = defaultValue;
         m_items = new T[32];
-        m_syncRoot = new object();
+        m_syncRoot = new Lock();
         m_defaultSet = true;
 
         for (int x = 0; x < 32; x++)

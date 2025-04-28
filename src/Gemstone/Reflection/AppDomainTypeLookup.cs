@@ -24,6 +24,7 @@
 using System;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Threading;
 
 namespace Gemstone.Reflection;
 
@@ -35,7 +36,7 @@ public class AppDomainTypeLookup
     #region [ Members ]
 
     // Fields
-    private readonly object m_syncRoot;
+    private readonly Lock m_syncRoot;
     private readonly HashSet<Assembly> m_loadedAssemblies;
     private int m_assemblyVersionNumber;
 
@@ -49,8 +50,8 @@ public class AppDomainTypeLookup
     public AppDomainTypeLookup()
     {
         m_assemblyVersionNumber = -1;
-        m_syncRoot = new object();
-        m_loadedAssemblies = new HashSet<Assembly>();
+        m_syncRoot = new Lock();
+        m_loadedAssemblies = [];
     }
 
     #endregion
@@ -99,10 +100,8 @@ public class AppDomainTypeLookup
 
             foreach (Assembly assembly in assemblies)
             {
-                if (m_loadedAssemblies.Contains(assembly))
+                if (!m_loadedAssemblies.Add(assembly))
                     continue;
-
-                m_loadedAssemblies.Add(assembly);
 
                 if (!assembly.IsDynamic)
                     FindAllModules(types, assembly);
