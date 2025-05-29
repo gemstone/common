@@ -71,6 +71,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Gemstone.Units;
 
 namespace Gemstone;
@@ -156,6 +158,25 @@ public class TicksConverter : Int64Converter
 }
 
 /// <summary>
+/// Provides a JSON converter for <see cref="Ticks"/> values.
+/// </summary>
+public class TicksJsonConverter : JsonConverter<Ticks>
+{
+    /// <inheritdoc/>
+    public override Ticks Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        long ticks = reader.GetInt64();
+        return new Ticks(ticks);
+    }
+
+    /// <inheritdoc/>
+    public override void Write(Utf8JsonWriter writer, Ticks value, JsonSerializerOptions options)
+    {
+        writer.WriteNumberValue(value.Value);
+    }
+}
+
+/// <summary>
 /// Represents an instant in time, or time period, as a 64-bit signed integer with a value that is expressed as the number
 /// of 100-nanosecond intervals that have elapsed since 12:00:00 midnight, January 1, 0001.
 /// </summary>
@@ -180,6 +201,7 @@ public class TicksConverter : Int64Converter
 // ReSharper disable RedundantNameQualifier
 [Serializable]
 [TypeConverter(typeof(TicksConverter))]
+[JsonConverter(typeof(TicksJsonConverter))]
 public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks>, IComparable<long>, IComparable<DateTime>, IComparable<TimeSpan>, IEquatable<Ticks>, IEquatable<long>, IEquatable<DateTime>, IEquatable<TimeSpan>
 {
     #region [ Members ]
