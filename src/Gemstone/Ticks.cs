@@ -359,6 +359,19 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     }
 
     /// <summary>
+    /// Gets a new <see cref="Ticks"/> value truncated by removing fractions of the <see cref="long"/> arguement.
+    /// </summary>
+    /// <returns>New <see cref="Ticks"/> object.</returns>
+    /// <remarks>
+    /// If <see cref="long"/> value represents the number of ticks in a second, the truncated value will represent Ticks rounded
+    /// down to the nearest whole second.
+    /// </remarks>
+    public Ticks Truncate(long ticks)
+    {
+        return new Ticks(this.Value - (this.Value % ticks));
+    }
+
+    /// <summary>
     /// Determines if time, represented by <see cref="Ticks"/> value in UTC time, is valid by comparing it to
     /// the system clock.
     /// </summary>
