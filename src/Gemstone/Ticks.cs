@@ -368,7 +368,7 @@ public struct Ticks : IComparable, IFormattable, IConvertible, IComparable<Ticks
     /// </remarks>
     public Ticks Truncate(long ticks)
     {
-        return new Ticks(this.Value - (this.Value % ticks));
+        return new Ticks(Value - Value % ticks);
     }
 
     /// <summary>
