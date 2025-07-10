@@ -26,9 +26,9 @@ using System;
 namespace Gemstone.ComponentModel.DataAnnotations;
 
 /// <summary>
-/// Defines an attribute that will define a UI label to used for a modeled table field.
+/// Defines an attribute that will define a UI label.
 /// </summary>
-[AttributeUsage(AttributeTargets.Property)]
+[AttributeUsage(AttributeTargets.Property | AttributeTargets.Method)]
 public sealed class LabelAttribute : Attribute
 {
     /// <summary>
