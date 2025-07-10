@@ -28,6 +28,7 @@ namespace Gemstone.ComponentModel.DataAnnotations
     /// <summary>
     /// Represents metadata for a method parameter, including its name, a UI label, and an optional description.
     /// </summary>
+    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
     public sealed class ParameterAttribute : Attribute
     {
         /// <summary>
@@ -44,14 +45,14 @@ namespace Gemstone.ComponentModel.DataAnnotations
         /// Optional description.
         /// </summary>
         public string? Description { get; }
-    
+
         public ParameterAttribute(string paramName, string label)
         {
             ParamName = paramName;
             Label = label;
         }
 
-        public ParameterAttribute(string paramName, string label, string description): this(paramName, label)
+        public ParameterAttribute(string paramName, string label, string description) : this(paramName, label)
         {
             Description = description;
         }
