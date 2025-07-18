@@ -390,7 +390,7 @@ public class PrecisionTimer : IDisposable
             if (IsRunning)
                 Stop();
 
-            m_timer.Dispose();
+            m_timer?.Dispose();
         }
         finally
         {
