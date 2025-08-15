@@ -39,31 +39,31 @@ jobs:
         with:
           dotnet-version: '9.0.x'
 
-      # Ensure the job uses the exact SDK we just installed
       - name: Pin SDK via global.json
         run: echo '{"sdk":{"version":"${{ steps.setup-dotnet.outputs.dotnet-version }}"}}' > global.json
 
-      - name: Print SDKs for debugging
-        run: dotnet --list-sdks && dotnet --info
+      - name: Print SDKs & tree
+        run: |
+          dotnet --list-sdks
+          dotnet --info
+          ls -la
+          echo "--- src ---"
+          ls -la src || true
+          echo "--- src/Gemstone ---"
+          ls -la src/Gemstone || true
 
-      # Initializes the CodeQL tools for scanning.
-      - name: Initialize CodeQL
+      - name: Initialize CodeQL (manual build)
         uses: github/codeql-action/init@v3
         with:
           languages: ${{ matrix.language }}
-          # optional: uncomment for extra checks
-          # queries: security-and-quality
+          build-mode: manual
+          # queries: security-and-quality   # optional
 
-      # If your repo uses optional workloads (e.g., wasm-tools for Blazor WASM),
-      # this will install whatever the solution asks for; otherwise this is a no-op.
-      - name: Restore workloads (if any)
-        run: dotnet workload restore
-
-      - name: Restore NuGet
-        run: dotnet restore src
+      - name: Restore
+        run: dotnet restore ./src/Gemstone/Gemstone.Common.csproj
 
       - name: Build
-        run: dotnet build -c Release src --no-restore
+        run: dotnet build -c Release ./src/Gemstone/Gemstone.Common.csproj --no-restore
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
