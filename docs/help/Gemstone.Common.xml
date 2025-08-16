@@ -5320,6 +5320,25 @@
             The string representation of the value of this instance as specified by format and provider.
             </returns>
     </member>
+    <member name="M:Gemstone.Ticks.Truncate(System.Int64)">
+      <summary>
+            Gets a new <see cref="T:Gemstone.Ticks" /> value truncated by removing fractions of the <see cref="T:System.Int64" /> arguement.
+            </summary>
+      <param name="ticks">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>ticks</parameter>
+            <parameter>M:Gemstone.Ticks.Truncate(System.Int64)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>New <see cref="T:Gemstone.Ticks" /> object.</returns>
+      <remarks>
+            If <see cref="T:System.Int64" /> value represents the number of ticks in a second, the truncated value will represent Ticks rounded
+            down to the nearest whole second.
+            </remarks>
+    </member>
     <member name="M:Gemstone.Ticks.TryParse(System.String,Gemstone.Ticks@)">
       <summary>
             Converts the string representation of a number to its <see cref="T:Gemstone.Ticks" /> equivalent. A return value
@@ -5400,8 +5419,12 @@
     </member>
     <member name="T:Gemstone.TicksConverter">
       <summary>
-            Provides a type converter to convert <see cref="T:Gemstone.Ticks" />&gt; objects to and from various other representations.
+            Provides a type converter to convert <see cref="T:Gemstone.Ticks" /> values to and from various other representations.
             </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Ticks" /> reports a type code of <see cref="F:System.TypeCode.Int64" />, the converter will convert
+            to and from <c>long</c> values as well as other types supported by <see cref="T:System.ComponentModel.Int64Converter" />.
+            </remarks>
     </member>
     <member name="M:Gemstone.TicksConverter.#ctor">
       <summary>
@@ -5446,6 +5469,33 @@
       <exception cref="T:System.ArgumentNullException">
         <paramref name="destinationType" /> is <see langword="null" />.</exception>
       <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="T:Gemstone.TicksJsonConverter">
+      <summary>
+            Provides a JSON converter for <see cref="T:Gemstone.Ticks" /> values.
+            </summary>
+    </member>
+    <member name="M:Gemstone.TicksJsonConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.TicksJsonConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.TicksJsonConverter.Read(System.Text.Json.Utf8JsonReader@,System.Type,System.Text.Json.JsonSerializerOptions)">
+      <summary>Reads and converts the JSON to type <typeparamref name="T" />.</summary>
+      <param name="reader">The reader.</param>
+      <param name="typeToConvert">The type to convert.</param>
+      <param name="options">An object that specifies serialization options to use.</param>
+      <returns>The converted value.</returns>
+    </member>
+    <member name="M:Gemstone.TicksJsonConverter.Write(System.Text.Json.Utf8JsonWriter,Gemstone.Ticks,System.Text.Json.JsonSerializerOptions)">
+      <summary>Writes a specified value as JSON.</summary>
+      <param name="writer">The writer to write to.</param>
+      <param name="value">The value to convert to JSON.</param>
+      <param name="options">An object that specifies serialization options to use.</param>
     </member>
     <member name="T:Gemstone.TimerCapabilities">
       <summary>
@@ -5973,6 +6023,17 @@
             End users should attach to the <see cref="E:Gemstone.LibraryEvents.SuppressedException" /> or <see cref="E:System.Threading.Tasks.TaskScheduler.UnobservedTaskException" />
             events to log exceptions if the <paramref name="exceptionAction" /> is not defined.
             </remarks>
+    </member>
+    <member name="M:Gemstone.ActionExtensions.ActionExtensions.TryExecute(System.Action,System.Action{System.Exception})">
+      <summary>
+            Attempts to execute an action and processes exceptions using the given exception handler.
+            </summary>
+      <param name="action">The action to be executed.</param>
+      <param name="exceptionHandler">The handler to be called in the event of an error.</param>
+      <returns>
+        <c>true</c> if the action was executed without errors; otherwise, <c>false</c>.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="action" /> or <paramref name="exceptionHandler" /> is null</exception>
     </member>
     <member name="T:Gemstone.ArrayExtensions.ArrayExtensions">
       <summary>
@@ -7701,6 +7762,61 @@
       <returns>
         <see cref="T:System.UInt64" /> value with specified <paramref name="bits" /> toggled.</returns>
     </member>
+    <member name="T:Gemstone.Caching.MemoryCache`1">
+      <summary>
+            Represents a generic sliding memory cache for a specific type <typeparamref name="T" />.
+            </summary>
+      <typeparam name="T">Type of value to cache.</typeparam>
+      <remarks>
+            Each type T should be unique unless cache can be safely shared.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Caching.MemoryCache`1.GetOrAdd(System.String,System.Double,System.Func{`0},System.Runtime.Caching.CacheEntryRemovedCallback)">
+      <summary>
+            Gets or adds a value, based on result of <paramref name="valueFactory" />, to the memory cache.
+            </summary>
+      <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T" />.</param>
+      <param name="expirationTime">Expiration time, in minutes, for cached value.</param>
+      <param name="valueFactory">Function to generate value to add to cache -- only called if value is not already cached.</param>
+      <param name="removedCallBack">Optional function to call when cache entry is removed.</param>
+      <returns>
+            Value from cache if already cached; otherwise, new value generated by <paramref name="valueFactory" />.
+            </returns>
+    </member>
+    <member name="M:Gemstone.Caching.MemoryCache`1.GetOrAdd(System.String,System.Func{`0},System.Runtime.Caching.CacheEntryRemovedCallback)">
+      <summary>
+            Gets or adds a value, based on result of <paramref name="valueFactory" />, to the memory cache. Cache defaults to a 1-minute expiration.
+            </summary>
+      <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T" />.</param>
+      <param name="valueFactory">Function to generate value to add to cache -- only called if value is not already cached.</param>
+      <param name="removedCallBack">Optional function to call when cache entry is removed.</param>
+      <returns>
+            Value from cache if already cached; otherwise, new value generated by <paramref name="valueFactory" />.
+            </returns>
+    </member>
+    <member name="M:Gemstone.Caching.MemoryCache`1.KeepAlive(System.String)">
+      <summary>
+            Keeps a cache entry alive by resetting its expiration time.
+            </summary>
+      <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T" />.</param>
+      <returns>
+        <c>true</c> if value was found in cache; otherwise, <c>false</c>.</returns>
+    </member>
+    <member name="M:Gemstone.Caching.MemoryCache`1.Remove(System.String)">
+      <summary>
+            Removes a value from the memory cache.
+            </summary>
+      <param name="cacheName">Specific named memory cache instance to remove from cache.</param>
+    </member>
+    <member name="M:Gemstone.Caching.MemoryCache`1.TryGet(System.String,`0@)">
+      <summary>
+            Try to get a value from the memory cache.
+            </summary>
+      <param name="cacheName">Name to use as cache key -- this should be unique per <typeparamref name="T" />.</param>
+      <param name="value">Value from cache if already cached; otherwise, default value for <typeparamref name="T" />.</param>
+      <returns>
+        <c>true</c> if value was found in cache; otherwise, <c>false</c>.</returns>
+    </member>
     <member name="T:Gemstone.CharExtensions.CharExtensions">
       <summary>
             Defines extension functions related to character manipulation.
@@ -8020,404 +8136,6 @@
       <param name="item">The new value for the element at the specified index. The value can be null for reference types.</param>
       <exception cref="T:System.ArgumentOutOfRangeException">
         <paramref name="index" /> is less than zero.-or-<paramref name="index" /> is greater than <see cref="P:System.Collections.ObjectModel.Collection`1.Count" />.</exception>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2">
-      <summary>
-            Represents an ordered collection of keys and values with the same performance as <see cref="T:System.Collections.Generic.Dictionary`2" /> with O(1) lookups and adds but with O(n) inserts and removes.
-            </summary>
-      <typeparam name="TKey">The type of the keys in the dictionary.</typeparam>
-      <typeparam name="TValue">The type of the values in the dictionary.</typeparam>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that is empty, has the default initial capacity, and uses the default equality comparer for the key type.
-            </summary>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}})">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that contains elements copied from the specified <see cref="!:IEnumerable&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;" /> and uses the default equality comparer for the key type.
-            </summary>
-      <param name="collection">The <see cref="!:IEnumerable&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;" /> whose elements are copied to the new <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</param>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="collection" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">
-        <paramref name="collection" /> contains one or more duplicate keys.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{`0,`1}},System.Collections.Generic.IEqualityComparer{`0})">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that contains elements copied from the specified <see cref="!:IEnumerable&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;" /> and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" />.
-            </summary>
-      <param name="collection">The <see cref="!:IEnumerable&lt;KeyValuePair&lt;TKey, TValue&gt;&gt;" /> whose elements are copied to the new <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</param>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or null to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="collection" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">
-        <paramref name="collection" /> contains one or more duplicate keys.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that is empty, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" />.
-            </summary>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or null to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor(System.Int32)">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that is empty, has the specified initial capacity, and uses the default equality comparer for the key type.
-            </summary>
-      <param name="capacity">The initial number of elements that the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> can contain.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="capacity" /> is less than 0.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.#ctor(System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
-      <summary>
-            Initializes a new instance of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> class that is empty, has the specified initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1" />.
-            </summary>
-      <param name="capacity">The initial number of elements that the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> can contain.</param>
-      <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or null to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="capacity" /> is less than 0.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Add(`0,`1)">
-      <summary>
-            Adds the specified key and value to the dictionary as an O(1) operation.
-            </summary>
-      <param name="key">The key of the element to add.</param>
-      <param name="value">The value of the element to add. The value can be null for reference types.</param>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Clear">
-      <summary>
-            Removes all keys and values from the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Comparer">
-      <summary>
-            Gets the <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> that is used to determine equality of keys for the dictionary.
-            </summary>
-      <returns>The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> generic interface implementation that is used to determine equality of keys for the current <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> and to provide hash values for the keys.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.ContainsKey(`0)">
-      <summary>
-            Determines whether the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> contains the specified key as an O(1) operation.
-            </summary>
-      <param name="key">The key to locate in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</param>
-      <returns>true if the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> contains an element with the specified key; otherwise, false.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Count">
-      <summary>
-            Gets the number of key/value pairs contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-      <returns>The number of key/value pairs contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.EnsureCapacity(System.Int32)">
-      <summary>
-            Resizes the internal data structure if necessary to ensure no additional resizing to support the specified capacity.
-            </summary>
-      <param name="capacity">The number of elements that the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> must be able to contain.</param>
-      <returns>The capacity of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="capacity" /> is less than 0.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.GetEnumerator">
-      <summary>
-            Returns an enumerator that iterates through the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-      <returns>An <see cref="T:Gemstone.Collections.OrderedDictionary`2.Enumerator" /> structure for the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.GetOrAdd(`0,System.Func{`1})">
-      <summary>
-            Adds a key/value pair to the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> by using the specified function, if the key does not already exist as an O(1) operation.
-            </summary>
-      <param name="key">The key of the element to add.</param>
-      <param name="valueFactory">The function used to generate a value for the key.</param>
-      <returns>The value for the key. This will be either the existing value for the key if the key is already in the dictionary, or the new value for the key as returned by valueFactory if the key was not in the dictionary.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.-or-<paramref name="valueFactory" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.GetOrAdd(`0,`1)">
-      <summary>
-            Adds a key/value pair to the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> if the key does not already exist as an O(1) operation.
-            </summary>
-      <param name="key">The key of the element to add.</param>
-      <param name="value">The value to be added, if the key does not already exist.</param>
-      <returns>The value for the key. This will be either the existing value for the key if the key is already in the dictionary, or the new value if the key was not in the dictionary.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.IndexOf(`0)">
-      <summary>
-            Returns the zero-based index of the element with the specified key within the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> as an O(1) operation.
-            </summary>
-      <param name="key">The key of the element to locate.</param>
-      <returns>The zero-based index of the element with the specified key within the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />, if found; otherwise, -1.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Insert(System.Int32,`0,`1)">
-      <summary>
-            Inserts the specified key/value pair into the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> at the specified index as an O(n) operation.
-            </summary>
-      <param name="index">The zero-based index of the key/value pair to insert.</param>
-      <param name="key">The key of the element to insert.</param>
-      <param name="value">The value of the element to insert.</param>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-      <exception cref="T:System.ArgumentException">An element with the same key already exists in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</exception>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0.-or-<paramref name="index" /> is greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.</exception>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Item(System.Int32)">
-      <summary>
-            Gets or sets the value at the specified index as an O(1) operation.
-            </summary>
-      <param name="index">The zero-based index of the element to get or set.</param>
-      <returns>The value at the specified index.</returns>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0.-or-<paramref name="index" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.</exception>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Item(`0)">
-      <summary>
-            Gets or sets the value associated with the specified key as an O(1) operation.
-            </summary>
-      <param name="key">The key of the value to get or set.</param>
-      <returns>The value associated with the specified key. If the specified key is not found, a get operation throws a <see cref="T:System.Collections.Generic.KeyNotFoundException" />, and a set operation creates a new element with the specified key.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-      <exception cref="T:System.Collections.Generic.KeyNotFoundException">The property is retrieved and <paramref name="key" /> does not exist in the collection.</exception>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Keys">
-      <summary>
-            Gets a collection containing the keys in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-      <returns>An <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" /> containing the keys in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Move(System.Int32,System.Int32)">
-      <summary>
-            Moves the element at the specified fromIndex to the specified toIndex while re-arranging the elements in between.
-            </summary>
-      <param name="fromIndex">The zero-based index of the element to move.</param>
-      <param name="toIndex">The zero-based index to move the element to.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="fromIndex" /> is less than 0.
-            -or-
-            <paramref name="fromIndex" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />
-            -or-
-            <paramref name="toIndex" /> is less than 0.
-            -or-
-            <paramref name="toIndex" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" /></exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.MoveRange(System.Int32,System.Int32,System.Int32)">
-      <summary>
-            Moves the specified number of elements at the specified fromIndex to the specified toIndex while re-arranging the elements in between.
-            </summary>
-      <param name="fromIndex">The zero-based index of the elements to move.</param>
-      <param name="toIndex">The zero-based index to move the elements to.</param>
-      <param name="count">The number of elements to move.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="fromIndex" /> is less than 0.
-            -or-
-            <paramref name="fromIndex" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.
-            -or-
-            <paramref name="toIndex" /> is less than 0.
-            -or-
-            <paramref name="toIndex" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.
-            -or-
-            <paramref name="count" /> is less than 0.</exception>
-      <exception cref="T:System.ArgumentException">
-        <paramref name="fromIndex" /> + <paramref name="count" /> is greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.
-            -or-
-            <paramref name="toIndex" /> + <paramref name="count" /> is greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Remove(`0)">
-      <summary>
-            Removes the value with the specified key from the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> as an O(n) operation.
-            </summary>
-      <param name="key">The key of the element to remove.</param>
-      <returns>true if the element is successfully found and removed; otherwise, false. This method returns false if <paramref name="key" /> is not found in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Remove(`0,`1@)">
-      <summary>
-            Removes the value with the specified key from the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> and returns the value as an O(n) operation.
-            </summary>
-      <param name="key">The key of the element to remove.</param>
-      <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
-      <returns>true if the element is successfully found and removed; otherwise, false. This method returns false if <paramref name="key" /> is not found in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.RemoveAt(System.Int32)">
-      <summary>
-            Removes the value at the specified index from the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> as an O(n) operation.
-            </summary>
-      <param name="index">The zero-based index of the element to remove.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0.-or-<paramref name="index" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.TrimExcess">
-      <summary>
-            Sets the capacity of an <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> object to the actual number of elements it contains, rounded up to a nearby, implementation-specific value.
-            </summary>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.TrimExcess(System.Int32)">
-      <summary>
-            Sets the capacity of an <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> object to the specified capacity, rounded up to a nearby, implementation-specific value.
-            </summary>
-      <param name="capacity">The number of elements that the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> must be able to contain.</param>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="capacity" /> is less than <see cref="P:Gemstone.Collections.OrderedDictionary`2.Count" />.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.TryAdd(`0,`1)">
-      <summary>
-            Tries to add the specified key and value to the dictionary as an O(1) operation.
-            </summary>
-      <param name="key">The key of the element to add.</param>
-      <param name="value">The value of the element to add. The value can be null for reference types.</param>
-      <returns>true if the element was added to the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />; false if the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> already contained an element with the specified key.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.TryGetValue(`0,`1@)">
-      <summary>
-            Gets the value associated with the specified key as an O(1) operation.
-            </summary>
-      <param name="key">The key of the value to get.</param>
-      <param name="value">When this method returns, contains the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
-      <returns>true if the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> contains an element with the specified key; otherwise, false.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="key" /> is null.</exception>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Values">
-      <summary>
-            Gets a collection containing the values in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-      <returns>An <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" /> containing the values in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.</returns>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2.Enumerator">
-      <summary>
-            Enumerates the elements of a <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.Enumerator.Current">
-      <summary>
-            Gets the element at the current position of the enumerator.
-            </summary>
-      <returns>The element in the <see cref="T:Gemstone.Collections.OrderedDictionary`2" /> at the current position of the enumerator.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Enumerator.Dispose">
-      <summary>
-            Releases all resources used by the <see cref="T:Gemstone.Collections.OrderedDictionary`2.Enumerator" />.
-            </summary>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.Enumerator.MoveNext">
-      <summary>
-            Advances the enumerator to the next element of the <see cref="T:Gemstone.Collections.OrderedDictionary`2" />.
-            </summary>
-      <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
-      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection">
-      <summary>
-            Represents the collection of keys in a <see cref="T:Gemstone.Collections.OrderedDictionary`2" />. This class cannot be inherited.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Count">
-      <summary>
-            Gets the number of elements contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.
-            </summary>
-      <returns>The number of elements contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.KeyCollection.GetEnumerator">
-      <summary>
-            Returns an enumerator that iterates through the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.
-            </summary>
-      <returns>A <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator" /> for the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.</returns>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Item(System.Int32)">
-      <summary>
-            Gets the key at the specified index as an O(1) operation.
-            </summary>
-      <param name="index">The zero-based index of the key to get.</param>
-      <returns>The key at the specified index.</returns>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0.-or-<paramref name="index" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Count" />.</exception>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator">
-      <summary>
-            Enumerates the elements of a <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator.Current">
-      <summary>
-            Gets the element at the current position of the enumerator.
-            </summary>
-      <returns>The element in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" /> at the current position of the enumerator.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator.Dispose">
-      <summary>
-            Releases all resources used by the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator" />.
-            </summary>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.KeyCollection.Enumerator.MoveNext">
-      <summary>
-            Advances the enumerator to the next element of the <see cref="T:Gemstone.Collections.OrderedDictionary`2.KeyCollection" />.
-            </summary>
-      <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
-      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection">
-      <summary>
-            Represents the collection of values in a <see cref="T:Gemstone.Collections.OrderedDictionary`2" />. This class cannot be inherited.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Count">
-      <summary>
-            Gets the number of elements contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.
-            </summary>
-      <returns>The number of elements contained in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.ValueCollection.GetEnumerator">
-      <summary>
-            Returns an enumerator that iterates through the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.
-            </summary>
-      <returns>A <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator" /> for the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.</returns>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Item(System.Int32)">
-      <summary>
-            Gets the value at the specified index as an O(1) operation.
-            </summary>
-      <param name="index">The zero-based index of the value to get.</param>
-      <returns>The value at the specified index.</returns>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="index" /> is less than 0.-or-<paramref name="index" /> is equal to or greater than <see cref="P:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Count" />.</exception>
-    </member>
-    <member name="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator">
-      <summary>
-            Enumerates the elements of a <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.
-            </summary>
-    </member>
-    <member name="P:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator.Current">
-      <summary>
-            Gets the element at the current position of the enumerator.
-            </summary>
-      <returns>The element in the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" /> at the current position of the enumerator.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator.Dispose">
-      <summary>
-            Releases all resources used by the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator" />.
-            </summary>
-    </member>
-    <member name="M:Gemstone.Collections.OrderedDictionary`2.ValueCollection.Enumerator.MoveNext">
-      <summary>
-            Advances the enumerator to the next element of the <see cref="T:Gemstone.Collections.OrderedDictionary`2.ValueCollection" />.
-            </summary>
-      <returns>true if the enumerator was successfully advanced to the next element; false if the enumerator has passed the end of the collection.</returns>
-      <exception cref="T:System.InvalidOperationException">The collection was modified after the enumerator was created.</exception>
     </member>
     <member name="T:Gemstone.Collections.PagedList`1">
       <summary>
@@ -8834,6 +8552,19 @@
             key values overwritten (i.e., first encountered key value pair is the one that remains in the returned merged dictionary).
             </returns>
     </member>
+    <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Middle``1(System.Collections.Generic.IEnumerable{``0})">
+      <summary>
+            Gets the middle item(s) from an enumeration, i.e., one return item for odd lengths, two for even lengths.
+            </summary>
+      <param name="source">An enumeration over which to find the middle element(s).</param>
+      <typeparam name="T">
+        <see cref="T:System.Type" /> of elements in the <paramref name="source" /></typeparam>
+      <returns>The middle item(s) from an enumeration, or <c>null</c> if <paramref name="source" /> is <c>null</c>.</returns>
+      <remarks>
+            If enumeration length is even, two items will be returned representing the items in the middle of the set;
+            otherwise, if the enumeration length is odd, one item will be returned from exactly the middle of the set.
+            </remarks>
+    </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Min``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IComparer{``0})">
       <summary>Returns the smallest item from the enumeration.</summary>
       <param name="source">An enumeration that is compared against.</param>
@@ -9135,7 +8866,7 @@
     </member>
     <member name="T:Gemstone.ComponentModel.DataAnnotations.LabelAttribute">
       <summary>
-            Defines an attribute that will define a UI label to used for a modeled table field.
+            Defines an attribute that will define a UI label.
             </summary>
     </member>
     <member name="M:Gemstone.ComponentModel.DataAnnotations.LabelAttribute.#ctor(System.String)">
@@ -9147,6 +8878,89 @@
     <member name="P:Gemstone.ComponentModel.DataAnnotations.LabelAttribute.Label">
       <summary>
             Gets UI label for modeled table field.
+            </summary>
+    </member>
+    <member name="T:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute">
+      <summary>
+            Represents metadata for a method parameter, including its name, a UI label, and an optional description.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.ComponentModel.DataAnnotations.ParameterAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="paramName">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>paramName</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="label">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>label</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.ComponentModel.DataAnnotations.ParameterAttribute</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="paramName">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>paramName</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="label">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>label</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="description">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>description</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.#ctor(System.String,System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.Description">
+      <summary>
+            Optional description.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.Label">
+      <summary>
+            Label to show in the UI.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.ParameterAttribute.ParamName">
+      <summary>
+            Name of the method parameter this metadata applies to.
             </summary>
     </member>
     <member name="T:Gemstone.ComponentModel.DataAnnotations.PrimaryLabelAttribute">
@@ -12460,6 +12274,222 @@
             </summary>
       <param name="millisecondsTimeout">The number of milliseconds to wait, or <see cref="F:System.Threading.Timeout.Infinite" />(-1) to wait indefinitely.</param>
     </member>
+    <member name="T:Gemstone.IO.Outage">
+      <summary>
+            Represents an outage as a start time and an end time.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Outage.#ctor(Gemstone.Range{System.DateTimeOffset})">
+      <summary>
+            Creates a new <see cref="T:Gemstone.IO.Outage" /> with the same start and end time as the given range.
+            </summary>
+      <param name="range">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>range</parameter>
+            <parameter>M:Gemstone.IO.Outage.#ctor(Gemstone.Range{System.DateTimeOffset})</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="M:Gemstone.IO.Outage.#ctor(System.DateTimeOffset,System.DateTimeOffset)">
+      <summary>
+            Creates a new <see cref="T:Gemstone.IO.Outage" /> with the specified start and end time.
+            </summary>
+      <param name="startTime">Start time for outage.</param>
+      <param name="endTime">End time for outage.</param>
+    </member>
+    <member name="M:Gemstone.IO.Outage.Equals(Gemstone.IO.Outage)">
+      <summary>
+            Determines if this <see cref="T:Gemstone.IO.Outage" /> equals another outage.
+            </summary>
+      <param name="other">The outage to be compared.</param>
+      <returns>True if the outages are equal; false otherwise.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Outage.Equals(System.Object)">
+      <summary>
+            Determines if this <see cref="T:Gemstone.IO.Outage" /> equals another object.
+            </summary>
+      <param name="obj">The object to be compared.</param>
+      <returns>True if the objects are equal; false otherwise.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Outage.GetHashCode">
+      <summary>
+            Gets the hash code for this <see cref="T:Gemstone.IO.Outage" />.
+            </summary>
+      <returns>The hash code for the outage.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Outage.MergeOverlapping(System.Collections.Generic.IEnumerable{Gemstone.IO.Outage})">
+      <summary>
+            Merges all consecutive groups of overlapping ranges in a
+            collection and returns the resulting collection of outages.
+            </summary>
+      <param name="outages">The collection of outages.</param>
+      <returns>The collection of merged outages.</returns>
+      <remarks>This method does not preserve the order of the source collection.</remarks>
+    </member>
+    <member name="T:Gemstone.IO.OutageLog">
+      <summary>
+            Represents a persisted log of outages as a list of start and stop times.
+            </summary>
+      <remarks>
+        <para>
+            This class serializes a list of outages (e.g., a connection outage or data loss) where each outage
+            consists of a start and end time. The outages are persisted in a log file so that the log can be
+            operated on even through host application restarts until the outages are processed.
+            </para>
+        <para>
+            All members in the <see cref="T:Gemstone.IO.OutageLog" /> are guaranteed to be thread safe. File locks are used to
+            provide synchronization so that the file can stay up-to-date with changes made in the application.
+            </para>
+      </remarks>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.#ctor">
+      <summary>
+            Creates a new <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Add(Gemstone.IO.Outage)">
+      <summary>
+            Adds an outage to the <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+      <param name="outage">Outage to be added.</param>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Add(System.DateTimeOffset,System.DateTimeOffset)">
+      <summary>
+            Adds an outage to the <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+      <param name="startTime">Start time of outage.</param>
+      <param name="endTime">End time of outage.</param>
+    </member>
+    <member name="P:Gemstone.IO.OutageLog.Count">
+      <summary>
+            Gets the number of outages in the log.
+            </summary>
+    </member>
+    <member name="F:Gemstone.IO.OutageLog.DateTimeFormat">
+      <summary>
+            Date-time format used by <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.IO.OutageLog" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.IO.OutageLog" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="E:Gemstone.IO.OutageLog.Disposed">
+      <summary>
+            Raised after the outage log has been properly disposed.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.OutageLog.FileName">
+      <summary>
+            Gets or sets the file name for the outage log; file name can be set with a relative path.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.IO.OutageLog" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.First">
+      <summary>
+            Gets the first outage in the list of outages.
+            </summary>
+      <returns>The first outage, or null if there are no outages.</returns>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Initialize">
+      <summary>
+            Initialize the outage log.
+            </summary>
+      <remarks>
+        <para>
+            Initialization performs initial outage log read.
+            </para>
+        <para>
+            It is important to separate initialization from construction such that consumer can attach to events before class
+            is initialized in case initialization causes events to be raised.
+            </para>
+      </remarks>
+    </member>
+    <member name="P:Gemstone.IO.OutageLog.IsDisposed">
+      <summary>
+            Gets a flag that indicates whether the object has been disposed.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.OutageLog.LogModified">
+      <summary>
+            Event is raised when the outage log is modified.
+            </summary>
+    </member>
+    <member name="P:Gemstone.IO.OutageLog.Outages">
+      <summary>
+            Gets the full list of outages in the log.
+            </summary>
+    </member>
+    <member name="E:Gemstone.IO.OutageLog.ProcessException">
+      <summary>
+            Event is raised when there is an exception encountered while processing outage log.
+            </summary>
+      <remarks>
+        <see cref="F:Gemstone.EventArgs`1.Argument" /> is the exception that was thrown.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.IO.OutageLog.Remove(Gemstone.IO.Outage)">
+      <summary>
+            Removes the given outage from the outage log.
+            </summary>
+      <param name="outage">The outage to be removed from the outage log.</param>
+      <returns>True if the outage was removed; false otherwise.</returns>
+    </member>
+    <member name="P:Gemstone.IO.OutageLog.Status">
+      <summary>
+            Gets the current status details about <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+    </member>
+    <member name="T:Gemstone.IO.OutageLogProcessor">
+      <summary>
+            Represents a thread-safe <see cref="T:Gemstone.IO.OutageLog" /> processor that will operate on each <see cref="T:Gemstone.IO.Outage" /> with a consumer provided function on independent threads.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLogProcessor.#ctor(Gemstone.IO.OutageLog,System.Action{Gemstone.IO.Outage},System.Func{Gemstone.IO.Outage,System.Boolean},System.Action{System.Exception},System.Int32)">
+      <summary>
+            Creates a <see cref="T:Gemstone.IO.OutageLogProcessor" /> using a pre-initialized <see cref="T:Gemstone.IO.OutageLog" />.
+            </summary>
+      <param name="outageLog">Pre-initialized <see cref="T:Gemstone.IO.OutageLog" /> to process.</param>
+      <param name="processOutageFunction">A delegate that defines a processing function for an <see cref="T:Gemstone.IO.Outage" />.</param>
+      <param name="canProcessOutageFunction">A delegate that determines if an <see cref="T:Gemstone.IO.Outage" /> can currently be processed.</param>
+      <param name="processExceptionHandler">Delegate to handle any exceptions encountered while processing as <see cref="T:Gemstone.IO.Outage" />.</param>
+      <param name="processingInterval">Processing interval, in milliseconds.</param>
+    </member>
+    <member name="M:Gemstone.IO.OutageLogProcessor.Dispose">
+      <summary>
+            Releases all the resources used by the <see cref="T:Gemstone.IO.OutageLogProcessor" /> object.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLogProcessor.Dispose(System.Boolean)">
+      <summary>
+            Releases the unmanaged resources used by the <see cref="T:Gemstone.IO.OutageLogProcessor" /> object and optionally releases the managed resources.
+            </summary>
+      <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
+    </member>
+    <member name="P:Gemstone.IO.OutageLogProcessor.Enabled">
+      <summary>
+            Enables or disables the <see cref="T:Gemstone.IO.OutageLogProcessor" />.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.OutageLogProcessor.Finalize">
+      <summary>
+            Releases the unmanaged resources before the <see cref="T:Gemstone.IO.OutageLogProcessor" /> object is reclaimed by <see cref="T:System.GC" />.
+            </summary>
+    </member>
     <member name="T:Gemstone.IO.RunTimeLog">
       <summary>
             Represents a persisted run-time log that tracks last start, stop and running times.
@@ -14032,6 +14062,51 @@
             </summary>
       <param name="stream">the stream to write to</param>
       <param name="value">the value to write</param>
+    </member>
+    <member name="T:Gemstone.JArrayExtensions.JArrayExtensions">
+      <summary>
+            Defines extension methods for JArray.
+            </summary>
+    </member>
+    <member name="M:Gemstone.JArrayExtensions.JArrayExtensions.MergeByKey(Newtonsoft.Json.Linq.JArray,Newtonsoft.Json.Linq.JArray,System.String)">
+      <summary>
+            Rebuilds original array so that items from originalArray are replaced by any same‑key items in the override array
+            </summary>
+      <param name="originalArray">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>originalArray</parameter>
+            <parameter>M:Gemstone.JArrayExtensions.JArrayExtensions.MergeByKey(Newtonsoft.Json.Linq.JArray,Newtonsoft.Json.Linq.JArray,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="overrideArray">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>overrideArray</parameter>
+            <parameter>M:Gemstone.JArrayExtensions.JArrayExtensions.MergeByKey(Newtonsoft.Json.Linq.JArray,Newtonsoft.Json.Linq.JArray,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="uniqueKeyField">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>uniqueKeyField</parameter>
+            <parameter>M:Gemstone.JArrayExtensions.JArrayExtensions.MergeByKey(Newtonsoft.Json.Linq.JArray,Newtonsoft.Json.Linq.JArray,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.JArrayExtensions.JArrayExtensions.MergeByKey(Newtonsoft.Json.Linq.JArray,Newtonsoft.Json.Linq.JArray,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
     </member>
     <member name="T:Gemstone.Net.Http.URLHelper">
       <summary>
@@ -16909,6 +16984,934 @@
       <param name="value">The string to escape.</param>
       <returns>URL encoded string.</returns>
     </member>
+    <member name="T:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="options">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>options</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="tolerance">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>tolerance</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.ApproximatelyEquals(System.String,System.String,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions,Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.HammingDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.HammingDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.HammingDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.HammingDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.HammingDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardIndex(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaccardIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="p">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>p</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.JaroWinklerDistanceWithPrefixScale(System.String,System.String,System.Double)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceLowerBounds(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceLowerBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceLowerBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceLowerBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceLowerBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceUpperBounds(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceUpperBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceUpperBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceUpperBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LevenshteinDistanceUpperBounds(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubsequence(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubsequence(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubsequence(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubsequence(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubsequence(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubstring(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubstring(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubstring(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubstring(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.LongestCommonSubstring(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.NormalizedLevenshteinDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.NormalizedLevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.NormalizedLevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.NormalizedLevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.NormalizedLevenshteinDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.OverlapCoefficient(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.OverlapCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.OverlapCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.OverlapCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.OverlapCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.RatcliffObershelpSimilarity(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.RatcliffObershelpSimilarity(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.RatcliffObershelpSimilarity(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.RatcliffObershelpSimilarity(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.RatcliffObershelpSimilarity(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceDistance(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceDistance(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceIndex(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.SorensenDiceIndex(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.TanimotoCoefficient(System.String,System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.TanimotoCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.TanimotoCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="target">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>target</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.TanimotoCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.ComparisonMetrics.TanimotoCoefficient(System.String,System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="T:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonOptions</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="T:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance">
+      <summary>
+            Fuzzy string comparison tolerances.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance.Strong">
+      <summary>
+            Strong comparison tolerance.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance.Normal">
+      <summary>
+            Normal comparison tolerance.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance.Weak">
+      <summary>
+            Weak comparison tolerance.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance.Manual">
+      <summary>
+            Manual comparison tolerance.
+            </summary>
+    </member>
+    <member name="T:Gemstone.StringExtensions.FuzzyStrings.Operations">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>T:Gemstone.StringExtensions.FuzzyStrings.Operations</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.Capitalize(System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.Capitalize(System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.Capitalize(System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.Capitalize(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListBigrams(System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListBigrams(System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListBigrams(System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListBigrams(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListNGrams(System.String,System.Int32)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListNGrams(System.String,System.Int32)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListNGrams(System.String,System.Int32)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="n">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>n</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListNGrams(System.String,System.Int32)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListNGrams(System.String,System.Int32)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListPrefixes(System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListPrefixes(System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListPrefixes(System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListPrefixes(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListTriGrams(System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListTriGrams(System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListTriGrams(System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.ListTriGrams(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.MergeIndividualElementsIntoString(System.Collections.Generic.IEnumerable{System.String})">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.MergeIndividualElementsIntoString(System.Collections.Generic.IEnumerable{System.String})</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.MergeIndividualElementsIntoString(System.Collections.Generic.IEnumerable{System.String})</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.MergeIndividualElementsIntoString(System.Collections.Generic.IEnumerable{System.String})</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.FuzzyStrings.Operations.SplitIntoIndividualElements(System.String)">
+      <summary>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>summary</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.SplitIntoIndividualElements(System.String)</parameter>
+          </include>
+        </markup>
+      </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.SplitIntoIndividualElements(System.String)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.FuzzyStrings.Operations.SplitIntoIndividualElements(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
     <member name="T:Gemstone.Threading.InterprocessLock">
       <summary>
             Defines helper methods related to inter-process locking.
@@ -18184,24 +19187,6 @@
             Extends the TimeSpan Class
             </summary>
     </member>
-    <member name="M:Gemstone.TimeSpanExtensions.TimeSpanExtensions.ToElapsedTimeString(System.TimeSpan,System.Int32,System.Double)">
-      <summary>
-            Converts the <see cref="T:System.TimeSpan" /> value into a textual representation of years, days, hours,
-            minutes and seconds with the specified number of fractional digits.
-            </summary>
-      <param name="value">The <see cref="T:System.TimeSpan" /> to process.</param>
-      <param name="secondPrecision">Number of fractional digits to display for seconds. Defaults to 2.</param>
-      <param name="minimumSubSecondResolution">Minimum sub-second resolution to display. Defaults to <see cref="F:Gemstone.Units.SI.Milli" />.</param>
-      <returns>
-            The string representation of the value of this <see cref="T:System.TimeSpan" />, consisting of the number of
-            years, days, hours, minutes and seconds represented by this value.
-            </returns>
-      <remarks>Set second precision to -1 to suppress seconds display.</remarks>
-      <exception cref="T:System.ArgumentOutOfRangeException">
-        <paramref name="minimumSubSecondResolution" /> is not less than or equal to <see cref="F:Gemstone.Units.SI.Milli" /> or
-            <paramref name="minimumSubSecondResolution" /> is not defined in <see cref="P:Gemstone.Units.SI.Factors" /> array.
-            </exception>
-    </member>
     <member name="M:Gemstone.TimeSpanExtensions.TimeSpanExtensions.ToElapsedTimeString(System.TimeSpan,System.Int32,System.String[],System.Double)">
       <summary>
             Converts the <see cref="T:System.TimeSpan" /> value into a textual representation of years, days, hours,
@@ -18212,7 +19197,7 @@
       <param name="secondPrecision">Number of fractional digits to display for seconds.</param>
       <param name="timeNames">Time names array to use during textual conversion.</param>
       <param name="minimumSubSecondResolution">
-            Minimum sub-second resolution to display. Defaults to <see cref="F:Gemstone.Units.SI.Milli" />.
+                Minimum sub-second resolution to display. Defaults to <see cref="F:Gemstone.Units.SI.Milli" />.
             </param>
       <returns>
             The string representation of the value of this instance, consisting of the number of
@@ -18792,6 +19777,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.AngleConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Angle" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Angle" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.AngleConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.AngleConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.AngleConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.AngleConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.AngleConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.AngleConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.AngleUnit">
       <summary>
             Represents the units available for an <see cref="T:Gemstone.Units.Angle" /> value.
@@ -19285,6 +20323,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.ChargeConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Charge" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Charge" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.ChargeConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.ChargeConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.ChargeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.ChargeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.ChargeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.ChargeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.ChargeUnit">
       <summary>
             Represents the units available for a <see cref="T:Gemstone.Units.Charge" /> value.
@@ -19738,6 +20829,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.CurrentConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Current" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Current" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.CurrentConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.CurrentConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.CurrentConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.CurrentConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.CurrentConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.CurrentConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.CurrentUnit">
       <summary>
@@ -20277,6 +21421,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.EnergyConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Energy" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Energy" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.EnergyConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.EnergyConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.EnergyConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.EnergyConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.EnergyConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.EnergyConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.EnergyUnit">
       <summary>
@@ -20832,6 +22029,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.LengthConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Length" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Length" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.LengthConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.LengthConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.LengthConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.LengthConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.LengthConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.LengthConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.LengthUnit">
       <summary>
             Represents the units available for a <see cref="T:Gemstone.Units.Length" /> value.
@@ -21360,6 +22610,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.MassConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Mass" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Mass" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.MassConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.MassConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.MassConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.MassConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.MassConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.MassConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.MassUnit">
       <summary>
             Represents the units available for a <see cref="T:Gemstone.Units.Mass" /> value.
@@ -21878,6 +23181,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.PowerConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Power" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Power" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.PowerConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.PowerConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.PowerConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.PowerConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.PowerConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.PowerConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.PowerUnit">
       <summary>
@@ -22793,6 +24149,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.SpeedConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Speed" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Speed" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.SpeedConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.SpeedConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.SpeedConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.SpeedConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.SpeedConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.SpeedConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.SpeedUnit">
       <summary>
             Represents the units available for a <see cref="T:Gemstone.Units.Speed" /> value.
@@ -23315,6 +24724,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.TemperatureConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Temperature" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Temperature" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.TemperatureConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.TemperatureConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.TemperatureConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.TemperatureConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.TemperatureConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.TemperatureConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.TemperatureUnit">
       <summary>
@@ -24079,6 +25541,59 @@
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
     </member>
+    <member name="T:Gemstone.Units.TimeConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Time" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Time" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.TimeConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.TimeConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.TimeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.TimeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.TimeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.TimeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
     <member name="T:Gemstone.Units.TimeUnit">
       <summary>
             Represents the units available for a <see cref="T:Gemstone.Units.Time" /> value.
@@ -24547,6 +26062,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.VoltageConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Voltage" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Voltage" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.VoltageConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.VoltageConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.VoltageConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.VoltageConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.VoltageConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.VoltageConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.VoltageUnit">
       <summary>
@@ -25143,6 +26711,59 @@
             style is not a System.Globalization.NumberStyles value. -or- style is not a combination of
             System.Globalization.NumberStyles.AllowHexSpecifier and System.Globalization.NumberStyles.HexNumber values.
             </exception>
+    </member>
+    <member name="T:Gemstone.Units.VolumeConverter">
+      <summary>
+            Provides a type converter to convert <see cref="T:Gemstone.Units.Volume" /> values to and from various other representations.
+            </summary>
+      <remarks>
+            Since <see cref="T:Gemstone.Units.Volume" /> reports a type code of <see cref="F:System.TypeCode.Double" />, the converter will convert
+            to and from <c>double</c> values as well as other types supported by <see cref="T:System.ComponentModel.DoubleConverter" />.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.Units.VolumeConverter.#ctor">
+      <summary>
+        <markup>
+          <include item="SMCAutoDocConstructor">
+            <parameter>Gemstone.Units.VolumeConverter</parameter>
+          </include>
+        </markup>
+      </summary>
+    </member>
+    <member name="M:Gemstone.Units.VolumeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Determines if this converter can convert an object in the given source type to the native type of the converter.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="sourceType">A <see cref="T:System.Type" /> that represents the type from which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.VolumeConverter.CanConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+      <summary>Returns a value indicating whether this converter can convert an object to the given destination type using the context.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="destinationType">A <see cref="T:System.Type" /> that represents the type to which you want to convert.</param>
+      <returns>
+        <see langword="true" /> if this converter can perform the operation; otherwise, <see langword="false" />.</returns>
+    </member>
+    <member name="M:Gemstone.Units.VolumeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+      <summary>Converts the given object to the converter's native type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.Exception">
+        <paramref name="value" /> is not a valid value for the target type.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
+    </member>
+    <member name="M:Gemstone.Units.VolumeConverter.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+      <summary>Converts the specified object to another type.</summary>
+      <param name="context">An <see cref="T:System.ComponentModel.ITypeDescriptorContext" /> that provides a format context.</param>
+      <param name="culture">A <see cref="T:System.Globalization.CultureInfo" /> that specifies the culture to represent the number.</param>
+      <param name="value">The object to convert.</param>
+      <param name="destinationType">The type to convert the object to.</param>
+      <returns>An <see cref="T:System.Object" /> that represents the converted value.</returns>
+      <exception cref="T:System.ArgumentNullException">
+        <paramref name="destinationType" /> is <see langword="null" />.</exception>
+      <exception cref="T:System.NotSupportedException">The conversion cannot be performed.</exception>
     </member>
     <member name="T:Gemstone.Units.VolumeUnit">
       <summary>
