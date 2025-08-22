@@ -23,27 +23,26 @@
 
 using System.Collections.Generic;
 
-namespace Gemstone.Configuration.AppSettings
+namespace Gemstone.Configuration.AppSettings;
+
+/// <summary>
+/// Builder for app settings with descriptions.
+/// </summary>
+public interface IAppSettingsBuilder
 {
     /// <summary>
-    /// Builder for app settings with descriptions.
+    /// Adds an app setting to the builder.
     /// </summary>
-    public interface IAppSettingsBuilder
-    {
-        /// <summary>
-        /// Adds an app setting to the builder.
-        /// </summary>
-        /// <param name="name">The name of the setting.</param>
-        /// <param name="value">The value of the setting.</param>
-        /// <param name="description">A description of the setting.</param>
-        /// <returns>The app settings builder.</returns>
-        /// <exception cref="System.ArgumentException"><paramref name="name"/> is a duplicate of a previously added app setting</exception>
-        public IAppSettingsBuilder Add(string name, string value, string description);
+    /// <param name="name">The name of the setting.</param>
+    /// <param name="value">The value of the setting.</param>
+    /// <param name="description">A description of the setting.</param>
+    /// <returns>The app settings builder.</returns>
+    /// <exception cref="System.ArgumentException"><paramref name="name"/> is a duplicate of a previously added app setting</exception>
+    public IAppSettingsBuilder Add(string name, string value, string description);
 
-        /// <summary>
-        /// Converts the app settings into a collection of key/value pairs.
-        /// </summary>
-        /// <returns>The collection of key/value pairs.</returns>
-        public IEnumerable<KeyValuePair<string, string>> Build();
-    }
+    /// <summary>
+    /// Converts the app settings into a collection of key/value pairs.
+    /// </summary>
+    /// <returns>The collection of key/value pairs.</returns>
+    public IEnumerable<KeyValuePair<string, string>> Build();
 }

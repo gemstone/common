@@ -23,14 +23,13 @@
 
 using System.Runtime.CompilerServices;
 
-namespace Gemstone.Configuration.AppSettings
+namespace Gemstone.Configuration.AppSettings;
+
+/// <summary>
+/// The <see cref="AppSettings"/> namespace contains extension functions related
+/// to the definition of default app settings for Gemstone projects.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// The <see cref="AppSettings"/> namespace contains extension functions related
-    /// to the definition of default app settings for Gemstone projects.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

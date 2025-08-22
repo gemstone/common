@@ -25,35 +25,34 @@
 using System;
 using Microsoft.Win32.SafeHandles;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+internal enum OpenExistingResult
 {
-    internal enum OpenExistingResult
-    {
-        Success,
-        NameNotFound,
-        NameInvalid,
-        PathTooLong,
-        AccessDenied
-    }
+    Success,
+    NameNotFound,
+    NameInvalid,
+    PathTooLong,
+    AccessDenied
+}
 
-    internal interface INamedSemaphore : IDisposable
-    {
-        SafeWaitHandle? SafeWaitHandle { get; set; }
+internal interface INamedSemaphore : IDisposable
+{
+    SafeWaitHandle? SafeWaitHandle { get; set; }
 
-        void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew);
+    void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew);
 
-        int ReleaseCore(int releaseCount);
+    int ReleaseCore(int releaseCount);
 
-        void Close();
+    void Close();
 
-        bool WaitOne();
+    bool WaitOne();
 
-        bool WaitOne(TimeSpan timeout);
+    bool WaitOne(TimeSpan timeout);
 
-        bool WaitOne(int millisecondsTimeout);
+    bool WaitOne(int millisecondsTimeout);
 
-        bool WaitOne(TimeSpan timeout, bool exitContext);
+    bool WaitOne(TimeSpan timeout, bool exitContext);
 
-        bool WaitOne(int millisecondsTimeout, bool exitContext);
-    }
+    bool WaitOne(int millisecondsTimeout, bool exitContext);
 }
