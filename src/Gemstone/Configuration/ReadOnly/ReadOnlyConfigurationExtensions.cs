@@ -26,98 +26,97 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
-namespace Gemstone.Configuration.ReadOnly
+namespace Gemstone.Configuration.ReadOnly;
+
+/// <summary>
+/// Defines extensions for adding read-only configuration providers.
+/// </summary>
+public static class ReadOnlyConfigurationExtensions
 {
-    /// <summary>
-    /// Defines extensions for adding read-only configuration providers.
-    /// </summary>
-    public static class ReadOnlyConfigurationExtensions
+    private class ReferenceEqualityComparer : IEqualityComparer<object>
     {
-        private class ReferenceEqualityComparer : IEqualityComparer<object>
+        public new bool Equals(object? x, object? y)
         {
-            public new bool Equals(object? x, object? y)
-            {
-                return ReferenceEquals(x, y);
-            }
-
-            public int GetHashCode(object obj)
-            {
-                return RuntimeHelpers.GetHashCode(obj);
-            }
+            return ReferenceEquals(x, y);
         }
 
-        /// <summary>
-        /// Configures an <see cref="IConfigurationBuilder"/> with read-only configuration sources.
-        /// </summary>
-        /// <param name="builder">The configuration builder.</param>
-        /// <param name="builderAction">The action to set up configuration sources that will be made read-only.</param>
-        /// <returns>The configuration builder.</returns>
-        /// <remarks>
-        /// <para>
-        /// This method is intended to encapsulate the builder action that creates a group of read-only providers.
-        /// </para>
-        /// 
-        /// <code>
-        /// IConfiguration configuration = new ConfigurationBuilder()
-        ///     .ConfigureReadOnly(readOnlyBuilder => readOnlyBuilder
-        ///         .AddInMemoryCollection(defaultSettings)
-        ///         .AddIniFile("usersettings.ini"))
-        ///     .AddSQLite()
-        ///     .Build();
-        ///     
-        /// // This will only update the SQLite configuration provider
-        /// configuration["Hello"] = "World";
-        /// </code>
-        /// </remarks>
-        public static IConfigurationBuilder ConfigureReadOnly(this IConfigurationBuilder builder, Action<IConfigurationBuilder> builderAction)
+        public int GetHashCode(object obj)
         {
-            ReferenceEqualityComparer referenceEqualityComparer = new();
-            HashSet<object> originalSources = new(builder.Sources, referenceEqualityComparer);
-            builderAction(builder);
-
-            for (int i = 0; i < builder.Sources.Count; i++)
-            {
-                IConfigurationSource source = builder.Sources[i];
-
-                if (originalSources.Contains(source))
-                    continue;
-
-                IConfigurationSource readOnlySource = new ReadOnlyConfigurationSource(source);
-                builder.Sources[i] = readOnlySource;
-            }
-
-            return builder;
+            return RuntimeHelpers.GetHashCode(obj);
         }
+    }
 
-        /// <summary>
-        /// Converts the most recently added configuration source into a read-only configuration source.
-        /// </summary>
-        /// <param name="builder">The configuration builder.</param>
-        /// <returns>The configuration builder.</returns>
-        /// <remarks>
-        /// <para>
-        /// This method is intended to be chained after each source that needs to be made read-only.
-        /// </para>
-        /// 
-        /// <code>
-        /// IConfiguration configuration = new ConfigurationBuilder()
-        ///     .AddInMemoryCollection(defaultSettings).AsReadOnly()
-        ///     .AddIniFile("usersettings.ini").AsReadOnly()
-        ///     .AddSQLite()
-        ///     .Build();
-        ///     
-        /// // This will only update the SQLite configuration provider
-        /// configuration["Hello"] = "World";
-        /// </code>
-        /// </remarks>
-        /// <seealso cref="ReadOnlyConfigurationSource"/>
-        public static IConfigurationBuilder AsReadOnly(this IConfigurationBuilder builder)
+    /// <summary>
+    /// Configures an <see cref="IConfigurationBuilder"/> with read-only configuration sources.
+    /// </summary>
+    /// <param name="builder">The configuration builder.</param>
+    /// <param name="builderAction">The action to set up configuration sources that will be made read-only.</param>
+    /// <returns>The configuration builder.</returns>
+    /// <remarks>
+    /// <para>
+    /// This method is intended to encapsulate the builder action that creates a group of read-only providers.
+    /// </para>
+    /// 
+    /// <code>
+    /// IConfiguration configuration = new ConfigurationBuilder()
+    ///     .ConfigureReadOnly(readOnlyBuilder => readOnlyBuilder
+    ///         .AddInMemoryCollection(defaultSettings)
+    ///         .AddIniFile("usersettings.ini"))
+    ///     .AddSQLite()
+    ///     .Build();
+    ///     
+    /// // This will only update the SQLite configuration provider
+    /// configuration["Hello"] = "World";
+    /// </code>
+    /// </remarks>
+    public static IConfigurationBuilder ConfigureReadOnly(this IConfigurationBuilder builder, Action<IConfigurationBuilder> builderAction)
+    {
+        ReferenceEqualityComparer referenceEqualityComparer = new();
+        HashSet<object> originalSources = new(builder.Sources, referenceEqualityComparer);
+        builderAction(builder);
+
+        for (int i = 0; i < builder.Sources.Count; i++)
         {
-            int index = builder.Sources.Count - 1;
-            IConfigurationSource source = builder.Sources[index];
+            IConfigurationSource source = builder.Sources[i];
+
+            if (originalSources.Contains(source))
+                continue;
+
             IConfigurationSource readOnlySource = new ReadOnlyConfigurationSource(source);
-            builder.Sources[index] = readOnlySource;
-            return builder;
+            builder.Sources[i] = readOnlySource;
         }
+
+        return builder;
+    }
+
+    /// <summary>
+    /// Converts the most recently added configuration source into a read-only configuration source.
+    /// </summary>
+    /// <param name="builder">The configuration builder.</param>
+    /// <returns>The configuration builder.</returns>
+    /// <remarks>
+    /// <para>
+    /// This method is intended to be chained after each source that needs to be made read-only.
+    /// </para>
+    /// 
+    /// <code>
+    /// IConfiguration configuration = new ConfigurationBuilder()
+    ///     .AddInMemoryCollection(defaultSettings).AsReadOnly()
+    ///     .AddIniFile("usersettings.ini").AsReadOnly()
+    ///     .AddSQLite()
+    ///     .Build();
+    ///     
+    /// // This will only update the SQLite configuration provider
+    /// configuration["Hello"] = "World";
+    /// </code>
+    /// </remarks>
+    /// <seealso cref="ReadOnlyConfigurationSource"/>
+    public static IConfigurationBuilder AsReadOnly(this IConfigurationBuilder builder)
+    {
+        int index = builder.Sources.Count - 1;
+        IConfigurationSource source = builder.Sources[index];
+        IConfigurationSource readOnlySource = new ReadOnlyConfigurationSource(source);
+        builder.Sources[index] = readOnlySource;
+        return builder;
     }
 }

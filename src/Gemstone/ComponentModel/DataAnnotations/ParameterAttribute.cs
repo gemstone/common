@@ -23,38 +23,37 @@
 
 using System;
 
-namespace Gemstone.ComponentModel.DataAnnotations
+namespace Gemstone.ComponentModel.DataAnnotations;
+
+/// <summary>
+/// Represents metadata for a method parameter, including its name, a UI label, and an optional description.
+/// </summary>
+[AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+public sealed class ParameterAttribute : Attribute
 {
     /// <summary>
-    /// Represents metadata for a method parameter, including its name, a UI label, and an optional description.
+    /// Name of the method parameter this metadata applies to.
     /// </summary>
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
-    public sealed class ParameterAttribute : Attribute
+    public string ParamName { get; }
+
+    /// <summary>
+    /// Label to show in the UI.
+    /// </summary>
+    public string Label { get; }
+
+    /// <summary>
+    /// Optional description.
+    /// </summary>
+    public string? Description { get; }
+
+    public ParameterAttribute(string paramName, string label)
     {
-        /// <summary>
-        /// Name of the method parameter this metadata applies to.
-        /// </summary>
-        public string ParamName { get; }
+        ParamName = paramName;
+        Label = label;
+    }
 
-        /// <summary>
-        /// Label to show in the UI.
-        /// </summary>
-        public string Label { get; }
-
-        /// <summary>
-        /// Optional description.
-        /// </summary>
-        public string? Description { get; }
-
-        public ParameterAttribute(string paramName, string label)
-        {
-            ParamName = paramName;
-            Label = label;
-        }
-
-        public ParameterAttribute(string paramName, string label, string description) : this(paramName, label)
-        {
-            Description = description;
-        }
+    public ParameterAttribute(string paramName, string label, string description) : this(paramName, label)
+    {
+        Description = description;
     }
 }

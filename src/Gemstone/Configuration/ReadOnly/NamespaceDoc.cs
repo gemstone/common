@@ -24,16 +24,15 @@
 using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 
-namespace Gemstone.Configuration.ReadOnly
+namespace Gemstone.Configuration.ReadOnly;
+
+/// <summary>
+/// The <see cref="ReadOnly"/> namespace contains a wrapper for
+/// <see cref="IConfigurationSource"/> to prevent calls to
+/// <see cref="IConfigurationProvider.Set(string, string)"/> from
+/// reaching the underlying <see cref="IConfigurationProvider"/>.
+/// </summary>
+[CompilerGenerated]
+class NamespaceDoc
 {
-    /// <summary>
-    /// The <see cref="ReadOnly"/> namespace contains a wrapper for
-    /// <see cref="IConfigurationSource"/> to prevent calls to
-    /// <see cref="IConfigurationProvider.Set(string, string)"/> from
-    /// reaching the underlying <see cref="IConfigurationProvider"/>.
-    /// </summary>
-    [CompilerGenerated]
-    class NamespaceDoc
-    {
-    }
 }

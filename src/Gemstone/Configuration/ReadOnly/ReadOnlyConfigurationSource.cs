@@ -23,42 +23,41 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace Gemstone.Configuration.ReadOnly
+namespace Gemstone.Configuration.ReadOnly;
+
+/// <summary>
+/// Wrapper for <see cref="IConfigurationSource"/> to block calls
+/// to <see cref="IConfigurationProvider.Set(string, string)"/>.
+/// </summary>
+/// <remarks>
+/// Configuration providers are typically designed to load configuration into an in-memory
+/// dictionary from their configuration source. Subsequently, the in-memory dictionary can be
+/// modified programmatically via the <see cref="P:IConfiguration.Item(int)"/> indexer.
+/// This class blocks calls to <see cref="IConfigurationProvider.Set(string, string)"/>
+/// on the underlying configuration source's provider so that static defaults won't be
+/// modified when updating configuration.
+/// </remarks>
+public class ReadOnlyConfigurationSource : IConfigurationSource
 {
+    private IConfigurationSource Source { get; }
+
     /// <summary>
-    /// Wrapper for <see cref="IConfigurationSource"/> to block calls
-    /// to <see cref="IConfigurationProvider.Set(string, string)"/>.
+    /// Creates a new instance of the <see cref="ReadOnlyConfigurationSource"/> class.
     /// </summary>
-    /// <remarks>
-    /// Configuration providers are typically designed to load configuration into an in-memory
-    /// dictionary from their configuration source. Subsequently, the in-memory dictionary can be
-    /// modified programmatically via the <see cref="P:IConfiguration.Item(int)"/> indexer.
-    /// This class blocks calls to <see cref="IConfigurationProvider.Set(string, string)"/>
-    /// on the underlying configuration source's provider so that static defaults won't be
-    /// modified when updating configuration.
-    /// </remarks>
-    public class ReadOnlyConfigurationSource : IConfigurationSource
+    /// <param name="source">The source to be made read-only.</param>
+    public ReadOnlyConfigurationSource(IConfigurationSource source)
     {
-        private IConfigurationSource Source { get; }
+        Source = source;
+    }
 
-        /// <summary>
-        /// Creates a new instance of the <see cref="ReadOnlyConfigurationSource"/> class.
-        /// </summary>
-        /// <param name="source">The source to be made read-only.</param>
-        public ReadOnlyConfigurationSource(IConfigurationSource source)
-        {
-            Source = source;
-        }
-
-        /// <summary>
-        /// Builds the <see cref="IConfigurationProvider"/> for this source.
-        /// </summary>
-        /// <param name="builder">The configuration builder</param>
-        /// <returns>The read-only configuration provider.</returns>
-        public IConfigurationProvider Build(IConfigurationBuilder builder)
-        {
-            IConfigurationProvider provider = Source.Build(builder);
-            return new ReadOnlyConfigurationProvider(provider);
-        }
+    /// <summary>
+    /// Builds the <see cref="IConfigurationProvider"/> for this source.
+    /// </summary>
+    /// <param name="builder">The configuration builder</param>
+    /// <returns>The read-only configuration provider.</returns>
+    public IConfigurationProvider Build(IConfigurationBuilder builder)
+    {
+        IConfigurationProvider provider = Source.Build(builder);
+        return new ReadOnlyConfigurationProvider(provider);
     }
 }

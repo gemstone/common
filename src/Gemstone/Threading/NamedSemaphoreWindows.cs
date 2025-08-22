@@ -28,112 +28,111 @@ using System.Runtime.Versioning;
 using System.Threading;
 using Microsoft.Win32.SafeHandles;
 
-namespace Gemstone.Threading
+namespace Gemstone.Threading;
+
+internal class NamedSemaphoreWindows : INamedSemaphore
 {
-    internal class NamedSemaphoreWindows : INamedSemaphore
+    private Semaphore? m_semaphore;
+
+    public SafeWaitHandle? SafeWaitHandle
     {
-        private Semaphore? m_semaphore;
-
-        public SafeWaitHandle? SafeWaitHandle
+        get
         {
-            get
-            {
-                return m_semaphore?.SafeWaitHandle;
-            }
-            set
-            {
-                if (m_semaphore is null)
-                    return;
-
-                m_semaphore.SafeWaitHandle = value;
-            }
+            return m_semaphore?.SafeWaitHandle;
         }
-
-        public void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew)
+        set
         {
-            m_semaphore = new Semaphore(initialCount, maximumCount, name, out createdNew);
-        }
+            if (m_semaphore is null)
+                return;
 
-        public void Dispose()
+            m_semaphore.SafeWaitHandle = value;
+        }
+    }
+
+    public void CreateSemaphoreCore(int initialCount, int maximumCount, string name, out bool createdNew)
+    {
+        m_semaphore = new Semaphore(initialCount, maximumCount, name, out createdNew);
+    }
+
+    public void Dispose()
+    {
+        m_semaphore?.Dispose();
+    }
+
+#if NET
+    [SupportedOSPlatform("windows")]
+#endif
+    public static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore)
+    {
+        semaphore = null;
+
+        try
         {
-            m_semaphore?.Dispose();
-        }
+            semaphore = new NamedSemaphoreWindows { m_semaphore = Semaphore.OpenExisting(name) };
 
-    #if NET
-        [SupportedOSPlatform("windows")]
-    #endif
-        public static OpenExistingResult OpenExistingWorker(string name, out INamedSemaphore? semaphore)
+            return OpenExistingResult.Success;
+        }
+        catch (ArgumentException)
         {
-            semaphore = null;
-
-            try
-            {
-                semaphore = new NamedSemaphoreWindows { m_semaphore = Semaphore.OpenExisting(name) };
-
-                return OpenExistingResult.Success;
-            }
-            catch (ArgumentException)
-            {
-                return OpenExistingResult.NameInvalid;
-            }
-            catch (PathTooLongException)
-            {
-                return OpenExistingResult.PathTooLong;
-            }
-            catch (IOException)
-            {
-                return OpenExistingResult.NameInvalid;
-            }
-            catch (WaitHandleCannotBeOpenedException ex)
-            {
-                return string.IsNullOrWhiteSpace(ex.Message)
-                    ? OpenExistingResult.NameNotFound
-                    : OpenExistingResult.NameInvalid;
-            }
-            catch (Exception)
-            {
-                return OpenExistingResult.NameNotFound;
-            }
+            return OpenExistingResult.NameInvalid;
         }
-
-        public int ReleaseCore(int releaseCount)
+        catch (PathTooLongException)
         {
-            return m_semaphore?.Release(releaseCount) ?? 0;
+            return OpenExistingResult.PathTooLong;
         }
-
-        public void Close()
+        catch (IOException)
         {
-            m_semaphore?.Close();
+            return OpenExistingResult.NameInvalid;
         }
-
-        public bool WaitOne()
+        catch (WaitHandleCannotBeOpenedException ex)
         {
-            return m_semaphore?.WaitOne() ?? false;
+            return string.IsNullOrWhiteSpace(ex.Message)
+                ? OpenExistingResult.NameNotFound
+                : OpenExistingResult.NameInvalid;
         }
-
-        public bool WaitOne(TimeSpan timeout)
+        catch (Exception)
         {
-            return m_semaphore?.WaitOne(timeout) ?? false;
+            return OpenExistingResult.NameNotFound;
         }
+    }
 
-        public bool WaitOne(int millisecondsTimeout)
-        {
-            return m_semaphore?.WaitOne(millisecondsTimeout) ?? false;
-        }
+    public int ReleaseCore(int releaseCount)
+    {
+        return m_semaphore?.Release(releaseCount) ?? 0;
+    }
 
-        public bool WaitOne(TimeSpan timeout, bool exitContext)
-        {
-            return m_semaphore?.WaitOne(timeout, exitContext) ?? false;
-        }
+    public void Close()
+    {
+        m_semaphore?.Close();
+    }
 
-        public bool WaitOne(int millisecondsTimeout, bool exitContext)
-        {
-            return m_semaphore?.WaitOne(millisecondsTimeout, exitContext) ?? false;
-        }
+    public bool WaitOne()
+    {
+        return m_semaphore?.WaitOne() ?? false;
+    }
 
-        public static void Unlink(string _)
-        {
-            // This function does nothing on Windows
-        }
+    public bool WaitOne(TimeSpan timeout)
+    {
+        return m_semaphore?.WaitOne(timeout) ?? false;
+    }
+
+    public bool WaitOne(int millisecondsTimeout)
+    {
+        return m_semaphore?.WaitOne(millisecondsTimeout) ?? false;
+    }
+
+    public bool WaitOne(TimeSpan timeout, bool exitContext)
+    {
+        return m_semaphore?.WaitOne(timeout, exitContext) ?? false;
+    }
+
+    public bool WaitOne(int millisecondsTimeout, bool exitContext)
+    {
+        return m_semaphore?.WaitOne(millisecondsTimeout, exitContext) ?? false;
+    }
+
+    public static void Unlink(string _)
+    {
+        // This function does nothing on Windows
     }
 }
