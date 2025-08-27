@@ -309,7 +309,7 @@ public partial class Settings : DynamicObject
 
                 // For entries that may exist in INI file but were never officially defined, set initial value as empty string,
                 // this will ensure that the value persists through save operations, ignoring default value
-                if (string.IsNullOrEmpty(entry.GetAppSettingInitialValue()))
+                if (entry.GetAppSettingInitialValue() is null)
                     memoryProvider.Add($"{configSection.Key}:{entry.Key.ToInitialValueKey()}", "");
 
                 if (!string.IsNullOrEmpty(entry.GetAppSettingDescription()))
