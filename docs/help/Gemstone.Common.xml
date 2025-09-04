@@ -11814,18 +11814,18 @@
              Usage of this class is fairly simple using the static methods
              built into the <see cref="T:System.IO.File" /> class.
              </para>
-        <code>
-             using (StreamReader reader = GetFileLock(File.OpenText))
-             {
-                 // Read lines from the file
-             }
-             </code>
-        <code>
-             using (FileStream stream = GetFileLock(File.Create))
-             {
-                 // Write bytes into the file
-             }
-             </code>
+        <codeSnippetGroup>
+          <code language="cs" codeLanguage="CSharp" style="cs">using (StreamReader reader = GetFileLock(File.OpenText))
+{
+    // Read lines from the file
+}</code>
+        </codeSnippetGroup>
+        <codeSnippetGroup>
+          <code language="cs" codeLanguage="CSharp" style="cs">using (FileStream stream = GetFileLock(File.Create))
+{
+    // Write bytes into the file
+}</code>
+        </codeSnippetGroup>
         <para>
              This method will only retry if an <see cref="T:System.IO.IOException" />
              occurs while executing the <paramref name="lockFunction" />.
