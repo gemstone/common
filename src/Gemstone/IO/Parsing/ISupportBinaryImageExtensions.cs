@@ -22,7 +22,10 @@
 //******************************************************************************************************
 
 using System;
+using System.Buffers;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Gemstone.IO.Parsing;
 
@@ -32,6 +35,8 @@ namespace Gemstone.IO.Parsing;
 // ReSharper disable once InconsistentNaming
 public static class ISupportBinaryImageExtensions
 {
+    private static readonly ArrayPool<byte> s_pool = ArrayPool<byte>.Shared;
+
     /// <summary>
     /// Returns a binary image of an object that implements <see cref="ISupportBinaryImage"/>.
     /// </summary>
@@ -44,57 +49,186 @@ public static class ISupportBinaryImageExtensions
     /// </remarks>
     public static byte[] BinaryImage(this ISupportBinaryImage imageSource)
     {
-        if (imageSource is null)
-            throw new ArgumentNullException(nameof(imageSource));
+        ArgumentNullException.ThrowIfNull(imageSource);
 
-        byte[] buffer = new byte[imageSource.BinaryLength];
+        int length = imageSource.BinaryLength;
 
-        imageSource.GenerateBinaryImage(buffer, 0);
+        if (length <= 0)
+            return [];
 
-        return buffer;
+        byte[] rented = s_pool.Rent(length);
+
+        try
+        {
+            int written = GenerateIntoBuffer(imageSource, rented);
+
+            if (written <= 0)
+                return [];
+
+            byte[] result = new byte[written];
+            
+            Buffer.BlockCopy(rented, 0, result, 0, written);
+        
+            return result;
+        }
+        finally
+        {
+            s_pool.Return(rented);
+        }
     }
 
     /// <summary>
-    /// Copies binary image of object that implements <see cref="ISupportBinaryImage"/> to a <see cref="Stream"/>.
+    /// Async version of <see cref="BinaryImage(ISupportBinaryImage)"/>.
     /// </summary>
-    /// <param name="imageSource"><see cref="ISupportBinaryImage"/> source.</param>
-    /// <param name="stream">Destination <see cref="Stream"/>.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="imageSource"/> cannot be null.</exception>
+    public static Task<byte[]> BinaryImageAsync(this ISupportBinaryImage imageSource, CancellationToken cancellationToken = default)
+    {
+        return Task.FromResult(BinaryImage(imageSource));
+    }
+
+    /// <summary>
+    /// Copies generated image to a stream using a pooled buffer.
+    /// </summary>
     public static void CopyBinaryImageToStream(this ISupportBinaryImage imageSource, Stream stream)
     {
-        if (imageSource is null)
-            throw new ArgumentNullException(nameof(imageSource));
+        ArgumentNullException.ThrowIfNull(imageSource);
+        ArgumentNullException.ThrowIfNull(stream);
 
         int length = imageSource.BinaryLength;
-        byte[] buffer = new byte[length];
 
-        // Copy generated binary image to buffer
-        int writeCount = imageSource.GenerateBinaryImage(buffer, 0);
+        if (length <= 0)
+            return;
 
-        // Write buffer bytes to stream, if any were generated
-        if (writeCount > 0)
-            stream.Write(buffer, 0, writeCount);
+        byte[] rented = s_pool.Rent(length);
+        
+        try
+        {
+            int writeCount = GenerateIntoBuffer(imageSource, rented);
+            
+            if (writeCount > 0)
+                stream.Write(rented, 0, writeCount);
+        }
+        finally
+        {
+            s_pool.Return(rented);
+        }
     }
 
     /// <summary>
-    /// Parses binary image of object that implements <see cref="ISupportBinaryImage"/> from a <see cref="Stream"/>.
+    /// Async copy of generated image to a stream using a pooled buffer.
     /// </summary>
-    /// <param name="imageSource"><see cref="ISupportBinaryImage"/> source.</param>
-    /// <param name="stream">Source <see cref="Stream"/>.</param>
-    /// <returns>The number of bytes parsed from the <paramref name="stream"/>.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="imageSource"/> cannot be null.</exception>
-    public static int ParseBinaryImageFromStream(this ISupportBinaryImage imageSource, Stream stream)
+    public static async Task CopyBinaryImageToStreamAsync(this ISupportBinaryImage imageSource, Stream stream, CancellationToken cancellationToken = default)
     {
-        if (imageSource is null)
-            throw new ArgumentNullException(nameof(imageSource));
+        ArgumentNullException.ThrowIfNull(imageSource);
+        ArgumentNullException.ThrowIfNull(stream);
 
         int length = imageSource.BinaryLength;
-        byte[] buffer = new byte[length];
 
-        // Read buffer bytes from stream
-        int readCount = stream.Read(buffer, 0, length);
+        if (length <= 0)
+            return;
 
-        // Parse binary image from buffer bytes read from stream
-        return imageSource.ParseBinaryImage(buffer, 0, readCount);
+        byte[] rented = s_pool.Rent(length);
+
+        try
+        {
+            int writeCount = GenerateIntoBuffer(imageSource, rented);
+        
+            if (writeCount > 0)
+                await stream.WriteAsync(rented.AsMemory(0, writeCount), cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            s_pool.Return(rented);
+        }
+    }
+
+    /// <summary>
+    /// Parses up to <see cref="ISupportBinaryImage.BinaryLength"/> bytes from the stream to initialize the object.
+    /// Returns the number of bytes parsed.
+    /// </summary>
+    public static int ParseBinaryImageFromStream(this ISupportBinaryImage imageSource, Stream stream)
+    {
+        ArgumentNullException.ThrowIfNull(imageSource);
+        ArgumentNullException.ThrowIfNull(stream);
+
+        int length = imageSource.BinaryLength;
+
+        if (length <= 0)
+            return 0;
+
+        byte[] rented = s_pool.Rent(length);
+        
+        try
+        {
+            int readCount = stream.Read(rented, 0, length);
+            return readCount <= 0 ? 0 : ParseFromBuffer(imageSource, rented, readCount);
+        }
+        finally
+        {
+            s_pool.Return(rented);
+        }
+    }
+
+    /// <summary>
+    /// Async parse from the stream. If <paramref name="readExactly"/> is true,
+    /// reads exactly <see cref="ISupportBinaryImage.BinaryLength"/> bytes or throws <see cref="EndOfStreamException"/>.
+    /// Otherwise, reads up to that many bytes (mirrors sync behavior).
+    /// </summary>
+    public static async Task<int> ParseBinaryImageFromStreamAsync(this ISupportBinaryImage imageSource, Stream stream, bool readExactly = false, CancellationToken cancellationToken = default)
+    {
+        ArgumentNullException.ThrowIfNull(imageSource);
+        ArgumentNullException.ThrowIfNull(stream);
+
+        int length = imageSource.BinaryLength;
+        
+        if (length <= 0)
+            return 0;
+
+        byte[] rented = s_pool.Rent(length);
+        
+        try
+        {
+            int readCount;
+
+            if (!readExactly)
+            {
+                readCount = await stream.ReadAsync(rented.AsMemory(0, length), cancellationToken).ConfigureAwait(false);
+
+                if (readCount <= 0)
+                    return 0;
+            }
+            else
+            {
+                await stream.ReadExactlyAsync(rented.AsMemory(0, length), cancellationToken).ConfigureAwait(false);
+                readCount = length;
+            }
+
+            return ParseFromBuffer(imageSource, rented, readCount);
+        }
+        finally
+        {
+            s_pool.Return(rented);
+        }
+    }
+
+    // These helper functions pick the fastest path, e.g., span-aware if available
+
+    private static int GenerateIntoBuffer(ISupportBinaryImage imageSource, byte[] rented)
+    {
+        // Prefer span path (no extra bounds math for startIndex)
+        if (imageSource is ISupportBinaryImageSpan spanCapable)
+            return spanCapable.GenerateBinaryImage(rented);
+
+        // Legacy byte[] path
+        return imageSource.GenerateBinaryImage(rented, 0);
+    }
+
+    private static int ParseFromBuffer(ISupportBinaryImage imageSource, byte[] rented, int readCount)
+    {
+        // Prefer span path
+        if (imageSource is ISupportBinaryImageSpan spanCapable)
+            return spanCapable.ParseBinaryImage(rented.AsSpan(0, readCount));
+
+        // Legacy byte[] path
+        return imageSource.ParseBinaryImage(rented, 0, readCount);
     }
 }
