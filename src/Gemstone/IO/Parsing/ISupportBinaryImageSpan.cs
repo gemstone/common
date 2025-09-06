@@ -23,6 +23,7 @@
 
 using System;
 using System.Buffers;
+using Gemstone.ArrayExtensions;
 
 namespace Gemstone.IO.Parsing;
 
@@ -45,12 +46,37 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
     /// <returns>The number of bytes consumed.</returns>
     int ParseBinaryImage(ReadOnlySpan<byte> source);
 
+    /// <inheritdoc />
+    int ISupportBinaryImage.GenerateBinaryImage(byte[] buffer, int startIndex)
+    {
+        ArgumentNullException.ThrowIfNull(buffer);
+
+        int binaryLength = BinaryLength;
+
+        buffer.ValidateParameters(startIndex, binaryLength);
+
+        return GenerateBinaryImage(buffer.AsSpan(startIndex, binaryLength));
+    }
+
+    /// <inheritdoc />
+    int ISupportBinaryImage.ParseBinaryImage(byte[] buffer, int startIndex, int length)
+    {
+        ArgumentNullException.ThrowIfNull(buffer);
+
+        buffer.ValidateParameters(startIndex, length);
+
+        return ParseBinaryImage(buffer.AsSpan(startIndex, length));
+    }
+
     /// <summary>
     /// Determines how many bytes are required to parse this instance from the given sequence.
     /// Default assumes fixed-size and returns <see cref="ISupportBinaryImage.BinaryLength"/>.
     /// Override for variable-length formats (peek a header, etc.).
     /// </summary>
-    int GetRequiredLength(ReadOnlySequence<byte> source) => BinaryLength;
+    int GetRequiredLength(ReadOnlySequence<byte> source)
+    {
+        return BinaryLength;
+    }
 
     /// <summary>
     /// Attempts to write this object's binary image to the specified <paramref name="destination"/> span.
@@ -64,13 +90,12 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
     bool TryGenerateBinaryImage(Span<byte> destination, out int written)
     {
         written = 0;
-
-        // Default assumes fixed-size payloads equal to BinaryLength.
-        // Override if you have variable-length records.
+        
         if (destination.Length < BinaryLength)
             return false;
 
-        written = GenerateBinaryImage(destination);
+        written = GenerateBinaryImage(destination[..BinaryLength]);
+
         return true;
     }
 
@@ -89,13 +114,12 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
     bool TryParseBinaryImage(ReadOnlySpan<byte> source, out int consumed)
     {
         consumed = 0;
-
-        // Default assumes fixed-size payloads equal to BinaryLength.
-        // Override if you have variable-length records.
+    
         if (source.Length < BinaryLength)
             return false;
 
-        consumed = ParseBinaryImage(source);
+        consumed = ParseBinaryImage(source[..BinaryLength]);
+
         return true;
     }
 
@@ -126,11 +150,17 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
     /// <summary>
     /// Parses from a <see cref="ReadOnlySequence{T}"/> and returns bytes consumed.
     /// </summary>
+    /// <param name="source">The source sequence from which to parse.</param>
+    /// <param name="clearArray">
+    /// Clears any rented buffers of their contents so that a subsequent consumer will not
+    /// see the previous consumer's content. If <c>false</c>, default, the array's contents
+    /// are left unchanged.
+    /// </param>
     /// <remarks>
     /// Default: fixed-size fast paths, pooled copy only when necessary.
     /// Override for variable-length formats to avoid copies entirely.
     /// </remarks>
-    int ParseBinaryImage(ReadOnlySequence<byte> source)
+    int ParseBinaryImage(ReadOnlySequence<byte> source, bool clearArray = false)
     {
         int need = GetRequiredLength(source);
 
@@ -160,13 +190,13 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
         }
         finally
         {
-            ArrayPool<byte>.Shared.Return(rented);
+            ArrayPool<byte>.Shared.Return(rented, clearArray);
         }
     }
 
     /// <summary>
     /// Parses from a streaming reader; advances by bytes consumed.
-    /// Implemented in terms of <see cref="ParseBinaryImage(ReadOnlySequence{byte})"/>.
+    /// Implemented in terms of <see cref="ParseBinaryImage(ReadOnlySequence{byte}, bool)"/>.
     /// </summary>
     bool TryParse(ref SequenceReader<byte> reader)
     {
@@ -190,6 +220,7 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
             return false;
 
         reader.Advance(consumed);
+
         return true;
     }
 }
