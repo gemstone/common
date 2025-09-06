@@ -46,7 +46,6 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
     /// <returns>The number of bytes consumed.</returns>
     int ParseBinaryImage(ReadOnlySpan<byte> source);
 
-    /// <inheritdoc />
     int ISupportBinaryImage.GenerateBinaryImage(byte[] buffer, int startIndex)
     {
         ArgumentNullException.ThrowIfNull(buffer);
@@ -58,7 +57,6 @@ public interface ISupportBinaryImageSpan : ISupportBinaryImage
         return GenerateBinaryImage(buffer.AsSpan(startIndex, binaryLength));
     }
 
-    /// <inheritdoc />
     int ISupportBinaryImage.ParseBinaryImage(byte[] buffer, int startIndex, int length)
     {
         ArgumentNullException.ThrowIfNull(buffer);
