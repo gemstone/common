@@ -11814,18 +11814,18 @@
              Usage of this class is fairly simple using the static methods
              built into the <see cref="T:System.IO.File" /> class.
              </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">using (StreamReader reader = GetFileLock(File.OpenText))
-{
-    // Read lines from the file
-}</code>
-        </codeSnippetGroup>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">using (FileStream stream = GetFileLock(File.Create))
-{
-    // Write bytes into the file
-}</code>
-        </codeSnippetGroup>
+        <code>
+             using (StreamReader reader = GetFileLock(File.OpenText))
+             {
+                 // Read lines from the file
+             }
+             </code>
+        <code>
+             using (FileStream stream = GetFileLock(File.Create))
+             {
+                 // Write bytes into the file
+             }
+             </code>
         <para>
              This method will only retry if an <see cref="T:System.IO.IOException" />
              occurs while executing the <paramref name="lockFunction" />.
@@ -13373,12 +13373,17 @@
             Defines extension functions related to <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> implementations.
             </summary>
     </member>
-    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.BinaryImage(Gemstone.IO.Parsing.ISupportBinaryImage)">
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.BinaryImage(Gemstone.IO.Parsing.ISupportBinaryImage,System.Boolean)">
       <summary>
             Returns a binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.
             </summary>
       <param name="imageSource">
         <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
       <returns>A binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.</returns>
       <remarks>
             This is a convenience method. It is often optimal to use <see cref="M:Gemstone.IO.Parsing.ISupportBinaryImage.GenerateBinaryImage(System.Byte[],System.Int32)" />
@@ -13387,26 +13392,239 @@
       <exception cref="T:System.ArgumentNullException">
         <paramref name="imageSource" /> cannot be null.</exception>
     </member>
-    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.CopyBinaryImageToStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream)">
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.BinaryImageAsync(Gemstone.IO.Parsing.ISupportBinaryImage,System.Boolean,System.Threading.CancellationToken)">
       <summary>
-            Copies binary image of object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> to a <see cref="T:System.IO.Stream" />.
+            Asynchronously returns a binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.
             </summary>
-      <param name="imageSource">
-        <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
-      <param name="stream">Destination <see cref="T:System.IO.Stream" />.</param>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="imageSource" /> cannot be null.</exception>
+      <param name="imageSource">The <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source from which the binary image is generated.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+      <returns>A task that represents the asynchronous operation. The task result contains the binary image of the object.</returns>
+      <remarks>
+            This method provides an asynchronous alternative to <see cref="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.BinaryImage(Gemstone.IO.Parsing.ISupportBinaryImage,System.Boolean)" />. It is often optimal to use
+            <see cref="M:Gemstone.IO.Parsing.ISupportBinaryImage.GenerateBinaryImage(System.Byte[],System.Int32)" /> directly with a common buffer instead of always
+            allocating new buffers.
+            </remarks>
+      <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="imageSource" /> is <c>null</c>.</exception>
     </member>
-    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.ParseBinaryImageFromStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream)">
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.CopyBinaryImageToStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream,System.Boolean)">
       <summary>
-            Parses binary image of object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> from a <see cref="T:System.IO.Stream" />.
+            Copies the binary image of the specified <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> to the provided <see cref="T:System.IO.Stream" />.
             </summary>
-      <param name="imageSource">
-        <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source.</param>
-      <param name="stream">Source <see cref="T:System.IO.Stream" />.</param>
-      <returns>The number of bytes parsed from the <paramref name="stream" />.</returns>
-      <exception cref="T:System.ArgumentNullException">
-        <paramref name="imageSource" /> cannot be null.</exception>
+      <param name="imageSource">The source object implementing <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> whose binary image will be copied.</param>
+      <param name="stream">The <see cref="T:System.IO.Stream" /> to which the binary image will be written.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="imageSource" /> or <paramref name="stream" /> is <c>null</c>.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.CopyBinaryImageToStreamAsync(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream,System.Boolean,System.Threading.CancellationToken)">
+      <summary>
+            Asynchronously copies the binary image of an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> to the specified <see cref="T:System.IO.Stream" />.
+            </summary>
+      <param name="imageSource">The <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> source whose binary image will be copied.</param>
+      <param name="stream">The <see cref="T:System.IO.Stream" /> to which the binary image will be written.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+      <returns>A task that represents the asynchronous operation.</returns>
+      <remarks>
+            This method uses a buffer rented from a shared <see cref="T:System.Buffers.ArrayPool`1" /> to optimize memory usage.
+            The buffer is returned to the pool after the operation completes.
+            </remarks>
+      <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="imageSource" /> or <paramref name="stream" /> is <c>null</c>.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.ParseBinaryImageFromStream(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream,System.Boolean)">
+      <summary>
+            Parses a binary image from the specified <see cref="T:System.IO.Stream" /> into an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.
+            </summary>
+      <param name="imageSource">The <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> instance into which the binary image will be parsed.</param>
+      <param name="stream">The <see cref="T:System.IO.Stream" /> from which the binary image will be read.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <returns>The number of bytes successfully read and parsed from the stream.</returns>
+      <remarks>
+            This method reads a binary image from the provided <see cref="T:System.IO.Stream" /> and parses it into the specified
+            <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> instance. It uses a shared buffer pool to minimize memory allocations.
+            </remarks>
+      <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="imageSource" /> or <paramref name="stream" /> is <c>null</c>.</exception>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageExtensions.ParseBinaryImageFromStreamAsync(Gemstone.IO.Parsing.ISupportBinaryImage,System.IO.Stream,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+      <summary>
+            Asynchronously parses a binary image from the specified <see cref="T:System.IO.Stream" /> into an object that implements <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />.
+            </summary>
+      <param name="imageSource">The <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" /> instance into which the binary image will be parsed.</param>
+      <param name="stream">The <see cref="T:System.IO.Stream" /> from which the binary image will be read.</param>
+      <param name="readExactly">
+            Specifies whether the method should read exactly the number of bytes required to
+            fill the binary image. If <c>true</c>, the method will ensure the exact number of
+            bytes is read; otherwise, it reads as many bytes as are available.
+            </param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+      <returns>A task that represents the asynchronous operation. The task result contains the number of bytes successfully parsed.</returns>
+      <remarks>
+            This method uses a buffer rented from a shared <see cref="T:System.Buffers.ArrayPool`1" /> to read the binary image.
+            The buffer is returned to the pool after the operation completes.
+            </remarks>
+      <exception cref="T:System.ArgumentNullException">Thrown if <paramref name="imageSource" /> or <paramref name="stream" /> is <c>null</c>.</exception>
+      <exception cref="T:System.OperationCanceledException">Thrown if the operation is canceled via the <paramref name="cancellationToken" />.</exception>
+    </member>
+    <member name="T:Gemstone.IO.Parsing.ISupportBinaryImageSpan">
+      <summary>
+            Span-optimized binary image production/consumption with buffered I/O helpers.
+            Optional companion to <see cref="T:Gemstone.IO.Parsing.ISupportBinaryImage" />; most callers only need to
+            implement the two span methods. Everything else has sensible defaults.
+            </summary>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.GenerateBinaryImage(System.Span{System.Byte})">
+      <summary>
+            Writes this object's binary image to <paramref name="destination" />.
+            </summary>
+      <param name="destination">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>destination</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.GenerateBinaryImage(System.Span{System.Byte})</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>The number of bytes written.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.GetRequiredLength(System.Buffers.ReadOnlySequence{System.Byte})">
+      <summary>
+            Determines how many bytes are required to parse this instance from the given sequence.
+            Default assumes fixed-size and returns <see cref="P:Gemstone.IO.Parsing.ISupportBinaryImage.BinaryLength" />.
+            Override for variable-length formats (peek a header, etc.).
+            </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.GetRequiredLength(System.Buffers.ReadOnlySequence{System.Byte})</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.GetRequiredLength(System.Buffers.ReadOnlySequence{System.Byte})</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.ParseBinaryImage(System.Buffers.ReadOnlySequence{System.Byte},System.Boolean)">
+      <summary>
+            Parses from a <see cref="T:System.Buffers.ReadOnlySequence`1" /> and returns bytes consumed.
+            </summary>
+      <param name="source">The source sequence from which to parse.</param>
+      <param name="clearArray">
+            Clears any rented buffers of their contents so that a subsequent consumer will not
+            see the previous consumer's content. If <c>false</c>, default, the array's contents
+            are left unchanged.
+            </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.ParseBinaryImage(System.Buffers.ReadOnlySequence{System.Byte},System.Boolean)</parameter>
+          </include>
+        </markup>
+      </returns>
+      <remarks>
+            Default: fixed-size fast paths, pooled copy only when necessary.
+            Override for variable-length formats to avoid copies entirely.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.ParseBinaryImage(System.ReadOnlySpan{System.Byte})">
+      <summary>
+            Parses this object's state from <paramref name="source" />.
+            </summary>
+      <param name="source">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>source</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.ParseBinaryImage(System.ReadOnlySpan{System.Byte})</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>The number of bytes consumed.</returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.TryGenerateBinaryImage(System.Span{System.Byte},System.Int32@)">
+      <summary>
+            Attempts to write this object's binary image to the specified <paramref name="destination" /> span.
+            </summary>
+      <param name="destination">The span to which the binary image will be written.</param>
+      <param name="written">When this method returns, contains the number of bytes written to <paramref name="destination" />.</param>
+      <returns>
+        <c>true</c> if the binary image was successfully written to <paramref name="destination" />; 
+            otherwise, <c>false</c> if the <paramref name="destination" /> span is too small.
+            </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.TryParse(System.Buffers.SequenceReader{System.Byte}@)">
+      <summary>
+            Parses from a streaming reader; advances by bytes consumed.
+            Implemented in terms of <see cref="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.ParseBinaryImage(System.Buffers.ReadOnlySequence{System.Byte},System.Boolean)" />.
+            </summary>
+      <param name="reader">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>reader</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.TryParse(System.Buffers.SequenceReader{System.Byte}@)</parameter>
+          </include>
+        </markup>
+      </param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.TryParse(System.Buffers.SequenceReader{System.Byte}@)</parameter>
+          </include>
+        </markup>
+      </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.TryParseBinaryImage(System.ReadOnlySpan{System.Byte},System.Int32@)">
+      <summary>
+            Attempts to parse this object's state from the specified <paramref name="source" /> span.
+            </summary>
+      <param name="source">The span from which the binary image will be parsed.</param>
+      <param name="consumed">
+            When this method returns, contains the number of bytes consumed from <paramref name="source" /> 
+            if the parsing was successful; otherwise, <c>0</c>.
+            </param>
+      <returns>
+        <c>true</c> if the binary image was successfully parsed from <paramref name="source" />; 
+            otherwise, <c>false</c> if the <paramref name="source" /> span is too small.
+            </returns>
+    </member>
+    <member name="M:Gemstone.IO.Parsing.ISupportBinaryImageSpan.WriteBinaryImage(System.Buffers.IBufferWriter{System.Byte})">
+      <summary>
+            Writes this object's binary image to the specified <paramref name="writer" />.
+            </summary>
+      <param name="writer">The <see cref="T:System.Buffers.IBufferWriter`1" /> to which the binary image will be written.</param>
+      <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="writer" /> is <c>null</c>.</exception>
+      <exception cref="T:System.InvalidOperationException">Thrown when the number of bytes written exceeds the available buffer space.</exception>
     </member>
     <member name="T:Gemstone.IO.Parsing.StringParser">
       <summary>
@@ -16383,7 +16601,7 @@
             to make those available to the interpolated format string by name. This can be used with user-defined
             types, but is mainly intended to be used with anonymous types.
             </para>
-        <code>
+        <code language="cs">
             string format = "{hello} {world}!";
             var parameters = new { hello = "Hello", world = "World" };
             Console.WriteLine(format.Interpolate(parameters));
