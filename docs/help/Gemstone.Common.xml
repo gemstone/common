@@ -16601,7 +16601,7 @@
             to make those available to the interpolated format string by name. This can be used with user-defined
             types, but is mainly intended to be used with anonymous types.
             </para>
-        <code language="cs">
+        <code>
             string format = "{hello} {world}!";
             var parameters = new { hello = "Hello", world = "World" };
             Console.WriteLine(format.Interpolate(parameters));
