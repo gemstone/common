@@ -833,37 +833,38 @@ public static class CollectionExtensions
         return copyOfSource;
     }
 
-    /// <summary>Selects the smallest item from the enumeration.</summary>
-    /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
-    /// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
-    /// <param name="source">An enumeration that contains the objects to be selected from.</param>
-    /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
-    /// <returns>Returns the smallest item from the enumeration.</returns>
-    public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
-    {
-        TSource minItem = default!;
+    ///// <summary>Selects the smallest item from the enumeration.</summary>
+    ///// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
+    ///// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
+    ///// <param name="source">An enumeration that contains the objects to be selected from.</param>
+    ///// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
+    ///// <returns>Returns the smallest item from the enumeration.</returns>
+    //[Obsolete("Switch to System.Linq.Enumerable version")]
+    //public static TSource MinBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
+    //{
+    //    TSource minItem = default!;
 
-        using IEnumerator<TSource> enumerator = source.GetEnumerator();
+    //    using IEnumerator<TSource> enumerator = source.GetEnumerator();
 
-        if (!enumerator.MoveNext())
-            return minItem;
+    //    if (!enumerator.MoveNext())
+    //        return minItem;
 
-        minItem = enumerator.Current;
-        TKey minKey = keySelector(minItem);
+    //    minItem = enumerator.Current;
+    //    TKey minKey = keySelector(minItem);
 
-        while (enumerator.MoveNext())
-        {
-            TKey nextKey = keySelector(enumerator.Current);
+    //    while (enumerator.MoveNext())
+    //    {
+    //        TKey nextKey = keySelector(enumerator.Current);
 
-            if (nextKey.CompareTo(minKey) >= 0)
-                continue;
+    //        if (nextKey.CompareTo(minKey) >= 0)
+    //            continue;
 
-            minItem = enumerator.Current;
-            minKey = nextKey;
-        }
+    //        minItem = enumerator.Current;
+    //        minKey = nextKey;
+    //    }
 
-        return minItem;
-    }
+    //    return minItem;
+    //}
 
     /// <summary>Returns the smallest item from the enumeration.</summary>
     /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
@@ -900,37 +901,38 @@ public static class CollectionExtensions
         return source.Min(comparer.Compare);
     }
 
-    /// <summary>Selects the largest item from the enumeration.</summary>
-    /// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
-    /// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
-    /// <param name="source">An enumeration that contains the objects to be selected from.</param>
-    /// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
-    /// <returns>Returns the largest item from the enumeration.</returns>
-    public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
-    {
-        TSource maxItem = default!;
+    ///// <summary>Selects the largest item from the enumeration.</summary>
+    ///// <typeparam name="TSource"><see cref="Type"/> of the objects to be selected from.</typeparam>
+    ///// <typeparam name="TKey"><see cref="Type"/> of the objects to be compared.</typeparam>
+    ///// <param name="source">An enumeration that contains the objects to be selected from.</param>
+    ///// <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
+    ///// <returns>Returns the largest item from the enumeration.</returns>
+    //[Obsolete("Switch to System.Linq.Enumerable version")]
+    //public static TSource MaxBy<TSource, TKey>(this IEnumerable<TSource> source, Func<TSource, TKey> keySelector) where TKey : IComparable
+    //{
+    //    TSource maxItem = default!;
 
-        using IEnumerator<TSource> enumerator = source.GetEnumerator();
+    //    using IEnumerator<TSource> enumerator = source.GetEnumerator();
 
-        if (!enumerator.MoveNext())
-            return maxItem;
+    //    if (!enumerator.MoveNext())
+    //        return maxItem;
 
-        maxItem = enumerator.Current;
-        TKey maxKey = keySelector(maxItem);
+    //    maxItem = enumerator.Current;
+    //    TKey maxKey = keySelector(maxItem);
 
-        while (enumerator.MoveNext())
-        {
-            TKey nextKey = keySelector(enumerator.Current);
+    //    while (enumerator.MoveNext())
+    //    {
+    //        TKey nextKey = keySelector(enumerator.Current);
 
-            if (nextKey.CompareTo(maxKey) <= 0)
-                continue;
+    //        if (nextKey.CompareTo(maxKey) <= 0)
+    //            continue;
 
-            maxItem = enumerator.Current;
-            maxKey = nextKey;
-        }
+    //        maxItem = enumerator.Current;
+    //        maxKey = nextKey;
+    //    }
 
-        return maxItem;
-    }
+    //    return maxItem;
+    //}
 
     /// <summary>Returns the largest item from the enumeration.</summary>
     /// <typeparam name="TSource"><see cref="Type"/> of <see cref="IEnumerable{T}"/>.</typeparam>
