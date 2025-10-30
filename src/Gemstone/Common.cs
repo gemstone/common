@@ -61,29 +61,6 @@ using static Gemstone.Interop.WindowsApi;
 
 namespace Gemstone;
 
-#region [ Enumerations ]
-
-/// <summary>
-/// Indicates the type of update.
-/// </summary>
-public enum UpdateType
-{
-    /// <summary>
-    /// Update is informational.
-    /// </summary>
-    Information,
-    /// <summary>
-    /// Update is a warning.
-    /// </summary>
-    Warning,
-    /// <summary>
-    /// Update is an alarm.
-    /// </summary>
-    Alarm
-}
-
-#endregion
-
 /// <summary>
 /// Defines common global functions.
 /// </summary>
