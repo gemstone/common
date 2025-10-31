@@ -8503,16 +8503,6 @@
         <see cref="T:System.Type" /> of <see cref="T:System.Collections.Generic.IEnumerable`1" />.</typeparam>
       <returns>Returns a generic type.</returns>
     </member>
-    <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.MaxBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-      <summary>Selects the largest item from the enumeration.</summary>
-      <param name="source">An enumeration that contains the objects to be selected from.</param>
-      <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
-      <typeparam name="TSource">
-        <see cref="T:System.Type" /> of the objects to be selected from.</typeparam>
-      <typeparam name="TKey">
-        <see cref="T:System.Type" /> of the objects to be compared.</typeparam>
-      <returns>Returns the largest item from the enumeration.</returns>
-    </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Median``1(System.Collections.Generic.IEnumerable{``0})">
       <summary>
             Gets the median item(s) from an enumeration, i.e., one return item for odd lengths, two for even lengths.
@@ -8580,16 +8570,6 @@
       <typeparam name="TSource">
         <see cref="T:System.Type" /> of <see cref="T:System.Collections.Generic.IEnumerable`1" />.</typeparam>
       <returns>Returns a generic type.</returns>
-    </member>
-    <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.MinBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
-      <summary>Selects the smallest item from the enumeration.</summary>
-      <param name="source">An enumeration that contains the objects to be selected from.</param>
-      <param name="keySelector">A delegate that takes an object and produces the key for comparison.</param>
-      <typeparam name="TSource">
-        <see cref="T:System.Type" /> of the objects to be selected from.</typeparam>
-      <typeparam name="TKey">
-        <see cref="T:System.Type" /> of the objects to be compared.</typeparam>
-      <returns>Returns the smallest item from the enumeration.</returns>
     </member>
     <member name="M:Gemstone.Collections.CollectionExtensions.CollectionExtensions.Minority``1(System.Collections.Generic.IEnumerable{``0},System.Boolean,System.Collections.Generic.IEqualityComparer{``0})">
       <summary>
@@ -9001,6 +8981,30 @@
     <member name="F:Gemstone.ComponentModel.DataAnnotations.UrlValidationAttribute.ValidationPattern">
       <summary>
             Defines the regular expression pattern used to validate value. 
+            </summary>
+    </member>
+    <member name="T:Gemstone.ComponentModel.DataAnnotations.UseAlternateUIAttribute">
+      <summary>
+            Defines whether to use an alternate UI for the associated property or field.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ComponentModel.DataAnnotations.UseAlternateUIAttribute.#ctor(System.Boolean)">
+      <summary>
+            Defines whether to use an alternate UI for the associated property or field.
+            </summary>
+      <param name="useAlternateUI">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>useAlternateUI</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.UseAlternateUIAttribute.#ctor(System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.UseAlternateUIAttribute.UseAlternateUI">
+      <summary>
+            Flag that determines whether to use the alternate UI for the associated property or field.
             </summary>
     </member>
     <member name="T:Gemstone.Configuration.ConfigurationOperation">
