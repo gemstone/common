@@ -5856,26 +5856,6 @@
             Unix dates are measured as the number of seconds since 1/1/1970.
             </remarks>
     </member>
-    <member name="T:Gemstone.UpdateType">
-      <summary>
-            Indicates the type of update.
-            </summary>
-    </member>
-    <member name="F:Gemstone.UpdateType.Information">
-      <summary>
-            Update is informational.
-            </summary>
-    </member>
-    <member name="F:Gemstone.UpdateType.Warning">
-      <summary>
-            Update is a warning.
-            </summary>
-    </member>
-    <member name="F:Gemstone.UpdateType.Alarm">
-      <summary>
-            Update is an alarm.
-            </summary>
-    </member>
     <member name="T:Gemstone.USTimeZones">
       <summary>
             Defines a few common United States time zones.
@@ -9472,16 +9452,16 @@
         <para>
             This method is intended to be chained after each source that needs to be made read-only.
             </para>
-        <code>
-            IConfiguration configuration = new ConfigurationBuilder()
-                .AddInMemoryCollection(defaultSettings).AsReadOnly()
-                .AddIniFile("usersettings.ini").AsReadOnly()
-                .AddSQLite()
-                .Build();
-                
-            // This will only update the SQLite configuration provider
-            configuration["Hello"] = "World";
-            </code>
+        <codeSnippetGroup>
+          <code language="cs" codeLanguage="CSharp" style="cs">IConfiguration configuration = new ConfigurationBuilder()
+    .AddInMemoryCollection(defaultSettings).AsReadOnly()
+    .AddIniFile("usersettings.ini").AsReadOnly()
+    .AddSQLite()
+    .Build();
+
+// This will only update the SQLite configuration provider
+configuration["Hello"] = "World";</code>
+        </codeSnippetGroup>
       </remarks>
     </member>
     <member name="M:Gemstone.Configuration.ReadOnly.ReadOnlyConfigurationExtensions.ConfigureReadOnly(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
@@ -9495,17 +9475,17 @@
         <para>
             This method is intended to encapsulate the builder action that creates a group of read-only providers.
             </para>
-        <code>
-            IConfiguration configuration = new ConfigurationBuilder()
-                .ConfigureReadOnly(readOnlyBuilder =&gt; readOnlyBuilder
-                    .AddInMemoryCollection(defaultSettings)
-                    .AddIniFile("usersettings.ini"))
-                .AddSQLite()
-                .Build();
-                
-            // This will only update the SQLite configuration provider
-            configuration["Hello"] = "World";
-            </code>
+        <codeSnippetGroup>
+          <code language="cs" codeLanguage="CSharp" style="cs">IConfiguration configuration = new ConfigurationBuilder()
+    .ConfigureReadOnly(readOnlyBuilder =&gt; readOnlyBuilder
+        .AddInMemoryCollection(defaultSettings)
+        .AddIniFile("usersettings.ini"))
+    .AddSQLite()
+    .Build();
+
+// This will only update the SQLite configuration provider
+configuration["Hello"] = "World";</code>
+        </codeSnippetGroup>
       </remarks>
     </member>
     <member name="T:Gemstone.Configuration.ReadOnly.ReadOnlyConfigurationProvider">
@@ -15514,15 +15494,15 @@
             Fields:
             </para>
         <para>
-          <code>
-                +---------------- minute (0 - 59)
-                |  +------------- hour (0 - 23)
-                |  |  +---------- day of month (1 - 31)
-                |  |  |  +------- month (1 - 12)
-                |  |  |  |  +---- day of week (0 - 7) (Sunday=0 or 7)
-                |  |  |  |  |
-                *  *  *  *  *
-            </code>
+          <codeSnippetGroup>
+            <code language="cs" codeLanguage="CSharp" style="cs">+---------------- minute (0 - 59)
+|  +------------- hour (0 - 23)
+|  |  +---------- day of month (1 - 31)
+|  |  |  +------- month (1 - 12)
+|  |  |  |  +---- day of week (0 - 7) (Sunday=0 or 7)
+|  |  |  |  |
+*  *  *  *  *</code>
+          </codeSnippetGroup>
         </para>
         <para>
             Each of the patterns from the first five fields may be either * (an asterisk), which matches all legal values,
@@ -18133,6 +18113,79 @@
           </include>
         </markup>
       </returns>
+    </member>
+    <member name="T:Gemstone.StringExtensions.StringMatcher.StringMatcher">
+      <summary>
+            Represents a string matcher that can perform various types of string matching operations.
+            </summary>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringMatcher.StringMatcher.#ctor(Gemstone.StringExtensions.StringMatcher.StringMatchingMode,System.String,System.Boolean)">
+      <summary>
+            Generates a new <see cref="T:Gemstone.StringExtensions.StringMatcher.StringMatcher" /> instance.
+            </summary>
+      <param name="mode"> Sets the <see cref="T:Gemstone.StringExtensions.StringMatcher.StringMatchingMode" /> used to match.</param>
+      <param name="value"> The string being matched. </param>
+      <param name="caseSensitive">A flag indicating if the match is case sensitive. </param>
+    </member>
+    <member name="P:Gemstone.StringExtensions.StringMatcher.StringMatcher.CaseSensitive">
+      <summary>
+            Gets a flag indicating whether the match is case sensitive.
+            </summary>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringMatcher.StringMatcher.IsMatch(System.String)">
+      <summary>
+            Compares the specified <paramref name="value" /> against the match criteria.
+            </summary>
+      <param name="value">The string that is being matched.</param>
+      <returns>
+        <markup>
+          <include item="SMCMissingTag">
+            <parameter>returns</parameter>
+            <parameter>M:Gemstone.StringExtensions.StringMatcher.StringMatcher.IsMatch(System.String)</parameter>
+          </include>
+        </markup>
+      </returns>
+      <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+    </member>
+    <member name="P:Gemstone.StringExtensions.StringMatcher.StringMatcher.MatchMode">
+      <summary>
+            Gets the <see cref="T:Gemstone.StringExtensions.StringMatcher.StringMatchingMode" /> used.
+            </summary>
+    </member>
+    <member name="P:Gemstone.StringExtensions.StringMatcher.StringMatcher.MatchText">
+      <summary>
+            Gets the string that is being matched.
+            </summary>
+    </member>
+    <member name="T:Gemstone.StringExtensions.StringMatcher.StringMatchingMode">
+      <summary>
+            Defines a set of string matching modes.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.Exact">
+      <summary>
+            Exact string matching.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.StartsWith">
+      <summary>
+            String starts with matching.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.EndsWith">
+      <summary>
+            String ends with matching.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.Contains">
+      <summary>
+            String contains matching.
+            </summary>
+    </member>
+    <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.Regex">
+      <summary>
+            Regular expression string matching.
+            </summary>
     </member>
     <member name="T:Gemstone.Threading.InterprocessLock">
       <summary>
