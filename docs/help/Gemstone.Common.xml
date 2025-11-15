@@ -9452,16 +9452,16 @@
         <para>
             This method is intended to be chained after each source that needs to be made read-only.
             </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">IConfiguration configuration = new ConfigurationBuilder()
-    .AddInMemoryCollection(defaultSettings).AsReadOnly()
-    .AddIniFile("usersettings.ini").AsReadOnly()
-    .AddSQLite()
-    .Build();
-
-// This will only update the SQLite configuration provider
-configuration["Hello"] = "World";</code>
-        </codeSnippetGroup>
+        <code>
+            IConfiguration configuration = new ConfigurationBuilder()
+                .AddInMemoryCollection(defaultSettings).AsReadOnly()
+                .AddIniFile("usersettings.ini").AsReadOnly()
+                .AddSQLite()
+                .Build();
+                
+            // This will only update the SQLite configuration provider
+            configuration["Hello"] = "World";
+            </code>
       </remarks>
     </member>
     <member name="M:Gemstone.Configuration.ReadOnly.ReadOnlyConfigurationExtensions.ConfigureReadOnly(Microsoft.Extensions.Configuration.IConfigurationBuilder,System.Action{Microsoft.Extensions.Configuration.IConfigurationBuilder})">
@@ -9475,17 +9475,17 @@ configuration["Hello"] = "World";</code>
         <para>
             This method is intended to encapsulate the builder action that creates a group of read-only providers.
             </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">IConfiguration configuration = new ConfigurationBuilder()
-    .ConfigureReadOnly(readOnlyBuilder =&gt; readOnlyBuilder
-        .AddInMemoryCollection(defaultSettings)
-        .AddIniFile("usersettings.ini"))
-    .AddSQLite()
-    .Build();
-
-// This will only update the SQLite configuration provider
-configuration["Hello"] = "World";</code>
-        </codeSnippetGroup>
+        <code>
+            IConfiguration configuration = new ConfigurationBuilder()
+                .ConfigureReadOnly(readOnlyBuilder =&gt; readOnlyBuilder
+                    .AddInMemoryCollection(defaultSettings)
+                    .AddIniFile("usersettings.ini"))
+                .AddSQLite()
+                .Build();
+                
+            // This will only update the SQLite configuration provider
+            configuration["Hello"] = "World";
+            </code>
       </remarks>
     </member>
     <member name="T:Gemstone.Configuration.ReadOnly.ReadOnlyConfigurationProvider">
@@ -15494,15 +15494,15 @@ configuration["Hello"] = "World";</code>
             Fields:
             </para>
         <para>
-          <codeSnippetGroup>
-            <code language="cs" codeLanguage="CSharp" style="cs">+---------------- minute (0 - 59)
-|  +------------- hour (0 - 23)
-|  |  +---------- day of month (1 - 31)
-|  |  |  +------- month (1 - 12)
-|  |  |  |  +---- day of week (0 - 7) (Sunday=0 or 7)
-|  |  |  |  |
-*  *  *  *  *</code>
-          </codeSnippetGroup>
+          <code>
+                +---------------- minute (0 - 59)
+                |  +------------- hour (0 - 23)
+                |  |  +---------- day of month (1 - 31)
+                |  |  |  +------- month (1 - 12)
+                |  |  |  |  +---- day of week (0 - 7) (Sunday=0 or 7)
+                |  |  |  |  |
+                *  *  *  *  *
+            </code>
         </para>
         <para>
             Each of the patterns from the first five fields may be either * (an asterisk), which matches all legal values,
