@@ -113,7 +113,7 @@ public static class Common
     /// original <see cref="Type"/>.
     /// </para>
     /// </remarks>
-    public static string TypeConvertToString(object value)
+    public static string TypeConvertToString(object? value)
     {
         return TypeConvertToString(value, null);
     }
