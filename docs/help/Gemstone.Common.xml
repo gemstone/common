@@ -9057,18 +9057,16 @@
             <list type="bullet"><item>INI file (defaults.ini) - Machine Level, %programdata% folder</item><item>INI file (settings.ini) - Machine Level, %programdata% folder</item><item>SQLite database (settings.db) - User Level, %appdata% folder</item><item>Environment variables - Machine Level</item><item>Environment variables - User Level</item></list>
             Command line arguments can also be added to the hierarchy to override settings.
             For example:
-            <code>
-                Settings settings = new()
-                {
-                    INIFile = ConfigurationOperation.ReadWrite,
-                    SQLite = ConfigurationOperation.Disabled         
-                };
-            
-                // Bind settings to configuration sources
-                settings.Bind(new ConfigurationBuilder()
-                    .ConfigureGemstoneDefaults(settings)
-                    .AddCommandLine(args, settings.SwitchMappings));
-            </code>
+            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">Settings settings = new()
+{
+    INIFile = ConfigurationOperation.ReadWrite,
+    SQLite = ConfigurationOperation.Disabled         
+};
+
+// Bind settings to configuration sources
+settings.Bind(new ConfigurationBuilder()
+    .ConfigureGemstoneDefaults(settings)
+    .AddCommandLine(args, settings.SwitchMappings));</code></codeSnippetGroup>
             See the <see cref="P:Gemstone.Configuration.Settings.SwitchMappings" /> property for defining command line switches.
             </remarks>
     </member>
@@ -22991,15 +22989,19 @@
             for example:
             <example>
             Convert power in watts to megawatts:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetMegawatts(Power watts)
-{
-    return watts / SI.Mega;
-}</code></codeSnippetGroup>
+            <code>
+            public double GetMegawatts(Power watts)
+            {
+                return watts / SI.Mega;
+            }
+            </code>
             This example converts megawatts to mechanical horsepower:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetHorsepower(double megawatts)
-{
-    return (new Power(megawatts * SI.Mega)).ToHorsepower();
-}</code></codeSnippetGroup></example></remarks>
+            <code>
+            public double GetHorsepower(double megawatts)
+            {
+                return (new Power(megawatts * SI.Mega)).ToHorsepower();
+            }
+            </code></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Power.#ctor(System.Double)">
       <summary>
