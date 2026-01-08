@@ -9057,16 +9057,18 @@
             <list type="bullet"><item>INI file (defaults.ini) - Machine Level, %programdata% folder</item><item>INI file (settings.ini) - Machine Level, %programdata% folder</item><item>SQLite database (settings.db) - User Level, %appdata% folder</item><item>Environment variables - Machine Level</item><item>Environment variables - User Level</item></list>
             Command line arguments can also be added to the hierarchy to override settings.
             For example:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">Settings settings = new()
-{
-    INIFile = ConfigurationOperation.ReadWrite,
-    SQLite = ConfigurationOperation.Disabled         
-};
-
-// Bind settings to configuration sources
-settings.Bind(new ConfigurationBuilder()
-    .ConfigureGemstoneDefaults(settings)
-    .AddCommandLine(args, settings.SwitchMappings));</code></codeSnippetGroup>
+            <code>
+                Settings settings = new()
+                {
+                    INIFile = ConfigurationOperation.ReadWrite,
+                    SQLite = ConfigurationOperation.Disabled         
+                };
+            
+                // Bind settings to configuration sources
+                settings.Bind(new ConfigurationBuilder()
+                    .ConfigureGemstoneDefaults(settings)
+                    .AddCommandLine(args, settings.SwitchMappings));
+            </code>
             See the <see cref="P:Gemstone.Configuration.Settings.SwitchMappings" /> property for defining command line switches.
             </remarks>
     </member>
@@ -19258,7 +19260,7 @@ settings.Bind(new ConfigurationBuilder()
              Implementers should call <see cref="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction" /> on a separate thread and check the return value.
              If it returns true, that means it needs to run again. The following is a sample implementation using
              a regular dedicated thread:
-             <code language="cs">
+             <code>
              protected override void ExecuteActionAsync()
              {
                  Thread actionThread = new Thread(() =&gt;
