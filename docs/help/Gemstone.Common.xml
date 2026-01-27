@@ -16557,16 +16557,16 @@
              are stored in a <see cref="T:System.Collections.Generic.Dictionary`2" /> or <see cref="T:System.Dynamic.ExpandoObject" />.
              Note that dynamic variables cannot be used when calling extension functions.
              </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">string format = "{hello} {world}!";
-dynamic parameters = new ExpandoObject();
-parameters.hello = "Hello";
-parameters.world = "World";
-
-Console.WriteLine(format.Interpolate(parameters));                  // This raises a compiler error
-Console.WriteLine(format.Interpolate((ExpandoObject)parameters);    // This is okay
-Console.WriteLine(StringExtensions.Interpolate(format, parameters); // This is also okay</code>
-        </codeSnippetGroup>
+        <code>
+             string format = "{hello} {world}!";
+             dynamic parameters = new ExpandoObject();
+             parameters.hello = "Hello";
+             parameters.world = "World";
+            
+             Console.WriteLine(format.Interpolate(parameters));                  // This raises a compiler error
+             Console.WriteLine(format.Interpolate((ExpandoObject)parameters);    // This is okay
+             Console.WriteLine(StringExtensions.Interpolate(format, parameters); // This is also okay
+             </code>
       </remarks>
     </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.Interpolate``1(System.String,``0)">
@@ -16585,13 +16585,13 @@ Console.WriteLine(StringExtensions.Interpolate(format, parameters); // This is a
             to make those available to the interpolated format string by name. This can be used with user-defined
             types, but is mainly intended to be used with anonymous types.
             </para>
-        <codeSnippetGroup>
-          <code language="cs" codeLanguage="CSharp" style="cs">string format = "{hello} {world}!";
-var parameters = new { hello = "Hello", world = "World" };
-Console.WriteLine(format.Interpolate(parameters));</code>
-        </codeSnippetGroup>
+        <code>
+            string format = "{hello} {world}!";
+            var parameters = new { hello = "Hello", world = "World" };
+            Console.WriteLine(format.Interpolate(parameters));
+            </code>
         <para>
-            If <paramref name="parameters" /> can be safely cast to <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">IEnumerable{KeyValuePair{string, object}}</code></codeSnippetGroup>, this function
+            If <paramref name="parameters" /> can be safely cast to <code>IEnumerable{KeyValuePair{string, object}}</code>, this function
             will skip the reflection and call <see cref="M:Gemstone.StringExtensions.StringExtensions.Interpolate(System.String,System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,System.Object}})" /> directly.
             </para>
       </remarks>
@@ -19488,7 +19488,7 @@ Console.WriteLine(format.Interpolate(parameters));</code>
             " year", " years", " day", " days", " hour", " hours", " minute", " minutes", " second", " seconds", "less than ".
             </para>
         <example>
-          <code>
+          <code language="cs">
               DateTime g_start = DateTime.UtcNow;
               DateTime EndTime = DateTime.UtcNow;
               TimeSpan duration = EndTime.Subtract(g_start);
@@ -26423,20 +26423,26 @@ Console.WriteLine(format.Interpolate(parameters));</code>
             Metric conversions are handled simply by applying the needed <see cref="T:Gemstone.Units.SI" /> conversion factor, for example:
             <example>
             Convert volume, in cubic meters, to cubic kilometers:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetCubicKilometers(Volume cubicmeters)
-{
-    return cubicmeters / SI.Kilo;
-}</code></codeSnippetGroup>
+            <code>
+            public double GetCubicKilometers(Volume cubicmeters)
+            {
+                return cubicmeters / SI.Kilo;
+            }
+            </code>
             This example converts teaspoons to cups:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetCups(double teaspoons)
-{
-    return Volume.FromTeaspoons(teaspoons).ToCups();
-}</code></codeSnippetGroup>
+            <code>
+            public double GetCups(double teaspoons)
+            {
+                return Volume.FromTeaspoons(teaspoons).ToCups();
+            }
+            </code>
             This example converts liters to fluid ounces:
-            <codeSnippetGroup><code language="cs" codeLanguage="CSharp" style="cs">public double GetFluidOunces(double liters)
-{
-    return Volume.FromLiters(liters).ToFluidOunces();
-}</code></codeSnippetGroup></example></remarks>
+            <code>
+            public double GetFluidOunces(double liters)
+            {
+                return Volume.FromLiters(liters).ToFluidOunces();
+            }
+            </code></example></remarks>
     </member>
     <member name="M:Gemstone.Units.Volume.#ctor(System.Double)">
       <summary>
