@@ -23,6 +23,7 @@
 
 using System;
 using System.IO;
+using Gemstone.IO;
 
 namespace Gemstone.Configuration;
 
@@ -35,9 +36,13 @@ internal static class INIConfigurationHelpers
     /// Gets file path for INI configuration file.
     /// </summary>
     /// <param name="fileName">Target file INI file name.</param>
+    /// <param name="configuredPath">Any configured INI file path.</param>
     /// <returns>INI file path.</returns>
-    public static string GetINIFilePath(string fileName)
+    public static string GetINIFilePath(string fileName, string? configuredPath)
     {
+        if (!string.IsNullOrWhiteSpace(configuredPath))
+            return Path.Combine(FilePath.GetAbsolutePath(configuredPath), fileName);
+
         Environment.SpecialFolder specialFolder = Environment.SpecialFolder.CommonApplicationData;
         string appDataPath = Environment.GetFolderPath(specialFolder);
         return Path.Combine(appDataPath, Common.ApplicationName, fileName);
