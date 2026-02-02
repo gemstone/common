@@ -129,6 +129,11 @@ public partial class Settings : DynamicObject
     public ConfigurationOperation INIFile { get; init; } = ConfigurationOperation.ReadOnly;
 
     /// <summary>
+    /// Gets or sets any configured INI path. Set to <c>null</c> for default %ProgramData% path.
+    /// </summary>
+    public string? ConfiguredINIPath { get; init; } = null;
+
+    /// <summary>
     /// Gets or sets configuration operation mode for SQLite settings.
     /// </summary>
     public ConfigurationOperation SQLite { get; init; } = ConfigurationOperation.ReadWrite;
@@ -161,24 +166,12 @@ public partial class Settings : DynamicObject
     /// <summary>
     /// Gets the names for the settings sections.
     /// </summary>
-    public string[] SectionNames
-    {
-        get
-        {
-            return m_sections.Keys.ToArray();
-        }
-    }
+    public string[] SectionNames => m_sections.Keys.ToArray();
 
     /// <summary>
     /// Gets the sections count for the settings.
     /// </summary>
-    public int Count
-    {
-        get
-        {
-            return m_sections.Count;
-        }
-    }
+    public int Count => m_sections.Count;
 
     /// <summary>
     /// Gets the command line switch mappings for <see cref="Settings"/>.
@@ -189,23 +182,14 @@ public partial class Settings : DynamicObject
     /// Gets the <see cref="SettingsSection"/> for the specified key.
     /// </summary>
     /// <param name="key">Section key.</param>
-    public SettingsSection this[string key]
-    {
-        get
-        {
-            return m_sections.GetOrAdd(key, _ => new SettingsSection(this, key));
-        }
-    }
+    public SettingsSection this[string key] => m_sections.GetOrAdd(key, _ => new SettingsSection(this, key));
 
     /// <summary>
     /// Gets flag that determines if any settings have been changed.
     /// </summary>
     public bool IsDirty
     {
-        get
-        {
-            return m_sections.Values.Any(section => section.IsDirty);
-        }
+        get => m_sections.Values.Any(section => section.IsDirty);
         private set
         {
             foreach (SettingsSection section in m_sections.Values)
@@ -247,8 +231,8 @@ public partial class Settings : DynamicObject
 
         if (iniProviderExists)
         {
-            string iniPath = GetINIFilePath("settings.ini");
-            using TextReader reader = GetINIFileReader(iniPath);
+            string iniFilePath = GetINIFilePath("settings.ini", ConfiguredINIPath);
+            using TextReader reader = GetINIFileReader(iniFilePath);
             string[] iniFileContents = reader.ReadToEnd().Split(["\n", "\r", "\r\n"], StringSplitOptions.RemoveEmptyEntries);
             string currentSection = "";
             StringBuilder currentDescription = new();
@@ -440,7 +424,7 @@ public partial class Settings : DynamicObject
 
                     // Handle INI file as a special case, writing entire file contents on save
                     string contents = Configuration!.GenerateINIFileContents(splitDescriptionLines: SplitDescriptionLines);
-                    string iniFilePath = GetINIFilePath("settings.ini");
+                    string iniFilePath = GetINIFilePath("settings.ini", ConfiguredINIPath);
                     using TextWriter writer = GetINIFileWriter(iniFilePath);
                     writer.Write(contents);
                 }
