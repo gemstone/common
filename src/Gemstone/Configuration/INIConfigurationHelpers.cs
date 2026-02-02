@@ -36,12 +36,12 @@ internal static class INIConfigurationHelpers
     /// Gets file path for INI configuration file.
     /// </summary>
     /// <param name="fileName">Target file INI file name.</param>
-    /// <param name="configuredPath">Any configured INI file path.</param>
+    /// <param name="configuredINIPath">Any configured path for the INI file.</param>
     /// <returns>INI file path.</returns>
-    public static string GetINIFilePath(string fileName, string? configuredPath)
+    public static string GetINIFilePath(string fileName, string? configuredINIPath)
     {
-        if (!string.IsNullOrWhiteSpace(configuredPath))
-            return Path.Combine(FilePath.GetAbsolutePath(configuredPath), fileName);
+        if (!string.IsNullOrWhiteSpace(configuredINIPath))
+            return Path.Combine(FilePath.GetAbsolutePath(configuredINIPath), fileName);
 
         const Environment.SpecialFolder SpecialFolder = Environment.SpecialFolder.CommonApplicationData;
         string appDataPath = Environment.GetFolderPath(SpecialFolder);
