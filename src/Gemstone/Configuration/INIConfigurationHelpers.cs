@@ -43,8 +43,8 @@ internal static class INIConfigurationHelpers
         if (!string.IsNullOrWhiteSpace(configuredPath))
             return Path.Combine(FilePath.GetAbsolutePath(configuredPath), fileName);
 
-        Environment.SpecialFolder specialFolder = Environment.SpecialFolder.CommonApplicationData;
-        string appDataPath = Environment.GetFolderPath(specialFolder);
+        const Environment.SpecialFolder SpecialFolder = Environment.SpecialFolder.CommonApplicationData;
+        string appDataPath = Environment.GetFolderPath(SpecialFolder);
         return Path.Combine(appDataPath, Common.ApplicationName, fileName);
     }
 
