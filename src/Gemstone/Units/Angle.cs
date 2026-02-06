@@ -214,7 +214,7 @@ public struct Angle : IComparable, IFormattable, IConvertible, IComparable<Angle
     /// Gets the <see cref="Angle"/> value in degrees.
     /// </summary>
     /// <returns>Value of <see cref="Angle"/> in degrees.</returns>
-    public double ToDegrees()
+    public readonly double ToDegrees()
     {
         return m_value / DegreesFactor;
     }
@@ -223,7 +223,7 @@ public struct Angle : IComparable, IFormattable, IConvertible, IComparable<Angle
     /// Gets the <see cref="Angle"/> value in grads.
     /// </summary>
     /// <returns>Value of <see cref="Angle"/> in grads.</returns>
-    public double ToGrads()
+    public readonly double ToGrads()
     {
         return m_value / GradsFactor;
     }
@@ -232,7 +232,7 @@ public struct Angle : IComparable, IFormattable, IConvertible, IComparable<Angle
     /// Gets the <see cref="Angle"/> value in arcminutes.
     /// </summary>
     /// <returns>Value of <see cref="Angle"/> in arcminutes.</returns>
-    public double ToArcMinutes()
+    public readonly double ToArcMinutes()
     {
         return m_value / ArcMinutesFactor;
     }
@@ -241,7 +241,7 @@ public struct Angle : IComparable, IFormattable, IConvertible, IComparable<Angle
     /// Gets the <see cref="Angle"/> value in arcseconds.
     /// </summary>
     /// <returns>Value of <see cref="Angle"/> in arcseconds.</returns>
-    public double ToArcSeconds()
+    public readonly double ToArcSeconds()        
     {
         return m_value / ArcSecondsFactor;
     }
@@ -250,7 +250,7 @@ public struct Angle : IComparable, IFormattable, IConvertible, IComparable<Angle
     /// Gets the <see cref="Angle"/> value in angular mil.
     /// </summary>
     /// <returns>Value of <see cref="Angle"/> in angular mil.</returns>
-    public double ToAngularMil()
+    public readonly double ToAngularMil()
     {
         return m_value / AngularMilFactor;
     }
