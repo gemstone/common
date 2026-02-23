@@ -29,17 +29,12 @@ namespace Gemstone.ComponentModel.DataAnnotations;
 /// Specifies that a property should render a toggle switch in the UI that allows the user to disable and/or reset the properties value.
 /// </summary>
 [AttributeUsage(AttributeTargets.Property, AllowMultiple = false)]
-public class ToggleVisibilityAttribute(string label, bool resetOnTrigger = false, bool triggerValue = false) : Attribute
+public class ToggleVisibilityAttribute(string label, bool triggerValue = false) : Attribute
 {
     /// <summary>
     /// Gets the label to display on the toggle switch.
     /// </summary>
     public string Label { get; } = label;
-
-    /// <summary>
-    /// Gets whether the property value should be reset to its default when the toggle is changed to the TriggerValue.
-    /// </summary>
-    public bool ResetOnTriggerValue { get; } = resetOnTrigger;
 
     /// <summary>
     /// Gets the boolean value of the toggle that triggers the hide/reset behavior.
