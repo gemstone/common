@@ -158,6 +158,11 @@ public partial class Settings : DynamicObject
     }
 
     /// <summary>
+    /// Gets or sets the option for how to generate values in the INI file when saving settings.
+    /// </summary>
+    public INIGenerationOption INIGenerationOption { get; init; } = INIGenerationOption.UncommentedValueIfDifferent;
+
+    /// <summary>
     /// Gets or sets flag that determines if description lines, e.g., those encoded into an INI file,
     /// should be split into multiple lines.
     /// </summary>
@@ -423,7 +428,7 @@ public partial class Settings : DynamicObject
                         continue;
 
                     // Handle INI file as a special case, writing entire file contents on save
-                    string contents = Configuration!.GenerateINIFileContents(splitDescriptionLines: SplitDescriptionLines);
+                    string contents = Configuration!.GenerateINIFileContents(INIGenerationOption, SplitDescriptionLines);
                     string iniFilePath = GetINIFilePath("settings.ini", ConfiguredINIPath);
                     using TextWriter writer = GetINIFileWriter(iniFilePath);
                     writer.Write(contents);
