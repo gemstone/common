@@ -2476,10 +2476,13 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Parses the string as a CSV document.
+    /// Parses the string as a CSV document
     /// </summary>
     /// <param name="csv">The string to be parsed</param>
     /// <returns>An array of rows parsed as CSV data.</returns>
+    /// <remarks>
+    /// Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+    /// </remarks>
     public static string[][] ParseAsCSV(this string csv)
     {
         using StringReader reader = new(csv);
@@ -2487,8 +2490,11 @@ public static class StringExtensions
 
         while (true)
         {
-            string[]? row = ReadCSVRow(reader);
-            if (row is null) break;
+            string[]? row = reader.ReadCSVRow();
+            
+            if (row is null)
+                break;
+            
             rows.Add(row);
         }
 
@@ -2496,10 +2502,30 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// Reads characters from the string and returns a single row of CSV data.
+    /// </summary>
+    /// <param name="row">Row of CSV data to parse</param>
+    /// <returns>An array of fields in one row of CSV data or <c>null</c> if the row is empty.</returns>
+    /// <remarks>
+    /// Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+    /// </remarks>
+    public static string[]? ReadCSVRow(this string row)
+    {
+        if (string.IsNullOrEmpty(row))
+            return null;
+        
+        using StringReader reader = new(row);
+        return reader.ReadCSVRow();
+    }
+
+    /// <summary>
     /// Reads characters from the text reader and returns a single row of CSV data.
     /// </summary>
     /// <param name="reader">The text reader providing the CSV data</param>
     /// <returns>An array of fields in one row of CSV data or <c>null</c> if there is no more data available from the text reader.</returns>
+    /// <remarks>
+    /// Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+    /// </remarks>
     public static string[]? ReadCSVRow(this TextReader reader)
     {
         List<string> fields = [];
@@ -2510,25 +2536,26 @@ public static class StringExtensions
 
         while (!EOF() && !EOL())
         {
-            if (Matches('"'))
-                fields.Add(ReadQuoted());
-            else
-                fields.Add(ReadToComma());
+            fields.Add(Matches('"') ? ReadQuoted() : ReadToComma());
 
-            if (Matches(','))
-            {
-                Advance();
+            if (!Matches(','))
+                continue;
+            
+            Advance();
 
-                // Edge case for when the last
-                // field in a row is empty
-                if (EOF() || EOL())
-                    fields.Add(string.Empty);
-            }
+            // Edge case for when the last
+            // field in a row is empty
+            if (EOF() || EOL())
+                fields.Add(string.Empty);
         }
 
         // Advance to the next line before returning
-        if (Matches('\r')) Advance();
-        if (Matches('\n')) Advance();
+        if (Matches('\r'))
+            Advance();
+        
+        if (Matches('\n'))
+            Advance();
+        
         return [.. fields];
 
         // Gets current character and advances to read the next character
