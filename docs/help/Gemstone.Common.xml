@@ -39,6 +39,18 @@
             Baseline timestamp to the year (i.e., starting at month one, day one, zero hours, minutes, seconds and milliseconds).
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.BigEndian">
       <summary>
             Defines a set of big-endian byte order interoperability functions.
@@ -999,6 +1011,18 @@
     <member name="F:Gemstone.Bits.Bit63">
       <summary>Bit 63 (0x8000000000000000)</summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.ByteEncoding">
       <summary>
             Defines a set of methods used to convert byte buffers to and from user presentable data formats.
@@ -1451,6 +1475,18 @@
             Represents the off, i.e., disabled, state.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Encoding7Bit">
       <summary>
             Defines 7-bit encoding functions.
@@ -1760,6 +1796,18 @@
     <member name="F:Gemstone.Endianness.LittleEndian">
       <summary>
             Little-endian byte order.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.EndianOrder">
@@ -8943,6 +8991,44 @@
             Field name used as primary label.
             </summary>
     </member>
+    <member name="T:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute">
+      <summary>
+            Specifies that a property should render a toggle switch in the UI that allows the user to disable and/or reset the properties value.
+            </summary>
+    </member>
+    <member name="M:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute.#ctor(System.String,System.Boolean)">
+      <summary>
+            Specifies that a property should render a toggle switch in the UI that allows the user to disable and/or reset the properties value.
+            </summary>
+      <param name="label">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>label</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute.#ctor(System.String,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+      <param name="triggerValue">
+        <markup>
+          <include item="SMCMissingParamTag">
+            <parameter>param</parameter>
+            <parameter>triggerValue</parameter>
+            <parameter>M:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute.#ctor(System.String,System.Boolean)</parameter>
+          </include>
+        </markup>
+      </param>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute.Label">
+      <summary>
+            Gets the label to display on the toggle switch.
+            </summary>
+    </member>
+    <member name="P:Gemstone.ComponentModel.DataAnnotations.ToggleVisibilityAttribute.TriggerValue">
+      <summary>
+            Gets the boolean value of the toggle that triggers the hide/reset behavior.
+            </summary>
+    </member>
     <member name="T:Gemstone.ComponentModel.DataAnnotations.UrlValidationAttribute">
       <summary>
             Represents a <see cref="T:System.ComponentModel.DataAnnotations.RegularExpressionAttribute" /> for validating URL's.
@@ -9005,6 +9091,18 @@
     <member name="F:Gemstone.Configuration.ConfigurationOperation.ReadWrite">
       <summary>
             Configuration settings are read-write.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Configuration.IDefineSettings">
@@ -9125,6 +9223,11 @@
     <member name="P:Gemstone.Configuration.Settings.INIFile">
       <summary>
             Gets or sets configuration operation mode for INI file settings.
+            </summary>
+    </member>
+    <member name="P:Gemstone.Configuration.Settings.INIGenerationOption">
+      <summary>
+            Gets or sets the option for how to generate values in the INI file when saving settings.
             </summary>
     </member>
     <member name="P:Gemstone.Configuration.Settings.Instance">
@@ -9440,6 +9543,18 @@
     <member name="F:Gemstone.Configuration.INIConfigurationExtensions.INIGenerationOption.UncommentedValueIfDifferent">
       <summary>
             Generate all settings with their values uncommented, but only if the value is different from the default.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Configuration.ReadOnly.ReadOnlyConfigurationExtensions">
@@ -15470,6 +15585,18 @@
         <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents day of week. Legal values are 0 through 6, or 7 which maps to 0. Sunday is 0 and Saturday is 6.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Scheduling.Schedule">
       <summary>
             Represents a schedule defined using UNIX crontab syntax.
@@ -15859,6 +15986,18 @@
             Values for the <see cref="T:Gemstone.Scheduling.SchedulePart" /> were specified using the 'n1-nn/n' text syntax. Included values 
             are legal values for the <see cref="T:Gemstone.Scheduling.DateTimePart" /> that the <see cref="T:Gemstone.Scheduling.SchedulePart" /> represents that
             are within the specified range and that are divisible by 'n'. 
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Security.Cryptography.CharacterGroup">
@@ -16697,6 +16836,16 @@
       <param name="nonEmptyReturnValue">Value to return if <paramref name="testValue">testValue</paramref> is null or empty.</param>
       <returns>A non-empty string.</returns>
     </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.ParseAsCSV(System.String)">
+      <summary>
+            Parses the string as a CSV document
+            </summary>
+      <param name="csv">The string to be parsed</param>
+      <returns>An array of rows parsed as CSV data.</returns>
+      <remarks>
+            Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+            </remarks>
+    </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.ParseBoolean(System.String)">
       <summary>
             Parses a string intended to represent a boolean value.
@@ -16771,6 +16920,26 @@
       <param name="quoteChar">The char to wrap <paramref name="value" /></param>
       <returns>
         <paramref name="value" /> wrapped in <paramref name="quoteChar" /></returns>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.ReadCSVRow(System.IO.TextReader)">
+      <summary>
+            Reads characters from the text reader and returns a single row of CSV data.
+            </summary>
+      <param name="reader">The text reader providing the CSV data</param>
+      <returns>An array of fields in one row of CSV data or <c>null</c> if there is no more data available from the text reader.</returns>
+      <remarks>
+            Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+            </remarks>
+    </member>
+    <member name="M:Gemstone.StringExtensions.StringExtensions.ReadCSVRow(System.String)">
+      <summary>
+            Reads characters from the string and returns a single row of CSV data.
+            </summary>
+      <param name="row">Row of CSV data to parse</param>
+      <returns>An array of fields in one row of CSV data or <c>null</c> if the row is empty.</returns>
+      <remarks>
+            Excel compatible parsing is used, which includes support for quoted fields and embedded commas and quotes.
+            </remarks>
     </member>
     <member name="M:Gemstone.StringExtensions.StringExtensions.RegexDecode(System.String)">
       <summary>
@@ -17886,6 +18055,18 @@
         </markup>
       </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance">
       <summary>
             Fuzzy string comparison tolerances.
@@ -17909,6 +18090,18 @@
     <member name="F:Gemstone.StringExtensions.FuzzyStrings.FuzzyStringComparisonTolerance.Manual">
       <summary>
             Manual comparison tolerance.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.StringExtensions.FuzzyStrings.Operations">
@@ -18190,6 +18383,18 @@
     <member name="F:Gemstone.StringExtensions.StringMatcher.StringMatchingMode.Regex">
       <summary>
             Regular expression string matching.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Threading.InterprocessLock">
@@ -19265,7 +19470,7 @@
              Implementers should call <see cref="M:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationBase.ExecuteAction" /> on a separate thread and check the return value.
              If it returns true, that means it needs to run again. The following is a sample implementation using
              a regular dedicated thread:
-             <code language="cs">
+             <code>
              protected override void ExecuteActionAsync()
              {
                  Thread actionThread = new Thread(() =&gt;
@@ -19366,6 +19571,18 @@
     <member name="F:Gemstone.Threading.SynchronizedOperations.SynchronizedOperationType.LongBackground">
       <summary>
         <see cref="T:Gemstone.Threading.SynchronizedOperations.LongSynchronizedOperation" /> with IsBackground set to <c>true</c></summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
     </member>
     <member name="T:Gemstone.Threading.SynchronizedOperations.TaskSynchronizedOperation">
       <summary>
@@ -20145,6 +20362,18 @@
             AngularMil angle units, a.k.a., mil.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Charge">
       <summary>
             Represents an electric charge measurement, in coulombs (i.e., ampere-seconds), as a double-precision floating-point number.
@@ -20691,6 +20920,18 @@
             Faraday charge units.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Current">
       <summary>
             Represents an electric current measurement, in amperes, as a double-precision floating-point number.
@@ -21181,6 +21422,18 @@
     <member name="F:Gemstone.Units.CurrentUnit.Statamperes">
       <summary>
             Statampere current units, a.k.a., esu per second.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Units.Energy">
@@ -21805,6 +22058,18 @@
             Tons of coal energy units.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Length">
       <summary>
             Represents a length measurement, in meters, as a double-precision floating-point number.
@@ -22412,6 +22677,18 @@
             Yard length units.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Mass">
       <summary>
             Represents a mass measurement, in kilograms, as a double-precision floating-point number.
@@ -22981,6 +23258,18 @@
     <member name="F:Gemstone.Units.MassUnit.LongTons">
       <summary>
             Long ton mass units.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Units.Power">
@@ -23553,6 +23842,18 @@
     <member name="F:Gemstone.Units.PowerUnit.LitersAtmospherePerSecond">
       <summary>
             Liters atmosphere per second power units.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Units.SI">
@@ -24522,6 +24823,18 @@
             Mach speed units.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Temperature">
       <summary>
             Represents a temperature, in Kelvin, as a double-precision floating-point number.
@@ -25101,6 +25414,18 @@
     <member name="F:Gemstone.Units.TemperatureUnit.Rømer">
       <summary>
             Rømer temperature units.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Units.Time">
@@ -25924,6 +26249,18 @@
             Ke time units, traditional Chinese unit of decimal time.
             </summary>
     </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
+            </summary>
+    </member>
     <member name="T:Gemstone.Units.Voltage">
       <summary>
             Represents an electromotive force (i.e., voltage) measurement, in volts, as a double-precision floating-point number.
@@ -26414,6 +26751,18 @@
     <member name="F:Gemstone.Units.VoltageUnit.Statvolts">
       <summary>
             Statvoltage units.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.Units.Volume">
@@ -27118,6 +27467,18 @@
     <member name="F:Gemstone.Units.VolumeUnit.CubicFeet">
       <summary>
             Cubic feet volume units.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetDescription(System.Enum)">
+      <summary>
+            Retrieves the description of the value that this <see cref="T:System.Enum" /> represents extracted from the <see cref="T:System.ComponentModel.DescriptionAttribute" />, or the enumeration name
+            if no description is available.
+            </summary>
+    </member>
+    <member name="M:Gemstone.EnumExtensions.EnumExtensions.GetFormattedName(System.Enum)">
+      <summary>
+            Retrieves a formatted name of the value that this <see cref="T:System.Enum" /> represents for visual display.
+            Enum string name is converted to a label with spaces before each capital letter, other than the first.
             </summary>
     </member>
     <member name="T:Gemstone.WordExtensions.WordExtensions">
