@@ -503,7 +503,11 @@ public partial class Settings : DynamicObject
         Instance = settings;
     }
     
-    private const string INIKeyValuePairPattern = @";?\s*(?<key>\w+)\s*=.*";
+    // Anchored at the start of the line so a description comment that merely *contains* a "word="
+    // sequence (e.g. "...is set to Enabled=false in the database...") is not misinterpreted as a
+    // key/value pair. Without the leading '^', Regex.Match scans the whole line and matches the
+    // embedded "Enabled=false", which causes the real description above the setting to be dropped.
+    private const string INIKeyValuePairPattern = @"^;?\s*(?<key>\w+)\s*=.*";
     private static readonly Regex s_iniKeyValuePair;
 
     static Settings()
