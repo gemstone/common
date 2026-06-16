@@ -616,7 +616,10 @@ public static class Common
     {
         if (IsPosixEnvironment)
         {
-            string output = Command.Execute("awk", "'/MemTotal/ {print $2}' /proc/meminfo").StandardOutput;
+            // Pass the awk program as a single argument using double quotes (which the .NET argument tokenizer
+            // groups and strips); single quotes are shell-only syntax and, since the command is executed without
+            // a shell, would be passed to awk literally - causing "awk: unexpected character '''".
+            string output = Command.Execute("awk", "\"/MemTotal/ {print $2}\" /proc/meminfo").StandardOutput;
             return ulong.Parse(output) * SI2.Kilo;
         }
 
@@ -632,7 +635,9 @@ public static class Common
     {
         if (IsPosixEnvironment)
         {
-            string output = Command.Execute("awk", "'/MemAvailable/ {print $2}' /proc/meminfo").StandardOutput;
+            // Double-quote the awk program so it is passed as a single argument; single quotes are shell-only
+            // syntax and would reach awk literally when executed without a shell (see GetTotalPhysicalMemory).
+            string output = Command.Execute("awk", "\"/MemAvailable/ {print $2}\" /proc/meminfo").StandardOutput;
             return ulong.Parse(output) * SI2.Kilo;
         }
 
