@@ -25,7 +25,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.DirectoryServices;
-using System.Linq;
 using System.Management;
 using System.Reflection;
 using System.Runtime.InteropServices;
