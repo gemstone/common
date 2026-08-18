@@ -73,29 +73,28 @@ public static class Serialization
             // Perform namespace transformations that occurred when migrating to the Grid Solutions Framework
             // from various older versions of code with different namespaces
             string newTypeName = typeName
-                .Replace("TVA.", "Gemstone.")
-                .Replace("GSF.TimeSeries.", "Gemstone.Timeseries.")
-                .Replace("GSF.", "Gemstone.")
-                .Replace("TimeSeriesFramework.", "Gemstone.Timeseries.")
+                .Replace(".TimeSeries.", ".Timeseries.")                    // Updated Gemstone casing for timeseries namespace
+                .Replace("GSF.Units.EE", "Gemstone.Numeric.EE")             // Gemstone assembly relocation of EE namespace
+                .Replace("TVA.Units.EE", "Gemstone.Numeric.EE")             // Gemstone assembly relocation of EE namespace
+                .Replace("TimeSeriesFramework.", "Gemstone.Timeseries.")    // 2007 TVA Code Library "TimeSeriesFramework" namespace
                 .Replace("ConnectionTester.", "Gemstone.PhasorProtocols.")  // PMU Connection Tester namespace
-                .Replace("TVA.Phasors.", "Gemstone.PhasorProtocols.")       // 2007 TVA Code Library namespace
-                .Replace("Tva.Phasors.", "Gemstone.PhasorProtocols.")       // 2008 TVA Code Library namespace
-                .Replace("BpaPdcStream", "BPAPDCstream")                    // 2013 GSF uppercase phasor protocol namespace
-                .Replace("FNet", "FNET")                                    // 2013 GSF uppercase phasor protocol namespace
-                .Replace("Iec61850_90_5", "IEC61850_90_5")                  // 2013 GSF uppercase phasor protocol namespace
-                .Replace("Ieee1344", "IEEE1344")                            // 2013 GSF uppercase phasor protocol namespace
-                .Replace("IeeeC37_118", "IEEEC37_118");                     // 2013 GSF uppercase phasor protocol namespace
+                .Replace("TVA.Phasors.", "Gemstone.PhasorProtocols.")       // 2007 TVA Code Library "Phasors" namespace
+                .Replace("Tva.Phasors.", "Gemstone.PhasorProtocols.")       // 2008 TVA Code Library "Phasors" namespace
+                .Replace("GSF.", "Gemstone.")                               // 2013+ GSF root namespace
+                .Replace("TVA.", "Gemstone.")                               // 2007 TVA Code Library root namespace
+                .Replace("Tva.", "Gemstone.")                               // 2008 TVA Code Library root namespace
+                .Replace("BpaPdcStream", "BPAPDCstream")                    // 2013 updated GSF casing for phasor protocol namespace
+                .Replace("FNet", "FNET")                                    // 2013 updated GSF casing for phasor protocol namespace
+                .Replace("Iec61850_90_5", "IEC61850_90_5")                  // 2013 updated GSF casing for phasor protocol namespace
+                .Replace("Ieee1344", "IEEE1344")                            // 2013 updated GSF casing for phasor protocol namespace
+                .Replace("IeeeC37_118", "IEEEC37_118");                     // 2013 updated GSF casing for phasor protocol namespace
 
-            // Check for 2009 TVA Code Library namespace
+            // Check for 2009 TVA Code Library "PhasorProtocols" namespace
             if (newTypeName.StartsWith("PhasorProtocols", StringComparison.Ordinal))
                 newTypeName = "Gemstone." + newTypeName;
 
-            // Check for 2014 LineFrequency type
-            if (newTypeName.Equals("GSF.PhasorProtocols.LineFrequency", StringComparison.Ordinal))
-                newTypeName = "Gemstone.Numeric.EE.LineFrequency";
-
-            // Check for GSF LineFrequency type
-            if (newTypeName.Equals("GSF.Units.EE.LineFrequency", StringComparison.Ordinal))
+            // Check for 2014 LineFrequency type (note: already replaced GSF with Gemstone here)
+            if (newTypeName.Equals("Gemstone.PhasorProtocols.LineFrequency", StringComparison.Ordinal))
                 newTypeName = "Gemstone.Numeric.EE.LineFrequency";
 
             try
@@ -128,8 +127,45 @@ public static class Serialization
             // No type found; return null
             return null;
         }
+
+        /// <summary>
+        /// Controls the binding of a serialized object to a type name and assembly name during serialization.
+        /// </summary>
+        /// <remarks>
+        /// Maps current Gemstone types back to their legacy GSF names so that XML written by Gemstone code
+        /// remains readable by .NET Framework consumers (PMU Connection Tester, older openPDC builds, etc.)
+        /// that only know the GSF-era types. The Gemstone-side reader translates these names back via
+        /// <see cref="BindToType(string, string)"/>, so round-trip identity is preserved.
+        /// </remarks>
+        /// <param name="serializedType">The runtime type being serialized.</param>
+        /// <param name="assemblyName">On return, the legacy assembly name to emit.</param>
+        /// <param name="typeName">On return, the legacy fully-qualified type name to emit.</param>
+        public override void BindToName(Type serializedType, out string? assemblyName, out string? typeName)
+        {
+            string fullName = serializedType.FullName ?? serializedType.Name;
+            string typeNamespace = serializedType.Namespace ?? string.Empty;
+            string runtimeAssembly = serializedType.Assembly.GetName().Name ?? string.Empty;
+
+            // Special case: Gemstone.Numeric.EE.* types (LineFrequency, PhasorType, etc.) historically
+            // lived in the GSF.Units.EE namespace inside the GSF.Core assembly.
+            if (typeNamespace == "Gemstone.Numeric.EE" || typeNamespace.StartsWith("Gemstone.Numeric.EE.", StringComparison.Ordinal))
+            {
+                typeName = fullName.Replace("Gemstone.Numeric.EE", "GSF.Units.EE", StringComparison.Ordinal);
+                assemblyName = "GSF.Core";
+                return;
+            }
+
+            // General case: Gemstone.* → GSF.* (and Timeseries → TimeSeries casing flip).
+            typeName = fullName
+                .Replace("Gemstone.Timeseries.", "GSF.TimeSeries.", StringComparison.Ordinal)
+                .Replace("Gemstone.", "GSF.", StringComparison.Ordinal);
+
+            assemblyName = runtimeAssembly
+                .Replace("Gemstone.Timeseries", "GSF.TimeSeries", StringComparison.Ordinal)
+                .Replace("Gemstone.", "GSF.", StringComparison.Ordinal);
+        }
     }
-    
+
     /// <summary>
     /// Gets <see cref="SerializationInfo"/> value for specified <paramref name="name"/>; otherwise <paramref name="defaultValue"/>.
     /// </summary>
