@@ -103,6 +103,8 @@ using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Xsl;
 using Gemstone.CharExtensions;
 
 namespace Gemstone.StringExtensions;
@@ -2609,5 +2611,24 @@ public static class StringExtensions
 
             return token.ToString();
         }
+    }
+
+    /// <summary>
+    /// Transforms an XML document using the given XSL template.
+    /// </summary>
+    /// <param name="document">The document to be transformed.</param>
+    /// <param name="transform">The template that defines how the data should be transformed.</param>
+    /// <returns>The result of the transformation.</returns>
+    public static string ApplyXSLTransform(this string document, string transform)
+    {
+        using StringReader input = new StringReader(document);
+        using StringReader input2 = new StringReader(transform);
+        using XmlReader input3 = XmlReader.Create(input);
+        using XmlReader stylesheet = XmlReader.Create(input2);
+        using StringWriter stringWriter = new StringWriter();
+        XslCompiledTransform xslCompiledTransform = new XslCompiledTransform();
+        xslCompiledTransform.Load(stylesheet);
+        xslCompiledTransform.Transform(input3, null, stringWriter);
+        return stringWriter.ToString();
     }
 }
