@@ -38,18 +38,21 @@
 // Ignore Spelling: Bcc username
 
 using System;
+using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using System.Linq;
 using System.Net;
-using System.Net.Mail;
-using System.Net.Mime;
 using System.Security;
 using Gemstone.StringExtensions;
+using MailKit.Net.Smtp;
+using MimeKit;
 
 // ReSharper disable InconsistentNaming
 namespace Gemstone.Net.Smtp;
 
 /// <summary>
-/// A wrapper class to the <see cref="MailMessage"/> class that simplifies sending mail messages.
+/// A wrapper class to the <see cref="MimeMessage"/> class that simplifies sending mail messages.
 /// </summary>
 /// <example>
 /// This example shows how to send an email message with attachment:
@@ -85,11 +88,11 @@ public class Mail : IDisposable
     public const string DefaultSmtpServer = "localhost";
 
     // Fields
+    private string? m_smtpServer;
     private string? m_from;
     private string? m_toRecipients;
     private string? m_username;
     private SecureString? m_password;
-    private bool m_enableSSL;
     private bool m_disposed;
 
     #endregion
@@ -99,7 +102,7 @@ public class Mail : IDisposable
     /// <summary>
     /// Initializes a new instance of the <see cref="Mail"/> class.
     /// </summary>
-    public Mail() { }
+    public Mail() { InitializeLazyClient(); }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Mail"/> class.
@@ -125,6 +128,7 @@ public class Mail : IDisposable
         From = from;
         ToRecipients = toRecipients;
         SmtpServer = smtpServer;
+        InitializeLazyClient();
     }
 
     /// <summary>
@@ -203,7 +207,7 @@ public class Mail : IDisposable
     {
         get
         {
-            return Client?.Host ?? string.Empty;
+            return m_smtpServer ?? string.Empty;
         }
         set
         {
@@ -211,18 +215,8 @@ public class Mail : IDisposable
             if (string.IsNullOrEmpty(value))
                 throw new ArgumentNullException(nameof(value));
 
-            // Dispose existing client.
-            Client?.Dispose();
-
-            // Instantiate new client.
-            string[] split = value.Split(':');
-
-            if (split.Length == 2 && int.TryParse(split[1], out int port))
-                Client = new SmtpClient(split[0], port);
-            else
-                Client = new SmtpClient(value);
-
-            ApplySecuritySettings();
+            m_smtpServer = value;
+            RefreshSmtpClient();
         }
     }
 
@@ -248,7 +242,7 @@ public class Mail : IDisposable
         set
         {
             m_username = value;
-            ApplySecuritySettings();
+            RefreshSmtpClient();
         }
     }
 
@@ -264,7 +258,7 @@ public class Mail : IDisposable
         set
         {
             m_password = value?.ToSecureString();
-            ApplySecuritySettings();
+            RefreshSmtpClient();
         }
     }
 
@@ -280,33 +274,16 @@ public class Mail : IDisposable
         set
         {
             m_password = value;
-            ApplySecuritySettings();
-        }
-    }
-
-    /// <summary>
-    /// Gets or sets the flag that determines whether
-    /// to use SSL when communicating with the SMTP server.
-    /// </summary>
-    public bool EnableSSL
-    {
-        get
-        {
-            return m_enableSSL;
-        }
-        set
-        {
-            m_enableSSL = value;
-
-            if (Client is not null)
-                Client.EnableSsl = value;
+            RefreshSmtpClient();
         }
     }
 
     /// <summary>
     /// Gets the <see cref="SmtpClient"/> object used for sending the <see cref="Mail"/> message.
     /// </summary>
-    public SmtpClient? Client { get; private set; }
+    public SmtpClient Client => LazyClient.Value;
+
+    private Lazy<SmtpClient> LazyClient { get; set; }
 
     #endregion
 
@@ -347,83 +324,124 @@ public class Mail : IDisposable
     /// </summary>
     public void Send()
     {
-        MailMessage emailMessage = new()
-        {
-            From = new MailAddress(From),
-            Subject = Subject,
-            Body = Body,
-            IsBodyHtml = IsBodyHtml
-        };
+        using MimeMessage emailMessage = new();
+        MailboxAddress fromAddress = new(null, From);
+        emailMessage.From.Add(fromAddress);
 
         if (!string.IsNullOrEmpty(m_toRecipients))
         {
             // Add the specified To recipients for the mail message.
-            foreach (string toRecipient in m_toRecipients.Split(';', ','))
-                emailMessage.To.Add(toRecipient.Trim());
+            IEnumerable<MailboxAddress> addresses = m_toRecipients
+                .Split(';', ',')
+                .Select(to => to.Trim())
+                .Select(to => new MailboxAddress(null, to));
+
+            emailMessage.To.AddRange(addresses);
         }
 
         if (!string.IsNullOrEmpty(CcRecipients))
         {
             // Add the specified CC recipients for the mail message.
-            foreach (string ccRecipient in CcRecipients.Split(';', ','))
-                emailMessage.CC.Add(ccRecipient.Trim());
+            IEnumerable<MailboxAddress> addresses = CcRecipients
+                .Split(';', ',')
+                .Select(to => to.Trim())
+                .Select(to => new MailboxAddress(null, to));
+
+            emailMessage.Cc.AddRange(addresses);
         }
 
         if (!string.IsNullOrEmpty(BccRecipients))
         {
             // Add the specified BCC recipients for the mail message.
-            foreach (string bccRecipient in BccRecipients.Split(';', ','))
-                emailMessage.Bcc.Add(bccRecipient.Trim());
+            IEnumerable<MailboxAddress> addresses = BccRecipients
+                .Split(';', ',')
+                .Select(to => to.Trim())
+                .Select(to => new MailboxAddress(null, to));
+
+            emailMessage.Bcc.AddRange(addresses);
         }
 
-        if (!string.IsNullOrEmpty(Attachments))
+        if (Subject is not null)
+            emailMessage.Subject = Subject;
+
+        BodyBuilder bodyBuilder = new();
+
+        try
         {
-            // Attach the specified files to the mail message.
-            foreach (string attachment in Attachments.Split(';', ','))
+            if (IsBodyHtml)
+                bodyBuilder.HtmlBody = Body;
+            else
+                bodyBuilder.TextBody = Body;
+
+            if (!string.IsNullOrEmpty(Attachments))
             {
-                // Create the file attachment for the mail message.
-                Attachment data = new(attachment.Trim(), MediaTypeNames.Application.Octet);
-                ContentDisposition? header = data.ContentDisposition;
-
-                if (header is not null)
-                {
-                    // Add time stamp information for the file.
-                    header.CreationDate = File.GetCreationTime(attachment);
-                    header.ModificationDate = File.GetLastWriteTime(attachment);
-                    header.ReadDate = File.GetLastAccessTime(attachment);
-                }
-
-                emailMessage.Attachments.Add(data); // Attach the file.
+                // Attach the specified files to the mail message.
+                foreach (string attachment in Attachments.Split(';', ','))
+                    bodyBuilder.Attachments.Add(attachment.Trim());
             }
+
+            emailMessage.Body = bodyBuilder.ToMessageBody();
+        }
+        catch
+        {
+            bodyBuilder.ToMessageBody().Dispose();
+            throw;
         }
 
         try
         {
-            // Send the mail.
-            Client?.Send(emailMessage);
+            Client.Send(emailMessage);
         }
-        finally
+        catch (IOException)
         {
-            // Clean-up.
-            emailMessage.Dispose();
+            // Retry once because the server may have
+            // closed the connection between messages
+            RefreshSmtpClient();
+            Client.Send(emailMessage);
         }
     }
 
-    private void ApplySecuritySettings()
+    [MemberNotNull(nameof(LazyClient))]
+    private void InitializeLazyClient()
     {
-        // If the SMTP client is null,
-        // we cannot apply security settings
-        if (Client is null)
+        SmtpClient ClientFactory()
+        {
+            SmtpClient client = new();
+
+            try
+            {
+                string smtpServer = SmtpServer;
+                string[] split = smtpServer.Split(':');
+
+                if (split.Length == 2 && int.TryParse(split[1], out int port))
+                    client.Connect(split[0], port);
+                else
+                    client.Connect(smtpServer);
+
+                if (!string.IsNullOrEmpty(m_username) && m_password is not null)
+                    client.Authenticate(new NetworkCredential(m_username, m_password));
+
+                return client;
+            }
+            catch
+            {
+                client.Dispose();
+                LazyClient = new(ClientFactory);
+                throw;
+            }
+        }
+
+        LazyClient = new(ClientFactory);
+    }
+
+
+    private void RefreshSmtpClient()
+    {
+        if (!LazyClient.IsValueCreated)
             return;
 
-        // Set the username and password used to authenticate to the SMTP server
-        if (!string.IsNullOrEmpty(m_username) && m_password is not null)
-            Client.Credentials = new NetworkCredential(m_username, m_password);
-        else
-            Client.Credentials = null;
-
-        // Apply the flag to enable SSL
-        Client.EnableSsl = m_enableSSL;
+        Client.Dispose();
+        InitializeLazyClient();
     }
 
     #endregion
@@ -515,7 +533,7 @@ public class Mail : IDisposable
     /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
     public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password)
     {
-        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password, true);
+        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password?.ToSecureString());
     }
 
     /// <summary>
@@ -531,49 +549,13 @@ public class Mail : IDisposable
     /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
     public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, SecureString? password)
     {
-        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password, true);
-    }
-
-    /// <summary>
-    /// Sends a secure <see cref="Mail"/> message.
-    /// </summary>
-    /// <param name="from">The e-mail address of the <see cref="Mail"/> message sender.</param>
-    /// <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="Mail"/> message recipients.</param>
-    /// <param name="subject">The subject of the <see cref="Mail"/> message.</param>
-    /// <param name="body">The body of the <see cref="Mail"/> message.</param>
-    /// <param name="isBodyHtml">true if the <see cref="Mail"/> message body is to be formated as HTML; otherwise false.</param>
-    /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
-    /// <param name="username">The username of the account used to authenticate to the SMTP server.</param>
-    /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-    /// <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, string? password, bool enableSSL)
-    {
-        Send(from, toRecipients, subject, body, isBodyHtml, smtpServer, username, password?.ToSecureString(),
-            enableSSL);
-    }
-
-    /// <summary>
-    /// Sends a secure <see cref="Mail"/> message.
-    /// </summary>
-    /// <param name="from">The e-mail address of the <see cref="Mail"/> message sender.</param>
-    /// <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="Mail"/> message recipients.</param>
-    /// <param name="subject">The subject of the <see cref="Mail"/> message.</param>
-    /// <param name="body">The body of the <see cref="Mail"/> message.</param>
-    /// <param name="isBodyHtml">true if the <see cref="Mail"/> message body is to be formated as HTML; otherwise false.</param>
-    /// <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="Mail"/> message.</param>
-    /// <param name="username">The username of the account used to authenticate to the SMTP server.</param>
-    /// <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-    /// <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
-    public static void Send(string from, string toRecipients, string? subject, string? body, bool isBodyHtml, string smtpServer, string? username, SecureString? password, bool enableSSL)
-    {
         using Mail email = new(from, toRecipients, smtpServer)
         {
             Subject = subject,
             Body = body,
             IsBodyHtml = isBodyHtml,
             UserName = username,
-            SecurePassword = password,
-            EnableSSL = enableSSL
+            SecurePassword = password
         };
 
         email.Send();
