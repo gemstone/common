@@ -14710,7 +14710,7 @@
     </member>
     <member name="T:Gemstone.Net.Smtp.Mail">
       <summary>
-             A wrapper class to the <see cref="T:System.Net.Mail.MailMessage" /> class that simplifies sending mail messages.
+             A wrapper class to the <see cref="T:MimeKit.MimeMessage" /> class that simplifies sending mail messages.
              </summary>
     </member>
     <member name="M:Gemstone.Net.Smtp.Mail.#ctor">
@@ -14761,7 +14761,7 @@
     </member>
     <member name="P:Gemstone.Net.Smtp.Mail.Client">
       <summary>
-            Gets the <see cref="T:System.Net.Mail.SmtpClient" /> object used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
+            Gets the <see cref="T:MailKit.Net.Smtp.SmtpClient" /> object used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
             </summary>
     </member>
     <member name="F:Gemstone.Net.Smtp.Mail.DefaultSmtpServer">
@@ -14779,12 +14779,6 @@
             Releases the unmanaged resources used by the <see cref="T:Gemstone.Net.Smtp.Mail" /> object and optionally releases the managed resources.
             </summary>
       <param name="disposing">true to release both managed and unmanaged resources; false to release only unmanaged resources.</param>
-    </member>
-    <member name="P:Gemstone.Net.Smtp.Mail.EnableSSL">
-      <summary>
-            Gets or sets the flag that determines whether
-            to use SSL when communicating with the SMTP server.
-            </summary>
     </member>
     <member name="M:Gemstone.Net.Smtp.Mail.Finalize">
       <summary>
@@ -14854,20 +14848,6 @@
       <param name="username">The username of the account used to authenticate to the SMTP server.</param>
       <param name="password">The password of the account used to authenticate to the SMTP server.</param>
     </member>
-    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.Security.SecureString,System.Boolean)">
-      <summary>
-            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
-            </summary>
-      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
-      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
-      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
-      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
-      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-      <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
-    </member>
     <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.String)">
       <summary>
             Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
@@ -14880,20 +14860,6 @@
       <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
       <param name="username">The username of the account used to authenticate to the SMTP server.</param>
       <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-    </member>
-    <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.Boolean,System.String,System.String,System.String,System.Boolean)">
-      <summary>
-            Sends a secure <see cref="T:Gemstone.Net.Smtp.Mail" /> message.
-            </summary>
-      <param name="from">The e-mail address of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message sender.</param>
-      <param name="toRecipients">A comma-separated or semicolon-separated e-mail address list of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message recipients.</param>
-      <param name="subject">The subject of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="body">The body of the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="isBodyHtml">true if the <see cref="T:Gemstone.Net.Smtp.Mail" /> message body is to be formated as HTML; otherwise false.</param>
-      <param name="smtpServer">The name or IP address of the SMTP server to be used for sending the <see cref="T:Gemstone.Net.Smtp.Mail" /> message.</param>
-      <param name="username">The username of the account used to authenticate to the SMTP server.</param>
-      <param name="password">The password of the account used to authenticate to the SMTP server.</param>
-      <param name="enableSSL">The flag that determines whether to use SSL when communicating with the SMTP server.</param>
     </member>
     <member name="M:Gemstone.Net.Smtp.Mail.Send(System.String,System.String,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
       <summary>
